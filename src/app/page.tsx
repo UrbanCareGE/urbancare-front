@@ -1,11 +1,18 @@
+import {FixedMasterHeader} from "@/components/common/header/FixedMasterHeader";
+
 export default function Home() {
-    return (
-        <div
-            className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-            <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-            </main>
-            <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-            </footer>
-        </div>
-    );
+    return <>
+        <FixedMasterHeader/>
+        <main className="flex w-full h-screen  overflow-hidden">
+            <div className={"h-full w-64 border-r shadow-md"}>
+
+            </div>
+            <div className={"h-full flex-1"}>
+
+            </div>
+        </main>
+        <footer>
+
+        </footer>
+    </>
 }

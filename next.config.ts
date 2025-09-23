@@ -1,10 +1,16 @@
-const nextConfig = {
-    turbopack: {
-        root: __dirname, // ensures this directory is used as root
+import type {NextConfig} from "next";
+
+const nextConfig: NextConfig = {
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'images.unsplash.com',
+                pathname: '**',
+            },
+        ],
     },
+    /* config options here */
 };
-
-module.exports = nextConfig;
-
 
 export default nextConfig;

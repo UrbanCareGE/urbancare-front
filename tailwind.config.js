@@ -16,6 +16,7 @@ const shorthands = plugin(function ({addUtilities}) {
     })
 })
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
     darkMode: ['class'],
     content: [
@@ -24,129 +25,59 @@ module.exports = {
         './app/**/*.{ts,tsx}',
         './src/**/*.{ts,tsx}',
         './src/**/*.{js,ts,jsx,tsx,html}',
+        './src/app/**/*.{js,ts,jsx,tsx}',
+        './src/components/**/*.{js,ts,jsx,tsx}',
     ],
     prefix: '',
     theme: {
         extend: {
             colors: {
                 primary: {
-                    DEFAULT: 'var(--color-primary)',
-                    light: 'var(--color-primary-light)',
-                    dark: 'var(--color-material-green-500)',
+                    DEFAULT: 'var(--color-blue-500)',
+                    container: 'var(--color-primary-container)',
+                    on: 'var(--color-on-primary)',
+                    onContainer: 'var(--color-on-primary-container)',
                 },
                 secondary: {
                     DEFAULT: 'var(--color-secondary)',
-                    light: 'var(--color-secondary-light)',
-                    dark: 'var(--color-secondary-dark)',
+                    container: 'var(--color-secondary-container)',
+                    on: 'var(--color-on-secondary)',
+                    onContainer: 'var(--color-on-secondary-container)',
                 },
-                background: {
-                    light: 'var(--color-grey-near-black)',
-                    dark: 'var(--color-grey-near-black)',
-                },
-                surface: {
-                    light: 'var(--color-background-light)',
-                    dark: 'var(--color-grey-absolute-black)',
-                },
-                header: {
-                    light: 'var(--color-card-light)',
-                    dark: 'var(--color-grey-absolute-black)',
-                    DEFAULT: 'var(--color-grey-absolute-black)',
-                },
-                footer: {
-                    light: 'var(--color-card-light)',
-                    dark: 'var(--color-grey-absolute-black)',
-                    DEFAULT: 'var(--color-grey-absolute-black)',
-                },
-                border: {
-                    primary: {
-                        light: 'var(--color-card-light)',
-                        dark: 'var(--color-grey-darker)',
-                        DEFAULT: 'var(--color-grey-darker)',
-                    },
-                    secondary: {
-                        light: 'var(--color-grey-coal)',
-                        dark: 'var(--color-grey-darker)',
-                        DEFAULT: 'var(--color-grey-darker)',
-                    },
-                    hover: {
-                        light: 'var(--color-card-light)',
-                        dark: 'var(--color-ocean-depth)',
-                        DEFAULT: 'var(--color-ocean-depth)',
-                    },
-                    muted: {
-                        light: 'var(--color-card-light)',
-                        dark: 'var(--color-stroke-dark)',
-                        DEFAULT: 'var(--color-stroke-dark)',
-                    },
-                    accent: {
-                        light: 'var(--color-ocean-deep-shadow)',
-                        dark: 'var( --color-grey-darker)',
-                        DEFAULT: 'var( --color-grey-darker)',
-                    },
-                },
-                text: {
-                    primary: {
-                        light: 'var(--color-text-primary-light)',
-                        dark: 'var(--color-text-primary-dark)',
-                    },
-                    secondary: {
-                        light: 'var(--color-text-secondary-light)',
-                        dark: 'var(--color-grey-darker)',
-                    },
-                },
-                stroke: {
-                    light: 'var(--color-stroke-light)',
-                    dark: 'var(--color-stroke-dark)',
+                tertiary: {
+                    DEFAULT: 'var(--color-tertiary)',
+                    container: 'var(--color-tertiary-container)',
+                    on: 'var(--color-on-tertiary)',
+                    onContainer: 'var(--color-on-tertiary-container)',
                 },
                 error: {
-                    light: 'var(--color-error-light)',
-                    dark: 'var(--color-error-dark)',
+                    DEFAULT: 'var(--color-error)',
+                    container: 'var(--color-error-container)',
+                    on: 'var(--color-on-error)',
+                    onContainer: 'var(--color-on-error-container)',
                 },
-                warning: {
-                    light: 'var(--color-warning-light)',
-                    dark: 'var(--color-warning-dark)',
+                background: {
+                    DEFAULT: 'var(--color-background)',
+                    on: 'var(--color-on-background)',
                 },
-                success: {
-                    light: 'var(--color-success-light)',
-                    dark: 'var(--color-success-dark)',
+                surface: {
+                    DEFAULT: 'var(--color-surface)',
+                    on: 'var(--color-on-surface)',
+                    variant: 'var(--color-surface-variant)',
+                    onVariant: 'var(--color-on-surface-variant)',
+                    inverse: 'var(--color-inverse-surface)',
+                    inverseOn: 'var(--color-inverse-on-surface)',
+                    tint: 'var(--color-surface-tint)',
                 },
-                info: {
-                    light: 'var(--color-info-light)',
-                    dark: 'var(--color-info-dark)',
+                outline: {
+                    DEFAULT: 'var(--color-grey-300)',
+                    variant: 'var(--color-outline-variant)',
                 },
-                sidebar: {
-                    DEFAULT: 'var(--sidebar-background)',
-                    foreground: 'var(--sidebar-foreground)',
-                    primary: 'var(--sidebar-primary)',
-                    'primary-foreground': 'var(--sidebar-primary-foreground)',
-                    accent: 'var(--sidebar-accent)',
-                    'accent-foreground': 'var(--sidebar-accent-foreground)',
-                    border: 'var(--sidebar-border)',
-                    ring: 'var(--sidebar-ring)',
-                },
-                foreground: 'var(--foreground)',
-                popover: {
-                    DEFAULT: 'var(--popover)',
-                    foreground: 'var(--popover-foreground)',
-                },
-                muted: {
-                    DEFAULT: 'var(--muted)',
-                    foreground: 'var(--muted-foreground)',
-                },
-                accent: {
-                    DEFAULT: 'var(--accent)',
-                    foreground: 'var(--accent-foreground)',
-                },
-                destructive: {
-                    DEFAULT: 'var(--destructive)',
-                    foreground: 'var(--destructive-foreground)',
-                },
-                input: {
-                    DEFAULT: 'var(--color-grey-dark)',
-                    light: 'var(--color-grey-dark)',
-                    dark: 'var(--color-grey-dark)',
-                },
-                ring: 'var(--color-primary-dark)',
+                shadow: 'var(--color-shadow)',
+                scrim: 'var(--color-scrim)',
+                inversePrimary: 'var(--color-inverse-primary)',
+
+                /* Custom extensions */
                 chart: {
                     '1': 'var(--chart-1)',
                     '2': 'var(--chart-2)',
