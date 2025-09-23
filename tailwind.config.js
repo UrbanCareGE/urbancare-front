@@ -33,7 +33,7 @@ module.exports = {
         extend: {
             colors: {
                 primary: {
-                    DEFAULT: 'var(--color-blue-500)',
+                    DEFAULT: 'var(--color-primary)',
                     container: 'var(--color-primary-container)',
                     on: 'var(--color-on-primary)',
                     onContainer: 'var(--color-on-primary-container)',
@@ -51,7 +51,7 @@ module.exports = {
                     onContainer: 'var(--color-on-tertiary-container)',
                 },
                 error: {
-                    DEFAULT: 'var(--color-error)',
+                    DEFAULT: 'var(--color-red-500)',
                     container: 'var(--color-error-container)',
                     on: 'var(--color-on-error)',
                     onContainer: 'var(--color-on-error-container)',
