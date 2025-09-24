@@ -16,6 +16,7 @@ import {signIn} from "next-auth/react";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import {AppleIcon, FacebookIcon, GoogleIcon} from "@/components/common/icons";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import {Separator} from "@/components/ui/separator";
 
 export interface RegisterFormProps {
     onCompleteAction: () => void;
@@ -174,7 +175,7 @@ export function RegisterForm({onCompleteAction}: RegisterFormProps) {
                                         </div>
                                     </FormControl>
                                     <SelectContent className={"opacity-100 h-64 shadow-2xl border bg-white"}>
-                                        {Array.from({length: 2025 - 1990 + 1}, (_, i) => 1990 + i).map((year) => (
+                                        {Array.from({length: 2025 - 1900 + 1}, (_, i) => 1900 + i).map((year) => (
                                             <SelectItem
                                                 className={"w-full bg-white hover:bg-gray-100 max-h-64 overflow-y-scroll"}
                                                 key={year} value={year.toString()}>
@@ -234,6 +235,7 @@ export function RegisterForm({onCompleteAction}: RegisterFormProps) {
                                         </div>
                                         <Input className={"w-full"}
                                                placeholder="პაროლი*"
+                                               type="password"
                                                disabled={false}
                                                {...field}
                                         />
@@ -256,6 +258,7 @@ export function RegisterForm({onCompleteAction}: RegisterFormProps) {
                                         </div>
                                         <Input className={"w-full"}
                                                placeholder="გაიმეორეთ პაროლი*"
+                                               type="password"
                                                disabled={false}
                                                {...field}
                                         />
@@ -302,8 +305,7 @@ export function RegisterForm({onCompleteAction}: RegisterFormProps) {
                             დადასტურება
                         </Button>
                     </div>
-
-                    <div className="flex gap-3 w-full justify-center mt-[0.8rem]">
+                    <div className="flex gap-3 w-full justify-center mt-[0.8rem] border-t pt-4">
                         <Button
                             variant="outline"
                             onClick={() => signIn("google")}

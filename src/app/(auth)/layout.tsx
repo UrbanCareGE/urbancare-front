@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 export default function AuthLayout({children}: { children: React.ReactNode }) {
     return (
@@ -7,8 +8,8 @@ export default function AuthLayout({children}: { children: React.ReactNode }) {
                 <div className="flex-1 flex h-full justify-center items-center p-1">
                     {children}
                 </div>
-                <div className="flex-1 flex h-full bg-primary p-8">
-                    {/* Optional content */}
+                <div className="flex-1 flex h-full p-8 bg-primary overflow-hidden">
+                    {/*<div className={"absolute aspect-square h-screen rotate-[5deg] bg-primary"}></div>*/}
                 </div>
             </div>
         </div>
