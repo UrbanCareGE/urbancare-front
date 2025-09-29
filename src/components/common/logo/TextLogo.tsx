@@ -6,10 +6,9 @@ export type TextLogoProps = {
 }
 
 export const TextLogo: React.FC<TextLogoProps> = ({className}) => {
-
     return <TypographyH3>
-        <span className={"p-0 m-0"}>URBAN</span>
-        <span className={"p-0 m-0 text-green-500"}>CARE</span>
+        <span className={""}>URBAN</span>
+        <span className={"text-3xl text-primary"}>CARE</span>
     </TypographyH3>
 
 }

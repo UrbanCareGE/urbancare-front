@@ -5,14 +5,12 @@ declare module "next-auth" {
      * What user information we expect to extract to be able to extract
      * from our backend response
      */
-    export interface User extends DefaultSession['user'] {
+    export interface User extends DefaultSession {
         id: number;
-        // userName: string;
-        // firstName: string;
-        // lastName: string;
-        // profileImageId?: string;
-        // email: string;
-        // permissions: string[];
+        contact: string;
+        firstName: string;
+        LastName: string;
+        profileImageId?: string;
         authToken: string;
         refreshToken: string;
     }

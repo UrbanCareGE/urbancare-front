@@ -19,14 +19,14 @@ const SelectTrigger = React.forwardRef<
     <SelectPrimitive.Trigger
         ref={ref}
         className={cn(
-            "flex h-11 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+            "flex h-11 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background data-[placeholder]:text-text-placeholder focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
             className
         )}
         {...props}
     >
         {children}
         <SelectPrimitive.Icon asChild>
-            <ChevronDown className="h-4 w-4 opacity-50"/>
+            <ChevronDown className="h-7 w-7 stroke-gray-500"/>
         </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
 ))
@@ -83,7 +83,6 @@ const SelectContent = React.forwardRef<
             position={position}
             {...props}
         >
-            <SelectScrollUpButton/>
             <SelectPrimitive.Viewport
                 className={cn(
                     "p-1",
@@ -93,7 +92,6 @@ const SelectContent = React.forwardRef<
             >
                 {children}
             </SelectPrimitive.Viewport>
-            <SelectScrollDownButton/>
         </SelectPrimitive.Content>
     </SelectPrimitive.Portal>
 ))
@@ -118,7 +116,7 @@ const SelectItem = React.forwardRef<
     <SelectPrimitive.Item
         ref={ref}
         className={cn(
-            "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+            "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:cursor-pointer",
             className
         )}
         {...props}

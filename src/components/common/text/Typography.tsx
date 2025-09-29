@@ -8,7 +8,7 @@ interface TypographyProps {
 
 export const TypographyH1: React.FC<TypographyProps> = ({children, className}) => {
     return (
-        <h1 className={cn("scroll-m-20 text-center text-6xl font-extrabold tracking-tight text-balance", className)}>
+        <h1 className={cn("scroll-m-20 text-center text-6xl font-semi tracking-tight text-balance", className)}>
             {children}
         </h1>
     )
@@ -16,7 +16,7 @@ export const TypographyH1: React.FC<TypographyProps> = ({children, className}) =
 
 export const TypographyH2: React.FC<TypographyProps> = ({children, className}) => {
     return (
-        <h2 className={cn("scroll-m-20 text-4xl font-semibold tracking-tight first:mt-0", className)}>
+        <h2 className={cn("text-4xl font-semibold tracking-tight", className)}>
             {children}
         </h2>
     )

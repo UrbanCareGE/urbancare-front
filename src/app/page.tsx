@@ -1,18 +1,5 @@
-import {FixedMasterHeader} from "@/components/common/header/FixedMasterHeader";
+import {redirect} from "next/navigation";
 
-export default function Home() {
-    return <>
-        <FixedMasterHeader/>
-        <main className="flex w-full h-screen  overflow-hidden">
-            <div className={"h-full w-64 border-r shadow-md"}>
-
-            </div>
-            <div className={"h-full flex-1"}>
-
-            </div>
-        </main>
-        <footer>
-
-        </footer>
-    </>
+export default function Page() {
+    redirect("/home");
 }

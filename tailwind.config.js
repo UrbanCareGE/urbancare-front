@@ -34,7 +34,7 @@ module.exports = {
             colors: {
                 primary: {
                     DEFAULT: 'var(--color-primary)',
-                    container: 'var(--color-primary-container)',
+                    container: 'var(--color-temp)',
                     on: 'var(--color-on-primary)',
                     onContainer: 'var(--color-on-primary-container)',
                 },
@@ -49,6 +49,29 @@ module.exports = {
                     container: 'var(--color-tertiary-container)',
                     on: 'var(--color-on-tertiary)',
                     onContainer: 'var(--color-on-tertiary-container)',
+                },
+                text: {
+                    disabled: 'var(--color-text-disabled)',
+                    placeholder: 'var(--color-grey-500)',
+                    inverse: 'var(--color-text-inverse)',
+                },
+                success: {
+                    DEFAULT: 'var(--color-success)',
+                    container: 'var(--color-success-container)',
+                    on: 'var(--color-on-success)',
+                    onContainer: 'var(--color-on-success-container)',
+                },
+                info: {
+                    DEFAULT: 'var(--color-info)',
+                    container: 'var(--color-info-container)',
+                    on: 'var(--color-on-info)',
+                    onContainer: 'var(--color-on-info-container)',
+                },
+                warning: {
+                    DEFAULT: 'var(--color-warning)',
+                    container: 'var(--color-warning-container)',
+                    on: 'var(--color-on-warning)',
+                    onContainer: 'var(--color-on-warning-container)',
                 },
                 error: {
                     DEFAULT: 'var(--color-red-500)',
@@ -92,11 +115,6 @@ module.exports = {
                 sm: 'calc(var(--radius) - 4px)'
             },
             keyframes: {
-                'cell-ripple': {
-                    '0%': {opacity: '0.4'},
-                    '50%': {opacity: '0.8'},
-                    '100%': {opacity: '0.4'},
-                },
                 'slide-in-from-right': {
                     '0%': {transform: 'translateX(100%)'},
                     '100%': {transform: 'translateX(0)'},

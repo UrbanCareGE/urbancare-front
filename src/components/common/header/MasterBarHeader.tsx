@@ -3,13 +3,12 @@ import {TextLogo} from "@/components/common/logo/TextLogo";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {ChevronDown} from "lucide-react";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {IoNotifications} from "react-icons/io5";
+import {MasterBarNavigation} from "@/components/common/header/MasterBarNavigation";
 
 export function AvatarDemo() {
     return (
         <div className="flex flex-row flex-wrap items-center gap-4">
-            {/*<BellRingIcon width={32} height={32} strokeWidth={2}/>*/}
-            <IoNotifications size={28} fill={"black"}/>
+            {/*<IoNotifications size={28} fill={"black"}/>*/}
 
             <Popover>
                 <PopoverTrigger asChild={true}>
@@ -30,13 +29,22 @@ export function AvatarDemo() {
     )
 }
 
-export const FixedMasterHeader: React.FC = () => {
+export const MasterBarHeader: React.FC = () => {
 
     return (
-        <header className="fixed w-full h-[64px] z-50 bg-white shadow-md">
-            <div className="flex w-full h-full items-center justify-between px-6 py-4">
-                <TextLogo/>
-                <AvatarDemo/>
+        <header className="w-full h-[64px] z-50 bg-white">
+            <div className="grid grid-cols-3 w-full h-full items-center px-6">
+                <div className="flex h-full justify-start items-center">
+                    <TextLogo/>
+                </div>
+
+                <div className="flex h-full justify-center items-center">
+                    <MasterBarNavigation/>
+                </div>
+
+                <div className="flex h-full justify-end items-center">
+                    <AvatarDemo/>
+                </div>
             </div>
         </header>)
 }
