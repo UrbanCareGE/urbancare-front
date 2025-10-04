@@ -263,6 +263,7 @@ export function RegisterForm() {
                         variant="outline"
                         type="button"
                         onClick={async () => {
+                            // await AuthService.googleOauth();
                             router.push("https://ivette-nonpropagable-dialectically.ngrok-free.dev/auth/google")
                         }}
                         className="flex-1 flex items-center justify-center gap-2"

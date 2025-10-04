@@ -63,7 +63,7 @@ export const AuthService = {
     getUser: async (): Promise<unknown> => {
         try {
             const response = await apiCall<unknown, void>(
-                "post",
+                "get",
                 "/api/user/me",
                 {
                     apiName: "URBANCARE_API",
@@ -75,14 +75,17 @@ export const AuthService = {
             throw err;
         }
     },
-    googleOauth: async (): Promise<void> => {
+    googleOauth: async (): Promise<unknown> => {
         const response = await apiCall<void, void>(
             "get",
-            "auth/google",
+            "oauth2/authentication/google",
             {
                 apiName: "URBANCARE_API",
                 withCredentials: false
+
             }
         );
+
+        return response?.data;
     }
 };
