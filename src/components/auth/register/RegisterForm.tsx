@@ -273,7 +273,6 @@ export function RegisterForm() {
 
                     <Button
                         variant="outline"
-                        onClick={() => signIn("facebook")}
                         className="flex-1 flex items-center justify-center gap-2"
                     >
                         <FacebookIcon dimension={30}/>
@@ -289,7 +288,6 @@ export function RegisterForm() {
 
                     <Button
                         variant="outline"
-                        onClick={() => signIn(" apple")}
                         className=" flex-1 flex items-center justify-center gap-2"
                     >
                         <AppleIcon dimension={30}/>

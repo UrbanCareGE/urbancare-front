@@ -113,7 +113,6 @@ export function LoginForm() {
                 <div className="flex gap-3 w-full justify-center">
                     <Button
                         variant="outline"
-                        onClick={() => signIn("google")}
                         className="flex-1 flex items-center justify-center gap-2"
                     >
                         <FacebookIcon className="w-5 h-5"/>
@@ -122,7 +121,6 @@ export function LoginForm() {
 
                     <Button
                         variant="outline"
-                        onClick={() => signIn("facebook")}
                         className="flex-1 flex items-center justify-center gap-2"
                     >
                         <GoogleIcon dimension={30}/>
@@ -131,7 +129,6 @@ export function LoginForm() {
 
                     <Button
                         variant="outline"
-                        onClick={() => signIn(" apple")}
                         className=" flex-1 flex items-center justify-center gap-2"
                     >
                         <AppleIcon dimension={30}/>
