@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react";
 import {z} from "zod";
 import {useRouter} from "next/navigation";
@@ -47,7 +49,6 @@ export function LoginForm() {
             password: password,
         }
         mutate(loginReq);
-        // onCompleteAction()
     };
 
     return (

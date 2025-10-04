@@ -9,6 +9,7 @@ export const AuthService = {
                 {
                     data: loginReq,
                     apiName: "URBANCARE_API",
+                    withCredentials: true,
                 }
             );
 
@@ -27,6 +28,7 @@ export const AuthService = {
                 {
                     data: registerDTO,
                     apiName: "URBANCARE_API",
+                    withCredentials: true,
                 }
             );
 
@@ -39,7 +41,6 @@ export const AuthService = {
     },
     generateOtp: async (contact: string): Promise<string> => {
         try {
-            debugger;
             const response = await apiCall<string, RegisterReq>(
                 "post",
                 "/auth/otp/generate",
@@ -47,7 +48,8 @@ export const AuthService = {
                     apiName: "URBANCARE_API",
                     params: {
                         contact
-                    }
+                    },
+                    withCredentials: true,
                 }
             );
 
@@ -57,5 +59,30 @@ export const AuthService = {
         } catch (err) {
             throw err;
         }
+    },
+    getUser: async (): Promise<unknown> => {
+        try {
+            const response = await apiCall<unknown, void>(
+                "post",
+                "/api/user/me",
+                {
+                    apiName: "URBANCARE_API",
+                    withCredentials: true,
+                }
+            )
+            return response?.data;
+        } catch (err) {
+            throw err;
+        }
+    },
+    googleOauth: async (): Promise<void> => {
+        const response = await apiCall<void, void>(
+            "get",
+            "auth/google",
+            {
+                apiName: "URBANCARE_API",
+                withCredentials: false
+            }
+        );
     }
 };

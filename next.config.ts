@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
             },
         ],
     },
+    allowedDevOrigins: ['shanna-unidentical-mechelle.ngrok-free.dev']
     /* config options here */
 };
 

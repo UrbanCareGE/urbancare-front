@@ -8,7 +8,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem} from "@/components/ui/form";
 import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
-import {BadgeCheck, KeyRound, RotateCcwKey, User, VenusAndMars} from "lucide-react";
+import {BadgeCheck, KeyRound, Mail, RotateCcwKey, User, VenusAndMars} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox";
 import {signIn} from "next-auth/react";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
@@ -39,9 +39,9 @@ export function RegisterForm() {
     });
 
     const {mutate, isPending, error} = useMutation<
-        string,          // success type
-        ErrorResponse,                    // error type
-        RegisterReq                       // payload type
+        string,                            // success type
+        ErrorResponse,                     // error type
+        RegisterReq                        // payload type
     >({
         mutationFn: AuthService.register,
         onSuccess: (data) => {
@@ -112,7 +112,9 @@ export function RegisterForm() {
                         <FormItem className="w-full">
                             <FormControl className={"w-full"}>
                                 <div className={"flex items-center justify-between w-full gap-2"}>
-                                    <div className={"flex justify-center items-center w-8 h-full"}/>
+                                    <div className={"flex justify-center items-center w-8 h-full"}>
+                                        <Mail/>
+                                    </div>
                                     <FormInput className={"w-full"}
                                                placeholder="ელ.ფოსტა ან ტელეფონი*"
                                                disabled={false}
@@ -134,8 +136,7 @@ export function RegisterForm() {
                                     <div className={"flex justify-center items-center w-8 h-full"}>
                                         <VenusAndMars/>
                                     </div>
-                                    <div className={"flex flex-col w-full gap-4 pl-2"}>
-                                        <Label className={"text-gray-500"} htmlFor="სქესი*">სქესი*</Label>
+                                    <div className={"flex w-full gap-4 pl-2"}>
                                         <RadioGroup
                                             onValueChange={field.onChange}
                                             defaultValue={field.value}
@@ -261,10 +262,13 @@ export function RegisterForm() {
                 <div className="flex gap-3 w-full justify-center">
                     <Button
                         variant="outline"
-                        onClick={() => signIn("google")}
+                        type="button"
+                        onClick={async () => {
+                            router.push("https://ivette-nonpropagable-dialectically.ngrok-free.dev/auth/google")
+                        }}
                         className="flex-1 flex items-center justify-center gap-2"
                     >
-                        <FacebookIcon dimension={30}/>
+                        <GoogleIcon dimension={30}/>
                         Google
                     </Button>
 
@@ -273,8 +277,15 @@ export function RegisterForm() {
                         onClick={() => signIn("facebook")}
                         className="flex-1 flex items-center justify-center gap-2"
                     >
-                        <GoogleIcon dimension={30}/>
+                        <FacebookIcon dimension={30}/>
                         Facebook
+                    </Button>
+                    <Button variant="outline"
+                            type={"button"}
+                            onClick={async () => console.log(await AuthService.getUser())}
+                            className="flex-1 flex items-center justify-center gap-2"
+                    >
+                        ME
                     </Button>
 
                     <Button
@@ -288,7 +299,7 @@ export function RegisterForm() {
                 </div>
                 <label className={"text-center text-gray-500"}>
                     არსებული ანგარიშით&nbsp;
-                    <Link href={"/signin"} className={"text-primary"}>
+                    <Link href={"/login"} className={"text-primary"}>
                         შესვლა
                     </Link>
                 </label>

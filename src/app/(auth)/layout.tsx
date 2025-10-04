@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import {RegisterHeader} from "@/components/auth/register/RegisterHeader";
 
 export default function AuthLayout({children}: { children: React.ReactNode }) {
     return (

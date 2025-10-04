@@ -1,11 +1,10 @@
-import axios, {AxiosError, AxiosResponse} from "axios";
+import axios, {AxiosError, AxiosResponse, RawAxiosRequestHeaders} from "axios";
 import {API_SERVICES} from "@/service/config";
 import type {ErrorResponse} from "@/model/common";
 
 export const getApiInstance = (service: keyof typeof API_SERVICES) => {
     return axios.create({
         baseURL: API_SERVICES[service],
-        headers: {"Content-Type": "application/json"},
         withCredentials: true,
     });
 };
@@ -17,6 +16,7 @@ export async function apiCall<TResponse = void, TRequest = unknown>(
         data?: TRequest;
         params?: Record<string, unknown>;
         apiName?: keyof typeof API_SERVICES;
+        withCredentials?: boolean;
     }
 ): Promise<AxiosResponse<TResponse>> {
     try {
@@ -26,7 +26,7 @@ export async function apiCall<TResponse = void, TRequest = unknown>(
             url,
             data: options?.data,
             params: options?.params,
-            withCredentials: true,
+            withCredentials: options?.withCredentials,
         });
 
         return res;
