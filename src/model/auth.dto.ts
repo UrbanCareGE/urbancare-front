@@ -11,6 +11,11 @@ interface LoginReq {
     password: string;
 }
 
+interface LoginReq {
+    contact: string;
+    password: string;
+}
+
 interface GetOtpReq {
     contact: string;
 }

@@ -10,6 +10,7 @@ type NavigationButtonProps = {
     icon: React.ReactNode;
     navigationPath: string;
     className?: string;
+    active?: boolean;
 } & React.ComponentProps<"button">
 
 export const HeaderNavigationButton: React.FC<NavigationButtonProps> = ({
@@ -17,14 +18,15 @@ export const HeaderNavigationButton: React.FC<NavigationButtonProps> = ({
                                                                             icon,
                                                                             navigationPath,
                                                                             className,
+                                                                            active,
                                                                             ...rest
                                                                         }) => {
     const router = useRouter();
     return (
         <Button
             title={title}
-            variant={"link"}
-            className={cn("select-none text-xl font-bold h-full rounded-none border-b-4", className)}
+            variant={"ghost"}
+            className={cn("select-none text-xl font-bold h-10 p-3 rounded-panel transition-colors duration-300 ease-in-out bg-primary [&>svg]:stroke-white", className)}
             onClick={() => {
                 router.push(navigationPath);
             }}

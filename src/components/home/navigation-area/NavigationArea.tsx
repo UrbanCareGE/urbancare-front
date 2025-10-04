@@ -4,7 +4,7 @@ import {NavigationFooterArea} from "@/components/home/navigation-area/Navigation
 
 export const NavigationArea = () => {
     return (
-        <div className={"flex flex-col gap-4 justify-start items-center h-full w-64"}>
+        <div className={"flex flex-col gap-5 justify-start items-center h-full w-80 rounded-panel"}>
             <NavigationHeaderArea/>
             <NavigationMainArea/>
             <NavigationFooterArea/>

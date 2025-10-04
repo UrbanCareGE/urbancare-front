@@ -2,57 +2,59 @@
 
 import React, {useState} from "react";
 import {usePathname} from "next/navigation";
-import {HeaderNavigationButton} from "@/components/common/header/HeaderNavigationButton";
-import {Globe, Headset, Newspaper} from "lucide-react";
-import {HouseIcon} from "@/components/common/icons";
+import {Globe, Headset, MessageCircleIcon, Newspaper} from "lucide-react";
+import Link from "next/link";
 
 const masterBarRoutes = [
     {
         title: "home",
         navigationPath: "/home",
-        icon: <HouseIcon width={48} height={48} stroke={'black'}/>
+        icon: <MessageCircleIcon width={24} height={24}/>
     },
     {
         title: "feed",
         navigationPath: "/about",
-        icon: <Newspaper width={48} height={48} stroke={'black'}/>
+        icon: <Newspaper width={24} height={24}/>
     },
     {
         title: "global",
         navigationPath: "/gallery",
-        icon: <Globe width={48} height={48} stroke={'black'}/>
+        icon: <Globe width={24} height={24}/>
     },
     {
         title: "support",
         navigationPath: "/help",
-        icon: <Headset width={48} height={48} stroke={'black'}/>
+        icon: <Headset width={24} height={24}/>
     }
-]
+];
 
-type NavigationPanelProps = {} & React.HTMLAttributes<HTMLElement>;
-
-export const MasterBarNavigation: React.FC<NavigationPanelProps> = () => {
+export const MasterBarNavigation: React.FC = () => {
     const pathName = usePathname();
-    const [hovered, setHovered] = useState<string | null>(null)
+    const [hovered, setHovered] = useState<string | null>(null);
 
     return (
-        <div className={"flex justify-between items-center gap-2 h-full"}>
-            {
-                masterBarRoutes.map((btn, i) => {
-                        const highlightActive: boolean = pathName === btn.navigationPath && hovered === null;
-                        const highlightHover: boolean = hovered === btn.navigationPath;
-                        return <HeaderNavigationButton title={btn.title}
-                                                       navigationPath={btn.navigationPath}
-                                                       icon={btn.icon}
-                                                       key={i}
-                                                       onMouseEnter={() => setHovered(btn.navigationPath)}
-                                                       onMouseLeave={() => setHovered(null)}
-                                                       className={(highlightActive || highlightHover) ? ("border-primary rounded-none [&>svg]:stroke-primary" + (highlightHover ? " " : "")) : "border-white"}
-                        />
-                    }
-                )
-            }
-        </div>
-    )
+        <nav
+            className="flex h-full items-center gap-4 px-2 py-1 rounded-xl
+                 hover:bg-gray-100/60 transition-colors"
+            onMouseLeave={() => setHovered(null)}
+        >
+            {masterBarRoutes.map((btn) => {
+                const isActive = pathName === btn.navigationPath;
+                const isHovered = hovered === btn.navigationPath;
 
-}
+                return (
+                    <Link
+                        key={btn.navigationPath}
+                        href={btn.navigationPath}
+                        onMouseEnter={() => setHovered(btn.navigationPath)}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-panel transition-colors duration-200 hover:cursor-pointer
+                         ${isActive ? "bg-primary text-white" : ""} 
+                          ${isHovered && !isActive ? "bg-gray-200" : ""}`}
+                    >
+                        {btn.icon}
+                    </Link>
+                );
+            })}
+        </nav>
+    );
+};

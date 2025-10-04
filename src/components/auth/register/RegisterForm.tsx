@@ -21,11 +21,7 @@ import {ErrorResponse} from "@/model/common";
 import {OTPInput} from "@/components/auth/register/OTPInput";
 import Link from "next/link";
 
-export interface RegisterFormProps {
-    onCompleteAction: () => void;
-}
-
-export function RegisterForm({onCompleteAction}: RegisterFormProps) {
+export function RegisterForm() {
     const router = useRouter();
 
     const form = useForm<z.infer<typeof registerSchema>>({
@@ -65,7 +61,6 @@ export function RegisterForm({onCompleteAction}: RegisterFormProps) {
             otp: values.otp,
         }
         mutate(registerReq);
-        onCompleteAction()
     };
 
     return (

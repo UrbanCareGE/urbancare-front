@@ -1,7 +1,24 @@
 import {apiCall} from "@/service/api";
-import {ErrorResponse} from "@/model/common";
 
 export const AuthService = {
+    login: async (loginReq: LoginReq): Promise<string> => {
+        try {
+            const response = await apiCall<string, LoginReq>(
+                "post",
+                "/auth/login",
+                {
+                    data: loginReq,
+                    apiName: "URBANCARE_API",
+                }
+            );
+
+            const token = response.headers["access-token"];
+
+            return token;
+        } catch (err) {
+            throw err;
+        }
+    },
     register: async (registerDTO: RegisterReq): Promise<string> => {
         try {
             const response = await apiCall<string, RegisterReq>(
@@ -22,6 +39,7 @@ export const AuthService = {
     },
     generateOtp: async (contact: string): Promise<string> => {
         try {
+            debugger;
             const response = await apiCall<string, RegisterReq>(
                 "post",
                 "/auth/otp/generate",

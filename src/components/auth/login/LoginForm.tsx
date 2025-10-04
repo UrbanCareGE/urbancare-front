@@ -10,45 +10,44 @@ import {Button} from "@/components/ui/button";
 import {signIn} from "next-auth/react";
 import {AppleIcon, FacebookIcon, GoogleIcon} from "@/components/common/icons";
 import Link from "next/link";
+import {useMutation} from "@tanstack/react-query";
+import LoginFormSchema from "@/components/auth/login/data/login-form-schema";
+import {AuthService} from "@/service/auth-service";
+import {ErrorResponse} from "@/model/common";
 
-export interface RegisterFormProps {
-    onCompleteAction: () => void;
-}
-
-const authFormSchema = z
-    .object({
-        emailOrPhone: z
-            .string()
-            .refine(
-                (val) =>
-                    /^[a-zA-Z0-9._%+-]{3,32}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(val) ||
-                    /^\+?[1-9]\d{7,14}$/.test(val),
-                {
-                    message: "გთხოვთ შეიყვანოთ ელ-ფოსტა ან ტელეფონი",
-                }
-            ),
-        password: z.string().min(6, {message: "პაროლი უნდა შედგებოდეს მინიმუმ 6 სიმბოლოსგან."}),
-    })
-    .refine((data) => true, {
-        message: "გთხოვთ, დარწმუნდეთ, რომ პაროლები ერთმანეთს ემთხვევა.",
-        path: ["confirmPassword"],
-    });
-
-export function LoginForm({onCompleteAction}: RegisterFormProps) {
+export function LoginForm() {
     const router = useRouter();
 
-    const form = useForm<z.infer<typeof authFormSchema>>({
-        resolver: zodResolver(authFormSchema),
+    const form = useForm<z.infer<typeof LoginFormSchema>>({
+        resolver: zodResolver(LoginFormSchema),
         defaultValues: {
             emailOrPhone: "",
             password: "",
         },
     });
 
-    const onSubmit = (values: z.infer<typeof authFormSchema>) => {
-        const {emailOrPhone, password, ...registerData} = values;
-        // mutate(registerData);
-        onCompleteAction()
+    const {mutate, isPending, error} = useMutation<
+        string,
+        ErrorResponse,
+        LoginReq
+    >({
+        mutationFn: AuthService.login,
+        onSuccess: (data) => {
+            console.log(data);
+        },
+        onError: (err) => {
+            console.log(err)
+        },
+    });
+
+    const onSubmit = (values: z.infer<typeof LoginFormSchema>) => {
+        const {emailOrPhone, password} = values;
+        const loginReq: LoginReq = {
+            contact: emailOrPhone,
+            password: password,
+        }
+        mutate(loginReq);
+        // onCompleteAction()
     };
 
     return (
@@ -148,5 +147,4 @@ export function LoginForm({onCompleteAction}: RegisterFormProps) {
             </form>
         </Form>
     );
-
 }

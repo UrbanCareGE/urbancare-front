@@ -3,53 +3,11 @@ import {API_SERVICES} from "@/service/config";
 import type {ErrorResponse} from "@/model/common";
 
 export const getApiInstance = (service: keyof typeof API_SERVICES) => {
-    const api = axios.create({
+    return axios.create({
         baseURL: API_SERVICES[service],
         headers: {"Content-Type": "application/json"},
         withCredentials: true,
     });
-
-    // api.interceptors.request.use(
-    //     async (config) => {
-    //         let accessToken = jwtTokenData?.authToken; // Use provided token if available
-    //
-    //         if (accessToken) {
-    //             config.headers["Authorization"] = `Bearer ${accessToken}`;
-    //         }
-    //
-    //         return config;
-    //     },
-    //     (error) => Promise.reject(error)
-    // );
-    //
-    // api.interceptors.response.use(
-    //     (response) => response,
-    //     async (error) => {
-    //         const originalRequest = error.config;
-    //
-    //         if (error.response?.status === 401 && !originalRequest._retry) {
-    //             originalRequest._retry = true;
-    //
-    //             let refreshToken = jwtTokenData?.refreshToken;
-    //
-    //             if (refreshToken) {
-    //                 const newAccessToken = await refreshAccessToken(refreshToken);
-    //
-    //                 if (!newAccessToken) {
-    //                     // TODO determine logic for invalid access token afrer refreshing
-    //                 }
-    //
-    //                 originalRequest.headers["Authorization"] = `Bearer ${newAccessToken.authToken}`;
-    //
-    //                 return api(originalRequest);
-    //             }
-    //         }
-    //
-    //         return Promise.reject(error);
-    //     }
-    // );
-
-    return api;
 };
 
 export async function apiCall<TResponse = void, TRequest = unknown>(
@@ -68,6 +26,7 @@ export async function apiCall<TResponse = void, TRequest = unknown>(
             url,
             data: options?.data,
             params: options?.params,
+            withCredentials: true,
         });
 
         return res;

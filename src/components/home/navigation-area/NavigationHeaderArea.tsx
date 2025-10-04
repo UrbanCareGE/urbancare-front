@@ -1,8 +1,6 @@
 import React from "react"
-import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
-import {AvatarDemo} from "@/components/common/header/MasterBarHeader";
-
+import {UserAvatar} from "@/components/common/avatar/UserAvatar";
 
 const NavigationAreaHeaderTrigger = ({
                                          address,
@@ -24,13 +22,10 @@ const NavigationAreaHeaderTrigger = ({
     )
 }
 
-//
-// Main Component
-//
 export const NavigationHeaderArea = () => {
     return (
-        <div className={"w-full bg-white rounded-md p-4 shadow-md"}>
-            <AvatarDemo/>
+        <div className={"w-full bg-white p-4 rounded-panel"}>
+            <UserAvatar/>
             {/*<Select>*/}
             {/*    <SelectTrigger className="w-full px-3 py-2 rounded-lg border shadow-sm hover:bg-gray-50">*/}
             {/*        <SelectValue>*/}

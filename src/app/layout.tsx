@@ -3,7 +3,6 @@ import "./globals.scss";
 import React from "react";
 import ReactQueryProvider from "@/components/provider/provider/ReactQueryProvider";
 import MyThemeProvider from "@/components/common/provider/MyThemeProvider";
-import SessionProvider from "@/components/provider/provider/SessionProvider";
 
 export const metadata: Metadata = {
     title: "urbancare",
@@ -20,9 +19,7 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
         <ReactQueryProvider>
             <body className="h-screen w-full flex flex-col antialiased" suppressHydrationWarning>
             <MyThemeProvider>
-                <SessionProvider>
-                    {children}
-                </SessionProvider>
+                {children}
             </MyThemeProvider>
             </body>
         </ReactQueryProvider>
