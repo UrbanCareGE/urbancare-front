@@ -9,7 +9,6 @@ import {Form, FormControl, FormField, FormItem} from "@/components/ui/form";
 import {KeyRound, User} from "lucide-react";
 import {FormInput} from "@/components/auth/FormInput";
 import {Button} from "@/components/ui/button";
-import {signIn} from "next-auth/react";
 import {AppleIcon, FacebookIcon, GoogleIcon} from "@/components/common/icons";
 import Link from "next/link";
 import {useMutation} from "@tanstack/react-query";

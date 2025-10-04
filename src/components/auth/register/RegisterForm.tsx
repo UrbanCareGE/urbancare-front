@@ -10,7 +10,6 @@ import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
 import {BadgeCheck, KeyRound, Mail, RotateCcwKey, User, VenusAndMars} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox";
-import {signIn} from "next-auth/react";
 import {RadioGroup, RadioGroupItem} from "@/components/ui/radio-group";
 import {AppleIcon, FacebookIcon, GoogleIcon} from "@/components/common/icons";
 import {registerSchema} from "@/components/auth/register/data/register-form-schema";
