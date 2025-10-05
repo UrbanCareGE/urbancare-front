@@ -31,6 +31,9 @@ module.exports = {
     prefix: '',
     theme: {
         extend: {
+            screens: {
+                big: '1600px'
+            },
             colors: {
                 primary: {
                     DEFAULT: 'var(--color-primary)',

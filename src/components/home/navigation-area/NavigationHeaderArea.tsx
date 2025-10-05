@@ -27,7 +27,7 @@ export const NavigationHeaderArea = () => {
         <div className={"w-full h-20 p-4 rounded-panel bg-white"}>
             <Select>
                 <SelectTrigger className="w-full px-3 py-2 rounded-lg border shadow-sm hover:bg-gray-50">
-                    <SelectValue>
+                    <SelectValue placeholder={"GLOBAL"}>
                         <NavigationAreaHeaderTrigger
                             address="თბილისი, პოლიტკოვსკაიას 34"
                             avatarUrl="https://github.com/shadcn.png"
@@ -35,7 +35,7 @@ export const NavigationHeaderArea = () => {
                     </SelectValue>
                 </SelectTrigger>
 
-                <SelectContent>
+                <SelectContent className={"bg-white"}>
                     <SelectGroup>
                         <SelectItem value="tbilisi">
                             თბილისი, პოლიტკოვსკაიას 34

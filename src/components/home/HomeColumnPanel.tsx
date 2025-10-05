@@ -18,7 +18,7 @@ export const HomeColumnPanel = ({
                                 }: HomeColumnPanelProps) => {
     return (
         <div className={cn("flex flex-col h-screen bg-gray-100", className)}>
-            <div className={cn("flex justify-center items-center w-full h-[5rem] p-4", headerClassName)}>
+            <div className={cn("flex justify-center items-center w-full h-[5rem]", headerClassName)}>
                 {headerContent}
             </div>
             <div className={cn("w-full flex-1 pb-4", bodyClassName)}>

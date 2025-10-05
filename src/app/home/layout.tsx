@@ -16,7 +16,8 @@ export default function HomeLayout({children}: { children: React.ReactNode }) {
                 bodyContent={
                    <NavigationArea/>
                 }
-                className={"w-80"}
+                headerClassName={"justify-start"}
+                className={"w-72 big:w-80"}
             />
             <HomeColumnPanel
                 headerContent={
@@ -36,9 +37,9 @@ export default function HomeLayout({children}: { children: React.ReactNode }) {
                 bodyContent={
                    <DynamicArea/>
                 }
-                className={"w-80"}
-                headerClassName={""}
+                headerClassName={"justify-end"}
                 bodyClassName={""}
+                className={"w-72 big:w-80"}
             />
             {/*<NavigationArea/>*/}
             {/*<div className={"flex-1 justify-center items-center h-full min-w-96"}>*/}
