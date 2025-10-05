@@ -2,7 +2,7 @@ import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import React from "react";
 
-export function UserAvatar() {
+export function ExpandableUserAvatar() {
     return (
         <div className="flex flex-row flex-wrap items-center gap-4">
             <Popover>

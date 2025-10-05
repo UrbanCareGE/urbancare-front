@@ -212,6 +212,7 @@ module.exports = {
                     'sans-serif'
                 ],
                 roboto: ['var(--font-roboto)', 'sans-serif'],
+                sans: ["var(--font-inter)", "sans-serif"],
             },
             fontSize: {
                 '4xl': '2.25rem', // 36px

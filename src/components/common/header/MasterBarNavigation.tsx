@@ -2,33 +2,33 @@
 
 import React, {useState} from "react";
 import {usePathname} from "next/navigation";
-import {Globe, Headset, MessageCircleIcon, Newspaper} from "lucide-react";
+import {Globe, Headset, MessageCircleIcon, MessageCircleMore, Newspaper} from "lucide-react";
 import Link from "next/link";
 
 const masterBarRoutes = [
     {
         title: "home",
         navigationPath: "/home",
-        icon: <MessageCircleIcon width={24} height={24}/>
+        icon: <MessageCircleMore/>
     },
     {
         title: "feed",
         navigationPath: "/about",
-        icon: <Newspaper width={24} height={24}/>
+        icon: <Newspaper/>
     },
     {
         title: "global",
         navigationPath: "/gallery",
-        icon: <Globe width={24} height={24}/>
+        icon: <Globe/>
     },
     {
         title: "support",
         navigationPath: "/help",
-        icon: <Headset width={24} height={24}/>
+        icon: <Headset/>
     }
 ];
 
-export const MasterBarNavigation: React.FC = () => {
+export const MasterBarNavigation = () => {
     const pathName = usePathname();
     const [hovered, setHovered] = useState<string | null>(null);
 
@@ -47,7 +47,7 @@ export const MasterBarNavigation: React.FC = () => {
                         key={btn.navigationPath}
                         href={btn.navigationPath}
                         onMouseEnter={() => setHovered(btn.navigationPath)}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-panel transition-colors duration-200 hover:cursor-pointer
+                        className={`flex items-center gap-2 px-2 py-2 rounded-panel transition-colors duration-200 hover:cursor-pointer
                          ${isActive ? "bg-primary text-white" : ""} 
                           ${isHovered && !isActive ? "bg-gray-200" : ""}`}
                     >
