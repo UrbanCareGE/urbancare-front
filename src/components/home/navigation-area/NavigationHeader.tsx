@@ -22,7 +22,7 @@ const NavigationAreaHeaderTrigger = ({
     )
 }
 
-export const NavigationHeaderArea = () => {
+export const NavigationHeader = () => {
     return (
         <div className={"w-full h-20 p-4 rounded-panel bg-white"}>
             <Select>

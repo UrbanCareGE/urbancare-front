@@ -1,29 +1,46 @@
-import React from "react";
+import React, {ReactNode} from "react";
 import {cn} from "@/lib/utils";
 
-type HomeColumnPanelProps = {
+interface HomeColumnPanelProps {
     className?: string;
-    headerClassName?: string;
-    bodyClassName?: string;
-    headerContent: React.ReactNode;
-    bodyContent: React.ReactNode;
+    children: ReactNode;
 }
 
-export const HomeColumnPanel = ({
-                                    className,
-                                    headerClassName,
-                                    bodyClassName,
-                                    headerContent,
-                                    bodyContent
-                                }: HomeColumnPanelProps) => {
+interface HomeColumnPanelHeaderProps {
+    className?: string;
+    children: ReactNode;
+}
+
+interface HomeColumnPanelBodyProps {
+    className?: string;
+    children: ReactNode;
+}
+
+const HomeColumnPanelRoot = ({className, children}: HomeColumnPanelProps) => {
     return (
         <div className={cn("flex flex-col h-screen bg-gray-100", className)}>
-            <div className={cn("flex justify-center items-center w-full h-[5rem]", headerClassName)}>
-                {headerContent}
-            </div>
-            <div className={cn("w-full flex-1 pb-4", bodyClassName)}>
-                {bodyContent}
-            </div>
+            {children}
         </div>
-    )
+    );
 };
+
+const HomeColumnPanelHeader = ({className, children}: HomeColumnPanelHeaderProps) => {
+    return (
+        <div className={cn("flex justify-center items-center w-full h-[5rem]", className)}>
+            {children}
+        </div>
+    );
+};
+
+const HomeColumnPanelBody = ({className, children}: HomeColumnPanelBodyProps) => {
+    return (
+        <div className={cn("w-full flex-1 pb-4", className)}>
+            {children}
+        </div>
+    );
+};
+
+export const HomeColumnPanel = Object.assign(HomeColumnPanelRoot, {
+    Header: HomeColumnPanelHeader,
+    Body: HomeColumnPanelBody,
+});
