@@ -13,7 +13,7 @@ interface NavigationPanelHeaderProps {
 
 interface NavigationPanelBodyProps {
     className?: string;
-    children: ReactNode;
+    children?: ReactNode;
 }
 
 interface NavigationPanelFooterProps {
@@ -23,7 +23,7 @@ interface NavigationPanelFooterProps {
 
 const NavigationPanelRoot = ({className, children}: NavigationPanelProps) => {
     return (
-        <div className={cn("flex flex-col h-full bg-white rounded-panel", className)}>
+        <div className={cn("flex flex-col gap-4 h-full", className)}>
             {children}
         </div>
     );
@@ -31,15 +31,17 @@ const NavigationPanelRoot = ({className, children}: NavigationPanelProps) => {
 
 const NavigationPanelHeader = ({className, children}: NavigationPanelHeaderProps) => {
     return (
-        <div className={cn("flex justify-center items-center w-full h-[5rem] flex-shrink-0", className)}>
+        <div className={cn(
+            "w-full h-20 p-4 bg-white rounded-panel shadow-sm", className)}>
             {children}
         </div>
     );
 };
 
-const NavigationPanelBody = ({className, children}: NavigationPanelBodyProps) => {
+const NavigationPanelBody = ({className, children,}: NavigationPanelBodyProps) => {
     return (
-        <div className={cn("w-full flex-1 overflow-auto", className)}>
+        <div className={cn(
+            "w-full flex-1 overflow-auto bg-white rounded-panel shadow-sm", className)}>
             {children}
         </div>
     );
@@ -47,7 +49,9 @@ const NavigationPanelBody = ({className, children}: NavigationPanelBodyProps) =>
 
 const NavigationPanelFooter = ({className, children}: NavigationPanelFooterProps) => {
     return (
-        <div className={cn("w-full flex-shrink-0 p-4", className)}>
+        <div className={cn(
+            "w-full flex h-20 items-center justify-between p-1 bg-white rounded-panel shadow-sm", className
+        )}>
             {children}
         </div>
     );

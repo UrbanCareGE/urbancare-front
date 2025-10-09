@@ -10,18 +10,10 @@ export const ProfileHeader = () => {
         <div className={"flex w-full h-full justify-between items-center"}>
             <ActiveUserAvatar/>
             <div className={"flex gap-2"}>
-                <ProfileBarButton>
-                    <MessageCircleMore/>
-                </ProfileBarButton>
-                <ProfileBarButton>
-                    <Newspaper/>
-                </ProfileBarButton>
-                <ProfileBarButton>
-                    <Bell/>
-                </ProfileBarButton>
-                <ProfileBarButton>
-                    <Settings/>
-                </ProfileBarButton>
+                <ProfileBarButton logo={<MessageCircleMore/>} href="/messages"/>
+                <ProfileBarButton logo={<Newspaper/>} href="/news"/>
+                <ProfileBarButton logo={<Bell/>} href="/notifications"/>
+                <ProfileBarButton logo={<Settings/>} href="/settings"/>
             </div>
         </div>
     );

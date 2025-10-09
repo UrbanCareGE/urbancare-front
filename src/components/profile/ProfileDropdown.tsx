@@ -9,28 +9,22 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar"
-import {ChevronDown, CircleUserRound, LogOut, Settings, Wallet} from "lucide-react"
-import {useState} from "react";
+import {CircleUserRound, LogOut, Settings, Wallet, ChevronDown} from "lucide-react"
 
 export function ProfileDropdown() {
-    const [open, setOpen] = useState(false)
     return (
-        <DropdownMenu onOpenChange={(open: boolean) => {
-            setOpen(open)
-        }}>
+        <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <button
-                    className="flex items-center gap-2 rounded-md border px-3 py-2 bg-white hover:bg-gray-50 transition">
-                    <Avatar className="h-6 w-6">
-                        <AvatarImage src="https://github.com/shadcn.png" alt="Nikolai Konovalov"/>
+                <button className="relative rounded-full ring-2 ring-primary ring-offset-2 focus:outline-none transition-transform active:scale-95">
+                    <Avatar className="h-10 w-10 cursor-pointer">
+                        <AvatarImage src="https://github.com/shadcn.png" alt="User"/>
                         <AvatarFallback>NK</AvatarFallback>
                     </Avatar>
-                    <span className="text-sm font-semibold text-gray-700">Levan Gogichaishvili</span>
-                    <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform duration-300 ${open ? 'rotate-180' : ''}`}/>
+                    <ChevronDown className="absolute -bottom-1 -right-1 w-4 h-4 bg-gray-100 text-gray-600 rounded-full p-0.5" />
                 </button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent align="end" className="w-56 bg-white">
+            <DropdownMenuContent align="end" className="w-56 bg-white rounded-panel">
                 <DropdownMenuLabel>
                     My Account
                     <br/>

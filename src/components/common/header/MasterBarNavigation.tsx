@@ -2,7 +2,7 @@
 
 import React, {useState} from "react";
 import {usePathname} from "next/navigation";
-import {Globe, Headset, MessageCircleIcon, MessageCircleMore, Newspaper} from "lucide-react";
+import {ChartColumnIncreasingIcon, Globe, Headset, MessageCircleIcon, MessageCircleMore, Newspaper} from "lucide-react";
 import Link from "next/link";
 
 const masterBarRoutes = [
@@ -17,9 +17,9 @@ const masterBarRoutes = [
         icon: <Newspaper/>
     },
     {
-        title: "global",
-        navigationPath: "/gallery",
-        icon: <Globe/>
+        title: "statistics",
+        navigationPath: "/statistics",
+        icon: <ChartColumnIncreasingIcon/>
     },
     {
         title: "support",
