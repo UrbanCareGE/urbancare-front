@@ -56,7 +56,7 @@ export function RegisterForm() {
             name: values.firstName,
             surname: values.lastName,
             password: values.password,
-            contact: values.emailOrPhone,
+            phone: values.emailOrPhone,
             otp: values.otp,
         }
         mutate(registerReq);
@@ -297,7 +297,7 @@ export function RegisterForm() {
                 </div>
                 <label className={"text-center text-gray-500"}>
                     არსებული ანგარიშით&nbsp;
-                    <Link href={"/login"} className={"text-primary"}>
+                    <Link href={"/auth/login"} className={"text-primary"}>
                         შესვლა
                     </Link>
                 </label>

@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import AnimatedContent from "@/components/AnimatedContent";
 
 export default function AuthLayout({children}: { children: React.ReactNode }) {
     return (

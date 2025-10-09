@@ -1,4 +1,4 @@
-import axios, {AxiosError, AxiosResponse, RawAxiosRequestHeaders} from "axios";
+import axios, {AxiosError, AxiosResponse} from "axios";
 import {API_SERVICES} from "@/service/config";
 import type {ErrorResponse} from "@/model/common";
 
@@ -27,6 +27,7 @@ export async function apiCall<TResponse = void, TRequest = unknown>(
             data: options?.data,
             params: options?.params,
             withCredentials: options?.withCredentials,
+            headers: {"ngrok-skip-browser-warning": "dwad"}
         });
 
         return res;

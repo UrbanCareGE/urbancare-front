@@ -44,7 +44,7 @@ export function LoginForm() {
     const onSubmit = (values: z.infer<typeof LoginFormSchema>) => {
         const {emailOrPhone, password} = values;
         const loginReq: LoginReq = {
-            contact: emailOrPhone,
+            phone: emailOrPhone,
             password: password,
         }
         mutate(loginReq);
@@ -137,7 +137,7 @@ export function LoginForm() {
                 </div>
                 <label className={"text-center text-gray-500"}>
                     არ გაქვს ანგარიში?&nbsp;-&nbsp;
-                    <Link href={"/register"} className={"text-primary"}>
+                    <Link href={"/auth/register"} className={"text-primary"}>
                         შექმენი
                     </Link>
                 </label>

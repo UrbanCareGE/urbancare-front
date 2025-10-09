@@ -28,7 +28,7 @@ export default function HomeLayout({children}: { children: React.ReactNode }) {
                     <HomeColumnPanel.Body>
                         <NavigationPanel>
                             <NavigationPanel.Header
-                                className={"p-2 flex justify-center items-center bg-primary"}>
+                                className={"p-2 flex justify-center items-center"}>
                                 <NavigationPanelHeader/>
                             </NavigationPanel.Header>
                             <NavigationPanel.Body>

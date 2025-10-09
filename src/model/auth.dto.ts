@@ -1,5 +1,5 @@
 interface RegisterReq {
-    contact: string;
+    phone: string;
     name: string;
     surname: string;
     password: string;
@@ -7,15 +7,10 @@ interface RegisterReq {
 }
 
 interface LoginReq {
-    contact: string;
-    password: string;
-}
-
-interface LoginReq {
-    contact: string;
+    phone: string;
     password: string;
 }
 
 interface GetOtpReq {
-    contact: string;
+    phone: string;
 }
