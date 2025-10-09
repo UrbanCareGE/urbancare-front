@@ -34,7 +34,7 @@ const HomeColumnPanelHeader = ({className, children}: HomeColumnPanelHeaderProps
 
 const HomeColumnPanelBody = ({className, children}: HomeColumnPanelBodyProps) => {
     return (
-        <div className={cn("w-full flex-1 pb-4", className)}>
+        <div className={cn("w-full flex-1 pb-4 min-h-0", className)}>
             {children}
         </div>
     );

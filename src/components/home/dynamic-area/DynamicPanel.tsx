@@ -19,7 +19,7 @@ interface DynamicPanelBodyProps {
 
 const DynamicPanelRoot = ({className, children}: DynamicPanelRootProps) => {
     return (
-        <div className={cn("flex flex-col gap-4 h-full", className)}>
+        <div className={cn("flex flex-col gap-4 h-full min-h-0", className)}>
             {children}
         </div>
     );

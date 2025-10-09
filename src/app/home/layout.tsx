@@ -13,6 +13,7 @@ import {NavigationPanelFooter} from "@/components/home/navigation-area/Navigatio
 import {Sidebar} from "@/components/home/Sidebar";
 import {SidebarToggle} from "@/components/home/SidebarToggle";
 import {useDevice} from "@/hooks/use-device";
+import UrgentPreview from "@/components/urgent/UrgentPreview";
 
 export default function HomeLayout({children}: { children: React.ReactNode }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -59,8 +60,8 @@ export default function HomeLayout({children}: { children: React.ReactNode }) {
                     </HomeColumnPanel.Header>
                     <HomeColumnPanel.Body>
                         <DynamicPanel>
-                            <DynamicPanel.Header>
-                                <div></div>
+                            <DynamicPanel.Header className={"p-0 min-h-0"}>
+                                <UrgentPreview/>
                             </DynamicPanel.Header>
                             <DynamicPanel.Body>
                                 <div></div>
