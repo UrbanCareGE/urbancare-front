@@ -1,7 +1,20 @@
 'use client'
 
-import { Home, Compass, Bell, MessageSquare, Settings, Users, Calendar, FileText, Bookmark, TrendingUp, Heart, Search, Map } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import {
+    Bell,
+    Bookmark,
+    Calendar,
+    Compass,
+    FileText,
+    Heart,
+    Home,
+    Map,
+    MessageSquare,
+    Search,
+    TrendingUp,
+    Users
+} from "lucide-react"
+import {Button} from "@/components/ui/button"
 
 const navItems = [
     { icon: Home, label: "Home" },

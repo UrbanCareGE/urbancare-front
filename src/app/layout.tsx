@@ -1,7 +1,7 @@
 import type {Metadata} from "next";
 import "./globals.scss";
 import React from "react";
-import ReactQueryProvider from "@/components/provider/provider/ReactQueryProvider";
+import ReactQueryProvider from "@/components/provider/ReactQueryProvider";
 import MyThemeProvider from "@/components/common/provider/MyThemeProvider";
 
 export const metadata: Metadata = {
