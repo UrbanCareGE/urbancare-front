@@ -13,7 +13,7 @@ const masterBarRoutes = [
     },
     {
         title: "feed",
-        navigationPath: "/about",
+        navigationPath: "/home/post",
         icon: <Newspaper/>
     },
     {

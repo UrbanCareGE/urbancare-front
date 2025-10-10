@@ -20,7 +20,7 @@ export default function HomeLayout({children}: { children: React.ReactNode }) {
     const {isMobile} = useDevice();
 
     return (
-        <main className="flex w-full h-screen overflow-hidden bg-gray-100 gap-8 px-8">
+        <main className="flex w-full h-screen overflow-hidden bg-gray-100 gap-14 px-8">
             <Sidebar isOpen={sidebarOpen} onOpenChange={setSidebarOpen}>
                 <HomeColumnPanel className="w-full h-full">
                     <HomeColumnPanel.Header className="">
