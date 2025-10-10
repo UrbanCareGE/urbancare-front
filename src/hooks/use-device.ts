@@ -15,6 +15,7 @@ export interface DeviceInfo {
 
 const BREAKPOINTS = {
   mobile: 768,
+  medium: 1000,
   tablet: 1024,
 } as const
 

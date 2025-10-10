@@ -28,7 +28,7 @@ const DynamicPanelRoot = ({className, children}: DynamicPanelRootProps) => {
 const DynamicPanelHeader = ({className, children}: DynamicPanelHeaderProps) => {
     return (
         <div className={cn(
-            "w-full flex-[2] p-4 bg-white rounded-panel", className)}>
+            "w-full flex-[2.4] p-4 bg-white rounded-panel", className)}>
             {children}
         </div>
     );

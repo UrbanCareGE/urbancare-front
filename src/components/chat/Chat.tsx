@@ -6,7 +6,8 @@ function Chat() {
         <Session appId="tblkKdHv" userId={"sample_user_alice"}>
             <Chatbox
                 conversationId={"sample_conversation"}
-                style={{width: '100%', height: '100%'}}
+
+                className={"w-full h-full"}
                 loadingComponent={
                     <div className="flex gap-2 bg-opacity-0 w-full h-full">
                         <Skeleton className="h-full w-[30%] rounded-md"/>
