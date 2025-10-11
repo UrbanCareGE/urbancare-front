@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
             },
         ],
     },
-    allowedDevOrigins: ['shanna-unidentical-mechelle.ngrok-free.dev']
+    allowedDevOrigins: ['shanna-unidentical-mechelle.ngrok-free.dev', '192.168.100.3']
     /* config options here */
 };
 

@@ -28,7 +28,7 @@ export default async function RootLayout({children}: Children) {
             style={{colorScheme: ""}}
             suppressHydrationWarning
         >
-            <body className="h-screen w-full flex flex-col antialiased" suppressHydrationWarning>
+            <body className="bg-blue-500 h-dvh w-dvw antialiased" suppressHydrationWarning>
                 <ReactQueryProvider>
                     <MyThemeProvider>
                         <ResponsiveLayout initialIsMobile={isMobile}>

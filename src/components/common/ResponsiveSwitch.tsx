@@ -1,45 +1,24 @@
-// components/Responsive.tsx (enhanced version)
+'use client'
 
+import {Children} from "@/app/layout";
+import {useResponsive} from "@/components/common/ResponsiveLayout";
 
-import {ReactNode} from 'react';
+export const MobileAdapter = ({children} : Children) => {
+    const {isMobile} = useResponsive();
 
-interface ResponsiveRootProps {
-    children: ReactNode;
-}
+    if (!isMobile) return <></>
 
-interface ResponsiveVariantProps {
-    children: ReactNode;
-}
-
-function ResponsiveAdapterRoot({ children }: ResponsiveRootProps) {
     return (
-        <div>{children}</div>
+        <>{children}</>
+    );
+};
+
+export const DesktopAdapter = ({children} : Children) => {
+    const {isDesktop} = useResponsive();
+
+    if (!isDesktop) return <></>
+
+    return (
+        <>{children}</>
     );
 }
-
-const ResponsiveAdapterMobile = ({ children }: ResponsiveVariantProps) => {
-    return <div>AAAA</div>
-    // // const { isMobile } = useResponsive();
-    // const isMobile = true;
-    // return (<div>
-    //
-    //     {/*{isMobile ? children : <div>AAA</div>}*/}
-    // </div>
-    // )
-}
-
-function ResponsiveAdapterDesktop({ children }: ResponsiveVariantProps) {
-    return <div>BBBB</div>
-    // const isDesktop = true;
-    // // const { isDesktop } = useResponsive();
-    // return (<div>
-    //
-    //     {/*{isDesktop ? <>{children}</> : <></>}*/}
-    // </div>
-    // )
-}
-
-export const ResponsiveAdapter = Object.assign(ResponsiveAdapterRoot, {
-    Mobile: ResponsiveAdapterMobile,
-    Desktop: ResponsiveAdapterDesktop,
-});

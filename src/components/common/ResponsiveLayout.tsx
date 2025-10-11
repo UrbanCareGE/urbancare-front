@@ -10,6 +10,7 @@ interface ResponsiveContextType {
     isTablet: boolean;
     isDesktop: boolean;
     width: number;
+    mobileAgent: boolean;
 }
 
 const ResponsiveContext = createContext<ResponsiveContextType | undefined>(undefined);
@@ -28,7 +29,8 @@ interface Props {
 export default function ResponsiveLayout({ children, initialIsMobile }: Props) {
     const [dimensions, setDimensions] = useState({
         width: initialIsMobile ? 375 : 1024, // Reasonable defaults
-        deviceType: initialIsMobile ? 'mobile' as DeviceType : 'desktop' as DeviceType
+        deviceType: initialIsMobile ? 'mobile' as DeviceType : 'desktop' as DeviceType,
+        mobileAgent: initialIsMobile,
     });
 
     useEffect(() => {
@@ -40,7 +42,7 @@ export default function ResponsiveLayout({ children, initialIsMobile }: Props) {
             else if (width < 1024) deviceType = 'tablet';
             else deviceType = 'desktop';
 
-            setDimensions({ width, deviceType });
+            setDimensions((oldValue) => ({ ...oldValue, width, deviceType,  }));
         };
 
         // Set initial dimensions on mount
@@ -65,7 +67,8 @@ export default function ResponsiveLayout({ children, initialIsMobile }: Props) {
         isMobile: dimensions.deviceType === 'mobile',
         isTablet: dimensions.deviceType === 'tablet',
         isDesktop: dimensions.deviceType === 'desktop',
-        width: dimensions.width
+        width: dimensions.width,
+        mobileAgent: dimensions.mobileAgent
     };
 
     return (
