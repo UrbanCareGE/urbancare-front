@@ -1,22 +1,26 @@
-"use client";
+'use client'
 
 import React, {ReactNode} from "react";
-import {Sheet, SheetContent, SheetTitle} from "@/components/ui/sheet";
+import {Sheet, SheetContent, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
 import {cn} from "@/lib/utils";
 import {VisuallyHidden} from "@/components/ui/visually-hidden";
+import {Menu} from "lucide-react";
 
 interface SidebarProps {
     children: ReactNode;
     className?: string;
-    isOpen: boolean;
-    onOpenChange: (open: boolean) => void;
 }
 
-export const Sidebar = ({children, className, isOpen, onOpenChange}: SidebarProps) => {
+export const NavigationSideBar = ({children, className}: SidebarProps) => {
+    const [isOpen, setIsOpen] = React.useState(false);
+
     return (
         <>
-            <Sheet open={isOpen} onOpenChange={onOpenChange}>
-                <SheetContent side="left" className="w-72 p-0 lg:hidden">
+            <Sheet open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
+                <SheetTrigger>
+                    <Menu className={"h-8 w-8"}></Menu>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-72 p-0 bg-white rounded-panel">
                     <VisuallyHidden>
                         <SheetTitle>Navigation Menu</SheetTitle>
                     </VisuallyHidden>
@@ -25,10 +29,6 @@ export const Sidebar = ({children, className, isOpen, onOpenChange}: SidebarProp
                     </div>
                 </SheetContent>
             </Sheet>
-
-            <aside className={cn("hidden lg:block w-72", className)}>
-                {children}
-            </aside>
         </>
     );
 };

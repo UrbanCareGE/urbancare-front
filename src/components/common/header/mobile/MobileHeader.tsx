@@ -1,20 +1,22 @@
-import {Menu} from "lucide-react";
-import {ActiveUserAvatar} from "@/components/common/avatar/ActiveUserAvatar";
-import {CgFacebook} from "react-icons/cg";
-import {NeighborhoodSelect} from "@/components/home/NeighborhoodSelect";
 import {Select, SelectContent, SelectItem, SelectTrigger} from "@/components/ui/select";
+import {NavigationSideBar} from "@/components/home/NavigationSideBar";
+import React from "react";
+import {ProfileSideBar} from "@/components/home/NavigationProfileBar";
 
 export const MobileHeader = () => {
     return (
-        <div>
-            <div className={"h-20 flex items-center px-4 bg-green-400"}>
-                <Menu className={"w-8 h-8 "}/>
-                {/*<span className={"ml-4 font-semibold text-3xl mr-auto"}>URBANCARE</span>*/}\
-                <NeighborhoodSelect/>
-                <ActiveUserAvatar/>
+        <div className={"flex flex-col border-b"}>
+            <div className={"h-16 w-full flex items-center px-3 bg-yellow-400"}>
+                <NavigationSideBar>
+                    <h3>dawdad</h3>
+                </NavigationSideBar>
+                <span className={"ml-3 font-semibold text-xl mr-auto"}>URBANCARE</span>
+                <ProfileSideBar>
+                    <h3>dawdad</h3>
+                </ProfileSideBar>
             </div>
             <Select>
-                <SelectTrigger className={"h-12 bg-amber-950 "}>
+                <SelectTrigger className={"h-8 "}>
                     <button>
                         თბილისი, პ. ქავთარაძის 34გ
                     </button>
