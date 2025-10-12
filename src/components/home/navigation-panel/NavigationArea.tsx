@@ -10,30 +10,7 @@ interface NavItem {
 
 export const navigationItems: NavItem[] = [
     { href: "/", label: "სერვისები", icon: "🏠", children: [
-            { href: "/bla1", label: "მოთხოვნები", icon: "👥", children: [
-                    { href: "/bla3", label: "მოთხოვნები", icon: "👥", children: [
-                            { href: "/blu4", label: "სიახლეები", icon: "🔔" },
-                            { href: "/pla4", label: "განცხადებები", icon: "👥", children: [
-                                    { href: "/blu5", label: "სიახლეები", icon: "🔔", children: [
-                                            { href: "/blu6", label: "სიახლეები", icon: "🔔" },
-                                            { href: "/pla6", label: "განცხადებები", icon: "👥" },
-                                            { href: "/plu6", label: "საპორტი", icon: "🔔" }
-                                        ] },
-                                    { href: "/pla5", label: "განცხადებები", icon: "👥" },
-                                    { href: "/plu5", label: "საპორტი", icon: "🔔", children: [
-                                            { href: "/blu7", label: "სიახლეები", icon: "🔔", children: [
-                                                    { href: "/blu11", label: "სიახლეები", icon: "🔔" },
-                                                    { href: "/pla11", label: "განცხადებები", icon: "👥" },
-                                                    { href: "/plu11", label: "საპორტი", icon: "🔔" }
-                                                ] },
-                                            { href: "/pla7", label: "განცხადებები", icon: "👥" },
-                                            { href: "/plu7", label: "საპორტი", icon: "🔔" }
-                                        ] }
-                                ] },
-                            { href: "/plu4", label: "საპორტი", icon: "🔔" }
-                        ] },
-                    { href: "/blu3", label: "სიახლეები", icon: "🔔" }
-                ] },
+            { href: "/bla1", label: "მოთხოვნები", icon: "👥" },
             { href: "/blu1", label: "სიახლეები", icon: "🔔" },
             { href: "/pla1", label: "განცხადებები", icon: "👥" },
         ], },
@@ -46,11 +23,7 @@ export const navigationItems: NavItem[] = [
         ] },
     { href: "/blu", label: "სიახლეები", icon: "🔔" },
     { href: "/pla", label: "განცხადებები", icon: "👥" },
-    { href: "/plu", label: "საპორტი", icon: "🔔", children: [
-            { href: "/blu8", label: "სიახლეები", icon: "🔔" },
-            { href: "/pla8", label: "განცხადებები", icon: "👥" },
-            { href: "/plu8", label: "საპორტი", icon: "🔔" }
-        ] },
+    { href: "/plu", label: "საპორტი", icon: "🔔" },
 ];
 
 export const NavigationArea = ({items}: {items: NavItem[]}) => {
