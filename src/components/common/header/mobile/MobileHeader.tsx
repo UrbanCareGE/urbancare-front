@@ -17,9 +17,9 @@ export const MobileHeader = () => {
             </div>
             <Select>
                 <SelectTrigger className={"h-8 "}>
-                    <button>
+                    <div>
                         თბილისი, პ. ქავთარაძის 34გ
-                    </button>
+                    </div>
                 </SelectTrigger>
                 <SelectContent className={"bg-white"}>
                     <SelectItem key={1} value={"1"}>

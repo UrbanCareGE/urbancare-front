@@ -33,7 +33,7 @@ export const MobileNavBar = () => {
         <footer className="h-16 w-full bg-white flex justify-center items-center">
             {/* Animated sliding background */}
 
-            <div className={"relative w-64 h-full flex justify-evenly items-center rounded-full bg-gray-100"}>
+            <div className={"relative w-72 h-full flex justify-evenly items-center rounded-full bg-gray-100"}>
 
                 <div
                     className="absolute w-12 h-10 bg-primary transition-all duration-300 ease-out rounded-xl"
