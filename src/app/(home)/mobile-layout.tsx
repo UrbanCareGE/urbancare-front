@@ -7,7 +7,9 @@ export const MobileLayout = ({children}: Children) => {
     return (
         <main className="flex flex-col w-full h-full ">
             <MobileHeader/>
-            {children}
+            <div className="flex flex-1">
+                {children}
+            </div>
             <MobileNavBar/>
         </main>
     );

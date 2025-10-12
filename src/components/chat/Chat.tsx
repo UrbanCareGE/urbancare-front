@@ -8,10 +8,7 @@ function Chat() {
                 conversationId={"sample_conversation"}
                 style={{width:'100%', height:'100%'}}
                 loadingComponent={
-                    <div className="flex gap-2 bg-opacity-0 w-full h-full">
-                        <Skeleton className="h-full w-[30%] rounded-md"/>
-                        <Skeleton className="h-full w-[70%] rounded-md"/>
-                    </div>
+                    <Skeleton className="h-full w-full rounded-md flex-1"/>
                 }
             ></Chatbox>
         </Session>

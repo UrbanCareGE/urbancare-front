@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import {ChevronsUp, MessageCircleMore, Newspaper} from "lucide-react";
+import {ChevronsUp, LucideIcon, MessageCircleMore, Newspaper} from "lucide-react";
 import {usePathname} from "next/navigation";
-import {LucideIcon} from "lucide-react";
 
 interface NavItem {
     href: string;
@@ -26,20 +25,22 @@ export const MobileNavBar = () => {
     const getBackgroundPosition = (index: number) => {
 
         // 100%/n+1 - n*w(n)/n+1 * f(i) + 50% - w(bg)
-        return `calc((25% - 6rem / 4 + 2rem) * ${index - 1} + 50% - 1.5rem)`
+        return `calc((25% - 6rem / 4 + 2rem) * ${index - 1} + 50% - 2rem)`
     };
 
     return (
-        <footer className="h-16 w-full bg-white flex justify-center items-center">
-            {/* Animated sliding background */}
+        <footer className="h-14 w-full bg-white flex justify-center items-center">
 
-            <div className={"relative w-72 h-full flex justify-evenly items-center rounded-full bg-gray-100"}>
+            <div className={"relative w-9/12 h-full flex justify-evenly items-center rounded-full"}>
 
                 <div
-                    className="absolute w-12 h-10 bg-primary transition-all duration-300 ease-out rounded-xl"
+                    className="absolute w-16 h-12 bg-primary transition-all duration-300 ease-out rounded-3xl"
                     style={{
                         left: getBackgroundPosition(activeIndexSafe),
+                        transition: 'left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+
                     }}
+                    suppressHydrationWarning
                 />
 
                 {/* Navigation items */}
@@ -58,7 +59,7 @@ export const MobileNavBar = () => {
                                 className={`transition-colors duration-300 ${
                                     isActive ? "text-white" : "text-black"
                                 }`}
-                                size={24}
+                                size={28}
                             />
                         </Link>
                     );

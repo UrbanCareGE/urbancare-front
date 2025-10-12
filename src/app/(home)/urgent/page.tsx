@@ -1,8 +1,8 @@
 'use client'
 
-import {DynamicPanel} from "@/components/home/dynamic-area/DynamicPanel";
 import React from "react";
 import {Input} from "@/components/ui/input";
+import {DynamicPanel} from "@/components/home/dynamic-panel/DynamicPanel";
 
 export default function Page() {
     return (

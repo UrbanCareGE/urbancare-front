@@ -20,7 +20,7 @@ export const ProfileSideBar = ({children, className}: SidebarProps) => {
                 <SheetTrigger>
                     <ActiveUserAvatar/>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-72 p-0 bg-white">
+                <SheetContent side="right" className="w-10/12 bg-white rounded-l-panel">
                     <VisuallyHidden>
                         <SheetTitle>Navigation Menu</SheetTitle>
                     </VisuallyHidden>

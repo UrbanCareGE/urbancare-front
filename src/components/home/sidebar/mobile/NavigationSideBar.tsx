@@ -20,11 +20,11 @@ export const NavigationSideBar = ({children, className}: SidebarProps) => {
                 <SheetTrigger>
                     <Menu className={"h-8 w-8"}></Menu>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-72 p-0 bg-white rounded-panel">
+                <SheetContent side="left" className="w-10/12 bg-white rounded-r-panel">
                     <VisuallyHidden>
                         <SheetTitle>Navigation Menu</SheetTitle>
                     </VisuallyHidden>
-                    <div className={cn("h-full", className)}>
+                    <div className={cn("w-full h-full", className)}>
                         {children}
                     </div>
                 </SheetContent>

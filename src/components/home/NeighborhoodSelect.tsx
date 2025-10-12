@@ -52,7 +52,7 @@ export const NeighborhoodSelect = () => {
 
     return (
         <Select value={selectedNeighborhood} onValueChange={setSelectedNeighborhood} open={isOpen} onOpenChange={setIsOpen}>
-            <SelectTrigger className="w-full h-auto py-3 px-4 border-none rounded-panel [&>svg]:hidden bg-gray-100 border-2 border-primary">
+            <SelectTrigger className="w-full h-auto py-3 rounded-panel [&>svg]:hidden border border-gray-200">
                 <div className="flex items-center gap-3 w-full">
                     {currentNeighborhood && (
                         <>

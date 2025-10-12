@@ -1,6 +1,3 @@
-import {ActiveUserAvatar} from "@/components/common/avatar/ActiveUserAvatar";
-import {Bell, MessageCircleMore, Newspaper, Settings} from "lucide-react";
-import {ProfileBarButton} from "@/components/home/profile-bar/ProfileBarButton";
 import {ProfileDropdown} from "@/components/profile/ProfileDropdown";
 
 
