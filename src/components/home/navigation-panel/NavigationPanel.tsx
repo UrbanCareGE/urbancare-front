@@ -32,7 +32,7 @@ const NavigationPanelRoot = ({className, children}: NavigationPanelProps) => {
 const NavigationPanelHeader = ({className, children}: NavigationPanelHeaderProps) => {
     return (
         <div className={cn(
-            "w-full h-20 bg-white pr-16 rounded-panel flex justify-between items-center", className)}>
+            "w-full bg-white rounded-panel flex flex-col justify-center items-center", className)}>
             {children}
         </div>
     );

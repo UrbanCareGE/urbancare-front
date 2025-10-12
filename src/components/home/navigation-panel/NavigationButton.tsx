@@ -10,6 +10,6 @@ type NavigationButtonProps = {
 
 export const NavigationButton = ({children, href, className}: NavigationButtonProps) => {
     return (
-        <Link href={href} className={cn("w-full h-11 rounded-panel flex items-center hover:bg-gray-200 transition-colors px-3 py-1", className)}>{children}</Link>
+        <Link href={href} className={cn("w-full h-11 flex items-center hover:bg-gray-200 transition-colors px-3 py-1", className)}>{children}</Link>
     );
 };

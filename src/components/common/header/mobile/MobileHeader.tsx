@@ -5,7 +5,8 @@ import {ProfileSideBar} from "@/components/home/sidebar/mobile/NavigationProfile
 import {NavigationPanel} from "@/components/home/navigation-panel/NavigationPanel";
 import {DynamicPanel} from "@/components/home/dynamic-panel/DynamicPanel";
 import {NeighborhoodSelect} from "@/components/home/NeighborhoodSelect";
-import {NavigationArea} from "@/components/home/navigation-panel/NavigationArea";
+import {NavigationArea, navigationItems} from "@/components/home/navigation-panel/NavigationArea";
+import {AppLogo} from "@/components/common/logo/AppLogo";
 
 export const MobileHeader = () => {
     return (
@@ -13,11 +14,12 @@ export const MobileHeader = () => {
             <div className={"h-16 w-full flex items-center px-3 border-b border-gray-200"}>
                 <NavigationSideBar>
                     <NavigationPanel>
-                        <NavigationPanel.Header>
+                        <NavigationPanel.Header className={"gap-2"}>
+                            <AppLogo/>
                             <NeighborhoodSelect/>
                         </NavigationPanel.Header>
                         <NavigationPanel.Body>
-                            <NavigationArea/>
+                            <NavigationArea items={navigationItems} />
                         </NavigationPanel.Body>
                         <NavigationPanel.Footer>
                             <div>footer</div>
