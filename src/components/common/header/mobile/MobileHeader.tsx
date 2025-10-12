@@ -17,7 +17,7 @@ export const MobileHeader = () => {
                             <NeighborhoodSelect/>
                         </NavigationPanel.Header>
                         <NavigationPanel.Body>
-                           <NavigationArea/>
+                            <NavigationArea/>
                         </NavigationPanel.Body>
                         <NavigationPanel.Footer>
                             <div>footer</div>
@@ -27,9 +27,15 @@ export const MobileHeader = () => {
                 <span className={"ml-3 font-semibold text-xl mr-auto"}>URBANCARE</span>
                 <ProfileSideBar>
                     <DynamicPanel>
-                        <DynamicPanel.Header><div>Header</div></DynamicPanel.Header>
-                        <DynamicPanel.Body><div>Body</div></DynamicPanel.Body>
-                        <DynamicPanel.Footer><div>Footer</div></DynamicPanel.Footer>
+                        <DynamicPanel.Header>
+                            <div>Header</div>
+                        </DynamicPanel.Header>
+                        <DynamicPanel.Body>
+                            <div>Body</div>
+                        </DynamicPanel.Body>
+                        <DynamicPanel.Footer>
+                            <div>Footer</div>
+                        </DynamicPanel.Footer>
                     </DynamicPanel>
                 </ProfileSideBar>
             </div>

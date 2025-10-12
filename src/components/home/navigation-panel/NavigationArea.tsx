@@ -1,14 +1,13 @@
-
-
-
 import { NavigationButton } from "./NavigationButton";
 
 const navigationItems = [
-    { href: "/", label: "Home", icon: "🏠" },
-    { href: "/urgent", label: "Urgent", icon: "🚨" },
-    { href: "/services", label: "Services", icon: "🔧" },
-    { href: "/community", label: "Community", icon: "👥" },
-    { href: "/notifications", label: "Notifications", icon: "🔔" },
+    { href: "/", label: "სერვისები", icon: "🏠" },
+    { href: "/urgent", label: "ზოგადი სერვისები", icon: "🚨" },
+    { href: "/services", label: "ფინანსები", icon: "🔧" },
+    { href: "/bla", label: "მოთხოვნები", icon: "👥" },
+    { href: "/blu", label: "სიახლეები", icon: "🔔" },
+    { href: "/pla", label: "განცხადებები", icon: "👥" },
+    { href: "/plu", label: "საპორტი", icon: "🔔" },
 ];
 
 export const NavigationArea = () => {

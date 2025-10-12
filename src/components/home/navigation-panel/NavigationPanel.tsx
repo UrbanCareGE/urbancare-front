@@ -32,7 +32,7 @@ const NavigationPanelRoot = ({className, children}: NavigationPanelProps) => {
 const NavigationPanelHeader = ({className, children}: NavigationPanelHeaderProps) => {
     return (
         <div className={cn(
-            "w-full h-20 bg-white pr-16 rounded-panel shadow-sm flex justify-between items-center", className)}>
+            "w-full h-20 bg-white pr-16 rounded-panel flex justify-between items-center", className)}>
             {children}
         </div>
     );
@@ -41,7 +41,7 @@ const NavigationPanelHeader = ({className, children}: NavigationPanelHeaderProps
 const NavigationPanelBody = ({className, children,}: NavigationPanelBodyProps) => {
     return (
         <div className={cn(
-            "w-full flex-1 overflow-auto bg-white rounded-panel shadow-sm", className)}>
+            "w-full flex-1 overflow-auto bg-white rounded-panel", className)}>
             {children}
         </div>
     );
@@ -50,7 +50,7 @@ const NavigationPanelBody = ({className, children,}: NavigationPanelBodyProps) =
 const NavigationPanelFooter = ({className, children}: NavigationPanelFooterProps) => {
     return (
         <div className={cn(
-            "w-full flex h-20 items-center justify-between p-2 bg-white rounded-panel shadow-sm", className
+            "w-full flex h-20 items-center justify-between p-2 bg-white rounded-panel", className
         )}>
             {children}
         </div>
