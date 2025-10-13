@@ -14,7 +14,7 @@ export const UrgentService = {
         try {
             const response = await apiCall<UrgentItem[]>(
                 "get",
-                "/api/urgent/68e7e71d6996caf7c2ea5d51/list",
+                "/api/urgent/68e8f818ef50313d23b92d25/list",
                 {
                     apiName: "URBANCARE_API",
                     withCredentials: true,

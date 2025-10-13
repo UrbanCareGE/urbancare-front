@@ -29,42 +29,44 @@ export const MobileNavBar = () => {
     };
 
     return (
-        <footer className="h-14 w-full bg-white flex justify-center items-center">
+        <>
+            <div className={"h-16 bg-green-400"}/>
+            <footer className="h-14 w-full bg-white flex justify-center items-center fixed bottom-0">
 
-            <div className={"relative w-9/12 h-full flex justify-evenly items-center rounded-full"}>
+                <div className={"relative w-9/12 h-full flex justify-evenly items-center rounded-full"}>
 
-                <div
-                    className="absolute w-16 h-12 bg-primary transition-all duration-300 ease-out rounded-3xl"
-                    style={{
-                        left: getBackgroundPosition(activeIndexSafe),
-                        transition: 'left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                    <div
+                        className="absolute w-16 h-12 bg-primary transition-all duration-300 ease-out rounded-3xl"
+                        style={{
+                            left: getBackgroundPosition(activeIndexSafe),
+                            transition: 'left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                        }}
+                        suppressHydrationWarning
+                    />
 
-                    }}
-                    suppressHydrationWarning
-                />
+                    {/* Navigation items */}
+                    {NAV_ITEMS.map((item, index) => {
+                        const Icon = item.icon;
+                        const isActive = index === activeIndexSafe;
 
-                {/* Navigation items */}
-                {NAV_ITEMS.map((item, index) => {
-                    const Icon = item.icon;
-                    const isActive = index === activeIndexSafe;
-
-                    return (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            className="relative z-10 flex items-center justify-center w-8 transition-colors duration-300"
-                            aria-label={item.label}
-                        >
-                            <Icon
-                                className={`transition-colors duration-300 ${
-                                    isActive ? "text-white" : "text-black"
-                                }`}
-                                size={28}
-                            />
-                        </Link>
-                    );
-                })}
-            </div>
-        </footer>
+                        return (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                className="relative z-10 flex items-center justify-center w-8 transition-colors duration-300"
+                                aria-label={item.label}
+                            >
+                                <Icon
+                                    className={`transition-colors duration-300 ${
+                                        isActive ? "text-white" : "text-black"
+                                    }`}
+                                    size={28}
+                                />
+                            </Link>
+                        );
+                    })}
+                </div>
+            </footer>
+        </>
     );
 };

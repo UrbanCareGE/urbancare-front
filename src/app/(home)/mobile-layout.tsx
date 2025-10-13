@@ -5,9 +5,9 @@ import {MobileNavBar} from "@/components/common/navbar/mobile/MobileNavBar";
 
 export const MobileLayout = ({children}: Children) => {
     return (
-        <main className="flex flex-col w-full h-full ">
+        <main className="w-full min-h-full relative">
             <MobileHeader/>
-            <div className="flex flex-1">
+            <div className="w-full">
                 {children}
             </div>
             <MobileNavBar/>

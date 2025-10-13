@@ -10,7 +10,7 @@ import {AppLogo} from "@/components/common/logo/AppLogo";
 
 export const MobileHeader = () => {
     return (
-        <div className={"flex flex-col border-b"}>
+        <div className={"flex flex-col border-b sticky w-full top-0 z-40 bg-white"}>
             <div className={"h-16 w-full flex items-center px-3 border-b border-gray-200"}>
                 <NavigationSideBar>
                     <NavigationPanel>
