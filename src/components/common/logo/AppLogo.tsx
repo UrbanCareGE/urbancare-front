@@ -7,7 +7,7 @@ export const AppLogo = () => {
     return (
         <div className="h-12 flex justify-start items-center">
             <span className={"w-24 h-10 relative"}>
-                <Image fill src={"/assets/full-logo-cut.png"} alt={"MIRO"}/>
+                <Image sizes={"10rem"} fill src={"/assets/full-logo-cut.png"} alt={"MIRO"}/>
             </span>
         </div>
     );

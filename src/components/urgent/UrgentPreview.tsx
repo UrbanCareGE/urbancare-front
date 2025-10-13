@@ -1,11 +1,15 @@
-"use client";
-
 import {Separator} from "@/components/ui/separator";
 import {Button} from "@/components/ui/button";
 import {ShieldAlert} from "lucide-react";
 import Link from "next/link";
 import {useQuery} from "@tanstack/react-query";
 import {UrgentService} from "@/service/urgent-service";
+
+export function UrgentPreviewMobile() {
+    return (
+        <div className={"bg-blue-950 flex flex-1"}></div>
+    )
+}
 
 export default function UrgentPreview() {
     const {data: urgentItems, isLoading, error} = useQuery({

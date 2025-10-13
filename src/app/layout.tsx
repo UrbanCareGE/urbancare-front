@@ -15,6 +15,11 @@ export interface Children {
     children: React.ReactNode;
 }
 
+export interface Basic {
+    className?: string;
+    children?: React.ReactNode;
+}
+
 
 export default async function RootLayout({children}: Children) {
     const headersList = await headers();
