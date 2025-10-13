@@ -34,7 +34,7 @@ export function LoginForm() {
     >({
         mutationFn: AuthService.login,
         onSuccess: (data) => {
-            console.log(data);
+            router.push("/")
         },
         onError: (err) => {
             console.log(err)
