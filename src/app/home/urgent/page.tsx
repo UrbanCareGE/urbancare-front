@@ -67,7 +67,7 @@ export default function Page() {
                 </li>
                 <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
                     <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
-                        <span>{"miriani miriani"}</span>
+                        <span>{"miriani miriani2"}</span>
                         <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
                     </div>
                     <Separator className={"bg-blue-900"}/>
@@ -84,6 +84,22 @@ export default function Page() {
                 <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
                     <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
                         <span>{"miriani miriani"}</span>
+                        <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
+                    </div>
+                    <Separator className={"bg-blue-900"}/>
+                    <span className="text-sm text-gray-600 px-3 py-2">{"baro lasha she magaro"}</span>
+                </li>
+                <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
+                    <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
+                        <span>{"miriani miriani"}</span>
+                        <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
+                    </div>
+                    <Separator className={"bg-blue-900"}/>
+                    <span className="text-sm text-gray-600 px-3 py-2">{"baro lasha she magaro"}</span>
+                </li>
+                <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
+                    <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
+                        <span>{"miriani miriani2"}</span>
                         <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
                     </div>
                     <Separator className={"bg-blue-900"}/>

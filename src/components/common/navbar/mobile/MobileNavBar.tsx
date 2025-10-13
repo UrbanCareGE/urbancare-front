@@ -3,6 +3,8 @@
 import Link from "next/link";
 import {ChevronsUp, LucideIcon, MessageCircleMore, Newspaper} from "lucide-react";
 import {usePathname} from "next/navigation";
+import {Basic} from "@/app/layout";
+import {cn} from "@/lib/utils";
 
 interface NavItem {
     href: string;
@@ -12,11 +14,11 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
     {href: "/", icon: MessageCircleMore, label: "Chat"},
-    {href: "/urgent", icon: ChevronsUp, label: "Urgent"},
-    {href: "/post", icon: Newspaper, label: "Posts"},
+    {href: "/home/urgent", icon: ChevronsUp, label: "Urgent"},
+    {href: "/home/post", icon: Newspaper, label: "Posts"},
 ];
 
-export const MobileNavBar = () => {
+export const MobileNavBar = ({className}: Basic) => {
     const pathname = usePathname();
     const activeIndex = NAV_ITEMS.findIndex(item => item.href === pathname);
     const activeIndexSafe = activeIndex === -1 ? 0 : activeIndex;
@@ -30,8 +32,7 @@ export const MobileNavBar = () => {
 
     return (
         <>
-            <div className={"h-16 bg-green-400"}/>
-            <footer className="h-14 w-full bg-white flex justify-center items-center fixed bottom-0">
+            <footer className={cn("h-14 w-full bg-white flex justify-center items-center", className)}>
 
                 <div className={"relative w-9/12 h-full flex justify-evenly items-center rounded-full"}>
 
