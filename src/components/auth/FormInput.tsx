@@ -15,6 +15,7 @@ const FormInput = React.forwardRef<
 >(({className, type, ...props}, ref) => {
     const {error, formMessageId} = useFormField()
     const message = error ? String(error?.message ?? "") : ""
+    const [tooltipOpen, setTooltipOpen] = React.useState(false)
 
     return (
         <div className="relative w-full">
@@ -33,8 +34,20 @@ const FormInput = React.forwardRef<
             />
 
             <TooltipProvider>
-                <Tooltip>
-                    <TooltipTrigger asChild>
+                <Tooltip open={tooltipOpen} onOpenChange={setTooltipOpen}>
+                    <TooltipTrigger
+                        asChild
+                        onClick={(e) => {
+                            e.preventDefault()
+                            console.log("daechiraa - onClick")
+                            setTooltipOpen(!tooltipOpen)
+                        }}
+                        onPointerDown={(e) => {
+                            e.preventDefault()
+                            console.log("daechiraa - onPointerDown")
+                            setTooltipOpen(!tooltipOpen)
+                        }}
+                    >
                         <div
                             className={cn(
                                 "absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 flex items-center justify-center",
@@ -44,7 +57,7 @@ const FormInput = React.forwardRef<
                             <AlertCircle className="h-5 w-5 text-error"/>
                         </div>
                     </TooltipTrigger>
-                    <TooltipContent side="right" sideOffset={8} className="max-w-xs bg-[--color-grey-800] text-white text-sm text-center">
+                    <TooltipContent side="top" sideOffset={8} className="max-w-xs bg-[var(--color-grey-800)] text-white text-sm text-center p-2">
                         {message}
                     </TooltipContent>
                 </Tooltip>

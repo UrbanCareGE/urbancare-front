@@ -7,7 +7,6 @@ import {redirect} from "next/navigation";
 export default async function LoginPage() {
     const cookieStore = await cookies();
     const token = cookieStore.get("access-token");
-    console.log(cookieStore);
 
     console.log(token)
     if (token) {
@@ -15,9 +14,9 @@ export default async function LoginPage() {
     }
 
     return (
-        <div className={"flex flex-col w-full px-8"}>
+        <>
             <LoginHeader/>
             <LoginForm/>
-        </div>
+        </>
     );
 }

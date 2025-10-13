@@ -15,6 +15,7 @@ import {useMutation} from "@tanstack/react-query";
 import LoginFormSchema from "@/components/auth/login/data/login-form-schema";
 import {AuthService} from "@/service/auth-service";
 import {ErrorResponse} from "@/model/common";
+import {OauthForm} from "@/components/auth/OauthForm";
 
 export function LoginForm() {
     const router = useRouter();
@@ -110,31 +111,7 @@ export function LoginForm() {
                         შესვლა
                     </Button>
                 </div>
-                <div className="flex gap-3 w-full justify-center">
-                    <Button
-                        variant="outline"
-                        className="flex-1 flex items-center justify-center gap-2"
-                    >
-                        <FacebookIcon className="w-5 h-5"/>
-                        Google
-                    </Button>
-
-                    <Button
-                        variant="outline"
-                        className="flex-1 flex items-center justify-center gap-2"
-                    >
-                        <GoogleIcon dimension={30}/>
-                        Facebook
-                    </Button>
-
-                    <Button
-                        variant="outline"
-                        className=" flex-1 flex items-center justify-center gap-2"
-                    >
-                        <AppleIcon dimension={30}/>
-                        Apple
-                    </Button>
-                </div>
+                <OauthForm/>
                 <label className={"text-center text-gray-500"}>
                     არ გაქვს ანგარიში?&nbsp;-&nbsp;
                     <Link href={"/auth/register"} className={"text-primary"}>

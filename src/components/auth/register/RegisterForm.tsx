@@ -19,6 +19,7 @@ import {useMutation} from "@tanstack/react-query";
 import {ErrorResponse} from "@/model/common";
 import {OTPInput} from "@/components/auth/register/OTPInput";
 import Link from "next/link";
+import {OauthForm} from "@/components/auth/OauthForm";
 
 const IconWrapper = ({children}: { children: React.ReactNode }) => (
     <div className="flex justify-center items-center w-8 shrink-0">
@@ -213,7 +214,7 @@ export function RegisterForm() {
                             <FormControl>
                                 <FormFieldWithIcon icon={<BadgeCheck className="stroke-black"/>}>
                                     <OTPInput
-                                        placeholder="დამადასტურებელი კოდი"
+                                        placeholder="ერთჯერადი კოდი*"
                                         type="text"
                                         disabled={isPending}
                                         {...field}
@@ -263,39 +264,7 @@ export function RegisterForm() {
                         დადასტურება
                     </Button>
                 </FormFieldWithIcon>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 w-full">
-                    <Button
-                        variant="outline"
-                        type="button"
-                        onClick={async () => {
-                            router.push("https://ivette-nonpropagable-dialectically.ngrok-free.dev/auth/google")
-                        }}
-                        disabled={isPending}
-                        className="flex items-center justify-center gap-2 text-sm sm:text-base"
-                    >
-                        <GoogleIcon dimension={24} className="sm:w-[30px] sm:h-[30px]"/>
-                        <span className="hidden sm:inline">Google</span>
-                    </Button>
-
-                    <Button
-                        variant="outline"
-                        type="button"
-                        disabled={isPending}
-                        className="flex items-center justify-center gap-2 text-sm sm:text-base"
-                    >
-                        <FacebookIcon dimension={24} className="sm:w-[30px] sm:h-[30px]"/>
-                        <span className="hidden sm:inline">Facebook</span>
-                    </Button>
-                    <Button
-                        variant="outline"
-                        type="button"
-                        disabled={isPending}
-                        className="flex items-center justify-center gap-2 text-sm sm:text-base"
-                    >
-                        <AppleIcon dimension={24} className="sm:w-[30px] sm:h-[30px]"/>
-                        <span className="hidden sm:inline">Apple</span>
-                    </Button>
-                </div>
+               <OauthForm/>
                 <label className={"text-center text-gray-500"}>
                     არსებული ანგარიშით&nbsp;
                     <Link href={"/auth/login"} className={"text-primary"}>
