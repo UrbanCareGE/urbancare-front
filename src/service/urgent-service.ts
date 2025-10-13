@@ -1,4 +1,4 @@
-import {apiCall} from "@/service/api";
+import { api } from '@/lib/api-client';
 
 export interface UrgentItem {
     id: string;
@@ -11,18 +11,6 @@ export interface UrgentItem {
 
 export const UrgentService = {
     getApartmentList: async (): Promise<UrgentItem[]> => {
-        try {
-            const response = await apiCall<UrgentItem[]>(
-                "get",
-                "/api/urgent/68e8f818ef50313d23b92d25/list",
-                {
-                    apiName: "URBANCARE_API",
-                    withCredentials: true,
-                }
-            );
-            return response.data;
-        } catch (err) {
-            throw err;
-        }
+        return api.get<UrgentItem[]>('/urgent/68e8f818ef50313d23b92d25/list');
     },
 };
