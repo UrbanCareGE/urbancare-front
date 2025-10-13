@@ -16,13 +16,12 @@ export const MobileHeader = () => {
                     <NavigationPanel>
                         <NavigationPanel.Header className={"gap-2"}>
                             <AppLogo/>
-                            <NeighborhoodSelect/>
                         </NavigationPanel.Header>
                         <NavigationPanel.Body>
                             <NavigationArea items={navigationItems} />
                         </NavigationPanel.Body>
                         <NavigationPanel.Footer>
-                            <div>footer</div>
+                            <NeighborhoodSelect/>
                         </NavigationPanel.Footer>
                     </NavigationPanel>
                 </NavigationSideBar>

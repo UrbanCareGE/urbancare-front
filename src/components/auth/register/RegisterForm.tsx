@@ -20,6 +20,26 @@ import {ErrorResponse} from "@/model/common";
 import {OTPInput} from "@/components/auth/register/OTPInput";
 import Link from "next/link";
 
+const IconWrapper = ({children}: { children: React.ReactNode }) => (
+    <div className="flex justify-center items-center w-8 shrink-0">
+        {children}
+    </div>
+);
+
+const FormFieldWithIcon = ({
+                               icon,
+                               children
+                           }: {
+    icon?: React.ReactNode;
+    children: React.ReactNode
+}) => (
+    <div className="flex items-center gap-2 w-full">
+        {icon && <IconWrapper>{icon}</IconWrapper>}
+        {!icon && <div className="w-8 shrink-0"/>}
+        {children}
+    </div>
+);
+
 export function RegisterForm() {
     const router = useRouter();
 
@@ -37,17 +57,18 @@ export function RegisterForm() {
         },
     });
 
-    const {mutate, isPending, error} = useMutation<
+    const {mutate, isPending} = useMutation<
         string,                            // success type
         ErrorResponse,                     // error type
         RegisterReq                        // payload type
     >({
         mutationFn: AuthService.register,
-        onSuccess: (data) => {
-            console.log(data);
+        onSuccess: () => {
+            router.push("/");
         },
         onError: (err) => {
-            console.log(err)
+            // Handle error appropriately - could show toast notification
+            // For now, the FormInput component will show field-level errors
         },
     });
 
@@ -65,23 +86,20 @@ export function RegisterForm() {
     return (
         <Form {...form}>
             <form className="flex flex-col justify-start w-full gap-4" onSubmit={form.handleSubmit(onSubmit)}>
-                <div className={"flex justify-between items-center gap-4"}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
                         control={form.control}
                         name="firstName"
                         render={({field}) => (
                             <FormItem className="w-full">
-                                <FormControl className={"w-full"}>
-                                    <div className={"flex items-center justify-between w-full gap-2"}>
-                                        <div className={"flex justify-center items-center w-8 h-full"}>
-                                            <User/>
-                                        </div>
-                                        <FormInput className={"w-full"}
-                                                   placeholder="სახელი*"
-                                                   disabled={false}
-                                                   {...field}
+                                <FormControl>
+                                    <FormFieldWithIcon icon={<User/>}>
+                                        <FormInput
+                                            placeholder="სახელი*"
+                                            disabled={isPending}
+                                            {...field}
                                         />
-                                    </div>
+                                    </FormFieldWithIcon>
                                 </FormControl>
                             </FormItem>
                         )}
@@ -91,14 +109,14 @@ export function RegisterForm() {
                         name="lastName"
                         render={({field}) => (
                             <FormItem className="w-full">
-                                <FormControl className={"w-full"}>
-                                    <div className={"flex items-center justify-between w-full gap-2"}>
-                                        <FormInput className={"w-full"}
-                                                   placeholder="გვარი*"
-                                                   disabled={false}
-                                                   {...field}
+                                <FormControl>
+                                    <FormFieldWithIcon icon={<User/>}>
+                                        <FormInput
+                                            placeholder="გვარი*"
+                                            disabled={isPending}
+                                            {...field}
                                         />
-                                    </div>
+                                    </FormFieldWithIcon>
                                 </FormControl>
                             </FormItem>
                         )}
@@ -109,17 +127,14 @@ export function RegisterForm() {
                     name="emailOrPhone"
                     render={({field}) => (
                         <FormItem className="w-full">
-                            <FormControl className={"w-full"}>
-                                <div className={"flex items-center justify-between w-full gap-2"}>
-                                    <div className={"flex justify-center items-center w-8 h-full"}>
-                                        <Mail/>
-                                    </div>
-                                    <FormInput className={"w-full"}
-                                               placeholder="ელ.ფოსტა ან ტელეფონი*"
-                                               disabled={false}
-                                               {...field}
+                            <FormControl>
+                                <FormFieldWithIcon icon={<Mail/>}>
+                                    <FormInput
+                                        placeholder="ელ.ფოსტა ან ტელეფონი*"
+                                        disabled={isPending}
+                                        {...field}
                                     />
-                                </div>
+                                </FormFieldWithIcon>
                             </FormControl>
                         </FormItem>
                     )}
@@ -131,27 +146,22 @@ export function RegisterForm() {
                     render={({field}) => (
                         <FormItem className="w-full">
                             <FormControl>
-                                <div className={"flex w-full"}>
-                                    <div className={"flex justify-center items-center w-8 h-full"}>
-                                        <VenusAndMars/>
-                                    </div>
-                                    <div className={"flex w-full gap-4 pl-2"}>
-                                        <RadioGroup
-                                            onValueChange={field.onChange}
-                                            defaultValue={field.value}
-                                            className="flex gap-6"
-                                        >
-                                            <div className="flex justify-start items-center gap-2">
-                                                <RadioGroupItem value="male" id="male"/>
-                                                <Label htmlFor="male">მამრობითი</Label>
-                                            </div>
-                                            <div className="flex items-center space-x-2">
-                                                <RadioGroupItem value="female" id="female"/>
-                                                <Label htmlFor="female">მდედრობითი</Label>
-                                            </div>
-                                        </RadioGroup>
-                                    </div>
-                                </div>
+                                <FormFieldWithIcon icon={<VenusAndMars/>}>
+                                    <RadioGroup
+                                        onValueChange={field.onChange}
+                                        defaultValue={field.value}
+                                        className="flex flex-row gap-4"
+                                    >
+                                        <div className="flex items-center gap-2">
+                                            <RadioGroupItem value="male" id="male"/>
+                                            <Label htmlFor="male">მამრობითი</Label>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <RadioGroupItem value="female" id="female"/>
+                                            <Label htmlFor="female">მდედრობითი</Label>
+                                        </div>
+                                    </RadioGroup>
+                                </FormFieldWithIcon>
                             </FormControl>
                         </FormItem>
                     )}
@@ -163,17 +173,14 @@ export function RegisterForm() {
                     render={({field}) => (
                         <FormItem className="w-full">
                             <FormControl>
-                                <div className={"flex items-center justify-between w-full gap-2"}>
-                                    <div className={"flex justify-center items-center w-8 h-full"}>
-                                        <KeyRound/>
-                                    </div>
-                                    <FormInput className={"w-full"}
-                                               placeholder="პაროლი*"
-                                               type="password"
-                                               disabled={false}
-                                               {...field}
+                                <FormFieldWithIcon icon={<KeyRound/>}>
+                                    <FormInput
+                                        placeholder="პაროლი*"
+                                        type="password"
+                                        disabled={isPending}
+                                        {...field}
                                     />
-                                </div>
+                                </FormFieldWithIcon>
                             </FormControl>
                         </FormItem>
                     )}
@@ -185,21 +192,17 @@ export function RegisterForm() {
                     render={({field}) => (
                         <FormItem className="w-full">
                             <FormControl>
-                                <div className={"flex items-center justify-between w-full gap-2"}>
-                                    <div className={"flex justify-center items-center w-8 h-full"}>
-                                        <RotateCcwKey/>
-                                    </div>
-                                    <FormInput className={"w-full"}
-                                               placeholder="გაიმეორეთ პაროლი*"
-                                               type="password"
-                                               disabled={false}
-                                               {...field}
+                                <FormFieldWithIcon icon={<RotateCcwKey/>}>
+                                    <FormInput
+                                        placeholder="გაიმეორეთ პაროლი*"
+                                        type="password"
+                                        disabled={isPending}
+                                        {...field}
                                     />
-                                </div>
+                                </FormFieldWithIcon>
                             </FormControl>
                         </FormItem>
                     )}
-
                 />
 
                 <FormField
@@ -208,17 +211,14 @@ export function RegisterForm() {
                     render={({field}) => (
                         <FormItem className="w-full">
                             <FormControl>
-                                <div className={"flex items-center justify-between w-full gap-2"}>
-                                    <div className={"flex justify-center items-center w-8 h-full"}>
-                                        <BadgeCheck className={"stroke-black"}/>
-                                    </div>
-                                    <OTPInput className={"w-full"}
-                                              placeholder="დამადასტურებელი კოდი"
-                                              type="text"
-                                              disabled={isPending}
-                                              {...field}
+                                <FormFieldWithIcon icon={<BadgeCheck className="stroke-black"/>}>
+                                    <OTPInput
+                                        placeholder="დამადასტურებელი კოდი"
+                                        type="text"
+                                        disabled={isPending}
+                                        {...field}
                                     />
-                                </div>
+                                </FormFieldWithIcon>
                             </FormControl>
                         </FormItem>
                     )}
@@ -230,69 +230,70 @@ export function RegisterForm() {
                     render={({field}) => (
                         <FormItem className="w-full">
                             <FormControl>
-                                <div className={"flex items-center w-full gap-2"}>
-                                    <div className={"flex justify-center items-center w-8 h-full"}>
+                                <FormFieldWithIcon>
+                                    <div className="flex items-center gap-2">
+                                        <Checkbox
+                                            checked={field.value}
+                                            onCheckedChange={(checked) => field.onChange(checked)}
+                                            disabled={isPending}
+                                        />
+                                        <Label className="text-xs sm:text-sm cursor-pointer">
+                                            ვეთანხმები{" "}
+                                            <Link
+                                                href="/terms"
+                                                className="font-semibold underline text-text-primary-light dark:text-text-primary-dark"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                წესებსა და პირობებს
+                                            </Link>
+                                        </Label>
                                     </div>
-                                    <Checkbox
-                                        checked={field.value}
-                                        onCheckedChange={(checked) => field.onChange(checked)}
-                                    />
-                                    <Label className="text-xs">
-                                        ვეთანხმები{" "}
-                                        <span
-                                            className="font-semibold underline text-text-primary-light dark:text-text-primary-dark ml-1">   წესებსა და პირობებს</span>
-                                    </Label>
-                                </div>
+                                </FormFieldWithIcon>
                             </FormControl>
                         </FormItem>
                     )}
                 />
 
-                <div className={"flex w-full"}>
-                    <div className={"flex justify-center items-center w-8 h-full"}/>
+                <FormFieldWithIcon>
                     <Button
-                        className="w-full flex justify-center bg-primary rounded-3xl text-lg text-white"
+                        className="w-full flex justify-center bg-primary rounded-3xl text-base sm:text-lg text-white"
                         type="submit"
-                        disabled={false}
+                        disabled={isPending}
                     >
                         დადასტურება
                     </Button>
-                </div>
-                <div className="flex gap-3 w-full justify-center">
+                </FormFieldWithIcon>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 w-full">
                     <Button
                         variant="outline"
                         type="button"
                         onClick={async () => {
-                            // await AuthService.googleOauth();
                             router.push("https://ivette-nonpropagable-dialectically.ngrok-free.dev/auth/google")
                         }}
-                        className="flex-1 flex items-center justify-center gap-2"
+                        disabled={isPending}
+                        className="flex items-center justify-center gap-2 text-sm sm:text-base"
                     >
-                        <GoogleIcon dimension={30}/>
-                        Google
+                        <GoogleIcon dimension={24} className="sm:w-[30px] sm:h-[30px]"/>
+                        <span className="hidden sm:inline">Google</span>
                     </Button>
 
                     <Button
                         variant="outline"
-                        className="flex-1 flex items-center justify-center gap-2"
+                        type="button"
+                        disabled={isPending}
+                        className="flex items-center justify-center gap-2 text-sm sm:text-base"
                     >
-                        <FacebookIcon dimension={30}/>
-                        Facebook
+                        <FacebookIcon dimension={24} className="sm:w-[30px] sm:h-[30px]"/>
+                        <span className="hidden sm:inline">Facebook</span>
                     </Button>
-                    <Button variant="outline"
-                            type={"button"}
-                            onClick={async () => console.log(await AuthService.getUser())}
-                            className="flex-1 flex items-center justify-center gap-2"
-                    >
-                        ME
-                    </Button>
-
                     <Button
                         variant="outline"
-                        className=" flex-1 flex items-center justify-center gap-2"
+                        type="button"
+                        disabled={isPending}
+                        className="flex items-center justify-center gap-2 text-sm sm:text-base"
                     >
-                        <AppleIcon dimension={30}/>
-                        Apple
+                        <AppleIcon dimension={24} className="sm:w-[30px] sm:h-[30px]"/>
+                        <span className="hidden sm:inline">Apple</span>
                     </Button>
                 </div>
                 <label className={"text-center text-gray-500"}>
