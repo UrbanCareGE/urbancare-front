@@ -3,9 +3,9 @@ import {apiCall} from "@/service/api";
 export const AuthService = {
     login: async (loginReq: LoginReq): Promise<string> => {
         try {
-            const response = await apiCall<string, LoginReq>(
+            const response = await apiCall<{success: boolean}, LoginReq>(
                 "post",
-                "/auth/login",
+                "/api/auth/login",
                 {
                     data: loginReq,
                     apiName: "URBANCARE_API",
@@ -13,9 +13,8 @@ export const AuthService = {
                 }
             );
 
-            const token = response.headers["access-token"];
-
-            return token;
+            // Token is now stored in cookie by the route handler
+            return "success";
         } catch (err) {
             throw err;
         }
@@ -24,7 +23,7 @@ export const AuthService = {
         try {
             const response = await apiCall<string, RegisterReq>(
                 "post",
-                "/auth/register",
+                "/api/proxy/auth/register",
                 {
                     data: registerDTO,
                     apiName: "URBANCARE_API",
@@ -43,7 +42,7 @@ export const AuthService = {
         try {
             const response = await apiCall<string, RegisterReq>(
                 "post",
-                "/auth/otp/generate",
+                "api/proxy/auth/otp/generate",
                 {
                     apiName: "URBANCARE_API",
                     params: {
@@ -64,7 +63,7 @@ export const AuthService = {
         try {
             const response = await apiCall<unknown, void>(
                 "get",
-                "/api/user/me",
+                "/api/proxy/api/user/me",
                 {
                     apiName: "URBANCARE_API",
                     withCredentials: true,

@@ -6,11 +6,11 @@ import {redirect} from "next/navigation";
 
 export default async function LoginPage() {
     const cookieStore = await cookies();
-    const token = cookieStore.get("access-token");
+    const token = cookieStore.get("auth-token");
 
     console.log(token)
     if (token) {
-        redirect("/home");
+        redirect("/");
     }
 
     return (

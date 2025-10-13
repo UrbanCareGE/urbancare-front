@@ -4,7 +4,7 @@ import type {ErrorResponse} from "@/model/common";
 
 export const getApiInstance = (service: keyof typeof API_SERVICES) => {
     return axios.create({
-        baseURL: API_SERVICES[service],
+        baseURL: process.env.NEXT_PUBLIC_APP_URL,
         withCredentials: true,
     });
 };
