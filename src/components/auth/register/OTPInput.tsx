@@ -8,6 +8,7 @@ import {useFormContext} from "react-hook-form";
 import {useMutation} from "@tanstack/react-query";
 import {ErrorResponse} from "@/model/common";
 import {AuthService} from "@/service/auth-service";
+import FadeContent from "@/components/FadeContent";
 
 const OTPInput = React.forwardRef<
     HTMLInputElement,
@@ -56,7 +57,7 @@ const OTPInput = React.forwardRef<
                 ref={ref}
                 aria-describedby={formMessageId}
                 className={cn(
-                    "flex h-10 sm:h-12 w-full rounded-md border bg-primary-container/40 border-input px-3 py-1 pr-9 text-sm sm:text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-text-placeholder focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+                    "flex h-12 sm:h-12 w-full rounded-md border bg-primary-container/40 border-input px-3 py-1 pr-9 text-sm sm:text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-text-placeholder focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
                     error
                         ? "ring-2 ring-error placeholder:text-error focus:placeholder:text-text-placeholder"
                         : "focus-visible:ring-2 focus-visible:ring-primary",
@@ -65,13 +66,16 @@ const OTPInput = React.forwardRef<
                 {...props}
             />
 
-            <Button
-                type="button"
-                onClick={handleGetOtp}
-                className="h-10 sm:h-12 bg-primary text-white rounded-panel text-base md:text-sm px-2"
-            >
-                კოდის მიღება
-            </Button>
+            <FadeContent>
+                <Button
+                    type="button"
+                    onClick={handleGetOtp}
+                    className="h-12 sm:h-12 bg-primary text-white rounded-panel text-base md:text-sm px-2"
+                >
+                    კოდის მიღება
+                </Button>
+            </FadeContent>
+
         </div>
     );
 });

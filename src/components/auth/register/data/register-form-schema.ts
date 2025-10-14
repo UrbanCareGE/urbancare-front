@@ -21,10 +21,6 @@ export const registerSchema = z
         acceptTerms: z.boolean().refine((val) => val === true, {
             message: "გთხოვთ დაეთანხმოთ წესებსა და პირობებს",
         }),
-        gender: z.enum(["male", "female"])
-            .refine((val) => !!val, {
-                message: "გთხოვთ აირჩიოთ სქესი",
-            }),
         otp: z.string()
             .refine((val) => !!val, {
                 message: "კოდი არავალიდურია, სცადეთ თავიდან",

@@ -60,18 +60,13 @@ export function LoginForm() {
                     render={({field}) => (
                         <FormItem className="w-full">
                             <FormControl className={"w-full"}>
-                                <div className={"flex items-center justify-between w-full gap-2"}>
-                                    <div className={"flex justify-center items-center w-8 h-full"}>
-                                        <User className={"stroke-black"}/>
-                                    </div>
-                                    <FormInput className={"w-full"}
-                                               placeholder="ელ.ფოსტა ან ტელეფონი*"
-                                               disabled={false}
-                                               {...field}
-                                    />
-                                </div>
+                                <FormInput className={"w-full"}
+                                           placeholder="ელ.ფოსტა ან ტელეფონი*"
+                                           disabled={false}
+                                           {...field}
+                                />
+
                             </FormControl>
-                            {/*<FormMessage/>*/}
                         </FormItem>
                     )}
                 />
@@ -82,34 +77,26 @@ export function LoginForm() {
                     render={({field}) => (
                         <FormItem className="w-full">
                             <FormControl>
-                                <div className={"flex items-center justify-between w-full gap-2"}>
-                                    <div className={"flex justify-center items-center w-8 h-full"}>
-                                        <KeyRound className={"stroke-black"}/>
-                                    </div>
-                                    <FormInput className={"w-full"}
-                                               placeholder="პაროლი*"
-                                               type="password"
-                                               disabled={false}
-                                               {...field}
-                                    />
-                                </div>
+                                <FormInput className={"w-full"}
+                                           placeholder="პაროლი*"
+                                           type="password"
+                                           disabled={false}
+                                           {...field}
+                                />
                             </FormControl>
                         </FormItem>
                     )}
                 />
-                <Link href={"/signin"} className={"text-black font-bold text-end"}>
+                <Link href={"/signin"} className={"inline text-black font-bold text-end"}>
                     პაროლის აღდგენა
                 </Link>
-                <div className={"flex w-full"}>
-                    <div className={"flex justify-center items-center w-8 h-full"}/>
-                    <Button
-                        className="h-12 w-full flex justify-center bg-primary rounded-3xl text-lg text-white"
-                        type="submit"
-                        disabled={false}
-                    >
-                        შესვლა
-                    </Button>
-                </div>
+                <Button
+                    className="h-12 w-full flex justify-center bg-primary rounded-3xl text-lg text-white"
+                    type="submit"
+                    disabled={false}
+                >
+                    შესვლა
+                </Button>
                 <OauthForm/>
                 <label className={"text-center text-gray-500"}>
                     არ გაქვს ანგარიში?&nbsp;-&nbsp;
