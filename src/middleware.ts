@@ -1,6 +1,6 @@
 // middleware.ts
-import {NextResponse} from 'next/server';
 import type {NextRequest} from 'next/server';
+import {NextResponse} from 'next/server';
 
 const RouteConfig = {
     // Public routes that don't require authentication
@@ -64,6 +64,7 @@ async function verifyAuthToken(token: string): Promise<{
             return {isValid: false};
         }
 
+        // TODO remove this and add jwt verification on sevrer side
         // Simulate token verification
         // In real implementation, decode JWT or validate with your auth service
         return {
@@ -82,10 +83,8 @@ async function verifyAuthToken(token: string): Promise<{
 export async function middleware(request: NextRequest) {
     const {pathname} = request.nextUrl;
 
-    // Get auth token from cookies
     const authToken = request.cookies.get('auth-token')?.value;
 
-    // Skip middleware for static files and API routes if needed
     if (
         pathname.startsWith('/_next') ||
         pathname.startsWith('/api') ||
@@ -94,7 +93,6 @@ export async function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
-    // Verify authentication
     const {isValid, user} = await verifyAuthToken(authToken || '');
 
     // Handle protected routes

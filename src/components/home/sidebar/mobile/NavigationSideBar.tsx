@@ -1,7 +1,7 @@
 'use client'
 
 import React, {ReactNode} from "react";
-import {Sheet, SheetContent, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
+import {Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
 import {cn} from "@/lib/utils";
 import {VisuallyHidden} from "@/components/ui/visually-hidden";
 import {Menu} from "lucide-react";
@@ -22,7 +22,8 @@ export const NavigationSideBar = ({children, className}: SidebarProps) => {
                 </SheetTrigger>
                 <SheetContent side="left" className="w-10/12 bg-white rounded-r-panel">
                     <VisuallyHidden>
-                        <SheetTitle>Navigation Menu</SheetTitle>
+                        <SheetTitle>temp</SheetTitle>
+                        <SheetDescription>temp</SheetDescription>
                     </VisuallyHidden>
                     <div className={cn("w-full h-full", className)}>
                         {children}
