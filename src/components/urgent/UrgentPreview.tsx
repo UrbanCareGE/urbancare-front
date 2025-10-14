@@ -23,7 +23,7 @@ export default function UrgentPreview() {
             <div className="h-14 flex items-center px-4">
                 <ShieldAlert className={"w-6 h-6"}/>
                 <div className={"font-semibold ml-3"}>სასწრაფო</div>
-                <Link href={"/home/urgent"} className="ml-auto h-8 rounded px-3 flex items-center bg-blue-500 text-white">
+                <Link href={"/urgent"} className="ml-auto h-8 rounded px-3 flex items-center bg-blue-500 text-white">
                     + დამატება
                 </Link>
             </div>

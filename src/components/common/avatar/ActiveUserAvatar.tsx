@@ -3,7 +3,7 @@ import React from "react";
 
 export const ActiveUserAvatar = () => {
     return (
-        <div className="relative inline-block">
+        <div className="relative inline-block outline-none">
             <Avatar className="cursor-pointer">
                 <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn"/>
                 <AvatarFallback>LG</AvatarFallback>

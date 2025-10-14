@@ -14,8 +14,8 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
     {href: "/", icon: MessageCircleMore, label: "Chat"},
-    {href: "/home/urgent", icon: ChevronsUp, label: "Urgent"},
-    {href: "/home/post", icon: Newspaper, label: "Posts"},
+    {href: "/urgent", icon: ChevronsUp, label: "Urgent"},
+    {href: "/post", icon: Newspaper, label: "Posts"},
 ];
 
 export const MobileNavBar = ({className}: Basic) => {

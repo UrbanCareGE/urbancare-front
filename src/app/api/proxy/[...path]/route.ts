@@ -6,7 +6,7 @@ const JAVA_API_URL = process.env.JAVA_API_URL || 'http://localhost:8080';
 
 async function handleRequest(
     request: Request,
-    {params}: { params: { path: string[] } }
+    {params}: { params: Promise<{ path: string[] }> }
 ) {
     try {
         // Extract token from cookie
@@ -14,7 +14,8 @@ async function handleRequest(
         const token = cookieStore.get('auth-token')?.value;
 
         // Build target URL
-        const pathSegments = params.path;
+        const resolvedParams = await params;
+        const pathSegments = resolvedParams.path;
         const fullPath = pathSegments.join('/');
         const {searchParams} = new URL(request.url);
         const queryString = searchParams.toString();

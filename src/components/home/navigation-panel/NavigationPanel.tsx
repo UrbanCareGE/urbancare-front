@@ -23,7 +23,7 @@ interface NavigationPanelFooterProps {
 
 const NavigationPanelRoot = ({className, children}: NavigationPanelProps) => {
     return (
-        <div className={cn("flex flex-col gap-4 h-full", className)}>
+        <div className={cn("flex flex-col gap-4 h-full select-none", className)}>
             {children}
         </div>
     );

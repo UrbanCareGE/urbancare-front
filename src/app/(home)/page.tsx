@@ -3,7 +3,7 @@ import React from "react";
 
 export default function HomePage() {
     return (
-        <div className={"flex-1 bg-amber-950"}>
+        <div className={"flex-1 bg-white"}>
             <Chat/>
         </div>
     )

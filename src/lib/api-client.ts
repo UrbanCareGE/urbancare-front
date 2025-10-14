@@ -80,12 +80,10 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
             };
         }
 
-        // Add body for POST, PUT, PATCH requests
         if (data && ['POST', 'PUT', 'PATCH'].includes(method)) {
             fetchConfig.body = JSON.stringify(data);
         }
 
-        // Add Next.js cache options (only on server-side)
         if (shouldCallServerSide) {
             if (cache) {
                 fetchConfig.cache = cache;
@@ -98,7 +96,6 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
             }
         }
 
-        // Handle timeout with AbortController
         let timeoutId: NodeJS.Timeout | undefined;
         if (timeout) {
             const controller = new AbortController();
@@ -106,15 +103,12 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
             timeoutId = setTimeout(() => controller.abort(), timeout);
         }
 
-        // Make the request
         const response = await fetch(url, fetchConfig);
 
-        // Clear timeout if it was set
         if (timeoutId) {
             clearTimeout(timeoutId);
         }
 
-        // Handle non-ok responses
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({
                 success: false,
@@ -128,24 +122,20 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
             throw errorData as ErrorResponse;
         }
 
-        // Parse response
         const contentType = response.headers.get('content-type');
 
         if (contentType?.includes('application/json')) {
             return await response.json();
         }
 
-        // For text responses
         const text = await response.text();
         return text as TResponse;
 
     } catch (error) {
-        // If it's already an ErrorResponse, rethrow it
         if (error && typeof error === 'object' && 'success' in error) {
             throw error;
         }
 
-        // Handle AbortError (timeout)
         if (error instanceof Error && error.name === 'AbortError') {
             throw {
                 success: false,
@@ -157,7 +147,6 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
             } as ErrorResponse;
         }
 
-        // Handle network errors or other exceptions
         throw {
             success: false,
             error: {

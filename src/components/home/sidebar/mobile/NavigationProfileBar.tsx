@@ -17,7 +17,7 @@ export const ProfileSideBar = ({children, className}: SidebarProps) => {
     return (
         <>
             <Sheet open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
-                <SheetTrigger>
+                <SheetTrigger className={"outline-none"}>
                     <ActiveUserAvatar/>
                 </SheetTrigger>
                 <SheetContent side="right" className="w-10/12 bg-white rounded-l-panel">

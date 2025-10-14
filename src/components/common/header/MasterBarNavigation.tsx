@@ -8,12 +8,12 @@ import Link from "next/link";
 const masterBarRoutes = [
     {
         title: "home",
-        navigationPath: "/home",
+        navigationPath: "/",
         icon: <MessageCircleMore/>
     },
     {
         title: "feed",
-        navigationPath: "/home/post",
+        navigationPath: "/post",
         icon: <Newspaper/>
     },
     {
