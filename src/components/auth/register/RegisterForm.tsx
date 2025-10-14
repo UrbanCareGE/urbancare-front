@@ -18,43 +18,42 @@ export function RegisterForm() {
 
     return (
         <Form {...form}>
-            <form className="flex flex-col justify-start w-full gap-3 sm:gap-4" onSubmit={form.handleSubmit(onSubmit)}>
-                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <FormField
-                        control={form.control}
-                        name="firstName"
-                        render={({field}) => (
-                            <FormItem className="w-full">
-                                <FormControl>
-                                    <FormInputWithIconWrapper icon={<User/>}>
-                                        <FormInput
-                                            placeholder="სახელი*"
-                                            disabled={isPending}
-                                            {...field}
-                                        />
-                                    </FormInputWithIconWrapper>
-                                </FormControl>
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="lastName"
-                        render={({field}) => (
-                            <FormItem className="w-full">
-                                <FormControl>
-                                    <FormInputWithIconWrapper icon={<User/>}>
-                                        <FormInput
-                                            placeholder="გვარი*"
-                                            disabled={isPending}
-                                            {...field}
-                                        />
-                                    </FormInputWithIconWrapper>
-                                </FormControl>
-                            </FormItem>
-                        )}
-                    />
-                </div>
+            <form className="flex flex-col justify-center items-center w-full gap-3 sm:gap-4"
+                  onSubmit={form.handleSubmit(onSubmit)}>
+                <FormField
+                    control={form.control}
+                    name="firstName"
+                    render={({field}) => (
+                        <FormItem className="w-full">
+                            <FormControl>
+                                <FormInputWithIconWrapper icon={<User/>}>
+                                    <FormInput
+                                        placeholder="სახელი*"
+                                        disabled={isPending}
+                                        {...field}
+                                    />
+                                </FormInputWithIconWrapper>
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="lastName"
+                    render={({field}) => (
+                        <FormItem className="w-full">
+                            <FormControl>
+                                <FormInputWithIconWrapper>
+                                    <FormInput
+                                        placeholder="გვარი*"
+                                        disabled={isPending}
+                                        {...field}
+                                    />
+                                </FormInputWithIconWrapper>
+                            </FormControl>
+                        </FormItem>
+                    )}
+                />
                 <FormField
                     control={form.control}
                     name="emailOrPhone"

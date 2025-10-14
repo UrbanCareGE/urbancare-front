@@ -4,7 +4,7 @@ import {RegisterForm} from "@/components/auth/register/RegisterForm";
 
 export default function RegisterPage() {
     return (
-        <div className={"flex flex-col justify-center items-center p-2"}>
+        <div className={"w-full flex flex-col justify-center items-center p-2"}>
             <RegisterHeader/>
             <RegisterForm/>
         </div>

@@ -1,58 +1,20 @@
 'use client'
 
 import React from "react";
-import {z} from "zod";
-import {useRouter} from "next/navigation";
-import {useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem} from "@/components/ui/form";
-import {KeyRound, User} from "lucide-react";
-import {FormInput} from "@/components/auth/FormInput";
+import {FormInput, FormInputWithIconWrapper} from "@/components/auth/FormInput";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
-import {useMutation} from "@tanstack/react-query";
-import LoginFormSchema from "@/components/auth/login/data/login-form-schema";
-import {AuthService} from "@/service/auth-service";
-import {ErrorResponse} from "@/model/common";
 import {OauthForm} from "@/components/auth/OauthForm";
+import {useLogin} from "@/hooks/use-login";
+import {KeyRound, User} from "lucide-react";
 
 export function LoginForm() {
-    const router = useRouter();
-
-    const form = useForm<z.infer<typeof LoginFormSchema>>({
-        resolver: zodResolver(LoginFormSchema),
-        defaultValues: {
-            emailOrPhone: "",
-            password: "",
-        },
-    });
-
-    const {mutate, isPending, error} = useMutation<
-        string,
-        ErrorResponse,
-        LoginReq
-    >({
-        mutationFn: AuthService.login,
-        onSuccess: (data) => {
-            router.push("/")
-        },
-        onError: (err) => {
-            console.log(err)
-        },
-    });
-
-    const onSubmit = (values: z.infer<typeof LoginFormSchema>) => {
-        const {emailOrPhone, password} = values;
-        const loginReq: LoginReq = {
-            phone: emailOrPhone,
-            password: password,
-        }
-        mutate(loginReq);
-    };
+    const {mutate, form, onSubmit, isPending, error} = useLogin();
 
     return (
         <Form {...form}>
-            <form className="flex flex-col justify-center w-full gap-4 max-w-lg p-2"
+            <form className="flex flex-col justify-center items-center w-full gap-3 sm:gap-4"
                   onSubmit={form.handleSubmit(onSubmit)}>
                 <FormField
                     control={form.control}
@@ -60,12 +22,13 @@ export function LoginForm() {
                     render={({field}) => (
                         <FormItem className="w-full">
                             <FormControl className={"w-full"}>
-                                <FormInput className={"w-full"}
-                                           placeholder="ელ.ფოსტა ან ტელეფონი*"
-                                           disabled={false}
-                                           {...field}
-                                />
-
+                                <FormInputWithIconWrapper icon={<User/>}>
+                                    <FormInput className={"w-full"}
+                                               placeholder="ელ.ფოსტა ან ტელეფონი*"
+                                               disabled={isPending}
+                                               {...field}
+                                    />
+                                </FormInputWithIconWrapper>
                             </FormControl>
                         </FormItem>
                     )}
@@ -77,26 +40,30 @@ export function LoginForm() {
                     render={({field}) => (
                         <FormItem className="w-full">
                             <FormControl>
-                                <FormInput className={"w-full"}
-                                           placeholder="პაროლი*"
-                                           type="password"
-                                           disabled={false}
-                                           {...field}
-                                />
+                                <FormInputWithIconWrapper icon={<KeyRound/>}>
+                                    <FormInput className={"w-full"}
+                                               placeholder="პაროლი*"
+                                               type="password"
+                                               disabled={isPending}
+                                               {...field}
+                                    />
+                                </FormInputWithIconWrapper>
                             </FormControl>
                         </FormItem>
                     )}
                 />
-                <Link href={"/signin"} className={"inline text-black font-bold text-end"}>
+                <Link href={"/"} className={"text-base inline text-gray-800 font-bold text-end"}>
                     პაროლის აღდგენა
                 </Link>
-                <Button
-                    className="h-12 w-full flex justify-center bg-primary rounded-3xl text-lg text-white"
-                    type="submit"
-                    disabled={false}
-                >
-                    შესვლა
-                </Button>
+                <FormInputWithIconWrapper>
+                    <Button
+                        className="h-12 w-full flex justify-center bg-primary rounded-3xl text-lg text-white"
+                        type="submit"
+                        disabled={false}
+                    >
+                        შესვლა
+                    </Button>
+                </FormInputWithIconWrapper>
                 <OauthForm/>
                 <label className={"text-center text-gray-500"}>
                     არ გაქვს ანგარიში?&nbsp;-&nbsp;

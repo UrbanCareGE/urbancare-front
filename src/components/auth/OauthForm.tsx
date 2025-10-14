@@ -25,7 +25,7 @@ export const OauthForm = ({className}: OauthFormProps) => {
                 className="flex-1 flex items-center bg-gray-200 justify-center gap-2 text-sm sm:text-base"
             >
                 <GoogleIcon className="sm:w-[30px] sm:h-[30px]"/>
-                <span className="hidden sm:inline">Google</span>
+                <span className="text-gray-500 hidden sm:inline">Google</span>
             </Button>
 
             <Button
@@ -35,7 +35,7 @@ export const OauthForm = ({className}: OauthFormProps) => {
                 className="flex-1 lex items-center bg-gray-200 justify-center gap-2 text-sm sm:text-base"
             >
                 <FacebookIcon className="sm:w-[30px] sm:h-[30px]"/>
-                <span className="hidden sm:inline">Facebook</span>
+                <span className="text-gray-500 hidden sm:inline">Facebook</span>
             </Button>
             <Button
                 variant="outline"
@@ -44,7 +44,7 @@ export const OauthForm = ({className}: OauthFormProps) => {
                 className="flex-1 flex items-center bg-gray-200 justify-center gap-2 text-sm sm:text-base"
             >
                 <AppleIcon className="sm:w-[30px] sm:h-[30px]"/>
-                <span className="hidden sm:inline">Apple</span>
+                <span className="text-gray-500 hidden sm:inline">Apple</span>
             </Button>
             <AuthSpacer/>
         </div>
