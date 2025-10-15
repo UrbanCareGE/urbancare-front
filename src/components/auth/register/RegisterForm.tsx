@@ -83,6 +83,7 @@ export function RegisterForm() {
                                         placeholder="პაროლი*"
                                         type="password"
                                         disabled={isPending}
+                                        isPasswordType={true}
                                         {...field}
                                     />
                                 </FormInputWithIconWrapper>
@@ -102,6 +103,7 @@ export function RegisterForm() {
                                         placeholder="გაიმეორეთ პაროლი*"
                                         type="password"
                                         disabled={isPending}
+                                        isPasswordType={true}
                                         {...field}
                                     />
                                 </FormInputWithIconWrapper>

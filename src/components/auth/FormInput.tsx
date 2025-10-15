@@ -1,7 +1,7 @@
 import * as React from "react"
 import {cn} from "@/lib/utils"
 import {useFormField} from "@/components/ui/form"
-import {AlertCircle} from "lucide-react"
+import {AlertCircle, EyeIcon, EyeOff} from "lucide-react"
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger,} from "@/components/ui/tooltip"
 import {AuthSpacer} from "@/components/auth/AuthSpacer";
 
@@ -23,10 +23,18 @@ export const FormInputWithIconWrapper = ({icon, children}: {
     </div>
 );
 
+type FormInputProps = {
+    isPasswordType?: boolean;
+}
+
 const FormInput = React.forwardRef<
     HTMLInputElement,
-    React.ComponentProps<"input">
->(({className, type, ...props}, ref) => {
+    React.ComponentProps<"input"> & FormInputProps
+>(({className, type, isPasswordType = false, ...props}, ref) => {
+    const [showPassword, setShowPassword] = React.useState(false);
+    if (type === "password" && showPassword) {
+        type = 'text'
+    }
     const {error, formMessageId} = useFormField()
     const message = error ? String(error?.message ?? "") : ""
     const [tooltipOpen, setTooltipOpen] = React.useState(false)
@@ -46,6 +54,22 @@ const FormInput = React.forwardRef<
                 )}
                 {...props}
             />
+
+            {
+                !error && isPasswordType && type == 'password' &&
+                <div className={"absolute right-3 top-1/2 transform -translate-y-1/2 hover:cursor-pointer"}
+                     onClick={() => setShowPassword(!showPassword)}>
+                    <EyeIcon className={"w-5 h-5 sm:w-6 sm:h-6"}/>
+                </div>
+            }
+
+            {
+                !error && isPasswordType && type == 'text' &&
+                <div className={"absolute right-3 top-1/2 transform -translate-y-1/2 hover:cursor-pointer"}
+                     onClick={() => setShowPassword(!showPassword)}>
+                    <EyeOff className={"w-5 h-5 sm:w-6 sm:h-6"}/>
+                </div>
+            }
 
             <TooltipProvider>
                 <Tooltip open={tooltipOpen} onOpenChange={setTooltipOpen}>

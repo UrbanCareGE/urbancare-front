@@ -30,7 +30,7 @@ const OTPInput = React.forwardRef<
                         (error || formError)
                             ? "ring-2 ring-error placeholder:text-error focus:placeholder:text-text-placeholder"
                             : "focus-visible:ring-2 focus-visible:ring-primary",
-                        className
+                        className,
                     )}
                     {...props}
                 />
@@ -67,7 +67,7 @@ const OTPInput = React.forwardRef<
                 type="button"
                 onClick={handleGetOtp}
                 disabled={isPending}
-                className="h-12 sm:h-12 bg-primary text-white rounded-panel text-base md:text-sm px-2"
+                className="h-12 sm:h-12 bg-primary text-white rounded-md text-base md:text-sm px-2"
             >
                 კოდის მიღება
             </Button>

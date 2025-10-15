@@ -22,7 +22,7 @@ export const OauthForm = ({className}: OauthFormProps) => {
                 onClick={async () => {
                     router.push("https://ivette-nonpropagable-dialectically.ngrok-free.dev/auth/google")
                 }}
-                className="flex-1 flex items-center bg-gray-200 justify-center gap-2 text-sm sm:text-base"
+                className="flex-1 flex items-center bg-white justify-center gap-2 text-sm sm:text-base"
             >
                 <GoogleIcon className="sm:w-[30px] sm:h-[30px]"/>
                 <span className="text-gray-500 hidden sm:inline">Google</span>
@@ -32,7 +32,7 @@ export const OauthForm = ({className}: OauthFormProps) => {
                 variant="outline"
                 type="button"
                 disabled={false}
-                className="flex-1 lex items-center bg-gray-200 justify-center gap-2 text-sm sm:text-base"
+                className="flex-1 flex items-center justify-center gap-2 text-sm sm:text-base"
             >
                 <FacebookIcon className="sm:w-[30px] sm:h-[30px]"/>
                 <span className="text-gray-500 hidden sm:inline">Facebook</span>
@@ -41,7 +41,7 @@ export const OauthForm = ({className}: OauthFormProps) => {
                 variant="outline"
                 type="button"
                 disabled={false}
-                className="flex-1 flex items-center bg-gray-200 justify-center gap-2 text-sm sm:text-base"
+                className="flex-1 flex items-center justify-center gap-2 text-sm sm:text-base"
             >
                 <AppleIcon className="sm:w-[30px] sm:h-[30px]"/>
                 <span className="text-gray-500 hidden sm:inline">Apple</span>
