@@ -79,10 +79,11 @@ const FormInput = React.forwardRef<
                             e.preventDefault()
                             setTooltipOpen(!tooltipOpen)
                         }}
-                        onPointerDown={(e) => {
+                        onMouseEnter={(e) => {
                             e.preventDefault()
                             setTooltipOpen(!tooltipOpen)
-                        }}
+                        }
+                        }
                     >
                         <div
                             className={cn(

@@ -248,5 +248,13 @@
     filter: blur(40px);
   }
 
+  .bg-primary-to-white-gradient {
+    background: linear-gradient(
+                    180deg,
+                    var(--color-primary) 0%,
+                    #ffffff 30%
+    );
+  }
+
 
 }

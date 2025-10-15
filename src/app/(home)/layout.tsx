@@ -34,7 +34,7 @@ const MobileLayout = ({children}: Children) => {
             <MobileHeader className={"sticky top-0"}/>
             {children}
             <div className={"h-14 bg-transparent"}/>
-            <MobileNavBar className={"fixed bottom-0"}/>
+            <MobileNavBar className={"fixed !bottom-0"}/>
         </main>
     );
 };

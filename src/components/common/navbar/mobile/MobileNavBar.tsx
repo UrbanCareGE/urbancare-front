@@ -32,7 +32,7 @@ export const MobileNavBar = ({className}: Basic) => {
 
     return (
         <>
-            <footer className={cn("h-14 w-full bg-white flex justify-center items-center", className)}>
+            <footer className={cn("h-14 w-full flex justify-center items-center bg-white", className)}>
 
                 <div className={"relative w-9/12 h-full flex justify-evenly items-center rounded-full"}>
 

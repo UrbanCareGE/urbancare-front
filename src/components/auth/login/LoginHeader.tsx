@@ -7,7 +7,7 @@ type LoginHeaderProps = {
 }
 
 export const LoginHeader: React.FC<LoginHeaderProps> = () => {
-    return <div className={"flex flex-col justify-center items-center w-full py-4"}>
+    return <div className={"flex flex-col justify-between items-center w-full py-4"}>
         <AppLogo/>
         <TypographyH2>ავტორიზაცია</TypographyH2>
     </div>

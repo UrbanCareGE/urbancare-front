@@ -8,6 +8,7 @@ import Link from "next/link";
 import {OauthForm} from "@/components/auth/OauthForm";
 import {useLogin} from "@/hooks/use-login";
 import {KeyRound, User} from "lucide-react";
+import {AuthSpacer} from "@/components/auth/AuthSpacer";
 
 export function LoginForm() {
     const {mutate, form, onSubmit, isPending, error} = useLogin();
@@ -44,6 +45,7 @@ export function LoginForm() {
                                     <FormInput className={"w-full"}
                                                placeholder="პაროლი*"
                                                type="password"
+                                               isPasswordType
                                                disabled={isPending}
                                                {...field}
                                     />
@@ -52,9 +54,13 @@ export function LoginForm() {
                         </FormItem>
                     )}
                 />
-                <Link href={"/"} className={"text-base inline text-gray-800 font-bold text-end"}>
-                    პაროლის აღდგენა
-                </Link>
+                <div className={"w-full flex justify-end"}>
+                    <Link href={"/"}
+                          className={"text-base inline text-text-placeholder font-semibold text-end underline"}>
+                        პაროლის აღდგენა
+                    </Link>
+                    <AuthSpacer/>
+                </div>
                 <FormInputWithIconWrapper>
                     <Button
                         className="h-12 w-full flex justify-center bg-primary rounded-3xl text-lg text-white"
