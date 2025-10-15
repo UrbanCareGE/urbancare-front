@@ -5,6 +5,7 @@ import {ChevronsUp, LucideIcon, MessageCircleMore, Newspaper} from "lucide-react
 import {usePathname} from "next/navigation";
 import {Basic} from "@/app/layout";
 import {cn} from "@/lib/utils";
+import {useEffect, useState} from "react";
 
 interface NavItem {
     href: string;
@@ -23,17 +24,42 @@ export const MobileNavBar = ({className}: Basic) => {
     const activeIndex = NAV_ITEMS.findIndex(item => item.href === pathname);
     const activeIndexSafe = activeIndex === -1 ? 0 : activeIndex;
 
+    const [isVisible, setIsVisible] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY < lastScrollY || currentScrollY < 10) {
+                setIsVisible(true);
+            } else if (currentScrollY > lastScrollY && currentScrollY > 10) {
+                setIsVisible(false);
+            }
+
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener('scroll', handleScroll, {passive: true});
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [lastScrollY]);
+
     // justify-evenly calculation with icon width consideration
     const getBackgroundPosition = (index: number) => {
-
         // 100%/n+1 - n*w(n)/n+1 * f(i) + 50% - w(bg)
         return `calc((25% - 6rem / 4 + 2rem) * ${index - 1} + 50% - 2rem)`
     };
 
     return (
         <>
-            <footer className={cn("h-14 w-full flex justify-center items-center bg-white", className)}>
-
+            <footer
+                className={cn(
+                    "fixed bottom-0 left-0 right-0 h-14 w-full flex justify-center items-center bg-white transition-transform duration-300 ease-in-out z-50",
+                    isVisible ? "translate-y-0" : "translate-y-full",
+                    className
+                )}
+            >
                 <div className={"relative w-9/12 h-full flex justify-evenly items-center rounded-full"}>
 
                     <div
