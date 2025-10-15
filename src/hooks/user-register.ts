@@ -1,13 +1,14 @@
 'use client'
 
 import {useMutation} from "@tanstack/react-query";
-import {ErrorResponse} from "@/model/common";
+import {ErrorResponse} from "@/model/common.dto";
 import {AuthService} from "@/service/auth-service";
 import {useRouter} from "next/navigation";
 import {useForm} from "react-hook-form";
 import {registerSchema} from "@/components/auth/register/data/register-form-schema";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
+import {RegisterReq} from "@/model/auth.dto";
 
 
 export function useRegister() {

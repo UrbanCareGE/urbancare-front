@@ -1,5 +1,5 @@
 import {useMutation} from "@tanstack/react-query";
-import {ErrorResponse} from "@/model/common";
+import {ErrorResponse} from "@/model/common.dto";
 import {AuthService} from "@/service/auth-service";
 import {useFormContext} from "react-hook-form";
 

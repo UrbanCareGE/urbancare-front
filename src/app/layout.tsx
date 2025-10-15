@@ -5,6 +5,7 @@ import ReactQueryProvider from "@/components/provider/ReactQueryProvider";
 import MyThemeProvider from "@/components/common/provider/MyThemeProvider";
 import {headers} from "next/headers";
 import ResponsiveLayout from "@/components/common/ResponsiveLayout";
+import {AuthProvider} from "@/components/provider/AuthProvider";
 
 export const metadata: Metadata = {
     title: "urbancare",
@@ -36,9 +37,11 @@ export default async function RootLayout({children}: Children) {
             <body className="h-dvh w-dvw antialiased" suppressHydrationWarning>
                 <ReactQueryProvider>
                     <MyThemeProvider>
-                        <ResponsiveLayout initialIsMobile={isMobile}>
-                            {children}
-                        </ResponsiveLayout>
+                        <AuthProvider>
+                            <ResponsiveLayout initialIsMobile={isMobile}>
+                                {children}
+                            </ResponsiveLayout>
+                        </AuthProvider>
                     </MyThemeProvider>
                 </ReactQueryProvider>
             </body>

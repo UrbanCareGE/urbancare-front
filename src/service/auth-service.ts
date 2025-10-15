@@ -1,7 +1,9 @@
 import {api} from '@/lib/api-client';
+import {Chat, LoginReq, RegisterReq, User} from "@/model/auth.dto";
 
 export const AuthService = {
     login: async (loginReq: LoginReq): Promise<string> => {
+        console.log('loginReq', loginReq);
         await api.post<{ success: boolean }, LoginReq>(
             '/api/auth/login',
             loginReq
@@ -21,14 +23,18 @@ export const AuthService = {
 
     generateOtp: async (contact: string): Promise<string> => {
         return api.post<string>(
-            '/auth/otp/generate',
+            '/api/proxy/auth/otp/generate',
             undefined,
             {params: {contact}}
         );
     },
 
-    getUser: async (): Promise<unknown> => {
-        return api.get<unknown>('/api/user/me');
+    getUser: async (): Promise<User> => {
+        return api.get<User>('/api/proxy/api/user/me');
+    },
+
+    getChatInfo: async (apartmentId: string): Promise<Chat[]> => {
+        return api.get<Chat[]>(`/api/proxy/api/chat/${apartmentId}/list`);
     },
 
     googleOauth: async (): Promise<unknown> => {

@@ -3,9 +3,10 @@ import {useForm} from "react-hook-form";
 import LoginFormSchema from "@/components/auth/login/data/login-form-schema";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useMutation} from "@tanstack/react-query";
-import {ErrorResponse} from "@/model/common";
+import {ErrorResponse} from "@/model/common.dto";
 import {AuthService} from "@/service/auth-service";
 import {z} from "zod";
+import {LoginReq} from "@/model/auth.dto";
 
 export function useLogin() {
     const router = useRouter();
@@ -41,5 +42,5 @@ export function useLogin() {
         mutate(loginReq);
     };
 
-    return {onSubmit, form,  mutate, isPending, error};
+    return {onSubmit, form, mutate, isPending, error};
 }

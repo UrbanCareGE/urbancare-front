@@ -28,7 +28,6 @@ export default function HomeLayout({children}: Children) {
 
 const MobileLayout = ({children}: Children) => {
     const path = usePathname();
-    console.log(path)
     return (
         <main className={cn("w-full relative", {'flex flex-col h-full': path === '/'}, {'min-h-full': path !== '/'})}>
             <MobileHeader className={"sticky top-0"}/>

@@ -1,4 +1,4 @@
-import type {ErrorResponse} from '@/model/common';
+import type {ErrorResponse} from '@/model/common.dto';
 
 const JAVA_API_URL = process.env.JAVA_API_URL || 'http://localhost:8080';
 const NEXT_API_URL = process.env.NEXT_PUBLIC_APP_URL || '';
@@ -59,6 +59,7 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
                 headers: {
                     'Content-Type': 'application/json',
                     ...headers,
+                    'ngrok-skip-browser-warning:': "dwad",
                 },
             };
 
@@ -75,6 +76,7 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
                 method,
                 headers: {
                     'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning:': "dwad",
                     ...headers,
                 },
             };
