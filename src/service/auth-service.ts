@@ -3,9 +3,8 @@ import {Chat, LoginReq, RegisterReq, User} from "@/model/auth.dto";
 
 export const AuthService = {
     login: async (loginReq: LoginReq): Promise<string> => {
-        console.log('loginReq', loginReq);
         await api.post<{ success: boolean }, LoginReq>(
-            '/api/auth/login',
+            '/api/next/auth/login',
             loginReq
         );
 
@@ -14,27 +13,27 @@ export const AuthService = {
 
     register: async (registerDTO: RegisterReq): Promise<string> => {
         const response = await api.post<{ token?: string }, RegisterReq>(
-            '/auth/register',
+            '/api/next/auth/register',
             registerDTO
         );
 
         return response.token || '';
     },
 
-    generateOtp: async (contact: string): Promise<string> => {
+    generateOtp: async (phone: string): Promise<string> => {
         return api.post<string>(
-            '/api/proxy/auth/otp/generate',
+            '/api/otp/generate',
             undefined,
-            {params: {contact}}
+            {params: {phone}}
         );
     },
 
     getUser: async (): Promise<User> => {
-        return api.get<User>('/api/proxy/api/user/me');
+        return api.get<User>('/api/secure/user/me');
     },
 
     getChatInfo: async (apartmentId: string): Promise<Chat[]> => {
-        return api.get<Chat[]>(`/api/proxy/api/chat/${apartmentId}/list`);
+        return api.get<Chat[]>(`/api/secure/chat/${apartmentId}/list`);
     },
 
     googleOauth: async (): Promise<unknown> => {

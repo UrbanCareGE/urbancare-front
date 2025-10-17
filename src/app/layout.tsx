@@ -5,7 +5,7 @@ import ReactQueryProvider from "@/components/provider/ReactQueryProvider";
 import MyThemeProvider from "@/components/common/provider/MyThemeProvider";
 import {headers} from "next/headers";
 import ResponsiveLayout from "@/components/common/ResponsiveLayout";
-import {AuthProvider} from "@/components/provider/AuthProvider";
+import AuthProvider from "@/components/provider/AuthProvider";
 
 export const metadata: Metadata = {
     title: "urbancare",

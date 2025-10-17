@@ -1,11 +1,12 @@
 'use client';
 
-import {createContext, ReactNode, useContext, useEffect, useState,} from 'react';
+import {createContext, ReactNode, useContext,} from 'react';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {AuthService} from "@/service/auth-service";
 import {User} from "@/model/auth.dto";
 
 interface AuthContextType {
-    user: User | null;
+    user: User | null | undefined;
     isLoading: boolean;
     isAuthenticated: boolean;
     login: (email: string, password: string) => Promise<void>;
@@ -16,30 +17,30 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({children}: { children: ReactNode }) {
-    const [user, setUser] = useState<User | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+export default function AuthProvider({children}: { children: ReactNode }) {
+    const queryClient = useQueryClient();
 
-    useEffect(() => {
-        fetchUser();
-    }, []);
+    const {
+        data: user,
+        isLoading,
+        refetch,
+    } = useQuery({
+        queryKey: ['user'],
+        queryFn: async () => {
+            try {
+                return await AuthService.getUser();
+            } catch (error) {
+                console.error('Failed to fetch user:', error);
+                return null;
+            }
+        },
+        retry: 1,
+        staleTime: 5 * 60 * 1000,
+        gcTime: 10 * 60 * 1000,
+    });
 
-    const fetchUser = async () => {
-        try {
-            const res = await AuthService.getUser();
-            setUser(res);
-
-        } catch (error) {
-            console.error('Failed to fetch user:', error);
-            setUser(null);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const login = async (email: string, password: string) => {
-        setIsLoading(true);
-        try {
+    const loginMutation = useMutation({
+        mutationFn: async ({email, password}: { email: string; password: string }) => {
             const res = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -51,37 +52,49 @@ export function AuthProvider({children}: { children: ReactNode }) {
                 throw new Error('Invalid credentials');
             }
 
-            await fetchUser();
-        } catch (error) {
-            setIsLoading(false);
-            throw error;
-        }
-    };
+            return res.json();
+        },
+        onSuccess: async () => {
+            await refetch();
+        },
+    });
 
-    const logout = async () => {
-        try {
-            await fetch('/api/auth/logout', {
+    const logoutMutation = useMutation({
+        mutationFn: async () => {
+            const res = await fetch('/api/auth/logout', {
                 method: 'POST',
                 credentials: 'include',
             });
-            setUser(null);
-        } catch (error) {
-            console.error('Logout failed:', error);
-        }
+
+            if (!res.ok) {
+                throw new Error('Logout failed');
+            }
+        },
+        onSuccess: () => {
+            queryClient.setQueryData(['user'], null);
+        },
+    });
+
+    const login = async (email: string, password: string) => {
+        await loginMutation.mutateAsync({email, password});
+    };
+
+    const logout = async () => {
+        await logoutMutation.mutateAsync();
     };
 
     const updateUser = (data: Partial<User>) => {
         if (user) {
-            setUser({...user, ...data});
+            queryClient.setQueryData(['user'], {...user, ...data});
         }
     };
 
     const refetchUser = async () => {
-        await fetchUser();
+        await refetch();
     };
 
     const value = {
-        user,
+        user: user ?? null,
         isLoading,
         isAuthenticated: !!user,
         login,
@@ -90,7 +103,10 @@ export function AuthProvider({children}: { children: ReactNode }) {
         refetchUser,
     };
 
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={value}>
+        {children}
+    </AuthContext.Provider>
+
 }
 
 export function useAuth() {

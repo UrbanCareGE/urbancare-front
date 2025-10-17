@@ -5,20 +5,18 @@ import {NextResponse} from 'next/server';
 const RouteConfig = {
     // Public routes that don't require authentication
     public: [
-        '/',
-        '/post',
         '/auth/login',
         '/auth/register',
-        '/register',
-        '/forgot-password',
-        '/reset-password',
+        // '/register',
+        // '/forgot-password',
+        // '/reset-password',
     ],
 
     // Protected routes requiring authentication
     protected: [
-        // '/',
-        // '/urgent',
-        // '/post',
+        '/',
+        '/urgent',
+        '/post',
     ],
 
     // Admin-only routes
@@ -84,8 +82,6 @@ async function verifyAuthToken(token: string): Promise<{
 export async function middleware(request: NextRequest) {
     const {pathname} = request.nextUrl;
 
-    const authToken = request.cookies.get('auth-token')?.value;
-
     if (
         pathname.startsWith('/_next') ||
         pathname.startsWith('/api') ||
@@ -93,6 +89,8 @@ export async function middleware(request: NextRequest) {
     ) {
         return NextResponse.next();
     }
+
+    const authToken = request.cookies.get('auth-token')?.value;
 
     const {isValid, user} = await verifyAuthToken(authToken || '');
 

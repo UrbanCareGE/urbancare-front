@@ -59,7 +59,6 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
                 headers: {
                     'Content-Type': 'application/json',
                     ...headers,
-                    'ngrok-skip-browser-warning:': "dwad",
                 },
             };
 
@@ -68,15 +67,13 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
                 fetchConfig.headers['Authorization'] = `Bearer ${token}`;
             }
         } else {
-
-            const proxyPath = path.startsWith('/api/') ? path : `/api/proxy${path}`;
-            url = buildUrl(NEXT_API_URL, proxyPath, params);
+            url = buildUrl(NEXT_API_URL, path, params);
 
             fetchConfig = {
                 method,
                 headers: {
                     'Content-Type': 'application/json',
-                    'ngrok-skip-browser-warning:': "dwad",
+                    'ngrok-skip-browser-warning': 'ababa',
                     ...headers,
                 },
             };

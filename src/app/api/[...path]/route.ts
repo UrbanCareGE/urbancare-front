@@ -9,25 +9,21 @@ async function handleRequest(
     {params}: { params: Promise<{ path: string[] }> }
 ) {
     try {
-        // Extract token from cookie
         const cookieStore = await cookies();
         const token = cookieStore.get('auth-token')?.value;
 
-        // Build target URL
         const resolvedParams = await params;
         const pathSegments = resolvedParams.path;
         const fullPath = pathSegments.join('/');
         const {searchParams} = new URL(request.url);
         const queryString = searchParams.toString();
 
-        const targetUrl = `${JAVA_API_URL}/${fullPath}${
+        const targetUrl = `${JAVA_API_URL}/api/${fullPath}${
             queryString ? `?${queryString}` : ''
         }`;
 
-        // Prepare headers
         const forwardHeaders = new Headers();
 
-        // Add Authorization header with token from cookie
         if (token) {
             forwardHeaders.set('Authorization', `Bearer ${token}`);
         }

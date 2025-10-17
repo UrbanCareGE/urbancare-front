@@ -6,8 +6,7 @@ export async function POST(request: Request) {
     try {
         const credentials = await request.json();
 
-        // Call the Java backend directly
-        const response = await fetch(`${JAVA_API_URL}/auth/login`, {
+        const response = await fetch(`${JAVA_API_URL}/api/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -17,7 +16,7 @@ export async function POST(request: Request) {
 
         if (!response.ok) {
             return Response.json(
-                {error: 'Login failed'},
+                {error: 'Register failed'},
                 {status: response.status}
             );
         }
