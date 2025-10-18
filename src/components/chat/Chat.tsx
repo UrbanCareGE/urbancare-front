@@ -39,7 +39,7 @@ export const Chat = () => {
                     console.log("No chats found");
                 }
             } catch (error) {
-                console.error("Failed to fetch chat:", error);
+                console.log("Failed to fetch chat:", error);
             } finally {
                 setIsFetchingChat(false);
             }

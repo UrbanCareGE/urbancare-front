@@ -59,7 +59,7 @@ async function handleRequest(
         });
 
     } catch (error) {
-        console.error('Proxy error:', error);
+        console.log('Proxy error:', error);
         return Response.json(
             {error: 'Proxy request failed'},
             {status: 500}

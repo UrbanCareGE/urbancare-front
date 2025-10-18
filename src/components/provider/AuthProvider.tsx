@@ -30,7 +30,7 @@ export default function AuthProvider({children}: { children: ReactNode }) {
             try {
                 return await AuthService.getUser();
             } catch (error) {
-                console.error('Failed to fetch user:', error);
+                console.log('Failed to fetch user:', error);
                 return null;
             }
         },
