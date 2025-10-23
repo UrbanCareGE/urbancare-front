@@ -1,5 +1,5 @@
 import React from "react";
-import {DesktopAdapter, MobileAdapter} from "@/components/common/ResponsiveSwitch";
+import {DesktopAdapter, MobileAdapter, TabletAdapter} from "@/components/common/ResponsiveSwitch";
 import {Children} from "@/app/layout";
 import {MobileLayout} from "@/app/(home)/mobile-layout";
 import {DesktopLayout} from "@/app/(home)/desktop-layout";
@@ -12,6 +12,13 @@ export default function HomeLayout({children}: Children) {
                     {children}
                 </MobileLayout>
             </MobileAdapter>
+
+            <TabletAdapter>
+                <DesktopLayout>
+                    {children}
+                </DesktopLayout>
+            </TabletAdapter>
+
             <DesktopAdapter>
                 <DesktopLayout>
                     {children}

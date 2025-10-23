@@ -5,6 +5,8 @@ import {NextResponse} from 'next/server';
 const RouteConfig = {
     // Public routes that don't require authentication
     public: [
+        '/',
+        '/post',
         '/auth/login',
         '/auth/register',
         // '/register',
@@ -14,9 +16,9 @@ const RouteConfig = {
 
     // Protected routes requiring authentication
     protected: [
-        '/',
-        '/urgent',
-        '/post',
+        // '/',
+        // '/urgent',
+        // '/post',
     ],
 
     // Admin-only routes

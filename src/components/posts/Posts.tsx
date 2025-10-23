@@ -76,7 +76,7 @@ const SAMPLE_POSTS: Post[] = [
 
 export default function Posts() {
     return (
-        <div className="h-full flex flex-col overflow-hidden rounded-panel">
+        <div className="flex flex-col overflow-hidden rounded-panel bg-white">
             {/* Header */}
             <div className="h-20 bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
                 <h1 className="text-xl font-bold">პოსტები</h1>
@@ -86,7 +86,7 @@ export default function Posts() {
             </div>
 
             {/* Posts Feed - scrollable */}
-            <div className="overflow-y-auto flex-1 px-4 py-4 bg-green-500">
+            <div className="overflow-y-auto flex-1 px-4 py-4">
                 <div className="max-w-[680px] mx-auto space-y-4">
                     {SAMPLE_POSTS.map((post) => (
                         <PostCard key={post.id} post={post}/>
