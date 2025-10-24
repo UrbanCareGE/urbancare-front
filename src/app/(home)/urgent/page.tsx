@@ -1,12 +1,39 @@
-
-import React from "react";
-import {UrgentItem, UrgentService} from "@/service/urgent-service";
-import Link from "next/link";
+import React, {Suspense} from "react";
+import {UrgentItem} from "@/service/urgent-service";
 import {cookies} from "next/headers";
 import UrgentCard from "@/app/(home)/urgent/UrgentCard";
 import {JAVA_API_URL} from "@/lib/api-client";
+import {Leapfrog} from 'ldrs/react'
+import 'ldrs/react/Leapfrog.css'
+import AddUrgent from "@/app/(home)/urgent/AddUrgent";
+import {Basic} from "@/app/layout";
+import {cn} from "@/lib/utils";
 
-export default async function Page() {
+const Page = () => {
+    return (
+        <div className={"bg-white w-full flex flex-col"}>
+            <AddUrgent/>
+            <ListLoader/>
+            {/* <Suspense fallback={<ListLoader/>}>
+               <UrgentList/>
+            </Suspense> */}
+        </div>
+    )
+}
+
+const ListLoader = ({className}: Basic) => {
+    return (
+        <div className={cn("z-60 flex w-full h-14 justify-center items-center fixed top-[70%]", className)}>
+            <Leapfrog
+                size="40"
+                speed="1.75"
+                color="#02c2c5"
+            />
+        </div>
+    );
+};
+
+const UrgentList = async () => {
     const cook = await cookies()
     let error = false;
     let data: UrgentItem[] = [];
@@ -14,9 +41,11 @@ export default async function Page() {
         // data = await UrgentService.getUrgentList(cook.get('auth-token')?.value!);
 
         const response = await fetch(`${JAVA_API_URL}/api/secure/urgent/68efd03837b62ea34882f812/list`,
-            {headers: {
-                Authorization: cook.get('auth-token')?.value ?? 'none'
-            }}
+            {
+                headers: {
+                    Authorization: cook.get('auth-token')?.value ?? 'none'
+                }
+            }
         )
         data = await response.json()
         console.log(data);
@@ -24,33 +53,20 @@ export default async function Page() {
         console.log(err);
         error = true;
     }
-
     return (
-        <div className={"bg-white w-full"}>
-            <ul className="flex flex-col gap-3 py-3">
-                <Link href="/urgent/add">
-                    დამატება
-                </Link>
-                {/*{isLoading && (*/}
-                {/*    <div className="flex items-center justify-center p-4 text-gray-500">*/}
-                {/*        Loading...*/}
-                {/*    </div>*/}
-                {/*)}*/}
-                {error && (
-                    <div className="flex items-center justify-center p-4 text-red-500">
-                        Error loading urgent items
-                    </div>
-                )}
-                {data.map((item) => (
-                    <UrgentCard key={item.id} {...item}/>
-                ))}
-
-
-            </ul>
-        </div>
-    )
-}
-
+        <ul className="flex flex-col gap-3 py-3">
+            {error && (
+                <div className="flex items-center justify-center p-4 text-red-500">
+                    Error loading urgent items
+                </div>
+            )}
+            {data.map((item) => (
+                <UrgentCard key={item.id} {...item}/>
+            ))}
+        </ul>
+    );
+};
+export default Page;
 
 /*
 <main className="flex w-full h-screen overflow-hidden bg-gray-100 gap-8 px-8">
