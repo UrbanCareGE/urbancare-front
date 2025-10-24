@@ -13,6 +13,7 @@ async function handleRequest(
         const token = cookieStore.get('auth-token')?.value;
 
         const resolvedParams = await params;
+        console.log(resolvedParams)
         const pathSegments = resolvedParams.path;
         const fullPath = pathSegments.join('/');
         const {searchParams} = new URL(request.url);

@@ -1,6 +1,6 @@
 import type {ErrorResponse} from '@/model/common.dto';
 
-const JAVA_API_URL = process.env.JAVA_API_URL || 'http://localhost:8080';
+export const JAVA_API_URL = process.env.JAVA_API_URL || 'http://localhost:8080';
 const NEXT_API_URL = process.env.NEXT_PUBLIC_APP_URL || '';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';

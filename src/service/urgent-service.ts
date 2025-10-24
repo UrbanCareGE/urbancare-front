@@ -1,16 +1,31 @@
 import { api } from '@/lib/api-client';
+import { QueryClient } from '@tanstack/react-query';
 
 export interface UrgentItem {
     id: string;
     content: string;
     resolved: boolean;
-    expired: Date;
+    expiresAt: Date;
     createdAt: Date;
-    userId: string;
+    creatorId: string;
+    createdBy: UserSnapshot;
+}
+
+export interface UserSnapshot {
+    name: string;
+    surname: string;
 }
 
 export const UrgentService = {
-    getApartmentList: async (): Promise<UrgentItem[]> => {
-        return api.get<UrgentItem[]>('/urgent/68e8f818ef50313d23b92d25/list');
+    getUrgentList: async (token: string): Promise<UrgentItem[]> => {
+        return api.get<UrgentItem[]>('/api/secure/urgent/68efd03837b62ea34882f812/list', {serverSide: true, jwtToken: token});
     },
+    resolve: async (id: string)=> {
+        return api.post(`/api/secure/urgent/${id}/resolve`)
+    },
+    async create(content: string, queryClient: QueryClient) {
+        const result = await api.post(`/api/secure/urgent/68efd03837b62ea34882f812/create`, {content: content});
+        await queryClient.invalidateQueries({ queryKey: ['urgentList'] });
+        return result;
+    }
 };

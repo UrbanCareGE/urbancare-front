@@ -1,140 +1,56 @@
-'use client'
 
 import React from "react";
-import {useQuery} from "@tanstack/react-query";
-import {UrgentService} from "@/service/urgent-service";
-import {Button} from "@/components/ui/button";
-import {Separator} from "@/components/ui/separator";
+import {UrgentItem, UrgentService} from "@/service/urgent-service";
+import Link from "next/link";
+import {cookies} from "next/headers";
+import UrgentCard from "@/app/(home)/urgent/UrgentCard";
+import {JAVA_API_URL} from "@/lib/api-client";
 
-export default function Page() {
-    const {data: urgentItems, isLoading, error} = useQuery({
-        queryKey: ["urgentList"],
-        queryFn: UrgentService.getApartmentList,
-    });
+export default async function Page() {
+    const cook = await cookies()
+    let error = false;
+    let data: UrgentItem[] = [];
+    try {
+        // data = await UrgentService.getUrgentList(cook.get('auth-token')?.value!);
+
+        const response = await fetch(`${JAVA_API_URL}/api/secure/urgent/68efd03837b62ea34882f812/list`,
+            {headers: {
+                Authorization: cook.get('auth-token')?.value ?? 'none'
+            }}
+        )
+        data = await response.json()
+        console.log(data);
+    } catch (err) {
+        console.log(err);
+        error = true;
+    }
 
     return (
-        <div className={"bg-blue-950 w-full"}>
+        <div className={"bg-white w-full"}>
             <ul className="flex flex-col gap-3 py-3">
+                <Link href="/urgent/add">
+                    დამატება
+                </Link>
                 {/*{isLoading && (*/}
                 {/*    <div className="flex items-center justify-center p-4 text-gray-500">*/}
                 {/*        Loading...*/}
                 {/*    </div>*/}
                 {/*)}*/}
-                {/*{error && (*/}
-                {/*    <div className="flex items-center justify-center p-4 text-red-500">*/}
-                {/*        Error loading urgent items*/}
-                {/*    </div>*/}
-                {/*)}*/}
-                <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
-                    <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
-                        <span>{"miriani miriani"}</span>
-                        <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
+                {error && (
+                    <div className="flex items-center justify-center p-4 text-red-500">
+                        Error loading urgent items
                     </div>
-                    <Separator className={"bg-blue-900"}/>
-                    <span className="text-sm text-gray-600 px-3 py-2">{"baro lasha she magaro"}</span>
-                </li>
-                <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
-                    <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
-                        <span>{"miriani miriani2"}</span>
-                        <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
-                    </div>
-                    <Separator className={"bg-blue-900"}/>
-                    <span className="text-sm text-gray-600 px-3 py-2">{"baro lasha she magaro"}</span>
-                </li>
-                <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
-                    <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
-                        <span>{"miriani miriani"}</span>
-                        <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
-                    </div>
-                    <Separator className={"bg-blue-900"}/>
-                    <span className="text-sm text-gray-600 px-3 py-2">{"baro lasha she magaro"}</span>
-                </li>
-                <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
-                    <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
-                        <span>{"miriani miriani"}</span>
-                        <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
-                    </div>
-                    <Separator className={"bg-blue-900"}/>
-                    <span className="text-sm text-gray-600 px-3 py-2">{"baro lasha she magaro"}</span>
-                </li>
-                <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
-                    <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
-                        <span>{"miriani miriani"}</span>
-                        <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
-                    </div>
-                    <Separator className={"bg-blue-900"}/>
-                    <span className="text-sm text-gray-600 px-3 py-2">{"baro lasha she magaro"}</span>
-                </li>
-                <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
-                    <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
-                        <span>{"miriani miriani2"}</span>
-                        <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
-                    </div>
-                    <Separator className={"bg-blue-900"}/>
-                    <span className="text-sm text-gray-600 px-3 py-2">{"baro lasha she magaro"}</span>
-                </li>
-                <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
-                    <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
-                        <span>{"miriani miriani"}</span>
-                        <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
-                    </div>
-                    <Separator className={"bg-blue-900"}/>
-                    <span className="text-sm text-gray-600 px-3 py-2">{"baro lasha she magaro"}</span>
-                </li>
-                <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
-                    <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
-                        <span>{"miriani miriani"}</span>
-                        <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
-                    </div>
-                    <Separator className={"bg-blue-900"}/>
-                    <span className="text-sm text-gray-600 px-3 py-2">{"baro lasha she magaro"}</span>
-                </li>
-                <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
-                    <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
-                        <span>{"miriani miriani"}</span>
-                        <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
-                    </div>
-                    <Separator className={"bg-blue-900"}/>
-                    <span className="text-sm text-gray-600 px-3 py-2">{"baro lasha she magaro"}</span>
-                </li>
-                <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
-                    <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
-                        <span>{"miriani miriani2"}</span>
-                        <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
-                    </div>
-                    <Separator className={"bg-blue-900"}/>
-                    <span className="text-sm text-gray-600 px-3 py-2">{"baro lasha she magaro"}</span>
-                </li>
-                <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
-                    <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
-                        <span>{"miriani miriani"}</span>
-                        <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
-                    </div>
-                    <Separator className={"bg-blue-900"}/>
-                    <span className="text-sm text-gray-600 px-3 py-2">{"baro lasha she magaro"}</span>
-                </li>
-                <li className={"flex flex-col justify-evenly mx-4 border border-gray-200 rounded-lg"}>
-                    <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
-                        <span>{"miriani miriani"}</span>
-                        <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
-                    </div>
-                    <Separator className={"bg-blue-900"}/>
-                    <span className="text-sm text-gray-600 px-3 py-2">{"baro lasha she magaro"}</span>
-                </li>
-                {/*{urgentItems?.map((item) => (*/}
-                {/*    <li key={item.id} className={"flex flex-col justify-evenly ml-4 mr-3.5 border border-gray-200 rounded-lg"}>*/}
-                {/*        <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">*/}
-                {/*            <span>{item.userId}</span>*/}
-                {/*            <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>*/}
-                {/*        </div>*/}
-                {/*        <Separator className={"bg-blue-900"}/>*/}
-                {/*        <span className="text-sm text-gray-600 px-3 py-2">{item.content}</span>*/}
-                {/*    </li>*/}
-                {/*))}*/}
+                )}
+                {data.map((item) => (
+                    <UrgentCard key={item.id} {...item}/>
+                ))}
+
+
             </ul>
         </div>
     )
 }
+
 
 /*
 <main className="flex w-full h-screen overflow-hidden bg-gray-100 gap-8 px-8">
