@@ -1,5 +1,5 @@
 import {api} from '@/lib/api-client';
-import {Chat, LoginReq, RegisterReq, User} from "@/model/auth.dto";
+import {Chat, LoginReq, RegisterReq, UserDTO} from "@/model/auth.dto";
 
 export const AuthService = {
     login: async (loginReq: LoginReq): Promise<string> => {
@@ -28,8 +28,8 @@ export const AuthService = {
         );
     },
 
-    getUser: async (): Promise<User> => {
-        return api.get<User>('/api/secure/user/me');
+    getUser: async (): Promise<UserDTO> => {
+        return api.get<UserDTO>('/api/secure/user/me');
     },
 
     getChatInfo: async (apartmentId: string): Promise<Chat[]> => {

@@ -24,10 +24,19 @@ export interface Apartment {
     name: string;
 }
 
+export interface UserDTO {
+    id: string;
+    phone: string;
+    name: string;
+    surname: string;
+    joinedApartments: Apartment[];
+}
+
 export interface User {
     id: string;
     phone: string;
     name: string;
     surname: string;
     joinedApartments: Apartment[];
+    selectedApartment?: Apartment;
 }

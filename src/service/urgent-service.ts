@@ -1,4 +1,4 @@
-import { api } from '@/lib/api-client';
+import {api, NEXT_API_URL} from '@/lib/api-client';
 import { QueryClient } from '@tanstack/react-query';
 
 export interface UrgentItem {
@@ -17,8 +17,11 @@ export interface UserSnapshot {
 }
 
 export const UrgentService = {
-    getUrgentList: async (token: string): Promise<UrgentItem[]> => {
+    getUrgentListServer: async (token: string): Promise<UrgentItem[]> => {
         return api.get<UrgentItem[]>('/api/secure/urgent/68efd03837b62ea34882f812/list', {serverSide: true, jwtToken: token});
+    },
+    getUrgentList: async (apartment: string): Promise<UrgentItem[]> => {
+        return api.get<UrgentItem[]>(`/api/secure/urgent/${apartment}/list`);
     },
     resolve: async (id: string)=> {
         return api.post(`/api/secure/urgent/${id}/resolve`)

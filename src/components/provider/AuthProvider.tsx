@@ -3,7 +3,7 @@
 import {createContext, ReactNode, useContext,} from 'react';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {AuthService} from "@/service/auth-service";
-import {User} from "@/model/auth.dto";
+import {Apartment, User} from "@/model/auth.dto";
 
 interface AuthContextType {
     user: User | null | undefined;
@@ -13,6 +13,7 @@ interface AuthContextType {
     logout: () => Promise<void>;
     updateUser: (data: Partial<User>) => void;
     refetchUser: () => Promise<void>;
+    selectApartment: (apartment: Apartment) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -28,7 +29,9 @@ export default function AuthProvider({children}: { children: ReactNode }) {
         queryKey: ['user'],
         queryFn: async () => {
             try {
-                return await AuthService.getUser();
+                const {joinedApartments, ...dto} = await AuthService.getUser();
+
+                return {...dto, joinedApartments, selectedApartment: joinedApartments[0]} as User;
             } catch (error) {
                 console.log('Failed to fetch user:', error);
                 return null;
@@ -58,6 +61,12 @@ export default function AuthProvider({children}: { children: ReactNode }) {
             await refetch();
         },
     });
+
+    const selectApartment = (apartment: Apartment) => {
+        queryClient.setQueryData(['user'], (old: User) => {
+            return {...old, selectedApartment: apartment};
+        });
+    }
 
     const logoutMutation = useMutation({
         mutationFn: async () => {
@@ -101,6 +110,7 @@ export default function AuthProvider({children}: { children: ReactNode }) {
         logout,
         updateUser,
         refetchUser,
+        selectApartment,
     };
 
     return <AuthContext.Provider value={value}>

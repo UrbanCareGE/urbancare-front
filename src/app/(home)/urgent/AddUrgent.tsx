@@ -4,48 +4,91 @@ import {
     Drawer,
     DrawerClose,
     DrawerContent,
-    DrawerDescription,
     DrawerFooter,
     DrawerHeader,
     DrawerTitle,
-    DrawerTrigger,
+    DrawerTrigger
 } from "@/components/ui/drawer"
 import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
 import {useState} from "react";
-import {JAVA_API_URL, NEXT_API_URL} from "@/lib/api-client";
+import {NEXT_API_URL} from "@/lib/api-client";
 import {Textarea} from "@/components/ui/textarea";
+import {useAuth} from "@/components/provider/AuthProvider";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 const AddUrgent = () => {
+    const {user} = useAuth();
     const [text, setText] = useState("");
+    const [open, setOpen] = useState(false); // ✅ Control drawer state
+    const queryClient = useQueryClient();
+
+    const addItem = async (content: string) => {
+        const response = await fetch(`${NEXT_API_URL}/api/secure/urgent/${user?.selectedApartment?.id}/create`,
+            {
+                method: "POST",
+                body: JSON.stringify({content}), // ✅ Fixed: wrap in object
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
+
+        if (!response.ok) {
+            throw new Error('Failed to add item');
+        }
+
+        return response.json();
+    }
+
+    const addMutation = useMutation({
+        mutationFn: addItem,
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ['urgent_list']})
+            setText(""); // ✅ Clear input
+            setOpen(false); // ✅ Close drawer
+        }
+    })
+
+    const handleAdd = () => {
+        if (!text.trim()) return;
+        addMutation.mutate(text)
+    }
 
     return (
-        <Drawer shouldScaleBackground={false}>
-            <DrawerTrigger className={"text-white m-4 h-10 rounded-lg bg-primary"}>+ შექმნა</DrawerTrigger>
+        <Drawer open={open} onOpenChange={setOpen} shouldScaleBackground={false}>
+            <DrawerTrigger asChild>
+                <Button className={"m-4"}>+ შექმნა</Button>
+            </DrawerTrigger>
             <DrawerContent className={"bg-white"}>
                 <DrawerHeader>
                     <DrawerTitle className={"text-md"}>დააფიქსირეთ სასწრაფო შეტყობინება</DrawerTitle>
                 </DrawerHeader>
                 <div className={"px-4"}>
-
-                <Textarea placeholder={"შეიყვანეთ ტექსტი"}  value={text} onChange={(e) => setText(e.target.value)} />
+                    <Textarea
+                        placeholder={"შეიყვანეთ ტექსტი"}
+                        value={text}
+                        onChange={(e) => {
+                            setText(e.target.value);
+                        }}
+                        disabled={addMutation.isPending}
+                    />
                 </div>
                 <DrawerFooter>
-                    <Button onClick={async () => {
-                        await fetch(`${NEXT_API_URL}/api/secure/urgent/68efd03837b62ea34882f812/create`,
-                            {
-                                method: "POST",
-                                body: JSON.stringify({content: text}),
-                                headers: {
-                                    "Content-Type": "application/json",
-                                }
-                            });
-                        setText("");
-                    }}>გაგზავნა</Button>
+                    <Button
+                        onClick={handleAdd}
+                        disabled={addMutation.isPending || !text.trim()}
+                    >
+                        {addMutation.isPending ? 'იგზავნება...' : 'გაგზავნა'}
+                    </Button>
 
-                    {/*<DrawerClose asChild={true}>*/}
-                    {/*    <Button variant="outline">Cancel</Button>*/}
-                    {/*</DrawerClose>*/}
+                    {addMutation.isError && (
+                        <p className="text-red-500 text-sm">
+                            შეცდომა: {addMutation.error.message}
+                        </p>
+                    )}
+
+                    <DrawerClose asChild>
+                        <Button variant="outline">გაუქმება</Button>
+                    </DrawerClose>
                 </DrawerFooter>
             </DrawerContent>
         </Drawer>

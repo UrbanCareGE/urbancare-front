@@ -1,19 +1,21 @@
+'use client'
+
 import React, {Suspense} from "react";
-import {UrgentItem} from "@/service/urgent-service";
-import {cookies} from "next/headers";
+import {UrgentService} from "@/service/urgent-service";
 import UrgentCard from "@/app/(home)/urgent/UrgentCard";
-import {JAVA_API_URL} from "@/lib/api-client";
 import {Leapfrog} from 'ldrs/react'
 import 'ldrs/react/Leapfrog.css'
 import AddUrgent from "@/app/(home)/urgent/AddUrgent";
 import {Basic} from "@/app/layout";
 import {cn} from "@/lib/utils";
+import {useAuth} from "@/components/provider/AuthProvider";
+import {useQuery} from "@tanstack/react-query";
+
 
 const Page = () => {
     return (
         <div className={"bg-white w-full flex flex-col"}>
             <AddUrgent/>
-            <ListLoader/>
             <Suspense fallback={<ListLoader/>}>
                 <UrgentList/>
             </Suspense>
@@ -33,34 +35,39 @@ const ListLoader = ({className}: Basic) => {
     );
 };
 
-const UrgentList = async () => {
-    const cook = await cookies()
-    let error = false;
-    let data: UrgentItem[] = [];
-    try {
-        // data = await UrgentService.getUrgentList(cook.get('auth-token')?.value!);
+const UrgentList = () => {
+    const {user, isLoading: isUserLoading} = useAuth();
 
-        const response = await fetch(`${JAVA_API_URL}/api/secure/urgent/68efd03837b62ea34882f812/list`,
-            {
-                headers: {
-                    Authorization: cook.get('auth-token')?.value ?? 'none'
-                }
-            }
-        )
-        data = await response.json()
-        console.log(data);
-    } catch (err) {
-        console.log(err);
-        error = true;
+    const {data, isError, isLoading} = useQuery({
+        queryKey: ["urgent_list", user?.selectedApartment?.id],
+        queryFn: () => UrgentService.getUrgentList(user?.selectedApartment?.id ?? 'yle'),
+        enabled: !!user?.selectedApartment?.id,
+        staleTime: 5 * 1000,
+    });
+
+    if (isUserLoading) {
+        return <ListLoader/>;
     }
+
+    if (!user?.selectedApartment?.id) {
+        return (
+            <div className="flex items-center justify-center p-4">
+                No apartment selected
+            </div>
+        );
+    }
+
     return (
         <ul className="flex flex-col gap-3 py-3">
-            {error && (
+            {isLoading && <ListLoader/>}
+
+            {isError && (
                 <div className="flex items-center justify-center p-4 text-red-500">
                     Error loading urgent items
                 </div>
             )}
-            {data.map((item) => (
+
+            {data?.map((item) => (
                 <UrgentCard key={item.id} {...item}/>
             ))}
         </ul>
@@ -68,6 +75,28 @@ const UrgentList = async () => {
 };
 export default Page;
 
+
+/*
+let error = false;
+    let data: UrgentItem[] = [];
+    try {
+
+        const response = await fetch(`${NEXT_API_URL}/api/secure/urgent/68efd03837b62ea34882f812/list`,
+            {
+                headers: {
+                    Authorization: cook.get('auth-token')?.value ?? 'none'
+                }
+            }
+        )
+        if (response.ok) {
+            data = await response.json()
+            console.log(data);
+        }
+    } catch (err) {
+        console.log(err);
+        error = true;
+    }
+ */
 /*
 <main className="flex w-full h-screen overflow-hidden bg-gray-100 gap-8 px-8">
             <Sidebar isOpen={sidebarOpen} onOpenChange={setSidebarOpen}>

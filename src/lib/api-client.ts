@@ -9,12 +9,6 @@ interface ApiCallOptions<TRequest = unknown> {
     data?: TRequest;
     params?: Record<string, string | number | boolean>;
     headers?: Record<string, string>;
-    serverSide?: boolean;
-    jwtToken?: string;
-    timeout?: number; // Request timeout in milliseconds
-    cache?: RequestCache; // Next.js cache option
-    revalidate?: number | false; // Next.js revalidation time
-    tags?: string[]; // Next.js cache tags
 }
 
 interface ApiFetchConfig extends RequestInit {
@@ -41,72 +35,24 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
     path: string,
     options: ApiCallOptions<TRequest> = {}
 ): Promise<TResponse> {
-    const {data, params, headers = {}, serverSide, jwtToken, timeout, cache, revalidate, tags} = options;
-
     try {
-        const shouldCallServerSide = serverSide ?? false;
+        const {data, params, headers = {}} = options;
 
-        let url: string;
-        let fetchConfig: ApiFetchConfig;
-
-        if (shouldCallServerSide) {
-            const token = jwtToken;
-
-            url = buildUrl(JAVA_API_URL, path, params);
-
-            fetchConfig = {
-                method,
-                headers: {
-                    'Content-Type': 'application/json',
-                    ...headers,
-                },
-            };
-
-
-            if (token) {
-                fetchConfig.headers['Authorization'] = `Bearer ${token}`;
-            }
-        } else {
-            url = buildUrl(NEXT_API_URL, path, params);
-
-            fetchConfig = {
-                method,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'ngrok-skip-browser-warning': 'ababa',
-                    ...headers,
-                },
-            };
-        }
+        const url: string = buildUrl(NEXT_API_URL, path, params);
+        const fetchConfig: ApiFetchConfig = {
+            method,
+            headers: {
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'ababa',
+                ...headers,
+            },
+        };
 
         if (data && ['POST', 'PUT', 'PATCH'].includes(method)) {
             fetchConfig.body = JSON.stringify(data);
         }
 
-        if (shouldCallServerSide) {
-            if (cache) {
-                fetchConfig.cache = cache;
-            }
-            if (revalidate !== undefined) {
-                fetchConfig.next = {revalidate};
-            }
-            if (tags && tags.length > 0) {
-                fetchConfig.next = {...fetchConfig.next, tags};
-            }
-        }
-
-        let timeoutId: NodeJS.Timeout | undefined;
-        if (timeout) {
-            const controller = new AbortController();
-            fetchConfig.signal = controller.signal;
-            timeoutId = setTimeout(() => controller.abort(), timeout);
-        }
-
         const response = await fetch(url, fetchConfig);
-
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-        }
 
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({
@@ -133,17 +79,6 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
     } catch (error) {
         if (error && typeof error === 'object' && 'success' in error) {
             throw error;
-        }
-
-        if (error instanceof Error && error.name === 'AbortError') {
-            throw {
-                success: false,
-                error: {
-                    key: 'TIMEOUT_ERROR',
-                    message: 'Request timeout',
-                    code: 408,
-                },
-            } as ErrorResponse;
         }
 
         throw {

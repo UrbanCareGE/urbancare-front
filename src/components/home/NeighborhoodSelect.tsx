@@ -3,6 +3,7 @@
 import React from "react";
 import {Select, SelectContent, SelectItem, SelectTrigger,} from "@/components/ui/select";
 import {MapPin, ChevronDown} from "lucide-react";
+import {useAuth} from "@/components/provider/AuthProvider";
 
 interface Neighborhood {
     id: string;
@@ -45,29 +46,33 @@ const neighborhoods: Neighborhood[] = [
 ];
 
 export const NeighborhoodSelect = () => {
-    const [selectedNeighborhood, setSelectedNeighborhood] = React.useState<string>(neighborhoods[0].id);
+    const {selectApartment, user} = useAuth();
     const [isOpen, setIsOpen] = React.useState(false);
 
-    const currentNeighborhood = neighborhoods.find(n => n.id === selectedNeighborhood);
+    if (user == null) throw Error("AQ TU USERI AR MAQ VER UNDA SHEMOVIDE");
+    const {joinedApartments, selectedApartment} = user;
 
     return (
-        <Select value={selectedNeighborhood} onValueChange={setSelectedNeighborhood} open={isOpen} onOpenChange={setIsOpen}>
+        <Select value={selectedApartment?.id} onValueChange={(val) => {
+            const apt = joinedApartments.find(e => e.id === val)
+            selectApartment(apt!)}
+        } open={isOpen} onOpenChange={setIsOpen}>
             <SelectTrigger className="w-full h-auto py-3 rounded-panel [&>svg]:hidden border border-gray-200">
                 <div className="flex items-center gap-3 w-full">
-                    {currentNeighborhood && (
+                    {selectedApartment && (
                         <>
                             <img
-                                src={currentNeighborhood.image}
-                                alt={currentNeighborhood.name}
+                                src={"https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=100&h=100&fit=crop"}
+                                alt={selectedApartment.name}
                                 className="w-10 h-10 rounded-lg object-cover flex-shrink-0"
                             />
                             <div className="flex flex-col items-start text-left flex-1 min-w-0">
                                 <span className="font-semibold text-base text-gray-900 truncate w-full">
-                                    {currentNeighborhood.name}
+                                    {selectedApartment.name}
                                 </span>
                                 <span className="text-xs text-gray-500 flex items-center gap-1 truncate w-full">
                                     <MapPin className="w-3 h-3 flex-shrink-0"/>
-                                    {currentNeighborhood.address}
+                                    {selectedApartment.name}
                                 </span>
                             </div>
                             <ChevronDown
@@ -80,11 +85,11 @@ export const NeighborhoodSelect = () => {
                 </div>
             </SelectTrigger>
             <SelectContent className="w-[var(--radix-select-trigger-width)] max-h-64 opacity-100 bg-white rounded-panel">
-                {neighborhoods.map((neighborhood) => (
+                {joinedApartments.map((neighborhood) => (
                     <SelectItem key={neighborhood.id} value={neighborhood.id} className="py-3 px-2 hover:bg-gray-100 rounded-pa">
                         <div className="flex items-center gap-3 rounded-panel">
                             <img
-                                src={neighborhood.image}
+                                src={"https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=100&h=100&fit=crop"}
                                 alt={neighborhood.name}
                                 className="w-10 h-10 rounded-lg object-cover flex-shrink-0"
                             />
@@ -94,7 +99,7 @@ export const NeighborhoodSelect = () => {
                                 </span>
                                 <span className="text-xs text-gray-500 flex items-center gap-1 truncate w-full">
                                     <MapPin className="w-3 h-3 flex-shrink-0"/>
-                                    {neighborhood.address}
+                                    {neighborhood.name}
                                 </span>
                             </div>
                         </div>
