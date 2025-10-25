@@ -14,9 +14,9 @@ const Page = () => {
         <div className={"bg-white w-full flex flex-col"}>
             <AddUrgent/>
             <ListLoader/>
-            {/* <Suspense fallback={<ListLoader/>}>
-               <UrgentList/>
-            </Suspense> */}
+            <Suspense fallback={<ListLoader/>}>
+                <UrgentList/>
+            </Suspense>
         </div>
     )
 }
