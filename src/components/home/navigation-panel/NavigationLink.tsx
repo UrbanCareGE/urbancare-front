@@ -25,7 +25,7 @@ export const NavigationLink = ({
         <Link
             href={navigationItem.href}
             className={cn(
-                "h-11 group relative w-full flex items-center justify-between transition-all duration-200 rounded-panel px-4 py-2",
+                "h-11 group relative w-full flex items-center gap-2 transition-all duration-200 rounded-panel px-4 py-2",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                 isActive
                     ? "bg-primary text-white shadow-sm hover:bg-primary/90"
@@ -34,23 +34,21 @@ export const NavigationLink = ({
             )}
             aria-current={isActive ? "page" : undefined}
         >
-            <p className={cn(
-                "flex-1 text-left truncate",
-                isActive && "font-semibold"
-            )}>
-                {navigationItem.label}
-            </p>
-
             {navigationItem.icon && (
                 <div className={cn(
-                    "flex-shrink-0 transition-all duration-200 rotate-180",
+                    "flex-shrink-0 transition-all duration-200",
                     isActive
-                        ? "text-primary-foreground scale-110"
-                        : "text-gray-700 group-hover:text-gray-700 group-hover:scale-105"
+                        ? "text-primary-foreground"
+                        : "text-gray-700 group-hover:text-gray-700"
                 )}>
                     {navigationItem.icon}
                 </div>
             )}
+            <p className={cn(
+                "flex-1 text-left truncate font-semibold text-lg",
+            )}>
+                {navigationItem.label}
+            </p>
         </Link>
     );
 };

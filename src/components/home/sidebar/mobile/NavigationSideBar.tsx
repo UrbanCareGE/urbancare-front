@@ -18,7 +18,7 @@ export const NavigationSideBar = ({children, className}: SidebarProps) => {
         <>
             <Sheet open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
                 <SheetTrigger className={"outline-none"}>
-                    <Menu className={"h-8 w-8"}></Menu>
+                    <Menu className={"h-8 w-8 stroke-gray-800"}/>
                 </SheetTrigger>
                 <SheetContent side="left" className="w-10/12 bg-white rounded-r-panel">
                     <VisuallyHidden>
