@@ -4,7 +4,6 @@ import {UrgentService} from "@/service/urgent-service";
 import UrgentCard from "@/app/(home)/urgent/UrgentCard";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {useQuery} from "@tanstack/react-query";
-import Page from "@/app/(home)/urgent/page";
 import {Leapfrog} from "ldrs/react";
 import {cn} from "@/lib/utils";
 import {Basic} from "@/app/layout";

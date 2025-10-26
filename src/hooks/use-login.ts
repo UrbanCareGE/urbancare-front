@@ -7,9 +7,11 @@ import {ErrorResponse} from "@/model/common.dto";
 import {AuthService} from "@/service/auth-service";
 import {z} from "zod";
 import {LoginReq} from "@/model/auth.dto";
+import {useAuth} from "@/components/provider/AuthProvider";
 
 export function useLogin() {
     const router = useRouter();
+    const {refetchUser} = useAuth();
 
     const form = useForm<z.infer<typeof LoginFormSchema>>({
         resolver: zodResolver(LoginFormSchema),
@@ -27,6 +29,7 @@ export function useLogin() {
         mutationFn: AuthService.login,
         onSuccess: (data) => {
             router.push("/")
+            refetchUser().then();
         },
         onError: (err) => {
             console.log(err)
