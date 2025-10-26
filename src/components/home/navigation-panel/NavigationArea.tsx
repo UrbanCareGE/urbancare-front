@@ -1,65 +1,52 @@
-import { NavigationButton } from "./NavigationButton";
-import {cn} from "@/lib/utils";
+import {NavigationLink} from "@/components/home/navigation-panel/NavigationLink";
+import {SettingsIcon} from "lucide-react";
+import React from "react";
+import {NavigationGroupLink} from "@/components/home/navigation-panel/NavigationGroup";
 
-interface NavItem {
+export type NavItem = {
     href: string;
     label: string;
-    icon: string;
+    icon: React.ReactNode;
     children?: NavItem[];
 }
 
 export const navigationItems: NavItem[] = [
-    { href: "/", label: "სერვისები", icon: "🏠", children: [
-            { href: "/bla1", label: "მოთხოვნები", icon: "👥" },
-            { href: "/blu1", label: "სიახლეები", icon: "🔔" },
-            { href: "/pla1", label: "განცხადებები", icon: "👥" },
-        ], },
-    { href: "/urgent", label: "ზოგადი სერვისები", icon: "🚨" },
-    { href: "/services", label: "ფინანსები", icon: "🔧" },
-    { href: "/bla", label: "მოთხოვნები", icon: "👥", children: [
-            { href: "/bla2", label: "მოთხოვნები", icon: "👥" },
-            { href: "/blu2", label: "სიახლეები", icon: "🔔" },
-            { href: "/pla2", label: "განცხადებები", icon: "👥" },
-        ] },
-    { href: "/blu", label: "სიახლეები", icon: "🔔" },
-    { href: "/pla", label: "განცხადებები", icon: "👥" },
-    { href: "/plu", label: "საპორტი", icon: "🔔" },
+    {
+        href: "/", label: "სერვისები", icon: <SettingsIcon/>, children: [
+            {href: "/bla1", label: "მოთხოვნები", icon: <SettingsIcon/>},
+            {href: "/blu1", label: "სიახლეები", icon: <SettingsIcon/>},
+            {href: "/pla1", label: "განცხადებები", icon: <SettingsIcon/>},
+        ],
+    },
+    {href: "/urgent", label: "ზოგადი სერვისები", icon: <SettingsIcon/>},
+    {href: "/services", label: "ფინანსები", icon: <SettingsIcon/>},
+    {
+        href: "/bla", label: "მოთხოვნები", icon: <SettingsIcon/>, children: [
+            {href: "/bla2", label: "მოთხოვნები", icon: <SettingsIcon/>},
+            {href: "/blu2", label: "სიახლეები", icon: <SettingsIcon/>},
+            {href: "/pla2", label: "განცხადებები", icon: <SettingsIcon/>},
+        ]
+    },
+    {href: "/blu", label: "სიახლეები", icon: <SettingsIcon/>},
+    {href: "/pla", label: "განცხადებები", icon: <SettingsIcon/>},
+    {href: "/plu", label: "საპორტი", icon: <SettingsIcon/>},
 ];
 
-export const NavigationArea = ({items}: {items: NavItem[]}) => {
+type NavigationAreaProps = {
+    navItems: NavItem[];
+}
+
+export const NavigationArea = ({navItems}: NavigationAreaProps) => {
     return (
-        <div className="flex flex-col w-full h-full">
-            {items.map((item, index) => (
-                item.children == undefined
-                    ? <ComponentItem key={item.href} item={item} index={index} size={items.length - 1}/>
-                    : <div key={item.href} className={"flex flex-col"}>
-                        <ComponentItem key={item.href} item={item} index={index} size={items.length - 1}/>
-                        <div className={cn("pl-8 ml-1", {"border-l-2 border-gray-300": index !== items.length - 1})}>
-                            <NavigationArea items={item.children}/>
-                        </div>
-                    </div>
-            ))}
+        <div className={"h-full w-full flex flex-col gap-1"}>
+            {navItems.map(navigationItem => {
+                if (navigationItem.children && navigationItem.children.length > 0) {
+                    return <NavigationGroupLink key={navigationItem.href} navigationItem={navigationItem}/>
+                } else {
+                    return <NavigationLink key={navigationItem.href} navigationItem={navigationItem}/>
+                }
+            })
+            }
         </div>
-    );
-};
-
-export const ComponentItem = ({item, index, size}: {item: NavItem, index: number, size: number}) => {
-    //, { "border-l-2": index === size }
-    return (
-        <div key={item.href} className={"flex items-center"}>
-            <div className={cn("flex box-border flex-col border-gray-300 items-center h-full justify-center ml-1", { "border-l-2": index !== size })}>
-
-                <div className={cn("flex-1 box-border border-solid border-s-2  border-tone-4  border-b-2 border-gray-300 rounded-es-lg w-5", {"relative left-[-2px]": index !== size })}>
-
-                </div>
-                <div className={"flex-1 w-4"}></div>
-            </div>
-            <NavigationButton
-                href={item.href}
-            >
-                <span className="font-bold tracking-wide text-lg text-gray-700 mr-auto">{item.label}</span>
-                <span className="mr-3">{item.icon}</span>
-            </NavigationButton>
-        </div>
-    );
-};
+    )
+}

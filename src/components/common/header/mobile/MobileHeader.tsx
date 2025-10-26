@@ -9,6 +9,8 @@ import {NavigationArea, navigationItems} from "@/components/home/navigation-pane
 import {AppLogo} from "@/components/common/logo/AppLogo";
 import {Basic} from "@/app/layout";
 import {cn} from "@/lib/utils";
+import {LogoutButton} from "@/components/auth/LogoutButton";
+import ProfileHeader from "@/components/profile/mobile/ProfileHeaader";
 
 export const MobileHeader = ({className}: Basic) => {
     return (
@@ -20,7 +22,7 @@ export const MobileHeader = ({className}: Basic) => {
                             <AppLogo/>
                         </NavigationPanel.Header>
                         <NavigationPanel.Body>
-                            <NavigationArea items={navigationItems} />
+                            <NavigationArea navItems={navigationItems}/>
                         </NavigationPanel.Body>
                         <NavigationPanel.Footer>
                             <NeighborhoodSelect/>
@@ -30,14 +32,14 @@ export const MobileHeader = ({className}: Basic) => {
                 <span className={"ml-3 font-semibold text-xl mr-auto"}>URBANCARE</span>
                 <ProfileSideBar>
                     <DynamicPanel>
-                        <DynamicPanel.Header>
-                            <div>Header</div>
+                        <DynamicPanel.Header className={"flex justify-start items-center"}>
+                            <ProfileHeader firstName={"racxa"} lastName={"rucxa"} username={"pavlovich"}/>
                         </DynamicPanel.Header>
                         <DynamicPanel.Body>
                             <div>Body</div>
                         </DynamicPanel.Body>
                         <DynamicPanel.Footer>
-                            <div>Footer</div>
+                            <LogoutButton/>
                         </DynamicPanel.Footer>
                     </DynamicPanel>
                 </ProfileSideBar>

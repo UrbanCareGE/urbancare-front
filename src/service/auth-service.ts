@@ -38,5 +38,9 @@ export const AuthService = {
 
     googleOauth: async (): Promise<unknown> => {
         return api.get<void>('/oauth2/authentication/google');
+    },
+
+    logout: async (): Promise<void> => {
+        return api.post<void, void>('/api/next/auth/logout');
     }
 };
