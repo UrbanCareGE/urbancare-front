@@ -5,6 +5,7 @@ import {Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger} from "@
 import {cn} from "@/lib/utils";
 import {VisuallyHidden} from "@/components/ui/visually-hidden";
 import {Menu} from "lucide-react";
+import SheetProvider from "@/components/provider/SheetProvider";
 
 interface SidebarProps {
     children: ReactNode;
@@ -15,10 +16,10 @@ export const NavigationSideBar = ({children, className}: SidebarProps) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
     return (
-        <>
+        <SheetProvider>
             <Sheet open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
                 <SheetTrigger className={"outline-none"}>
-                    <Menu className={"h-8 w-8 stroke-gray-800"}/>
+                    <Menu className={"h-8 w-8 stroke-gray-600"}/>
                 </SheetTrigger>
                 <SheetContent side="left" className="w-10/12 bg-white rounded-r-panel">
                     <VisuallyHidden>
@@ -30,6 +31,6 @@ export const NavigationSideBar = ({children, className}: SidebarProps) => {
                     </div>
                 </SheetContent>
             </Sheet>
-        </>
+        </SheetProvider>
     );
 };
