@@ -43,9 +43,10 @@ export const NavigationArea = ({navItems}: NavigationAreaProps) => {
                 if (navigationItem.children && navigationItem.children.length > 0) {
                     return <NavigationGroupLink key={navigationItem.href} navigationItem={navigationItem}/>
                 } else {
-                    return <SheetClose key={navigationItem.href + 'close'} asChild={true}>
-                        <NavigationLink key={navigationItem.href} navigationItem={navigationItem}/>
-                    </SheetClose>
+                    return <SheetClose key={navigationItem.href + 'close'} asChild>
+                        <NavigationLink key={navigationItem.href} navigationItem={navigationItem}
+                                        href={navigationItem.href}/>
+                    </SheetClose>;
                 }
             })
             }
