@@ -51,7 +51,7 @@ const DynamicPanelBody = ({className, children,}: DynamicPanelBodyProps) => {
 const DynamicPanelFooter = ({className, children,}: DynamicPanelFooterProps) => {
     return (
         <div className={cn(
-            "w-full flex h-20 items-center justify-between p-1 bg-white rounded-panel shadow-sm", className
+            "w-full flex h-16 items-center justify-between p-1 bg-white rounded-panel shadow-sm", className
         )}>
             {children}
         </div>
