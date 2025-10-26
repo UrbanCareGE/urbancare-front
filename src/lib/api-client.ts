@@ -1,9 +1,8 @@
 import type {ErrorResponse} from '@/model/common.dto';
 
-export const JAVA_API_URL = process.env.JAVA_API_URL || 'http://localhost:8080';
-export const NEXT_API_URL = process.env.NEXT_PUBLIC_APP_URL || '';
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
-type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+export const NEXT_API_URL = process.env.NEXT_PUBLIC_APP_URL || '';
 
 interface ApiCallOptions<TRequest = unknown> {
     data?: TRequest;
@@ -15,7 +14,6 @@ interface ApiFetchConfig extends RequestInit {
     method: HttpMethod;
     headers: Record<string, string>;
     body?: string;
-    signal?: AbortSignal;
 }
 
 function buildUrl(baseUrl: string, path: string, params?: Record<string, string | number | boolean>): string {
@@ -67,10 +65,20 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
             throw errorData as ErrorResponse;
         }
 
+        if (response.status === 204 || response.headers.get('content-length') === '0') {
+            return {} as TResponse;
+        }
+
         const contentType = response.headers.get('content-type');
 
         if (contentType?.includes('application/json')) {
-            return await response.json();
+            const text = await response.text();
+
+            if (!text || text.trim().length === 0) {
+                return {} as TResponse;
+            }
+
+            return JSON.parse(text) as TResponse;
         }
 
         const text = await response.text();
