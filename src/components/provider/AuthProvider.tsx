@@ -3,7 +3,16 @@
 import {createContext, ReactNode, useContext,} from 'react';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {AuthService} from "@/service/auth-service";
-import {Apartment, User} from "@/model/auth.dto";
+import {ApartmentDTO} from "@/model/auth.dto";
+
+export interface User {
+    id: string;
+    phone: string;
+    name: string;
+    surname: string;
+    joinedApartments: ApartmentDTO[];
+    selectedApartment?: ApartmentDTO;
+}
 
 interface AuthContextType {
     user: User | null | undefined;
@@ -13,7 +22,7 @@ interface AuthContextType {
     logout: () => Promise<void>;
     updateUser: (data: Partial<User>) => void;
     refetchUser: () => Promise<void>;
-    selectApartment: (apartment: Apartment) => void;
+    selectApartment: (apartment: ApartmentDTO) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,7 +38,7 @@ export default function AuthProvider({children}: { children: ReactNode }) {
         queryKey: ['user'],
         queryFn: async () => {
             try {
-                const {joinedApartments, ...dto} = await AuthService.getUser();
+                const {joinedApartments, ...dto} = await AuthService.getUserInfo();
 
                 return {...dto, joinedApartments, selectedApartment: joinedApartments[0]} as User;
             } catch (error) {
@@ -62,7 +71,7 @@ export default function AuthProvider({children}: { children: ReactNode }) {
         },
     });
 
-    const selectApartment = (apartment: Apartment) => {
+    const selectApartment = (apartment: ApartmentDTO) => {
         queryClient.setQueryData(['user'], (old: User) => {
             return {...old, selectedApartment: apartment};
         });

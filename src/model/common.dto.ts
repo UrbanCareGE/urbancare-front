@@ -15,3 +15,17 @@ export type ErrorResponse = {
     success: false;
     error: ErrorResp;
 };
+
+
+export interface PairIdNameWrapperDTO {
+    id: string;
+    name: string;
+}
+
+export interface IdWrapperDTO {
+    id: string;
+}
+
+export interface SuccessDTO {
+    success: boolean;
+}

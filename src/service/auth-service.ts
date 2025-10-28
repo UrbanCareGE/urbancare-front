@@ -1,25 +1,42 @@
 import {api} from '@/lib/api-client';
-import {Chat, LoginReq, RegisterReq, UserDTO} from "@/model/auth.dto";
+import {ChatDTO, LoginDTO, RegisterDTO, UserDTO} from "@/model/auth.dto";
+import {SuccessDTO} from "@/model/common.dto";
 
 export const AuthService = {
-    login: async (loginReq: LoginReq): Promise<string> => {
-        await api.post<{ success: boolean }, LoginReq>(
+    login: async (loginReq: LoginDTO): Promise<string> => {
+        await api.post<SuccessDTO, LoginDTO>(
             '/api/next/auth/login',
             loginReq
         );
 
         return 'success';
     },
-
-    register: async (registerDTO: RegisterReq): Promise<string> => {
-        const response = await api.post<{ token?: string }, RegisterReq>(
+    nextLogin: async (loginReq: LoginDTO): Promise<string> => {
+        return await api.post<string, LoginDTO>(
+            '/api/auth/login',
+            loginReq,
+            {
+                server: true,
+            }
+        );
+    },
+    register: async (registerDTO: RegisterDTO): Promise<string> => {
+        const response = await api.post<{ token?: string }, RegisterDTO>(
             '/api/next/auth/register',
             registerDTO
         );
 
         return response.token || '';
     },
-
+    nextRegister: async (registerDTO: RegisterDTO): Promise<string> => {
+        return await api.post<string, RegisterDTO>(
+            '/api/auth/register',
+            registerDTO,
+            {
+                server: true,
+            }
+        );
+    },
     generateOtp: async (phone: string): Promise<string> => {
         return api.post<string>(
             '/api/otp/generate',
@@ -27,19 +44,15 @@ export const AuthService = {
             {params: {phone}}
         );
     },
-
-    getUser: async (): Promise<UserDTO> => {
+    getUserInfo: async (): Promise<UserDTO> => {
         return api.get<UserDTO>('/api/secure/user/me');
     },
-
-    getChatInfo: async (apartmentId: string): Promise<Chat[]> => {
-        return api.get<Chat[]>(`/api/secure/chat/${apartmentId}/list`);
+    getChatInfo: async (apartmentId: string): Promise<ChatDTO[]> => {
+        return api.get<ChatDTO[]>(`/api/secure/chat/${apartmentId}/list`);
     },
-
     googleOauth: async (): Promise<unknown> => {
         return api.get<void>('/oauth2/authentication/google');
     },
-
     logout: async (): Promise<void> => {
         return api.post<void, void>('/api/next/auth/logout');
     }

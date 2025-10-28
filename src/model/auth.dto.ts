@@ -1,4 +1,4 @@
-export interface RegisterReq {
+export interface RegisterDTO {
     phone: string;
     name: string;
     surname: string;
@@ -6,20 +6,20 @@ export interface RegisterReq {
     otp: string;
 }
 
-export interface LoginReq {
+export interface LoginDTO {
     phone: string;
     password: string;
 }
 
-export interface GetOtpReq {
+export interface GetOtpDTO {
     phone: string;
 }
 
-export interface Chat {
+export interface ChatDTO {
     id: string;
 }
 
-export interface Apartment {
+export interface ApartmentDTO {
     id: string;
     name: string;
 }
@@ -29,14 +29,5 @@ export interface UserDTO {
     phone: string;
     name: string;
     surname: string;
-    joinedApartments: Apartment[];
-}
-
-export interface User {
-    id: string;
-    phone: string;
-    name: string;
-    surname: string;
-    joinedApartments: Apartment[];
-    selectedApartment?: Apartment;
+    joinedApartments: ApartmentDTO[];
 }

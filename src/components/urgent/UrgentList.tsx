@@ -1,7 +1,7 @@
 'use client'
 
 import {UrgentService} from "@/service/urgent-service";
-import UrgentCard from "@/app/(home)/urgent/UrgentCard";
+import UrgentCard from "@/components/urgent/UrgentCard";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {useQuery} from "@tanstack/react-query";
 import {Leapfrog} from "ldrs/react";

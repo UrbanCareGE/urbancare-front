@@ -3,10 +3,13 @@ import type {ErrorResponse} from '@/model/common.dto';
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 export const NEXT_API_URL = process.env.NEXT_PUBLIC_APP_URL || '';
+export const JAVA_API_URL = process.env.JAVA_API_URL || '';
 
 interface ApiCallOptions<TRequest = unknown> {
     data?: TRequest;
     params?: Record<string, string | number | boolean>;
+    server?: boolean;
+    authToken?: string;
     headers?: Record<string, string>;
 }
 
@@ -34,9 +37,11 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
     options: ApiCallOptions<TRequest> = {}
 ): Promise<TResponse> {
     try {
-        const {data, params, headers = {}} = options;
+        const {data, params, server, authToken, headers = {}} = options;
 
-        const url: string = buildUrl(NEXT_API_URL, path, params);
+        const baseUrl = server ? JAVA_API_URL : NEXT_API_URL;
+
+        const url: string = buildUrl(baseUrl, path, params);
         const fetchConfig: ApiFetchConfig = {
             method,
             headers: {
@@ -45,6 +50,10 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
                 ...headers,
             },
         };
+
+        if (authToken) {
+            headers['Authorization'] = authToken;
+        }
 
         if (data && ['POST', 'PUT', 'PATCH'].includes(method)) {
             fetchConfig.body = JSON.stringify(data);

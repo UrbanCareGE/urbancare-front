@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {forwardRef, ReactNode, ComponentPropsWithoutRef} from "react";
+import {ComponentPropsWithoutRef, forwardRef, ReactNode} from "react";
 import {cn} from "@/lib/utils";
 import {NavItem} from "@/components/home/navigation-panel/NavigationArea";
 import {usePathname} from "next/navigation";
@@ -22,7 +22,6 @@ export const NavigationLink = forwardRef<HTMLAnchorElement, NavigationLinkProps>
         return (
             <Link
                 ref={ref}
-                href={navigationItem.href}
                 {...props} // Spread all other props (including onClick from SheetClose)
                 className={cn(
                     "h-11 group relative w-full flex items-center gap-2 transition-all duration-200 rounded-panel px-4 py-2",

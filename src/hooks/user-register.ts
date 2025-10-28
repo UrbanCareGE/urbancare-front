@@ -8,7 +8,7 @@ import {useForm} from "react-hook-form";
 import {registerSchema} from "@/components/auth/register/data/register-form-schema";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
-import {RegisterReq} from "@/model/auth.dto";
+import {RegisterDTO} from "@/model/auth.dto";
 
 
 export function useRegister() {
@@ -30,7 +30,7 @@ export function useRegister() {
     const {mutate, isPending, isError} = useMutation<
         string,
         ErrorResponse,
-        RegisterReq
+        RegisterDTO
     >({
         mutationFn: AuthService.register,
         onSuccess: () => {
@@ -41,7 +41,7 @@ export function useRegister() {
     });
 
     const onSubmit = (values: z.infer<typeof registerSchema>) => {
-        const registerReq: RegisterReq = {
+        const registerReq: RegisterDTO = {
             name: values.firstName,
             surname: values.lastName,
             password: values.password,

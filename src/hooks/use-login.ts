@@ -6,7 +6,7 @@ import {useMutation} from "@tanstack/react-query";
 import {ErrorResponse} from "@/model/common.dto";
 import {AuthService} from "@/service/auth-service";
 import {z} from "zod";
-import {LoginReq} from "@/model/auth.dto";
+import {LoginDTO} from "@/model/auth.dto";
 import {useAuth} from "@/components/provider/AuthProvider";
 
 export function useLogin() {
@@ -24,7 +24,7 @@ export function useLogin() {
     const {mutate, isPending, error} = useMutation<
         string,
         ErrorResponse,
-        LoginReq
+        LoginDTO
     >({
         mutationFn: AuthService.login,
         onSuccess: (data) => {
@@ -38,7 +38,7 @@ export function useLogin() {
 
     const onSubmit = (values: z.infer<typeof LoginFormSchema>) => {
         const {emailOrPhone, password} = values;
-        const loginReq: LoginReq = {
+        const loginReq: LoginDTO = {
             phone: emailOrPhone,
             password: password,
         }
