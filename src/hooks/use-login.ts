@@ -16,7 +16,7 @@ export function useLogin() {
     const form = useForm<z.infer<typeof LoginFormSchema>>({
         resolver: zodResolver(LoginFormSchema),
         defaultValues: {
-            emailOrPhone: "",
+            phone: "",
             password: "",
         },
     });
@@ -27,7 +27,7 @@ export function useLogin() {
         LoginDTO
     >({
         mutationFn: AuthService.login,
-        onSuccess: (data) => {
+        onSuccess: () => {
             router.push("/")
             refetchUser().then();
         },
@@ -37,9 +37,9 @@ export function useLogin() {
     });
 
     const onSubmit = (values: z.infer<typeof LoginFormSchema>) => {
-        const {emailOrPhone, password} = values;
+        const {phone, password} = values;
         const loginReq: LoginDTO = {
-            phone: emailOrPhone,
+            phone: phone,
             password: password,
         }
         mutate(loginReq);

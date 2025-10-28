@@ -52,19 +52,8 @@ export default function AuthProvider({children}: { children: ReactNode }) {
     });
 
     const loginMutation = useMutation({
-        mutationFn: async ({email, password}: { email: string; password: string }) => {
-            const res = await fetch('/api/auth/login', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({email, password}),
-                credentials: 'include',
-            });
-
-            if (!res.ok) {
-                throw new Error('Invalid credentials');
-            }
-
-            return res.json();
+        mutationFn: async ({phone, password}: { phone: string; password: string }) => {
+            return await AuthService.login({phone, password})
         },
         onSuccess: async () => {
             await refetch();
@@ -93,8 +82,8 @@ export default function AuthProvider({children}: { children: ReactNode }) {
         },
     });
 
-    const login = async (email: string, password: string) => {
-        await loginMutation.mutateAsync({email, password});
+    const login = async (phone: string, password: string) => {
+        await loginMutation.mutateAsync({phone, password});
     };
 
     const logout = async () => {

@@ -14,7 +14,7 @@ import {useRegister} from "@/hooks/user-register";
 
 
 export function RegisterForm() {
-    const {form, onSubmit, isPending, isError} = useRegister()
+    const {form, onSubmit, isPending} = useRegister()
 
     return (
         <Form {...form}>
@@ -56,7 +56,7 @@ export function RegisterForm() {
                 />
                 <FormField
                     control={form.control}
-                    name="emailOrPhone"
+                    name="phone"
                     render={({field}) => (
                         <FormItem className="w-full">
                             <FormControl>

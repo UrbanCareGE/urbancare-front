@@ -47,6 +47,15 @@ export const AuthService = {
     getUserInfo: async (): Promise<UserDTO> => {
         return api.get<UserDTO>('/api/secure/user/me');
     },
+    nextGetUserInfo: async (authToken: string): Promise<UserDTO> => {
+        return api.get<UserDTO>('/api/secure/user/me', {
+            server: true,
+            authToken,
+            headers: {
+                cache: 'no-store',
+            }
+        });
+    },
     getChatInfo: async (apartmentId: string): Promise<ChatDTO[]> => {
         return api.get<ChatDTO[]>(`/api/secure/chat/${apartmentId}/list`);
     },

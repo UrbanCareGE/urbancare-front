@@ -11,7 +11,7 @@ import {KeyRound, User} from "lucide-react";
 import {AuthSpacer} from "@/components/auth/AuthSpacer";
 
 export function LoginForm() {
-    const {mutate, form, onSubmit, isPending, error} = useLogin();
+    const {form, onSubmit, isPending} = useLogin();
 
     return (
         <Form {...form}>
@@ -19,13 +19,13 @@ export function LoginForm() {
                   onSubmit={form.handleSubmit(onSubmit)}>
                 <FormField
                     control={form.control}
-                    name="emailOrPhone"
+                    name="phone"
                     render={({field}) => (
                         <FormItem className="w-full">
                             <FormControl className={"w-full"}>
                                 <FormInputWithIconWrapper icon={<User/>}>
                                     <FormInput className={"w-full"}
-                                               placeholder="ელ.ფოსტა ან ტელეფონი*"
+                                               placeholder="მობილურის ნომერი*"
                                                disabled={isPending}
                                                {...field}
                                     />

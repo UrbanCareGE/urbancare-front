@@ -19,7 +19,7 @@ export function useRegister() {
         defaultValues: {
             firstName: "",
             lastName: "",
-            emailOrPhone: "",
+            phone: "",
             password: "",
             confirmPassword: "",
             acceptTerms: false,
@@ -45,7 +45,7 @@ export function useRegister() {
             name: values.firstName,
             surname: values.lastName,
             password: values.password,
-            phone: values.emailOrPhone,
+            phone: values.phone,
             otp: values.otp,
         }
         mutate(registerReq);
