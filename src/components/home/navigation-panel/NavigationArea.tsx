@@ -1,5 +1,14 @@
 import {NavigationLink} from "@/components/home/navigation-panel/NavigationLink";
-import {Building2Icon, FileUser, Headset, LandmarkIcon, Rss, SettingsIcon, ShieldAlertIcon} from "lucide-react";
+import {
+    Building2Icon,
+    FileUser,
+    Headset,
+    LandmarkIcon,
+    NewspaperIcon,
+    Rss,
+    SettingsIcon,
+    ShieldAlertIcon
+} from "lucide-react";
 import React from "react";
 import {NavigationGroupLink} from "@/components/home/navigation-panel/NavigationGroup";
 import {SheetClose} from "@/components/ui/sheet";
@@ -12,7 +21,7 @@ export type NavItem = {
 }
 
 export const navigationItems: NavItem[] = [
-    {href: "/news", label: "სიახლეები", icon: <Rss/>},
+    {href: "/news", label: "სიახლეები", icon: <NewspaperIcon/>},
     {href: "/applications", label: "განცხადებები", icon: <FileUser/>},
     {href: "/urgent", label: "სასწრაფო", icon: <ShieldAlertIcon/>},
     {

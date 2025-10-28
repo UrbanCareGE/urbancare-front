@@ -24,7 +24,7 @@ interface DynamicPanelFooterProps {
 
 const DynamicPanelRoot = ({className, children}: DynamicPanelRootProps) => {
     return (
-        <div className={cn("flex flex-col gap-4 h-full min-h-0", className)}>
+        <div className={cn("w-full flex flex-col gap-4 h-full min-h-0", className)}>
             {children}
         </div>
     );
@@ -33,7 +33,7 @@ const DynamicPanelRoot = ({className, children}: DynamicPanelRootProps) => {
 const DynamicPanelHeader = ({className, children}: DynamicPanelHeaderProps) => {
     return (
         <div className={cn(
-            "w-full h-20 p-4 bg-white rounded-panel shadow-sm", className)}>
+            "w-full h-20 bg-white border-b-2", className)}>
             {children}
         </div>
     );
@@ -42,7 +42,7 @@ const DynamicPanelHeader = ({className, children}: DynamicPanelHeaderProps) => {
 const DynamicPanelBody = ({className, children,}: DynamicPanelBodyProps) => {
     return (
         <div className={cn(
-            "w-full flex-1 overflow-auto bg-white rounded-panel shadow-sm", className)}>
+            "w-full flex-1 overflow-auto bg-white", className)}>
             {children}
         </div>
     );
@@ -51,7 +51,7 @@ const DynamicPanelBody = ({className, children,}: DynamicPanelBodyProps) => {
 const DynamicPanelFooter = ({className, children,}: DynamicPanelFooterProps) => {
     return (
         <div className={cn(
-            "w-full flex h-16 items-center justify-between p-1 bg-white rounded-panel shadow-sm", className
+            "w-full flex h-20 items-center justify-between border-t-2", className
         )}>
             {children}
         </div>

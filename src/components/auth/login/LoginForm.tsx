@@ -7,7 +7,7 @@ import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import {OauthForm} from "@/components/auth/OauthForm";
 import {useLogin} from "@/hooks/use-login";
-import {KeyRound, User} from "lucide-react";
+import {KeyRound, PhoneIcon} from "lucide-react";
 import {AuthSpacer} from "@/components/auth/AuthSpacer";
 
 export function LoginForm() {
@@ -23,7 +23,7 @@ export function LoginForm() {
                     render={({field}) => (
                         <FormItem className="w-full">
                             <FormControl className={"w-full"}>
-                                <FormInputWithIconWrapper icon={<User/>}>
+                                <FormInputWithIconWrapper icon={<PhoneIcon/>}>
                                     <FormInput className={"w-full"}
                                                placeholder="მობილურის ნომერი*"
                                                disabled={isPending}
@@ -34,7 +34,6 @@ export function LoginForm() {
                         </FormItem>
                     )}
                 />
-
                 <FormField
                     control={form.control}
                     name="password"

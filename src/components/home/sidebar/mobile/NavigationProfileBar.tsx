@@ -23,9 +23,9 @@ export const ProfileSideBar = ({children, className}: SidebarProps) => {
                 <SheetContent side="right" className="w-10/12 bg-white rounded-l-panel">
                     <VisuallyHidden>
                         <SheetTitle>Navigation Menu</SheetTitle>
-                        <SheetDescription>blabla</SheetDescription>
+                        <SheetDescription>user profile navbar</SheetDescription>
                     </VisuallyHidden>
-                    <div className={cn("h-full", className)}>
+                    <div className={cn("w-full h-full", className)}>
                         {children}
                     </div>
                 </SheetContent>

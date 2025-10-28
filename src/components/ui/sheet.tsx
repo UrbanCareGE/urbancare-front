@@ -65,11 +65,6 @@ const SheetContent = React.forwardRef<
             className={cn(sheetVariants({side}), className)}
             {...props}
         >
-            <SheetPrimitive.Close data-side={side}
-                                  className="absolute select-none right-3 top-3 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary hidden data-[side=left]:block">
-                <Menu className={"h-8 w-8 stroke-gray-800"}></Menu>
-                <span className="sr-only">Close</span>
-            </SheetPrimitive.Close>
             {children}
         </SheetPrimitive.Content>
     </SheetPortal>

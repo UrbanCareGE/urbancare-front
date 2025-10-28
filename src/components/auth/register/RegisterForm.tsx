@@ -4,7 +4,7 @@ import React from "react";
 import {Form, FormControl, FormField, FormItem} from "@/components/ui/form";
 import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
-import {BadgeCheck, KeyRound, Mail, RotateCcwKey, User} from "lucide-react";
+import {BadgeCheck, KeyRound, Mail, PhoneIcon, RotateCcwKey, User} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox";
 import {FormInput, FormInputWithIconWrapper} from "@/components/auth/FormInput";
 import {OTPInput} from "@/components/auth/register/OTPInput";
@@ -60,9 +60,9 @@ export function RegisterForm() {
                     render={({field}) => (
                         <FormItem className="w-full">
                             <FormControl>
-                                <FormInputWithIconWrapper icon={<Mail/>}>
+                                <FormInputWithIconWrapper icon={<PhoneIcon/>}>
                                     <FormInput
-                                        placeholder="ელ.ფოსტა ან ტელეფონი*"
+                                        placeholder="ტელეფონი*"
                                         disabled={isPending}
                                         {...field}
                                     />

@@ -3,6 +3,7 @@ import {ReactNode} from "react";
 import {cn} from "@/lib/utils";
 import {usePathname} from "next/navigation";
 import Link from "next/link";
+import {ChevronDown, ChevronRight} from "lucide-react";
 
 type NavigationGroupLinkProps = {
     navigationItem: NavItem;
@@ -22,13 +23,14 @@ export const NavigationGroupSubLink = ({navigationItem}: NavigationGroupSubLinkP
 
     return <Link
         href={navigationItem.href}
-        className={"h-9 group relative w-full flex items-center gap-8 transition-all duration-200"}>
+        className={"h-9 group relative w-full flex items-center gap-8 px-1 transition-all duration-200"}>
         <div className={cn("h-full w-1 bg-gray-200 rounded-full", isActive ? 'bg-primary' : 'bg-gray-200')}></div>
         <p className={cn(
-            "text-gray-600 text-left truncate font-semibold text-lg",
+            "text-gray-600 text-left truncate font-semibold text-lg mr-auto",
         )}>
             {navigationItem.label}
         </p>
+        <ChevronRight className={"stroke-gray-500"}/>
     </Link>
 }
 
@@ -36,11 +38,11 @@ export const NavigationGroupLink = ({navigationItem}: NavigationGroupLinkProps) 
     return (
         <div className={"flex flex-col w-full"}>
             <div
-                className={"h-11 group relative w-full flex items-center gap-2 transition-all duration-200 px-4 py-2"}>
+                className={"h-11 group relative w-full flex items-center gap-2 transition-all duration-200 px-1 py-2"}>
                 {navigationItem.icon && (
                     <div className={cn(
-                        "flex-shrink-0 transition-all duration-200",
-                        "text-gray-600"
+                        "flex-shrink-0 transition-all duration-200 bg-gray-100 rounded-full p-2 flex justify-center items-center",
+                        "text-gray-500 group-hover:text-gray-400"
                     )}>
                         {navigationItem.icon}
                     </div>
@@ -52,7 +54,7 @@ export const NavigationGroupLink = ({navigationItem}: NavigationGroupLinkProps) 
                 </p>
             </div>
             <div className={"flex"}>
-                <div className={"flex flex-col w-full ml-7"}>
+                <div className={"flex flex-col w-full ml-5"}>
                     {navigationItem.children?.map(navigationItem => {
                         return <NavigationGroupSubLink key={navigationItem.href} navigationItem={navigationItem}/>
                     })}
