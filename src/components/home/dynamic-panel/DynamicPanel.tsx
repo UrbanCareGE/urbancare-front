@@ -1,5 +1,6 @@
 import {cn} from "@/lib/utils";
 import React, {ReactNode} from "react";
+import {Separator} from "@/components/ui/separator";
 
 
 interface DynamicPanelRootProps {
@@ -24,7 +25,7 @@ interface DynamicPanelFooterProps {
 
 const DynamicPanelRoot = ({className, children}: DynamicPanelRootProps) => {
     return (
-        <div className={cn("w-full flex flex-col gap-4 h-full min-h-0 p-3", className)}>
+        <div className={cn("w-full flex flex-col h-full min-h-0", className)}>
             {children}
         </div>
     );
@@ -33,7 +34,7 @@ const DynamicPanelRoot = ({className, children}: DynamicPanelRootProps) => {
 const DynamicPanelHeader = ({className, children}: DynamicPanelHeaderProps) => {
     return (
         <div className={cn(
-            "w-full h-20 bg-white", className)}>
+            "w-full h-20 bg-white px-4", className)}>
             {children}
         </div>
     );
@@ -42,7 +43,7 @@ const DynamicPanelHeader = ({className, children}: DynamicPanelHeaderProps) => {
 const DynamicPanelBody = ({className, children,}: DynamicPanelBodyProps) => {
     return (
         <div className={cn(
-            "w-full flex-1 overflow-auto bg-white", className)}>
+            "w-full flex-1 overflow-auto bg-white px-4", className)}>
             {children}
         </div>
     );
@@ -51,15 +52,20 @@ const DynamicPanelBody = ({className, children,}: DynamicPanelBodyProps) => {
 const DynamicPanelFooter = ({className, children,}: DynamicPanelFooterProps) => {
     return (
         <div className={cn(
-            "w-full flex h-20 items-center justify-between", className
+            "w-full flex flex-col h-20 items-center justify-center px-4 mb-3", className
         )}>
             {children}
         </div>
     );
 };
 
+const DynamicPanelSeparator = () => {
+    return <Separator className={"bg-gray-200 my-3"}/>
+}
+
 export const DynamicPanel = Object.assign(DynamicPanelRoot, {
     Header: DynamicPanelHeader,
     Body: DynamicPanelBody,
     Footer: DynamicPanelFooter,
+    Separator: DynamicPanelSeparator,
 });

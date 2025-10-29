@@ -1,10 +1,9 @@
-import {TypographyH2, TypographyLead} from "@/components/common/text/Typography";
+import {TypographyLead} from "@/components/common/text/Typography";
 
 type SectionHeaderProps = {
     value: string
     className?: string
 }
-
 
 export const SectionHeader = ({value, className}: SectionHeaderProps) => {
     return (

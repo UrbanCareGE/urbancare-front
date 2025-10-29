@@ -1,55 +1,57 @@
-import {NavigationSideBar} from "@/components/home/sidebar/mobile/navigation/NavigationSideBar";
 import React from "react";
-import {ProfileSideBar} from "@/components/home/sidebar/mobile/profile/ProfileSideBar";
+import {MobileSideBar} from "@/components/home/sidebar/mobile/MobileSideBar";
 import {DynamicPanel} from "@/components/home/dynamic-panel/DynamicPanel";
 import {NeighborhoodSelect} from "@/components/home/NeighborhoodSelect";
 import {NavigationArea, navigationItems} from "@/components/home/sidebar/mobile/navigation/NavigationArea";
-import {AppLogo} from "@/components/common/logo/AppLogo";
 import {Basic} from "@/app/layout";
-import {LogoutButton} from "@/components/auth/LogoutButton";
-import * as SheetPrimitive from "@radix-ui/react-dialog";
+import {NavSideBarHeader} from "@/components/home/sidebar/mobile/navigation/NavSideBarHeader";
+import {SheetTrigger} from "@/components/ui/sheet";
+import {ActiveUserAvatar} from "@/components/common/avatar/ActiveUserAvatar";
 import {Menu} from "lucide-react";
 import {ProfileSideBarHeader} from "@/components/home/sidebar/mobile/profile/ProfileSideBarHeader";
-import ThemeToggle from "@/components/common/util/ThemeToggle";
-import {SectionHeader} from "@/components/home/sidebar/mobile/profile/SectionHeader";
+import {LogoutButton} from "@/components/auth/LogoutButton";
+import {ProfileSideBarBody} from "@/components/home/sidebar/mobile/profile/ProfileSIdeBarBody";
+import {AppVersionLabel} from "@/components/common/util/AppVersionLabel";
 
 export const MobileHeader = ({className}: Basic) => {
     return (
-        <div className={"h-16 w-full flex items-center px-3 border-b border-gray-200"}>
-            <NavigationSideBar>
+        <div className={"h-20 w-full flex items-center px-3 border-b border-gray-200"}>
+            <MobileSideBar trigger={<SheetTrigger className={"outline-none"}>
+                <Menu className={'w-8 h-8 text-gray-600'}/>
+            </SheetTrigger>} side={'left'}>
                 <DynamicPanel>
-                    <DynamicPanel.Header className={"gap-2 border-b"}>
-                        <div className={"w-full flex"}>
-                            <AppLogo/>
-                            <SheetPrimitive.Close>
-                                <Menu className={"h-8 w-8 stroke-gray-800"}></Menu>
-                                <span className="sr-only">Close</span>
-                            </SheetPrimitive.Close>
-                        </div>
+                    <DynamicPanel.Header className={"gap-2"}>
+                        <NavSideBarHeader/>
                     </DynamicPanel.Header>
+                    <DynamicPanel.Separator/>
                     <DynamicPanel.Body>
                         <NavigationArea navItems={navigationItems}/>
                     </DynamicPanel.Body>
+                    <DynamicPanel.Separator/>
                     <DynamicPanel.Footer>
                         <NeighborhoodSelect/>
                     </DynamicPanel.Footer>
                 </DynamicPanel>
-            </NavigationSideBar>
+            </MobileSideBar>
             <span className={"ml-3 font-semibold text-xl mr-auto"}>URBANCARE</span>
-            <ProfileSideBar>
+            <MobileSideBar trigger={<SheetTrigger className={"outline-none"}>
+                <ActiveUserAvatar/>
+            </SheetTrigger>} side={'right'}>
                 <DynamicPanel>
-                    <DynamicPanel.Header className={"flex h-28 border-b-2"}>
+                    <DynamicPanel.Header className={"h-36 gap-2 px-4"}>
                         <ProfileSideBarHeader/>
                     </DynamicPanel.Header>
-                    <DynamicPanel.Body>
-                        <SectionHeader value={"ფონი"}/>
-                        <ThemeToggle/>
+                    <DynamicPanel.Separator/>
+                    <DynamicPanel.Body className={"px-0"}>
+                        <ProfileSideBarBody/>
                     </DynamicPanel.Body>
-                    <DynamicPanel.Footer className={"border-t-2"}>
+                    <DynamicPanel.Separator/>
+                    <DynamicPanel.Footer>
                         <LogoutButton/>
+                        <AppVersionLabel/>
                     </DynamicPanel.Footer>
                 </DynamicPanel>
-            </ProfileSideBar>
+            </MobileSideBar>
         </div>
     );
 };

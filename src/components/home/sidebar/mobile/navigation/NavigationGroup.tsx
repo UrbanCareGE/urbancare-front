@@ -30,7 +30,7 @@ export const NavigationGroupSubLink = ({navigationItem}: NavigationGroupSubLinkP
         )}>
             {navigationItem.label}
         </p>
-        <ChevronRight className={"stroke-gray-500"}/>
+        <ChevronRight className={"w-5 h-5 stroke-gray-500"}/>
     </Link>
 }
 

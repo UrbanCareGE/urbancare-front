@@ -1,28 +1,31 @@
 'use client'
 
 import React, {ReactNode} from "react";
-import {Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
+import {Sheet, SheetContent, SheetDescription, SheetTitle} from "@/components/ui/sheet";
 import {cn} from "@/lib/utils";
 import {VisuallyHidden} from "@/components/ui/visually-hidden";
-import {ActiveUserAvatar} from "@/components/common/avatar/ActiveUserAvatar";
 
 interface SidebarProps {
     children: ReactNode;
     className?: string;
+    side: 'left' | 'right';
+    trigger: ReactNode;
 }
 
-export const ProfileSideBar = ({children, className}: SidebarProps) => {
+export const MobileSideBar = ({children, className, side, trigger}: SidebarProps) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
     return (
         <>
             <Sheet open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
-                <SheetTrigger className={"outline-none"}>
-                    <ActiveUserAvatar/>
-                </SheetTrigger>
-                <SheetContent side="right" className="w-10/12 bg-white rounded-l-panel">
+                {trigger}
+                <SheetContent side={side}
+                              className={cn("w-10/12 bg-white", {
+                                  'rounded-r-md': side === 'left',
+                                  'rounded-l-md': side === 'right'
+                              })}>
                     <VisuallyHidden>
-                        <SheetTitle>Navigation Menu</SheetTitle>
+                        <SheetTitle> Navigation Menu</SheetTitle>
                         <SheetDescription>user profile navbar</SheetDescription>
                     </VisuallyHidden>
                     <div className={cn("w-full h-full", className)}>
@@ -31,5 +34,6 @@ export const ProfileSideBar = ({children, className}: SidebarProps) => {
                 </SheetContent>
             </Sheet>
         </>
-    );
+    )
+        ;
 };
