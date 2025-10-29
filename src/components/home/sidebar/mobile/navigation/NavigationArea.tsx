@@ -1,4 +1,4 @@
-import {NavigationLink} from "@/components/home/navigation-panel/NavigationLink";
+import {NavigationLink} from "@/components/home/sidebar/mobile/navigation/NavigationLink";
 import {
     Building2Icon,
     FileUser,
@@ -10,7 +10,7 @@ import {
     ShieldAlertIcon
 } from "lucide-react";
 import React from "react";
-import {NavigationGroupLink} from "@/components/home/navigation-panel/NavigationGroup";
+import {NavigationGroupLink} from "@/components/home/sidebar/mobile/navigation/NavigationGroup";
 import {SheetClose} from "@/components/ui/sheet";
 
 export type NavItem = {

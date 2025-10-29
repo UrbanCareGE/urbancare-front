@@ -1,4 +1,4 @@
-import {NavItem} from "@/components/home/navigation-panel/NavigationArea";
+import {NavItem} from "@/components/home/sidebar/mobile/navigation/NavigationArea";
 import {ReactNode} from "react";
 import {cn} from "@/lib/utils";
 import {usePathname} from "next/navigation";

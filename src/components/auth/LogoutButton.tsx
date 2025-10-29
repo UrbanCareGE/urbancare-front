@@ -19,7 +19,7 @@ export const LogoutButton = () => {
         mutation.mutate()
     }
     return (
-        <Button className={"w-full bg-primary font-semibold text-base"} onClick={handleLogout}>
+        <Button className={"w-full bg-error font-semibold text-base"} onClick={handleLogout}>
             გასვლა
             <LogOutIcon/>
         </Button>

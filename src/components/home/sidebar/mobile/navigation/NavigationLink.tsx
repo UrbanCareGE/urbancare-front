@@ -3,7 +3,7 @@
 import Link from "next/link";
 import {ComponentPropsWithoutRef, forwardRef, ReactNode} from "react";
 import {cn} from "@/lib/utils";
-import {NavItem} from "@/components/home/navigation-panel/NavigationArea";
+import {NavItem} from "@/components/home/sidebar/mobile/navigation/NavigationArea";
 import {usePathname} from "next/navigation";
 import {ChevronRight} from "lucide-react";
 
