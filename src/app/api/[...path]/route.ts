@@ -48,7 +48,7 @@ async function handleRequest(
         });
 
         // Get response data
-        const responseData = await response.text();
+        const responseData = await response.bytes()
 
         // Return response
         return new Response(responseData, {

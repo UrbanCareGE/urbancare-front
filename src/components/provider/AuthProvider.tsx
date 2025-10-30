@@ -10,6 +10,7 @@ export interface User {
     phone: string;
     name: string;
     surname: string;
+    profileImageId?: string;
     joinedApartments: ApartmentDTO[];
     selectedApartment?: ApartmentDTO;
 }

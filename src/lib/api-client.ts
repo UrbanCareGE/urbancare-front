@@ -138,3 +138,17 @@ export const api = {
         options?: Omit<ApiCallOptions, 'data'>
     ) => apiClient<TResponse>('DELETE', path, options),
 };
+
+
+export function getServerFileUrl(id: string): string {
+
+    return "";
+}
+
+export function getClientFileUrl(id?: string): string {
+    if (!id)
+        return 'opa'
+
+    return `${NEXT_API_URL}/api/secure/file/${id}`
+}
+

@@ -4,10 +4,11 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import React from "react";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {Skeleton} from "@/components/ui/skeleton";
+import {getClientFileUrl} from "@/lib/api-client";
 
 function ProfileSideBarViewSkeleton() {
     return (
-        <div className="flex items-center gap-3 p-2 w-full">
+        <div className="flex flex-1 items-center gap-3 w-full">
             {/* Avatar skeleton */}
             <div className="relative inline-block">
                 <Skeleton className="h-16 w-16 rounded-full"/>
@@ -24,7 +25,7 @@ function ProfileSideBarViewSkeleton() {
 
 export const SideBarProfileHeader = () => {
     const {user, isLoading} = useAuth();
-    const initials = `${user?.name}${user?.surname[0]}`.toUpperCase();
+    const initials = `${user?.name[0]}${user?.surname[0]}`.toUpperCase();
 
     if (isLoading) {
         return <ProfileSideBarViewSkeleton/>;
@@ -34,8 +35,7 @@ export const SideBarProfileHeader = () => {
         <div className="flex flex-1 items-center gap-3 w-full">
             <div className="relative inline-block outline-none">
                 <Avatar className="h-16 w-16 cursor-pointer ring-2 ring-offset-1 ring-gray-200">
-                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn"/>
-                    <AvatarImage src={''} alt={`${user?.name} ${user?.surname}`}/>
+                    <AvatarImage src={getClientFileUrl(user?.profileImageId)} alt="@shadcn" className={'object-cover'}/>
                     <AvatarFallback>{initials}</AvatarFallback>
                 </Avatar>
                 <span

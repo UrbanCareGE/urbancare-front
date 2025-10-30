@@ -4,11 +4,10 @@
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import React from "react";
 import {useAuth} from "@/components/provider/AuthProvider";
-import {Menu, Pencil} from "lucide-react";
+import {Pencil} from "lucide-react";
 import {Skeleton} from "@/components/ui/skeleton";
 import Link from "next/link";
 import {SheetClose} from "@/components/ui/sheet";
-import * as SheetPrimitive from "@radix-ui/react-dialog";
 
 function SheetProfileHeaderSkeleton() {
     return (

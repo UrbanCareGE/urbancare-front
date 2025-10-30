@@ -2,8 +2,8 @@ export type ErrorResp = {
     key: string;
     message: string;
     code: number;
-    data?: never;
-    stack?: never;
+    data?: unknown;
+    stack?: unknown;
 }
 
 export type SuccessResponse<T> = {
@@ -15,7 +15,6 @@ export type ErrorResponse = {
     success: false;
     error: ErrorResp;
 };
-
 
 export interface PairIdNameWrapperDTO {
     id: string;

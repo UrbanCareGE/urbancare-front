@@ -20,7 +20,7 @@ export const MobileHeader = ({className}: Basic) => {
                 <Menu className={'w-8 h-8 text-gray-600'}/>
             </SheetTrigger>} side={'left'}>
                 <DynamicPanel>
-                    <DynamicPanel.Header className={"gap-2"}>
+                    <DynamicPanel.Header className={"gap-2 bg-gray-50"}>
                         <NavSideBarHeader/>
                     </DynamicPanel.Header>
                     <DynamicPanel.Separator/>
@@ -28,17 +28,17 @@ export const MobileHeader = ({className}: Basic) => {
                         <NavigationArea navItems={navigationItems}/>
                     </DynamicPanel.Body>
                     <DynamicPanel.Separator/>
-                    <DynamicPanel.Footer>
+                    <DynamicPanel.Footer className={"bg-gray-50"}>
                         <NeighborhoodSelect/>
                     </DynamicPanel.Footer>
                 </DynamicPanel>
             </MobileSideBar>
-            <span className={"ml-3 font-semibold text-xl mr-auto"}>URBANCARE</span>
+            <span className={"ml-3 font-semibold text-xl text-center mr-auto"}>URBANCARE</span>
             <MobileSideBar trigger={<SheetTrigger className={"outline-none"}>
                 <ActiveUserAvatar/>
             </SheetTrigger>} side={'right'}>
                 <DynamicPanel>
-                    <DynamicPanel.Header className={"h-36 gap-2 px-4"}>
+                    <DynamicPanel.Header className={"h-40 gap-2 px-4 bg-gray-50"}>
                         <ProfileSideBarHeader/>
                     </DynamicPanel.Header>
                     <DynamicPanel.Separator/>
@@ -46,7 +46,7 @@ export const MobileHeader = ({className}: Basic) => {
                         <ProfileSideBarBody/>
                     </DynamicPanel.Body>
                     <DynamicPanel.Separator/>
-                    <DynamicPanel.Footer>
+                    <DynamicPanel.Footer className={"bg-gray-50"}>
                         <LogoutButton/>
                         <AppVersionLabel/>
                     </DynamicPanel.Footer>

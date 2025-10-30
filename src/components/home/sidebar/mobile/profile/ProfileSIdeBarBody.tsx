@@ -27,14 +27,14 @@ export const supportItems: NavItem[] = [
 
 export const ProfileSideBarBody = () => {
     return (
-        <div className={'w-full h-full flex-col'}>
+        <div className={'w-full h-full flex flex-col overflow-scroll'}>
             <ProfileSideBarGroup className={"px-4"}>
                 <ProfileSideBarGroup.Header title={'ფონი'}/>
                 <ProfileSideBarGroup.Content>
                     <ThemeSelector/>
                 </ProfileSideBarGroup.Content>
             </ProfileSideBarGroup>
-            <Separator className={"bg-gray-200 my-3"}/>
+            <Separator className={"bg-gray-200"}/>
             <ProfileSideBarGroup className={"px-4"}>
                 <ProfileSideBarGroup.Header title={'ანგარიში'}/>
                 <ProfileSideBarGroup.Content>
@@ -46,7 +46,7 @@ export const ProfileSideBarBody = () => {
                     ))}
                 </ProfileSideBarGroup.Content>
             </ProfileSideBarGroup>
-            <Separator className={"bg-gray-200 my-3"}/>
+            <Separator className={"bg-gray-200"}/>
             <ProfileSideBarGroup className={"px-4"}>
                 <ProfileSideBarGroup.Header title={'პრეფერენციები'}/>
                 <ProfileSideBarGroup.Content>
@@ -58,7 +58,7 @@ export const ProfileSideBarBody = () => {
                     ))}
                 </ProfileSideBarGroup.Content>
             </ProfileSideBarGroup>
-            <Separator className={"bg-gray-200 my-3"}/>
+            <Separator className={"bg-gray-200"}/>
             <ProfileSideBarGroup className={"px-4"}>
                 <ProfileSideBarGroup.Header title={'დახმარება'}/>
                 <ProfileSideBarGroup.Content>

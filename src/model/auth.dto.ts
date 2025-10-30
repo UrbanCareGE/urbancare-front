@@ -29,5 +29,6 @@ export interface UserDTO {
     phone: string;
     name: string;
     surname: string;
+    profileImageId?: string;
     joinedApartments: ApartmentDTO[];
 }

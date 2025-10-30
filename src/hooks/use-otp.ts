@@ -13,7 +13,6 @@ export function useOtp() {
     >({
         mutationFn: AuthService.generateOtp,
         onSuccess: (data) => {
-            console.log(data);
         },
         onError: (err) => {
             console.log(err)

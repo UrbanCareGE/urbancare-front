@@ -47,7 +47,7 @@ type NavigationAreaProps = {
 
 export const NavigationArea = ({navItems}: NavigationAreaProps) => {
     return (
-        <div className={"h-full w-full flex flex-col gap-1"}>
+        <div className={"h-full w-full flex flex-col gap-1 py-3"}>
             {navItems.map(navigationItem => {
                 if (navigationItem.children && navigationItem.children.length > 0) {
                     return <NavigationGroupLink key={navigationItem.href} navigationItem={navigationItem}/>

@@ -3,7 +3,7 @@ import {ReactNode} from "react";
 import {cn} from "@/lib/utils";
 import {usePathname} from "next/navigation";
 import Link from "next/link";
-import {ChevronDown, ChevronRight} from "lucide-react";
+import {ChevronRight} from "lucide-react";
 
 type NavigationGroupLinkProps = {
     navigationItem: NavItem;

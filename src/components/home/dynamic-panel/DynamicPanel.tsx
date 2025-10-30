@@ -25,7 +25,7 @@ interface DynamicPanelFooterProps {
 
 const DynamicPanelRoot = ({className, children}: DynamicPanelRootProps) => {
     return (
-        <div className={cn("w-full flex flex-col h-full min-h-0", className)}>
+        <div className={cn("w-full flex flex-col h-full", className)}>
             {children}
         </div>
     );
@@ -34,7 +34,7 @@ const DynamicPanelRoot = ({className, children}: DynamicPanelRootProps) => {
 const DynamicPanelHeader = ({className, children}: DynamicPanelHeaderProps) => {
     return (
         <div className={cn(
-            "w-full h-20 bg-white px-4", className)}>
+            "w-full h-20 bg-white px-4 pb-2", className)}>
             {children}
         </div>
     );
@@ -43,7 +43,7 @@ const DynamicPanelHeader = ({className, children}: DynamicPanelHeaderProps) => {
 const DynamicPanelBody = ({className, children,}: DynamicPanelBodyProps) => {
     return (
         <div className={cn(
-            "w-full flex-1 overflow-auto bg-white px-4", className)}>
+            "w-full flex-1 overflow-scroll bg-white px-4", className)}>
             {children}
         </div>
     );
@@ -52,7 +52,7 @@ const DynamicPanelBody = ({className, children,}: DynamicPanelBodyProps) => {
 const DynamicPanelFooter = ({className, children,}: DynamicPanelFooterProps) => {
     return (
         <div className={cn(
-            "w-full flex flex-col h-20 items-center justify-center px-4 mb-3", className
+            "w-full flex flex-col h-24 items-center justify-center px-4", className
         )}>
             {children}
         </div>
@@ -60,7 +60,7 @@ const DynamicPanelFooter = ({className, children,}: DynamicPanelFooterProps) => 
 };
 
 const DynamicPanelSeparator = () => {
-    return <Separator className={"bg-gray-200 my-3"}/>
+    return <Separator className={"bg-gray-200"}/>
 }
 
 export const DynamicPanel = Object.assign(DynamicPanelRoot, {
