@@ -16,7 +16,7 @@ const UrgentList = () => {
 
     const {data, isError, isLoading} = useQuery({
         queryKey: ["urgent_list", user?.selectedApartment?.id],
-        queryFn: () => UrgentService.getUrgentList(user?.selectedApartment?.id ?? 'yle'),
+        queryFn: () => UrgentService.getAll(user?.selectedApartment?.id ?? 'yle'),
         enabled: !!user?.selectedApartment?.id,
         staleTime: 5 * 1000,
     });

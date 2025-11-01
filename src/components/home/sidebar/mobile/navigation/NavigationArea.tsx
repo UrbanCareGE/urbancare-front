@@ -21,24 +21,24 @@ export type NavItem = {
 }
 
 export const navigationItems: NavItem[] = [
-    {href: "/news", label: "სიახლეები", icon: <NewspaperIcon/>},
-    {href: "/applications", label: "განცხადებები", icon: <FileUser/>},
-    {href: "/urgent", label: "სასწრაფო", icon: <ShieldAlertIcon/>},
+    {href: "/news", label: "სიახლეები", icon: <NewspaperIcon className={"text-primary"}/>},
+    {href: "/applications", label: "განცხადებები", icon: <FileUser className={"text-primary"}/>},
+    {href: "/urgent", label: "სასწრაფო", icon: <ShieldAlertIcon className={"text-primary"}/>},
     {
-        href: "/services", label: "სერვისები", icon: <Building2Icon/>, children: [
-            {href: "/bla1", label: "ჩემი სერვისები", icon: <SettingsIcon/>},
-            {href: "/", label: "ზოგადი სერვისები", icon: <SettingsIcon/>},
+        href: "/services", label: "სერვისები", icon: <Building2Icon className={"text-primary"}/>, children: [
+            {href: "/bla1", label: "ჩემი სერვისები", icon: <SettingsIcon className={"text-primary"}/>},
+            {href: "/", label: "ზოგადი სერვისები", icon: <SettingsIcon className={"text-primary"}/>},
         ],
     },
     {
-        href: "/bla", label: "მოთხოვნები", icon: <SettingsIcon/>, children: [
-            {href: "/bla2", label: "მოთხოვნები", icon: <SettingsIcon/>},
-            {href: "/blu2", label: "სიახლეები", icon: <SettingsIcon/>},
-            {href: "/pla2", label: "განცხადებები", icon: <SettingsIcon/>},
+        href: "/bla", label: "მოთხოვნები", icon: <SettingsIcon className={"text-primary"}/>, children: [
+            {href: "/bla2", label: "მოთხოვნები", icon: <SettingsIcon className={"text-primary"}/>},
+            {href: "/blu2", label: "სიახლეები", icon: <SettingsIcon className={"text-primary"}/>},
+            {href: "/pla2", label: "განცხადებები", icon: <SettingsIcon className={"text-primary"}/>},
         ]
     },
-    {href: "/finance", label: "ფინანსები", icon: <LandmarkIcon/>},
-    {href: "/support", label: "dახმარება", icon: <Headset/>},
+    {href: "/finance", label: "ფინანსები", icon: <LandmarkIcon className={"text-primary"}/>},
+    {href: "/support", label: "dახმარება", icon: <Headset className={"text-primary"}/>},
 ];
 
 type NavigationAreaProps = {

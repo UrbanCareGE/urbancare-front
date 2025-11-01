@@ -6,23 +6,24 @@ import {NavigationLink} from "@/components/home/sidebar/mobile/navigation/Naviga
 import {HandshakeIcon, HeadsetIcon, Lock, SettingsIcon, ShieldUser, UserPen} from "lucide-react";
 import {NavItem} from "@/components/home/sidebar/mobile/navigation/NavigationArea";
 import {SheetClose} from "@/components/ui/sheet";
+import LanguageSelector from "@/components/common/util/LanguageSelector";
 
 export const profileItems: NavItem[] = [
-    {href: "/news", label: "პარამეტრები", icon: <SettingsIcon/>},
-    {href: "/applications", label: "პაროლი", icon: <Lock/>},
-    {href: "/urgent", label: "უსაბრთხოება", icon: <ShieldUser/>},
+    {href: "/news", label: "პარამეტრები", icon: <SettingsIcon className={"text-primary"}/>},
+    {href: "/applications", label: "პაროლი", icon: <Lock className={"text-primary"}/>},
+    {href: "/urgent", label: "უსაბრთხოება", icon: <ShieldUser className={"text-primary"}/>},
 ];
 
 export const preferenceItems: NavItem[] = [
-    {href: "/news", label: "პარამეტრები", icon: <SettingsIcon/>},
-    {href: "/applications", label: "პაროლი", icon: <Lock/>},
-    {href: "/urgent", label: "უსაბრთხოება", icon: <ShieldUser/>},
+    {href: "/news", label: "პარამეტრები", icon: <SettingsIcon className={"text-primary"}/>},
+    {href: "/applications", label: "პაროლი", icon: <Lock className={"text-primary"}/>},
+    {href: "/urgent", label: "უსაბრთხოება", icon: <ShieldUser className={"text-primary"}/>},
 ];
 
 export const supportItems: NavItem[] = [
-    {href: "/news", label: "დახმარება", icon: <HeadsetIcon/>},
-    {href: "/applications", label: "მოგვწერეთ", icon: <UserPen/>},
-    {href: "/urgent", label: "წესები და პირობები", icon: <HandshakeIcon/>},
+    {href: "/news", label: "დახმარება", icon: <HeadsetIcon className={"text-primary"}/>},
+    {href: "/applications", label: "მოგვწერეთ", icon: <UserPen className={"text-primary"}/>},
+    {href: "/urgent", label: "წესები და პირობები", icon: <HandshakeIcon className={"text-primary"}/>},
 ];
 
 export const ProfileSideBarBody = () => {
@@ -32,6 +33,13 @@ export const ProfileSideBarBody = () => {
                 <ProfileSideBarGroup.Header title={'ფონი'}/>
                 <ProfileSideBarGroup.Content>
                     <ThemeSelector/>
+                </ProfileSideBarGroup.Content>
+            </ProfileSideBarGroup>
+            <Separator className={"bg-gray-200"}/>
+            <ProfileSideBarGroup className={"px-4"}>
+                <ProfileSideBarGroup.Header title={'ენა'}/>
+                <ProfileSideBarGroup.Content>
+                    <LanguageSelector/>
                 </ProfileSideBarGroup.Content>
             </ProfileSideBarGroup>
             <Separator className={"bg-gray-200"}/>

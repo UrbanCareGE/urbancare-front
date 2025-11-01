@@ -14,7 +14,7 @@ export function UrgentPreviewMobile() {
 export default function UrgentPreview() {
     const {data: urgentItems, isLoading, error} = useQuery({
         queryKey: ["urgentList"],
-        queryFn: UrgentService.getUrgentList,
+        queryFn: UrgentService.getAll,
     });
 
     return (

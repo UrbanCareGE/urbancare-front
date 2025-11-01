@@ -20,7 +20,7 @@ interface ProfileSideBarGroupProps {
 }
 
 export const ProfileSideBarGroupHeader = ({title, className, children}: ProfileSideBarGroupHeaderProps) => {
-    return <h3 className={cn("text-lg text-gray-600 tracking-wide mb-2", className)}>
+    return <h3 className={cn("text-base text-gray-600 tracking-wide mb-2", className)}>
         {title}
     </h3>
 }

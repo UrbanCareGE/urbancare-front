@@ -1,57 +1,52 @@
 import React from "react";
-import {MobileSideBar} from "@/components/home/sidebar/mobile/MobileSideBar";
-import {DynamicPanel} from "@/components/home/dynamic-panel/DynamicPanel";
-import {NeighborhoodSelect} from "@/components/home/NeighborhoodSelect";
-import {NavigationArea, navigationItems} from "@/components/home/sidebar/mobile/navigation/NavigationArea";
-import {Basic} from "@/app/layout";
-import {NavSideBarHeader} from "@/components/home/sidebar/mobile/navigation/NavSideBarHeader";
-import {SheetTrigger} from "@/components/ui/sheet";
+import {MobileSideBar} from "@/components/home/sidebar/mobile/MobileSideBarRoot";
 import {ActiveUserAvatar} from "@/components/common/avatar/ActiveUserAvatar";
 import {Menu} from "lucide-react";
 import {ProfileSideBarHeader} from "@/components/home/sidebar/mobile/profile/ProfileSideBarHeader";
 import {LogoutButton} from "@/components/auth/LogoutButton";
 import {ProfileSideBarBody} from "@/components/home/sidebar/mobile/profile/ProfileSIdeBarBody";
 import {AppVersionLabel} from "@/components/common/util/AppVersionLabel";
+import {NeighborhoodSelect} from "@/components/home/NeighborhoodSelect";
+import {NavigationArea, navigationItems} from "@/components/home/sidebar/mobile/navigation/NavigationArea";
+import {NavSideBarHeader} from "@/components/home/sidebar/mobile/navigation/NavSideBarHeader";
 
-export const MobileHeader = ({className}: Basic) => {
+export const MobileHeader = () => {
     return (
-        <div className={"h-20 w-full flex items-center px-3 border-b border-gray-200"}>
-            <MobileSideBar trigger={<SheetTrigger className={"outline-none"}>
-                <Menu className={'w-8 h-8 text-gray-600'}/>
-            </SheetTrigger>} side={'left'}>
-                <DynamicPanel>
-                    <DynamicPanel.Header className={"gap-2 bg-gray-50"}>
+        <header
+            className={"h-20 w-full flex items-center px-3 border-b border-gray-200 sticky top-0 bg-slate-50 !z-[20]"}>
+            <MobileSideBar side={'left'}>
+                <MobileSideBar.Trigger>
+                    <Menu className={'w-8 h-8 text-gray-600'}/>
+                </MobileSideBar.Trigger>
+                <MobileSideBar.Content>
+                    <MobileSideBar.Header className={"px-3 bg-gray-50"}>
                         <NavSideBarHeader/>
-                    </DynamicPanel.Header>
-                    <DynamicPanel.Separator/>
-                    <DynamicPanel.Body>
+                    </MobileSideBar.Header>
+                    <MobileSideBar.Body className={"px-3"}>
                         <NavigationArea navItems={navigationItems}/>
-                    </DynamicPanel.Body>
-                    <DynamicPanel.Separator/>
-                    <DynamicPanel.Footer className={"bg-gray-50"}>
+                    </MobileSideBar.Body>
+                    <MobileSideBar.Footer className={"px-3 bg-gray-50"}>
                         <NeighborhoodSelect/>
-                    </DynamicPanel.Footer>
-                </DynamicPanel>
+                    </MobileSideBar.Footer>
+                </MobileSideBar.Content>
             </MobileSideBar>
             <span className={"ml-3 font-semibold text-xl text-center mr-auto"}>URBANCARE</span>
-            <MobileSideBar trigger={<SheetTrigger className={"outline-none"}>
-                <ActiveUserAvatar/>
-            </SheetTrigger>} side={'right'}>
-                <DynamicPanel>
-                    <DynamicPanel.Header className={"h-40 gap-2 px-4 bg-gray-50"}>
+            <MobileSideBar side={'right'}>
+                <MobileSideBar.Trigger>
+                    <ActiveUserAvatar/>
+                </MobileSideBar.Trigger>
+                <MobileSideBar.Content>
+                    <MobileSideBar.Header className={"bg-gray-50"}>
                         <ProfileSideBarHeader/>
-                    </DynamicPanel.Header>
-                    <DynamicPanel.Separator/>
-                    <DynamicPanel.Body className={"px-0"}>
+                    </MobileSideBar.Header>
+                    <MobileSideBar.Body className={"overflow-y-scroll"}>
                         <ProfileSideBarBody/>
-                    </DynamicPanel.Body>
-                    <DynamicPanel.Separator/>
-                    <DynamicPanel.Footer className={"bg-gray-50"}>
+                    </MobileSideBar.Body>
+                    <MobileSideBar.Footer className={"px-3 bg-gray-50"}>
                         <LogoutButton/>
-                        <AppVersionLabel/>
-                    </DynamicPanel.Footer>
-                </DynamicPanel>
+                    </MobileSideBar.Footer>
+                </MobileSideBar.Content>
             </MobileSideBar>
-        </div>
+        </header>
     );
 };

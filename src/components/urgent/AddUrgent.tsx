@@ -11,46 +11,34 @@ import {
 } from "@/components/ui/drawer"
 import {Button} from "@/components/ui/button";
 import {useState} from "react";
-import {NEXT_API_URL} from "@/lib/api-client";
 import {Textarea} from "@/components/ui/textarea";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {UrgentService} from "@/service/urgent-service";
 
 const AddUrgent = () => {
     const {user} = useAuth();
-    const [text, setText] = useState("");
-    const [open, setOpen] = useState(false); // ✅ Control drawer state
+    const [text, setText] = useState<string>("");
+    const [open, setOpen] = useState(false);
     const queryClient = useQueryClient();
 
-    const addItem = async (content: string) => {
-        const response = await fetch(`${NEXT_API_URL}/api/secure/urgent/${user?.selectedApartment?.id}/create`,
-            {
-                method: "POST",
-                body: JSON.stringify({content}), // ✅ Fixed: wrap in object
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            });
-
-        if (!response.ok) {
-            throw new Error('Failed to add item');
-        }
-
-        return response.json();
-    }
-
     const addMutation = useMutation({
-        mutationFn: addItem,
+        mutationFn: async ({apartmentId, content}: { apartmentId: string; content: string }) => {
+            return await UrgentService.add(apartmentId, content);
+        },
         onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ['urgent_list']})
-            setText(""); // ✅ Clear input
-            setOpen(false); // ✅ Close drawer
+            queryClient.invalidateQueries({queryKey: ['urgent_list']}).then(r => {
+            })
+            setText("");
+            setOpen(false);
         }
     })
 
     const handleAdd = () => {
         if (!text.trim()) return;
-        addMutation.mutate(text)
+        if (user?.selectedApartment?.id) {
+            addMutation.mutate({apartmentId: user?.selectedApartment?.id, content: text})
+        }
     }
 
     return (

@@ -5,7 +5,7 @@ import {ChevronsUp, LucideIcon, MessageCircleMore, Newspaper} from "lucide-react
 import {usePathname} from "next/navigation";
 import {Basic} from "@/app/layout";
 import {cn} from "@/lib/utils";
-import {useEffect, useState} from "react";
+import {useMobileScroll} from "@/hooks/use-mobile-scroll";
 
 interface NavItem {
     href: string;
@@ -23,27 +23,7 @@ export const MobileNavBar = ({className}: Basic) => {
     const pathname = usePathname();
     const activeIndex = NAV_ITEMS.findIndex(item => item.href === pathname);
     const activeIndexSafe = activeIndex === -1 ? 0 : activeIndex;
-
-    const [isVisible, setIsVisible] = useState(true);
-    const [lastScrollY, setLastScrollY] = useState(0);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const currentScrollY = window.scrollY;
-
-            if (currentScrollY < lastScrollY || currentScrollY < 10) {
-                setIsVisible(true);
-            } else if (currentScrollY > lastScrollY && currentScrollY > 10) {
-                setIsVisible(false);
-            }
-
-            setLastScrollY(currentScrollY);
-        };
-
-        window.addEventListener('scroll', handleScroll, {passive: true});
-
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [lastScrollY]);
+    const {isVisible} = useMobileScroll()
 
     // justify-evenly calculation with icon width consideration
     const getBackgroundPosition = (index: number) => {
@@ -56,13 +36,12 @@ export const MobileNavBar = ({className}: Basic) => {
             <footer
                 suppressHydrationWarning
                 className={cn(
-                    "fixed bottom-0 left-0 right-0 h-14 w-full flex justify-center items-center bg-white transition-transform duration-300 ease-in-out z-50",
+                    "fixed bottom-0 left-0 right-0 h-14 w-full flex justify-center items-center bg-slate-50 transition-transform duration-300 ease-in-out z-[40] will-change-transform",
                     isVisible ? "translate-y-0" : "translate-y-full",
                     className
                 )}
             >
                 <div className={"relative w-9/12 h-full flex justify-evenly items-center rounded-full"}>
-
                     <div
                         className="absolute w-16 h-12 bg-primary transition-all duration-300 ease-out rounded-3xl"
                         style={{
