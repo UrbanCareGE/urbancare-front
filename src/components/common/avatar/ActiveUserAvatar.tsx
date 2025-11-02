@@ -5,6 +5,7 @@ import React from "react";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {getClientFileUrl} from "@/lib/api-client";
 import {Skeleton} from "@/components/ui/skeleton";
+import Image from "next/image";
 
 function ActiveUserAvatarSkeleton() {
     return (

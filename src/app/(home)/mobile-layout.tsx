@@ -15,7 +15,7 @@ export const MobileLayout = ({children}: Children) => {
         <main className={cn("w-full relative", {'flex flex-col h-full': path === '/'}, {'min-h-full': path !== '/'})}>
             <MobileHeader/>
             {children}
-            {!isKeyboardOpen && <div className={"h-14  bg-yellow-400"}/>}
+            {!isKeyboardOpen && <div className={"h-14"}/>}
             <MobileNavBar className={"fixed !bottom-0"}/>
         </main>
     );

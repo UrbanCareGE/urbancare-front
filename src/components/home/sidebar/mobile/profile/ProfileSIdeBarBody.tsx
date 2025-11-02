@@ -1,5 +1,4 @@
 import {ProfileSideBarGroup} from "@/components/home/sidebar/mobile/profile/ProfieSideBarGroup";
-import {ThemeSelector} from "@/components/common/util/ThemeSelector";
 import {Separator} from "@/components/ui/separator";
 import React from "react";
 import {NavigationLink} from "@/components/home/sidebar/mobile/navigation/NavigationLink";
@@ -7,6 +6,7 @@ import {HandshakeIcon, HeadsetIcon, Lock, SettingsIcon, ShieldUser, UserPen} fro
 import {NavItem} from "@/components/home/sidebar/mobile/navigation/NavigationArea";
 import {SheetClose} from "@/components/ui/sheet";
 import LanguageSelector from "@/components/common/util/LanguageSelector";
+import {MobileThemeSelector} from "@/components/common/util/mobile/MobileThemeSelector";
 
 export const profileItems: NavItem[] = [
     {href: "/news", label: "პარამეტრები", icon: <SettingsIcon className={"text-primary"}/>},
@@ -28,11 +28,11 @@ export const supportItems: NavItem[] = [
 
 export const ProfileSideBarBody = () => {
     return (
-        <div className={'w-full h-full flex flex-col overflow-scroll'}>
+        <div className={'w-full flex flex-col overflow-scroll'}>
             <ProfileSideBarGroup className={"px-4"}>
                 <ProfileSideBarGroup.Header title={'ფონი'}/>
                 <ProfileSideBarGroup.Content>
-                    <ThemeSelector/>
+                    <MobileThemeSelector/>
                 </ProfileSideBarGroup.Content>
             </ProfileSideBarGroup>
             <Separator className={"bg-gray-200"}/>

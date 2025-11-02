@@ -8,7 +8,7 @@ export function useMobileScroll() {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
 
-            if (currentScrollY < lastScrollY - 15 || currentScrollY < 10) {
+            if (currentScrollY < lastScrollY || currentScrollY < 10) {
                 setIsVisible(true);
             } else if (currentScrollY > lastScrollY && currentScrollY > 10) {
                 setIsVisible(false);

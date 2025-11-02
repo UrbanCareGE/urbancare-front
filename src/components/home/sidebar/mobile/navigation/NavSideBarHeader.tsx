@@ -1,6 +1,6 @@
 import {AppLogo} from "@/components/common/logo/AppLogo";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
-import {Menu, X} from "lucide-react";
+import {X} from "lucide-react";
 import React from "react";
 
 export const NavSideBarHeader = () => {

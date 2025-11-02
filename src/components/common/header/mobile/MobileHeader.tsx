@@ -5,7 +5,6 @@ import {Menu} from "lucide-react";
 import {ProfileSideBarHeader} from "@/components/home/sidebar/mobile/profile/ProfileSideBarHeader";
 import {LogoutButton} from "@/components/auth/LogoutButton";
 import {ProfileSideBarBody} from "@/components/home/sidebar/mobile/profile/ProfileSIdeBarBody";
-import {AppVersionLabel} from "@/components/common/util/AppVersionLabel";
 import {NeighborhoodSelect} from "@/components/home/NeighborhoodSelect";
 import {NavigationArea, navigationItems} from "@/components/home/sidebar/mobile/navigation/NavigationArea";
 import {NavSideBarHeader} from "@/components/home/sidebar/mobile/navigation/NavSideBarHeader";
@@ -16,7 +15,7 @@ export const MobileHeader = () => {
             className={"h-20 w-full flex items-center px-3 border-b border-gray-200 sticky top-0 bg-slate-50 !z-[20]"}>
             <MobileSideBar side={'left'}>
                 <MobileSideBar.Trigger>
-                    <Menu className={'w-8 h-8 text-gray-600'}/>
+                    <Menu className={'w-8 h-8 text-slate-500'}/>
                 </MobileSideBar.Trigger>
                 <MobileSideBar.Content>
                     <MobileSideBar.Header className={"px-3 bg-gray-50"}>

@@ -100,7 +100,7 @@ interface MobileSideBarBodyProps {
 
 const MobileSideBarBodyComponent = ({children, className}: MobileSideBarBodyProps) => {
     return (
-        <div className={cn("flex-1 w-full py-4", className)}>
+        <div className={cn("flex-1 w-full", className)}>
             {children}
         </div>
     );

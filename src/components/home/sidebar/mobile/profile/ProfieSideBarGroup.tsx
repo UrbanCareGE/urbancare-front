@@ -26,7 +26,7 @@ export const ProfileSideBarGroupHeader = ({title, className, children}: ProfileS
 }
 
 export const ProfileSideBarGroupContent = ({className, children}: ProfileSideBarGroupContentProps) => {
-    return <div className={cn("w-full h-full flex flex-col px-3 gap-1", className)}>
+    return <div className={cn("w-full flex flex-col px-3 gap-1", className)}>
         {children}
     </div>
 }
