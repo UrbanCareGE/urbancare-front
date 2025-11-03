@@ -36,12 +36,12 @@ export const MobileNavBar = ({className}: Basic) => {
             <footer
                 suppressHydrationWarning
                 className={cn(
-                    "fixed bottom-0 left-0 right-0 h-14 w-full flex justify-center items-center bg-white transition-transform duration-300 ease-in-out z-[40] will-change-transform",
+                    "fixed bottom-0 left-0 right-0 h-14 w-full flex justify-center items-center shadow-xl rounded-tr-panel bg-white transition-transform duration-300 ease-in-out z-[40] will-change-transform border-t",
                     isVisible ? "translate-y-0" : "translate-y-full",
                     className
                 )}
             >
-                <div className={"relative w-9/12 h-full flex justify-evenly items-center rounded-full"}>
+                <nav className={"relative w-9/12 h-full flex justify-evenly items-center rounded-full"}>
                     <div
                         className="absolute w-16 h-12 bg-primary transition-all duration-300 ease-out rounded-3xl"
                         style={{
@@ -72,7 +72,7 @@ export const MobileNavBar = ({className}: Basic) => {
                             </Link>
                         );
                     })}
-                </div>
+                </nav>
             </footer>
         </>
     );

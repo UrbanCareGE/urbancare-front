@@ -12,7 +12,7 @@ export const MobileLayout = ({children}: Children) => {
     const path = usePathname();
     const isKeyboardOpen = useIsVirtualKeyboardOpen();
     return (
-        <main className={cn("w-full relative", {'flex flex-col h-full': path === '/'}, {'min-h-full': path !== '/'})}>
+        <main className={cn("w-full relative scrollbar-hide", {'flex flex-col h-full': path === '/'}, {'min-h-full': path !== '/'})}>
             <MobileHeader/>
             {children}
             {!isKeyboardOpen && <div className={"h-14"}/>}

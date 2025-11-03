@@ -1,9 +1,7 @@
 'use client';
 
-import React, {useEffect, useState} from 'react';
-import MobileThreadNavBar from "@/components/thread/mobile/MobileThreadNavBar";
+import {useEffect, useState} from 'react';
 import {useInfiniteQuery} from "@tanstack/react-query";
-import {useAuth} from "@/components/provider/AuthProvider";
 import {ThreadService} from "@/service/thread-service";
 import {PagingRespDTO} from "@/model/common.dto";
 import {ThreadInfoDTO} from "@/model/thread.dto";
@@ -11,6 +9,8 @@ import {ThreadCardPreview} from "@/components/thread/mobile/ThreadPreview";
 import {useInView} from "react-intersection-observer";
 import {Dialog, DialogContent, DialogTitle} from "@/components/ui/dialog";
 import {VisuallyHidden} from "@/components/ui/visually-hidden";
+import {useAuth} from "@/components/provider/AuthProvider";
+import {StartThreadForm} from "@/components/thread/mobile/StartThreadForm";
 
 export default function ThreadFeed() {
     const {user, isLoading: isUserLoading} = useAuth();
@@ -61,7 +61,6 @@ export default function ThreadFeed() {
     if (isUserLoading) {
         return (
             <div className="flex-1 w-full bg-slate-100">
-                <MobileThreadNavBar/>
                 <div className="max-w-2xl mx-auto px-4 pt-24">
                     <LoadingSkeleton/>
                 </div>
@@ -72,7 +71,6 @@ export default function ThreadFeed() {
     if (!user?.selectedApartment?.id) {
         return (
             <div className="flex-1 w-full bg-slate-100">
-                <MobileThreadNavBar/>
                 <div className="max-w-2xl mx-auto px-4 pt-24 text-center">
                     <p className="text-slate-500">Please select an apartment</p>
                 </div>
@@ -83,7 +81,6 @@ export default function ThreadFeed() {
     if (isPostFetchLoading) {
         return (
             <div className="flex-1 w-full bg-slate-100">
-                <MobileThreadNavBar/>
                 <div className="max-w-2xl mx-auto px-4 pt-24">
                     <LoadingSkeleton/>
                 </div>
@@ -94,7 +91,6 @@ export default function ThreadFeed() {
     if (error) {
         return (
             <div className="flex-1 w-full bg-slate-100">
-                <MobileThreadNavBar/>
                 <div className="max-w-2xl mx-auto px-4 pt-24">
                     <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
                         <p className="text-red-600">Failed to load threads</p>
@@ -105,12 +101,12 @@ export default function ThreadFeed() {
     }
 
     return (
-        <div className="flex-1 w-full overflow-y-scroll bg-slate-100">
-            <MobileThreadNavBar/>
-            <div className="h-20"></div>
-
+        <div className="flex-1 overflow-y-scroll bg-slate-100 space-y-4 py-4">
+            <div className={"max-w-2xl mx-auto px-3"}>
+                <StartThreadForm/>
+            </div>
             {data?.pages.map((page) => (
-                <div key={page.currentPage} className={"max-w-2xl mx-auto px-4 space-y-4 pb-20"}>
+                <div key={page.currentPage} className={"max-w-2xl mx-auto px-3 space-y-4"}>
                     {page.data.map((item) => (
                         <ThreadCardWithDialog key={item.id} thread={item}/>
                     ))}
@@ -118,7 +114,7 @@ export default function ThreadFeed() {
             ))}
 
             {isFetchingNextPage && <LoadingSkeleton/>}
-            {hasNextPage && <div ref={ref} className="h-20"/>}
+            {/*{hasNextPage && <div ref={ref} className="h-20"/>}*/}
 
             {!hasNextPage && data?.pages && data.pages.length > 0 && (
                 <div className="text-center py-8 text-slate-500 text-sm">
@@ -135,7 +131,6 @@ function ThreadCardWithDialog({thread}: { thread: ThreadInfoDTO }) {
 
     return (
         <>
-
             <ThreadCardPreview thread={thread}/>
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogContent className="max-w-full h-full w-full p-0 gap-0 bg-slate-100">

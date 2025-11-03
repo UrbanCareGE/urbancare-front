@@ -28,7 +28,7 @@ const ThreadCardRoot = ({thread, children, className}: ThreadCardRootProps) => {
     return (
         <ThreadContext.Provider value={thread}>
             <Card
-                className={cn("overflow-hidden shadow-lg border-slate-200 bg-white transition-all duration-300 p-3", className)}>
+                className={cn("overflow-hidden shadow-lg border-slate-200 bg-slate-50 transition-all duration-300 p-1", className)}>
                 {children}
             </Card>
         </ThreadContext.Provider>
@@ -42,7 +42,7 @@ interface ThreadCardHeaderProps {
 
 const ThreadCardHeader = ({className, children}: ThreadCardHeaderProps) => {
     return (
-        <div className={cn("flex items-center justify-between w-full px-2 py-3", className)}>
+        <div className={cn("flex items-center justify-between w-full p-3", className)}>
             {children}
         </div>
     )
@@ -55,7 +55,7 @@ interface ThreadCardBodyProps {
 
 const ThreadCardBody = ({className, children}: ThreadCardBodyProps) => {
     return (
-        <div className={cn("flex items-center justify-between px-2 py-3 border-t border-slate-100", className)}>
+        <div className={cn("flex items-center justify-between p-3", className)}>
             {children}
         </div>
     )
@@ -69,7 +69,7 @@ interface ThreadCardFooterProps {
 
 const ThreadCardFooter = ({className, children}: ThreadCardFooterProps) => {
     return (
-        <div className={cn("flex items-center justify-between px-2 py-3 border-slate-100 gap-3", className)}>
+        <div className={cn("flex items-center justify-between p-3 border-t border-slate-200 gap-3", className)}>
             {children}
         </div>
     )

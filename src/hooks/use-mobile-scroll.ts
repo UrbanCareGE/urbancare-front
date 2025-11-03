@@ -12,7 +12,7 @@ export function useMobileScroll() {
 
             const isAtBottom = windowHeight + currentScrollY >= documentHeight - 40;
 
-            if (currentScrollY < lastScrollY || currentScrollY < 10 || isAtBottom) {
+            if (currentScrollY < lastScrollY - 5 || currentScrollY < 10 || isAtBottom) {
                 setIsVisible(true);
             } else if (currentScrollY > lastScrollY && currentScrollY > 10) {
                 setIsVisible(false);
