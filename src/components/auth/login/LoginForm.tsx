@@ -6,7 +6,7 @@ import {FormInput, FormInputWithIconWrapper} from "@/components/auth/FormInput";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import {OauthForm} from "@/components/auth/OauthForm";
-import {useLogin} from "@/hooks/use-login";
+import {useLogin} from "@/hooks/query/use-login";
 import {KeyRound, PhoneIcon} from "lucide-react";
 import {AuthSpacer} from "@/components/auth/AuthSpacer";
 

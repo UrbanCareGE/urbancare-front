@@ -28,3 +28,28 @@ export interface IdWrapperDTO {
 export interface SuccessDTO {
     success: boolean;
 }
+
+export interface PagingDTO {
+    page: number;
+    size: number;
+}
+
+export interface SortRestDTO {
+    direction: 'DESC' | 'ASC';
+    property: string;
+    ignoreCase: boolean;
+    nullHandling: string;
+    descending: boolean,
+    ascending: boolean
+}
+
+export interface PagingRespDTO<TResponse> {
+    content: TResponse[];
+    totalPages: number;
+    totalElements: number;
+    last: boolean;
+    numberOfElements: number,
+    first: boolean;
+    number: number;
+    sort?: SortRestDTO;
+}

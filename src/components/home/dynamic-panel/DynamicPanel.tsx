@@ -69,3 +69,5 @@ export const DynamicPanel = Object.assign(DynamicPanelRoot, {
     Footer: DynamicPanelFooter,
     Separator: DynamicPanelSeparator,
 });
+
+export default DynamicPanel;

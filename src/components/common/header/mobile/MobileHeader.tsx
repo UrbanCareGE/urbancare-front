@@ -12,7 +12,7 @@ import {NavSideBarHeader} from "@/components/home/sidebar/mobile/navigation/NavS
 export const MobileHeader = () => {
     return (
         <header
-            className={"h-20 w-full flex items-center px-3 border-b border-gray-200 sticky top-0 bg-slate-50 !z-[20]"}>
+            className={"h-20 w-full flex items-center px-3 border-b border-gray-200 sticky top-0 bg-white !z-[20]"}>
             <MobileSideBar side={'left'}>
                 <MobileSideBar.Trigger>
                     <Menu className={'w-8 h-8 text-slate-500'}/>

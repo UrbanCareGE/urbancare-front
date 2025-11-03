@@ -4,6 +4,7 @@ import {Monitor, Moon, Sun} from "lucide-react";
 import {useEffect, useState} from "react";
 import {useTheme} from "next-themes";
 import {Button} from "@/components/ui/button";
+import {cn} from "@/lib/utils";
 
 const themeOptions = [
     {id: 'light', icon: Sun, label: 'ნათელი', desc: 'ღია და სუფთა'},
@@ -22,7 +23,7 @@ export const MobileThemeSelector = () => {
     if (!mounted) return null;
 
     return (
-        <div className="flex w-full gap-2 justify-between">
+        <div className="flex w-full gap-1 ">
             {themeOptions.map(({id, icon: Icon, label}) => (
                 <Button
                     variant={'ghost'}
@@ -35,11 +36,12 @@ export const MobileThemeSelector = () => {
                     }`}
                 >
                     <div className="w-full h-full flex flex-col items-center justify-center gap-1">
-                        <Icon className={`w-6 h-6 ${
-                            id === 'light' ? 'text-yellow-500' :
-                                id === 'dark' ? 'text-indigo-600' :
-                                    'text-gray-600'
-                        }`}/>
+                        <Icon className={cn('w-6 h-6 text-gray-600',
+                            {
+                                'text-yellow-500': id === 'light',
+                                'text-indigo-600': id === 'dark',
+                            }
+                        )}/>
                         <span className="text-center text-base font-base text-gray-800">{label}</span>
                     </div>
                 </Button>

@@ -1,25 +1,18 @@
 'use client'
 
-import {UrgentService} from "@/service/urgent-service";
 import UrgentCard from "@/components/urgent/UrgentCard";
 import {useAuth} from "@/components/provider/AuthProvider";
-import {useQuery} from "@tanstack/react-query";
 import {Leapfrog} from "ldrs/react";
 import {cn} from "@/lib/utils";
 import {Basic} from "@/app/layout";
 
 import 'ldrs/react/Leapfrog.css'
+import {useFetchUrgent} from "@/hooks/query/use-fetch-urgent";
 
 
 const UrgentList = () => {
     const {user, isLoading: isUserLoading} = useAuth();
-
-    const {data, isError, isLoading} = useQuery({
-        queryKey: ["urgent_list", user?.selectedApartment?.id],
-        queryFn: () => UrgentService.getAll(user?.selectedApartment?.id ?? 'yle'),
-        enabled: !!user?.selectedApartment?.id,
-        staleTime: 5 * 1000,
-    });
+    const {data, isLoading, isError} = useFetchUrgent()
 
     if (isUserLoading) {
         return <ListLoader/>;
@@ -43,7 +36,7 @@ const UrgentList = () => {
                 </div>
             )}
 
-            {data?.map((item) => (
+            {data && data.length > 0 && data?.map((item) => (
                 <UrgentCard key={item.id} {...item}/>
             ))}
         </ul>

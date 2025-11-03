@@ -4,7 +4,7 @@ import * as React from "react";
 import {cn} from "@/lib/utils";
 import {useFormField} from "@/components/ui/form";
 import {Button} from "@/components/ui/button";
-import {useOtp} from "@/hooks/use-otp";
+import {useOtp} from "@/hooks/query/use-otp";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 import {AlertCircle} from "lucide-react";
 

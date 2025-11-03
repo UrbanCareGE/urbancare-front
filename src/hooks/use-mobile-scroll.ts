@@ -7,8 +7,12 @@ export function useMobileScroll() {
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
 
-            if (currentScrollY < lastScrollY || currentScrollY < 10) {
+            const isAtBottom = windowHeight + currentScrollY >= documentHeight - 40;
+
+            if (currentScrollY < lastScrollY || currentScrollY < 10 || isAtBottom) {
                 setIsVisible(true);
             } else if (currentScrollY > lastScrollY && currentScrollY > 10) {
                 setIsVisible(false);

@@ -32,3 +32,10 @@ export interface UserDTO {
     profileImageId?: string;
     joinedApartments: ApartmentDTO[];
 }
+
+export interface UserSnapshotDTO {
+    id: string;
+    name: string;
+    surname: string;
+    profileImageId?: string;
+}

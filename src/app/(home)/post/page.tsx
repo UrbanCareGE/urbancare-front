@@ -1,7 +1,7 @@
-import ThreadFeed from "@/components/posts/mobile/ThreadFeed";
+import ThreadFeed from "@/components/thread/mobile/ThreadFeed";
 
 export default function PostPage() {
-    return <div className={"flex flex-col gap-4 w-full bg-gray-50 overflow-scroll"}>
+    return <div className={"flex flex-col w-full"}>
         <ThreadFeed/>
     </div>
 }

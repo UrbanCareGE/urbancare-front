@@ -36,7 +36,7 @@ export const MobileNavBar = ({className}: Basic) => {
             <footer
                 suppressHydrationWarning
                 className={cn(
-                    "fixed bottom-0 left-0 right-0 h-14 w-full flex justify-center items-center bg-slate-50 transition-transform duration-300 ease-in-out z-[40] will-change-transform",
+                    "fixed bottom-0 left-0 right-0 h-14 w-full flex justify-center items-center bg-white transition-transform duration-300 ease-in-out z-[40] will-change-transform",
                     isVisible ? "translate-y-0" : "translate-y-full",
                     className
                 )}

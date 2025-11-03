@@ -10,7 +10,7 @@ import {FormInput, FormInputWithIconWrapper} from "@/components/auth/FormInput";
 import {OTPInput} from "@/components/auth/register/OTPInput";
 import Link from "next/link";
 import {OauthForm} from "@/components/auth/OauthForm";
-import {useRegister} from "@/hooks/user-register";
+import {useRegister} from "@/hooks/query/user-register";
 
 
 export function RegisterForm() {
