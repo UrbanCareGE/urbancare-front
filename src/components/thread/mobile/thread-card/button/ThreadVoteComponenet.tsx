@@ -10,7 +10,7 @@ interface ThreadVoteButtonGroup {
 }
 
 export const ThreadVoteButtonGroup = ({className}: ThreadVoteButtonGroup) => {
-    const thread = useThread();
+    const {thread} = useThread();
     const [votes, setVotes] = useState<number>(thread.voteDiff);
     const [voteStatus, setVoteStatus] = useState<VoteStatus>(null);
 

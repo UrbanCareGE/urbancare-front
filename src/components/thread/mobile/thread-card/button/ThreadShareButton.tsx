@@ -9,7 +9,7 @@ interface ThreadShareButtonProps {
 }
 
 export const ThreadShareButton = ({className}: ThreadShareButtonProps) => {
-    const thread = useThread();
+    const {thread} = useThread();
 
     return (
         <Button

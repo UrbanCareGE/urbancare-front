@@ -6,7 +6,7 @@ interface ThreadCardContentProps {
 }
 
 export const ThreadCardContent = ({className}: ThreadCardContentProps) => {
-    const thread = useThread();
+    const {thread} = useThread();
     return (
         <div className={"flex flex-col w-full"}>
             <div className="px-5 pb-3">

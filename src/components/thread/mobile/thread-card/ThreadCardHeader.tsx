@@ -10,7 +10,9 @@ interface ThreadCardHeaderProps {
 }
 
 export const ThreadCardHeader = ({className}: ThreadCardHeaderProps) => {
-    const {userInfo, createdAt} = useThread();
+    const {thread} = useThread();
+    const {userInfo, createdAt} = thread;
+
     return (
         <div className={cn("flex items-start gap-3 pb-3", className)}>
             <Avatar className="cursor-pointer w-12 h-12 rounded-full">
@@ -28,7 +30,6 @@ export const ThreadCardHeader = ({className}: ThreadCardHeaderProps) => {
                     </span>
                 </div>
             </div>
-
         </div>
     );
 };

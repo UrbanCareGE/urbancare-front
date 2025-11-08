@@ -1,7 +1,6 @@
 import {Button} from "@/components/ui/button";
 import {MessageCircle} from "lucide-react";
 import React from "react";
-import {ThreadInfoDTO} from "@/model/thread.dto";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
 
 interface ThreadCommentButtonProps {
@@ -9,7 +8,7 @@ interface ThreadCommentButtonProps {
 }
 
 export const ThreadCommentButton = ({className}: ThreadCommentButtonProps) => {
-    const thread = useThread();
+    const {thread} = useThread();
 
     return (
         <Button

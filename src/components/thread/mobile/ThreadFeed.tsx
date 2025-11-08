@@ -1,16 +1,16 @@
 'use client';
 
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {useInfiniteQuery} from "@tanstack/react-query";
 import {ThreadService} from "@/service/thread-service";
 import {PagingRespDTO} from "@/model/common.dto";
 import {ThreadInfoDTO} from "@/model/thread.dto";
-import {ThreadCardPreview} from "@/components/thread/mobile/ThreadPreview";
+import {ThreadPreview} from "@/components/thread/mobile/ThreadPreview";
 import {useInView} from "react-intersection-observer";
-import {Dialog, DialogContent, DialogTitle} from "@/components/ui/dialog";
-import {VisuallyHidden} from "@/components/ui/visually-hidden";
 import {useAuth} from "@/components/provider/AuthProvider";
-import {StartThreadForm} from "@/components/thread/mobile/StartThreadForm";
+import {Card} from "@/components/ui/card";
+import {cn} from "@/lib/utils";
+import {ThreadCreateForm} from "@/components/thread/mobile/ThreadCreateForm";
 
 export default function ThreadFeed() {
     const {user, isLoading: isUserLoading} = useAuth();
@@ -23,7 +23,7 @@ export default function ThreadFeed() {
     const fetchItems = async ({pageParam}: { pageParam: number }) => {
         const data: PagingRespDTO<ThreadInfoDTO> = await ThreadService.getAll(
             user!.selectedApartment!.id,
-            {page: pageParam, size: 10}
+            {page: pageParam, size: 15}
         );
 
         return {
@@ -58,30 +58,11 @@ export default function ThreadFeed() {
         }
     }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-    if (isUserLoading) {
+    if (isUserLoading || isPostFetchLoading) {
         return (
-            <div className="flex-1 w-full bg-slate-100">
-                <div className="max-w-2xl mx-auto px-4 pt-24">
-                    <LoadingSkeleton/>
-                </div>
-            </div>
-        );
-    }
-
-    if (!user?.selectedApartment?.id) {
-        return (
-            <div className="flex-1 w-full bg-slate-100">
-                <div className="max-w-2xl mx-auto px-4 pt-24 text-center">
-                    <p className="text-slate-500">Please select an apartment</p>
-                </div>
-            </div>
-        );
-    }
-
-    if (isPostFetchLoading) {
-        return (
-            <div className="flex-1 w-full bg-slate-100">
-                <div className="max-w-2xl mx-auto px-4 pt-24">
+            <div className="flex-1 w-full bg-slate-100 space-y-4 py-4">
+                <div className="max-w-2xl mx-auto px-4 space-y-4">
+                    <StartThreadFormSkeleton/>
                     <LoadingSkeleton/>
                 </div>
             </div>
@@ -103,18 +84,18 @@ export default function ThreadFeed() {
     return (
         <div className="flex-1 overflow-y-scroll bg-slate-100 space-y-4 py-4">
             <div className={"max-w-2xl mx-auto px-3"}>
-                <StartThreadForm/>
+                <ThreadCreateForm/>
             </div>
             {data?.pages.map((page) => (
                 <div key={page.currentPage} className={"max-w-2xl mx-auto px-3 space-y-4"}>
-                    {page.data.map((item) => (
-                        <ThreadCardWithDialog key={item.id} thread={item}/>
+                    {page.data.map((thread) => (
+                        <ThreadPreview key={thread.id} thread={thread}/>
                     ))}
                 </div>
             ))}
 
             {isFetchingNextPage && <LoadingSkeleton/>}
-            {/*{hasNextPage && <div ref={ref} className="h-20"/>}*/}
+            {hasNextPage && <div ref={ref} className="h-20"/>}
 
             {!hasNextPage && data?.pages && data.pages.length > 0 && (
                 <div className="text-center py-8 text-slate-500 text-sm">
@@ -122,47 +103,6 @@ export default function ThreadFeed() {
                 </div>
             )}
 
-        </div>
-    );
-}
-
-function ThreadCardWithDialog({thread}: { thread: ThreadInfoDTO }) {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <>
-            <ThreadCardPreview thread={thread}/>
-            <Dialog open={open} onOpenChange={setOpen}>
-                <DialogContent className="max-w-full h-full w-full p-0 gap-0 bg-slate-100">
-                    <VisuallyHidden>
-                        <DialogTitle>{thread.title}</DialogTitle>
-                    </VisuallyHidden>
-                    <div className="h-full overflow-y-auto">
-                        <ThreadFullView thread={thread}/>
-                    </div>
-                </DialogContent>
-            </Dialog>
-        </>
-    );
-}
-
-function ThreadFullView({thread}: { thread: ThreadInfoDTO }) {
-    return (
-        <div className="max-w-2xl mx-auto px-4 py-20">
-            <div className="bg-white rounded-2xl border border-slate-200 p-6">
-                <div className="flex gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-slate-200 flex-shrink-0"></div>
-                    <div className="flex-1">
-                        {/*<h2 className="font-semibold">{thread.author?.name || 'User'}</h2>*/}
-                        <p className="text-sm text-slate-500">
-                            {new Date(thread.createdAt).toLocaleDateString()}
-                        </p>
-                    </div>
-                </div>
-
-                <h1 className="text-xl font-bold mb-3">{thread.title}</h1>
-                <p className="text-slate-700 whitespace-pre-wrap">{thread.content}</p>
-            </div>
         </div>
     );
 }
@@ -186,5 +126,21 @@ function LoadingSkeleton() {
                 </div>
             ))}
         </div>
+    );
+}
+
+export type StartThreadFormSkeletonProps = {
+    className?: string;
+}
+
+export function StartThreadFormSkeleton({className}: StartThreadFormSkeletonProps) {
+    return (
+        <Card
+            className={cn("flex shadow-lg border-slate-200 bg-white animate-pulse p-3 items-center", className)}>
+            <div className="w-12 h-12 rounded-full bg-slate-200 flex-shrink-0"/>
+            <div className="flex-1 px-4 py-3">
+                <div className="bg-slate-200 rounded-xl h-6 w-full mr-auto"/>
+            </div>
+        </Card>
     );
 }
