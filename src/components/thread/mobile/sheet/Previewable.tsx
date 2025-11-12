@@ -57,7 +57,7 @@ const PreviewableView = ({className, children}: PreviewableViewProps) => {
                 </SheetTitle>
             </VisuallyHidden>
             <SheetContent side={'right'} className={cn("h-full w-full bg-slate-50", className)}>
-                <div className={cn("h-full overflow-y-auto p-3 bg-slate-50", className)}>
+                <div className={cn("h-full overflow-y-auto bg-slate-50", className)}>
                     {children}
                 </div>
             </SheetContent>
@@ -65,9 +65,32 @@ const PreviewableView = ({className, children}: PreviewableViewProps) => {
     );
 };
 
+interface PreviewableHeaderProps {
+    className?: string;
+    children: React.ReactNode;
+}
+
+const PreviewableHeader = ({className, children}: PreviewableHeaderProps) => {
+    return <div className={cn("h-16 w-full bg-white border-b", className)}>
+        {children}
+    </div>
+}
+
+interface PreviewableBodyProps {
+    className?: string;
+    children: React.ReactNode;
+}
+
+const PreviewableBody = ({className, children}: PreviewableBodyProps) => {
+    return <div className={cn("w-full", className)}>
+        {children}
+    </div>
+}
 
 export const Previewable = Object.assign(PreviewableRoot, {
     View: PreviewableView,
+    Header: PreviewableHeader,
+    Body: PreviewableBody,
 });
 
 export default Previewable;

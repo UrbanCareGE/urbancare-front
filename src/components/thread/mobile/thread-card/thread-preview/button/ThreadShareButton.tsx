@@ -15,7 +15,7 @@ export const ThreadShareButton = ({className}: ThreadShareButtonProps) => {
         <Button
             variant="ghost"
             size="icon"
-            className="h-9 w-9 text-slate-600 hover:text-slate-900"
+            className="h-10 w-10 rounded-full transition-all [&_svg]:size-6 text-slate-600"
         >
             <Share2 className="w-4 h-4"/>
         </Button>

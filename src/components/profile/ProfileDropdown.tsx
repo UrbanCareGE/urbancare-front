@@ -15,12 +15,14 @@ export function ProfileDropdown() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <button className="relative rounded-full ring-2 ring-primary ring-offset-2 focus:outline-none transition-transform active:scale-95">
+                <button
+                    className="relative rounded-full ring-2 ring-primary ring-offset-2 focus:outline-none transition-transform active:scale-95">
                     <Avatar className="h-10 w-10 cursor-pointer">
                         <AvatarImage src="https://github.com/shadcn.png" alt="User"/>
                         <AvatarFallback>NK</AvatarFallback>
                     </Avatar>
-                    <ChevronDown className="absolute -bottom-1 -right-1 w-4 h-4 bg-gray-100 text-gray-600 rounded-full p-0.5" />
+                    <ChevronDown
+                        className="absolute -bottom-1 -right-1 w-4 h-4 bg-gray-100 text-gray-600 rounded-full p-0.5"/>
                 </button>
             </DropdownMenuTrigger>
 

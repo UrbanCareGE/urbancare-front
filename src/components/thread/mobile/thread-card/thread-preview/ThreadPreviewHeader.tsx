@@ -15,7 +15,6 @@ export const ThreadPreviewHeader = ({className}: ThreadCardHeaderProps) => {
     const {userInfo, createdAt} = thread;
     const {openView} = usePreviewable();
 
-
     return (
         <div className={cn("flex items-start gap-3", className)} onClick={openView}>
             <Avatar className="cursor-pointer w-12 h-12 rounded-full">

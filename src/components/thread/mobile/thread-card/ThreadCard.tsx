@@ -33,7 +33,7 @@ const ThreadCardRoot = ({thread, children, className}: ThreadCardRootProps) => {
         <ThreadContext.Provider value={{thread: threadState, setThread: setThreadState}}>
             <Card
                 className={cn(
-                    "overflow-hidden shadow-sm border-slate-200 bg-white p-5 space-y-3 transition-all duration-200 cursor-pointer hover:shadow-md hover:border-slate-300",
+                    "overflow-hidden shadow-sm border-slate-200 bg-white p-3 space-y-3 transition-all duration-200 cursor-pointer hover:shadow-md hover:border-slate-300",
                     className
                 )}
             >
@@ -50,7 +50,7 @@ interface ThreadCardHeaderProps {
 
 const ThreadCardHeader = ({className, children}: ThreadCardHeaderProps) => {
     return (
-        <div className={cn("flex items-center justify-between w-full", className)}>
+        <div className={cn("flex items-center justify-start w-full pb-3", className)}>
             {children}
         </div>
     );
@@ -63,7 +63,7 @@ interface ThreadCardBodyProps {
 
 const ThreadCardBody = ({className, children}: ThreadCardBodyProps) => {
     return (
-        <div className={cn("px-1", className)}>
+        <div className={cn("w-full", className)}>
             {children}
         </div>
     );
@@ -76,7 +76,7 @@ interface ThreadCardFooterProps {
 
 const ThreadCardFooter = ({className, children}: ThreadCardFooterProps) => {
     return (
-        <div className={cn("flex items-center justify-between border-t border-slate-100 gap-3 pt-3", className)}>
+        <div className={cn("flex items-center justify-between w-full border-slate-100 gap-3 pt-3", className)}>
             {children}
         </div>
     );

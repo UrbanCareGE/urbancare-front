@@ -1,37 +1,22 @@
 'use client';
 
 import {useEffect} from 'react';
-import {useInfiniteQuery} from "@tanstack/react-query";
-import {ThreadService} from "@/service/thread-service";
-import {PagingRespDTO} from "@/model/common.dto";
-import {ThreadInfoDTO} from "@/model/thread.dto";
-import {Thread} from "@/components/thread/mobile/thread-card/Thread";
 import {useInView} from "react-intersection-observer";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {Card} from "@/components/ui/card";
 import {cn} from "@/lib/utils";
+import {Thread} from "@/components/thread/mobile/thread-card/Thread";
 import {ThreadCreateForm} from "@/components/thread/mobile/ThreadCreateForm";
+import {useInfiniteThreads} from "@/hooks/query/use-fetch-threads";
 
 export default function ThreadFeed() {
     const {user, isLoading: isUserLoading} = useAuth();
+    const apartmentId = user?.selectedApartment?.id;
 
     const {ref, inView} = useInView({
         threshold: 0.1,
         rootMargin: '400px'
     });
-
-    const fetchItems = async ({pageParam}: { pageParam: number }) => {
-        const data: PagingRespDTO<ThreadInfoDTO> = await ThreadService.getAll(
-            user!.selectedApartment!.id,
-            {page: pageParam, size: 15}
-        );
-
-        return {
-            data: data.content,
-            nextPage: data.last ? null : data.number + 1,
-            currentPage: data.number,
-        };
-    };
 
     const {
         data,
@@ -41,16 +26,7 @@ export default function ThreadFeed() {
         isFetchingNextPage,
         hasNextPage,
         fetchNextPage
-    } = useInfiniteQuery({
-        queryKey: ['thread_content', user?.selectedApartment?.id],
-        queryFn: fetchItems,
-        initialPageParam: 0,
-        getNextPageParam: (lastPage) => lastPage.nextPage,
-        enabled: !!user?.selectedApartment?.id,
-        staleTime: 5 * 60 * 1000,
-        gcTime: 10 * 60 * 1000,
-        refetchOnWindowFocus: false,
-    });
+    } = useInfiniteThreads(apartmentId);
 
     useEffect(() => {
         if (inView && hasNextPage && !isFetchingNextPage) {
@@ -83,12 +59,13 @@ export default function ThreadFeed() {
 
     return (
         <div className="flex-1 overflow-y-scroll bg-slate-100 space-y-4 py-4">
-            <div className={"max-w-2xl mx-auto px-3"}>
+            <div className="max-w-2xl mx-auto px-3">
                 <ThreadCreateForm/>
             </div>
+
             {data?.pages.map((page) => (
-                <div key={page.currentPage} className={"max-w-2xl mx-auto px-3 space-y-4"}>
-                    {page.data.map((thread) => (
+                <div key={page.number} className="max-w-2xl mx-auto px-3 space-y-4">
+                    {page.content.map((thread) => (
                         <Thread key={thread.id} thread={thread}/>
                     ))}
                 </div>
@@ -102,7 +79,6 @@ export default function ThreadFeed() {
                     🎉 No more threads
                 </div>
             )}
-
         </div>
     );
 }

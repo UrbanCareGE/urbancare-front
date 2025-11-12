@@ -1,18 +1,35 @@
-'use client'
+'use client';
 
-import {useQuery} from "@tanstack/react-query";
+import {useInfiniteQuery} from "@tanstack/react-query";
 import {ThreadService} from "@/service/thread-service";
-import {useAuth} from "@/components/provider/AuthProvider";
+import {PagingRespDTO} from "@/model/common.dto";
+import {ThreadInfoDTO} from "@/model/thread.dto";
 
-export function useFetchThreads() {
-    const {user, isLoading: isUserLoading} = useAuth();
+export function useInfiniteThreads(apartmentId?: string) {
 
-    const queryResult = useQuery({
-        queryKey: ["thread_list", user?.selectedApartment?.id],
-        queryFn: () => ThreadService.getAll(user!.selectedApartment!.id, {page: 0, size: 10}),
-        enabled: !isUserLoading && !!user?.selectedApartment?.id,
-        staleTime: 60 * 5 * 1e3,
+    const fetchItems = async ({pageParam = 0}: { pageParam: number }) => {
+        const data: PagingRespDTO<ThreadInfoDTO> = await ThreadService.getAll(apartmentId!, {
+            page: pageParam,
+            size: 15,
+        });
+
+        return data;
+    };
+
+    const query = useInfiniteQuery({
+        queryKey: ['thread_content', apartmentId],
+        queryFn: fetchItems,
+        initialPageParam: 0,
+        getNextPageParam: (lastPage) => {
+            if (lastPage.last) return null;
+
+            return lastPage.number + 1;
+        },
+        enabled: !!apartmentId,
+        staleTime: 5 * 60 * 1000,
+        gcTime: 10 * 60 * 1000,
+        refetchOnWindowFocus: false,
     });
 
-    return queryResult;
+    return query;
 }

@@ -5,7 +5,6 @@ import React from "react";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
 import {cn, formatTime} from "@/lib/utils";
 import {SheetClose} from "@/components/ui/sheet";
-import {usePreviewable} from "@/components/thread/mobile/sheet/Previewable";
 
 interface ThreadCardHeaderProps {
     className?: string;
