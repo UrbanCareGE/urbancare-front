@@ -1,7 +1,6 @@
 import React, {useContext, useState} from "react";
-import {Drawer, DrawerContent} from "@/components/ui/drawer";
 import {VisuallyHidden} from "@/components/ui/visually-hidden";
-import {SheetTitle} from "@/components/ui/sheet";
+import {Sheet, SheetContent, SheetTitle} from "@/components/ui/sheet";
 import {cn} from "@/lib/utils";
 import {Card} from "@/components/ui/card";
 
@@ -11,11 +10,11 @@ interface ThreadFormDrawerContextValue {
     closeDrawer: () => void;
 }
 
-const ThreadFormDrawerContext = React.createContext<ThreadFormDrawerContextValue | undefined>(undefined);
+const ThreadFormSheetContext = React.createContext<ThreadFormDrawerContextValue | undefined>(undefined);
 
 
 const useThreadDrawer = () => {
-    const context = useContext(ThreadFormDrawerContext);
+    const context = useContext(ThreadFormSheetContext);
     if (context === undefined) {
         throw new Error('useThread must be used within a ThreadCard');
     }
@@ -27,22 +26,20 @@ interface ThreadFormDrawerProps {
     children: React.ReactNode;
 }
 
-export const ThreadFormDrawer = ({className, children}: ThreadFormDrawerProps) => {
+export const ThreadFormSheet = ({className, children}: ThreadFormDrawerProps) => {
     const {isOpen, closeDrawer} = useThreadDrawer();
 
     return (
-        <Drawer open={isOpen} onOpenChange={(open) => !open && closeDrawer()}>
-            <VisuallyHidden>
+        <Sheet open={isOpen} onOpenChange={(open) => !open && closeDrawer()}>
+            <VisuallyHidden>ø
                 <SheetTitle>
                     fear not for i am with you!
                 </SheetTitle>
             </VisuallyHidden>
-            <DrawerContent className={cn("h-90dvh bg-slate-50", className)}>
-                <div className="h-full overflow-y-auto">
-                    {children}
-                </div>
-            </DrawerContent>
-        </Drawer>
+            <SheetContent side={'bottom'} className={cn("flex flex-col h-full w-full bg-slate-50 overflow-y-scroll", className)}>
+                {children}
+            </SheetContent>
+        </Sheet>
     );
 }
 
@@ -77,7 +74,7 @@ export const ThreadFormRoot = ({className, children}: ThreadFormRootProps) => {
     };
 
     return (
-        <ThreadFormDrawerContext.Provider value={drawerValue}>
+        <ThreadFormSheetContext.Provider value={drawerValue}>
             <Card
                 className={cn(
                     "overflow-hidden shadow-sm border-slate-200 bg-white transition-all duration-200 cursor-pointer hover:shadow-md hover:border-slate-300",
@@ -86,13 +83,13 @@ export const ThreadFormRoot = ({className, children}: ThreadFormRootProps) => {
             >
                 {children}
             </Card>
-        </ThreadFormDrawerContext.Provider>
+        </ThreadFormSheetContext.Provider>
     )
 }
 
 
 export const ThreadForm = Object.assign(ThreadFormRoot, {
-    Drawer: ThreadFormDrawer,
+    Sheet: ThreadFormSheet,
     Trigger: ThreadFormTrigger,
 });
 

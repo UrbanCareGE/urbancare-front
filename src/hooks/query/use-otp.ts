@@ -1,3 +1,5 @@
+'use client'
+
 import {useMutation} from "@tanstack/react-query";
 import {ErrorResponse} from "@/model/common.dto";
 import {AuthService} from "@/service/auth-service";
@@ -20,20 +22,20 @@ export function useOtp() {
     });
 
     const handleGetOtp = async () => {
-        const emailOrPhone = getValues("emailOrPhone");
+        const phone = getValues("phone");
 
-        const isValid = await trigger("emailOrPhone");
+        const isValid = await trigger("phone");
         if (!isValid) return;
 
-        if (!emailOrPhone) {
-            setError("emailOrPhone", {
+        if (!phone) {
+            setError("phone", {
                 type: "manual",
-                message: "გთხოვთ შეიყვანოთ ელ.ფოსტა ან ტელეფონი",
+                message: "გთხოვთ შეიყვანოთ ტელეფონი",
             });
             return;
         }
 
-        mutate(emailOrPhone);
+        mutate(phone);
     };
 
     return {mutate, isPending, error, handleGetOtp};

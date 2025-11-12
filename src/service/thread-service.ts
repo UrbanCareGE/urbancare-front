@@ -1,6 +1,12 @@
 import {api} from "@/lib/api-client";
-import {CreateThreadDTO, ThreadInfoDTO, ThreadVoteDTO} from "@/model/thread.dto";
-import {PagingDTO, PagingRespDTO} from "@/model/common.dto";
+import {
+    CreateThreadCommentDTO,
+    CreateThreadDTO,
+    ThreadInfoDTO,
+    ThreadVoteDTO,
+    ThreadVoteRespDTO
+} from "@/model/thread.dto";
+import {IdWrapperDTO, PagingDTO, PagingRespDTO} from "@/model/common.dto";
 
 
 export const ThreadService = {
@@ -15,7 +21,10 @@ export const ThreadService = {
             }
         });
     },
-    vote: async (threadId: string, voteDTO: ThreadVoteDTO): Promise<number> => {
-        return await api.post<number, ThreadVoteDTO>(`/api/secure/thread/vote/${threadId}`, voteDTO);
+    vote: async (threadId: string, voteDTO: ThreadVoteDTO): Promise<ThreadVoteRespDTO> => {
+        return await api.post<ThreadVoteRespDTO, ThreadVoteDTO>(`/api/secure/thread/vote/${threadId}`, voteDTO);
+    },
+    createComment: async (threadId: string, commentDTO: CreateThreadCommentDTO): Promise<IdWrapperDTO> => {
+        return await api.post<IdWrapperDTO, CreateThreadCommentDTO>(`/api/secure/thread/${threadId}/comment`, commentDTO);
     }
 }

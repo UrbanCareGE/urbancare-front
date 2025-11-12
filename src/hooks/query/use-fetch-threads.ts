@@ -1,7 +1,8 @@
+'use client'
+
 import {useQuery} from "@tanstack/react-query";
 import {ThreadService} from "@/service/thread-service";
 import {useAuth} from "@/components/provider/AuthProvider";
-
 
 export function useFetchThreads() {
     const {user, isLoading: isUserLoading} = useAuth();

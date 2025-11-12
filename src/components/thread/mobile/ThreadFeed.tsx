@@ -5,7 +5,7 @@ import {useInfiniteQuery} from "@tanstack/react-query";
 import {ThreadService} from "@/service/thread-service";
 import {PagingRespDTO} from "@/model/common.dto";
 import {ThreadInfoDTO} from "@/model/thread.dto";
-import {ThreadPreview} from "@/components/thread/mobile/ThreadPreview";
+import {Thread} from "@/components/thread/mobile/thread-card/Thread";
 import {useInView} from "react-intersection-observer";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {Card} from "@/components/ui/card";
@@ -89,7 +89,7 @@ export default function ThreadFeed() {
             {data?.pages.map((page) => (
                 <div key={page.currentPage} className={"max-w-2xl mx-auto px-3 space-y-4"}>
                     {page.data.map((thread) => (
-                        <ThreadPreview key={thread.id} thread={thread}/>
+                        <Thread key={thread.id} thread={thread}/>
                     ))}
                 </div>
             ))}

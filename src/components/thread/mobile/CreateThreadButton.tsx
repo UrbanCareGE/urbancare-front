@@ -11,7 +11,7 @@ export type StartThreadFormProps = {
     className?: string;
 }
 
-export function StartThreadForm({className}: StartThreadFormProps) {
+export function CreateThreadButton({className}: StartThreadFormProps) {
     const {user} = useAuth();
 
     return (

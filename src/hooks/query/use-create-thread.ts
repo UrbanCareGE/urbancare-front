@@ -17,7 +17,7 @@ export function useCreateThread() {
         defaultValues: {
             title: "",
             body: "",
-            // tags: [],
+            files: []
         },
     });
 

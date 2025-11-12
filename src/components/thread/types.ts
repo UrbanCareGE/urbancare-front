@@ -1,3 +1,5 @@
+import {VoteType} from "@/model/thread.dto";
+
 export interface Author {
     name: string;
     username: string;
@@ -19,5 +21,4 @@ export interface Post {
     createdAt: string;
 }
 
-export type VoteStatus = 'up' | 'down' | null;
 export type FilterType = 'hot' | 'new' | 'top';

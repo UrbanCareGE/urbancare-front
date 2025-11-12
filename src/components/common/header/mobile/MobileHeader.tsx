@@ -1,5 +1,5 @@
 import React from "react";
-import {MobileSideBar} from "@/components/home/sidebar/mobile/MobileSideBarRoot";
+import {MobileSideBar} from "@/components/home/sidebar/mobile/MobileSideBar";
 import {ActiveUserAvatar} from "@/components/common/avatar/ActiveUserAvatar";
 import {Menu} from "lucide-react";
 import {ProfileSideBarHeader} from "@/components/home/sidebar/mobile/profile/ProfileSideBarHeader";
