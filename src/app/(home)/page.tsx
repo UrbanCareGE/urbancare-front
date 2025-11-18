@@ -1,5 +1,5 @@
-import Chat from "@/components/chat/Chat";
 import React from "react";
+import {Chat} from "@/components/chat/Chat";
 
 export default function HomePage() {
     return (

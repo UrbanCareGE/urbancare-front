@@ -6,6 +6,7 @@ import MyThemeProvider from "@/components/common/provider/MyThemeProvider";
 import {headers} from "next/headers";
 import ResponsiveLayout from "@/components/common/ResponsiveLayout";
 import AuthProvider from "@/components/provider/AuthProvider";
+import {ChatProvider} from "@/components/provider/ChatProvider";
 
 export const metadata: Metadata = {
     title: "urbancare",
@@ -34,17 +35,19 @@ export default async function RootLayout({children}: Children) {
             style={{colorScheme: ""}}
             suppressHydrationWarning
         >
-            <body className="h-dvh w-dvw antialiased" suppressHydrationWarning>
-                <ReactQueryProvider>
-                    <MyThemeProvider>
-                        <AuthProvider>
-                            <ResponsiveLayout initialIsMobile={isMobile}>
-                                {children}
-                            </ResponsiveLayout>
-                        </AuthProvider>
-                    </MyThemeProvider>
-                </ReactQueryProvider>
-            </body>
+        <body className="h-dvh w-dvw antialiased" suppressHydrationWarning>
+        <ReactQueryProvider>
+            <MyThemeProvider>
+                <AuthProvider>
+                    <ResponsiveLayout initialIsMobile={isMobile}>
+                        <ChatProvider>
+                            {children}
+                        </ChatProvider>
+                    </ResponsiveLayout>
+                </AuthProvider>
+            </MyThemeProvider>
+        </ReactQueryProvider>
+        </body>
         </html>
     )
 }
