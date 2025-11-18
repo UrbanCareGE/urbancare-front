@@ -3,7 +3,6 @@
 import React, {useRef, useState} from "react";
 import {CreateThreadButton} from "@/components/thread/mobile/CreateThreadButton";
 import ThreadForm from "@/components/thread/mobile/thread-form/ThreadForm";
-import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
 import {DrawerTitle} from "@/components/ui/drawer";
@@ -14,232 +13,214 @@ import {SheetClose, SheetFooter, SheetHeader} from "@/components/ui/sheet";
 import {cn} from "@/lib/utils";
 
 export const ThreadCreateForm = () => {
-        const {form, onSubmit, isPending, isError, error} = useCreateThread();
-        const [files, setFiles] = useState<File[]>([]);
-        const [previewUrls, setPreviewUrls] = useState<string[]>([]);
-        const fileInputRef = useRef<HTMLInputElement>(null);
+    const {form, onSubmit, isPending, isError, error} = useCreateThread();
+    const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
-        const titleLength = form.watch("title")?.length || 0;
-        const bodyLength = form.watch("body")?.length || 0;
+    const titleLength = form.watch("title")?.length || 0;
+    const bodyLength = form.watch("body")?.length || 0;
+    const files = form.watch("files") || [];
 
-        const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            const selectedFiles = Array.from(e.target.files || []);
-            const newFiles = [...files, ...selectedFiles].slice(0, 5);
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFiles = Array.from(e.target.files || []);
+        const currentFiles = form.getValues("files") || [];
+        const newFiles = [...currentFiles, ...selectedFiles].slice(0, 5);
 
-            setFiles(newFiles);
-            const urls = newFiles.map(file => URL.createObjectURL(file));
-            setPreviewUrls(urls);
-        };
+        // Update form field
+        form.setValue("files", newFiles, {shouldValidate: true});
 
-        const handleRemoveFile = (index: number) => {
-            const newFiles = files.filter((_, i) => i !== index);
-            const newUrls = previewUrls.filter((_, i) => i !== index);
+        // Clean up old preview URLs
+        previewUrls.forEach(url => URL.revokeObjectURL(url));
 
+        // Create new preview URLs
+        const urls = newFiles.map(file => URL.createObjectURL(file));
+        setPreviewUrls(urls);
+
+        // Clear the input
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
+    };
+
+    const handleRemoveFile = (index: number) => {
+        const currentFiles = form.getValues("files") || [];
+        const newFiles = currentFiles.filter((_, i) => i !== index);
+        const newUrls = previewUrls.filter((_, i) => i !== index);
+
+        // Revoke the removed URL
+        if (previewUrls[index]) {
             URL.revokeObjectURL(previewUrls[index]);
+        }
 
-            setFiles(newFiles);
-            setPreviewUrls(newUrls);
+        // Update form field
+        form.setValue("files", newFiles, {shouldValidate: true});
+        setPreviewUrls(newUrls);
+    };
+
+    // Cleanup on unmount
+    React.useEffect(() => {
+        return () => {
+            previewUrls.forEach(url => URL.revokeObjectURL(url));
         };
+    }, [previewUrls]);
 
-        // Cleanup on unmount
-        React.useEffect(() => {
-            return () => {
-                previewUrls.forEach(url => URL.revokeObjectURL(url));
-            };
-        }, [previewUrls]);
-
-        return (
-            <ThreadForm>
-                <ThreadForm.Trigger>
-                    <CreateThreadButton/>
-                </ThreadForm.Trigger>
-                <ThreadForm.Sheet>
-                    {/* Header */}
-                    <SheetHeader className="border-b border-slate-200 px-3 py-3">
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                                <div
-                                    className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-                                    <Sparkles className="w-5 h-5 text-primary"/>
-                                </div>
-                                <div>
-                                    <DrawerTitle className="text-lg font-semibold text-slate-900">
-                                        ახალი პოსტი
-                                    </DrawerTitle>
-                                    <p className="text-xs text-slate-500">გააზიარეთ თქვენი აზრები საზოგადოებასთან</p>
-                                </div>
-                            </div>
-                            <SheetClose asChild>
-                                <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full">
-                                    <X className="h-5 w-5"/>
-                                </Button>
-                            </SheetClose>
+    return (
+        <ThreadForm>
+            <ThreadForm.Trigger>
+                <CreateThreadButton/>
+            </ThreadForm.Trigger>
+            <ThreadForm.Sheet>
+                {/* Header */}
+                <SheetHeader className="border-b border-slate-200 px-3 py-3">
+                    <div className="flex items-center gap-2">
+                        <div className={"w-8"}></div>
+                        <div className={"mr-auto ml-auto"}>
+                            <DrawerTitle className="text-lg font-semibold text-slate-900">
+                                ახალი პოსტი
+                            </DrawerTitle>
                         </div>
-                    </SheetHeader>
-                    <Form {...form}>
-                        <form className="flex flex-col flex-1" onSubmit={form.handleSubmit(onSubmit)}>
-                            {/* Scrollable Content */}
-                            <div className="px-6 py-6 space-y-3">
-                                {/* Title Field */}
-                                <FormField
-                                    control={form.control}
-                                    name="title"
-                                    render={({field}) => (
-                                        <FormItem>
-                                            <div className="flex items-center justify-between mb-2">
-                                                <FormLabel
-                                                    className="text-sm font-medium text-slate-700 flex items-center gap-2">
-                                                    <FileText className="w-4 h-4 text-slate-400"/>
-                                                    სათაური
-                                                </FormLabel>
-                                                <span className={cn(
-                                                    "text-xs font-medium transition-colors",
-                                                    titleLength > 90 ? "text-amber-600" : "text-slate-400"
-                                                )}>
-                                                    {titleLength}/100
-                                                </span>
-                                            </div>
-                                            <FormControl>
-                                                <Input
-                                                    placeholder="დაამატეთ ამომწურავი სათაური..."
-                                                    disabled={isPending}
-                                                    className="text-base border-slate-200 focus:border-primary focus:ring-primary/20 transition-all"
-                                                    maxLength={100}
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage className="text-xs"/>
-                                        </FormItem>
-                                    )}
-                                />
-
-                                {/* Body Field */}
-                                <FormField
-                                    control={form.control}
-                                    name="body"
-                                    render={({field}) => (
-                                        <FormItem>
-                                            <div className="flex items-center justify-between mb-2">
-                                                <FormLabel
-                                                    className="text-sm font-medium text-slate-700 flex items-center gap-2">
-                                                    <FileText className="w-4 h-4 text-slate-400"/>
-                                                    შინაარსი <span className="text-red-500">*</span>
-                                                </FormLabel>
-                                                <span className={cn(
-                                                    "text-xs font-medium transition-colors",
-                                                    bodyLength > 1900 ? "text-red-600" :
-                                                        bodyLength > 1700 ? "text-amber-600" :
-                                                            "text-slate-400"
-                                                )}>
-                                                    {bodyLength}/2000
-                                                </span>
-                                            </div>
-                                            <FormControl>
-                                                <Textarea
-                                                    placeholder="რას გააზიარებთ? გაგვიზიარეთ თქვენი აზრები, გამოცდილება ან შეკითხვა..."
-                                                    disabled={isPending}
-                                                    className="min-h-40 resize-none text-base border-slate-200 focus:border-primary focus:ring-primary/20 transition-all"
-                                                    maxLength={2000}
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage className="text-xs"/>
-                                        </FormItem>
-                                    )}
-                                />
-
-                                {/* File Upload Section */}
-                                <FormField
-                                    control={form.control}
-                                    name="files"
-                                    render={({field}) => (
-                                        <FormItem>
-                                            <div className="flex items-center justify-between mb-3">
-                                                <FormLabel
-                                                    className="text-sm font-medium text-slate-700 flex items-center gap-2">
-                                                    <ImageIconLucide className="w-4 h-4 text-slate-400"/>
-                                                    მედია ფაილები
-                                                </FormLabel>
-                                                <span className="text-xs text-slate-500">
-                                                    {files.length}/5 ფაილი
-                                                </span>
-                                            </div>
-
-                                            <input
-                                                ref={fileInputRef}
-                                                type="file"
-                                                accept="image/*,video/*"
-                                                multiple
-                                                onChange={handleFileChange}
-                                                className="hidden"
+                        <SheetClose asChild>
+                            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full [&_svg]:size-7">
+                                <X/>
+                            </Button>
+                        </SheetClose>
+                    </div>
+                </SheetHeader>
+                <Form {...form}>
+                    <form className="flex flex-col flex-1" onSubmit={form.handleSubmit(onSubmit)}>
+                        {/* Scrollable Content */}
+                        <div className="px-6 py-6 space-y-3">
+                            {/* Body Field */}
+                            <FormField
+                                control={form.control}
+                                name="body"
+                                render={({field}) => (
+                                    <FormItem>
+                                        <div className="flex items-center justify-between mb-2">
+                                            <FormLabel
+                                                className="text-sm font-medium text-slate-700 flex items-center gap-2">
+                                                <FileText className="w-4 h-4 text-slate-400"/>
+                                                ტექსტი <span className="text-red-500">*</span>
+                                            </FormLabel>
+                                            <span className={cn(
+                                                "text-xs font-medium transition-colors",
+                                                bodyLength > 1900 ? "text-red-600" :
+                                                    bodyLength > 1700 ? "text-amber-600" :
+                                                        "text-slate-400"
+                                            )}>
+                                                {bodyLength}/2000
+                                            </span>
+                                        </div>
+                                        <FormControl>
+                                            <Textarea
+                                                placeholder="რას გააზიარებთ? გაგვიზიარეთ თქვენი აზრები, გამოცდილება ან შეკითხვა..."
+                                                disabled={isPending}
+                                                className="min-h-40 resize-none text-base border-slate-200 focus:border-primary focus:ring-primary/20 transition-all"
+                                                maxLength={2000}
+                                                {...field}
                                             />
+                                        </FormControl>
+                                        <FormMessage className="text-xs"/>
+                                    </FormItem>
+                                )}
+                            />
 
-                                            {/* Upload Area */}
-                                            <div className="space-y-3">
-                                                {/* Upload Button */}
-                                                <Button
-                                                    type="button"
-                                                    variant="outline"
-                                                    onClick={() => fileInputRef.current?.click()}
-                                                    disabled={files.length >= 5 || isPending}
-                                                    className="w-full h-auto border-2 border-dashed border-slate-300 hover:border-primary hover:bg-primary/5 transition-all group"
-                                                >
-                                                    <div className="flex flex-col items-center gap-2">
-                                                        <div
-                                                            className="w-10 h-10 rounded-full bg-slate-100 group-hover:bg-primary/10 flex items-center justify-center transition-colors">
-                                                            <Upload
-                                                                className="w-5 h-5 text-slate-600 group-hover:text-primary transition-colors"/>
-                                                        </div>
-                                                        <div className="text-center">
-                                                            <p className="text-sm font-medium text-slate-700">
-                                                                ფოტოს ან ვიდეოს ატვირთვა
-                                                            </p>
-                                                            <p className="text-xs text-slate-500 mt-0.5">
-                                                                მაქს. 5 ფაილი, თითო 10MB-მდე
-                                                            </p>
-                                                        </div>
+                            {/* File Upload Section */}
+                            <FormField
+                                control={form.control}
+                                name="files"
+                                render={({field}) => (
+                                    <FormItem>
+                                        <div className="flex items-center justify-between mb-3">
+                                            <FormLabel
+                                                className="text-sm font-medium text-slate-700 flex items-center gap-2">
+                                                <ImageIconLucide className="w-4 h-4 text-slate-400"/>
+                                                მედია ფაილები
+                                            </FormLabel>
+                                            <span className="text-xs text-slate-500">
+                                                {files.length}/5 ფაილი
+                                            </span>
+                                        </div>
+
+                                        <input
+                                            ref={fileInputRef}
+                                            type="file"
+                                            accept="image/*,video/*"
+                                            multiple
+                                            onChange={handleFileChange}
+                                            className="hidden"
+                                        />
+
+                                        {/* Upload Area */}
+                                        <div className="space-y-3">
+                                            {/* Upload Button */}
+                                            <Button
+                                                type="button"
+                                                variant="outline"
+                                                onClick={() => fileInputRef.current?.click()}
+                                                disabled={files.length >= 5 || isPending}
+                                                className="w-full h-auto border-2 border-dashed border-slate-300 hover:border-primary hover:bg-primary/5 transition-all group"
+                                            >
+                                                <div className="flex flex-col items-center gap-2">
+                                                    <div
+                                                        className="w-10 h-10 rounded-full bg-slate-100 group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+                                                        <Upload
+                                                            className="w-5 h-5 text-slate-600 group-hover:text-primary transition-colors"/>
                                                     </div>
-                                                </Button>
+                                                    <div className="text-center">
+                                                        <p className="text-sm font-medium text-slate-700">
+                                                            ფოტოს ან ვიდეოს ატვირთვა
+                                                        </p>
+                                                        <p className="text-xs text-slate-500 mt-0.5">
+                                                            მაქს. 5 ფაილი, თითო 10MB-მდე
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </Button>
 
-                                                {/* File Preview */}
-                                                {previewUrls.length > 0 && (
-                                                    <div className="space-y-2">
-                                                        <div className="flex items-center justify-between px-1">
-                                                            <p className="text-xs font-medium text-slate-600">
-                                                                ატვირთული ფაილები
+                                            {/* File Preview */}
+                                            {files.length > 0 && previewUrls.length > 0 && (
+                                                <div className="space-y-2">
+                                                    <div className="flex items-center justify-between px-1">
+                                                        <p className="text-xs font-medium text-slate-600">
+                                                            ატვირთული ფაილები
+                                                        </p>
+                                                        {files.length > 3 && (
+                                                            <p className="text-xs text-slate-400">
+                                                                ← გადაფურცლეთ →
                                                             </p>
-                                                            {previewUrls.length > 3 && (
-                                                                <p className="text-xs text-slate-400">
-                                                                    ← გადაფურცლეთ →
-                                                                </p>
-                                                            )}
-                                                        </div>
+                                                        )}
+                                                    </div>
 
-                                                        <div className="relative">
-                                                            {/* Gradient overlays */}
-                                                            {previewUrls.length > 3 && (
-                                                                <>
-                                                                    <div
-                                                                        className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none rounded-l-xl"/>
-                                                                    <div
-                                                                        className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none rounded-r-xl"/>
-                                                                </>
-                                                            )}
+                                                    <div className="relative">
+                                                        {/* Gradient overlays */}
+                                                        {files.length > 3 && (
+                                                            <>
+                                                                <div
+                                                                    className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none rounded-l-xl"/>
+                                                                <div
+                                                                    className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none rounded-r-xl"/>
+                                                            </>
+                                                        )}
 
-                                                            {/* Scrollable container */}
-                                                            <div
-                                                                className="overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide bg-slate-50 rounded-xl p-3">
-                                                                <div className="flex gap-3">
-                                                                    {previewUrls.map((url, index) => (
+                                                        {/* Scrollable container */}
+                                                        <div
+                                                            className="overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide bg-slate-50 rounded-xl p-3">
+                                                            <div className="flex gap-3">
+                                                                {files.map((file, index) => {
+                                                                    // Safety check
+                                                                    if (!file || !previewUrls[index]) return null;
+
+                                                                    return (
                                                                         <div
                                                                             key={index}
                                                                             className="flex-shrink-0 relative group"
                                                                         >
                                                                             <div
                                                                                 className="w-20 h-20 rounded-lg overflow-hidden bg-white border-2 border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 hover:border-primary/50 relative">
-                                                                                {files[index].type.startsWith('image/') ? (
+                                                                                {file.type.startsWith('image/') ? (
                                                                                     <img
-                                                                                        src={url}
+                                                                                        src={previewUrls[index]}
                                                                                         alt={`Preview ${index + 1}`}
                                                                                         className="w-full h-full object-cover"
                                                                                     />
@@ -266,7 +247,7 @@ export const ThreadCreateForm = () => {
                                                                                     <div
                                                                                         className="absolute bottom-1 left-1 right-1">
                                                                                         <p className="text-xs font-medium text-white truncate">
-                                                                                            {(files[index].size / 1024 / 1024).toFixed(1)} MB
+                                                                                            {(file.size / 1024 / 1024).toFixed(1)} MB
                                                                                         </p>
                                                                                     </div>
                                                                                 </div>
@@ -278,70 +259,70 @@ export const ThreadCreateForm = () => {
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    ))}
-                                                                </div>
+                                                                    );
+                                                                })}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                )}
-                                            </div>
+                                                </div>
+                                            )}
+                                        </div>
 
-                                            <FormMessage className="text-xs"/>
-                                        </FormItem>
-                                    )}
-                                />
+                                        <FormMessage className="text-xs"/>
+                                    </FormItem>
+                                )}
+                            />
 
-                                {/* Error Message */}
-                                {isError && (
-                                    <div className="rounded-lg bg-red-50 border border-red-200 p-4">
-                                        <div className="flex items-start gap-3">
-                                            <div
-                                                className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                                <X className="w-3 h-3 text-red-600"/>
-                                            </div>
-                                            <div className="flex-1">
-                                                <p className="text-sm font-medium text-red-900">
-                                                    დაფიქსირდა შეცდომა
-                                                </p>
-                                                <p className="text-xs text-red-700 mt-1">
-                                                    {(error as Error)?.message || 'გთხოვთ სცადოთ თავიდან'}
-                                                </p>
-                                            </div>
+                            {/* Error Message */}
+                            {isError && (
+                                <div className="rounded-lg bg-red-50 border border-red-200 p-4">
+                                    <div className="flex items-start gap-3">
+                                        <div
+                                            className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <X className="w-3 h-3 text-red-600"/>
+                                        </div>
+                                        <div className="flex-1">
+                                            <p className="text-sm font-medium text-red-900">
+                                                დაფიქსირდა შეცდომა
+                                            </p>
+                                            <p className="text-xs text-red-700 mt-1">
+                                                {(error as Error)?.message || 'გთხოვთ სცადოთ თავიდან'}
+                                            </p>
                                         </div>
                                     </div>
-                                )}
-                            </div>
-
-                            {/* Footer with Submit Button */}
-                            <SheetFooter className="border-t border-slate-200 px-6 py-4 bg-slate-50/50 mt-auto">
-                                <div className="space-y-2">
-                                    <Button
-                                        type="submit"
-                                        disabled={isPending || !bodyLength}
-                                        className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg shadow-primary/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                                    >
-                                        {isPending ? (
-                                            <div className="flex items-center gap-2">
-                                                <div
-                                                    className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"/>
-                                                პოსტის შექმნა...
-                                            </div>
-                                        ) : (
-                                            <div className="flex items-center gap-2">
-                                                <Sparkles className="w-4 h-4"/>
-                                                გამოქვეყნება
-                                            </div>
-                                        )}
-                                    </Button>
-                                    <p className="text-xs text-center text-slate-500">
-                                        დარწმუნდით, რომ პოსტი არ არღვევს საზოგადოების წესებს
-                                    </p>
                                 </div>
-                            </SheetFooter>
-                        </form>
-                    </Form>
-                </ThreadForm.Sheet>
-            </ThreadForm>
-        );
-    }
-;
+                            )}
+                        </div>
+
+                        {/* Footer with Submit Button */}
+                        <SheetFooter className="border-t border-slate-200 px-6 py-4 bg-slate-50/50 mt-auto">
+                            <div className="space-y-2">
+                                <Button
+                                    type="submit"
+                                    disabled={isPending || !bodyLength}
+                                    className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg shadow-primary/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    {isPending ? (
+                                        <div className="flex items-center gap-2">
+                                            <div
+                                                className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"/>
+                                            პოსტის შექმნა...
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-center gap-2">
+                                            <Sparkles className="w-4 h-4"/>
+                                            გამოქვეყნება
+                                        </div>
+                                    )}
+                                </Button>
+                                <p className="text-xs text-center text-slate-500">
+                                    დარწმუნდით, რომ პოსტი არ არღვევს საზოგადოების წესებს
+                                </p>
+                            </div>
+                        </SheetFooter>
+                    </form>
+                </Form>
+            </ThreadForm.Sheet>
+        </ThreadForm>
+    );
+}

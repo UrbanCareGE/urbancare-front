@@ -31,12 +31,13 @@ export const ThreadFormSheet = ({className, children}: ThreadFormDrawerProps) =>
 
     return (
         <Sheet open={isOpen} onOpenChange={(open) => !open && closeDrawer()}>
-            <VisuallyHidden>ø
+            <VisuallyHidden>
                 <SheetTitle>
                     fear not for i am with you!
                 </SheetTitle>
             </VisuallyHidden>
-            <SheetContent side={'bottom'} className={cn("flex flex-col h-full w-full bg-slate-50 overflow-y-scroll", className)}>
+            <SheetContent side={'bottom'}
+                          className={cn("flex flex-col h-full w-full bg-slate-50 overflow-y-scroll", className)}>
                 {children}
             </SheetContent>
         </Sheet>

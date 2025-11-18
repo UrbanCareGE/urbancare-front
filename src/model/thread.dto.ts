@@ -8,6 +8,7 @@ export enum VoteType {
 export interface CreateThreadDTO {
     title: string;
     content: string;
+    imageIds: string[];
 }
 
 export interface CreateThreadCommentDTO {

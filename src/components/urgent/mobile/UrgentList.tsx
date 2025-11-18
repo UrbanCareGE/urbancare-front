@@ -1,6 +1,6 @@
 'use client'
 
-import UrgentCard from "@/components/urgent/UrgentCard";
+import UrgentCard from "@/components/urgent/mobile/UrgentCard";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {Leapfrog} from "ldrs/react";
 import {cn} from "@/lib/utils";

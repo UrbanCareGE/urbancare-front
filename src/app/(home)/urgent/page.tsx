@@ -1,8 +1,8 @@
 'use client'
 
 import React from "react";
-import UrgentList from "@/components/urgent/UrgentList";
-import AddUrgent from "@/components/urgent/AddUrgent";
+import UrgentList from "@/components/urgent/mobile/UrgentList";
+import AddUrgent from "@/components/urgent/mobile/AddUrgent";
 
 
 const Page = () => {

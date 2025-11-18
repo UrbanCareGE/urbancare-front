@@ -1,16 +1,20 @@
+// use-create-thread.ts
 'use client'
 
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
+import {useState} from "react";
 import {createThreadSchema} from "@/components/thread/mobile/data/create-thread-schema";
 import {ThreadService} from "@/service/thread-service";
+import {FileService} from "@/service/file-service";
 import {useAuth} from "@/components/provider/AuthProvider";
 
 export function useCreateThread() {
     const queryClient = useQueryClient();
     const {user} = useAuth();
+    const [uploadedFileIds, setUploadedFileIds] = useState<string[]>([]);
 
     const form = useForm<z.infer<typeof createThreadSchema>>({
         resolver: zodResolver(createThreadSchema),
@@ -21,32 +25,97 @@ export function useCreateThread() {
         },
     });
 
-    const {mutate, isPending, isError, error} = useMutation({
-            mutationFn: async ({apartmentId, title, content}: {
-                apartmentId?: string;
-                title: string,
-                content: string
-            }) => {
-                if (!apartmentId) {
-                    return;
-                }
-                return await ThreadService.add(apartmentId, {title, content});
-            },
-            onSuccess: () => {
-                queryClient.invalidateQueries({queryKey: ['threads', 'list']}).then(r => {
-                })
-            },
+    // Mutation 1: Upload files
+    const uploadFilesMutation = useMutation({
+        mutationFn: async (files: File[]): Promise<string[]> => {
+            console.log(`Uploading ${files.length} files...`);
+
+            const uploadPromises = files.map(file =>
+                FileService.uploadPublicFile(file)
+            );
+
+            const results = await Promise.all(uploadPromises);
+            const fileIds = results.map(result => result.id);
+
+            console.log('Files uploaded:', fileIds);
+            return fileIds;
+        },
+        onSuccess: (fileIds) => {
+            setUploadedFileIds(fileIds);
+        },
+        onError: (error) => {
+            console.error('File upload failed:', error);
         }
-    )
+    });
 
-    const onSubmit = (values: z.infer<typeof createThreadSchema>) => {
-        const createThread = {
-            title: values.title,
-            content: values.body,
-            apartmentId: user?.selectedApartment?.id,
-        };
-        mutate(createThread);
-    }
+    // Mutation 2: Create thread
+    const createThreadMutation = useMutation({
+        mutationFn: async ({
+                               apartmentId,
+                               title,
+                               content,
+                               imageIds
+                           }: {
+            apartmentId: string;
+            title: string;
+            content: string;
+            imageIds: string[];
+        }) => {
+            console.log('Creating thread with file IDs:', imageIds);
+            return await ThreadService.add(apartmentId, {
+                title,
+                content,
+                imageIds
+            });
+        },
+        onSuccess: () => {
+            console.log('Thread created successfully!');
+            queryClient.invalidateQueries({queryKey: ['threads', 'list']});
+            form.reset();
+            setUploadedFileIds([]);
+        },
+        onError: (error) => {
+            console.error('Thread creation failed:', error);
+        }
+    });
 
-    return {form, onSubmit, mutate, isPending, isError, error};
+    // Orchestrate both mutations
+    const onSubmit = async (values: z.infer<typeof createThreadSchema>) => {
+        if (!user?.selectedApartment?.id) {
+            console.error("No apartment selected");
+            return;
+        }
+
+        try {
+            // Step 1: Upload files if any
+            let fileIds: string[] = [];
+            if (values.files && values.files.length > 0) {
+                fileIds = await uploadFilesMutation.mutateAsync(values.files);
+            }
+
+            // Step 2: Create thread with file IDs
+            await createThreadMutation.mutateAsync({
+                apartmentId: user.selectedApartment.id,
+                title: values.title,
+                content: values.body,
+                imageIds: fileIds
+            });
+        } catch (error) {
+            console.error('Submission failed:', error);
+        }
+    };
+
+    const isPending = uploadFilesMutation.isPending || createThreadMutation.isPending;
+    const isError = uploadFilesMutation.isError || createThreadMutation.isError;
+    const error = uploadFilesMutation.error || createThreadMutation.error;
+
+    return {
+        form,
+        onSubmit,
+        isPending,
+        isError,
+        error,
+        uploadFilesMutation,
+        createThreadMutation
+    };
 }

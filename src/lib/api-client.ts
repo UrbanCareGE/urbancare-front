@@ -16,7 +16,7 @@ interface ApiCallOptions<TRequest = unknown> {
 interface ApiFetchConfig extends RequestInit {
     method: HttpMethod;
     headers: Record<string, string>;
-    body?: string;
+    body?: string | FormData;
 }
 
 function buildUrl(baseUrl: string, path: string, params?: Record<string, string | number | boolean>): string {
@@ -38,14 +38,17 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
 ): Promise<TResponse> {
     try {
         const {data, params, server, authToken, headers = {}} = options;
+        const isFormData = data instanceof FormData;
 
         const baseUrl = server ? JAVA_API_URL : NEXT_API_URL;
 
         const url: string = buildUrl(baseUrl, path, params);
+
         const fetchConfig: ApiFetchConfig = {
             method,
             headers: {
-                'Content-Type': 'application/json',
+                // ✅ Skip Content-Type for FormData
+                ...(isFormData ? {} : {'Content-Type': 'application/json'}),
                 'ngrok-skip-browser-warning': 'ababa',
                 ...headers,
             },
@@ -56,7 +59,7 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
         }
 
         if (data && ['POST', 'PUT', 'PATCH'].includes(method)) {
-            fetchConfig.body = JSON.stringify(data);
+            fetchConfig.body = isFormData ? data : JSON.stringify(data);
         }
 
         const response = await fetch(url, fetchConfig);
