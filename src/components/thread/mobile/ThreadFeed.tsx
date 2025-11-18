@@ -1,6 +1,6 @@
 'use client';
 
-import {useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {useInView} from "react-intersection-observer";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {Card} from "@/components/ui/card";
@@ -65,9 +65,10 @@ export default function ThreadFeed() {
 
             {data?.pages.map((page) => (
                 <div key={page.number} className="max-w-2xl mx-auto px-3 space-y-4">
-                    {page.content.map((thread) => (
-                        <Thread key={thread.id} thread={thread}/>
-                    ))}
+                    {page.content.map((threadId) => {
+                            return (<Thread key={threadId} threadId={threadId}/>)
+                        }
+                    )}
                 </div>
             ))}
 
@@ -81,6 +82,10 @@ export default function ThreadFeed() {
             )}
         </div>
     );
+}
+
+export type StartThreadFormSkeletonProps = {
+    className?: string;
 }
 
 function LoadingSkeleton() {
@@ -103,10 +108,6 @@ function LoadingSkeleton() {
             ))}
         </div>
     );
-}
-
-export type StartThreadFormSkeletonProps = {
-    className?: string;
 }
 
 export function StartThreadFormSkeleton({className}: StartThreadFormSkeletonProps) {

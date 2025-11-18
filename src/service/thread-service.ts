@@ -10,12 +10,14 @@ import {IdWrapperDTO, PagingDTO, PagingRespDTO} from "@/model/common.dto";
 
 
 export const ThreadService = {
-
-    add: async (aparmentId: string, addThreadDto: CreateThreadDTO): Promise<void> => {
-        return await api.post<void, CreateThreadDTO>(`/api/secure/thread/${aparmentId}/create`, addThreadDto);
+    add: async (apartmentId: string, addThreadDto: CreateThreadDTO): Promise<void> => {
+        return await api.post<void, CreateThreadDTO>(`/api/secure/thread/${apartmentId}/create`, addThreadDto);
     },
-    getAll: async (aparmentId: string, paging: PagingDTO): Promise<PagingRespDTO<ThreadInfoDTO>> => {
-        return await api.get<PagingRespDTO<ThreadInfoDTO>>(`/api/secure/thread/list/${aparmentId}`, {
+    get: async (threadId: string): Promise<ThreadInfoDTO> => {
+        return await api.get<ThreadInfoDTO>(`/api/secure/thread/${threadId}`);
+    },
+    getAll: async (apartmentId: string, paging: PagingDTO): Promise<PagingRespDTO<ThreadInfoDTO>> => {
+        return await api.get<PagingRespDTO<ThreadInfoDTO>>(`/api/secure/thread/list/${apartmentId}`, {
             params: {
                 ...paging
             }

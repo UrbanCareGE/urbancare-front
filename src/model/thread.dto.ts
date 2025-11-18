@@ -20,6 +20,8 @@ export interface ThreadCommentDTO {
     content: string;
     voteDiff: number;
     selfVote: number;
+    createdAt: Date;
+    updatedAt: Date;
     userInfo: UserSnapshotDTO;
     replies: ThreadCommentDTO[];
 }

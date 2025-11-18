@@ -12,10 +12,10 @@ export interface User {
     surname: string;
     profileImageId?: string;
     joinedApartments: ApartmentDTO[];
-    selectedApartment?: ApartmentDTO;
+    selectedApartment: ApartmentDTO;
 }
 
-interface AuthContextType {
+export interface UserContextType {
     user: User | null | undefined;
     isLoading: boolean;
     isAuthenticated: boolean;
@@ -26,7 +26,7 @@ interface AuthContextType {
     selectApartment: (apartment: ApartmentDTO) => void;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<UserContextType | undefined>(undefined);
 
 export default function AuthProvider({children}: { children: ReactNode }) {
     const queryClient = useQueryClient();
@@ -48,8 +48,8 @@ export default function AuthProvider({children}: { children: ReactNode }) {
             }
         },
         retry: 1,
-        staleTime: 5 * 60 * 1000,
-        gcTime: 10 * 60 * 1000,
+        staleTime: 5 * 60 * 1e3,
+        gcTime: 10 * 60 * 1e3,
     });
 
     const loginMutation = useMutation({

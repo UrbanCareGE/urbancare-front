@@ -1,35 +1,36 @@
 'use client';
 
-import {useInfiniteQuery} from "@tanstack/react-query";
+import {useInfiniteQuery, useQueryClient} from "@tanstack/react-query";
 import {ThreadService} from "@/service/thread-service";
-import {PagingRespDTO} from "@/model/common.dto";
-import {ThreadInfoDTO} from "@/model/thread.dto";
 
+/*
+*  უსასრულო სქროლისთვის ვინახავთ მხოლოდ id-ებს ქეშში და paging-ინფორმაციას
+*  თითოეულ ინფოს პოსტისთვის შეგვიძლია ცალკე მივწვდეთ და ოპტიმისტური განახლებები ვაკეთოთ მარტივად
+* */
 export function useInfiniteThreads(apartmentId?: string) {
+    const queryClient = useQueryClient();
 
-    const fetchItems = async ({pageParam = 0}: { pageParam: number }) => {
-        const data: PagingRespDTO<ThreadInfoDTO> = await ThreadService.getAll(apartmentId!, {
-            page: pageParam,
-            size: 15,
+    const fetchItems = async ({pageParam = 0}) => {
+        const data = await ThreadService.getAll(apartmentId!, {page: pageParam, size: 15});
+
+        data.content.forEach(thread => {
+            queryClient.setQueryData(['threads', 'detail', thread.id], thread);
         });
 
-        return data;
+        return {
+            ...data,
+            content: data.content.map(t => t.id)
+        };
     };
 
-    const query = useInfiniteQuery({
-        queryKey: ['thread_content', apartmentId],
+    return useInfiniteQuery({
+        queryKey: ['threads', 'list', apartmentId],
         queryFn: fetchItems,
         initialPageParam: 0,
-        getNextPageParam: (lastPage) => {
-            if (lastPage.last) return null;
-
-            return lastPage.number + 1;
-        },
+        getNextPageParam: (lastPage) => lastPage.last ? null : lastPage.number + 1,
         enabled: !!apartmentId,
         staleTime: 5 * 60 * 1000,
         gcTime: 10 * 60 * 1000,
         refetchOnWindowFocus: false,
     });
-
-    return query;
 }

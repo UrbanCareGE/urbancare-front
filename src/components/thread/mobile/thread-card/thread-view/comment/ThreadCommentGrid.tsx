@@ -3,8 +3,8 @@
 import React from "react";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
 import {cn} from "@/lib/utils";
-import {ThreadViewCommentButton} from "@/components/thread/mobile/thread-card/thread-view/ThreadViewCommentButton";
-import {ThreadComment} from "@/components/thread/mobile/thread-card/thread-view/ThreadComment";
+import {ThreadViewCommentButton} from "@/components/thread/mobile/thread-card/thread-view/comment/ThreadViewCommentButton";
+import {ThreadComment} from "@/components/thread/mobile/thread-card/thread-view/comment/ThreadComment";
 
 interface Comment {
     id: string;
@@ -22,15 +22,12 @@ interface ThreadCommentsProps {
     className?: string;
 }
 
-export const ThreadComments = ({className}: ThreadCommentsProps) => {
+export const ThreadCommentGrid = ({className}: ThreadCommentsProps) => {
     const {thread} = useThread();
     const {comments, commentCount} = thread;
 
     return (
         <div className={cn("flex flex-col", className)}>
-            {/* Comment Input */}
-            <ThreadViewCommentButton/>
-
             {/* Comments List */}
             <div>
                 {comments.length === 0 ? (

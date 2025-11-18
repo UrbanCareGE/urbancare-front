@@ -33,7 +33,7 @@ export function useCreateThread() {
                 return await ThreadService.add(apartmentId, {title, content});
             },
             onSuccess: () => {
-                queryClient.invalidateQueries({queryKey: ['thread_list']}).then(r => {
+                queryClient.invalidateQueries({queryKey: ['threads', 'list']}).then(r => {
                 })
             },
         }
@@ -44,7 +44,6 @@ export function useCreateThread() {
             title: values.title,
             content: values.body,
             apartmentId: user?.selectedApartment?.id,
-            // tags: values.tags,
         };
         mutate(createThread);
     }

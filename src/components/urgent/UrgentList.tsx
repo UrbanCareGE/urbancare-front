@@ -11,12 +11,9 @@ import {useFetchUrgent} from "@/hooks/query/use-fetch-urgent";
 
 
 const UrgentList = () => {
-    const {user, isLoading: isUserLoading} = useAuth();
-    const {data, isLoading, isError} = useFetchUrgent()
-
-    if (isUserLoading) {
-        return <ListLoader/>;
-    }
+    const authContext = useAuth();
+    const {user} = authContext;
+    const {data, isLoading, isError} = useFetchUrgent(authContext)
 
     if (!user?.selectedApartment?.id) {
         return (

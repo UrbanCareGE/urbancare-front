@@ -4,8 +4,7 @@ export interface UrgentItemDTO {
     resolved: boolean;
     expiresAt: Date;
     createdAt: Date;
-    creatorId: string;
-    createdBy: UserSnapshotDTO;
+    userInfo: UserSnapshotDTO;
 }
 
 export interface UserSnapshotDTO {

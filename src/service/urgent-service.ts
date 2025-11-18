@@ -2,8 +2,8 @@ import {api} from '@/lib/api-client';
 import {UrgentItemDTO} from "@/model/urgent.dto";
 
 export const UrgentService = {
-    add: async (aparmentId: string, content: string): Promise<void> => {
-        return await api.post<void>(`/api/secure/urgent/${aparmentId}/create`,
+    add: async (aparmentId: string, content: string): Promise<UrgentItemDTO> => {
+        return await api.post<UrgentItemDTO>(`/api/secure/urgent/${aparmentId}/create`,
             {content: content});
     },
     getAll: async (apartment: string): Promise<UrgentItemDTO[]> => {

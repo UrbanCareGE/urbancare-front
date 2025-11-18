@@ -13,31 +13,26 @@ import {Button} from "@/components/ui/button";
 import {useState} from "react";
 import {Textarea} from "@/components/ui/textarea";
 import {useAuth} from "@/components/provider/AuthProvider";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {UrgentService} from "@/service/urgent-service";
+import {useCreateUrgent} from "@/hooks/query/use-create-urgent";
+import {UrgentItemDTO} from "@/model/urgent.dto";
 
 const AddUrgent = () => {
-    const {user} = useAuth();
+    const userContext = useAuth();
+    const {user} = userContext;
     const [text, setText] = useState<string>("");
     const [open, setOpen] = useState(false);
-    const queryClient = useQueryClient();
 
-    const addMutation = useMutation({
-        mutationFn: async ({apartmentId, content}: { apartmentId: string; content: string }) => {
-            return await UrgentService.add(apartmentId, content);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ['urgent_list']}).then(r => {
-            })
-            setText("");
-            setOpen(false);
-        }
-    })
+    const onSuccess = (item: UrgentItemDTO) => {
+        setText("")
+        setOpen(false);
+    }
+
+    const {onSubmit, isPending, isError, error} = useCreateUrgent(userContext, onSuccess);
 
     const handleAdd = () => {
         if (!text.trim()) return;
         if (user?.selectedApartment?.id) {
-            addMutation.mutate({apartmentId: user?.selectedApartment?.id, content: text})
+            onSubmit(user.selectedApartment.id, text);
         }
     }
 
@@ -57,20 +52,20 @@ const AddUrgent = () => {
                         onChange={(e) => {
                             setText(e.target.value);
                         }}
-                        disabled={addMutation.isPending}
+                        disabled={isPending}
                     />
                 </div>
                 <DrawerFooter>
                     <Button
                         onClick={handleAdd}
-                        disabled={addMutation.isPending || !text.trim()}
+                        disabled={isPending || !text.trim()}
                     >
-                        {addMutation.isPending ? 'იგზავნება...' : 'გაგზავნა'}
+                        {isPending ? 'იგზავნება...' : 'გაგზავნა'}
                     </Button>
 
-                    {addMutation.isError && (
+                    {isError && (
                         <p className="text-red-500 text-sm">
-                            შეცდომა: {addMutation.error.message}
+                            შეცდომა: {error?.message}
                         </p>
                     )}
 

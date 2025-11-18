@@ -8,11 +8,15 @@ import {useCreateComment} from "@/hooks/query/use-create-comment";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
 import {UserAvatar} from "@/components/common/avatar/UserAvatar";
 import {useAuth} from "@/components/provider/AuthProvider";
+import {ThreadInfoDTO} from "@/model/thread.dto";
 
-export const ThreadViewCommentButton = () => {
+type ThreadViewCommentButtonProps = {
+    thread: ThreadInfoDTO;
+}
+
+export const ThreadViewCommentButton = ({thread}: ThreadViewCommentButtonProps) => {
     const [commentText, setCommentText] = useState('');
     const {user} = useAuth();
-    const {thread} = useThread();
 
     const {onSubmit} = useCreateComment()
 
@@ -28,7 +32,7 @@ export const ThreadViewCommentButton = () => {
     }
 
     return (
-        <div className="flex items-center min-h-20 border-b px-3 py-1 gap-3">
+        <div className="flex items-center min-h-20 border-b px-3 py-1 gap-3 w-full">
             <UserAvatar profileImageId={user?.profileImageId} firstName={user?.name} surname={user?.surname}/>
             <div className="flex-1 relative">
                 <Textarea

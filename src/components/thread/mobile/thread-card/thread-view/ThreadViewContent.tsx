@@ -1,6 +1,5 @@
 import React from "react";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
-import {usePreviewable} from "@/components/thread/mobile/sheet/Previewable";
 
 interface ThreadCardContentProps {
     className?: string;

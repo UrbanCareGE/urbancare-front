@@ -13,7 +13,7 @@ export const UserAvatar = ({firstName, surname, profileImageId}: UserAvatarProps
 
     return (
         <div className="relative inline-block outline-none">
-            <Avatar className="cursor-pointer w-10 h-10 rounded-full">
+            <Avatar className="cursor-pointer w-10 h-10 rounded-full bg-primary">
                 <AvatarImage src={getClientFileUrl(profileImageId)} alt="@shadcn" className={'object-cover'}/>
                 <AvatarFallback>{initials}</AvatarFallback>
             </Avatar>
