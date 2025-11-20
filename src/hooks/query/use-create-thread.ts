@@ -1,7 +1,7 @@
 // use-create-thread.ts
 'use client'
 
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {InfiniteData, useMutation, useQueryClient} from "@tanstack/react-query";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
@@ -10,6 +10,8 @@ import {createThreadSchema} from "@/components/thread/mobile/data/create-thread-
 import {ThreadService} from "@/service/thread-service";
 import {FileService} from "@/service/file-service";
 import {useAuth} from "@/components/provider/AuthProvider";
+import {PagingRespDTO} from "@/model/common.dto";
+import {ThreadInfoDTO} from "@/model/thread.dto";
 
 export function useCreateThread() {
     const queryClient = useQueryClient();
@@ -68,9 +70,35 @@ export function useCreateThread() {
                 imageIds
             });
         },
-        onSuccess: () => {
-            console.log('Thread created successfully!');
-            queryClient.invalidateQueries({queryKey: ['threads', 'list']});
+        onSuccess: (threadInfo) => {
+            const queryListKey = ['threads', 'list', user?.selectedApartment.id];
+            const queryDetailKey = ['threads', 'detail', threadInfo.id];
+
+            queryClient.setQueryData<InfiniteData<PagingRespDTO<string>>>(
+                queryListKey,
+                (prev) => {
+                    if (!prev) return prev;
+
+                    return {
+                        ...prev,
+                        pages: prev.pages.map((page, index) => {
+                            if (index === 0) {
+                                return {
+                                    ...page,
+                                    content: [threadInfo.id, ...page.content],
+                                    numberOfElements: page.numberOfElements + 1,
+                                };
+                            }
+                            return page;
+                        }),
+                    };
+                }
+            );
+
+            queryClient.setQueryData<ThreadInfoDTO>(
+                queryDetailKey,
+                threadInfo
+            )
             form.reset();
             setUploadedFileIds([]);
         },

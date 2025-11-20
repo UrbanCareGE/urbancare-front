@@ -31,13 +31,13 @@ export interface ThreadInfoDTO {
     id: string;
     title: string;
     content: string;
+    imageIds: string[];
     voteDiff: number;
     commentCount: number;
-    createdAt: Date;
-    updatedAt: Date;
-    userInfo: UserSnapshotDTO;
     selfVote: number;
-    comments: ThreadCommentDTO[]
+    comments?: ThreadCommentDTO[]
+    createdAt: Date;
+    userInfo?: UserSnapshotDTO;
 }
 
 export interface ThreadVoteDTO {
