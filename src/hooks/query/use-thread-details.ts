@@ -18,7 +18,7 @@ export function useThreadDetails(threadId?: string) {
             return await ThreadService.get(threadId);
         },
         enabled: !!threadId,
-        staleTime: Infinity,
+        staleTime: 10 * 60 * 1e3,
         gcTime: Infinity,
     });
 

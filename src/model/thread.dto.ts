@@ -22,7 +22,6 @@ export interface ThreadCommentDTO {
     voteDiff: number;
     selfVote: number;
     createdAt: Date;
-    updatedAt: Date;
     userInfo: UserSnapshotDTO;
     replies: ThreadCommentDTO[];
 }
@@ -35,7 +34,7 @@ export interface ThreadInfoDTO {
     voteDiff: number;
     commentCount: number;
     selfVote: number;
-    comments?: ThreadCommentDTO[]
+    comments: ThreadCommentDTO[]
     createdAt: Date;
     userInfo?: UserSnapshotDTO;
 }
