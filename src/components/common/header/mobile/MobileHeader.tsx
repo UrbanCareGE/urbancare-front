@@ -6,7 +6,7 @@ import {ProfileSideBarHeader} from "@/components/home/sidebar/mobile/profile/Pro
 import {LogoutButton} from "@/components/auth/LogoutButton";
 import {ProfileSideBarBody} from "@/components/home/sidebar/mobile/profile/ProfileSIdeBarBody";
 import {NeighborhoodSelect} from "@/components/home/NeighborhoodSelect";
-import {NavigationArea, navigationItems} from "@/components/home/sidebar/mobile/navigation/NavigationArea";
+import NavigationArea from "@/components/home/sidebar/mobile/navigation/NavigationArea";
 import {NavSideBarHeader} from "@/components/home/sidebar/mobile/navigation/NavSideBarHeader";
 import {useMobileScroll} from "@/hooks/use-mobile-scroll";
 import {cn} from "@/lib/utils";
@@ -26,7 +26,7 @@ export const MobileHeader = () => {
                         <NavSideBarHeader/>
                     </MobileSideBar.Header>
                     <MobileSideBar.Body className={"px-3"}>
-                        <NavigationArea navItems={navigationItems}/>
+                        <NavigationArea/>
                     </MobileSideBar.Body>
                     <MobileSideBar.Footer className={"px-3 bg-gray-50"}>
                         <NeighborhoodSelect/>
