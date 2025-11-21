@@ -1,7 +1,7 @@
 // components/thread/ThreadCard.tsx
 'use client';
 
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {Card} from '@/components/ui/card';
 import {cn} from "@/lib/utils";
 import {ThreadInfoDTO} from "@/model/thread.dto";
@@ -29,8 +29,17 @@ interface ThreadCardRootProps {
 
 const ThreadCardRoot = ({thread, children, className}: ThreadCardRootProps) => {
     const [threadState, setThreadState] = useState<ThreadInfoDTO>(thread);
+
+    useEffect(() => {
+        setThreadState(thread);
+    }, [thread]);
+
+    const contextValue = useMemo(
+        () => ({thread: threadState, setThread: setThreadState}),
+        [threadState]
+    );
     return (
-        <ThreadContext.Provider value={{thread: threadState, setThread: setThreadState}}>
+        <ThreadContext.Provider value={contextValue}>
             <Card
                 className={cn(
                     "overflow-hidden shadow-sm border-slate-200 bg-white p-3 space-y-3 transition-all duration-200 cursor-pointer hover:shadow-md hover:border-slate-300",

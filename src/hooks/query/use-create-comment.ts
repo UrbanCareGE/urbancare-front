@@ -44,10 +44,21 @@ export function useCreateComment() {
             }
         },
 
-        onSuccess: (newComment, {threadId, commentDto}) => {
-            queryClient.setQueryData(['threads', 'detail', threadId], (old: ThreadInfoDTO) => {
-                const filtered = old.comments?.filter(c => !c.id.startsWith('temp-')) || [];
-                return {...old, comments: [...filtered, newComment]};
+        onSuccess: (newComment, {threadId}) => {
+            const queryKey = ['threads', 'detail', threadId];
+            queryClient.setQueryData<ThreadInfoDTO>(queryKey, (old) => {
+                if (!old) return old;
+
+                return {
+                    ...old,
+                    comments: [...(old.comments.filter(comment => !comment.id.startsWith('temp-')) || []), newComment],
+                    commentCount: (old.commentCount || 0) + 1
+                };
+            });
+
+            queryClient.invalidateQueries({
+                queryKey,
+                refetchType: 'none'
             });
         },
     });

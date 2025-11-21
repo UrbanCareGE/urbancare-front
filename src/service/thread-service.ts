@@ -1,7 +1,7 @@
 import {api} from "@/lib/api-client";
 import {
     CreateThreadCommentDTO,
-    CreateThreadDTO,
+    CreateThreadDTO, ThreadCommentDTO,
     ThreadInfoDTO,
     ThreadVoteDTO,
     ThreadVoteRespDTO
@@ -26,7 +26,7 @@ export const ThreadService = {
     vote: async (threadId: string, voteDTO: ThreadVoteDTO): Promise<ThreadVoteRespDTO> => {
         return await api.post<ThreadVoteRespDTO, ThreadVoteDTO>(`/api/secure/thread/vote/${threadId}`, voteDTO);
     },
-    createComment: async (threadId: string, commentDTO: CreateThreadCommentDTO): Promise<IdWrapperDTO> => {
-        return await api.post<IdWrapperDTO, CreateThreadCommentDTO>(`/api/secure/thread/${threadId}/comment`, commentDTO);
+    createComment: async (threadId: string, commentDTO: CreateThreadCommentDTO): Promise<ThreadCommentDTO> => {
+        return await api.post<ThreadCommentDTO, CreateThreadCommentDTO>(`/api/secure/thread/${threadId}/comment`, commentDTO);
     }
 }
