@@ -70,6 +70,10 @@ export function useCreateThread() {
                 imageIds
             });
         },
+        onMutate: async ({apartmentId, title, content, imageIds}) => {
+            const queryListKey = ['threads', 'list', user?.selectedApartment.id];
+
+        },
         onSuccess: (threadInfo) => {
             const queryListKey = ['threads', 'list', user?.selectedApartment.id];
             const queryDetailKey = ['threads', 'detail', threadInfo.id];

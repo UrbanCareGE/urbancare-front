@@ -64,7 +64,7 @@ const MobileSideBarContentComponent = ({children, className}: MobileSideBarConte
     return (
         <SheetContent
             side={side}
-            className={cn("w-10/12 bg-white", {
+            className={cn("w-10/12 bg-text-bg", {
                 'rounded-r-md': side === 'left',
                 'rounded-l-md': side === 'right'
             })}

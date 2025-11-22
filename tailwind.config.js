@@ -36,10 +36,12 @@ module.exports = {
             },
             colors: {
                 primary: {
-                    DEFAULT: 'var(--color-primary)',
+                    DEFAULT: 'var(--color-primary-darkest)',
+                    disabled: 'var(--color-primary-disabled)',
                     container: 'var(--color-temp)',
                     on: 'var(--color-on-primary)',
                     onContainer: 'var(--color-on-primary-container)',
+                    bg: 'rgba(var(--color-border), 255)',
                 },
                 secondary: {
                     DEFAULT: 'var(--color-secondary)',
@@ -54,6 +56,8 @@ module.exports = {
                     onContainer: 'var(--color-on-tertiary-container)',
                 },
                 text: {
+                    primary: 'var(--text-on-light-primary)',
+                    bg: 'var(--text-on-light-primary-bg)',
                     disabled: 'var(--color-text-disabled)',
                     placeholder: 'var(--color-grey-500)',
                     inverse: 'var(--color-text-inverse)',
