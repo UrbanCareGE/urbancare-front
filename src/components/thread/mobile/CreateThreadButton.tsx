@@ -16,7 +16,7 @@ export function CreateThreadButton({className}: StartThreadFormProps) {
 
     return (
         <Card
-            className={cn("flex items-center overflow-hidden shadow-sm border-slate-200 bg-white p-3 transition-all duration-200 cursor-pointer", className)}>
+            className={cn("flex items-center overflow-hidden border-0 bg-white p-3 cursor-pointer", className)}>
             <Avatar className="cursor-pointer w-12 h-12 rounded-full">
                 <AvatarImage src={getClientFileUrl(user?.profileImageId)} alt="@shadcn"
                              className={'object-cover'}/>

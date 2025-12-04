@@ -1,14 +1,11 @@
 import React from "react";
 import {TypographyH2} from "@/components/common/text/Typography";
-import {AppLogo} from "@/components/common/logo/AppLogo";
 
 type LoginHeaderProps = {
     className?: string
 }
 
 export const LoginHeader: React.FC<LoginHeaderProps> = () => {
-    return <div className={"flex flex-col justify-between items-center w-full py-4"}>
-        <AppLogo/>
-        <TypographyH2>ავტორიზაცია</TypographyH2>
-    </div>
+    return (<TypographyH2>ავტორიზაცია</TypographyH2>);
+
 }

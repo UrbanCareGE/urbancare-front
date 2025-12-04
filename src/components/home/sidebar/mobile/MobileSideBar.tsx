@@ -100,7 +100,7 @@ interface MobileSideBarBodyProps {
 
 const MobileSideBarBodyComponent = ({children, className}: MobileSideBarBodyProps) => {
     return (
-        <div className={cn("flex-1 w-full", className)}>
+        <div className={cn("flex-1 w-full overflow-y-scroll", className)}>
             {children}
         </div>
     );

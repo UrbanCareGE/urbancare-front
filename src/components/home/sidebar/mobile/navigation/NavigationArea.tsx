@@ -50,7 +50,7 @@ const navigationItems: NavItem[] = [
 
 const NavigationArea = () => {
     return (
-        <div className={"h-full w-full flex flex-col gap-1 py-3"}>
+        <div className={"w-full flex flex-col gap-1 py-3"}>
             {navigationItems.map(navigationItem => {
                 if (navigationItem.children && navigationItem.children.length > 0) {
                     return <NavigationGroupLink key={navigationItem.href} navigationItem={navigationItem}/>

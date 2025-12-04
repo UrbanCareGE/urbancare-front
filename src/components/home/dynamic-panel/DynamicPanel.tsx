@@ -34,7 +34,7 @@ const DynamicPanelRoot = ({className, children}: DynamicPanelRootProps) => {
 const DynamicPanelHeader = ({className, children}: DynamicPanelHeaderProps) => {
     return (
         <div className={cn(
-            "w-full h-20 bg-white px-4 pb-2", className)}>
+            "w-full h-20 px-4 pb-2", className)}>
             {children}
         </div>
     );
@@ -43,7 +43,7 @@ const DynamicPanelHeader = ({className, children}: DynamicPanelHeaderProps) => {
 const DynamicPanelBody = ({className, children,}: DynamicPanelBodyProps) => {
     return (
         <div className={cn(
-            "w-full flex-1 overflow-scroll bg-white px-4", className)}>
+            "w-full flex-1 overflow-scroll px-4", className)}>
             {children}
         </div>
     );

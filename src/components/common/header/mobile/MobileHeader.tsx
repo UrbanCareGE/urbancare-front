@@ -42,7 +42,7 @@ export const MobileHeader = () => {
                     <MobileSideBar.Header className={"bg-gray-50"}>
                         <ProfileSideBarHeader/>
                     </MobileSideBar.Header>
-                    <MobileSideBar.Body className={"overflow-y-scroll"}>
+                    <MobileSideBar.Body>
                         <ProfileSideBarBody/>
                     </MobileSideBar.Body>
                     <MobileSideBar.Footer className={"px-3 bg-gray-50"}>

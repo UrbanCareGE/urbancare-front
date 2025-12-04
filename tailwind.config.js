@@ -36,74 +36,99 @@ module.exports = {
             },
             colors: {
                 primary: {
-                    DEFAULT: 'var(--color-primary-darkest)',
-                    disabled: 'var(--color-primary-disabled)',
-                    container: 'var(--color-temp)',
-                    on: 'var(--color-on-primary)',
-                    onContainer: 'var(--color-on-primary-container)',
-                    bg: 'rgba(var(--color-border), 255)',
+                    DEFAULT: "rgb(var(--color-primary) / <alpha-value>)",
+                    hover: "rgb(var(--color-primary-hover) / <alpha-value>)",
+                    active: "rgb(var(--color-primary-active) / <alpha-value>)",
+                    foreground: "rgb(var(--color-primary-foreground) / <alpha-value>)",
                 },
+
+                // Secondary
                 secondary: {
-                    DEFAULT: 'var(--color-secondary)',
-                    container: 'var(--color-secondary-container)',
-                    on: 'var(--color-on-secondary)',
-                    onContainer: 'var(--color-on-secondary-container)',
+                    DEFAULT: "rgb(var(--color-secondary) / <alpha-value>)",
+                    hover: "rgb(var(--color-secondary-hover) / <alpha-value>)",
+                    active: "rgb(var(--color-secondary-active) / <alpha-value>)",
+                    foreground: "rgb(var(--color-secondary-foreground) / <alpha-value>)",
                 },
-                tertiary: {
-                    DEFAULT: 'var(--color-tertiary)',
-                    container: 'var(--color-tertiary-container)',
-                    on: 'var(--color-on-tertiary)',
-                    onContainer: 'var(--color-on-tertiary-container)',
-                },
-                text: {
-                    primary: 'var(--text-on-light-primary)',
-                    bg: 'var(--text-on-light-primary-bg)',
-                    disabled: 'var(--color-text-disabled)',
-                    placeholder: 'var(--color-grey-500)',
-                    inverse: 'var(--color-text-inverse)',
-                },
-                success: {
-                    DEFAULT: 'var(--color-success)',
-                    container: 'var(--color-success-container)',
-                    on: 'var(--color-on-success)',
-                    onContainer: 'var(--color-on-success-container)',
-                },
-                info: {
-                    DEFAULT: 'var(--color-info)',
-                    container: 'var(--color-info-container)',
-                    on: 'var(--color-on-info)',
-                    onContainer: 'var(--color-on-info-container)',
-                },
-                warning: {
-                    DEFAULT: 'var(--color-warning)',
-                    container: 'var(--color-warning-container)',
-                    on: 'var(--color-on-warning)',
-                    onContainer: 'var(--color-on-warning-container)',
-                },
-                error: {
-                    DEFAULT: 'var(--color-red-500)',
-                    container: 'var(--color-error-container)',
-                    on: 'var(--color-on-error)',
-                    onContainer: 'var(--color-on-error-container)',
-                },
-                background: {
-                    DEFAULT: 'var(--color-background)',
-                    on: 'var(--color-on-background)',
+
+                // Accent
+                accent: {
+                    DEFAULT: "rgb(var(--color-accent) / <alpha-value>)",
+                    hover: "rgb(var(--color-accent-hover) / <alpha-value>)",
+                    foreground: "rgb(var(--color-accent-foreground) / <alpha-value>)",
                 },
                 surface: {
-                    DEFAULT: 'var(--color-surface)',
-                    on: 'var(--color-on-surface)',
-                    variant: 'var(--color-surface-variant)',
-                    onVariant: 'var(--color-on-surface-variant)',
-                    inverse: 'var(--color-inverse-surface)',
-                    inverseOn: 'var(--color-inverse-on-surface)',
-                    tint: 'var(--color-surface-tint)',
+                    DEFAULT: "rgb(var(--color-surface) / <alpha-value>)",
+                    secondary: "rgb(var(--color-surface-secondary) / <alpha-value>)",
+                    hover: "rgb(var(--color-surface-hover) / <alpha-value>)",
                 },
-                outline: {
-                    DEFAULT: 'var(--color-grey-300)',
-                    variant: 'var(--color-outline-variant)',
+                background: {
+                    DEFAULT: "rgb(var(--color-background) / <alpha-value>)",
+                    secondary: "rgb(var(--color-background-secondary) / <alpha-value>)",
+                    hover: "rgb(var(--color-background-hover) / <alpha-value>)",
                 },
-                shadow: 'var(--color-shadow)',
+                // Text
+                text: {
+                    primary: "rgb(var(--color-text-primary) / <alpha-value>)",
+                    secondary: "rgb(var(--color-text-secondary) / <alpha-value>)",
+                    tertiary: "rgb(var(--color-text-tertiary) / <alpha-value>)",
+                    disabled: "rgb(var(--color-text-disabled) / <alpha-value>)",
+                    placeholder: "rgb(var(--color-text-placeholder) / <alpha-value>)",
+                    inverse: "rgb(var(--color-text-inverse) / <alpha-value>)",
+                },
+                border: {
+                    DEFAULT: "rgb(var(--color-border) / <alpha-value>)",
+                    hover: "rgb(var(--color-border-hover) / <alpha-value>)",
+                    focus: "rgb(var(--color-border-focus) / <alpha-value>)",
+                    error: "rgb(var(--color-border-error) / <alpha-value>)",
+                },
+
+                // States
+                success: {
+                    DEFAULT: "rgb(var(--color-success) / <alpha-value>)",
+                    hover: "rgb(var(--color-success-hover) / <alpha-value>)",
+                    foreground: "rgb(var(--color-success-foreground) / <alpha-value>)",
+                    background: "rgb(var(--color-success-background) / <alpha-value>)",
+                },
+
+                error: {
+                    DEFAULT: "rgb(var(--color-error) / <alpha-value>)",
+                    hover: "rgb(var(--color-error-hover) / <alpha-value>)",
+                    foreground: "rgb(var(--color-error-foreground) / <alpha-value>)",
+                    background: "rgb(var(--color-error-background) / <alpha-value>)",
+                },
+
+                warning: {
+                    DEFAULT: "rgb(var(--color-warning) / <alpha-value>)",
+                    hover: "rgb(var(--color-warning-hover) / <alpha-value>)",
+                    foreground: "rgb(var(--color-warning-foreground) / <alpha-value>)",
+                    background: "rgb(var(--color-warning-background) / <alpha-value>)",
+                },
+                info: {
+                    DEFAULT: "rgb(var(--color-info) / <alpha-value>)",
+                    hover: "rgb(var(--color-info-hover) / <alpha-value>)",
+                    foreground: "rgb(var(--color-info-foreground) / <alpha-value>)",
+                    background: "rgb(var(--color-info-background) / <alpha-value>)",
+                },
+
+                // Interactive
+                hover: "rgb(var(--color-hover) / <alpha-value>)",
+                active: "rgb(var(--color-active) / <alpha-value>)",
+                "focus-ring": "rgb(var(--color-focus-ring) / <alpha-value>)",
+                disabled: "rgb(var(--color-disabled) / <alpha-value>)",
+                "disabled-foreground": "rgb(var(--color-disabled-foreground) / <alpha-value>)",
+
+                // Input
+                input: {
+                    DEFAULT: "rgb(var(--color-input-background) / <alpha-value>)",
+                    border: "rgb(var(--color-input-border) / <alpha-value>)",
+                    "border-hover": "rgb(var(--color-input-border-hover) / <alpha-value>)",
+                    "border-focus": "rgb(var(--color-input-border-focus) / <alpha-value>)",
+                    text: "rgb(var(--color-input-text) / <alpha-value>)",
+                    placeholder: "rgb(var(--color-input-placeholder) / <alpha-value>)",
+                },
+                shadow: "rgb(var(--color-shadow) / <alpha-value>)",
+                overlay: "rgb(var(--color-overlay) / <alpha-value>)",
+                // Background
                 scrim: 'var(--color-scrim)',
                 inversePrimary: 'var(--color-inverse-primary)',
 
@@ -155,6 +180,10 @@ module.exports = {
                     '0%': {transform: 'translateY(100%)', opacity: 0},
                     '100%': {transform: 'translateY(0)', opacity: 1},
                 },
+                panelSlideUp: {
+                    '0%': {transform: 'translateY(20%)', opacity: 0},
+                    '100%': {transform: 'translateY(0)', opacity: 1},
+                },
                 slideDown: {
                     '0%': {transform: 'translateY(0)', opacity: 0},
                     '100%': {transform: 'translateY(100%)', opacity: 1},
@@ -202,7 +231,9 @@ module.exports = {
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
                 'caret-blink': 'caret-blink 1.25s ease-out infinite',
-                'slide-up': 'slideUp 0.3s ease-in-out',
+                'slide-up': 'slideUp 0.5s ease-in-out',
+                'panel-slide-up': 'panelSlideUp 0.5s ease-in-out',
+                'slide-up-slow': 'slideUp 0.5s ease-in-out',
                 'slide-down': 'slideUp 0.3s ease-in-out',
                 'fade-out': 'fadeOut 0.3s ease-in-out',
                 'float': 'float 1s ease-linear infinite',

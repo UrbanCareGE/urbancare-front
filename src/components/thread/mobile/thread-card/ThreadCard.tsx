@@ -42,7 +42,7 @@ const ThreadCardRoot = ({thread, children, className}: ThreadCardRootProps) => {
         <ThreadContext.Provider value={contextValue}>
             <Card
                 className={cn(
-                    "overflow-hidden shadow-sm border-slate-200 bg-white p-3 space-y-3 transition-all duration-200 cursor-pointer hover:shadow-md hover:border-slate-300",
+                    "overflow-hidden shadow-sm border-slate-200 bg-white p-3 space-y-3 transition-all duration-200 cursor-pointer",
                     className
                 )}
             >
