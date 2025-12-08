@@ -6,6 +6,8 @@ type LoginHeaderProps = {
 }
 
 export const LoginHeader: React.FC<LoginHeaderProps> = () => {
-    return (<TypographyH2>ავტორიზაცია</TypographyH2>);
+    return (
+        <TypographyH2 className={"text-primary"}>ავტორიზაცია</TypographyH2>
+    );
 
 }

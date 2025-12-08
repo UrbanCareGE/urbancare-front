@@ -13,12 +13,11 @@ export const OauthLink = ({children, className, href}: OauthLinkProps) => {
         <Link
             href={href}
             className={cn(
-                "flex items-center justify-center gap-2",
-                "px-5 py-3",
-                "text-sm sm:text-base",
+                "flex items-center justify-center",
+                "p-4",
                 "bg-surface border border-border",
-                "rounded-panel",
-                "hover:bg-surface-hover\ hover:border-border-hover",
+                "rounded-full shadow-2xl",
+                "hover:bg-surface-hover hover:border-border-hover",
                 "transition-colors duration-200",
                 "font-medium",
                 className

@@ -7,7 +7,7 @@ import AddUrgent from "@/components/urgent/mobile/AddUrgent";
 
 const Page = () => {
     return (
-        <div className={"bg-white w-full flex flex-col"}>
+        <div className={"flex flex-col bg-background w-full h-full"}>
             <AddUrgent/>
             <UrgentList/>
         </div>

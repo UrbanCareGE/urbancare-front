@@ -9,7 +9,7 @@ type OauthFormProps = {
 
 export const OauthForm = ({className}: OauthFormProps) => {
     return (
-        <div className={cn("w-full flex justify-center items-center gap-2", className)}>
+        <div className={cn("w-full flex justify-center items-center gap-3", className)}>
             <OauthLink href={"da"}>
                 <GoogleIcon dimension={24}/>
                 <span className="text-gray-500 hidden sm:inline">Google</span>

@@ -58,7 +58,7 @@ export default function ThreadFeed() {
     }
 
     return (
-        <div className="flex-1 overflow-y-scroll bg-slate-100 space-y-4 py-4">
+        <div className="flex-1 overflow-y-scroll space-y-4 py-4">
             <div className="max-w-2xl mx-auto px-3">
                 <ThreadCreateForm/>
             </div>

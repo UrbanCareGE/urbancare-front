@@ -20,7 +20,7 @@ interface FloatingPanelBodyProps {
 
 const FloatingPanelRoot = ({className, children}: FloatingPanelRootProps) => {
     return (
-        <div className={cn("w-full flex flex-col h-full bg-primary", className)}>
+        <div className={cn("w-full flex flex-col h-full bg-background", className)}>
             {children}
         </div>
     );
@@ -38,7 +38,7 @@ const FloatingPanelHeader = ({className, children}: FloatingPanelHeaderProps) =>
 const FloatingPanelBody = ({className, children,}: FloatingPanelBodyProps) => {
     return (
         <div className={cn(
-            "w-full flex-1 animate-panel-slide-up overflow-scroll bg-background p-4 rounded-t-3xl", className)}>
+            "w-full flex-1 animate-panel-slide-up overflow-scroll bg-background px-4 py-1 rounded-t-3xl", className)}>
             {children}
         </div>
     );

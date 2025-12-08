@@ -87,7 +87,7 @@ interface MobileSideBarHeaderProps {
 
 const MobileSideBarHeaderComponent = ({children, className}: MobileSideBarHeaderProps) => {
     return (
-        <div className={cn("h-auto w-full p-4 border-b bg-gray-50 border-gray-200 rounded-t-md", className)}>
+        <div className={cn("h-auto w-full p-4 border-b bg-background border-gray-200 rounded-t-md", className)}>
             {children}
         </div>
     );
@@ -100,7 +100,7 @@ interface MobileSideBarBodyProps {
 
 const MobileSideBarBodyComponent = ({children, className}: MobileSideBarBodyProps) => {
     return (
-        <div className={cn("flex-1 w-full overflow-y-scroll", className)}>
+        <div className={cn("flex-1 w-full overflow-y-scroll bg-background", className)}>
             {children}
         </div>
     );
@@ -113,7 +113,7 @@ interface MobileSideBarFooterProps {
 
 const MobileSideBarFooterComponent = ({children, className}: MobileSideBarFooterProps) => {
     return (
-        <div className={cn("h-auto w-full px-4 py-1 border-t bg-gray-5 border-gray-200 rounded-b-md", className)}>
+        <div className={cn("h-auto w-full px-4 py-1 border-t bg-background border-gray-200 rounded-b-md", className)}>
             {children}
         </div>
     );

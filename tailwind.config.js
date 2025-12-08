@@ -109,7 +109,11 @@ module.exports = {
                     foreground: "rgb(var(--color-info-foreground) / <alpha-value>)",
                     background: "rgb(var(--color-info-background) / <alpha-value>)",
                 },
-
+                icon: {
+                    DEFAULT: "rgb(var(--color-icon) / <alpha-value>)",
+                    primary: "rgb(var(--color-primary) / <alpha-value>)",
+                    error: "rgb(var(--color-error) / <alpha-value>)",
+                },
                 // Interactive
                 hover: "rgb(var(--color-hover) / <alpha-value>)",
                 active: "rgb(var(--color-active) / <alpha-value>)",
@@ -181,7 +185,7 @@ module.exports = {
                     '100%': {transform: 'translateY(0)', opacity: 1},
                 },
                 panelSlideUp: {
-                    '0%': {transform: 'translateY(20%)', opacity: 0},
+                    '0%': {transform: 'translateY(10%)', opacity: 1},
                     '100%': {transform: 'translateY(0)', opacity: 1},
                 },
                 slideDown: {
@@ -261,6 +265,7 @@ module.exports = {
                 '9xl': '16rem',
                 '10xl': '20rem',    // 48px
             },
+            iconSize: {}
         }
     },
     plugins: [

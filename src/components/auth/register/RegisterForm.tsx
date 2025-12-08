@@ -113,11 +113,10 @@ export function RegisterForm() {
                     render={({field}) => (
                         <FormItem className="w-full">
                             <FormControl>
-                                {/*icon={<BadgeCheck/>}*/}
                                 <OTPInput
                                     placeholder="ერთჯერადი კოდი*"
                                     type="text"
-
+                                    icon={<BadgeCheck className={"text-gray-600"}/>}
                                     disabled={isPending}
                                     {...field}
                                 />

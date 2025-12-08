@@ -16,10 +16,13 @@ export const MobileHeader = () => {
 
     return (
         <header
-            className={cn("h-20 w-full flex items-center px-3 border-b border-gray-200 sticky top-0 bg-white !z-[20] transition-all duration-500 ease-in-out will-change-transform -translate-y-20", {'translate-y-0': isVisible, 'opacity-0' : !isVisible})}>
+            className={cn("h-20 w-full flex items-center px-3 border-b border-border sticky top-0 bg-surface !z-[20] transition-all duration-500 ease-in-out will-change-transform -translate-y-20", {
+                'translate-y-0': isVisible,
+                'opacity-0': !isVisible
+            })}>
             <MobileSideBar side={'left'}>
                 <MobileSideBar.Trigger>
-                    <Menu className={'w-8 h-8 text-slate-500'}/>
+                    <Menu className={'w-8 h-8 text-icon'}/>
                 </MobileSideBar.Trigger>
                 <MobileSideBar.Content>
                     <MobileSideBar.Header className={"px-3 bg-gray-50"}>
