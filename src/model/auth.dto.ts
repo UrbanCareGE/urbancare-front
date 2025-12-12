@@ -39,3 +39,17 @@ export interface UserSnapshotDTO {
     surname: string;
     profileImageId?: string;
 }
+
+export interface UpdateProfileDTO {
+    name: string;
+    surname: string;
+}
+
+export interface UpdateProfileImageDTO {
+    profileImageId: string;
+}
+
+export interface ChangePasswordDTO {
+    oldPassword: string;
+    newPassword: string;
+}

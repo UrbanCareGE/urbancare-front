@@ -28,7 +28,6 @@ export default async function RootLayout({children}: Children) {
     const agent = headersList.get("user-agent") || "";
     const isMobile = /mobile|android|iphone|ipad|phone/i.test(agent);
 
-
     return (
         <html
             lang="en"

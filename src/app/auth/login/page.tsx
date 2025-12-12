@@ -3,7 +3,6 @@ import {LoginForm} from "@/components/auth/login/LoginForm";
 import {LoginHeader} from "@/components/auth/login/LoginHeader";
 import DynamicPanel from "@/components/home/dynamic-panel/DynamicPanel";
 import {RegisterLink} from "@/components/auth/login/common/RegisterLink";
-import {TermsAndServicesLink} from "@/components/auth/login/common/TermsAndServicesLink";
 import FloatingPanel from "@/components/home/floating-panel/FLoatingPanel";
 import Image from "next/image";
 

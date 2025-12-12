@@ -2,8 +2,8 @@ import {Separator} from "@/components/ui/separator";
 import {Button} from "@/components/ui/button";
 import {ShieldAlert} from "lucide-react";
 import Link from "next/link";
-import {useQuery} from "@tanstack/react-query";
-import {UrgentService} from "@/service/urgent-service";
+import {useFetchUrgent} from "@/hooks/query/use-fetch-urgent";
+import {useAuth} from "@/components/provider/AuthProvider";
 
 export function UrgentPreviewMobile() {
     return (
@@ -12,10 +12,8 @@ export function UrgentPreviewMobile() {
 }
 
 export default function UrgentPreview() {
-    const {data: urgentItems, isLoading, error} = useQuery({
-        queryKey: ["urgentList"],
-        queryFn: UrgentService.getAll,
-    });
+    const authContext = useAuth();
+    const {data: urgentItems, isLoading, error} = useFetchUrgent(authContext);
 
     return (
         <div className="h-full flex flex-col overflow-hidden">
@@ -41,9 +39,10 @@ export default function UrgentPreview() {
                     </div>
                 )}
                 {urgentItems?.map((item) => (
-                    <li key={item.id} className={"flex flex-col justify-evenly ml-4 mr-3.5 border border-gray-200 rounded-lg"}>
+                    <li key={item.id}
+                        className={"flex flex-col justify-evenly ml-4 mr-3.5 border border-gray-200 rounded-lg"}>
                         <div className="font-medium flex items-center px-3 py-2 bg-blue-300/10">
-                            <span>{item.userId}</span>
+                            <span>{item.id}</span>
                             <Button variant={"outline"} className="ml-auto h-8 px-3 rounded-lg">შესრულებულია</Button>
                         </div>
                         <Separator className={"bg-blue-900"}/>

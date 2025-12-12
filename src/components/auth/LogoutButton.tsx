@@ -11,7 +11,7 @@ export const LogoutButton = () => {
     const mutation = useMutation(
         {
             mutationFn: AuthService.logout,
-            onSuccess: (data) => {
+            onSuccess: () => {
                 router.push('/')
             }
         }
