@@ -5,7 +5,6 @@ import {ComponentPropsWithoutRef, forwardRef, ReactNode} from "react";
 import {cn} from "@/lib/utils";
 import {NavItem} from "@/components/home/sidebar/mobile/navigation/NavigationArea";
 import {usePathname} from "next/navigation";
-import {ChevronRight} from "lucide-react";
 
 type NavigationLinkProps = {
     navigationItem: NavItem;
@@ -25,24 +24,18 @@ export const NavigationLink = forwardRef<HTMLAnchorElement, NavigationLinkProps>
                 ref={ref}
                 {...props} // Spread all other props (including onClick from SheetClose)
                 className={cn(
-                    "h-11 group w-full flex items-center gap-2 rounded-panel px-1 py-2",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
-                    "text-text-primary",
-                    className,
-                )}
+                    "h-11 group w-full flex items-center gap-1 rounded-panel px-1 py-2", className,)}
                 aria-current={isActive ? "page" : undefined}
             >
                 {navigationItem.icon && (
                     <div className={cn(
-                        "flex-shrink-0 transition-all duration-200 bg-primary-bg/50 rounded-full p-2 flex justify-center items-center",
-                        isActive
-                            ? "text-primary-foreground"
-                            : "text-gray-500 group-hover:text-gray-400"
+                        "flex-shrink-0 p-2 flex justify-center items-center text-icon",
+                        {"text-icon": isActive},
                     )}>
                         {navigationItem.icon}
                     </div>
                 )}
-                <p className="flex-1 text-left truncate font-semibold text-lg mr-auto">
+                <p className="flex-1 text-text-primary text-left truncate font-medium text-lg">
                     {navigationItem.label}
                 </p>
             </Link>

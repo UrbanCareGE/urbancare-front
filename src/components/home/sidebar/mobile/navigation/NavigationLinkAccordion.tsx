@@ -1,36 +1,13 @@
 import {NavItem} from "@/components/home/sidebar/mobile/navigation/NavigationArea";
 import {ReactNode} from "react";
 import {cn} from "@/lib/utils";
-import {usePathname} from "next/navigation";
-import Link from "next/link";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
+import {NavigationSubLink} from "@/components/home/sidebar/mobile/navigation/NavigationSubLink";
 
 type NavigationGroupLinkProps = {
     navigationItem: NavItem;
     children?: ReactNode;
     className?: string;
-}
-
-type NavigationGroupSubLinkProps = {
-    navigationItem: NavItem;
-}
-
-export const NavigationAccordionSubLink = ({navigationItem}: NavigationGroupSubLinkProps) => {
-    const pathname = usePathname();
-
-    const isActive = pathname === navigationItem.href ||
-        (navigationItem.href !== '/' && pathname.startsWith(navigationItem.href));
-
-    return <Link
-        href={navigationItem.href}
-        className={"h-9 group relative w-full flex items-center gap-8 px-1 transition-all duration-200"}>
-        <div className={cn("h-full w-1 rounded-full", isActive ? 'bg-primary' : 'bg-primary-bg/80')}></div>
-        <p className={cn(
-            "text-text-primary text-left truncate font-normal text-base mr-auto",
-        )}>
-            {navigationItem.label}
-        </p>
-    </Link>
 }
 
 export const NavigationLinkAccordion = ({navigationItem}: NavigationGroupLinkProps) => {
@@ -42,7 +19,7 @@ export const NavigationLinkAccordion = ({navigationItem}: NavigationGroupLinkPro
             <AccordionItem value={'item-1'} className={"border-0"}>
                 <AccordionTrigger className={"p-0"}>
                     <div
-                        className={"h-11 group relative w-full flex items-center gap-2 transition-all duration-200 px-1 py-2"}>
+                        className={"h-11 group relative w-full flex items-center gap-1 transition-all duration-200 px-1 py-2"}>
                         {navigationItem.icon && (
                             <div className={cn(
                                 "flex-shrink-0 transition-all duration-200 bg-primary-bg/50 rounded-full p-2 flex justify-center items-center",
@@ -59,15 +36,12 @@ export const NavigationLinkAccordion = ({navigationItem}: NavigationGroupLinkPro
                 <AccordionContent className={"flex p-0"}>
                     <div className={"flex flex-col w-full ml-5"}>
                         {navigationItem.children?.map(navigationItem => {
-                            return <NavigationAccordionSubLink key={navigationItem.href}
-                                                               navigationItem={navigationItem}/>
+                            return <NavigationSubLink key={navigationItem.href}
+                                                      navigationItem={navigationItem}/>
                         })}
                     </div>
-
                 </AccordionContent>
             </AccordionItem>
-
         </Accordion>
-
     );
 };
