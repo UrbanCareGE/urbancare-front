@@ -12,7 +12,7 @@ import {
     ShieldAlertIcon
 } from "lucide-react";
 import React from "react";
-import {NavigationGroupLink} from "@/components/home/sidebar/mobile/navigation/NavigationGroup";
+import {NavigationLinkAccordion} from "@/components/home/sidebar/mobile/navigation/NavigationLinkAccordion";
 import {SheetClose} from "@/components/ui/sheet";
 
 export type NavItem = {
@@ -53,7 +53,7 @@ const NavigationArea = () => {
         <div className={"w-full flex flex-col gap-1 py-3"}>
             {navigationItems.map(navigationItem => {
                 if (navigationItem.children && navigationItem.children.length > 0) {
-                    return <NavigationGroupLink key={navigationItem.href} navigationItem={navigationItem}/>
+                    return <NavigationLinkAccordion key={navigationItem.href} navigationItem={navigationItem}/>
                 } else {
                     return <SheetClose key={navigationItem.href + 'close'} asChild>
                         <NavigationLink key={navigationItem.href} navigationItem={navigationItem}
