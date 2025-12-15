@@ -44,6 +44,9 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
 
         const url: string = buildUrl(baseUrl, path, params);
 
+        if (authToken) {
+            headers['Authorization'] = authToken;
+        }
         const fetchConfig: ApiFetchConfig = {
             method,
             headers: {
@@ -54,9 +57,6 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
             },
         };
 
-        if (authToken) {
-            headers['Authorization'] = authToken;
-        }
 
         if (data && ['POST', 'PUT', 'PATCH'].includes(method)) {
             fetchConfig.body = isFormData ? data : JSON.stringify(data);
