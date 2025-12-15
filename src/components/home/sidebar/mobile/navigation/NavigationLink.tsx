@@ -35,7 +35,7 @@ export const NavigationLink = forwardRef<HTMLAnchorElement, NavigationLinkProps>
                         {navigationItem.icon}
                     </div>
                 )}
-                <p className="flex-1 text-text-primary text-left truncate font-medium text-lg">
+                <p className="flex-1 text-text-primary/80 text-left truncate leading-tight font-medium text-lg">
                     {navigationItem.label}
                 </p>
             </Link>

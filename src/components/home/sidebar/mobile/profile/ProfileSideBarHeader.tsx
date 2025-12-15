@@ -8,7 +8,7 @@ export const ProfileSideBarHeader = () => {
         <div className={"flex justify-between items-start w-full"}>
             <SideBarProfileHeader/>
             <SheetPrimitive.Close>
-                <X className={"h-8 w-8 stroke-gray-600 my-2"}></X>
+                <X className={"h-8 w-8 text-icon my-2"}></X>
             </SheetPrimitive.Close>
         </div>
     );

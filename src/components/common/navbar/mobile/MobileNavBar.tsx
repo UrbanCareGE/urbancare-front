@@ -66,7 +66,7 @@ export const MobileNavBar = ({className}: Basic) => {
                             >
                                 <Icon
                                     className={`transition-colors duration-300 ${
-                                        isActive ? "text-white" : "text-black"
+                                        isActive ? "text-white" : "text-icon"
                                     }`}
                                     size={26}
                                 />

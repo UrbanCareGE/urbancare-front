@@ -8,7 +8,7 @@ export const NavSideBarHeader = () => {
         <div className={"w-full flex justify-between items-start"}>
             <AppLogo/>
             <SheetPrimitive.Close asChild>
-                <X className={"h-8 w-8 stroke-gray-800 my-2"}></X>
+                <X className={"h-8 w-8 text-icon my-2"}></X>
             </SheetPrimitive.Close>
         </div>
     );

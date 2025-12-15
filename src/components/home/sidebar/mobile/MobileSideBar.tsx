@@ -113,7 +113,7 @@ interface MobileSideBarFooterProps {
 
 const MobileSideBarFooterComponent = ({children, className}: MobileSideBarFooterProps) => {
     return (
-        <div className={cn("h-auto w-full px-4 py-1 border-t bg-background border-gray-200 rounded-b-md", className)}>
+        <div className={cn("h-auto w-full px-4 py-1 border-t bg-background border-border rounded-b-md", className)}>
             {children}
         </div>
     );

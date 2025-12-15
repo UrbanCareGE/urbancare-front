@@ -3,7 +3,7 @@ import React from "react";
 
 export const TabletLayout = ({children}: { children: React.ReactNode }) => {
     return (
-        <main className="flex w-full h-screen overflow-hidden bg-gray-100 gap-8 px-6">
+        <main className="flex w-full h-screen overflow-hidden gap-8 px-6">
             {children}
         </main>
     );

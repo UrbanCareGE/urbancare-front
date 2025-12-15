@@ -14,6 +14,7 @@ import {
 import React from "react";
 import {NavigationLinkAccordion} from "@/components/home/sidebar/mobile/navigation/NavigationLinkAccordion";
 import {SheetClose} from "@/components/ui/sheet";
+import {Card} from "@/components/ui/card";
 
 export type NavItem = {
     href: string;
@@ -43,14 +44,14 @@ const navigationItems: NavItem[] = [
             {href: "/parking", label: "პარკინგი", icon: <SettingsIcon className={"text-icon"}/>},
         ]
     },
-    {href: "/documents", label: "დოკუმენტები", icon: <FileUser className={"text-icon"}/>},
+    {href: "/documents", label: "დოკუმენტები", icon: <FileUser className={"text-icon h-5 w-5"}/>},
     {href: "/info", label: "ინფორმაცია", icon: <BookOpenIcon className={"text-icon"}/>},
     {href: "/finance", label: "ფინანსები", icon: <LandmarkIcon className={"text-icon"}/>},
 ];
 
 const NavigationArea = () => {
     return (
-        <div className={"w-full flex flex-col py-3"}>
+        <div className={"w-full flex flex-col p-1"}>
             {navigationItems.map(navigationItem => {
                 if (navigationItem.children && navigationItem.children.length > 0) {
                     return <NavigationLinkAccordion key={navigationItem.href} navigationItem={navigationItem}/>
