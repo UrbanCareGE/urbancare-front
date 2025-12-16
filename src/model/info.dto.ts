@@ -16,7 +16,12 @@ interface ApartmentDocument {
     title: string;
     fileType: "PDF" | "TEXT";
     textFileId?: string;
-    pdfFileIds: string[];
+    pdfFiles: PDFFile[];
 }
 
-export type {ApartmentContact, ApartmentContactInfo, ApartmentDocument}
+interface PDFFile {
+    title: string;
+    pdfFileId: string;
+}
+
+export type {ApartmentContact, ApartmentContactInfo, ApartmentDocument, PDFFile}
