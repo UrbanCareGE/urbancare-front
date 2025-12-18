@@ -9,7 +9,7 @@ import {DrawerTitle} from "@/components/ui/drawer";
 import {FileText, Image as ImageIconLucide, Sparkles, Upload, Video, X} from "lucide-react";
 import {useCreateThread} from "@/hooks/query/use-create-thread";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import {SheetClose, SheetFooter, SheetHeader} from "@/components/ui/sheet";
+import {SheetClose, SheetFooter, SheetHeader, SheetTitle} from "@/components/ui/sheet";
 import {cn} from "@/lib/utils";
 
 export const ThreadCreateForm = () => {
@@ -75,9 +75,9 @@ export const ThreadCreateForm = () => {
                     <div className="flex items-center gap-2">
                         <div className={"w-8"}></div>
                         <div className={"mr-auto ml-auto"}>
-                            <DrawerTitle className="text-lg font-semibold text-slate-900">
+                            <SheetTitle className="text-lg font-semibold text-slate-900">
                                 ახალი პოსტი
-                            </DrawerTitle>
+                            </SheetTitle>
                         </div>
                         <SheetClose asChild>
                             <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full [&_svg]:size-7">

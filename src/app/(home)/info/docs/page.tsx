@@ -12,11 +12,11 @@ const ContactInfoPage = async () => {
     const resp = await InfoService.nextGetDocs(authToken)
 
     return (
-        <>
+        <div className={"flex flex-col"}>
             <AddDocButton/>
-            <ul className={"px-4 "}>{
+            <ul className={"px-4"}>{
                 resp.map((doc, index) => (
-                    <Card key={doc.id} className={"mt-4 px-3 py-2"}>
+                    <Card key={doc.id} className={"mb-4 px-3 py-2"}>
                         <h3 className={"font-semibold text-lg"}>{doc.title}</h3>
                         <Separator className={"mt-1"}/>
                         {doc.fileType == "TEXT"
@@ -33,7 +33,7 @@ const ContactInfoPage = async () => {
                     </Card>
                 ))
             }</ul>
-        </>
+        </div>
     );
 };
 

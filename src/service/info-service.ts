@@ -1,4 +1,4 @@
-import {ApartmentContact, ApartmentDocument} from "@/model/info.dto";
+import {ApartmentContact, ApartmentDocument, CreateApartmentDocument} from "@/model/info.dto";
 import {api} from "@/lib/api-client";
 
 export const InfoService = {
@@ -7,5 +7,8 @@ export const InfoService = {
     },
     nextGetDocs: async (token: string): Promise<ApartmentDocument[]> => {
         return await api.get<ApartmentDocument[]>(`/api/secure/apartment/68efd03837b62ea34882f812/data/documents`, { server: true, authToken: token })
+    },
+    clientAddDoc: async (doc: CreateApartmentDocument) => {
+        return await api.post(`/api/secure/apartment/68efd03837b62ea34882f812/data/documents`, doc)
     }
 }

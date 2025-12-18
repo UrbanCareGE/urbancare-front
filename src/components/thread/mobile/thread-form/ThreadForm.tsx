@@ -31,11 +31,6 @@ export const ThreadFormSheet = ({className, children}: ThreadFormDrawerProps) =>
 
     return (
         <Sheet open={isOpen} onOpenChange={(open) => !open && closeDrawer()}>
-            <VisuallyHidden>
-                <SheetTitle>
-                    fear not for i am with you!
-                </SheetTitle>
-            </VisuallyHidden>
             <SheetContent side={'bottom'}
                           className={cn("flex flex-col h-full w-full bg-slate-50 overflow-y-scroll", className)}>
                 {children}
@@ -52,12 +47,20 @@ interface ThreadFormTriggerProps {
 export const ThreadFormTrigger = ({className, children}: ThreadFormTriggerProps) => {
     const {isOpen, openDrawer} = useThreadDrawer();
 
-    return <div onClick={(e) => {
-        e.stopPropagation();
-        openDrawer();
-    }}>
-        {children}
-    </div>;
+    return (
+        <Card
+            onClick={(e) => {
+                e.stopPropagation();
+                openDrawer();
+            }}
+            className={cn(
+                "overflow-hidden shadow-sm border-slate-200 bg-white transition-all duration-200 cursor-pointer hover:shadow-md hover:border-slate-300",
+                className
+            )}
+        >
+            {children}
+        </Card>
+    );
 }
 
 interface ThreadFormRootProps {
@@ -76,14 +79,7 @@ export const ThreadFormRoot = ({className, children}: ThreadFormRootProps) => {
 
     return (
         <ThreadFormSheetContext.Provider value={drawerValue}>
-            <Card
-                className={cn(
-                    "overflow-hidden shadow-sm border-slate-200 bg-white transition-all duration-200 cursor-pointer hover:shadow-md hover:border-slate-300",
-                    className
-                )}
-            >
                 {children}
-            </Card>
         </ThreadFormSheetContext.Provider>
     )
 }
