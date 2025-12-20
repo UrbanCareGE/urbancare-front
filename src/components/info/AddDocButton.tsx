@@ -41,12 +41,16 @@ const AddDocButton = () => {
                     <X className={"w-6 h-6 m-0 font-bold"}/>
                 </SheetClose>
             </SheetHeader>
-            <AddDocFormBody/>
+            <AddDocFormBody onDone={() => setIsOpen(false)}/>
         </SheetContent>
     </Sheet>
 }
 
-const AddDocFormBody = () => {
+interface AddDocFormBodyProps {
+    onDone?: () => void
+}
+
+const AddDocFormBody = ({onDone}: AddDocFormBodyProps) => {
     const [uploadedFiles, setUploadedFiles] = useState<{ id: string; name: string }[]>([]);
     const [isUploading, setIsUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -104,7 +108,7 @@ const AddDocFormBody = () => {
             textFileId: data.text,
             pdfFiles: data.fileIds
         });
-        setIsOpen(false);
+        onDone?.();
     };
 
     return (
@@ -170,7 +174,7 @@ const AddDocFormBody = () => {
                                         </button>
                                         <button
                                             type="button"
-                                            onClick={() => field.onChange("FILE")}
+                                            onClick={() => field.onChange("PDF")}
                                             className={cn(
                                                 "flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-md text-sm font-medium transition-all",
                                                 field.value === "PDF"
@@ -196,7 +200,8 @@ const AddDocFormBody = () => {
                             render={({field}) => (
                                 <FormItem>
                                     <div className="flex items-center justify-between mb-2">
-                                        <FormLabel className="text-sm font-medium text-slate-700 flex items-center gap-2">
+                                        <FormLabel
+                                            className="text-sm font-medium text-slate-700 flex items-center gap-2">
                                             <FileText className="w-4 h-4 text-slate-400"/>
                                             ტექსტი <span className="text-red-500">*</span>
                                         </FormLabel>
@@ -231,7 +236,8 @@ const AddDocFormBody = () => {
                             render={() => (
                                 <FormItem>
                                     <div className="flex items-center justify-between mb-2">
-                                        <FormLabel className="text-sm font-medium text-slate-700 flex items-center gap-2">
+                                        <FormLabel
+                                            className="text-sm font-medium text-slate-700 flex items-center gap-2">
                                             <Paperclip className="w-4 h-4 text-slate-400"/>
                                             ფაილები <span className="text-red-500">*</span>
                                         </FormLabel>
@@ -257,8 +263,10 @@ const AddDocFormBody = () => {
                                         className="w-full h-auto bg-white border-2 border-dashed border-slate-300 hover:border-primary hover:bg-primary/5 transition-all group"
                                     >
                                         <div className="flex flex-col items-center gap-2 py-4">
-                                            <div className="w-10 h-10 rounded-full bg-slate-100 group-hover:bg-primary/10 flex items-center justify-center transition-colors">
-                                                <Upload className="w-5 h-5 text-slate-600 group-hover:text-primary transition-colors"/>
+                                            <div
+                                                className="w-10 h-10 rounded-full bg-slate-100 group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+                                                <Upload
+                                                    className="w-5 h-5 text-slate-600 group-hover:text-primary transition-colors"/>
                                             </div>
                                             <div className="text-center">
                                                 <p className="text-sm font-medium text-slate-700">

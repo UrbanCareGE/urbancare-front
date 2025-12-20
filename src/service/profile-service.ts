@@ -22,5 +22,21 @@ export const ProfileService = {
             '/api/secure/user/password',
             data
         );
+    },
+
+    getCars: async (): Promise<CarModel[]> => {
+        return api.get<CarModel[]>('/api/secure/user/data/cars')
+    },
+
+    addCar: async (dto: AddCarModel): Promise<CarModel> => {
+        return api.post<CarModel>('/api/secure/user/data/cars', dto)
     }
 };
+
+type CarModel = {
+    id: string;
+    licensePlate: string;
+}
+type AddCarModel = {
+    licensePlate: string;
+}

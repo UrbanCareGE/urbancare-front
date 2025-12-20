@@ -15,7 +15,7 @@ export function useUpdateProfile() {
                 name: data.name,
                 surname: data.surname,
             });
-            queryClient.invalidateQueries({queryKey: ['user']});
+            void queryClient.invalidateQueries({queryKey: ['user']});
             toast.success('პროფილი წარმატებით განახლდა');
         },
         onError: () => {

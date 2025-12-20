@@ -6,6 +6,7 @@ import {ProfileImageUpload} from '@/components/profile/ProfileImageUpload';
 import {PersonalInfoForm} from '@/components/profile/PersonalInfoForm';
 import {ChangePasswordForm} from '@/components/profile/ChangePasswordForm';
 import {Separator} from '@/components/ui/separator';
+import PersonalCarsForm from "@/components/profile/PersonalCarsForm";
 
 function Page() {
     return (
@@ -22,6 +23,10 @@ function Page() {
                 <Separator className="bg-gray-200"/>
 
                 <PersonalInfoForm/>
+
+                <Separator className="bg-gray-200"/>
+
+                <PersonalCarsForm/>
 
                 <Separator className="bg-gray-200"/>
 
