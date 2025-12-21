@@ -105,6 +105,9 @@ module.exports = {
                     primary: 'rgb(var(--color-primary) / <alpha-value>)',
                     error: 'rgb(var(--color-error) / <alpha-value>)'
                 },
+                tooltip: {
+                    DEFAULT: '#1F1F1F'
+                },
                 hover: 'rgb(var(--color-hover) / <alpha-value>)',
                 active: 'rgb(var(--color-active) / <alpha-value>)',
                 'focus-ring': 'rgb(var(--color-focus-ring) / <alpha-value>)',

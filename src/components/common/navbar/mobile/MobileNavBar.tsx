@@ -44,7 +44,9 @@ export const MobileNavBar = ({className}: Basic) => {
             >
                 <nav className={"relative w-full h-full flex justify-evenly items-center rounded-full"}>
                     <div
-                        className="absolute w-14 h-11 bg-primary transition-all duration-300 ease-out rounded-xl"
+                        className={cn("absolute w-14 h-11 bg-primary transition-all duration-300 ease-out rounded-xl", {
+                            "hidden": activeIndex < 0
+                        })}
                         style={{
                             left: getBackgroundPosition(activeIndex),
                             transition: 'left 0.5s cubic-bezier(0.34, 1.2, 0.64, 1)',

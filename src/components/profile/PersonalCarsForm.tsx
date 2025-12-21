@@ -1,0 +1,130 @@
+import {useAuth} from "@/components/provider/AuthProvider";
+import React, {useState} from "react";
+import {Badge} from "@/components/ui/badge";
+import {cn} from "@/lib/utils";
+import {Check, Info, Plus, X} from "lucide-react";
+import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card";
+import {useDevice} from "@/hooks/use-device";
+import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
+import {useProfileCars} from "@/hooks/query/use-profile-cars";
+import {Input} from "@/components/ui/input";
+
+const PersonalCarsForm = () => {
+    const {user} = useAuth();
+    const {isMobile} = useDevice();
+    const {cars, isLoading, addCar, isAdding} = useProfileCars();
+
+    const [isEditing, setIsEditing] = useState(false);
+    const [licensePlate, setLicensePlate] = useState('');
+
+    const handleAddCar = async () => {
+        if (!licensePlate.trim()) return;
+        setIsEditing(false);
+        await addCar({licensePlate: licensePlate.trim()});
+        setLicensePlate('');
+    };
+
+    const handleCancel = () => {
+        setIsEditing(false);
+        setLicensePlate('');
+    };
+
+    const handleStartEditing = () => {
+        if (isEditing || isAdding) return;
+        setIsEditing(true);
+    };
+
+    if (!user) return null;
+
+    return (
+        <div className="w-full space-y-3">
+            <h3 className="text-lg text-slate-800 font-semibold flex items-center">
+                მანქანის ნომრები
+
+                {isMobile
+                    ?
+                    <Popover>
+                        <PopoverTrigger>
+                            <Info className={"ml-3"}/>
+                        </PopoverTrigger>
+                        <PopoverContent className={"bg-tooltip text-slate-50 text-center"}>
+                            მანქანის ნომრის დამატებით
+                            მეზობლები შეძლებენ მარტივად დაგიკავშირდნენ
+                            გადაუდებელ სიტუაციებში
+                            (თუ მანქანა გზას კეტავს, ან სამშენებლო სამუშაოების შემთხვევაში)
+                        </PopoverContent>
+                    </Popover>
+                    :
+                    <HoverCard>
+                        <HoverCardTrigger>
+                            <Info className={"ml-3"}/>
+                        </HoverCardTrigger>
+                        <HoverCardContent className={"bg-slate-50 opacity-100"}>
+                            მანქანის ნომრის დამატებით
+                            მეზობლები შეძლებენ მარტივად დაგიკავშირდნენ
+                            გადაუდებელ სიტუაციებში
+                            (თუ მანქანა გზას კეტავს, ან სამშენებლო სამუშაოების შემთხვევაში)
+                        </HoverCardContent>
+                    </HoverCard>
+                }
+
+                <button
+                    onClick={handleStartEditing}
+                    disabled={isEditing || isAdding}
+                    className={cn(
+                        "w-6 h-6 flex justify-center items-center ml-auto bg-primary rounded-full text-sm transition-opacity",
+                        (isEditing || isAdding) && "opacity-50 cursor-not-allowed"
+                    )}
+                >
+                    <Plus size={20} className={"text-white"}/>
+                </button>
+            </h3>
+
+            {isEditing && (
+                <div className="flex items-center gap-2">
+                    <Input
+                        value={licensePlate}
+                        onChange={(e) => setLicensePlate(e.target.value)}
+                        placeholder="მაგ: AB-123-CD"
+                        className="flex-1"
+                        autoFocus
+                    />
+                    <button
+                        onClick={handleAddCar}
+                        className="w-8 h-8 flex justify-center items-center bg-green-500 rounded-full"
+                    >
+                        <Check size={18} className="text-white"/>
+                    </button>
+                    <button
+                        onClick={handleCancel}
+                        className="w-8 h-8 flex justify-center items-center bg-red-500 rounded-full"
+                    >
+                        <X size={18} className="text-white"/>
+                    </button>
+                </div>
+            )}
+
+            {isLoading ? (
+                <p className="text-base text-center text-slate-500">იტვირთება...</p>
+            ) : cars.length === 0 && !isEditing ? (
+                <p className={"text-base text-center text-slate-700"}>
+                    ამჟამად თქვენ ანგარიშზე მანქანა <br/> არ არის დამატებული
+                </p>
+            ) : (
+                <div className="flex flex-wrap gap-2">
+                    {cars.map((car) => (
+                        <Chip key={car.id}>{car.licensePlate}</Chip>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+};
+
+const Chip = ({children, className, ...props}: React.HTMLAttributes<HTMLDivElement>) => {
+    return (
+        <Badge className={cn("text-lg", className)}>{children}</Badge>
+    )
+}
+
+export default PersonalCarsForm;
