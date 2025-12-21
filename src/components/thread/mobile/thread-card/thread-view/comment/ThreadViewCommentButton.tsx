@@ -5,7 +5,6 @@ import React, {useState} from "react";
 import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
 import {useCreateComment} from "@/hooks/query/use-create-comment";
-import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
 import {UserAvatar} from "@/components/common/avatar/UserAvatar";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {ThreadInfoDTO} from "@/model/thread.dto";
