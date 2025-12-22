@@ -8,6 +8,12 @@ import {useDevice} from "@/hooks/use-device";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {useProfileCars} from "@/hooks/query/use-profile-cars";
 import {Input} from "@/components/ui/input";
+import {z} from "zod";
+
+const licensePlateSchema = z.string()
+    .min(1, "ნომერი აუცილებელია")
+    .max(13, "მაქსიმუმ 13 სიმბოლო")
+    .regex(/^[A-Z0-9]+$/, "მხოლოდ ლათინური ასოები და ციფრები");
 
 const PersonalCarsForm = () => {
     const {user} = useAuth();
@@ -18,10 +24,19 @@ const PersonalCarsForm = () => {
     const [licensePlate, setLicensePlate] = useState('');
 
     const handleAddCar = async () => {
-        if (!licensePlate.trim()) return;
+        const result = licensePlateSchema.safeParse(licensePlate);
+        if (!result.success) return;
         setIsEditing(false);
-        await addCar({licensePlate: licensePlate.trim()});
+        await addCar({licensePlate: result.data});
         setLicensePlate('');
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const filtered = e.target.value
+            .toUpperCase()
+            .replace(/[^A-Z0-9]/g, '')
+            .slice(0, 13);
+        setLicensePlate(filtered);
     };
 
     const handleCancel = () => {
@@ -80,12 +95,28 @@ const PersonalCarsForm = () => {
                 </button>
             </h3>
 
+            {isLoading ? (
+                <p className="text-base text-center text-slate-500">იტვირთება...</p>
+            ) : cars.length === 0 && !isEditing ? (
+                <p className={"text-base text-center text-slate-700"}>
+                    ამჟამად თქვენ ანგარიშზე მანქანა <br/> არ არის დამატებული
+                </p>
+            ) : (
+                <div className="flex flex-wrap gap-2">
+                    {cars.map((car) => {
+                            console.log(car.id)
+                            return <Chip key={car.id}>{car.licensePlate}</Chip>
+                    }
+                    )}
+                </div>
+            )}
+
             {isEditing && (
                 <div className="flex items-center gap-2">
                     <Input
                         value={licensePlate}
-                        onChange={(e) => setLicensePlate(e.target.value)}
-                        placeholder="მაგ: AB-123-CD"
+                        onChange={handleInputChange}
+                        placeholder="მაგ: AB123CD"
                         className="flex-1"
                         autoFocus
                     />
@@ -103,27 +134,13 @@ const PersonalCarsForm = () => {
                     </button>
                 </div>
             )}
-
-            {isLoading ? (
-                <p className="text-base text-center text-slate-500">იტვირთება...</p>
-            ) : cars.length === 0 && !isEditing ? (
-                <p className={"text-base text-center text-slate-700"}>
-                    ამჟამად თქვენ ანგარიშზე მანქანა <br/> არ არის დამატებული
-                </p>
-            ) : (
-                <div className="flex flex-wrap gap-2">
-                    {cars.map((car) => (
-                        <Chip key={car.id}>{car.licensePlate}</Chip>
-                    ))}
-                </div>
-            )}
         </div>
     );
 };
 
 const Chip = ({children, className, ...props}: React.HTMLAttributes<HTMLDivElement>) => {
     return (
-        <Badge className={cn("text-lg", className)}>{children}</Badge>
+        <Badge className={cn("text-lg", className)} {...props}>{children}</Badge>
     )
 }
 

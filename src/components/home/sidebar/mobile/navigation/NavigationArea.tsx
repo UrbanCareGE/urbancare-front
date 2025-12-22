@@ -48,7 +48,8 @@ const navigationItems: NavItem[] = [
     {
         href: "/info", label: "ინფორმაცია", icon: <BookOpenIcon className={"text-icon"}/>, children: [
             {href: "/info/contact", label: "კონტაქტები", icon: <SettingsIcon className={"text-icon"}/>},
-            {href: "/info/docs", label: "წესდება", icon: <SettingsIcon className={"text-icon"}/>}
+            {href: "/info/docs", label: "წესდება", icon: <SettingsIcon className={"text-icon"}/>},
+            {href: "/info/cars", label: "ავტომობილები", icon: <SettingsIcon className={"text-icon"}/>}
         ]
     },
     {href: "/finance", label: "ფინანსები", icon: <LandmarkIcon className={"text-icon"}/>},
