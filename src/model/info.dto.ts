@@ -19,6 +19,13 @@ interface ApartmentDocument {
     pdfFiles: PDFFile[];
 }
 
+interface CarInfo {
+    id: string;
+    licensePlate: string;
+    name: string;
+    phone: string;
+}
+
 interface CreateApartmentDocument {
     title: string;
     fileType: "PDF" | "TEXT";
@@ -31,4 +38,4 @@ interface PDFFile {
     pdfFileId: string;
 }
 
-export type {ApartmentContact, ApartmentContactInfo, ApartmentDocument, PDFFile, CreateApartmentDocument}
+export type {ApartmentContact, ApartmentContactInfo, ApartmentDocument, PDFFile, CreateApartmentDocument, CarInfo}

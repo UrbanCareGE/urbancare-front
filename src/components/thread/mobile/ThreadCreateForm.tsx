@@ -6,16 +6,24 @@ import ThreadForm from "@/components/thread/mobile/thread-form/ThreadForm";
 import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
 import {DrawerTitle} from "@/components/ui/drawer";
-import {FileText, Image as ImageIconLucide, Sparkles, Upload, Video, X} from "lucide-react";
+import {BarChart2, Check, FileText, Image as ImageIconLucide, Plus, Sparkles, Upload, Video, X} from "lucide-react";
 import {useCreateThread} from "@/hooks/query/use-create-thread";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import {SheetClose, SheetFooter, SheetHeader, SheetTitle} from "@/components/ui/sheet";
+import {SheetClose, SheetDescription, SheetFooter, SheetHeader, SheetTitle} from "@/components/ui/sheet";
 import {cn} from "@/lib/utils";
+import {Switch} from "@/components/ui/switch";
 
 export const ThreadCreateForm = () => {
     const {form, onSubmit, isPending, isError, error} = useCreateThread();
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    // Poll state
+    const [isPollMode, setIsPollMode] = useState(false);
+    const [allowOthersToAdd, setAllowOthersToAdd] = useState(false);
+    const [pollOptions, setPollOptions] = useState<string[]>([]);
+    const [isAddingOption, setIsAddingOption] = useState(false);
+    const [currentOption, setCurrentOption] = useState('');
 
     const titleLength = form.watch("title")?.length || 0;
     const bodyLength = form.watch("body")?.length || 0;
@@ -64,6 +72,34 @@ export const ThreadCreateForm = () => {
         };
     }, [previewUrls]);
 
+    // Poll handlers
+    const handleAddPollOption = () => {
+        if (!currentOption.trim()) return;
+        setPollOptions([...pollOptions, currentOption.trim()]);
+        setCurrentOption('');
+        setIsAddingOption(false);
+    };
+
+    const handleRemovePollOption = (index: number) => {
+        setPollOptions(pollOptions.filter((_, i) => i !== index));
+    };
+
+    const handleCancelAddOption = () => {
+        setCurrentOption('');
+        setIsAddingOption(false);
+    };
+
+    const handleTogglePollMode = () => {
+        if (isPollMode) {
+            // Reset poll state when disabling
+            setPollOptions([]);
+            setAllowOthersToAdd(false);
+            setIsAddingOption(false);
+            setCurrentOption('');
+        }
+        setIsPollMode(!isPollMode);
+    };
+
     return (
         <ThreadForm>
             <ThreadForm.Trigger>
@@ -72,6 +108,7 @@ export const ThreadCreateForm = () => {
             <ThreadForm.Sheet>
                 {/* Header */}
                 <SheetHeader className="border-b border-slate-200 px-3 py-3">
+                    <SheetDescription className={"sr-only"}>ახალი პოსტის შექმნის ფორმა</SheetDescription>
                     <div className="flex items-center gap-2">
                         <div className={"w-8"}></div>
                         <div className={"mr-auto ml-auto"}>
@@ -115,7 +152,7 @@ export const ThreadCreateForm = () => {
                                             <Textarea
                                                 placeholder="რას გააზიარებთ? გაგვიზიარეთ თქვენი აზრები, გამოცდილება ან შეკითხვა..."
                                                 disabled={isPending}
-                                                className="min-h-40 resize-none text-base border-slate-200 focus:border-primary focus:ring-primary/20 transition-all"
+                                                className="min-h-40 resize-none text-base border-slate-200 bg-white focus:border-primary focus:ring-primary/20 transition-all"
                                                 maxLength={2000}
                                                 {...field}
                                             />
@@ -272,6 +309,98 @@ export const ThreadCreateForm = () => {
                                     </FormItem>
                                 )}
                             />
+
+                            {/* Poll Section */}
+                            <div className="space-y-3">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-2">
+                                        <BarChart2 className="w-4 h-4 text-slate-400"/>
+                                        <span className="text-sm font-medium text-slate-700">გამოკითხვა</span>
+                                    </div>
+                                    <Button
+                                        type="button"
+                                        variant={isPollMode ? "default" : "outline"}
+                                        size="sm"
+                                        onClick={handleTogglePollMode}
+                                        className="h-8"
+                                    >
+                                        {isPollMode ? "გამორთვა" : "დამატება"}
+                                    </Button>
+                                </div>
+
+                                {isPollMode && (
+                                    <div className="space-y-3 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                                        {/* Allow others toggle */}
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-sm text-slate-600">
+                                                სხვებს შეუძლიათ ვარიანტების დამატება
+                                            </span>
+                                            <Switch
+                                                checked={allowOthersToAdd}
+                                                onCheckedChange={setAllowOthersToAdd}
+                                            />
+                                        </div>
+
+                                        {/* Existing options */}
+                                        {pollOptions.length > 0 && (
+                                            <div className="space-y-2">
+                                                {pollOptions.map((option, index) => (
+                                                    <div
+                                                        key={index}
+                                                        className="flex items-center justify-between p-2 bg-white rounded-md border border-slate-200"
+                                                    >
+                                                        <span className="text-sm text-slate-700">{option}</span>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => handleRemovePollOption(index)}
+                                                            className="p-1 hover:bg-slate-100 rounded transition-colors"
+                                                        >
+                                                            <X className="w-4 h-4 text-slate-500"/>
+                                                        </button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+
+                                        {/* Add option input */}
+                                        {isAddingOption ? (
+                                            <div className="flex items-center gap-2">
+                                                <input
+                                                    type="text"
+                                                    value={currentOption}
+                                                    onChange={(e) => setCurrentOption(e.target.value)}
+                                                    placeholder="ვარიანტის ტექსტი..."
+                                                    className="flex-1 px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                                                    autoFocus
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={handleAddPollOption}
+                                                    className="w-8 h-8 flex justify-center items-center bg-green-500 rounded-full"
+                                                >
+                                                    <Check size={18} className="text-white"/>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={handleCancelAddOption}
+                                                    className="w-8 h-8 flex justify-center items-center bg-red-500 rounded-full"
+                                                >
+                                                    <X size={18} className="text-white"/>
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <button
+                                                type="button"
+                                                onClick={() => setIsAddingOption(true)}
+                                                className="flex items-center gap-2 w-full p-2 text-sm text-slate-600 hover:text-slate-800 hover:bg-white rounded-md border border-dashed border-slate-300 transition-colors"
+                                            >
+                                                <Plus size={16}/>
+                                                ვარიანტის დამატება
+                                            </button>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
 
                             {/* Error Message */}
                             {isError && (
