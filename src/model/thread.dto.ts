@@ -23,7 +23,8 @@ export interface ThreadCommentDTO {
     selfVote: number;
     createdAt: Date;
     userInfo: UserSnapshotDTO;
-    replies: ThreadCommentDTO[];
+    replies?: ThreadCommentDTO[];
+    repliesToId?: string;
 }
 
 export interface ThreadInfoDTO {

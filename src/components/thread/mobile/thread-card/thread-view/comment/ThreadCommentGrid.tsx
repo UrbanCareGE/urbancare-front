@@ -11,7 +11,6 @@ interface ThreadCommentsProps {
 
 export const ThreadCommentGrid = ({className}: ThreadCommentsProps) => {
     const {thread} = useThread();
-    const {comments, commentCount} = thread;
 
     return (
         <div className={cn("flex flex-col", className)}>

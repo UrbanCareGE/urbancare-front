@@ -1,7 +1,7 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {ThreadService} from "@/service/thread-service";
 import {useAuth} from "@/components/provider/AuthProvider";
-import {CreateThreadCommentDTO, ThreadInfoDTO} from "@/model/thread.dto";
+import {CreateThreadCommentDTO, ThreadCommentDTO, ThreadInfoDTO} from "@/model/thread.dto";
 
 export function useCreateComment() {
     const {user} = useAuth();
@@ -17,22 +17,37 @@ export function useCreateComment() {
             const previous = queryClient.getQueryData(['threads', 'detail', threadId]);
 
             if (user) {
-                queryClient.setQueryData(['threads', 'detail', threadId], (old: ThreadInfoDTO) => ({
-                    ...old,
-                    comments: [...(old.comments || []), {
+                queryClient.setQueryData(['threads', 'detail', threadId], (old: ThreadInfoDTO) => {
+                    const newComment: ThreadCommentDTO = {
                         id: `temp-${Date.now()}`,
                         content: commentDto.content,
                         createdAt: new Date(),
                         userInfo: {
-                            id: 'temp' + Date.now(),
+                            id: user.id,
                             name: user.name,
                             surname: user.surname,
                             profileImageId: user.profileImageId,
                         },
+                        selfVote: 0,
                         voteDiff: 0
-                    }],
-                    commentCount: (old.commentCount || 0) + 1
-                }));
+                    };
+
+                    if (commentDto.replyToId) {
+                        const parentComment = old.comments.find(c => c.id === commentDto.replyToId);
+                        parentComment?.replies?.push(newComment);
+
+                        return {
+                            ...old,
+                            comments: [...(old.comments || [])],
+                            commentCount: (old.commentCount || 0) + 1
+                        }
+                    }
+                    return {
+                        ...old,
+                        comments: [...(old.comments || [])],
+                        commentCount: (old.commentCount || 0) + 1
+                    }
+                });
             }
 
             return {previous};
@@ -49,9 +64,23 @@ export function useCreateComment() {
             queryClient.setQueryData<ThreadInfoDTO>(queryKey, (old) => {
                 if (!old) return old;
 
+                if (newComment.repliesToId) {
+                    const parentComment = old.comments.find(c => c.id === newComment.repliesToId);
+                    if (parentComment) {
+                        parentComment.replies = parentComment.replies?.filter(comment => !comment.id.startsWith('temp-')) || []
+                        parentComment.replies.push(newComment);
+                    }
+
+                    return {
+                        ...old,
+                        comments: [...(old.comments || [])],
+                        commentCount: (old.commentCount || 0) + 1
+                    }
+                }
+
                 return {
                     ...old,
-                    comments: [...(old.comments.filter(comment => !comment.id.startsWith('temp-')) || []), newComment],
+                    comments: [...(old.comments.filter(comment => !comment.id.startsWith('temp-')) || [])],
                     commentCount: (old.commentCount || 0) + 1
                 };
             });
