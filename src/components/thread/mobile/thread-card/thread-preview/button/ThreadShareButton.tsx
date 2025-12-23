@@ -13,11 +13,10 @@ export const ThreadShareButton = ({className}: ThreadShareButtonProps) => {
 
     return (
         <Button
-            variant="ghost"
-            size="icon"
-            className="h-10 w-10 rounded-full transition-all [&_svg]:size-6 text-slate-600"
+            className="rounded-full h-9 px-3 transition-all [&_svg]:size-5 text-secondary hover:bg-transparent bg-secondary/10"
         >
-            <Share2 className="w-4 h-4"/>
+            <Share2 className="text-secondary"/>
+            გაზიარება
         </Button>
     );
 };

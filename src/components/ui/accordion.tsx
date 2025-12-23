@@ -34,7 +34,7 @@ const AccordionTrigger = React.forwardRef<
             {...props}
         >
             {children}
-            <ChevronRight className="h-6 w-6 shrink-0 text-icon transition-transform duration-200"/>
+            <ChevronRight className="h-6 w-6 shrink-0 text-sky-950 transition-transform duration-200"/>
         </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
 ))

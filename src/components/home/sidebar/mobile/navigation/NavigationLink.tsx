@@ -24,7 +24,7 @@ export const NavigationLink = forwardRef<HTMLAnchorElement, NavigationLinkProps>
                 ref={ref}
                 {...props} // Spread all other props (including onClick from SheetClose)
                 className={cn(
-                    "h-11 group w-full flex items-center gap-1 rounded-panel px-1 py-2", className,)}
+                    "h-9 group w-full flex items-center gap-1 rounded-panel px-1", className,)}
                 aria-current={isActive ? "page" : undefined}
             >
                 {navigationItem.icon && (
@@ -35,7 +35,7 @@ export const NavigationLink = forwardRef<HTMLAnchorElement, NavigationLinkProps>
                         {navigationItem.icon}
                     </div>
                 )}
-                <p className="flex-1 text-text-primary/80 text-left truncate leading-tight font-medium text-lg">
+                <p className="flex-1 text-sky-950 text-left truncate leading-tight font-medium text-lg">
                     {navigationItem.label}
                 </p>
             </Link>

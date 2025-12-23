@@ -3,12 +3,15 @@ import {cookies} from "next/headers";
 import {Separator} from "@/components/ui/separator";
 import {Card} from "@/components/ui/card";
 
-const ContactInfoPage = async () => {
+interface PageProps {
+    params: Promise<{ apartmentId: string }>;
+}
 
-
+const ContactInfoPage = async ({params}: PageProps) => {
+    const {apartmentId} = await params;
     const c = await cookies();
     const authToken = c.get('auth-token')?.value ?? "";
-    const resp = await InfoService.nextGetContacts(authToken)
+    const resp = await InfoService.nextGetContacts(authToken, apartmentId)
 
     return (
         <ul className={"px-4 pb-3"}>{

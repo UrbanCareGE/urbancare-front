@@ -1,29 +1,43 @@
 "use client";
 
 import Link from "next/link";
-import {CircleUser, HouseIcon, LucideIcon, Newspaper, SendIcon, ShieldAlert, User} from "lucide-react";
-import {usePathname} from "next/navigation";
+import {CircleUser, HouseIcon, LucideIcon, Newspaper, SendIcon, ShieldAlert} from "lucide-react";
+import {useParams, usePathname} from "next/navigation";
 import {Basic} from "@/app/layout";
 import {cn} from "@/lib/utils";
 import {useMobileScroll} from "@/hooks/use-mobile-scroll";
 
 interface NavItem {
-    href: string;
+    path: string; // relative path within apartment (empty string for home)
     icon: LucideIcon;
     label: string;
+    isAbsolute?: boolean; // for routes outside apartment like /profile
 }
 
 const NAV_ITEMS: NavItem[] = [
-    {href: "/post", icon: HouseIcon, label: "Posts"},
-    {href: "/urgent", icon: ShieldAlert, label: "Urgent"},
-    {href: "/", icon: SendIcon, label: "Chat"},
-    {href: "/news", icon: Newspaper, label: "News"},
-    {href: "/profile", icon: CircleUser, label: "Profile"},
+    {path: "post", icon: HouseIcon, label: "Posts"},
+    {path: "urgent", icon: ShieldAlert, label: "Urgent"},
+    {path: "", icon: SendIcon, label: "Chat"},
+    {path: "news", icon: Newspaper, label: "News"},
+    {path: "/profile", icon: CircleUser, label: "Profile", isAbsolute: true},
 ];
 
 export const MobileNavBar = ({className}: Basic) => {
     const pathname = usePathname();
-    const activeIndex = NAV_ITEMS.findIndex(item => item.href === pathname);
+    const {apartmentId} = useParams<{ apartmentId: string }>();
+
+    const getHref = (item: NavItem) => {
+        if (item.isAbsolute) return item.path;
+        if (!apartmentId) return '/';
+        return item.path ? `/apartment/${apartmentId}/${item.path}` : `/apartment/${apartmentId}`;
+    };
+
+    const isActive = (item: NavItem) => {
+        const href = getHref(item);
+        return pathname === href;
+    };
+
+    const activeIndex = NAV_ITEMS.findIndex(item => isActive(item));
     const {isVisible} = useMobileScroll()
 
     // justify-evenly calculation with icon width consideration
@@ -57,18 +71,19 @@ export const MobileNavBar = ({className}: Basic) => {
                     {/* Navigation items */}
                     {NAV_ITEMS.map((item, index) => {
                         const Icon = item.icon;
-                        const isActive = index === activeIndex;
+                        const isItemActive = index === activeIndex;
+                        const href = getHref(item);
 
                         return (
                             <Link
-                                key={item.href}
-                                href={item.href}
+                                key={item.path}
+                                href={href}
                                 className="relative z-10 flex items-center justify-center w-8 transition-colors duration-300"
                                 aria-label={item.label}
                             >
                                 <Icon
                                     className={`transition-colors duration-300 ${
-                                        isActive ? "text-white" : "text-icon"
+                                        isItemActive ? "text-white" : "text-icon"
                                     }`}
                                     size={26}
                                 />

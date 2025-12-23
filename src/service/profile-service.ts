@@ -11,8 +11,8 @@ export const ProfileService = {
     },
 
     updateProfileImage: async (data: UpdateProfileImageDTO): Promise<UserDTO> => {
-        return api.put<UserDTO, UpdateProfileImageDTO>(
-            '/api/secure/user/profile/image',
+        return api.patch<UserDTO, UpdateProfileImageDTO>(
+            '/api/secure/user/me',
             data
         );
     },
@@ -30,6 +30,10 @@ export const ProfileService = {
 
     addCar: async (dto: AddCarModel): Promise<CarModel> => {
         return api.post<CarModel>('/api/secure/user/data/cars', dto)
+    },
+
+    deleteCar: async (id: string): Promise<void> => {
+        return api.delete(`/api/secure/user/data/cars/${id}`)
     }
 };
 

@@ -36,15 +36,15 @@ export const ThreadDownvoteButton = ({className}: { className?: string }) => {
 
     return (
         <Button
-            variant="ghost"
+            variant="mobile-ghost"
             size="icon"
             onClick={() => handleDownvote()}
             className={cn(
-                "h-10 w-10 rounded-full transition-all [&_svg]:size-6",
-                voteStatus === VoteType.DOWNVOTE ? "bg-red-500 text-white" : "text-slate-600"
+                "h-10 w-12 rounded-xl transition-all [&_svg]:size-6",
+                {"bg-error": voteStatus === VoteType.DOWNVOTE}
             )}
         >
-            <ThumbsDown className="w-5 h-5"/>
+            <ThumbsDown className={cn("w-5 h-5 stroke-error", {"stroke-white": voteStatus === VoteType.DOWNVOTE})}/>
         </Button>
     );
 };

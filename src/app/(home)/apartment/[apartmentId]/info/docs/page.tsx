@@ -4,18 +4,21 @@ import {Separator} from "@/components/ui/separator";
 import {Card} from "@/components/ui/card";
 import AddDocButton from "@/components/info/AddDocButton";
 
-const ContactInfoPage = async () => {
+interface PageProps {
+    params: Promise<{ apartmentId: string }>;
+}
 
-
+const DocsPage = async ({params}: PageProps) => {
+    const {apartmentId} = await params;
     const c = await cookies();
     const authToken = c.get('auth-token')?.value ?? "";
-    const resp = await InfoService.nextGetDocs(authToken)
+    const resp = await InfoService.nextGetDocs(authToken, apartmentId)
 
     return (
         <div className={"flex flex-col"}>
             <AddDocButton/>
             <ul className={"px-4"}>{
-                resp.map((doc, index) => (
+                resp.map((doc) => (
                     <Card key={doc.id} className={"mb-4 px-3 py-2"}>
                         <h3 className={"font-semibold text-lg"}>{doc.title}</h3>
                         <Separator className={"mt-1"}/>
@@ -25,7 +28,6 @@ const ContactInfoPage = async () => {
                                 <ul>{
                                     doc.pdfFiles.map((info) => (
                                         <div key={info.pdfFileId}>{info.title}</div>
-                                        // <li key={info.id} className={"mt-2"}>{info.name}: {info.phone}</li>
                                     ))
                                 }</ul>
                             )
@@ -37,4 +39,4 @@ const ContactInfoPage = async () => {
     );
 };
 
-export default ContactInfoPage;
+export default DocsPage;

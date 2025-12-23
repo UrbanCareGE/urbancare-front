@@ -14,14 +14,12 @@ export const ThreadPreviewCommentButton = ({className}: ThreadCommentButtonProps
 
     return (
         <Button
-            variant="ghost"
-            size="sm"
             className={cn(
-                "h-10 w-10 rounded-full transition-all [&_svg]:size-6 text-slate-600"
+                "h-9 px-3 rounded-full bg-tertiary/10 transition-all [&_svg]:size-5 text-tertiary"
             )}
         >
-            <MessageCircle className="w-5 h-5"/>
-            {/*<span className="text-sm font-medium">{thread.comments}</span>*/}
+            <MessageCircle className="text-tertiary"/>
+            {thread.comments.length}
         </Button>
     );
 };

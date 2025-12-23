@@ -42,10 +42,10 @@ export const SideBarProfileHeader = () => {
                     className="absolute bottom-0 right-0 block w-4 h-4 rounded-full border-2 border-white bg-green-400"/>
             </div>
             <div className="flex flex-col mr-auto">
-                <p className="font-semibold text-xl text-gray-900">
+                <p className="font-semibold text-xl">
                     {user?.name} {user?.surname}
                 </p>
-                <span className='text-base text-gray-600 inline'>
+                <span className='text-base text-sky-950 inline'>
                     @{user?.phone}
                 </span>
             </div>

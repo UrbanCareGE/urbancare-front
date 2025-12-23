@@ -35,9 +35,10 @@ async function handleRequest(
         }
 
         // Handle request body for POST/PUT/PATCH
-        let body = undefined;
+        let body: BodyInit | undefined = undefined;
         if (['POST', 'PUT', 'PATCH'].includes(request.method)) {
-            body = await request.text();
+            // Use arrayBuffer to preserve binary data (important for file uploads)
+            body = await request.arrayBuffer();
         }
 
         // Make proxied request to Java API

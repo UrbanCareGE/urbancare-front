@@ -1,6 +1,6 @@
 import React from "react";
 import {Button} from "@/components/ui/button";
-import {ThumbsUp} from "lucide-react";
+import {ArrowBigUp, ThumbsDown, ThumbsUp} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
 import {useThreadVote} from "@/hooks/query/use-vote-thread";
@@ -35,17 +35,45 @@ export const ThreadUpvoteButton = ({className}: { className?: string }) => {
         );
     };
 
+    const handleDownvote = () => {
+        mutate(
+            {threadId: thread.id, vote: {voteType: VoteType.DOWNVOTE}},
+            {
+                onError: () => {
+                    // Roll back on error
+                    setThread(prev => ({...prev, ...thread}));
+                },
+            }
+        );
+        setThread(prev => ({
+            ...prev,
+            selfVote: thread.selfVote === -1 ? 0 : -1
+        }));
+    };
+
     return (
-        <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => handleUpvote()}
-            className={cn(
-                "h-10 w-10 rounded-full transition-all [&_svg]:size-6",
-                voteStatus === VoteType.UPVOTE ? "bg-green-500 text-white scale-105" : "text-slate-600"
-            )}
-        >
-            <ThumbsUp className="w-5 h-5"/>
-        </Button>
+        <div className={"flex items-center"}>
+            <Button
+                onClick={() => handleUpvote()}
+                className={cn(
+                    "h-9 px-3 rounded-s-full rounded-e-none transition-all [&_svg]:size-5 text-primary bg-primary/10 text-sm",
+                    {"bg-primary text-white": voteStatus === VoteType.UPVOTE}
+                )}
+            >
+                <ThumbsUp
+                    className={cn("w-5 h-5 stroke-primary", {"stroke-white ": voteStatus === VoteType.UPVOTE})}/>
+                {thread.voteDiff}
+            </Button>
+            <Button
+                onClick={() => handleDownvote()}
+                className={cn(
+                    "h-9 px-3 rounded-s-none text-error rounded-e-full transition-all [&_svg]:size-5 bg-error/10 text-sm",
+                    {"bg-error text-white": voteStatus === VoteType.DOWNVOTE}
+                )}
+            >
+                {thread.voteDiff}
+                <ThumbsDown className={cn("stroke-error", {"stroke-white": voteStatus === VoteType.DOWNVOTE})}/>
+            </Button>
+        </div>
     );
 };

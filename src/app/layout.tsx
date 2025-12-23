@@ -34,7 +34,7 @@ export default async function RootLayout({children}: Children) {
             style={{colorScheme: ""}}
             suppressHydrationWarning
         >
-        <body className="h-dvh w-dvw antialiased bg-background" suppressHydrationWarning>
+        <body className="h-dvh w-dvw antialiased bg-background text-sky-950" suppressHydrationWarning>
         <ReactQueryProvider>
             <MyThemeProvider>
                 <AuthProvider>

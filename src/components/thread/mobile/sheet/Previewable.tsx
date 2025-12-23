@@ -3,7 +3,7 @@
 import React, {useContext, useState} from 'react';
 import {cn} from "@/lib/utils";
 import {VisuallyHidden} from "@/components/ui/visually-hidden";
-import {Sheet, SheetClose, SheetContent, SheetTitle} from "@/components/ui/sheet";
+import {Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle} from "@/components/ui/sheet";
 import {XIcon} from "lucide-react";
 
 interface PreviewableCardContextValue {
@@ -52,11 +52,8 @@ const PreviewableView = ({className, children}: PreviewableViewProps) => {
 
     return (
         <Sheet open={isOpen} onOpenChange={(open) => !open && closeView()}>
-            <VisuallyHidden>
-                <SheetTitle>
-                    fear not for i am with you!
-                </SheetTitle>
-            </VisuallyHidden>
+            <SheetDescription className={"sr-only"}>კომენტარი</SheetDescription>
+            <SheetTitle className={"sr-only"}>კომენტარი</SheetTitle>
             <SheetContent side={'right'} className={cn("h-full w-full bg-slate-50", className)}>
                 <div className={cn("relative h-full overflow-y-auto bg-slate-50", className)}>
                     {children}

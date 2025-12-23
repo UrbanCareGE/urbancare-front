@@ -5,19 +5,13 @@ import {NextResponse} from 'next/server';
 const RouteConfig = {
     // Public routes that don't require authentication
     public: [
-        // '/',
         '/auth/login',
         '/auth/register',
-        // '/register',
-        // '/forgot-password',
-        // '/reset-password',
     ],
 
     // Protected routes requiring authentication
     protected: [
-        '/',
-        '/urgent',
-        '/post',
+        '/apartment/*',
     ],
 
     // Admin-only routes
@@ -119,8 +113,12 @@ export async function middleware(request: NextRequest) {
 
     // Redirect authenticated users away from auth pages
     if (isValid && matchesRoute(pathname, RouteConfig.authOnly)) {
+        // Will be handled by the root page which redirects to first apartment
         return NextResponse.redirect(new URL('/', request.url));
     }
+
+    // Redirect root to first apartment (handled by root page.tsx)
+    // The root page will fetch user and redirect to /apartment/{firstApartmentId}
 
     // Add user info to headers for server components (optional)
     const response = NextResponse.next();

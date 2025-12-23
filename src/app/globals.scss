@@ -62,15 +62,21 @@
     }
   }
   :root {
-    --color-primary: 70 70 232; /* blue-500 */
+    --color-primary: 31 137 254; /* blue-500 */
     --color-primary-hover: 37 99 235; /* blue-600 */
     --color-primary-active: 29 78 216; /* blue-700 */
     --color-primary-foreground: 255 255 255; /* white */
 
-    --color-secondary: 100 116 139; /* slate-500 */
+    --color-secondary: 254 110 74; /* slate-500 */
     --color-secondary-hover: 71 85 105; /* slate-600 */
     --color-secondary-active: 51 65 85; /* slate-700 */
     --color-secondary-foreground: 255 255 255;
+
+
+    --color-tertiary: 110 87 254; /* slate-500 */
+    --color-tertiary-hover: 71 85 105; /* slate-600 */
+    --color-tertiary-active: 51 65 85; /* slate-700 */
+    --color-tertiary-foreground: 255 255 255;
 
     --color-accent: 168 85 247; /* purple-500 */
     --color-accent-hover: 147 51 234; /* purple-600 */

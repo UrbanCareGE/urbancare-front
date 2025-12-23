@@ -47,6 +47,12 @@ module.exports = {
                     active: 'rgb(var(--color-secondary-active) / <alpha-value>)',
                     foreground: 'rgb(var(--color-secondary-foreground) / <alpha-value>)'
                 },
+                tertiary: {
+                    DEFAULT: 'rgb(var(--color-tertiary) / <alpha-value>)',
+                    hover: 'rgb(var(--color-tertiary-hover) / <alpha-value>)',
+                    active: 'rgb(var(--color-tertiary-active) / <alpha-value>)',
+                    foreground: 'rgb(var(--color-tertiary-foreground) / <alpha-value>)'
+                },
                 accent: {
                     DEFAULT: 'rgb(var(--color-accent) / <alpha-value>)',
                     hover: 'rgb(var(--color-accent-hover) / <alpha-value>)',

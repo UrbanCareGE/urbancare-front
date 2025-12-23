@@ -25,10 +25,10 @@ export const ThreadPreviewHeader = ({className}: ThreadCardHeaderProps) => {
             </Avatar>
             <div className={"flex flex-col flex-1 "}>
                 <div className="flex flex-1 justify-start gap-2 min-w-0">
-                    <h3 className="font-semibold text-slate-900 text-base truncate">
+                    <h3 className="font-semibold text-sky-950 text-base truncate">
                         {userInfo && userInfo.name} {userInfo && userInfo.surname}
                     </h3>
-                    <span className="text-xs text-slate-500 flex items-center gap-1">
+                    <span className="text-xs text-sky-900 flex items-center gap-1">
                         <Clock className="w-3 h-3"/>{formatTime(createdAt.toString())}
                     </span>
                 </div>

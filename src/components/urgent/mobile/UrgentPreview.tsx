@@ -4,6 +4,7 @@ import {ShieldAlert} from "lucide-react";
 import Link from "next/link";
 import {useFetchUrgent} from "@/hooks/query/use-fetch-urgent";
 import {useAuth} from "@/components/provider/AuthProvider";
+import {useParams} from "next/navigation";
 
 export function UrgentPreviewMobile() {
     return (
@@ -13,6 +14,7 @@ export function UrgentPreviewMobile() {
 
 export default function UrgentPreview() {
     const authContext = useAuth();
+    const {apartmentId} = useParams<{ apartmentId: string }>();
     const {data: urgentItems, isLoading, error} = useFetchUrgent(authContext);
 
     return (
@@ -21,7 +23,7 @@ export default function UrgentPreview() {
             <div className="h-14 flex items-center px-4">
                 <ShieldAlert className={"w-6 h-6"}/>
                 <div className={"font-semibold ml-3"}>სასწრაფო</div>
-                <Link href={"/urgent"} className="ml-auto h-8 rounded px-3 flex items-center bg-blue-500 text-white">
+                <Link href={`/apartment/${apartmentId}/urgent`} className="ml-auto h-8 rounded px-3 flex items-center bg-blue-500 text-white">
                     + დამატება
                 </Link>
             </div>

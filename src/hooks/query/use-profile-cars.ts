@@ -56,10 +56,34 @@ export function useProfileCars() {
         },
     });
 
+    const deleteCarMutation = useMutation({
+        mutationFn: (id: string) => ProfileService.deleteCar(id),
+        onMutate: async (deletedId) => {
+            await queryClient.cancelQueries({queryKey: CARS_QUERY_KEY});
+
+            const previousCars = queryClient.getQueryData<CarModel[]>(CARS_QUERY_KEY);
+
+            // Optimistically remove the car
+            queryClient.setQueryData<CarModel[]>(CARS_QUERY_KEY, (old) =>
+                old?.filter((car) => car.id !== deletedId) ?? []
+            );
+
+            return {previousCars};
+        },
+        onError: (_error, _deletedId, context) => {
+            if (context?.previousCars) {
+                queryClient.setQueryData(CARS_QUERY_KEY, context.previousCars);
+            }
+            toast.error('მანქანის წაშლა ვერ მოხერხდა');
+        },
+    });
+
     return {
         cars: carsQuery.data ?? [],
         isLoading: carsQuery.isLoading,
         addCar: addCarMutation.mutateAsync,
         isAdding: addCarMutation.isPending,
+        deleteCar: deleteCarMutation.mutateAsync,
+        isDeleting: deleteCarMutation.isPending,
     };
 }

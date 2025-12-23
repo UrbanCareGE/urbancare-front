@@ -11,16 +11,25 @@ import {AuthService} from "@/service/auth-service";
 
 export default async function HomeLayout({children}: Children) {
     const c = await cookies();
-    const authToken = c.get('auth-token')?.value ?? "";
+    const authToken = c.get('auth-token')?.value;
 
     const qc = new QueryClient();
-    await qc.prefetchQuery({
-        queryKey: ['user'],
-        queryFn: async () => {
-            const {joinedApartments, ...dto} = await AuthService.nextGetUserInfo(authToken);
-            return {...dto, joinedApartments, selectedApartment: joinedApartments[0]} as User;
+
+    // Only prefetch if we have a token - don't block rendering on failure
+    if (authToken) {
+        try {
+            await qc.prefetchQuery({
+                queryKey: ['user'],
+                queryFn: async () => {
+                    const {joinedApartments, ...dto} = await AuthService.nextGetUserInfo(authToken);
+                    return {...dto, joinedApartments, selectedApartment: joinedApartments[0]} as User;
+                }
+            });
+        } catch {
+            // Let client-side handle auth errors
         }
-    })
+    }
+
     return (
         <HydrationBoundary state={dehydrate(qc)}>
             <MobileAdapter>

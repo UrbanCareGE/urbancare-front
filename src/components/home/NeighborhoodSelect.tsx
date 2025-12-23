@@ -4,10 +4,14 @@ import React from "react";
 import {Select, SelectContent, SelectItem, SelectTrigger,} from "@/components/ui/select";
 import {ChevronDown, MapPin} from "lucide-react";
 import {useAuth} from "@/components/provider/AuthProvider";
+import {useParams, usePathname, useRouter} from "next/navigation";
 
 export const NeighborhoodSelect = () => {
     const {isLoading, selectApartment, user} = useAuth();
     const [isOpen, setIsOpen] = React.useState(false);
+    const router = useRouter();
+    const pathname = usePathname();
+    const {apartmentId} = useParams<{ apartmentId: string }>();
 
     if (isLoading) {
         return (
@@ -43,14 +47,21 @@ export const NeighborhoodSelect = () => {
         );
     }
 
-    const {joinedApartments, selectedApartment} = user;
+    const {joinedApartments} = user;
+    const selectedApartment = joinedApartments.find(apt => apt.id === apartmentId) ?? joinedApartments[0];
+
+    const handleApartmentChange = (newApartmentId: string) => {
+        const apt = joinedApartments.find(e => e.id === newApartmentId);
+        if (apt) {
+            selectApartment(apt);
+            // Navigate to same page but with new apartmentId
+            const newPath = pathname.replace(`/apartment/${apartmentId}`, `/apartment/${newApartmentId}`);
+            router.push(newPath);
+        }
+    };
 
     return (
-        <Select value={selectedApartment?.id} onValueChange={(val) => {
-            const apt = joinedApartments.find(e => e.id === val)
-            selectApartment(apt!)
-        }
-        } open={isOpen} onOpenChange={setIsOpen}>
+        <Select value={apartmentId ?? selectedApartment?.id} onValueChange={handleApartmentChange} open={isOpen} onOpenChange={setIsOpen}>
             <SelectTrigger className="w-full h-auto py-3 rounded-panel [&>svg]:hidden border border-gray-200">
                 <div className="flex items-center gap-3 w-full">
                     {selectedApartment && (

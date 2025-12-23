@@ -22,6 +22,7 @@ import {Textarea} from "@/components/ui/textarea";
 import {cn} from "@/lib/utils";
 import {FileService} from "@/service/file-service";
 import {InfoService} from "@/service/info-service";
+import {useParams} from "next/navigation";
 
 const AddDocButton = () => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -51,6 +52,7 @@ interface AddDocFormBodyProps {
 }
 
 const AddDocFormBody = ({onDone}: AddDocFormBodyProps) => {
+    const {apartmentId} = useParams<{ apartmentId: string }>();
     const [uploadedFiles, setUploadedFiles] = useState<{ id: string; name: string }[]>([]);
     const [isUploading, setIsUploading] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -102,7 +104,7 @@ const AddDocFormBody = ({onDone}: AddDocFormBodyProps) => {
     };
 
     const onSubmit = async (data: AddDocFormValues) => {
-        await InfoService.clientAddDoc({
+        await InfoService.clientAddDoc(apartmentId, {
             title: data.title,
             fileType: data.type,
             textFileId: data.text,

@@ -12,7 +12,7 @@ function Page() {
     return (
         <DynamicPanel className="bg-background">
             <DynamicPanel.Header className="flex items-center justify-center">
-                <h1 className="text-2xl font-bold">პროფილი</h1>
+                <h1 className="text-2xl font-bold text-sky-950">პროფილი</h1>
             </DynamicPanel.Header>
 
             <DynamicPanel.Separator/>

@@ -8,9 +8,9 @@ import {ThreadDownvoteButton} from "@/components/thread/mobile/thread-card/threa
 
 export const ThreadPreviewActionSection = () => {
     return (
-        <div className={"flex justify-evenly items-center w-full"}>
+        <div className={"flex justify-evenly items-center w-full border-t pt-2.5 border-t-slate-200"}>
             <ThreadUpvoteButton/>
-            <ThreadDownvoteButton/>
+            {/*<ThreadDownvoteButton/>*/}
             <ThreadPreviewCommentButton/>
             <ThreadShareButton/>
         </div>

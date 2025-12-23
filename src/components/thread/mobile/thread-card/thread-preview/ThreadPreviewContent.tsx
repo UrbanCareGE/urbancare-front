@@ -17,13 +17,13 @@ export const ThreadPreviewContent = ({className}: ThreadCardContentProps) => {
         <div className={`flex flex-col w-full max-h-[180px] overflow-hidden ${className || ''}`} onClick={openView}>
             {/* Title - visible with max 2 lines */}
             {thread.title && (
-                <h2 className="text-lg font-semibold text-slate-900 mb-2 line-clamp-2">
+                <h2 className="text-lg font-semibold text-sky-950 mb-2 line-clamp-2">
                     {thread.title}
                 </h2>
             )}
 
             {/* Content - truncated after 3-4 lines with ellipsis */}
-            <p className="text-slate-700 leading-relaxed whitespace-pre-wrap line-clamp-2">
+            <p className="text-sky-950 leading-relaxed whitespace-pre-wrap line-clamp-2">
                 {thread.content}
             </p>
 

@@ -44,7 +44,7 @@ export function useCreateComment() {
                     }
                     return {
                         ...old,
-                        comments: [...(old.comments || [])],
+                        comments: [...(old.comments || []), newComment],
                         commentCount: (old.commentCount || 0) + 1
                     }
                 });
@@ -80,7 +80,7 @@ export function useCreateComment() {
 
                 return {
                     ...old,
-                    comments: [...(old.comments.filter(comment => !comment.id.startsWith('temp-')) || [])],
+                    comments: [...(old.comments.filter(comment => !comment.id.startsWith('temp-')) || []), newComment],
                     commentCount: (old.commentCount || 0) + 1
                 };
             });
