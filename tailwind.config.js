@@ -39,19 +39,31 @@ module.exports = {
                     DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
                     hover: 'rgb(var(--color-primary-hover) / <alpha-value>)',
                     active: 'rgb(var(--color-primary-active) / <alpha-value>)',
-                    foreground: 'rgb(var(--color-primary-foreground) / <alpha-value>)'
+                    foreground: 'rgb(var(--color-primary-foreground) / <alpha-value>)',
+                    container: {
+                        DEFAULT: 'rgb(var(--color-primary-container) / <alpha-value>)',
+                        foreground: 'rgb(var(--color-primary-container-foreground) / <alpha-value>)'
+                    }
                 },
                 secondary: {
                     DEFAULT: 'rgb(var(--color-secondary) / <alpha-value>)',
                     hover: 'rgb(var(--color-secondary-hover) / <alpha-value>)',
                     active: 'rgb(var(--color-secondary-active) / <alpha-value>)',
-                    foreground: 'rgb(var(--color-secondary-foreground) / <alpha-value>)'
+                    foreground: 'rgb(var(--color-secondary-foreground) / <alpha-value>)',
+                    container: {
+                        DEFAULT: 'rgb(var(--color-secondary-container) / <alpha-value>)',
+                        foreground: 'rgb(var(--color-secondary-container-foreground) / <alpha-value>)'
+                    }
                 },
                 tertiary: {
                     DEFAULT: 'rgb(var(--color-tertiary) / <alpha-value>)',
                     hover: 'rgb(var(--color-tertiary-hover) / <alpha-value>)',
                     active: 'rgb(var(--color-tertiary-active) / <alpha-value>)',
-                    foreground: 'rgb(var(--color-tertiary-foreground) / <alpha-value>)'
+                    foreground: 'rgb(var(--color-tertiary-foreground) / <alpha-value>)',
+                    container: {
+                        DEFAULT: 'rgb(var(--color-tertiary-container) / <alpha-value>)',
+                        foreground: 'rgb(var(--color-tertiary-container-foreground) / <alpha-value>)'
+                    }
                 },
                 accent: {
                     DEFAULT: 'rgb(var(--color-accent) / <alpha-value>)',
@@ -60,6 +72,10 @@ module.exports = {
                 },
                 surface: {
                     DEFAULT: 'rgb(var(--color-surface) / <alpha-value>)',
+                    elevated: 'rgb(var(--color-surface-elevated) / <alpha-value>)',
+                    variant: 'rgb(var(--color-surface-variant) / <alpha-value>)',
+                    container: 'rgb(var(--color-surface-container) / <alpha-value>)',
+                    'container-high': 'rgb(var(--color-surface-container-high) / <alpha-value>)',
                     secondary: 'rgb(var(--color-surface-secondary) / <alpha-value>)',
                     hover: 'rgb(var(--color-surface-hover) / <alpha-value>)'
                 },
@@ -68,13 +84,11 @@ module.exports = {
                     secondary: 'rgb(var(--color-background-secondary) / <alpha-value>)',
                     hover: 'rgb(var(--color-background-hover) / <alpha-value>)'
                 },
-                text: {
+                foreground: {
                     primary: 'rgb(var(--color-text-primary) / <alpha-value>)',
                     secondary: 'rgb(var(--color-text-secondary) / <alpha-value>)',
                     tertiary: 'rgb(var(--color-text-tertiary) / <alpha-value>)',
                     disabled: 'rgb(var(--color-text-disabled) / <alpha-value>)',
-                    placeholder: 'rgb(var(--color-text-placeholder) / <alpha-value>)',
-                    inverse: 'rgb(var(--color-text-inverse) / <alpha-value>)'
                 },
                 border: {
                     DEFAULT: 'rgb(var(--color-border) / <alpha-value>)',
@@ -86,25 +100,41 @@ module.exports = {
                     DEFAULT: 'rgb(var(--color-success) / <alpha-value>)',
                     hover: 'rgb(var(--color-success-hover) / <alpha-value>)',
                     foreground: 'rgb(var(--color-success-foreground) / <alpha-value>)',
-                    background: 'rgb(var(--color-success-background) / <alpha-value>)'
+                    background: 'rgb(var(--color-success-background) / <alpha-value>)',
+                    container: {
+                        DEFAULT: 'rgb(var(--color-success-container) / <alpha-value>)',
+                        foreground: 'rgb(var(--color-success-container-foreground) / <alpha-value>)'
+                    }
                 },
                 error: {
                     DEFAULT: 'rgb(var(--color-error) / <alpha-value>)',
                     hover: 'rgb(var(--color-error-hover) / <alpha-value>)',
                     foreground: 'rgb(var(--color-error-foreground) / <alpha-value>)',
-                    background: 'rgb(var(--color-error-background) / <alpha-value>)'
+                    background: 'rgb(var(--color-error-background) / <alpha-value>)',
+                    container: {
+                        DEFAULT: 'rgb(var(--color-error-container) / <alpha-value>)',
+                        foreground: 'rgb(var(--color-error-container-foreground) / <alpha-value>)'
+                    }
                 },
                 warning: {
                     DEFAULT: 'rgb(var(--color-warning) / <alpha-value>)',
                     hover: 'rgb(var(--color-warning-hover) / <alpha-value>)',
                     foreground: 'rgb(var(--color-warning-foreground) / <alpha-value>)',
-                    background: 'rgb(var(--color-warning-background) / <alpha-value>)'
+                    background: 'rgb(var(--color-warning-background) / <alpha-value>)',
+                    container: {
+                        DEFAULT: 'rgb(var(--color-warning-container) / <alpha-value>)',
+                        foreground: 'rgb(var(--color-warning-container-foreground) / <alpha-value>)'
+                    }
                 },
                 info: {
                     DEFAULT: 'rgb(var(--color-info) / <alpha-value>)',
                     hover: 'rgb(var(--color-info-hover) / <alpha-value>)',
                     foreground: 'rgb(var(--color-info-foreground) / <alpha-value>)',
-                    background: 'rgb(var(--color-info-background) / <alpha-value>)'
+                    background: 'rgb(var(--color-info-background) / <alpha-value>)',
+                    container: {
+                        DEFAULT: 'rgb(var(--color-inføo-container) / <alpha-value>)',
+                        foreground: 'rgb(var(--color-info-container-foreground) / <alpha-value>)'
+                    }
                 },
                 icon: {
                     DEFAULT: 'rgb(var(--color-icon) / <alpha-value>)',
@@ -121,11 +151,17 @@ module.exports = {
                 'disabled-foreground': 'rgb(var(--color-disabled-foreground) / <alpha-value>)',
                 input: {
                     DEFAULT: 'rgb(var(--color-input-background) / <alpha-value>)',
+                    background: 'rgb(var(--color-input-background) / <alpha-value>)',
+                    'background-hover': 'rgb(var(--color-input-background-hover) / <alpha-value>)',
+                    'background-disabled': 'rgb(var(--color-input-background-disabled) / <alpha-value>)',
                     border: 'rgb(var(--color-input-border) / <alpha-value>)',
                     'border-hover': 'rgb(var(--color-input-border-hover) / <alpha-value>)',
                     'border-focus': 'rgb(var(--color-input-border-focus) / <alpha-value>)',
+                    'border-error': 'rgb(var(--color-input-border-error) / <alpha-value>)',
                     text: 'rgb(var(--color-input-text) / <alpha-value>)',
-                    placeholder: 'rgb(var(--color-input-placeholder) / <alpha-value>)'
+                    placeholder: 'rgb(var(--color-input-placeholder) / <alpha-value>)',
+                    'ring-focus': 'rgb(var(--color-input-focus-ring) / <alpha-value>)',
+                    'ring-error': 'rgb(var(--color-input-error-ring) / <alpha-value>)',
                 },
                 shadow: 'rgb(var(--color-shadow) / <alpha-value>)',
                 overlay: 'rgb(var(--color-overlay) / <alpha-value>)',

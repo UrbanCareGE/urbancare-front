@@ -10,6 +10,19 @@ export type IconProps = {
     onClick?: () => void,
 }
 
+export type IconWrapper = {
+    children: React.ReactElement;
+    className?: string,
+}
+
+export function IconWrapper({children, className}: IconWrapper) {
+    return (
+        <div className={cn(
+            "flex-shrink-0 p-2 flex justify-center items-center bg-primary-container/20 text-primary-container-foreground rounded-panel", className)}>
+            {children}
+        </div>)
+}
+
 function extractDimensions({dimension, width, height}: IconProps): [number?, number?] {
     if (dimension) return [dimension, dimension];
     return [width, height];

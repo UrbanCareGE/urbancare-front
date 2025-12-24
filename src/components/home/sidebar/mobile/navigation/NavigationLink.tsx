@@ -5,6 +5,7 @@ import {ComponentPropsWithoutRef, forwardRef, ReactNode} from "react";
 import {cn} from "@/lib/utils";
 import {NavItem} from "@/components/home/sidebar/mobile/navigation/NavigationArea";
 import {usePathname} from "next/navigation";
+import {SheetClose} from "@/components/ui/sheet";
 
 type NavigationLinkProps = {
     navigationItem: NavItem;
@@ -20,25 +21,25 @@ export const NavigationLink = forwardRef<HTMLAnchorElement, NavigationLinkProps>
             (navigationItem.href !== '/' && pathname.startsWith(navigationItem.href));
 
         return (
-            <Link
-                ref={ref}
-                {...props} // Spread all other props (including onClick from SheetClose)
-                className={cn(
-                    "h-9 group w-full flex items-center gap-1 rounded-panel px-1", className,)}
-                aria-current={isActive ? "page" : undefined}
-            >
-                {navigationItem.icon && (
-                    <div className={cn(
-                        "flex-shrink-0 p-2 flex justify-center items-center text-icon",
-                        {"text-icon": isActive},
-                    )}>
-                        {navigationItem.icon}
-                    </div>
-                )}
-                <p className="flex-1 text-sky-950 text-left truncate leading-tight font-medium text-lg">
-                    {navigationItem.label}
-                </p>
-            </Link>
+            <SheetClose asChild>
+                <Link
+                    ref={ref}
+                    {...props}
+                    className={cn(
+                        "h-9 group w-full flex items-center gap-2 rounded-panel px-1", className,)}
+                    aria-current={isActive ? "page" : undefined}
+                >
+                    {navigationItem.icon && (
+                        <div className={cn(
+                            "flex-shrink-0 p-2 flex justify-center items-center bg-primary-container/50 text-primary-container-foreground rounded-panel", navigationItem.className)}>
+                            {navigationItem.icon}
+                        </div>
+                    )}
+                    <p className="flex-1 text-foreground-primary text-left truncate leading-tight tracking-wide font-normal text-lg">
+                        {navigationItem.label}
+                    </p>
+                </Link>
+            </SheetClose>
         );
     }
 );

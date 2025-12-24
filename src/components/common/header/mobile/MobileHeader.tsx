@@ -22,16 +22,16 @@ export const MobileHeader = () => {
             })}>
             <MobileSideBar side={'left'}>
                 <MobileSideBar.Trigger>
-                    <Menu className={'w-8 h-8 text-icon'}/>
+                    <Menu className={'w-7 h-7 text-foreground-primary'}/>
                 </MobileSideBar.Trigger>
                 <MobileSideBar.Content>
-                    <MobileSideBar.Header className={"px-3 bg-gray-50"}>
+                    <MobileSideBar.Header className={"px-3"}>
                         <NavSideBarHeader/>
                     </MobileSideBar.Header>
                     <MobileSideBar.Body className={"px-3"}>
                         <NavigationArea/>
                     </MobileSideBar.Body>
-                    <MobileSideBar.Footer className={"px-3 bg-gray-50"}>
+                    <MobileSideBar.Footer className={"bg-surface-variant"}>
                         <NeighborhoodSelect/>
                     </MobileSideBar.Footer>
                 </MobileSideBar.Content>
@@ -42,13 +42,13 @@ export const MobileHeader = () => {
                     <ActiveUserAvatar/>
                 </MobileSideBar.Trigger>
                 <MobileSideBar.Content>
-                    <MobileSideBar.Header className={"bg-gray-50"}>
+                    <MobileSideBar.Header>
                         <ProfileSideBarHeader/>
                     </MobileSideBar.Header>
                     <MobileSideBar.Body>
                         <ProfileSideBarBody/>
                     </MobileSideBar.Body>
-                    <MobileSideBar.Footer className={"px-3 bg-gray-50"}>
+                    <MobileSideBar.Footer>
                         <LogoutButton/>
                     </MobileSideBar.Footer>
                 </MobileSideBar.Content>

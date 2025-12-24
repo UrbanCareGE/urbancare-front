@@ -73,7 +73,7 @@ const MobileSideBarContentComponent = ({children, className}: MobileSideBarConte
                 <SheetTitle>Navigation Menu</SheetTitle>
                 <SheetDescription>user profile navbar</SheetDescription>
             </VisuallyHidden>
-            <div className={cn("w-full flex flex-col h-full bg-transparent", className)}>
+            <div className={cn("w-full flex flex-col h-full bg-background", className)}>
                 {children}
             </div>
         </SheetContent>
@@ -87,7 +87,7 @@ interface MobileSideBarHeaderProps {
 
 const MobileSideBarHeaderComponent = ({children, className}: MobileSideBarHeaderProps) => {
     return (
-        <div className={cn("h-auto w-full p-4 border-b bg-background border-gray-200 rounded-t-md", className)}>
+        <div className={cn("h-auto w-full py-4 px-3 border-b bg-background border-gray-200", className)}>
             {children}
         </div>
     );
@@ -113,7 +113,7 @@ interface MobileSideBarFooterProps {
 
 const MobileSideBarFooterComponent = ({children, className}: MobileSideBarFooterProps) => {
     return (
-        <div className={cn("h-auto w-full px-4 py-1 border-t bg-background border-border rounded-b-md", className)}>
+        <div className={cn("h-auto w-full px-3 py-1 border-t bg-background border-border rounded-b-md", className)}>
             {children}
         </div>
     );
