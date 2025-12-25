@@ -9,7 +9,7 @@ import {FormInput} from "@/components/auth/FormInput";
 import {Button} from "@/components/ui/button";
 import {User} from 'lucide-react';
 import {useAuth} from '@/components/provider/AuthProvider';
-import {useUpdateProfile} from '@/hooks/query/use-update-profile';
+import {useUpdateProfile} from '@/hooks/query/user/use-update-profile';
 
 const personalInfoSchema = z.object({
     name: z.string().min(2, 'სახელი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს'),

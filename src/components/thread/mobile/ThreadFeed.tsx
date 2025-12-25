@@ -7,7 +7,12 @@ import {Card} from "@/components/ui/card";
 import {cn} from "@/lib/utils";
 import {Thread} from "@/components/thread/mobile/thread-card/Thread";
 import {ThreadCreateForm} from "@/components/thread/mobile/ThreadCreateForm";
+<<<<<<< Updated upstream
 import {useInfiniteThreads} from "@/hooks/query/use-fetch-threads";
+=======
+import {useInfiniteThreads} from "@/hooks/query/thread/use-fetch-threads";
+import {ThreadTagConfig, ThreadTagType, ThreadTagValue} from "@/model/thread.dto";
+>>>>>>> Stashed changes
 
 export interface ThreadFeedProps {
     defaultTags?: string[];

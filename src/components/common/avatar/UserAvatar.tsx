@@ -11,6 +11,11 @@ type UserAvatarProps = {
 export const UserAvatar = ({firstName, surname, profileImageId}: UserAvatarProps) => {
     const initials = `${firstName[0]}${surname[0]}`.toUpperCase();
 
+    // TODO akac igive
+    if (!profileImageId) {
+        return <div></div>;
+    }
+
     return (
         <div className="relative inline-block outline-none">
             <Avatar className="cursor-pointer w-10 h-10 rounded-full bg-primary">

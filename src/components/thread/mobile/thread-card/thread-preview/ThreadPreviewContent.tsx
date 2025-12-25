@@ -1,10 +1,11 @@
+'use client'
+
 import React from "react";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
-import {usePreviewable} from "@/components/thread/mobile/sheet/Previewable";
-import {
-    ThreadPreviewActionSection
-} from "@/components/thread/mobile/thread-card/thread-preview/ThreadPreviewActionSection";
+import {usePreviewable} from "@/components/thread/mobile/Previewable";
 import {PollDisplay} from "@/components/thread/mobile/thread-card/poll/PollDisplay";
+import {ThreadImagePreview} from "@/components/thread/mobile/thread-card/image-preview/ThreadImagePreview";
+import {getClientFileUrl} from "@/lib/api-client";
 
 interface ThreadCardContentProps {
     className?: string;
@@ -27,6 +28,11 @@ export const ThreadPreviewContent = ({className}: ThreadCardContentProps) => {
             <p className="text-sky-950 leading-relaxed whitespace-pre-wrap line-clamp-3" onClick={openView}>
                 {thread.content}
             </p>
+
+            {/* Poll images */}
+            {thread.imageIds &&
+                <ThreadImagePreview imageLinks={thread.imageIds.map(id => getClientFileUrl(id))}/>
+            }
 
             {/* Poll display */}
             {thread.poll && (

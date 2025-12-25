@@ -4,14 +4,15 @@ const nextConfig: NextConfig = {
     images: {
         remotePatterns: [
             {
-                protocol: 'https',
-                hostname: 'images.unsplash.com',
+                protocol: 'http',
+                hostname: 'localhost',
+                port: '3000',
                 pathname: '**',
-            },
+            }
         ],
+        dangerouslyAllowSVG: true,
     },
     allowedDevOrigins: ['shanna-unidentical-mechelle.ngrok-free.dev', 'http://192.168.100.5:3000', 'http://localhost:3000']
-    /* config options here */
 };
 
 export default nextConfig;

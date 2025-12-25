@@ -5,7 +5,7 @@ import {Form, FormControl, FormField, FormItem} from "@/components/ui/form";
 import {FormInput} from "@/components/auth/FormInput";
 import {Button} from "@/components/ui/button";
 import {OauthForm} from "@/components/auth/oauith/OauthForm";
-import {useLogin} from "@/hooks/query/use-login";
+import {useLogin} from "@/hooks/query/auth/use-login";
 import {KeyRound, PhoneIcon} from "lucide-react";
 import {RecoverPasswordLink} from "@/components/auth/login/common/RecoverPasswordLink";
 import {Spinner} from "@/components/ui/spinner";

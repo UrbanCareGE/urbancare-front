@@ -4,7 +4,7 @@ import {Clock} from "lucide-react";
 import React from "react";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
 import {cn, formatTime} from "@/lib/utils";
-import {usePreviewable} from "@/components/thread/mobile/sheet/Previewable";
+import {usePreviewable} from "@/components/thread/mobile/Previewable";
 import {ThreadTags} from "@/components/thread/mobile/thread-card/common/ThreadTags";
 
 interface ThreadCardHeaderProps {

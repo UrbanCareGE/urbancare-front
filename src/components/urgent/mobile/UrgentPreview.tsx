@@ -2,7 +2,7 @@ import {Separator} from "@/components/ui/separator";
 import {Button} from "@/components/ui/button";
 import {ShieldAlert} from "lucide-react";
 import Link from "next/link";
-import {useFetchUrgent} from "@/hooks/query/use-fetch-urgent";
+import {useFetchUrgent} from "@/hooks/query/urgent/use-fetch-urgent";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {useParams} from "next/navigation";
 

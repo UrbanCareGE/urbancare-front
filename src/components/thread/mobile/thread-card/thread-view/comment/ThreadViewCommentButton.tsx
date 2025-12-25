@@ -4,7 +4,7 @@ import {Send} from "lucide-react";
 import React, {useState} from "react";
 import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
-import {useCreateComment} from "@/hooks/query/use-create-comment";
+import {useCreateComment} from "@/hooks/query/thread/use-create-comment";
 import {UserAvatar} from "@/components/common/avatar/UserAvatar";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {ThreadInfoDTO} from "@/model/thread.dto";

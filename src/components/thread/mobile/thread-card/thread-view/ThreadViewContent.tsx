@@ -21,7 +21,7 @@ export const ThreadViewContent = ({className}: ThreadCardContentProps) => {
             </p>
 
             {thread.poll && (
-                <PollDisplay thread={thread} className="mt-4"/>
+                <PollDisplay thread={thread} className="p-3 mt-4 border border-border rounded-panel"/>
             )}
         </div>
     );

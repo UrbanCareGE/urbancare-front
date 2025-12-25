@@ -7,7 +7,7 @@ import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
 import {DrawerClose, DrawerTitle} from "@/components/ui/drawer";
 import {BarChart2, Check, FileText, Image as ImageIconLucide, Info, Plus, Sparkles, Tag, Upload, Video, X} from "lucide-react";
-import {useCreateThread} from "@/hooks/query/use-create-thread";
+import {useCreateThread} from "@/hooks/query/thread/use-create-thread";
 import {ThreadTagConfig, ThreadTagType, ThreadTagValue} from "@/model/thread.dto";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card";

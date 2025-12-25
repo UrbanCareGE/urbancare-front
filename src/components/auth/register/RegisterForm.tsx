@@ -10,7 +10,7 @@ import {FormInput} from "@/components/auth/FormInput";
 import {OTPInput} from "@/components/auth/register/OTPInput";
 import Link from "next/link";
 import {OauthForm} from "@/components/auth/oauith/OauthForm";
-import {useRegister} from "@/hooks/query/use-register";
+import {useRegister} from "@/hooks/query/auth/use-register";
 
 
 export function RegisterForm() {

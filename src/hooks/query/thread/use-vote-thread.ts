@@ -10,7 +10,10 @@ interface VoteRequest {
     vote: ThreadVoteDTO;
 }
 
-function calculateVoteChanges(currentSelfVote: number, newVoteType: VoteType): { newSelfVote: number; voteDiffDelta: number } {
+function calculateVoteChanges(currentSelfVote: number, newVoteType: VoteType): {
+    newSelfVote: number;
+    voteDiffDelta: number
+} {
     if (newVoteType === VoteType.UPVOTE) {
         if (currentSelfVote === 1) {
             // Removing upvote

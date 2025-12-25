@@ -3,7 +3,7 @@ import {Button} from "@/components/ui/button";
 import {ThumbsDown, ThumbsUp} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
-import {useThreadVote} from "@/hooks/query/use-vote-thread";
+import {useThreadVote} from "@/hooks/query/thread/use-vote-thread";
 import {VoteType} from "@/model/thread.dto";
 
 function convertVote(vote: number): VoteType | null {
@@ -14,7 +14,7 @@ function convertVote(vote: number): VoteType | null {
 
 export const ThreadVoteButtonGroup = ({className}: { className?: string }) => {
     const {thread, setThread} = useThread();
-    const {mutate} = useThreadVote();
+    // const {mutate} = useThreadVote();
 
     const voteStatus = convertVote(thread.selfVote);
 
@@ -41,15 +41,15 @@ export const ThreadVoteButtonGroup = ({className}: { className?: string }) => {
             selfVote: newSelfVote,
         }));
 
-        mutate(
-            {threadId: thread.id, vote: {voteType: type}},
-            {
-                onError: () => {
-                    // Roll back on error
-                    setThread(prev => ({...prev, ...thread}));
-                },
-            }
-        );
+        // mutate(
+        //     {threadId: thread.id, vote: {voteType: type}},
+        //     {
+        //         onError: () => {
+        //             // Roll back on error
+        //             setThread(prev => ({...prev, ...thread}));
+        //         },
+        //     }
+        // );
     };
 
     return (

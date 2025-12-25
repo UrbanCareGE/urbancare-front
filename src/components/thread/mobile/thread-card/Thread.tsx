@@ -6,7 +6,7 @@ import {ThreadPreviewContent} from "@/components/thread/mobile/thread-card/threa
 import React from "react";
 import {ThreadViewHeader} from "@/components/thread/mobile/thread-card/thread-view/ThreadViewHeader";
 import {ThreadViewContent} from "@/components/thread/mobile/thread-card/thread-view/ThreadViewContent";
-import Previewable from "@/components/thread/mobile/sheet/Previewable";
+import Previewable from "@/components/thread/mobile/Previewable";
 import {ThreadCommentGrid} from "@/components/thread/mobile/thread-card/thread-view/comment/ThreadCommentGrid";
 import {ThreadCommentsHeader} from "@/components/thread/mobile/thread-card/thread-view/comment/ThreadCommentsHeader";
 import {
@@ -16,7 +16,7 @@ import {ThreadPreviewStatsSection} from "@/components/thread/mobile/thread-card/
 import {
     ThreadViewCommentButton
 } from "@/components/thread/mobile/thread-card/thread-view/comment/ThreadViewCommentButton";
-import {useThreadDetails} from "@/hooks/query/use-thread-details";
+import {useThreadDetails} from "@/hooks/query/thread/use-thread-details";
 
 interface ThreadPreviewProps {
     threadId: string;
@@ -80,7 +80,6 @@ export const Thread = ({threadId}: ThreadPreviewProps) => {
                             <ThreadViewContent/>
                         </ThreadCard.Body>
                         <ThreadCard.Footer className="flex-col px-0">
-                            <ThreadPreviewStatsSection/>
                             <ThreadPreviewActionSection/>
                         </ThreadCard.Footer>
                     </ThreadCard>

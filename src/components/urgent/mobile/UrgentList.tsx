@@ -7,7 +7,7 @@ import {cn} from "@/lib/utils";
 import {Basic} from "@/app/layout";
 
 import 'ldrs/react/Leapfrog.css'
-import {useFetchUrgent} from "@/hooks/query/use-fetch-urgent";
+import {useFetchUrgent} from "@/hooks/query/urgent/use-fetch-urgent";
 
 
 const UrgentList = () => {

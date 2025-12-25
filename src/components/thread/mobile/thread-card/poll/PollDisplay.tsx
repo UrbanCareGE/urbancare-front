@@ -4,7 +4,7 @@ import React from 'react';
 import {PollOptionDTO, ThreadInfoDTO} from '@/model/thread.dto';
 import {cn} from '@/lib/utils';
 import {Circle, CircleCheck} from "lucide-react";
-import {usePollVote} from "@/hooks/query/use-poll-vote";
+import {usePollVote} from "@/hooks/query/thread/use-poll-vote";
 import {useAuth} from "@/components/provider/AuthProvider";
 
 interface PollDisplayProps {

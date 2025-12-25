@@ -5,7 +5,7 @@ import {Chatbox} from '@talkjs/react';
 import {Skeleton} from "@/components/ui/skeleton";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {useState} from "react";
-import {useFetchChat} from "@/hooks/query/use-fetch-chat";
+import {useFetchChat} from "@/hooks/query/chat/use-fetch-chat";
 
 export const Chat = () => {
     const authInfo = useAuth();

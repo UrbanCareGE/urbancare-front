@@ -25,7 +25,7 @@ export const MobileHeader = () => {
                     <Menu className={'w-7 h-7 text-foreground-primary'}/>
                 </MobileSideBar.Trigger>
                 <MobileSideBar.Content>
-                    <MobileSideBar.Header className={"px-3"}>
+                    <MobileSideBar.Header>
                         <NavSideBarHeader/>
                     </MobileSideBar.Header>
                     <MobileSideBar.Body className={"px-3"}>

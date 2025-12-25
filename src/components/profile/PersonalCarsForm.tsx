@@ -6,7 +6,7 @@ import {Check, Info, Plus, X} from "lucide-react";
 import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card";
 import {useDevice} from "@/hooks/use-device";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {useProfileCars} from "@/hooks/query/use-profile-cars";
+import {useProfileCars} from "@/hooks/query/user/use-profile-cars";
 import {Input} from "@/components/ui/input";
 import {z} from "zod";
 import {

@@ -8,7 +8,7 @@ import {Form, FormControl, FormField, FormItem} from "@/components/ui/form";
 import {FormInput} from "@/components/auth/FormInput";
 import {Button} from "@/components/ui/button";
 import {KeyRound, Lock} from 'lucide-react';
-import {useChangePassword} from '@/hooks/query/use-change-password';
+import {useChangePassword} from '@/hooks/query/user/use-change-password';
 
 const changePasswordSchema = z.object({
     oldPassword: z.string().min(6, 'პაროლი უნდა შეიცავდეს მინიმუმ 6 სიმბოლოს'),

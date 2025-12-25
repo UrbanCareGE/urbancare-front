@@ -5,7 +5,6 @@ import React from "react";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {getClientFileUrl} from "@/lib/api-client";
 import {Skeleton} from "@/components/ui/skeleton";
-import Image from "next/image";
 
 function ActiveUserAvatarSkeleton() {
     return (
@@ -22,6 +21,11 @@ export const ActiveUserAvatar = () => {
 
     if (isLoading) {
         return <ActiveUserAvatarSkeleton/>;
+    }
+
+    // TODO return default 
+    if (!user?.profileImageId) {
+        return <div></div>
     }
 
     return (

@@ -6,7 +6,7 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {getClientFileUrl} from "@/lib/api-client";
 import {useAuth} from '@/components/provider/AuthProvider';
 import {FileService} from '@/service/file-service';
-import {useUpdateProfileImage} from '@/hooks/query/use-update-profile-image';
+import {useUpdateProfileImage} from '@/hooks/query/user/use-update-profile-image';
 import {toast} from 'sonner';
 
 export function ProfileImageUpload() {

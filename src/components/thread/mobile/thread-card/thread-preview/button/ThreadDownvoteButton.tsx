@@ -3,7 +3,7 @@ import {Button} from "@/components/ui/button";
 import {ThumbsDown} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
-import {useThreadVote} from "@/hooks/query/use-vote-thread";
+import {useThreadVote} from "@/hooks/query/thread/use-vote-thread";
 import {VoteType} from "@/model/thread.dto";
 
 export const ThreadDownvoteButton = ({className}: { className?: string }) => {

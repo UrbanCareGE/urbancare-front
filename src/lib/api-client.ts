@@ -50,7 +50,6 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
         const fetchConfig: ApiFetchConfig = {
             method,
             headers: {
-                // ✅ Skip Content-Type for FormData
                 ...(isFormData ? {} : {'Content-Type': 'application/json'}),
                 'ngrok-skip-browser-warning': 'ababa',
                 ...headers,
@@ -149,9 +148,7 @@ export function getServerFileUrl(id: string): string {
 }
 
 export function getClientFileUrl(id?: string): string {
-    if (!id)
-        return 'opa'
-
+    if (id === undefined) return 'yle'
     return `${NEXT_API_URL}/api/secure/file/${id}`
 }
 
