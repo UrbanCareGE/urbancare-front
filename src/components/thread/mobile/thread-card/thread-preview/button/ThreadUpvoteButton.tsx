@@ -1,78 +1,48 @@
 import React from "react";
 import {Button} from "@/components/ui/button";
-import {ArrowBigUp, ThumbsDown, ThumbsUp} from "lucide-react";
+import {ThumbsDown, ThumbsUp} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
 import {useThreadVote} from "@/hooks/query/use-vote-thread";
 import {VoteType} from "@/model/thread.dto";
 
-function convertVote(vote: number): VoteType | null {
-    if (vote === 1) return VoteType.UPVOTE;
-    if (vote === -1) return VoteType.DOWNVOTE;
-    return null;
-}
-
 export const ThreadUpvoteButton = ({className}: { className?: string }) => {
-    const {thread, setThread} = useThread();
-    const {mutate} = useThreadVote();
+    const {thread} = useThread();
+    const {vote} = useThreadVote();
 
-    const voteStatus = convertVote(thread.selfVote);
+    const isUpvoted = thread.selfVote === 1;
+    const isDownvoted = thread.selfVote === -1;
 
     const handleUpvote = () => {
-        setThread(prev => ({
-            ...prev,
-            selfVote: thread.selfVote == 1 ? 0 : 1
-        }));
-
-        mutate(
-            {threadId: thread.id, vote: {voteType: VoteType.UPVOTE}},
-            {
-                onError: () => {
-                    // Roll back on error
-                    setThread(prev => ({...prev, ...thread}));
-                },
-            }
-        );
+        vote(thread.id, VoteType.UPVOTE);
     };
 
     const handleDownvote = () => {
-        mutate(
-            {threadId: thread.id, vote: {voteType: VoteType.DOWNVOTE}},
-            {
-                onError: () => {
-                    // Roll back on error
-                    setThread(prev => ({...prev, ...thread}));
-                },
-            }
-        );
-        setThread(prev => ({
-            ...prev,
-            selfVote: thread.selfVote === -1 ? 0 : -1
-        }));
+        vote(thread.id, VoteType.DOWNVOTE);
     };
 
     return (
         <div className={"flex items-center"}>
             <Button
-                onClick={() => handleUpvote()}
+                onClick={handleUpvote}
                 className={cn(
                     "h-9 px-3 rounded-s-full rounded-e-none transition-all [&_svg]:size-5 text-primary bg-primary/10 text-sm",
-                    {"bg-primary text-white": voteStatus === VoteType.UPVOTE}
+                    {"bg-primary text-white": isUpvoted}
                 )}
             >
                 <ThumbsUp
-                    className={cn("w-5 h-5 stroke-primary", {"stroke-white ": voteStatus === VoteType.UPVOTE})}/>
+                    className={cn("w-5 h-5 stroke-primary", {"stroke-white": isUpvoted})}/>
                 {thread.voteDiff}
             </Button>
             <Button
-                onClick={() => handleDownvote()}
+                onClick={handleDownvote}
                 className={cn(
                     "h-9 px-3 rounded-s-none text-error rounded-e-full transition-all [&_svg]:size-5 bg-error/10 text-sm",
-                    {"bg-error text-white": voteStatus === VoteType.DOWNVOTE}
+                    {"bg-error text-white": isDownvoted}
                 )}
             >
                 {thread.voteDiff}
-                <ThumbsDown className={cn("stroke-error", {"stroke-white": voteStatus === VoteType.DOWNVOTE})}/>
+                <ThumbsDown className={cn("stroke-error", {"stroke-white": isDownvoted})}/>
             </Button>
         </div>
     );

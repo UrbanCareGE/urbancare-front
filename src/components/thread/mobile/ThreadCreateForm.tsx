@@ -5,29 +5,43 @@ import {CreateThreadButton} from "@/components/thread/mobile/CreateThreadButton"
 import ThreadForm from "@/components/thread/mobile/thread-form/ThreadForm";
 import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
-import {DrawerTitle} from "@/components/ui/drawer";
-import {BarChart2, Check, FileText, Image as ImageIconLucide, Plus, Sparkles, Upload, Video, X} from "lucide-react";
+import {DrawerClose, DrawerTitle} from "@/components/ui/drawer";
+import {BarChart2, Check, FileText, Image as ImageIconLucide, Info, Plus, Sparkles, Tag, Upload, Video, X} from "lucide-react";
 import {useCreateThread} from "@/hooks/query/use-create-thread";
+import {ThreadTagConfig, ThreadTagType, ThreadTagValue} from "@/model/thread.dto";
+import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
+import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card";
+import {useDevice} from "@/hooks/use-device";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {SheetClose, SheetDescription, SheetFooter, SheetHeader, SheetTitle} from "@/components/ui/sheet";
 import {cn} from "@/lib/utils";
 import {Switch} from "@/components/ui/switch";
+import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/dialog";
+
+const ALL_TAGS = Object.values(ThreadTagType);
 
 export const ThreadCreateForm = () => {
     const {form, onSubmit, isPending, isError, error} = useCreateThread();
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const {isMobile} = useDevice();
 
-    // Poll state
+    // Tags dialog state
+    const [tagLimitDialogOpen, setTagLimitDialogOpen] = useState(false);
+
+    // Poll UI state (not form data)
     const [isPollMode, setIsPollMode] = useState(false);
     const [allowOthersToAdd, setAllowOthersToAdd] = useState(false);
-    const [pollOptions, setPollOptions] = useState<string[]>([]);
     const [isAddingOption, setIsAddingOption] = useState(false);
     const [currentOption, setCurrentOption] = useState('');
+    const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
+    // Watch form values
     const titleLength = form.watch("title")?.length || 0;
     const bodyLength = form.watch("body")?.length || 0;
     const files = form.watch("files") || [];
+    const selectedTags = form.watch("tags") || [];
+    const pollOptions = form.watch("pollOptions") || [];
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = Array.from(e.target.files || []);
@@ -75,13 +89,13 @@ export const ThreadCreateForm = () => {
     // Poll handlers
     const handleAddPollOption = () => {
         if (!currentOption.trim()) return;
-        setPollOptions([...pollOptions, currentOption.trim()]);
+        form.setValue("pollOptions", [...pollOptions, currentOption.trim()]);
         setCurrentOption('');
         setIsAddingOption(false);
     };
 
     const handleRemovePollOption = (index: number) => {
-        setPollOptions(pollOptions.filter((_, i) => i !== index));
+        form.setValue("pollOptions", pollOptions.filter((_, i) => i !== index));
     };
 
     const handleCancelAddOption = () => {
@@ -92,13 +106,40 @@ export const ThreadCreateForm = () => {
     const handleTogglePollMode = () => {
         if (isPollMode) {
             // Reset poll state when disabling
-            setPollOptions([]);
+            form.setValue("pollOptions", []);
             setAllowOthersToAdd(false);
             setIsAddingOption(false);
             setCurrentOption('');
+            setEditingIndex(null);
         }
         setIsPollMode(!isPollMode);
     };
+
+    const handleSaveEdit = (index: number, value: string) => {
+        if (!value.trim()) return;
+        const newOptions = [...pollOptions];
+        newOptions[index] = value.trim();
+        form.setValue("pollOptions", newOptions);
+        setEditingIndex(null);
+    };
+
+    const handleCancelEdit = () => {
+        setEditingIndex(null);
+    };
+
+    const handleSelectTag = (tag: ThreadTagValue) => {
+        if (selectedTags.length >= 3) {
+            setTagLimitDialogOpen(true);
+            return;
+        }
+        form.setValue("tags", [...selectedTags, tag]);
+    };
+
+    const handleDeselectTag = (tag: string) => {
+        form.setValue("tags", selectedTags.filter(t => t !== tag));
+    };
+
+    const unselectedTags = ALL_TAGS.filter(tag => !selectedTags.includes(tag));
 
     return (
         <ThreadForm>
@@ -161,6 +202,83 @@ export const ThreadCreateForm = () => {
                                     </FormItem>
                                 )}
                             />
+
+                            {/* Tag Selection Section */}
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-2">
+                                    <Tag className="w-4 h-4 text-slate-400"/>
+                                    <span className="text-sm font-medium text-slate-700">გახადეთ პოსტი სპეციფიური</span>
+                                    {isMobile ? (
+                                        <Popover>
+                                            <PopoverTrigger>
+                                                <Info className="w-4 h-4 text-slate-400"/>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="bg-tooltip text-slate-50 text-center">
+                                                თეგი გაძლევთ საშუალებას თქვენი პოსტი გახდეს უფრო სპეციფიური, თუ მიუთითებთ შესაბამის თეგებს, პოსტი გამოჩნდება შესაბამისი ძებნის ფილტრების მითითების შემდეგაც
+                                            </PopoverContent>
+                                        </Popover>
+                                    ) : (
+                                        <HoverCard>
+                                            <HoverCardTrigger>
+                                                <Info className="w-4 h-4 text-slate-400"/>
+                                            </HoverCardTrigger>
+                                            <HoverCardContent className="bg-slate-50 opacity-100">
+                                                აირჩიეთ თეგები თქვენი პოსტისთვის
+                                            </HoverCardContent>
+                                        </HoverCard>
+                                    )}
+                                </div>
+
+                                {/* Selected tags */}
+                                <div className="space-y-2">
+                                    {selectedTags.length === 0 ? (
+                                        <p className="text-sm text-slate-500">სპეციფიკაცია არ არის არჩეული</p>
+                                    ) : (
+                                        <div className="flex flex-wrap gap-2">
+                                            {selectedTags.map((tag) => {
+                                                const config = ThreadTagConfig[tag as ThreadTagValue];
+                                                return (
+                                                    <button
+                                                        key={tag}
+                                                        type="button"
+                                                        onClick={() => handleDeselectTag(tag)}
+                                                        className={cn(
+                                                            'px-3 py-1 rounded-full text-sm font-medium transition-all',
+                                                            config.bg,
+                                                            config.text,
+                                                            'hover:opacity-70'
+                                                        )}
+                                                    >
+                                                        {config.label}
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Available tags */}
+                                {unselectedTags.length > 0 && (
+                                    <div className="flex flex-wrap gap-2">
+                                        {unselectedTags.map((tag) => {
+                                            const config = ThreadTagConfig[tag];
+                                            return (
+                                                <button
+                                                    key={tag}
+                                                    type="button"
+                                                    onClick={() => handleSelectTag(tag)}
+                                                    className={cn(
+                                                        'px-3 py-1 rounded-full text-sm font-medium border border-slate-200 bg-white text-slate-600 transition-all',
+                                                        'hover:border-slate-300 hover:bg-slate-50'
+                                                    )}
+                                                >
+                                                    {config.label}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                )}
+                            </div>
 
                             {/* File Upload Section */}
                             <FormField
@@ -319,7 +437,7 @@ export const ThreadCreateForm = () => {
                                     </div>
                                     <Button
                                         type="button"
-                                        variant={isPollMode ? "default" : "outline"}
+                                        variant={isPollMode ? "default" : "mobile-outline"}
                                         size="sm"
                                         onClick={handleTogglePollMode}
                                         className="h-8"
@@ -332,7 +450,7 @@ export const ThreadCreateForm = () => {
                                     <div className="space-y-3 p-4 bg-slate-50 rounded-lg border border-slate-200">
                                         {/* Allow others toggle */}
                                         <div className="flex items-center justify-between">
-                                            <span className="text-sm text-slate-600">
+                                            <span className="text-sm text-sky-900">
                                                 სხვებს შეუძლიათ ვარიანტების დამატება
                                             </span>
                                             <Switch
@@ -345,19 +463,32 @@ export const ThreadCreateForm = () => {
                                         {pollOptions.length > 0 && (
                                             <div className="space-y-2">
                                                 {pollOptions.map((option, index) => (
-                                                    <div
-                                                        key={index}
-                                                        className="flex items-center justify-between p-2 bg-white rounded-md border border-slate-200"
-                                                    >
-                                                        <span className="text-sm text-slate-700">{option}</span>
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => handleRemovePollOption(index)}
-                                                            className="p-1 hover:bg-slate-100 rounded transition-colors"
+                                                    editingIndex === index ? (
+                                                        <EditableOption
+                                                            key={index}
+                                                            initialValue={option}
+                                                            onSave={(value) => handleSaveEdit(index, value)}
+                                                            onCancel={handleCancelEdit}
+                                                        />
+                                                    ) : (
+                                                        <div
+                                                            key={index}
+                                                            onClick={() => setEditingIndex(index)}
+                                                            className="flex items-center justify-between p-2 bg-white rounded-md border border-slate-200 cursor-pointer hover:border-primary/50 transition-colors"
                                                         >
-                                                            <X className="w-4 h-4 text-slate-500"/>
-                                                        </button>
-                                                    </div>
+                                                            <span className="text-sm text-slate-700">{index + 1}) {option}</span>
+                                                            <button
+                                                                type="button"
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    handleRemovePollOption(index);
+                                                                }}
+                                                                className="p-1 hover:bg-slate-100 rounded transition-colors"
+                                                            >
+                                                                <X className="w-4 h-4 text-slate-500"/>
+                                                            </button>
+                                                        </div>
+                                                    )
                                                 ))}
                                             </div>
                                         )}
@@ -392,7 +523,7 @@ export const ThreadCreateForm = () => {
                                             <button
                                                 type="button"
                                                 onClick={() => setIsAddingOption(true)}
-                                                className="flex items-center gap-2 w-full p-2 text-sm text-slate-600 hover:text-slate-800 hover:bg-white rounded-md border border-dashed border-slate-300 transition-colors"
+                                                className="flex items-center gap-2 w-full p-2 text-sm text-sky-950 hover:text-slate-800 bg-white rounded-md border border-dashed border-slate-300 transition-colors"
                                             >
                                                 <Plus size={16}/>
                                                 ვარიანტის დამატება
@@ -438,10 +569,12 @@ export const ThreadCreateForm = () => {
                                             პოსტის შექმნა...
                                         </div>
                                     ) : (
-                                        <div className="flex items-center gap-2">
-                                            <Sparkles className="w-4 h-4"/>
-                                            გამოქვეყნება
-                                        </div>
+                                        <DrawerClose asChild={true}>
+                                            <div className="flex items-center gap-2">
+                                                <Sparkles className="w-4 h-4"/>
+                                                გამოქვეყნება
+                                            </div>
+                                        </DrawerClose>
                                     )}
                                 </Button>
                                 <p className="text-xs text-center text-slate-500">
@@ -452,6 +585,58 @@ export const ThreadCreateForm = () => {
                     </form>
                 </Form>
             </ThreadForm.Sheet>
+
+            <Dialog open={tagLimitDialogOpen} onOpenChange={setTagLimitDialogOpen}>
+                <DialogContent className="w-[calc(100%-2rem)] max-w-md rounded-2xl">
+                    <DialogHeader>
+                        <DialogTitle>თეგების ლიმიტი</DialogTitle>
+                        <DialogDescription>
+                            თითოეულ პოსტზე შესაძლებელია მაქსიმუმ 3 თეგის მითითება.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <Button variant="default" onClick={() => setTagLimitDialogOpen(false)}>
+                            გასაგებია
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </ThreadForm>
     );
 }
+
+interface EditableOptionProps {
+    initialValue: string;
+    onSave: (value: string) => void;
+    onCancel: () => void;
+}
+
+const EditableOption = ({initialValue, onSave, onCancel}: EditableOptionProps) => {
+    const [value, setValue] = useState(initialValue);
+
+    return (
+        <div className="flex items-center gap-2">
+            <input
+                type="text"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                className="flex-1 px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                autoFocus
+            />
+            <button
+                type="button"
+                onClick={() => onSave(value)}
+                className="w-8 h-8 flex justify-center items-center bg-green-500 rounded-full"
+            >
+                <Check size={18} className="text-white"/>
+            </button>
+            <button
+                type="button"
+                onClick={onCancel}
+                className="w-8 h-8 flex justify-center items-center bg-red-500 rounded-full"
+            >
+                <X size={18} className="text-white"/>
+            </button>
+        </div>
+    );
+};

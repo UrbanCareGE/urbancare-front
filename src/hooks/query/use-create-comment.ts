@@ -64,8 +64,8 @@ export function useCreateComment() {
             queryClient.setQueryData<ThreadInfoDTO>(queryKey, (old) => {
                 if (!old) return old;
 
-                if (newComment.repliesToId) {
-                    const parentComment = old.comments.find(c => c.id === newComment.repliesToId);
+                if (newComment.replyToId) {
+                    const parentComment = old.comments.find(c => c.id === newComment.replyToId);
                     if (parentComment) {
                         parentComment.replies = parentComment.replies?.filter(comment => !comment.id.startsWith('temp-')) || []
                         parentComment.replies.push(newComment);

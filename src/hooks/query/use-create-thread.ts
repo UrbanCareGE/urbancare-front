@@ -23,7 +23,9 @@ export function useCreateThread() {
         defaultValues: {
             title: "",
             body: "",
-            files: []
+            files: [],
+            tags: [],
+            pollOptions: []
         },
     });
 
@@ -56,18 +58,24 @@ export function useCreateThread() {
                                apartmentId,
                                title,
                                content,
-                               imageIds
+                               imageIds,
+                               tags,
+                               poll
                            }: {
             apartmentId: string;
             title: string;
             content: string;
             imageIds: string[];
+            tags?: string[];
+            poll?: { title: string, items: string[] | undefined };
         }) => {
             console.log('Creating thread with file IDs:', imageIds);
             return await ThreadService.add(apartmentId, {
                 title,
                 content,
-                imageIds
+                imageIds,
+                poll,
+                tags
             });
         },
         onMutate: async ({apartmentId, title, content, imageIds}) => {
@@ -125,17 +133,26 @@ export function useCreateThread() {
                 fileIds = await uploadFilesMutation.mutateAsync(values.files);
             }
 
-            // Step 2: Create thread with file IDs
+            // Step 2: Create thread with file IDs, tags, and poll from form values
             await createThreadMutation.mutateAsync({
                 apartmentId: user.selectedApartment.id,
                 title: values.title,
                 content: values.body,
-                imageIds: fileIds
+                imageIds: fileIds,
+                tags: values.tags,
+                poll: values.pollOptions != null && values.pollOptions.length > 0 ? {
+                    title: "",
+                    items: values.pollOptions
+                } : undefined
             });
         } catch (error) {
             console.error('Submission failed:', error);
         }
     };
+
+    //Failed to instantiate ge.urbancare.core.poll.dto.PollProj using constructor fun `<init>
+    // (kotlin.String, kotlin.String, kotlin.collections.List<ge.urbancare.core.poll.dto.PollItemProj>, java.time.Instant): ge.urbancare.core.poll.dto.PollProj
+    // with arguments 694d18ce160aa38d2f3d23be,null,[PollItemProj(id=694d18ce160aa38d2f3d23bc, content=aaa, voters=[], voteCount=0), PollItemProj(id=694d18ce160aa38d2f3d23bd, content=bbb, voters=[UserInfoRes(id=6900f420c681131f8dd0135c, name=ლევან, surname=აფაქიძე, profileImageId=694bfcddec9c691700e8b688)], voteCount=1)],2025-12-25T10:58:22.700Z
 
     const isPending = uploadFilesMutation.isPending || createThreadMutation.isPending;
     const isError = uploadFilesMutation.isError || createThreadMutation.isError;

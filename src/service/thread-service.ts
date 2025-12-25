@@ -1,7 +1,7 @@
 import {api} from "@/lib/api-client";
 import {
     CreateThreadCommentDTO,
-    CreateThreadDTO, ThreadCommentDTO,
+    CreateThreadDTO, PollVoteDTO, ThreadCommentDTO,
     ThreadInfoDTO,
     ThreadVoteDTO,
     ThreadVoteRespDTO
@@ -16,10 +16,11 @@ export const ThreadService = {
     get: async (threadId: string): Promise<ThreadInfoDTO> => {
         return await api.get<ThreadInfoDTO>(`/api/secure/thread/${threadId}`);
     },
-    getAll: async (apartmentId: string, paging: PagingDTO): Promise<PagingRespDTO<ThreadInfoDTO>> => {
+    getAll: async (apartmentId: string, paging: PagingDTO, tags?: string[]): Promise<PagingRespDTO<ThreadInfoDTO>> => {
         return await api.get<PagingRespDTO<ThreadInfoDTO>>(`/api/secure/thread/list/${apartmentId}`, {
             params: {
-                ...paging
+                ...paging,
+                ...(tags && tags.length > 0 && {tags: tags.join(',')})
             }
         });
     },
@@ -28,5 +29,8 @@ export const ThreadService = {
     },
     createComment: async (threadId: string, commentDTO: CreateThreadCommentDTO): Promise<ThreadCommentDTO> => {
         return await api.post<ThreadCommentDTO, CreateThreadCommentDTO>(`/api/secure/thread/${threadId}/comment`, commentDTO);
+    },
+    pollVote: async (pollId: string, apartmentId: string, voteDTO: PollVoteDTO): Promise<ThreadInfoDTO> => {
+        return await api.post<ThreadInfoDTO, PollVoteDTO>(`/api/secure/apartment/${apartmentId}/poll/${pollId}/vote`, voteDTO);
     }
 }

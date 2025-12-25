@@ -1,5 +1,6 @@
 import React from "react";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
+import {PollDisplay} from "@/components/thread/mobile/thread-card/poll/PollDisplay";
 
 interface ThreadCardContentProps {
     className?: string;
@@ -18,6 +19,10 @@ export const ThreadViewContent = ({className}: ThreadCardContentProps) => {
             <p className="text-slate-700 leading-relaxed whitespace-pre-wrap">
                 {thread.content}
             </p>
+
+            {thread.poll && (
+                <PollDisplay thread={thread} className="mt-4"/>
+            )}
         </div>
     );
 };

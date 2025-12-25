@@ -5,6 +5,7 @@ import React from "react";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
 import {cn, formatTime} from "@/lib/utils";
 import {usePreviewable} from "@/components/thread/mobile/sheet/Previewable";
+import {ThreadTags} from "@/components/thread/mobile/thread-card/common/ThreadTags";
 
 interface ThreadCardHeaderProps {
     className?: string;
@@ -32,6 +33,7 @@ export const ThreadPreviewHeader = ({className}: ThreadCardHeaderProps) => {
                         <Clock className="w-3 h-3"/>{formatTime(createdAt.toString())}
                     </span>
                 </div>
+                <ThreadTags tags={thread.tags} className="mt-1"/>
             </div>
         </div>
     );

@@ -17,7 +17,6 @@ const fileSchema = z
 
 export const createThreadSchema = z
     .object({
-        // tags: z.array(z.string()).max(3, {message: "3-ზე მეტი კატეგორია ვერ იქნება მონიშნული"}),
         title: z.string()
             .min(0, {message: "სათაური უნდა შედგებოდეს მინიმუმ 1 სიმბოლოსაგან"})
             .max(100, {message: "სათაური არ უნდა აღემატებოდეს 100 სიმბოლოს"}),
@@ -27,5 +26,14 @@ export const createThreadSchema = z
         files: z
             .array(fileSchema)
             .max(MAX_FILES, `მაქსიმუმ ${MAX_FILES} ფაილის ატვირთვა შეგიძლიათ`)
+            .optional(),
+        tags: z
+            .array(z.string())
+            .max(3, {message: "მაქსიმუმ 3 თეგის მითითებაა შესაძლებელი"})
+            .default([])
+            .optional(),
+        pollOptions: z
+            .array(z.string())
+            .default([])
             .optional()
     });
