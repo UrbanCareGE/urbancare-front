@@ -10,7 +10,6 @@ import {
     PaintRollerIcon,
     PocketKnifeIcon,
     ScrollTextIcon,
-    SettingsIcon,
     ShieldAlertIcon
 } from "lucide-react";
 import React from "react";
@@ -18,12 +17,18 @@ import {NavigationLinkAccordion} from "@/components/home/sidebar/mobile/navigati
 import {SheetClose} from "@/components/ui/sheet";
 import {useParams} from "next/navigation";
 
+export type NavChildItem = {
+    href: string; // Relative to parent
+    label: string;
+}
+
 export type NavItem = {
     href: string;
     label: string;
     icon: React.ReactNode;
-    children?: NavItem[];
+    children?: NavChildItem[];
     className?: string;
+    navigable?: boolean; // If true with children, parent label navigates and only icon expands accordion
 }
 
 // Paths relative to /apartment/[apartmentId]/
@@ -35,85 +40,47 @@ const getNavigationItems = (apartmentId: string): NavItem[] => [
         className: 'bg-error-container text-error-container-foreground'
     },
     {
-        href: `/apartment/${apartmentId}/thread/news`,
+        href: `/apartment/${apartmentId}/post/news`,
         label: "სიახლეები",
         icon: <MegaphoneIcon/>,
         className: 'bg-primary-container/50 text-primary-container-foreground'
     },
     {
-        href: `/apartment/${apartmentId}/thread/services`,
+        href: `/apartment/${apartmentId}/post/services`,
         label: "სერვისები",
         icon: <PocketKnifeIcon/>,
         className: 'bg-secondary-container/50 text-secondary-container-foreground',
+        navigable: true,
         children: [
-            {
-                href: `/apartment/${apartmentId}/learn`,
-                label: "განათლება",
-                icon: <SettingsIcon/>,
-                className: 'bg-primary-container/50 text-primary-container-foreground'
-            },
-            {
-                href: `/apartment/${apartmentId}/sport`,
-                label: "ფიტნესი",
-                icon: <SettingsIcon/>,
-                className: 'bg-primary-container/50 text-primary-container-foreground'
-            },
-            {
-                href: `/apartment/${apartmentId}/vet`,
-                label: "ვეტი",
-                icon: <SettingsIcon/>,
-                className: 'bg-primary-container/50 text-primary-container-foreground'
-            },
-            {
-                href: `/apartment/${apartmentId}/craft`,
-                label: "ხელობა",
-                icon: <SettingsIcon/>,
-                className: 'bg-primary-container/50 text-primary-container-foreground'
-            },
-            {
-                href: `/apartment/${apartmentId}/other`,
-                label: "სხვა",
-                icon: <SettingsIcon/>,
-                className: 'bg-primary-container/50 text-primary-container-foreground'
-            },
+            {href: "learn", label: "განათლება"},
+            {href: "sport", label: "ფიტნესი"},
+            {href: "vet", label: "ვეტი"},
+            {href: "craft", label: "ხელობა"},
+            {href: "other", label: "სხვა"},
         ],
     },
     {
-        href: `/apartment/${apartmentId}/thread/requests`,
+        href: `/apartment/${apartmentId}/post/requests`,
         label: "მოთხოვნები",
         icon: <ClipboardListIcon/>,
         className: 'bg-primary-container/50 text-primary-container-foreground'
     },
     {
-        href: `/apartment/${apartmentId}/thread/active/labour`,
+        href: `/apartment/${apartmentId}/post/maintenance`,
         label: "მიმდინარე სამუშაოები",
         icon: <PaintRollerIcon/>,
         className: 'bg-primary-container/50 text-primary-container-foreground'
     },
     {
-        href: `/apartment/${apartmentId}/thread/notice`,
+        href: `/apartment/${apartmentId}/post/notice`,
         label: "განცხადებები",
         icon: <ScrollTextIcon/>,
         className: 'bg-primary-container/50 text-primary-container-foreground',
+        navigable: true,
         children: [
-            {
-                href: `/apartment/${apartmentId}/notice/apartment`,
-                label: "ბინა",
-                icon: <SettingsIcon/>,
-                className: 'bg-primary-container/50 text-primary-container-foreground'
-            },
-            {
-                href: `/apartment/${apartmentId}/notice/car`,
-                label: "მანქანა",
-                icon: <SettingsIcon/>,
-                className: 'bg-primary-container/50 text-primary-container-foreground'
-            },
-            {
-                href: `/apartment/${apartmentId}/notice/parking`,
-                label: "პარკინგი",
-                icon: <SettingsIcon/>,
-                className: 'bg-primary-container/50 text-primary-container-foreground'
-            },
+            {href: "apartment", label: "ბინა"},
+            {href: "car", label: "მანქანა"},
+            {href: "parking", label: "პარკინგი"},
         ]
     },
     {
@@ -128,24 +95,9 @@ const getNavigationItems = (apartmentId: string): NavItem[] => [
         icon: <BookOpenIcon/>,
         className: 'bg-primary-container/50 text-primary-container-foreground',
         children: [
-            {
-                href: `/apartment/${apartmentId}/info/contact`,
-                label: "კონტაქტები",
-                icon: <SettingsIcon/>,
-                className: 'bg-primary-container/50 text-primary-container-foreground'
-            },
-            {
-                href: `/apartment/${apartmentId}/info/docs`,
-                label: "წესდება",
-                icon: <SettingsIcon/>,
-                className: 'bg-primary-container/50 text-primary-container-foreground'
-            },
-            {
-                href: `/apartment/${apartmentId}/info/cars`,
-                label: "ავტომობილები",
-                icon: <SettingsIcon/>,
-                className: 'bg-primary-container/50 text-primary-container-foreground'
-            }
+            {href: "contact", label: "კონტაქტები"},
+            {href: "docs", label: "წესდება"},
+            {href: "cars", label: "ავტომობილები"},
         ]
     },
     {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useInView} from "react-intersection-observer";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {Card} from "@/components/ui/card";
@@ -8,22 +8,14 @@ import {cn} from "@/lib/utils";
 import {Thread} from "@/components/thread/mobile/thread-card/Thread";
 import {ThreadCreateForm} from "@/components/thread/mobile/ThreadCreateForm";
 import {useInfiniteThreads} from "@/hooks/query/use-fetch-threads";
-import {ThreadTagConfig, ThreadTagType, ThreadTagValue} from "@/model/thread.dto";
 
-const ALL_TAGS = Object.values(ThreadTagType);
+export interface ThreadFeedProps {
+    defaultTags?: string[];
+}
 
-export default function ThreadFeed() {
+export default function ThreadFeed({defaultTags = []}: ThreadFeedProps) {
     const {user, isLoading: isUserLoading} = useAuth();
     const apartmentId = user?.selectedApartment?.id;
-    const [selectedTags, setSelectedTags] = useState<string[]>([]);
-
-    const toggleTag = (tag: string) => {
-        setSelectedTags(prev =>
-            prev.includes(tag)
-                ? prev.filter(t => t !== tag)
-                : [...prev, tag]
-        );
-    };
 
     const {ref, inView} = useInView({
         threshold: 0.1,
@@ -33,18 +25,17 @@ export default function ThreadFeed() {
     const {
         data,
         error,
-        status,
         isLoading: isPostFetchLoading,
         isFetchingNextPage,
         hasNextPage,
         fetchNextPage,
         refetch
-    } = useInfiniteThreads(apartmentId, selectedTags.length > 0 ? selectedTags : undefined);
+    } = useInfiniteThreads(apartmentId, defaultTags.length > 0 ? defaultTags : undefined);
 
     // Refetch when tags change
     useEffect(() => {
         refetch();
-    }, [selectedTags, refetch]);
+    }, [defaultTags, refetch]);
 
     useEffect(() => {
         if (inView && hasNextPage && !isFetchingNextPage) {
@@ -79,31 +70,6 @@ export default function ThreadFeed() {
         <div className="flex-1 overflow-y-scroll space-y-4 py-4">
             <div className="max-w-2xl mx-auto px-3">
                 <ThreadCreateForm/>
-            </div>
-
-            {/* Tag Filter */}
-            <div className="max-w-2xl mx-auto px-3">
-                <div className="flex flex-wrap gap-2">
-                    {ALL_TAGS.map((tag) => {
-                        const config = ThreadTagConfig[tag as ThreadTagValue];
-                        const isSelected = selectedTags.includes(tag);
-                        return (
-                            <button
-                                key={tag}
-                                type="button"
-                                onClick={() => toggleTag(tag)}
-                                className={cn(
-                                    'px-3 py-1 rounded-full text-sm font-medium transition-all',
-                                    isSelected
-                                        ? `${config.bg} ${config.text}`
-                                        : 'border border-slate-200 bg-white text-slate-600 hover:border-slate-300'
-                                )}
-                            >
-                                {config.label}
-                            </button>
-                        );
-                    })}
-                </div>
             </div>
 
             {data?.pages.map((page) => (
