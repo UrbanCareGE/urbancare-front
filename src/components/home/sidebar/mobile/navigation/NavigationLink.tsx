@@ -26,7 +26,7 @@ export const NavigationLink = forwardRef<HTMLAnchorElement, NavigationLinkProps>
                     ref={ref}
                     {...props}
                     className={cn(
-                        "h-9 group w-full flex items-center gap-2 rounded-panel px-1", className,)}
+                        "h-9 group flex items-center gap-2 rounded-panel px-1", className,)}
                     aria-current={isActive ? "page" : undefined}
                 >
                     {navigationItem.icon && (

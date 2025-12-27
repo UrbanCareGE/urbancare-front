@@ -8,10 +8,10 @@ import {cn} from "@/lib/utils";
 import {useMobileScroll} from "@/hooks/use-mobile-scroll";
 
 interface NavItem {
-    path: string; // relative path within apartment (empty string for home)
+    path: string;
     icon: LucideIcon;
     label: string;
-    isAbsolute?: boolean; // for routes outside apartment like /profile
+    isAbsolute?: boolean;
 }
 
 const NAV_ITEMS: NavItem[] = [
@@ -19,12 +19,13 @@ const NAV_ITEMS: NavItem[] = [
     {path: "urgent", icon: ShieldAlert, label: "Urgent"},
     {path: "", icon: SendIcon, label: "Chat"},
     {path: "news", icon: Newspaper, label: "News"},
-    {path: "/profile", icon: CircleUser, label: "Profile", isAbsolute: true},
+    {path: "profile", icon: CircleUser, label: "Profile"},
 ];
 
 export const MobileNavBar = ({className}: Basic) => {
     const pathname = usePathname();
     const {apartmentId} = useParams<{ apartmentId: string }>();
+    console.log(apartmentId);
 
     const getHref = (item: NavItem) => {
         if (item.isAbsolute) return item.path;
@@ -82,9 +83,7 @@ export const MobileNavBar = ({className}: Basic) => {
                                 aria-label={item.label}
                             >
                                 <Icon
-                                    className={`transition-colors duration-300 ${
-                                        isItemActive ? "text-white" : "text-icon"
-                                    }`}
+                                    className={cn('transition-colors duration-300 text-icon', {'text-white': isItemActive})}
                                     size={26}
                                 />
                             </Link>

@@ -31,15 +31,15 @@ export const MobileThemeSelector = () => {
                     onClick={() => setTheme(id)}
                     className={`h-auto flex-1 flex items-center justify-center px-2 py-3 rounded-lg transition-all ${
                         theme === id
-                            ? 'bg-indigo-50 border-2 border-indigo-500'
-                            : 'bg-gray-50 border-2 border-gray-200'
+                            ? 'bg-primary-container/30 border-2 border-primary'
+                            : 'bg-surface-variant/50 border-2 border-gray-200'
                     }`}
                 >
                     <div className="w-full h-full flex flex-col items-center justify-center gap-1">
-                        <Icon className={cn('w-6 h-6 text-gray-600',
+                        <Icon className={cn('w-6 h-6 text-foreground-primary',
                             {
                                 'text-yellow-500': id === 'light',
-                                'text-indigo-600': id === 'dark',
+                                'text-primary': id === 'dark',
                             }
                         )}/>
                         <span className="text-center text-base font-base text-gray-800">{label}</span>

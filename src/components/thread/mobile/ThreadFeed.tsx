@@ -7,18 +7,16 @@ import {Card} from "@/components/ui/card";
 import {cn} from "@/lib/utils";
 import {Thread} from "@/components/thread/mobile/thread-card/Thread";
 import {ThreadCreateForm} from "@/components/thread/mobile/ThreadCreateForm";
-<<<<<<< Updated upstream
-import {useInfiniteThreads} from "@/hooks/query/use-fetch-threads";
-=======
 import {useInfiniteThreads} from "@/hooks/query/thread/use-fetch-threads";
-import {ThreadTagConfig, ThreadTagType, ThreadTagValue} from "@/model/thread.dto";
->>>>>>> Stashed changes
+import {useSearchParams} from "next/dist/client/components/navigation";
 
 export interface ThreadFeedProps {
     defaultTags?: string[];
 }
 
 export default function ThreadFeed({defaultTags = []}: ThreadFeedProps) {
+    const searchParams = useSearchParams();
+    const queryThreadId = searchParams.get('threadId');
     const {user, isLoading: isUserLoading} = useAuth();
     const apartmentId = user?.selectedApartment?.id;
 
@@ -80,11 +78,16 @@ export default function ThreadFeed({defaultTags = []}: ThreadFeedProps) {
             {data?.pages.map((page) => (
                 <div key={page.number} className="max-w-2xl mx-auto px-3 space-y-4">
                     {page.content.map((threadId) => {
-                            return (<Thread key={threadId} threadId={threadId}/>)
+                            return (<Thread key={threadId} threadId={threadId} defaultOpen={false}/>)
                         }
                     )}
                 </div>
             ))}
+
+            {queryThreadId != null &&
+                <Thread key={queryThreadId} threadId={queryThreadId} defaultOpen={true}/>
+            }
+
 
             {isFetchingNextPage && <LoadingSkeleton/>}
             {hasNextPage && <div ref={ref} className="h-20"/>}

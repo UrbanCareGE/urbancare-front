@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
                 pathname: '**',
             }
         ],
-        dangerouslyAllowSVG: true,
+        dangerouslyAllowLocalIP: true
     },
     allowedDevOrigins: ['shanna-unidentical-mechelle.ngrok-free.dev', 'http://192.168.100.5:3000', 'http://localhost:3000']
 };

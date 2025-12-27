@@ -20,6 +20,7 @@ import {useThreadDetails} from "@/hooks/query/thread/use-thread-details";
 
 interface ThreadPreviewProps {
     threadId: string;
+    defaultOpen: boolean;
 }
 
 function ThreadSkeleton() {
@@ -40,7 +41,7 @@ function ThreadSkeleton() {
     );
 }
 
-export const Thread = ({threadId}: ThreadPreviewProps) => {
+export const Thread = ({threadId, defaultOpen}: ThreadPreviewProps) => {
     const {data, isPending, error} = useThreadDetails(threadId);
 
     if (isPending) {
@@ -52,7 +53,7 @@ export const Thread = ({threadId}: ThreadPreviewProps) => {
     }
 
     return (
-        <Previewable>
+        <Previewable defaultOpen={defaultOpen}>
             <ThreadCard thread={data} className={"px-0"}>
                 <ThreadCard.Header className={"px-3"}>
                     <ThreadPreviewHeader/>

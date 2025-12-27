@@ -24,10 +24,11 @@ export function usePreviewable() {
 
 interface PreviewableRootProps {
     children: React.ReactNode;
+    defaultOpen: boolean;
 }
 
-const PreviewableRoot = ({children}: PreviewableRootProps) => {
-    const [isOpen, setIsOpen] = useState(false);
+const PreviewableRoot = ({children, defaultOpen = false}: PreviewableRootProps) => {
+    const [isOpen, setIsOpen] = useState(defaultOpen);
 
     const sheetValue: PreviewableCardContextValue = {
         isOpen,
@@ -68,7 +69,7 @@ interface PreviewableHeaderProps {
     children: React.ReactNode;
 }
 
-const PreviewableHeader = ({className, children}: PreviewableHeaderProps) => {
+const PreviewableHeader = ({className, children, onClose}: PreviewableHeaderProps) => {
     return <div className={cn("flex items-center h-16 w-full px-3 bg-white border-b", className)}>
         {children}
         <SheetClose className="shrink-0 ml-auto">

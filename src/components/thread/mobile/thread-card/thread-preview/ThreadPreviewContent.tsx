@@ -16,7 +16,7 @@ export const ThreadPreviewContent = ({className}: ThreadCardContentProps) => {
     const {openView} = usePreviewable();
 
     return (
-        <div className={`flex flex-col w-full ${className || ''}`}>
+        <div className={`flex flex-col gap-5 ${className || ''}`}>
             {/* Title - max 3 lines with ellipsis */}
             {thread.title && (
                 <h2 className="text-lg font-semibold text-sky-950 mb-2 line-clamp-3">
@@ -24,31 +24,17 @@ export const ThreadPreviewContent = ({className}: ThreadCardContentProps) => {
                 </h2>
             )}
 
-            {/* Content - truncated after 3-4 lines with ellipsis */}
             <p className="text-sky-950 leading-relaxed whitespace-pre-wrap line-clamp-3" onClick={openView}>
                 {thread.content}
             </p>
 
-            {/* Poll images */}
             {thread.imageIds &&
                 <ThreadImagePreview imageLinks={thread.imageIds.map(id => getClientFileUrl(id))}/>
             }
 
-            {/* Poll display */}
             {thread.poll && (
                 <PollDisplay thread={thread} className="mt-3"/>
             )}
-
-            {/* Image - commented for full view only */}
-            {/*{thread. && (*/}
-            {/*    <div className="pb-3">*/}
-            {/*        <img*/}
-            {/*            src={thread.image}*/}
-            {/*            alt="Thread content"*/}
-            {/*            className="w-full rounded-2xl object-cover max-h-80"*/}
-            {/*        />*/}
-            {/*    </div>*/}
-            {/*)}*/}
 
         </div>
     );
