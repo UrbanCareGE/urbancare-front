@@ -6,14 +6,19 @@ const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/web
 const ACCEPTED_VIDEO_TYPES = ["video/mp4", "video/webm", "video/quicktime"];
 const ACCEPTED_FILE_TYPES = [...ACCEPTED_IMAGE_TYPES, ...ACCEPTED_VIDEO_TYPES];
 
-const fileSchema = z
-    .instanceof(File)
-    .refine((file) => file.size <= MAX_FILE_SIZE, {
-        message: `ფაილის ზომა არ უნდა აღემატებოდეს ${MAX_FILE_SIZE / 1024 / 1024}MB-ს`,
-    })
-    .refine((file) => ACCEPTED_FILE_TYPES.includes(file.type), {
-        message: "მხარდაჭერილია მხოლოდ სურათები და ვიდეოები",
-    });
+const fileEntrySchema = z.object({
+    file: z.instanceof(File)
+        .refine((file) => file.size <= MAX_FILE_SIZE, {
+            message: `ფაილის ზომა არ უნდა აღემატებოდეს ${MAX_FILE_SIZE / 1024 / 1024}MB-ს`,
+        })
+        .refine((file) => ACCEPTED_FILE_TYPES.includes(file.type), {
+            message: "მხარდაჭერილია მხოლოდ სურათები და ვიდეოები",
+        }),
+    fileId: z.string().nullable(),
+    previewUrl: z.string(),
+})
+
+export type FileEntry = z.infer<typeof fileEntrySchema>;
 
 export const createThreadSchema = z
     .object({
@@ -24,9 +29,8 @@ export const createThreadSchema = z
             .min(0, {message: "კონტენტი უნდა შედგებოდეს მინიმუმ 0 ასოსგან"})
             .max(2000, {message: "კონტენტი უნდა შედგებოდეს mაქსიმუმ 2000 ასოსგან"}),
         files: z
-            .array(fileSchema)
-            .max(MAX_FILES, `მაქსიმუმ ${MAX_FILES} ფაილის ატვირთვა შეგიძლიათ`)
-            .optional(),
+            .array(fileEntrySchema)
+            .max(MAX_FILES, `მაქსიმუმ ${MAX_FILES} ფაილის ატვირთვა შეგიძლიათ`),
         tags: z
             .array(z.string())
             .max(3, {message: "მაქსიმუმ 3 თეგის მითითებაა შესაძლებელი"})

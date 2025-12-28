@@ -4,7 +4,6 @@ import {
     ThreadPreviewCommentButton
 } from "@/components/thread/mobile/thread-card/thread-preview/button/ThreadCommentButton";
 import {ThreadUpvoteButton} from "@/components/thread/mobile/thread-card/thread-preview/button/ThreadUpvoteButton";
-import {ThreadDownvoteButton} from "@/components/thread/mobile/thread-card/thread-preview/button/ThreadDownvoteButton";
 
 export const ThreadPreviewActionSection = () => {
     return (

@@ -5,8 +5,20 @@ import {CreateThreadButton} from "@/components/thread/mobile/CreateThreadButton"
 import ThreadForm from "@/components/thread/mobile/thread-form/ThreadForm";
 import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
-import {DrawerClose, DrawerTitle} from "@/components/ui/drawer";
-import {BarChart2, Check, FileText, Image as ImageIconLucide, Info, Plus, Sparkles, Tag, Upload, Video, X} from "lucide-react";
+import {DrawerClose} from "@/components/ui/drawer";
+import {
+    BarChart2,
+    Check,
+    FileText,
+    Image as ImageIconLucide,
+    Info,
+    Plus,
+    Sparkles,
+    Tag,
+    Upload,
+    Video,
+    X
+} from "lucide-react";
 import {useCreateThread} from "@/hooks/query/thread/use-create-thread";
 import {ThreadTagConfig, ThreadTagType, ThreadTagValue} from "@/model/thread.dto";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
@@ -16,13 +28,22 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {SheetClose, SheetDescription, SheetFooter, SheetHeader, SheetTitle} from "@/components/ui/sheet";
 import {cn} from "@/lib/utils";
 import {Switch} from "@/components/ui/switch";
-import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/dialog";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle
+} from "@/components/ui/dialog";
+import {FileService} from "@/service/file-service";
+import {FileEntry} from "@/components/thread/mobile/data/create-thread-schema";
 
 const ALL_TAGS = Object.values(ThreadTagType);
 
 export const ThreadCreateForm = () => {
+    const [fileUploading, setFileUploading] = useState(false);
     const {form, onSubmit, isPending, isError, error} = useCreateThread();
-    const [previewUrls, setPreviewUrls] = useState<string[]>([]);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const {isMobile} = useDevice();
 
@@ -39,52 +60,87 @@ export const ThreadCreateForm = () => {
     // Watch form values
     const titleLength = form.watch("title")?.length || 0;
     const bodyLength = form.watch("body")?.length || 0;
-    const files = form.watch("files") || [];
+    const fileEntries = form.watch("files") || [];
     const selectedTags = form.watch("tags") || [];
     const pollOptions = form.watch("pollOptions") || [];
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = Array.from(e.target.files || []);
+        if (selectedFiles.length === 0) return;
+
         const currentFiles = form.getValues("files") || [];
-        const newFiles = [...currentFiles, ...selectedFiles].slice(0, 5);
 
-        // Update form field
-        form.setValue("files", newFiles, {shouldValidate: true});
+        const availableSlots = 5 - currentFiles.length;
+        const filesToAdd = selectedFiles.slice(0, availableSlots);
 
-        // Clean up old preview URLs
-        previewUrls.forEach(url => URL.revokeObjectURL(url));
+        const newEntries: FileEntry[] = filesToAdd.map((file) => ({
+            file,
+            fileId: null,
+            previewUrl: URL.createObjectURL(file),
+        }));
 
-        // Create new preview URLs
-        const urls = newFiles.map(file => URL.createObjectURL(file));
-        setPreviewUrls(urls);
+        // Add to form immediately (shows preview with loading state)
+        const updatedFiles = [...currentFiles, ...newEntries];
+        form.setValue("files", updatedFiles, {shouldValidate: true});
 
-        // Clear the input
+        // Clear input
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
         }
+
+        setFileUploading(true);
+
+        const results = await Promise.allSettled(
+            newEntries.map(async (entry, index) => {
+                const result = await FileService.uploadPublicFile(entry.file);
+                return {index: currentFiles.length + index, fileId: result.id};
+            })
+        );
+
+        const currentFormFiles = form.getValues("files") || [];
+        const updatedFormFiles = currentFormFiles.map((f, i) => {
+            const success = results.find(
+                (r) => r.status === 'fulfilled' && r.value.index === i
+            );
+            const failed = results.find(
+                (r) => r.status === 'rejected' // need to track index differently
+            );
+
+            if (success && success.status === 'fulfilled') {
+                return {...f, fileId: success.value.fileId, status: 'success' as const};
+            }
+            // handle errors...
+            return f;
+        });
+        form.setValue("files", updatedFormFiles, {shouldValidate: true});
+
+        setFileUploading(false);
     };
 
     const handleRemoveFile = (index: number) => {
         const currentFiles = form.getValues("files") || [];
-        const newFiles = currentFiles.filter((_, i) => i !== index);
-        const newUrls = previewUrls.filter((_, i) => i !== index);
+        const fileToRemove = currentFiles[index];
 
-        // Revoke the removed URL
-        if (previewUrls[index]) {
-            URL.revokeObjectURL(previewUrls[index]);
+        // Revoke preview URL
+        if (fileToRemove?.previewUrl) {
+            URL.revokeObjectURL(fileToRemove.previewUrl);
         }
 
-        // Update form field
+        // Remove from form
+        const newFiles = currentFiles.filter((_, i) => i !== index);
         form.setValue("files", newFiles, {shouldValidate: true});
-        setPreviewUrls(newUrls);
     };
 
-    // Cleanup on unmount
     React.useEffect(() => {
         return () => {
-            previewUrls.forEach(url => URL.revokeObjectURL(url));
+            const files = form.getValues("files") || [];
+            files.forEach(file => {
+                if (file.previewUrl) {
+                    URL.revokeObjectURL(file.previewUrl);
+                }
+            });
         };
-    }, [previewUrls]);
+    }, []);
 
     // Poll handlers
     const handleAddPollOption = () => {
@@ -214,7 +270,9 @@ export const ThreadCreateForm = () => {
                                                 <Info className="w-4 h-4 text-slate-400"/>
                                             </PopoverTrigger>
                                             <PopoverContent className="bg-tooltip text-slate-50 text-center">
-                                                თეგი გაძლევთ საშუალებას თქვენი პოსტი გახდეს უფრო სპეციფიური, თუ მიუთითებთ შესაბამის თეგებს, პოსტი გამოჩნდება შესაბამისი ძებნის ფილტრების მითითების შემდეგაც
+                                                თეგი გაძლევთ საშუალებას თქვენი პოსტი გახდეს უფრო სპეციფიური, თუ
+                                                მიუთითებთ შესაბამის თეგებს, პოსტი გამოჩნდება შესაბამისი ძებნის ფილტრების
+                                                მითითების შემდეგაც
                                             </PopoverContent>
                                         </Popover>
                                     ) : (
@@ -293,7 +351,7 @@ export const ThreadCreateForm = () => {
                                                 მედია ფაილები
                                             </FormLabel>
                                             <span className="text-xs text-slate-500">
-                                                {files.length}/5 ფაილი
+                                                {fileEntries.length}/5 ფაილი
                                             </span>
                                         </div>
 
@@ -313,7 +371,7 @@ export const ThreadCreateForm = () => {
                                                 type="button"
                                                 variant="outline"
                                                 onClick={() => fileInputRef.current?.click()}
-                                                disabled={files.length >= 5 || isPending}
+                                                disabled={fileEntries.length >= 5 || isPending}
                                                 className="w-full h-auto border-2 border-dashed border-slate-300 hover:border-primary hover:bg-primary/5 transition-all group"
                                             >
                                                 <div className="flex flex-col items-center gap-2">
@@ -334,13 +392,13 @@ export const ThreadCreateForm = () => {
                                             </Button>
 
                                             {/* File Preview */}
-                                            {files.length > 0 && previewUrls.length > 0 && (
+                                            {fileEntries.length > 0 && (
                                                 <div className="space-y-2">
                                                     <div className="flex items-center justify-between px-1">
                                                         <p className="text-xs font-medium text-slate-600">
                                                             ატვირთული ფაილები
                                                         </p>
-                                                        {files.length > 3 && (
+                                                        {fileEntries.length > 3 && (
                                                             <p className="text-xs text-slate-400">
                                                                 ← გადაფურცლეთ →
                                                             </p>
@@ -349,7 +407,7 @@ export const ThreadCreateForm = () => {
 
                                                     <div className="relative">
                                                         {/* Gradient overlays */}
-                                                        {files.length > 3 && (
+                                                        {fileEntries.length > 3 && (
                                                             <>
                                                                 <div
                                                                     className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none rounded-l-xl"/>
@@ -362,9 +420,9 @@ export const ThreadCreateForm = () => {
                                                         <div
                                                             className="overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide bg-slate-50 rounded-xl p-3">
                                                             <div className="flex gap-3">
-                                                                {files.map((file, index) => {
+                                                                {fileEntries.map((file, index) => {
                                                                     // Safety check
-                                                                    if (!file || !previewUrls[index]) return null;
+                                                                    if (!file || !fileEntries[index].previewUrl) return null;
 
                                                                     return (
                                                                         <div
@@ -373,9 +431,9 @@ export const ThreadCreateForm = () => {
                                                                         >
                                                                             <div
                                                                                 className="w-20 h-20 rounded-lg overflow-hidden bg-white border-2 border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 hover:border-primary/50 relative">
-                                                                                {file.type.startsWith('image/') ? (
+                                                                                {file.file.type.startsWith('image/') ? (
                                                                                     <img
-                                                                                        src={previewUrls[index]}
+                                                                                        src={fileEntries[index].previewUrl}
                                                                                         alt={`Preview ${index + 1}`}
                                                                                         className="w-full h-full object-cover"
                                                                                     />
@@ -402,7 +460,7 @@ export const ThreadCreateForm = () => {
                                                                                     <div
                                                                                         className="absolute bottom-1 left-1 right-1">
                                                                                         <p className="text-xs font-medium text-white truncate">
-                                                                                            {(file.size / 1024 / 1024).toFixed(1)} MB
+                                                                                            {(file.file.size / 1024 / 1024).toFixed(1)} MB
                                                                                         </p>
                                                                                     </div>
                                                                                 </div>
@@ -476,7 +534,8 @@ export const ThreadCreateForm = () => {
                                                             onClick={() => setEditingIndex(index)}
                                                             className="flex items-center justify-between p-2 bg-white rounded-md border border-slate-200 cursor-pointer hover:border-primary/50 transition-colors"
                                                         >
-                                                            <span className="text-sm text-slate-700">{index + 1}) {option}</span>
+                                                            <span
+                                                                className="text-sm text-slate-700">{index + 1}) {option}</span>
                                                             <button
                                                                 type="button"
                                                                 onClick={(e) => {
@@ -559,7 +618,7 @@ export const ThreadCreateForm = () => {
                             <div className="space-y-2">
                                 <Button
                                     type="submit"
-                                    disabled={isPending || !bodyLength}
+                                    disabled={isPending || !bodyLength || fileUploading}
                                     className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg shadow-primary/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {isPending ? (

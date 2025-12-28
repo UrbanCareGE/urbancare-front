@@ -6,7 +6,6 @@ import {UserAvatar} from "@/components/common/avatar/UserAvatar";
 import {ThreadCommentReply} from "@/components/thread/mobile/thread-card/thread-view/comment/ThreadCommentReply";
 import {ReplyInput} from "@/components/thread/mobile/thread-card/thread-view/comment/ThreadReplyInput";
 
-
 type ThreadCommentProps = {
     comment: ThreadCommentDTO;
     onReply?: (commentId: string, replyText: string) => void;

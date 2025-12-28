@@ -5,10 +5,8 @@ import {InfiniteData, useMutation, useQueryClient} from "@tanstack/react-query";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
-import {useState} from "react";
 import {createThreadSchema} from "@/components/thread/mobile/data/create-thread-schema";
 import {ThreadService} from "@/service/thread-service";
-import {FileService} from "@/service/file-service";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {PagingRespDTO} from "@/model/common.dto";
 import {ThreadInfoDTO} from "@/model/thread.dto";
@@ -16,7 +14,6 @@ import {ThreadInfoDTO} from "@/model/thread.dto";
 export function useCreateThread() {
     const queryClient = useQueryClient();
     const {user} = useAuth();
-    const [uploadedFileIds, setUploadedFileIds] = useState<string[]>([]);
 
     const form = useForm<z.infer<typeof createThreadSchema>>({
         resolver: zodResolver(createThreadSchema),
@@ -29,31 +26,7 @@ export function useCreateThread() {
         },
     });
 
-    // Mutation 1: Upload files
-    const uploadFilesMutation = useMutation({
-        mutationFn: async (files: File[]): Promise<string[]> => {
-            console.log(`Uploading ${files.length} files...`);
-
-            const uploadPromises = files.map(file =>
-                FileService.uploadPublicFile(file)
-            );
-
-            const results = await Promise.all(uploadPromises);
-            const fileIds = results.map(result => result.id);
-
-            console.log('Files uploaded:', fileIds);
-            return fileIds;
-        },
-        onSuccess: (fileIds) => {
-            setUploadedFileIds(fileIds);
-        },
-        onError: (error) => {
-            console.error('File upload failed:', error);
-        }
-    });
-
-    // Mutation 2: Create thread
-    const createThreadMutation = useMutation({
+    const {mutate, mutateAsync, isError, isPending, error} = useMutation({
         mutationFn: async ({
                                apartmentId,
                                title,
@@ -69,7 +42,6 @@ export function useCreateThread() {
             tags?: string[];
             poll?: { title: string, items: string[] | undefined };
         }) => {
-            console.log('Creating thread with file IDs:', imageIds);
             return await ThreadService.add(apartmentId, {
                 title,
                 content,
@@ -112,14 +84,12 @@ export function useCreateThread() {
                 threadInfo
             )
             form.reset();
-            setUploadedFileIds([]);
         },
         onError: (error) => {
             console.error('Thread creation failed:', error);
         }
     });
 
-    // Orchestrate both mutations
     const onSubmit = async (values: z.infer<typeof createThreadSchema>) => {
         if (!user?.selectedApartment?.id) {
             console.error("No apartment selected");
@@ -127,18 +97,11 @@ export function useCreateThread() {
         }
 
         try {
-            // Step 1: Upload files if any
-            let fileIds: string[] = [];
-            if (values.files && values.files.length > 0) {
-                fileIds = await uploadFilesMutation.mutateAsync(values.files);
-            }
-
-            // Step 2: Create thread with file IDs, tags, and poll from form values
-            await createThreadMutation.mutateAsync({
+            await mutateAsync({
                 apartmentId: user.selectedApartment.id,
                 title: values.title,
                 content: values.body,
-                imageIds: fileIds,
+                imageIds: values.files?.map(f => f.fileId) ?? [],
                 tags: values.tags,
                 poll: values.pollOptions != null && values.pollOptions.length > 0 ? {
                     title: "",
@@ -150,21 +113,13 @@ export function useCreateThread() {
         }
     };
 
-    //Failed to instantiate ge.urbancare.core.poll.dto.PollProj using constructor fun `<init>
-    // (kotlin.String, kotlin.String, kotlin.collections.List<ge.urbancare.core.poll.dto.PollItemProj>, java.time.Instant): ge.urbancare.core.poll.dto.PollProj
-    // with arguments 694d18ce160aa38d2f3d23be,null,[PollItemProj(id=694d18ce160aa38d2f3d23bc, content=aaa, voters=[], voteCount=0), PollItemProj(id=694d18ce160aa38d2f3d23bd, content=bbb, voters=[UserInfoRes(id=6900f420c681131f8dd0135c, name=ლევან, surname=აფაქიძე, profileImageId=694bfcddec9c691700e8b688)], voteCount=1)],2025-12-25T10:58:22.700Z
-
-    const isPending = uploadFilesMutation.isPending || createThreadMutation.isPending;
-    const isError = uploadFilesMutation.isError || createThreadMutation.isError;
-    const error = uploadFilesMutation.error || createThreadMutation.error;
-
     return {
         form,
+        mutate,
+        mutateAsync,
         onSubmit,
         isPending,
         isError,
         error,
-        uploadFilesMutation,
-        createThreadMutation
     };
 }

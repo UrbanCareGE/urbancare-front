@@ -8,7 +8,6 @@ import {VoteType} from "@/model/thread.dto";
 
 export const ThreadUpvoteButton = ({className}: { className?: string }) => {
     const {thread} = useThread();
-    const likeId = thread.reactions.items.find(item => item.content === 'LIKE');
     const {vote} = useThreadVote();
 
     const isUpvoted = thread.selfVote === 1;
