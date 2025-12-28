@@ -5,8 +5,8 @@ import ReactQueryProvider from "@/components/provider/ReactQueryProvider";
 import MyThemeProvider from "@/components/common/provider/MyThemeProvider";
 import {headers} from "next/headers";
 import ResponsiveLayout from "@/components/common/ResponsiveLayout";
-import AuthProvider from "@/components/provider/AuthProvider";
 import {ChatProvider} from "@/components/provider/ChatProvider";
+import AuthProvider from "@/components/provider/AuthProvider";
 
 export const metadata: Metadata = {
     title: "urbancare",
@@ -21,7 +21,6 @@ export interface Basic {
     className?: string;
     children?: React.ReactNode;
 }
-
 
 export default async function RootLayout({children}: Children) {
     const headersList = await headers();

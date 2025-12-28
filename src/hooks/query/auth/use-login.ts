@@ -8,12 +8,10 @@ import {useMutation} from "@tanstack/react-query";
 import {ErrorResponse} from "@/model/common.dto";
 import {AuthService} from "@/service/auth-service";
 import {LoginDTO} from "@/model/auth.dto";
-import {useAuth} from "@/components/provider/AuthProvider";
 import {z} from "zod";
 
 export function useLogin() {
     const router = useRouter();
-    const {refetchUser} = useAuth();
 
     const form = useForm<z.infer<typeof LoginFormSchema>>({
         resolver: zodResolver(LoginFormSchema),
@@ -31,7 +29,6 @@ export function useLogin() {
         mutationFn: AuthService.login,
         onSuccess: () => {
             router.push("/")
-            refetchUser().then();
         },
         onError: (err) => {
             console.log(err)
