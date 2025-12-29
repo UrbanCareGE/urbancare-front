@@ -62,12 +62,12 @@ export default function AuthProvider({children}: { children: ReactNode }) {
     });
 
     // Redirect to login if on protected route and no user
-    useEffect(() => {
-        if (!isPublic && !isLoading && !user && error) {
-            fetch('/api/auth/logout', {method: 'POST', credentials: 'include'})
-                .finally(() => router.push('/login'));
-        }
-    }, [user, isLoading, error, isPublic, router]);
+    // useEffect(() => {
+    //     if (!isPublic && !isLoading && !user && error) {
+    //         fetch('/api/auth/logout', {method: 'POST', credentials: 'include'})
+    //             .finally(() => router.push('/login'));
+    //     }
+    // }, [user, isLoading, error, isPublic, router]);
 
 
     const loginMutation = useMutation({

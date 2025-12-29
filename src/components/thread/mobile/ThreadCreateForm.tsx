@@ -204,12 +204,12 @@ export const ThreadCreateForm = () => {
             </ThreadForm.Trigger>
             <ThreadForm.Sheet>
                 {/* Header */}
-                <SheetHeader className="border-b border-slate-200 px-3 py-3">
+                <SheetHeader className="border-b border px-3 py-3">
                     <SheetDescription className={"sr-only"}>ახალი პოსტის შექმნის ფორმა</SheetDescription>
                     <div className="flex items-center gap-2">
                         <div className={"w-8"}></div>
                         <div className={"mr-auto ml-auto"}>
-                            <SheetTitle className="text-lg font-semibold text-slate-900">
+                            <SheetTitle className="text-lg font-semibold text-foreground-primary">
                                 ახალი პოსტი
                             </SheetTitle>
                         </div>
@@ -232,15 +232,15 @@ export const ThreadCreateForm = () => {
                                     <FormItem>
                                         <div className="flex items-center justify-between mb-2">
                                             <FormLabel
-                                                className="text-sm font-medium text-slate-700 flex items-center gap-2">
-                                                <FileText className="w-4 h-4 text-slate-400"/>
-                                                ტექსტი <span className="text-red-500">*</span>
+                                                className="text-sm font-medium text-foreground-secondary flex items-center gap-2">
+                                                <FileText className="w-4 h-4 text-foreground-disabled"/>
+                                                ტექსტი <span className="text-error">*</span>
                                             </FormLabel>
                                             <span className={cn(
                                                 "text-xs font-medium transition-colors",
-                                                bodyLength > 1900 ? "text-red-600" :
-                                                    bodyLength > 1700 ? "text-amber-600" :
-                                                        "text-slate-400"
+                                                bodyLength > 1900 ? "text-error" :
+                                                    bodyLength > 1700 ? "text-warning" :
+                                                        "text-foreground-disabled"
                                             )}>
                                                 {bodyLength}/2000
                                             </span>
@@ -249,7 +249,7 @@ export const ThreadCreateForm = () => {
                                             <Textarea
                                                 placeholder="რას გააზიარებთ? გაგვიზიარეთ თქვენი აზრები, გამოცდილება ან შეკითხვა..."
                                                 disabled={isPending}
-                                                className="min-h-40 resize-none text-base border-slate-200 bg-white focus:border-primary focus:ring-primary/20 transition-all"
+                                                className="min-h-40 resize-none text-base border bg-surface focus:border-primary focus:ring-primary/20 transition-all"
                                                 maxLength={2000}
                                                 {...field}
                                             />
@@ -262,14 +262,14 @@ export const ThreadCreateForm = () => {
                             {/* Tag Selection Section */}
                             <div className="space-y-3">
                                 <div className="flex items-center gap-2">
-                                    <Tag className="w-4 h-4 text-slate-400"/>
-                                    <span className="text-sm font-medium text-slate-700">გახადეთ პოსტი სპეციფიური</span>
+                                    <Tag className="w-4 h-4 text-foreground-disabled"/>
+                                    <span className="text-sm font-medium text-foreground-secondary">გახადეთ პოსტი სპეციფიური</span>
                                     {isMobile ? (
                                         <Popover>
                                             <PopoverTrigger>
-                                                <Info className="w-4 h-4 text-slate-400"/>
+                                                <Info className="w-4 h-4 text-foreground-disabled"/>
                                             </PopoverTrigger>
-                                            <PopoverContent className="bg-tooltip text-slate-50 text-center">
+                                            <PopoverContent className="bg-tooltip text-primary-foreground text-center">
                                                 თეგი გაძლევთ საშუალებას თქვენი პოსტი გახდეს უფრო სპეციფიური, თუ
                                                 მიუთითებთ შესაბამის თეგებს, პოსტი გამოჩნდება შესაბამისი ძებნის ფილტრების
                                                 მითითების შემდეგაც
@@ -278,9 +278,9 @@ export const ThreadCreateForm = () => {
                                     ) : (
                                         <HoverCard>
                                             <HoverCardTrigger>
-                                                <Info className="w-4 h-4 text-slate-400"/>
+                                                <Info className="w-4 h-4 text-foreground-disabled"/>
                                             </HoverCardTrigger>
-                                            <HoverCardContent className="bg-slate-50 opacity-100">
+                                            <HoverCardContent className="bg-surface-variant opacity-100">
                                                 აირჩიეთ თეგები თქვენი პოსტისთვის
                                             </HoverCardContent>
                                         </HoverCard>
@@ -290,7 +290,7 @@ export const ThreadCreateForm = () => {
                                 {/* Selected tags */}
                                 <div className="space-y-2">
                                     {selectedTags.length === 0 ? (
-                                        <p className="text-sm text-slate-500">სპეციფიკაცია არ არის არჩეული</p>
+                                        <p className="text-sm text-foreground-tertiary">სპეციფიკაცია არ არის არჩეული</p>
                                     ) : (
                                         <div className="flex flex-wrap gap-2">
                                             {selectedTags.map((tag) => {
@@ -326,8 +326,8 @@ export const ThreadCreateForm = () => {
                                                     type="button"
                                                     onClick={() => handleSelectTag(tag)}
                                                     className={cn(
-                                                        'px-3 py-1 rounded-full text-sm font-medium border border-slate-200 bg-white text-slate-600 transition-all',
-                                                        'hover:border-slate-300 hover:bg-slate-50'
+                                                        'px-3 py-1 rounded-full text-sm font-medium border border bg-surface text-foreground-tertiary transition-all',
+                                                        'hover:border-hover hover:bg-surface-variant'
                                                     )}
                                                 >
                                                     {config.label}
@@ -346,11 +346,11 @@ export const ThreadCreateForm = () => {
                                     <FormItem>
                                         <div className="flex items-center justify-between mb-3">
                                             <FormLabel
-                                                className="text-sm font-medium text-slate-700 flex items-center gap-2">
-                                                <ImageIconLucide className="w-4 h-4 text-slate-400"/>
+                                                className="text-sm font-medium text-foreground-secondary flex items-center gap-2">
+                                                <ImageIconLucide className="w-4 h-4 text-foreground-disabled"/>
                                                 მედია ფაილები
                                             </FormLabel>
-                                            <span className="text-xs text-slate-500">
+                                            <span className="text-xs text-foreground-tertiary">
                                                 {fileEntries.length}/5 ფაილი
                                             </span>
                                         </div>
@@ -372,19 +372,19 @@ export const ThreadCreateForm = () => {
                                                 variant="outline"
                                                 onClick={() => fileInputRef.current?.click()}
                                                 disabled={fileEntries.length >= 5 || isPending}
-                                                className="w-full h-auto border-2 border-dashed border-slate-300 hover:border-primary hover:bg-primary/5 transition-all group"
+                                                className="w-full h-auto border-2 border-dashed border hover:border-primary hover:bg-primary/5 transition-all group"
                                             >
                                                 <div className="flex flex-col items-center gap-2">
                                                     <div
-                                                        className="w-10 h-10 rounded-full bg-slate-100 group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+                                                        className="w-10 h-10 rounded-full bg-surface-container group-hover:bg-primary/10 flex items-center justify-center transition-colors">
                                                         <Upload
-                                                            className="w-5 h-5 text-slate-600 group-hover:text-primary transition-colors"/>
+                                                            className="w-5 h-5 text-foreground-tertiary group-hover:text-primary transition-colors"/>
                                                     </div>
                                                     <div className="text-center">
-                                                        <p className="text-sm font-medium text-slate-700">
+                                                        <p className="text-sm font-medium text-foreground-secondary">
                                                             ფოტოს ან ვიდეოს ატვირთვა
                                                         </p>
-                                                        <p className="text-xs text-slate-500 mt-0.5">
+                                                        <p className="text-xs text-foreground-tertiary mt-0.5">
                                                             მაქს. 5 ფაილი, თითო 10MB-მდე
                                                         </p>
                                                     </div>
@@ -395,11 +395,11 @@ export const ThreadCreateForm = () => {
                                             {fileEntries.length > 0 && (
                                                 <div className="space-y-2">
                                                     <div className="flex items-center justify-between px-1">
-                                                        <p className="text-xs font-medium text-slate-600">
+                                                        <p className="text-xs font-medium text-foreground-tertiary">
                                                             ატვირთული ფაილები
                                                         </p>
                                                         {fileEntries.length > 3 && (
-                                                            <p className="text-xs text-slate-400">
+                                                            <p className="text-xs text-foreground-disabled">
                                                                 ← გადაფურცლეთ →
                                                             </p>
                                                         )}
@@ -410,15 +410,15 @@ export const ThreadCreateForm = () => {
                                                         {fileEntries.length > 3 && (
                                                             <>
                                                                 <div
-                                                                    className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none rounded-l-xl"/>
+                                                                    className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-surface to-transparent z-10 pointer-events-none rounded-l-xl"/>
                                                                 <div
-                                                                    className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none rounded-r-xl"/>
+                                                                    className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-surface to-transparent z-10 pointer-events-none rounded-r-xl"/>
                                                             </>
                                                         )}
 
                                                         {/* Scrollable container */}
                                                         <div
-                                                            className="overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide bg-slate-50 rounded-xl p-3">
+                                                            className="overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide bg-surface-variant rounded-xl p-3">
                                                             <div className="flex gap-3">
                                                                 {fileEntries.map((file, index) => {
                                                                     // Safety check
@@ -430,7 +430,7 @@ export const ThreadCreateForm = () => {
                                                                             className="flex-shrink-0 relative group"
                                                                         >
                                                                             <div
-                                                                                className="w-20 h-20 rounded-lg overflow-hidden bg-white border-2 border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 hover:border-primary/50 relative">
+                                                                                className="w-20 h-20 rounded-lg overflow-hidden bg-surface border-2 border shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 hover:border-primary/50 relative">
                                                                                 {file.file.type.startsWith('image/') ? (
                                                                                     <img
                                                                                         src={fileEntries[index].previewUrl}
@@ -439,9 +439,9 @@ export const ThreadCreateForm = () => {
                                                                                     />
                                                                                 ) : (
                                                                                     <div
-                                                                                        className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
+                                                                                        className="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface-container to-surface-container-high">
                                                                                         <Video
-                                                                                            className="w-8 h-8 text-slate-500"/>
+                                                                                            className="w-8 h-8 text-foreground-tertiary"/>
                                                                                     </div>
                                                                                 )}
 
@@ -449,7 +449,7 @@ export const ThreadCreateForm = () => {
                                                                                 <button
                                                                                     type="button"
                                                                                     onClick={() => handleRemoveFile(index)}
-                                                                                    className="absolute -top-2 -right-2 p-1.5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-red-600 hover:scale-110 shadow-lg z-20"
+                                                                                    className="absolute -top-2 -right-2 p-1.5 bg-error text-error-foreground rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-error-hover hover:scale-110 shadow-lg z-20"
                                                                                 >
                                                                                     <X className="w-3 h-3"/>
                                                                                 </button>
@@ -459,7 +459,7 @@ export const ThreadCreateForm = () => {
                                                                                     className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                                                                                     <div
                                                                                         className="absolute bottom-1 left-1 right-1">
-                                                                                        <p className="text-xs font-medium text-white truncate">
+                                                                                        <p className="text-xs font-medium text-primary-foreground truncate">
                                                                                             {(file.file.size / 1024 / 1024).toFixed(1)} MB
                                                                                         </p>
                                                                                     </div>
@@ -467,7 +467,7 @@ export const ThreadCreateForm = () => {
 
                                                                                 {/* Index badge */}
                                                                                 <div
-                                                                                    className="absolute top-1 left-1 w-5 h-5 bg-primary text-white text-xs rounded-full flex items-center justify-center font-semibold shadow-sm">
+                                                                                    className="absolute top-1 left-1 w-5 h-5 bg-primary text-primary-foreground text-xs rounded-full flex items-center justify-center font-semibold shadow-sm">
                                                                                     {index + 1}
                                                                                 </div>
                                                                             </div>
@@ -490,8 +490,8 @@ export const ThreadCreateForm = () => {
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2">
-                                        <BarChart2 className="w-4 h-4 text-slate-400"/>
-                                        <span className="text-sm font-medium text-slate-700">გამოკითხვა</span>
+                                        <BarChart2 className="w-4 h-4 text-foreground-disabled"/>
+                                        <span className="text-sm font-medium text-foreground-secondary">გამოკითხვა</span>
                                     </div>
                                     <Button
                                         type="button"
@@ -505,10 +505,10 @@ export const ThreadCreateForm = () => {
                                 </div>
 
                                 {isPollMode && (
-                                    <div className="space-y-3 p-4 bg-slate-50 rounded-lg border border-slate-200">
+                                    <div className="space-y-3 p-4 bg-surface-variant rounded-lg border border">
                                         {/* Allow others toggle */}
                                         <div className="flex items-center justify-between">
-                                            <span className="text-sm text-sky-900">
+                                            <span className="text-sm text-foreground-primary">
                                                 სხვებს შეუძლიათ ვარიანტების დამატება
                                             </span>
                                             <Switch
@@ -532,19 +532,19 @@ export const ThreadCreateForm = () => {
                                                         <div
                                                             key={index}
                                                             onClick={() => setEditingIndex(index)}
-                                                            className="flex items-center justify-between p-2 bg-white rounded-md border border-slate-200 cursor-pointer hover:border-primary/50 transition-colors"
+                                                            className="flex items-center justify-between p-2 bg-surface rounded-md border border cursor-pointer hover:border-primary/50 transition-colors"
                                                         >
                                                             <span
-                                                                className="text-sm text-slate-700">{index + 1}) {option}</span>
+                                                                className="text-sm text-foreground-secondary">{index + 1}) {option}</span>
                                                             <button
                                                                 type="button"
                                                                 onClick={(e) => {
                                                                     e.stopPropagation();
                                                                     handleRemovePollOption(index);
                                                                 }}
-                                                                className="p-1 hover:bg-slate-100 rounded transition-colors"
+                                                                className="p-1 hover:bg-surface-container rounded transition-colors"
                                                             >
-                                                                <X className="w-4 h-4 text-slate-500"/>
+                                                                <X className="w-4 h-4 text-foreground-tertiary"/>
                                                             </button>
                                                         </div>
                                                     )
@@ -560,29 +560,29 @@ export const ThreadCreateForm = () => {
                                                     value={currentOption}
                                                     onChange={(e) => setCurrentOption(e.target.value)}
                                                     placeholder="ვარიანტის ტექსტი..."
-                                                    className="flex-1 px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                                                    className="flex-1 px-3 py-2 text-sm border border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                                                     autoFocus
                                                 />
                                                 <button
                                                     type="button"
                                                     onClick={handleAddPollOption}
-                                                    className="w-8 h-8 flex justify-center items-center bg-green-500 rounded-full"
+                                                    className="w-8 h-8 flex justify-center items-center bg-success rounded-full"
                                                 >
-                                                    <Check size={18} className="text-white"/>
+                                                    <Check size={18} className="text-success-foreground"/>
                                                 </button>
                                                 <button
                                                     type="button"
                                                     onClick={handleCancelAddOption}
-                                                    className="w-8 h-8 flex justify-center items-center bg-red-500 rounded-full"
+                                                    className="w-8 h-8 flex justify-center items-center bg-error rounded-full"
                                                 >
-                                                    <X size={18} className="text-white"/>
+                                                    <X size={18} className="text-error-foreground"/>
                                                 </button>
                                             </div>
                                         ) : (
                                             <button
                                                 type="button"
                                                 onClick={() => setIsAddingOption(true)}
-                                                className="flex items-center gap-2 w-full p-2 text-sm text-sky-950 hover:text-slate-800 bg-white rounded-md border border-dashed border-slate-300 transition-colors"
+                                                className="flex items-center gap-2 w-full p-2 text-sm text-foreground-primary hover:text-foreground-secondary bg-surface rounded-md border border-dashed border transition-colors"
                                             >
                                                 <Plus size={16}/>
                                                 ვარიანტის დამატება
@@ -594,17 +594,17 @@ export const ThreadCreateForm = () => {
 
                             {/* Error Message */}
                             {isError && (
-                                <div className="rounded-lg bg-red-50 border border-red-200 p-4">
+                                <div className="rounded-lg bg-error-background border border-error p-4">
                                     <div className="flex items-start gap-3">
                                         <div
-                                            className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            <X className="w-3 h-3 text-red-600"/>
+                                            className="w-5 h-5 rounded-full bg-error-container flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <X className="w-3 h-3 text-error"/>
                                         </div>
                                         <div className="flex-1">
-                                            <p className="text-sm font-medium text-red-900">
+                                            <p className="text-sm font-medium text-error">
                                                 დაფიქსირდა შეცდომა
                                             </p>
-                                            <p className="text-xs text-red-700 mt-1">
+                                            <p className="text-xs text-error mt-1">
                                                 {(error as Error)?.message || 'გთხოვთ სცადოთ თავიდან'}
                                             </p>
                                         </div>
@@ -614,7 +614,7 @@ export const ThreadCreateForm = () => {
                         </div>
 
                         {/* Footer with Submit Button */}
-                        <SheetFooter className="border-t border-slate-200 px-6 py-4 bg-slate-50/50 mt-auto">
+                        <SheetFooter className="border-t border px-6 py-4 bg-surface-variant/50 mt-auto">
                             <div className="space-y-2">
                                 <Button
                                     type="submit"
@@ -636,7 +636,7 @@ export const ThreadCreateForm = () => {
                                         </DrawerClose>
                                     )}
                                 </Button>
-                                <p className="text-xs text-center text-slate-500">
+                                <p className="text-xs text-center text-foreground-tertiary">
                                     დარწმუნდით, რომ პოსტი არ არღვევს საზოგადოების წესებს
                                 </p>
                             </div>
@@ -679,7 +679,7 @@ const EditableOption = ({initialValue, onSave, onCancel}: EditableOptionProps) =
                 type="text"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
-                className="flex-1 px-3 py-2 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                className="flex-1 px-3 py-2 text-sm border border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                 autoFocus
             />
             <button

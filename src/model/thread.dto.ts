@@ -48,16 +48,16 @@ export const ThreadTagType = {
 export type ThreadTagValue = typeof ThreadTagType[keyof typeof ThreadTagType];
 
 export const ThreadTagConfig: Record<ThreadTagValue, { bg: string; text: string; label: string }> = {
-    [ThreadTagType.ANNOUNCEMENT]: {bg: 'bg-blue-500/20', text: 'text-blue-600', label: 'განცხადება'},
-    [ThreadTagType.QUESTION]: {bg: 'bg-purple-500/20', text: 'text-purple-600', label: 'კითხვა'},
-    [ThreadTagType.DISCUSSION]: {bg: 'bg-emerald-500/20', text: 'text-emerald-600', label: 'დისკუსია'},
-    [ThreadTagType.ISSUE]: {bg: 'bg-red-500/20', text: 'text-red-600', label: 'პრობლემა'},
-    [ThreadTagType.SUGGESTION]: {bg: 'bg-amber-500/20', text: 'text-amber-600', label: 'შემოთავაზება'},
-    [ThreadTagType.EVENT]: {bg: 'bg-pink-500/20', text: 'text-pink-600', label: 'ღონისძიება'},
-    [ThreadTagType.URGENT]: {bg: 'bg-rose-500/20', text: 'text-rose-600', label: 'სასწრაფო'},
-    [ThreadTagType.POLL]: {bg: 'bg-indigo-500/20', text: 'text-indigo-600', label: 'გამოკითხვა'},
-    [ThreadTagType.INFO]: {bg: 'bg-cyan-500/20', text: 'text-cyan-600', label: 'ინფორმაცია'},
-    [ThreadTagType.MAINTENANCE]: {bg: 'bg-orange-500/20', text: 'text-orange-600', label: 'ტექნიკური'},
+    [ThreadTagType.ANNOUNCEMENT]: {bg: 'bg-primary/20', text: 'text-primary', label: 'განცხადება'},
+    [ThreadTagType.QUESTION]: {bg: 'bg-secondary/20', text: 'text-secondary', label: 'კითხვა'},
+    [ThreadTagType.DISCUSSION]: {bg: 'bg-success/20', text: 'text-success', label: 'დისკუსია'},
+    [ThreadTagType.ISSUE]: {bg: 'bg-error/20', text: 'text-error', label: 'პრობლემა'},
+    [ThreadTagType.SUGGESTION]: {bg: 'bg-warning/20', text: 'text-warning', label: 'შემოთავაზება'},
+    [ThreadTagType.EVENT]: {bg: 'bg-secondary/20', text: 'text-secondary', label: 'ღონისძიება'},
+    [ThreadTagType.URGENT]: {bg: 'bg-error/20', text: 'text-error', label: 'სასწრაფო'},
+    [ThreadTagType.POLL]: {bg: 'bg-info/20', text: 'text-info', label: 'გამოკითხვა'},
+    [ThreadTagType.INFO]: {bg: 'bg-info/20', text: 'text-info', label: 'ინფორმაცია'},
+    [ThreadTagType.MAINTENANCE]: {bg: 'bg-warning/20', text: 'text-warning', label: 'ტექნიკური'},
 };
 
 export interface ThreadInfoDTO {
