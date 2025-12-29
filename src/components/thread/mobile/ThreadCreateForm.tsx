@@ -6,19 +6,7 @@ import ThreadForm from "@/components/thread/mobile/thread-form/ThreadForm";
 import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
 import {DrawerClose} from "@/components/ui/drawer";
-import {
-    BarChart2,
-    Check,
-    FileText,
-    Image as ImageIconLucide,
-    Info,
-    Plus,
-    Sparkles,
-    Tag,
-    Upload,
-    Video,
-    X
-} from "lucide-react";
+import {FileText, Image as ImageIconLucide, Info, Sparkles, Tag, Upload, Video, X} from "lucide-react";
 import {useCreateThread} from "@/hooks/query/thread/use-create-thread";
 import {ThreadTagConfig, ThreadTagType, ThreadTagValue} from "@/model/thread.dto";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
@@ -27,7 +15,6 @@ import {useDevice} from "@/hooks/use-device";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {SheetClose, SheetDescription, SheetFooter, SheetHeader, SheetTitle} from "@/components/ui/sheet";
 import {cn} from "@/lib/utils";
-import {Switch} from "@/components/ui/switch";
 import {
     Dialog,
     DialogContent,
@@ -38,6 +25,7 @@ import {
 } from "@/components/ui/dialog";
 import {FileService} from "@/service/file-service";
 import {FileEntry} from "@/components/thread/mobile/data/create-thread-schema";
+import {Poll} from "@/components/poll/mobile/Poll";
 
 const ALL_TAGS = Object.values(ThreadTagType);
 
@@ -52,10 +40,6 @@ export const ThreadCreateForm = () => {
 
     // Poll UI state (not form data)
     const [isPollMode, setIsPollMode] = useState(false);
-    const [allowOthersToAdd, setAllowOthersToAdd] = useState(false);
-    const [isAddingOption, setIsAddingOption] = useState(false);
-    const [currentOption, setCurrentOption] = useState('');
-    const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
     // Watch form values
     const titleLength = form.watch("title")?.length || 0;
@@ -143,44 +127,16 @@ export const ThreadCreateForm = () => {
     }, []);
 
     // Poll handlers
-    const handleAddPollOption = () => {
-        if (!currentOption.trim()) return;
-        form.setValue("pollOptions", [...pollOptions, currentOption.trim()]);
-        setCurrentOption('');
-        setIsAddingOption(false);
-    };
-
-    const handleRemovePollOption = (index: number) => {
-        form.setValue("pollOptions", pollOptions.filter((_, i) => i !== index));
-    };
-
-    const handleCancelAddOption = () => {
-        setCurrentOption('');
-        setIsAddingOption(false);
-    };
-
     const handleTogglePollMode = () => {
         if (isPollMode) {
-            // Reset poll state when disabling
+            // Reset poll options when disabling
             form.setValue("pollOptions", []);
-            setAllowOthersToAdd(false);
-            setIsAddingOption(false);
-            setCurrentOption('');
-            setEditingIndex(null);
         }
         setIsPollMode(!isPollMode);
     };
 
-    const handleSaveEdit = (index: number, value: string) => {
-        if (!value.trim()) return;
-        const newOptions = [...pollOptions];
-        newOptions[index] = value.trim();
-        form.setValue("pollOptions", newOptions);
-        setEditingIndex(null);
-    };
-
-    const handleCancelEdit = () => {
-        setEditingIndex(null);
+    const handlePollOptionsChange = (options: string[]) => {
+        form.setValue("pollOptions", options, {shouldValidate: true});
     };
 
     const handleSelectTag = (tag: ThreadTagValue) => {
@@ -487,110 +443,13 @@ export const ThreadCreateForm = () => {
                             />
 
                             {/* Poll Section */}
-                            <div className="space-y-3">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2">
-                                        <BarChart2 className="w-4 h-4 text-foreground-disabled"/>
-                                        <span className="text-sm font-medium text-foreground-secondary">გამოკითხვა</span>
-                                    </div>
-                                    <Button
-                                        type="button"
-                                        variant={isPollMode ? "default" : "mobile-outline"}
-                                        size="sm"
-                                        onClick={handleTogglePollMode}
-                                        className="h-8"
-                                    >
-                                        {isPollMode ? "გამორთვა" : "დამატება"}
-                                    </Button>
-                                </div>
-
-                                {isPollMode && (
-                                    <div className="space-y-3 p-4 bg-surface-variant rounded-lg border border">
-                                        {/* Allow others toggle */}
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-sm text-foreground-primary">
-                                                სხვებს შეუძლიათ ვარიანტების დამატება
-                                            </span>
-                                            <Switch
-                                                checked={allowOthersToAdd}
-                                                onCheckedChange={setAllowOthersToAdd}
-                                            />
-                                        </div>
-
-                                        {/* Existing options */}
-                                        {pollOptions.length > 0 && (
-                                            <div className="space-y-2">
-                                                {pollOptions.map((option, index) => (
-                                                    editingIndex === index ? (
-                                                        <EditableOption
-                                                            key={index}
-                                                            initialValue={option}
-                                                            onSave={(value) => handleSaveEdit(index, value)}
-                                                            onCancel={handleCancelEdit}
-                                                        />
-                                                    ) : (
-                                                        <div
-                                                            key={index}
-                                                            onClick={() => setEditingIndex(index)}
-                                                            className="flex items-center justify-between p-2 bg-surface rounded-md border border cursor-pointer hover:border-primary/50 transition-colors"
-                                                        >
-                                                            <span
-                                                                className="text-sm text-foreground-secondary">{index + 1}) {option}</span>
-                                                            <button
-                                                                type="button"
-                                                                onClick={(e) => {
-                                                                    e.stopPropagation();
-                                                                    handleRemovePollOption(index);
-                                                                }}
-                                                                className="p-1 hover:bg-surface-container rounded transition-colors"
-                                                            >
-                                                                <X className="w-4 h-4 text-foreground-tertiary"/>
-                                                            </button>
-                                                        </div>
-                                                    )
-                                                ))}
-                                            </div>
-                                        )}
-
-                                        {/* Add option input */}
-                                        {isAddingOption ? (
-                                            <div className="flex items-center gap-2">
-                                                <input
-                                                    type="text"
-                                                    value={currentOption}
-                                                    onChange={(e) => setCurrentOption(e.target.value)}
-                                                    placeholder="ვარიანტის ტექსტი..."
-                                                    className="flex-1 px-3 py-2 text-sm border border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                                                    autoFocus
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={handleAddPollOption}
-                                                    className="w-8 h-8 flex justify-center items-center bg-success rounded-full"
-                                                >
-                                                    <Check size={18} className="text-success-foreground"/>
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    onClick={handleCancelAddOption}
-                                                    className="w-8 h-8 flex justify-center items-center bg-error rounded-full"
-                                                >
-                                                    <X size={18} className="text-error-foreground"/>
-                                                </button>
-                                            </div>
-                                        ) : (
-                                            <button
-                                                type="button"
-                                                onClick={() => setIsAddingOption(true)}
-                                                className="flex items-center gap-2 w-full p-2 text-sm text-foreground-primary hover:text-foreground-secondary bg-surface rounded-md border border-dashed border transition-colors"
-                                            >
-                                                <Plus size={16}/>
-                                                ვარიანტის დამატება
-                                            </button>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
+                            <Poll
+                                pollOptions={pollOptions}
+                                onPollOptionsChange={handlePollOptionsChange}
+                                isPollMode={isPollMode}
+                                onPollModeToggle={handleTogglePollMode}
+                                isDisabled={isPending}
+                            />
 
                             {/* Error Message */}
                             {isError && (
@@ -663,39 +522,3 @@ export const ThreadCreateForm = () => {
         </ThreadForm>
     );
 }
-
-interface EditableOptionProps {
-    initialValue: string;
-    onSave: (value: string) => void;
-    onCancel: () => void;
-}
-
-const EditableOption = ({initialValue, onSave, onCancel}: EditableOptionProps) => {
-    const [value, setValue] = useState(initialValue);
-
-    return (
-        <div className="flex items-center gap-2">
-            <input
-                type="text"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                className="flex-1 px-3 py-2 text-sm border border rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                autoFocus
-            />
-            <button
-                type="button"
-                onClick={() => onSave(value)}
-                className="w-8 h-8 flex justify-center items-center bg-green-500 rounded-full"
-            >
-                <Check size={18} className="text-white"/>
-            </button>
-            <button
-                type="button"
-                onClick={onCancel}
-                className="w-8 h-8 flex justify-center items-center bg-red-500 rounded-full"
-            >
-                <X size={18} className="text-white"/>
-            </button>
-        </div>
-    );
-};

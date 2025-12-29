@@ -9,9 +9,11 @@ import {useLogin} from "@/hooks/query/auth/use-login";
 import {KeyRound, PhoneIcon} from "lucide-react";
 import {RecoverPasswordLink} from "@/components/auth/login/common/RecoverPasswordLink";
 import {Spinner} from "@/components/ui/spinner";
+import {useAuth} from "@/components/provider/AuthProvider";
 
 export function LoginForm() {
     const {form, onSubmit, isPending} = useLogin();
+    const {login} = useAuth();
 
     return (
         <Form {...form}>

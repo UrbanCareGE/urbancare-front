@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import {TypographyH3} from "@/components/common/text/Typography";
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 
@@ -33,7 +32,8 @@ export const TextLogo: React.FC<TextLogoProps> = ({className}) => {
         <>
             <Image src="/assets/facebook.png" alt="Logo" width={44} height={44}/>
             <Select>
-                <SelectTrigger className="w-full ml-4 h-9 px-3 py-2 rounded-lg border shadow-sm hover:bg-gray-50 bg-white">
+                <SelectTrigger
+                    className="w-full ml-4 h-9 px-3 py-2 rounded-lg border shadow-sm hover:bg-gray-50 bg-white">
                     <SelectValue placeholder={"GLOBAL"}>
                         <NavigationAreaHeaderTrigger
                             address="თბილისი, პოლიტკოვსკაიას 34"

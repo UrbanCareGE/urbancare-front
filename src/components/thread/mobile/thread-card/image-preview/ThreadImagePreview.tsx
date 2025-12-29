@@ -25,6 +25,7 @@ export const ThreadImagePreview = ({className, imageLinks}: ThreadImagePreviewPr
     const [api, setApi] = useState<CarouselApi>()
     const [current, setCurrent] = useState(0)
     const [count, setCount] = useState(0)
+
     useEffect(() => {
         if (!api) {
             return
