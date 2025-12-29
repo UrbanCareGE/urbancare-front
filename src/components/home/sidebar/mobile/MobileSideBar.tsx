@@ -15,20 +15,21 @@ const MobileSideBarContext = createContext<MobileSideBarContextType | undefined>
 
 const useMobileSideBar = () => {
     const context = useContext(MobileSideBarContext);
+
     if (!context) {
         throw new Error('useMobileSideBar must be used within MobileSideBar');
     }
+
     return context;
 };
 
 interface MobileSideBarRootProps {
-    className?: string;
     children: ReactNode;
     side?: 'left' | 'right';
     defaultOpen?: boolean;
 }
 
-const MobileSideBarRoot = ({children, className, side = 'right', defaultOpen = false}: MobileSideBarRootProps) => {
+const MobileSideBarRoot = ({children, side = 'right', defaultOpen = false}: MobileSideBarRootProps) => {
     const [isOpen, setIsOpen] = React.useState(defaultOpen);
 
     return (
@@ -64,10 +65,7 @@ const MobileSideBarContentComponent = ({children, className}: MobileSideBarConte
     return (
         <SheetContent
             side={side}
-            className={cn("w-10/12 bg-text-bg", {
-                'rounded-r-md': side === 'left',
-                'rounded-l-md': side === 'right'
-            })}
+            className={cn("w-10/12 bg-text-bg")}
         >
             <VisuallyHidden>
                 <SheetTitle>Navigation Menu</SheetTitle>

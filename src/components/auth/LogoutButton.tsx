@@ -2,33 +2,24 @@
 
 import {Button} from "@/components/ui/button";
 import {LogOut} from "lucide-react";
-import {useMutation} from "@tanstack/react-query";
-import {AuthService} from "@/service/auth-service";
-import {useRouter} from "next/navigation";
+import {useAuth} from "@/components/provider/AuthProvider";
+import {Spinner} from "@/components/ui/spinner";
+import React from "react";
 
 export const LogoutButton = () => {
-    const router = useRouter()
-    const mutation = useMutation(
-        {
-            mutationFn: AuthService.logout,
-            onSuccess: () => {
-                router.push('/')
-            }
-        }
-    );
+    const {logOut, isLoggingOut} = useAuth();
 
     const handleLogout = () => {
-        mutation.mutate()
+        logOut()
     }
     return (
-        <div className="w-full p-1 border-gray-200 bg-gray-50">
-            <Button
-                className="w-full flex items-center justify-center gap-3 px-4 py-1 bg-red-50 hover:bg-red-100 text-red-600 rounded-panel transition-colors font-medium text-base"
-                onClick={handleLogout}
-            >
-                <LogOut className="w-5 h-5"/>
-                გასვლა
-            </Button>
-        </div>
+        <Button
+            className="flex w-full items-center justify-center gap-2 px-4 py-1 bg-error-container text-error rounded-panel font-medium text-base"
+            onClick={handleLogout}
+        >
+            <LogOut className="w-5 h-5"/>
+            გასვლა
+            {isLoggingOut && <Spinner/>}
+        </Button>
     );
 };

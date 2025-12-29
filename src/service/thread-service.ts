@@ -1,13 +1,14 @@
 import {api} from "@/lib/api-client";
 import {
     CreateThreadCommentDTO,
-    CreateThreadDTO, PollVoteDTO, ThreadCommentDTO,
+    CreateThreadDTO,
+    PollVoteDTO,
+    ThreadCommentDTO,
     ThreadInfoDTO,
     ThreadVoteDTO,
     ThreadVoteRespDTO
 } from "@/model/thread.dto";
-import {IdWrapperDTO, PagingDTO, PagingRespDTO} from "@/model/common.dto";
-
+import {PagingDTO, PagingRespDTO} from "@/model/common.dto";
 
 export const ThreadService = {
     add: async (apartmentId: string, addThreadDto: CreateThreadDTO): Promise<ThreadInfoDTO> => {

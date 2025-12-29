@@ -2,7 +2,7 @@
 import type {NextRequest} from 'next/server';
 import {NextResponse} from 'next/server';
 
-const RouteConfig = {
+export const RouteConfig = {
     // Public routes that don't require authentication
     public: [
         '/auth/login',

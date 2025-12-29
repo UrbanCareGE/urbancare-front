@@ -5,14 +5,35 @@ import {Form, FormControl, FormField, FormItem} from "@/components/ui/form";
 import {FormInput} from "@/components/common/input/FormInput";
 import {Button} from "@/components/ui/button";
 import {OauthForm} from "@/components/auth/oauith/OauthForm";
-import {useLogin} from "@/hooks/query/auth/use-login";
 import {KeyRound, PhoneIcon} from "lucide-react";
 import {RecoverPasswordLink} from "@/components/auth/login/RecoverPasswordLink";
 import {Spinner} from "@/components/ui/spinner";
+import {LoginDTO} from "@/model/auth.dto";
+import LoginFormSchema from "@/components/auth/login/data/login-form-schema";
 import {useAuth} from "@/components/provider/AuthProvider";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {z} from "zod";
 
 export function LoginForm() {
-    const {form, onSubmit, isPending} = useLogin();
+    const {logIn, isLoggingIn} = useAuth();
+
+    const form = useForm<z.infer<typeof LoginFormSchema>>({
+        resolver: zodResolver(LoginFormSchema),
+        defaultValues: {
+            phone: "",
+            password: "",
+        },
+    });
+
+    const onSubmit = (values: z.infer<typeof LoginFormSchema>) => {
+        const {phone, password} = values;
+        const loginReq: LoginDTO = {
+            phone: phone,
+            password: password,
+        }
+        logIn(loginReq);
+    };
 
     return (
         <Form {...form}>
@@ -26,7 +47,7 @@ export function LoginForm() {
                             <FormControl className={"w-full"}>
                                 <FormInput className={"w-full"}
                                            placeholder="მობილურის ნომერი*"
-                                           disabled={isPending}
+                                           disabled={isLoggingIn}
                                            icon={<PhoneIcon className={"text-gray-600"}/>}
                                            {...field}
                                 />
@@ -45,7 +66,7 @@ export function LoginForm() {
                                            icon={<KeyRound className={"text-gray-600"}/>}
                                            type="password"
                                            isPasswordType
-                                           disabled={isPending}
+                                           disabled={isLoggingIn}
                                            {...field}
                                 />
                             </FormControl>
@@ -58,9 +79,9 @@ export function LoginForm() {
                 <Button
                     className="h-10 w-full flex justify-center bg-primary rounded-panel text-lg text-white"
                     type="submit"
-                    disabled={isPending}
+                    disabled={isLoggingIn}
                 >
-                    {isPending && <Spinner/>}
+                    {isLoggingIn && <Spinner/>}
                     შესვლა
                 </Button>
                 <OauthForm/>

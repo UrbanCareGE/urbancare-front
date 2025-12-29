@@ -1,11 +1,13 @@
 'use client';
 
 import {createContext, ReactNode, useContext} from 'react';
-import {useQuery, useQueryClient} from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {usePathname, useRouter} from 'next/navigation';
 import {AuthService} from "@/service/auth-service";
-import {ApartmentDTO} from "@/model/auth.dto";
+import {ApartmentDTO, LoginDTO} from "@/model/auth.dto";
 import {PulsingLoader} from "@/components/common/loader/GlobalLoader";
+import {RouteConfig} from "@/proxy";
+import {ErrorResponse} from "@/model/common.dto";
 
 export interface User {
     id: string;
@@ -24,14 +26,18 @@ export interface AuthContextType {
     updateUser: (data: Partial<User>) => void;
     refetchUser: () => Promise<void>;
     selectApartment: (apartment: ApartmentDTO) => void;
+    logIn: (credentials: LoginDTO) => void;
+    logOut: () => void;
+    isLoggingIn: boolean;
+    isLoggingOut: boolean;
+    loginError: ErrorResponse | null;
+    resetLoginError: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const PUBLIC_ROUTES = ['/auth/login', '/auth/register'];
-
 const isPublicRoute = (pathname: string) => {
-    return PUBLIC_ROUTES.some(route => pathname.startsWith(route));
+    return RouteConfig.public.some(route => pathname.startsWith(route));
 };
 
 export default function AuthProvider({children}: { children: ReactNode }) {
@@ -44,8 +50,6 @@ export default function AuthProvider({children}: { children: ReactNode }) {
     const {
         data: user,
         isLoading,
-        error,
-        isRefetching,
         refetch,
     } = useQuery({
         queryKey: ['user'],
@@ -59,6 +63,21 @@ export default function AuthProvider({children}: { children: ReactNode }) {
         gcTime: 10 * 60 * 1e3,
     });
 
+    const loginMutation = useMutation<string, ErrorResponse, LoginDTO>({
+        mutationFn: AuthService.login,
+        onSuccess: async () => {
+            await refetch();
+            router.push('/');
+        },
+    });
+
+    const logoutMutation = useMutation<void, ErrorResponse>({
+        mutationFn: AuthService.logout,
+        onSuccess: () => {
+            queryClient.clear();
+            router.push('/auth/login');
+        },
+    });
 
     const selectApartment = (apartment: ApartmentDTO) => {
         queryClient.setQueryData(['user'], (old: User | null) => {
@@ -85,9 +104,15 @@ export default function AuthProvider({children}: { children: ReactNode }) {
         updateUser,
         refetchUser,
         selectApartment,
+        logIn: loginMutation.mutate,
+        logOut: logoutMutation.mutate,
+        isLoggingIn: loginMutation.isPending,
+        isLoggingOut: logoutMutation.isPending,
+        loginError: loginMutation.error,
+        resetLoginError: loginMutation.reset,
     };
 
-    if (isLoading) {
+    if (isLoading && !isPublic) {
         return <PulsingLoader/>;
     }
 
@@ -104,13 +129,4 @@ export function useAuth(): AuthContextType {
         throw new Error('useAuth must be used within an AuthProvider');
     }
     return context;
-}
-
-export function useRequiredAuth(): Omit<AuthContextType, 'user'> & { user: User } {
-    const context = useAuth();
-
-    if (!context.user) {
-        throw new Error('useRequiredAuth must be used in authenticated routes only');
-    }
-    return context as Omit<AuthContextType, 'user'> & { user: User };
 }

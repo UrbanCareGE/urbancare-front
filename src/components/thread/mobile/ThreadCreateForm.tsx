@@ -6,7 +6,7 @@ import ThreadForm from "@/components/thread/mobile/thread-form/ThreadForm";
 import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
 import {DrawerClose} from "@/components/ui/drawer";
-import {FileText, Image as ImageIconLucide, Info, Sparkles, Tag, Upload, Video, X} from "lucide-react";
+import {FileText, Image as ImageIconLucid, Info, Sparkles, Tag, Upload, Video, X} from "lucide-react";
 import {useCreateThread} from "@/hooks/query/thread/use-create-thread";
 import {ThreadTagConfig, ThreadTagType, ThreadTagValue} from "@/model/thread.dto";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
@@ -24,29 +24,43 @@ import {
     DialogTitle
 } from "@/components/ui/dialog";
 import {FileService} from "@/service/file-service";
-import {FileEntry} from "@/components/thread/mobile/data/create-thread-schema";
+import {createThreadSchema, FileEntry} from "@/components/thread/mobile/data/create-thread-schema";
 import {Poll} from "@/components/poll/mobile/Poll";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {z} from "zod";
+import {useAuth} from "@/components/provider/AuthProvider";
 
 const ALL_TAGS = Object.values(ThreadTagType);
 
 export const ThreadCreateForm = () => {
+    const {user} = useAuth();
+    const {mutate, isPending, isError, error} = useCreateThread();
     const [fileUploading, setFileUploading] = useState(false);
-    const {form, onSubmit, isPending, isError, error} = useCreateThread();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const {isMobile} = useDevice();
 
-    // Tags dialog state
     const [tagLimitDialogOpen, setTagLimitDialogOpen] = useState(false);
 
-    // Poll UI state (not form data)
     const [isPollMode, setIsPollMode] = useState(false);
 
-    // Watch form values
+    const form = useForm<z.infer<typeof createThreadSchema>>({
+        resolver: zodResolver(createThreadSchema),
+        defaultValues: {
+            title: "",
+            body: "",
+            files: [],
+            tags: [],
+            pollOptions: []
+        },
+    });
+
     const titleLength = form.watch("title")?.length || 0;
     const bodyLength = form.watch("body")?.length || 0;
     const fileEntries = form.watch("files") || [];
     const selectedTags = form.watch("tags") || [];
     const pollOptions = form.watch("pollOptions") || [];
+
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = Array.from(e.target.files || []);
@@ -63,11 +77,9 @@ export const ThreadCreateForm = () => {
             previewUrl: URL.createObjectURL(file),
         }));
 
-        // Add to form immediately (shows preview with loading state)
         const updatedFiles = [...currentFiles, ...newEntries];
         form.setValue("files", updatedFiles, {shouldValidate: true});
 
-        // Clear input
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
         }
@@ -93,7 +105,6 @@ export const ThreadCreateForm = () => {
             if (success && success.status === 'fulfilled') {
                 return {...f, fileId: success.value.fileId, status: 'success' as const};
             }
-            // handle errors...
             return f;
         });
         form.setValue("files", updatedFormFiles, {shouldValidate: true});
@@ -105,12 +116,10 @@ export const ThreadCreateForm = () => {
         const currentFiles = form.getValues("files") || [];
         const fileToRemove = currentFiles[index];
 
-        // Revoke preview URL
         if (fileToRemove?.previewUrl) {
             URL.revokeObjectURL(fileToRemove.previewUrl);
         }
 
-        // Remove from form
         const newFiles = currentFiles.filter((_, i) => i !== index);
         form.setValue("files", newFiles, {shouldValidate: true});
     };
@@ -124,12 +133,10 @@ export const ThreadCreateForm = () => {
                 }
             });
         };
-    }, []);
+    });
 
-    // Poll handlers
     const handleTogglePollMode = () => {
         if (isPollMode) {
-            // Reset poll options when disabling
             form.setValue("pollOptions", []);
         }
         setIsPollMode(!isPollMode);
@@ -150,6 +157,33 @@ export const ThreadCreateForm = () => {
     const handleDeselectTag = (tag: string) => {
         form.setValue("tags", selectedTags.filter(t => t !== tag));
     };
+
+
+    const onSubmit = async (values: z.infer<typeof createThreadSchema>) => {
+        if (!user?.selectedApartment?.id) {
+            console.error("No apartment selected");
+            return;
+        }
+
+        try {
+            mutate({
+                apartmentId: user.selectedApartment.id,
+                title: values.title,
+                content: values.body,
+                imageIds: values.files?.map(f => f.fileId!) ?? [],
+                tags: values.tags,
+                poll: values.pollOptions != null && values.pollOptions.length > 0 ? {
+                    title: "",
+                    items: values.pollOptions
+                } : undefined
+            });
+
+            form.reset();
+        } catch (error) {
+            console.error('Submission failed:', error);
+        }
+    };
+
 
     const unselectedTags = ALL_TAGS.filter(tag => !selectedTags.includes(tag));
 
@@ -282,7 +316,7 @@ export const ThreadCreateForm = () => {
                                                     type="button"
                                                     onClick={() => handleSelectTag(tag)}
                                                     className={cn(
-                                                        'px-3 py-1 rounded-full text-sm font-medium border border bg-surface text-foreground-tertiary transition-all',
+                                                        'px-3 py-1 rounded-full text-sm font-medium border bg-surface text-foreground-tertiary transition-all',
                                                         'hover:border-hover hover:bg-surface-variant'
                                                     )}
                                                 >
@@ -303,7 +337,7 @@ export const ThreadCreateForm = () => {
                                         <div className="flex items-center justify-between mb-3">
                                             <FormLabel
                                                 className="text-sm font-medium text-foreground-secondary flex items-center gap-2">
-                                                <ImageIconLucide className="w-4 h-4 text-foreground-disabled"/>
+                                                <ImageIconLucid className="w-4 h-4 text-foreground-disabled"/>
                                                 მედია ფაილები
                                             </FormLabel>
                                             <span className="text-xs text-foreground-tertiary">
@@ -328,7 +362,7 @@ export const ThreadCreateForm = () => {
                                                 variant="outline"
                                                 onClick={() => fileInputRef.current?.click()}
                                                 disabled={fileEntries.length >= 5 || isPending}
-                                                className="w-full h-auto border-2 border-dashed border hover:border-primary hover:bg-primary/5 transition-all group"
+                                                className="w-full h-auto border-2 border-dashed hover:border-primary hover:bg-primary/5 transition-all group"
                                             >
                                                 <div className="flex flex-col items-center gap-2">
                                                     <div
@@ -386,7 +420,7 @@ export const ThreadCreateForm = () => {
                                                                             className="flex-shrink-0 relative group"
                                                                         >
                                                                             <div
-                                                                                className="w-20 h-20 rounded-lg overflow-hidden bg-surface border-2 border shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 hover:border-primary/50 relative">
+                                                                                className="w-20 h-20 rounded-lg overflow-hidden bg-surface border-2 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 hover:border-primary/50 relative">
                                                                                 {file.file.type.startsWith('image/') ? (
                                                                                     <img
                                                                                         src={fileEntries[index].previewUrl}

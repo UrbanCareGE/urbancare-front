@@ -4,17 +4,46 @@ import React from "react";
 import {Form, FormControl, FormField, FormItem} from "@/components/ui/form";
 import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
-import {BadgeCheck, KeyRound, Mail, PhoneIcon, RotateCcwKey, User} from "lucide-react";
+import {BadgeCheck, KeyRound, PhoneIcon, RotateCcwKey, User} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox";
 import {FormInput} from "@/components/common/input/FormInput";
 import {OTPInput} from "@/components/auth/register/OTPInput";
 import Link from "next/link";
 import {OauthForm} from "@/components/auth/oauith/OauthForm";
 import {useRegister} from "@/hooks/query/auth/use-register";
+import {RegisterDTO} from "@/model/auth.dto";
+import {registerSchema} from "@/components/auth/register/data/register-form-schema";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {z} from "zod";
 
 
 export function RegisterForm() {
-    const {form, onSubmit, isPending} = useRegister()
+    const {mutate, isPending} = useRegister()
+
+    const form = useForm<z.infer<typeof registerSchema>>({
+        resolver: zodResolver(registerSchema),
+        defaultValues: {
+            firstName: "",
+            lastName: "",
+            phone: "",
+            password: "",
+            confirmPassword: "",
+            acceptTerms: false,
+            otp: ""
+        },
+    });
+
+    const onSubmit = (values: z.infer<typeof registerSchema>) => {
+        const registerReq: RegisterDTO = {
+            name: values.firstName,
+            surname: values.lastName,
+            password: values.password,
+            phone: values.phone,
+            otp: values.otp,
+        }
+        mutate(registerReq);
+    };
 
     return (
         <Form {...form}>
