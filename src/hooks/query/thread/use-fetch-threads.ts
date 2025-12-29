@@ -13,7 +13,6 @@ export function useInfiniteThreads(apartmentId?: string, tags?: string[]) {
     const fetchItems = async ({pageParam = 0}) => {
         const data = await ThreadService.getAll(apartmentId!, {page: pageParam, size: 15}, tags);
 
-        // Cache individual threads
         data.content.forEach(thread => {
             queryClient.setQueryData(['threads', 'detail', thread.id], thread);
         });

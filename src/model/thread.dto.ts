@@ -73,7 +73,7 @@ export interface ThreadInfoDTO {
     userInfo?: UserSnapshotDTO;
     poll?: PollDTO;
     tags?: string[];
-    reactions: PollDTO;
+    reactions?: PollDTO;
 }
 
 export interface ThreadVoteDTO {

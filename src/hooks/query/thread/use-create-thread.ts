@@ -35,25 +35,21 @@ export function useCreateThread() {
             });
         },
         onMutate: async ({apartmentId, title, content, imageIds}) => {
+            const id = 'temp-' + Date.now();
             const queryListKey = ['threads', 'list', user?.selectedApartment.id];
-
-        },
-        onSuccess: (threadInfo) => {
-            const queryListKey = ['threads', 'list', user?.selectedApartment.id];
-            const queryDetailKey = ['threads', 'detail', threadInfo.id];
+            const queryDetailKey = ['threads', 'detail', id];
 
             queryClient.setQueryData<InfiniteData<PagingRespDTO<string>>>(
                 queryListKey,
                 (prev) => {
                     if (!prev) return prev;
-
                     return {
                         ...prev,
                         pages: prev.pages.map((page, index) => {
                             if (index === 0) {
                                 return {
                                     ...page,
-                                    content: [threadInfo.id, ...page.content],
+                                    content: [id, ...page.content],
                                     numberOfElements: page.numberOfElements + 1,
                                 };
                             }
@@ -63,16 +59,59 @@ export function useCreateThread() {
                 }
             );
 
+            const tempThread: ThreadInfoDTO = {
+                id,
+                title,
+                content,
+                commentCount: 0,
+                comments: [],
+                createdAt: new Date(),
+                imageIds: [],
+                selfVote: 0,
+                voteDiff: 0
+            };
+
+            queryClient.setQueryData<ThreadInfoDTO>(queryDetailKey, tempThread);
+
+            return {tempId: id};
+        },
+
+        onSuccess: (threadInfo, variables, context) => {
+            const tempId = context?.tempId;
+            const queryListKey = ['threads', 'list', user?.selectedApartment.id];
+
+            queryClient.setQueryData<InfiniteData<PagingRespDTO<string>>>(
+                queryListKey,
+                (prev) => {
+                    if (!prev) return prev;
+                    return {
+                        ...prev,
+                        pages: prev.pages.map((page, index) => {
+                            if (index === 0) {
+                                return {
+                                    ...page,
+                                    content: page.content
+                                        .filter(id => id !== tempId)
+                                        .concat([threadInfo.id]),
+                                };
+                            }
+                            return page;
+                        }),
+                    };
+                }
+            );
+
+            queryClient.removeQueries({queryKey: ['threads', 'detail', tempId]});
+
             queryClient.setQueryData<ThreadInfoDTO>(
-                queryDetailKey,
+                ['threads', 'detail', threadInfo.id],
                 threadInfo
-            )
+            );
         },
         onError: (error) => {
             console.error('Thread creation failed:', error);
         }
     });
-
 
     return {
         mutate,

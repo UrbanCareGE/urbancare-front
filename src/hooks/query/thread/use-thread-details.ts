@@ -3,15 +3,13 @@
 import {useQuery} from "@tanstack/react-query";
 import {ThreadService} from "@/service/thread-service";
 
-
 /*
 *
 * ეს ინფორმაცია თითქმის ყოველთვის უსასრულო სქროლით არის შევსებული და იშვიათად უწევს განახლება
 *
 * */
-
 export function useThreadDetails(threadId?: string) {
-    const query = useQuery({
+    return useQuery({
         queryKey: ['threads', 'detail', threadId],
         queryFn: async () => {
             if (!threadId) throw new Error('Thread ID is required');
@@ -21,6 +19,4 @@ export function useThreadDetails(threadId?: string) {
         staleTime: 10 * 60 * 1e3,
         gcTime: Infinity,
     });
-
-    return query;
 }
