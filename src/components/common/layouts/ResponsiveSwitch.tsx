@@ -1,7 +1,7 @@
 'use client'
 
 import {Children} from "@/app/layout";
-import {useResponsive} from "@/components/common/ResponsiveLayout";
+import {useResponsive} from "@/components/common/layouts/ResponsiveLayout";
 
 export const MobileAdapter = ({children}: Children) => {
     const {isMobile} = useResponsive();

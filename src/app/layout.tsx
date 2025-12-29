@@ -2,9 +2,9 @@ import type {Metadata} from "next";
 import "./globals.scss";
 import React from "react";
 import ReactQueryProvider from "@/components/provider/ReactQueryProvider";
-import MyThemeProvider from "@/components/common/provider/MyThemeProvider";
+import MyThemeProvider from "@/components/provider/MyThemeProvider";
 import {headers} from "next/headers";
-import ResponsiveLayout from "@/components/common/ResponsiveLayout";
+import ResponsiveLayout from "@/components/common/layouts/ResponsiveLayout";
 import {ChatProvider} from "@/components/provider/ChatProvider";
 import AuthProvider from "@/components/provider/AuthProvider";
 

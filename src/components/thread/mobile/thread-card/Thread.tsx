@@ -44,7 +44,7 @@ function ThreadSkeleton() {
 export const Thread = ({threadId, defaultOpen}: ThreadPreviewProps) => {
     const {data, isPending, error} = useThreadDetails(threadId);
 
-    if (isPending) {
+    if (isPending && !data) {
         return <ThreadSkeleton/>
     }
 

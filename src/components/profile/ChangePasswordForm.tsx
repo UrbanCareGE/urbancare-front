@@ -5,7 +5,7 @@ import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import {Form, FormControl, FormField, FormItem} from "@/components/ui/form";
-import {FormInput} from "@/components/auth/FormInput";
+import {FormInput} from "@/components/common/input/FormInput";
 import {Button} from "@/components/ui/button";
 import {KeyRound, Lock} from 'lucide-react';
 import {useChangePassword} from '@/hooks/query/user/use-change-password';

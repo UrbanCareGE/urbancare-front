@@ -2,18 +2,17 @@
 
 import React from "react";
 import {Form, FormControl, FormField, FormItem} from "@/components/ui/form";
-import {FormInput} from "@/components/auth/FormInput";
+import {FormInput} from "@/components/common/input/FormInput";
 import {Button} from "@/components/ui/button";
 import {OauthForm} from "@/components/auth/oauith/OauthForm";
 import {useLogin} from "@/hooks/query/auth/use-login";
 import {KeyRound, PhoneIcon} from "lucide-react";
-import {RecoverPasswordLink} from "@/components/auth/login/common/RecoverPasswordLink";
+import {RecoverPasswordLink} from "@/components/auth/login/RecoverPasswordLink";
 import {Spinner} from "@/components/ui/spinner";
 import {useAuth} from "@/components/provider/AuthProvider";
 
 export function LoginForm() {
     const {form, onSubmit, isPending} = useLogin();
-    const {login} = useAuth();
 
     return (
         <Form {...form}>

@@ -2,7 +2,7 @@ import React from "react";
 import {RegisterHeader} from "@/components/auth/register/RegisterHeader";
 import {RegisterForm} from "@/components/auth/register/RegisterForm";
 import DynamicPanel from "@/components/home/dynamic-panel/DynamicPanel";
-import {LoginLink} from "@/components/auth/register/common/LoginLink";
+import {LoginLink} from "@/components/auth/register/LoginLink";
 
 export default function RegisterPage() {
     return (

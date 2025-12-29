@@ -46,7 +46,7 @@ export default function ThreadFeed({defaultTags = []}: ThreadFeedProps) {
         }
     }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-    if (isUserLoading || isPostFetchLoading) {
+    if (isUserLoading || (isPostFetchLoading && !data)) {
         return (
             <div className="flex-1 w-full bg-slate-100 space-y-4 py-4">
                 <div className="max-w-2xl mx-auto px-4 space-y-4">

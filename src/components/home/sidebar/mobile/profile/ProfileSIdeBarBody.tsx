@@ -15,7 +15,7 @@ import {
 import {NavItem} from "@/components/home/sidebar/mobile/navigation/NavigationArea";
 import {SheetClose} from "@/components/ui/sheet";
 import LanguageSelector from "@/components/common/util/LanguageSelector";
-import {MobileThemeSelector} from "@/components/common/util/mobile/MobileThemeSelector";
+import {MobileThemeSelector} from "@/components/common/util/MobileThemeSelector";
 
 export const profileItems: NavItem[] = [
     {href: "/profile", label: "პარამეტრები", icon: <SettingsIcon className={"text-primary"}/>},

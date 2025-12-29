@@ -1,4 +1,4 @@
-import {AppleIcon, FacebookIcon, GoogleIcon} from "@/components/common/icons";
+import {AppleIcon, FacebookIcon, GoogleIcon} from "@/components/common/util/icons";
 import React from "react";
 import {cn} from "@/lib/utils";
 import {OauthLink} from "@/components/auth/oauith/OauthLink";

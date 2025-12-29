@@ -5,7 +5,7 @@ import {Children} from "@/app/layout";
 import {usePathname} from "next/navigation";
 import {cn} from "@/lib/utils";
 import {MobileHeader} from "@/components/common/header/mobile/MobileHeader";
-import {MobileNavBar} from "@/components/common/navbar/mobile/MobileNavBar";
+import {MobileNavBar} from "@/components/common/navbar/MobileNavBar";
 import useIsVirtualKeyboardOpen from "@/hooks/use-mobile-keyboard";
 
 export const MobileLayout = ({children}: Children) => {

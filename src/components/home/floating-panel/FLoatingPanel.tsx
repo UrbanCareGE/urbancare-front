@@ -1,6 +1,6 @@
 import {cn} from "@/lib/utils";
 import React, {ReactNode} from "react";
-import AnimatedContent from "@/components/AnimatedContent";
+import AnimatedContent from "@/components/animations/AnimatedContent";
 
 
 interface FloatingPanelRootProps {

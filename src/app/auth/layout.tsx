@@ -1,5 +1,5 @@
 import React from "react";
-import {DesktopAdapter, MobileAdapter} from "@/components/common/ResponsiveSwitch";
+import {DesktopAdapter, MobileAdapter} from "@/components/common/layouts/ResponsiveSwitch";
 import MobileLayout from "@/app/auth/mobile-layout";
 import DesktopLayout from "@/app/auth/desktop-layout";
 
