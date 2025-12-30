@@ -68,7 +68,13 @@ export function useCreateThread() {
                 createdAt: new Date(),
                 imageIds: [],
                 selfVote: 0,
-                voteDiff: 0
+                voteDiff: 0,
+                userInfo: {
+                    id: user!.id,
+                    profileImageId: user!.profileImageId,
+                    name: user!.name,
+                    surname: user!.surname
+                }
             };
 
             queryClient.setQueryData<ThreadInfoDTO>(queryDetailKey, tempThread);
@@ -90,9 +96,8 @@ export function useCreateThread() {
                             if (index === 0) {
                                 return {
                                     ...page,
-                                    content: page.content
-                                        .filter(id => id !== tempId)
-                                        .concat([threadInfo.id]),
+                                    content: [threadInfo.id].concat(
+                                        page.content.filter(id => id !== tempId))
                                 };
                             }
                             return page;

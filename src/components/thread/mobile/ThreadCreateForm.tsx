@@ -24,7 +24,7 @@ import {
     DialogTitle
 } from "@/components/ui/dialog";
 import {FileService} from "@/service/file-service";
-import {createThreadSchema, FileEntry} from "@/components/thread/mobile/data/create-thread-schema";
+import {createThreadSchema, FileEntry} from "@/components/thread/data/create-thread-schema";
 import {Poll} from "@/components/poll/mobile/Poll";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -133,7 +133,7 @@ export const ThreadCreateForm = () => {
                 }
             });
         };
-    });
+    }, [form]);
 
     const handleTogglePollMode = () => {
         if (isPollMode) {
@@ -183,7 +183,6 @@ export const ThreadCreateForm = () => {
             console.error('Submission failed:', error);
         }
     };
-
 
     const unselectedTags = ALL_TAGS.filter(tag => !selectedTags.includes(tag));
 

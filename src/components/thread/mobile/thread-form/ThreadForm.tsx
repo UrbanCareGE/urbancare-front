@@ -1,6 +1,5 @@
 import React, {useContext, useState} from "react";
-import {VisuallyHidden} from "@/components/ui/visually-hidden";
-import {Sheet, SheetContent, SheetTitle} from "@/components/ui/sheet";
+import {Sheet, SheetContent} from "@/components/ui/sheet";
 import {cn} from "@/lib/utils";
 import {Card} from "@/components/ui/card";
 
@@ -79,7 +78,7 @@ export const ThreadFormRoot = ({className, children}: ThreadFormRootProps) => {
 
     return (
         <ThreadFormSheetContext.Provider value={drawerValue}>
-                {children}
+            {children}
         </ThreadFormSheetContext.Provider>
     )
 }

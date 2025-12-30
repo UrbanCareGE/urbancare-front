@@ -2,7 +2,6 @@
 
 import React, {useContext, useState} from 'react';
 import {cn} from "@/lib/utils";
-import {VisuallyHidden} from "@/components/ui/visually-hidden";
 import {Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle} from "@/components/ui/sheet";
 import {XIcon} from "lucide-react";
 
@@ -69,7 +68,7 @@ interface PreviewableHeaderProps {
     children: React.ReactNode;
 }
 
-const PreviewableHeader = ({className, children, onClose}: PreviewableHeaderProps) => {
+const PreviewableHeader = ({className, children}: PreviewableHeaderProps) => {
     return <div className={cn("flex items-center h-16 w-full px-3 bg-white border-b", className)}>
         {children}
         <SheetClose className="shrink-0 ml-auto">

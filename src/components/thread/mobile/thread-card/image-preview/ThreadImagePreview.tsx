@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/carousel";
 import {Dialog, DialogContent, DialogTitle} from "@/components/ui/dialog";
 import {X} from "lucide-react";
+import {Skeleton} from "@/components/ui/skeleton";
 
 interface ThreadImagePreviewProps {
     className?: string;
@@ -22,20 +23,27 @@ interface ThreadImagePreviewProps {
 export const ThreadImagePreview = ({className, imageLinks}: ThreadImagePreviewProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [startIndex, setStartIndex] = useState(0);
-    const [api, setApi] = useState<CarouselApi>()
-    const [current, setCurrent] = useState(0)
-    const [count, setCount] = useState(0)
+    const [api, setApi] = useState<CarouselApi>();
+    const [current, setCurrent] = useState(0);
+    const [count, setCount] = useState(0);
+    const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
 
     useEffect(() => {
         if (!api) {
-            return
+            return;
         }
-        setCount(api.scrollSnapList().length)
-        setCurrent(api.selectedScrollSnap() + 1)
+        setCount(api.scrollSnapList().length);
+        setCurrent(api.selectedScrollSnap() + 1);
         api.on("select", () => {
-            setCurrent(api.selectedScrollSnap() + 1)
-        })
-    }, [api])
+            setCurrent(api.selectedScrollSnap() + 1);
+        });
+    }, [api]);
+
+    const handleImageLoad = (link: string) => {
+        setLoadedImages(prev => new Set(prev).add(link));
+    };
+
+    const isLoaded = (link: string) => loadedImages.has(link);
 
     const displayImages = imageLinks.slice(0, 3);
     const remainingCount = imageLinks.length - 3;
@@ -55,11 +63,18 @@ export const ThreadImagePreview = ({className, imageLinks}: ThreadImagePreviewPr
                     className={cn('relative w-full h-96 cursor-pointer', className)}
                     onClick={() => openCarousel(0)}
                 >
+                    {!isLoaded(imageLinks[0]) && (
+                        <Skeleton className="absolute inset-0 rounded-3xl"/>
+                    )}
                     <Image
                         src={imageLinks[0]}
                         alt=""
                         fill
-                        className="object-cover bg-black/5 rounded-3xl"
+                        className={cn(
+                            "object-cover bg-black/5 rounded-3xl transition-opacity",
+                            isLoaded(imageLinks[0]) ? "opacity-100" : "opacity-0"
+                        )}
+                        onLoad={() => handleImageLoad(imageLinks[0])}
                         unoptimized
                     />
                 </div>
@@ -73,11 +88,18 @@ export const ThreadImagePreview = ({className, imageLinks}: ThreadImagePreviewPr
                             className="relative flex-1 overflow-hidden rounded-lg cursor-pointer"
                             onClick={() => openCarousel(index)}
                         >
+                            {!isLoaded(link) && (
+                                <Skeleton className="absolute inset-0"/>
+                            )}
                             <Image
                                 src={link}
                                 alt=""
                                 fill
-                                className="object-cover"
+                                className={cn(
+                                    "object-cover transition-opacity",
+                                    isLoaded(link) ? "opacity-100" : "opacity-0"
+                                )}
+                                onLoad={() => handleImageLoad(link)}
                                 unoptimized
                             />
                         </div>
@@ -91,11 +113,18 @@ export const ThreadImagePreview = ({className, imageLinks}: ThreadImagePreviewPr
                         className="relative flex-1 overflow-hidden rounded-l-lg cursor-pointer"
                         onClick={() => openCarousel(0)}
                     >
+                        {!isLoaded(displayImages[0]) && (
+                            <Skeleton className="absolute inset-0"/>
+                        )}
                         <Image
                             src={displayImages[0]}
                             alt=""
                             fill
-                            className="object-cover"
+                            className={cn(
+                                "object-cover transition-opacity",
+                                isLoaded(displayImages[0]) ? "opacity-100" : "opacity-0"
+                            )}
+                            onLoad={() => handleImageLoad(displayImages[0])}
                             unoptimized
                         />
                     </div>
@@ -105,11 +134,18 @@ export const ThreadImagePreview = ({className, imageLinks}: ThreadImagePreviewPr
                             className="relative flex-1 overflow-hidden rounded-tr-lg cursor-pointer"
                             onClick={() => openCarousel(1)}
                         >
+                            {!isLoaded(displayImages[1]) && (
+                                <Skeleton className="absolute inset-0"/>
+                            )}
                             <Image
                                 src={displayImages[1]}
                                 alt=""
                                 fill
-                                className="object-cover"
+                                className={cn(
+                                    "object-cover transition-opacity",
+                                    isLoaded(displayImages[1]) ? "opacity-100" : "opacity-0"
+                                )}
+                                onLoad={() => handleImageLoad(displayImages[1])}
                                 unoptimized
                             />
                         </div>
@@ -118,18 +154,26 @@ export const ThreadImagePreview = ({className, imageLinks}: ThreadImagePreviewPr
                             className="relative flex-1 overflow-hidden rounded-br-lg cursor-pointer"
                             onClick={() => openCarousel(2)}
                         >
+                            {!isLoaded(displayImages[2]) && (
+                                <Skeleton className="absolute inset-0"/>
+                            )}
                             <Image
                                 src={displayImages[2]}
                                 alt=""
                                 fill
-                                className={cn('object-cover', remainingCount > 0 && 'brightness-50 blur-xs')}
+                                className={cn(
+                                    'object-cover transition-opacity',
+                                    remainingCount > 0 && 'brightness-50 blur-xs',
+                                    isLoaded(displayImages[2]) ? "opacity-100" : "opacity-0"
+                                )}
+                                onLoad={() => handleImageLoad(displayImages[2])}
                                 unoptimized
                             />
-                            {remainingCount > 0 && (
+                            {remainingCount > 0 && isLoaded(displayImages[2]) && (
                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <span className="text-white text-3xl font-semibold">
-                    +{remainingCount}
-                  </span>
+                                    <span className="text-white text-3xl font-semibold">
+                                        +{remainingCount}
+                                    </span>
                                 </div>
                             )}
                         </div>
@@ -161,11 +205,18 @@ export const ThreadImagePreview = ({className, imageLinks}: ThreadImagePreviewPr
                                 {imageLinks.map((link, index) => (
                                     <CarouselItem key={link} className="flex items-center justify-center">
                                         <div className="relative w-full h-[80vh]">
+                                            {!isLoaded(link) && (
+                                                <Skeleton className="absolute inset-0"/>
+                                            )}
                                             <Image
                                                 src={link}
                                                 alt={`Image ${index + 1}`}
                                                 fill
-                                                className="object-contain"
+                                                className={cn(
+                                                    "object-contain transition-opacity",
+                                                    isLoaded(link) ? "opacity-100" : "opacity-0"
+                                                )}
+                                                onLoad={() => handleImageLoad(link)}
                                                 unoptimized
                                             />
                                         </div>

@@ -14,7 +14,8 @@ export const MobileLayout = ({children}: Children) => {
     // Check if we're on the apartment home page (chat)
     const isApartmentHome = /^\/apartment\/[^/]+$/.test(path);
     return (
-        <main className={cn("w-full relative scrollbar-hide", {'flex flex-col h-full': isApartmentHome}, {'min-h-full': !isApartmentHome})}>
+        <main
+            className={cn("w-full relative scrollbar-hide", {'flex flex-col h-full': isApartmentHome}, {'min-h-full': !isApartmentHome})}>
             <MobileHeader/>
             {children}
             {!isKeyboardOpen && <div className={"h-16"}/>}

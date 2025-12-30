@@ -31,7 +31,7 @@ export const ThreadService = {
     createComment: async (threadId: string, commentDTO: CreateThreadCommentDTO): Promise<ThreadCommentDTO> => {
         return await api.post<ThreadCommentDTO, CreateThreadCommentDTO>(`/api/secure/thread/${threadId}/comment`, commentDTO);
     },
-    pollVote: async (pollId: string, apartmentId: string, voteDTO: PollVoteDTO): Promise<ThreadInfoDTO> => {
-        return await api.post<ThreadInfoDTO, PollVoteDTO>(`/api/secure/apartment/${apartmentId}/poll/${pollId}/vote`, voteDTO);
+    pollVote: async (pollId: string, voteDTO: PollVoteDTO): Promise<ThreadInfoDTO> => {
+        return await api.post<ThreadInfoDTO, PollVoteDTO>(`/api/secure/poll/${pollId}/vote`, voteDTO);
     }
 }
