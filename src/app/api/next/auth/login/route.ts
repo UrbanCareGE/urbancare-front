@@ -6,7 +6,9 @@ export async function POST(request: Request) {
     try {
         const credentials = await request.json();
 
-        const userInfo = await AuthService.nextLogin(credentials)
+        const {data, headers} = await AuthService.nextLogin(credentials)
+
+        const authToken = headers['access-token'];
 
         if (!authToken) {
             return Response.json(
@@ -15,7 +17,7 @@ export async function POST(request: Request) {
             );
         }
 
-        const jsonResponse = Response.json({success: true});
+        const jsonResponse = Response.json(data);
 
         jsonResponse.headers.set(
             'Set-Cookie',

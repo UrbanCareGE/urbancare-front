@@ -10,10 +10,11 @@ export const FileService = {
         const formData = new FormData();
         formData.append('file', file);
 
-        return await api.post<IdWrapperDTO, FormData>(
+        const { data } = await api.post<IdWrapperDTO, FormData>(
             `api/secure/file/${apartmentId}/upload`,
             formData
         );
+        return data;
     },
     uploadPublicFile: async (
         file: File
@@ -21,9 +22,10 @@ export const FileService = {
         const formData = new FormData();
         formData.append('file', file);
 
-        return await api.post<IdWrapperDTO, FormData>(
+        const { data } = await api.post<IdWrapperDTO, FormData>(
             `/api/secure/file/upload`,
             formData,
         );
+        return data;
     },
 }

@@ -16,6 +16,7 @@ export const LogoutButton = () => {
         <Button
             className="flex w-full items-center justify-center gap-2 px-4 py-1 bg-error-container text-error rounded-panel font-medium text-base"
             onClick={handleLogout}
+            disabled={isLoggingOut}
         >
             <LogOut className="w-5 h-5"/>
             გასვლა

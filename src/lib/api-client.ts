@@ -2,6 +2,12 @@ import type {ErrorResponse} from '@/model/common.dto';
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
+export interface ApiResponse<TData = unknown> {
+    data: TData;
+    headers: Record<string, string>;
+    error?: ErrorResponse;
+}
+
 export const NEXT_API_URL = process.env.NEXT_PUBLIC_APP_URL || '';
 export const JAVA_API_URL = process.env.JAVA_API_URL || '';
 
@@ -35,7 +41,7 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
     method: HttpMethod,
     path: string,
     options: ApiCallOptions<TRequest> = {}
-): Promise<TResponse> {
+): Promise<ApiResponse<TResponse>> {
     try {
         const {data, params, server, authToken, headers = {}} = options;
         const isFormData = data instanceof FormData;
@@ -76,24 +82,37 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
             throw errorData as ErrorResponse;
         }
 
+        let responseData: TResponse;
+
         if (response.status === 204 || response.headers.get('content-length') === '0') {
-            return {} as TResponse;
-        }
+            responseData = {} as TResponse;
+        } else {
+            const contentType = response.headers.get('content-type');
 
-        const contentType = response.headers.get('content-type');
+            if (contentType?.includes('application/json')) {
+                const text = await response.text();
 
-        if (contentType?.includes('application/json')) {
-            const text = await response.text();
-
-            if (!text || text.trim().length === 0) {
-                return {} as TResponse;
+                if (!text || text.trim().length === 0) {
+                    responseData = {} as TResponse;
+                } else {
+                    responseData = JSON.parse(text) as TResponse;
+                }
+            } else {
+                const text = await response.text();
+                responseData = text as TResponse;
             }
-
-            return JSON.parse(text) as TResponse;
         }
 
-        const text = await response.text();
-        return text as TResponse;
+        // Convert headers to a plain object
+        const responseHeaders: Record<string, string> = {};
+        response.headers.forEach((value, key) => {
+            responseHeaders[key] = value;
+        });
+
+        return {
+            data: responseData,
+            headers: responseHeaders,
+        };
 
     } catch (error) {
         if (error && typeof error === 'object' && 'success' in error) {

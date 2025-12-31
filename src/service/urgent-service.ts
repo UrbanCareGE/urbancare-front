@@ -3,13 +3,16 @@ import {UrgentItemDTO} from "@/model/urgent.dto";
 
 export const UrgentService = {
     add: async (aparmentId: string, content: string): Promise<UrgentItemDTO> => {
-        return await api.post<UrgentItemDTO>(`/api/secure/urgent/${aparmentId}/create`,
+        const { data } = await api.post<UrgentItemDTO>(`/api/secure/urgent/${aparmentId}/create`,
             {content: content});
+        return data;
     },
     getAll: async (apartment: string): Promise<UrgentItemDTO[]> => {
-        return api.get<UrgentItemDTO[]>(`/api/secure/urgent/${apartment}/list`);
+        const { data } = await api.get<UrgentItemDTO[]>(`/api/secure/urgent/${apartment}/list`);
+        return data;
     },
     resolve: async (id: string) => {
-        return api.post(`/api/secure/urgent/${id}/resolve`)
+        const { data } = await api.post(`/api/secure/urgent/${id}/resolve`);
+        return data;
     }
 };

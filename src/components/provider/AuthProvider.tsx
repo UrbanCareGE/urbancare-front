@@ -4,7 +4,7 @@ import {createContext, ReactNode, useContext} from 'react';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {usePathname, useRouter} from 'next/navigation';
 import {AuthService} from "@/service/auth-service";
-import {ApartmentDTO, LoginDTO} from "@/model/auth.dto";
+import {ApartmentDTO, LoginDTO, UserDTO} from "@/model/auth.dto";
 import {PulsingLoader} from "@/components/common/loader/GlobalLoader";
 import {RouteConfig} from "@/proxy";
 import {ErrorResponse} from "@/model/common.dto";
@@ -63,9 +63,15 @@ export default function AuthProvider({children}: { children: ReactNode }) {
         gcTime: 10 * 60 * 1e3,
     });
 
-    const loginMutation = useMutation<string, ErrorResponse, LoginDTO>({
+    const loginMutation = useMutation<UserDTO, ErrorResponse, LoginDTO>({
         mutationFn: AuthService.login,
-        onSuccess: async () => {
+        onSuccess: async (user) => {
+            const {joinedApartments, ...dto} = user
+            queryClient.setQueryData(['user'], {
+                ...dto,
+                joinedApartments,
+                selectedApartment: joinedApartments[0]
+            } as User)
             if (user?.joinedApartments?.length) {
                 router.replace(`/apartment/${user.joinedApartments[0].id}`);
             }

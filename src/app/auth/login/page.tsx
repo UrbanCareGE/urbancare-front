@@ -48,7 +48,7 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="relative min-h-screen bg-background overflow-hidden">
+        <div className="relative min-h-screen bg-background overflow-scroll">
             {/* Background Decorations */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden">
                 {/* Grid Pattern */}
