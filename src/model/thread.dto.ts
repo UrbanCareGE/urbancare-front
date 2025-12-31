@@ -102,5 +102,4 @@ export interface PollOptionDTO {
 export interface PollDTO {
     id: string;
     items: PollOptionDTO[];
-    editable?: boolean;
 }
