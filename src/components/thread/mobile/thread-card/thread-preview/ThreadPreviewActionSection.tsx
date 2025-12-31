@@ -9,7 +9,6 @@ export const ThreadPreviewActionSection = () => {
     return (
         <div className={"flex justify-evenly items-center w-full border-t pt-2.5 border-t-slate-200"}>
             <ThreadUpvoteButton/>
-            {/*<ThreadDownvoteButton/>*/}
             <ThreadPreviewCommentButton/>
             <ThreadShareButton/>
         </div>

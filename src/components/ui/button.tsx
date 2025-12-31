@@ -21,6 +21,7 @@ const buttonVariants = cva(
         ghost: "hover:text-accent-foreground",
         "mobile-ghost": "hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        reaction: "disabled:bg-inherit disabled:opacity-100",
       },
       size: {
         default: "h-11 px-4 py-2",

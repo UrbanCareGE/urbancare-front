@@ -3,46 +3,73 @@ import {Button} from "@/components/ui/button";
 import {ThumbsDown, ThumbsUp} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
-import {useThreadVote} from "@/hooks/query/thread/use-vote-thread";
-import {VoteType} from "@/model/thread.dto";
+import {useReactionVote} from "@/hooks/query/thread/use-reaction-vote";
+import {useAuth} from "@/components/provider/AuthProvider";
 
 export const ThreadUpvoteButton = ({className}: { className?: string }) => {
     const {thread} = useThread();
-    const {vote} = useThreadVote();
+    const {user} = useAuth();
+    const {mutate, isPending} = useReactionVote();
 
-    const isUpvoted = thread.selfVote === 1;
-    const isDownvoted = thread.selfVote === -1;
+    const reactions = thread.reactions;
+    const likeOption = reactions?.items?.[0];
+    const dislikeOption = reactions?.items?.[1];
 
-    const handleUpvote = () => {
-        vote(thread.id, VoteType.UPVOTE);
+    const userId = user?.id;
+    const apartmentId = user?.selectedApartment?.id;
+
+    const isLiked = likeOption?.voters?.some(voter => voter.id === userId) ?? false;
+    const isDisliked = dislikeOption?.voters?.some(voter => voter.id === userId) ?? false;
+
+    const likeCount = likeOption?.voteCount ?? 0;
+    const dislikeCount = dislikeOption?.voteCount ?? 0;
+
+    const handleLike = () => {
+        if (!reactions || !likeOption || !apartmentId || isPending) return;
+        mutate({
+            apartmentId,
+            reactionId: reactions.id,
+            optionId: likeOption.id,
+            threadId: thread.id
+        });
     };
 
-    const handleDownvote = () => {
-        vote(thread.id, VoteType.DOWNVOTE);
+    const handleDislike = () => {
+        if (!reactions || !dislikeOption || !apartmentId || isPending) return;
+        mutate({
+            apartmentId,
+            reactionId: reactions.id,
+            optionId: dislikeOption.id,
+            threadId: thread.id
+        });
     };
+
+    if (!reactions || !likeOption || !dislikeOption) return null;
 
     return (
-        <div className={"flex items-center"}>
+        <div className={cn("flex items-center", className)}>
             <Button
-                onClick={handleUpvote}
+                onClick={handleLike}
+                disabled={isPending}
                 className={cn(
-                    "h-9 px-3 rounded-s-full rounded-e-none transition-all [&_svg]:size-5 text-primary bg-primary/10 text-sm",
-                    {"bg-primary text-white": isUpvoted}
+                    "h-9 px-3 rounded-s-full rounded-e-none transition-all [&_svg]:size-5 text-primary bg-primary/10 disabled:bg-primary/10 text-sm",
+                    {"bg-primary disabled:bg-primary text-white": isLiked}
                 )}
             >
                 <ThumbsUp
-                    className={cn("w-5 h-5 stroke-primary", {"stroke-white": isUpvoted})}/>
-                {thread.voteDiff}
+                    className={cn("w-5 h-5 stroke-primary", {"stroke-white": isLiked})}/>
+                {likeCount}
             </Button>
             <Button
-                onClick={handleDownvote}
+                onClick={handleDislike}
+                disabled={isPending}
                 className={cn(
-                    "h-9 px-3 rounded-s-none text-error rounded-e-full transition-all [&_svg]:size-5 bg-error/10 text-sm",
-                    {"bg-error text-white": isDownvoted}
+                    "h-9 px-3 rounded-s-none text-error rounded-e-full transition-all [&_svg]:size-5 bg-error/10 text-sm disabled:bg-error/10 ",
+                    {"bg-error text-white disabled:bg-error": isDisliked}
                 )}
             >
-                {thread.voteDiff}
-                <ThumbsDown className={cn("stroke-error", {"stroke-white": isDownvoted})}/>
+                {dislikeCount}
+                <ThumbsDown className={cn("stroke-error", {"stroke-white": isDisliked})}/>
             </Button>
         </div>
     );
