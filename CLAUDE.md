@@ -307,6 +307,37 @@ useReactionVote().mutate({
 - `selectedApartment` in user context
 - All content scoped to apartment
 
+### Roles & Admin Access
+Each apartment membership has a role: `'MEMBER' | 'ADMIN'`
+
+```typescript
+// Type definition (auth.dto.ts)
+export type ApartmentRole = 'MEMBER' | 'ADMIN';
+
+export interface ApartmentDTO {
+    id: string;
+    name: string;
+    role: ApartmentRole;
+}
+
+// Checking admin privileges
+const { user } = useAuth();
+const isAdmin = user?.selectedApartment?.role === 'ADMIN';
+
+// Conditional rendering
+{isAdmin && <AdminOnlyComponent />}
+
+// Conditional actions
+const handleDelete = () => {
+    if (user?.selectedApartment?.role !== 'ADMIN') return;
+    // perform admin action
+};
+```
+
+- Role is per-apartment (user can be ADMIN in one apartment, MEMBER in another)
+- Always check against `selectedApartment.role`, not a global flag
+- Backend returns role in user/me response within `joinedApartments[]`
+
 ## Responsive Design
 
 ### Breakpoints

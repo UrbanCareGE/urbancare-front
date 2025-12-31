@@ -19,9 +19,12 @@ export interface ChatDTO {
     id: string;
 }
 
+export type ApartmentRole = 'MEMBER' | 'ADMIN';
+
 export interface ApartmentDTO {
     id: string;
     name: string;
+    role: ApartmentRole;
 }
 
 export interface UserDTO {
