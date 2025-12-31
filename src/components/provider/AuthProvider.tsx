@@ -66,8 +66,9 @@ export default function AuthProvider({children}: { children: ReactNode }) {
     const loginMutation = useMutation<string, ErrorResponse, LoginDTO>({
         mutationFn: AuthService.login,
         onSuccess: async () => {
-            await refetch();
-            router.push('/');
+            if (user?.joinedApartments?.length) {
+                router.replace(`/apartment/${user.joinedApartments[0].id}`);
+            }
         },
     });
 

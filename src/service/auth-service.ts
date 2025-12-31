@@ -11,8 +11,8 @@ export const AuthService = {
 
         return 'success';
     },
-    nextLogin: async (loginReq: LoginDTO): Promise<string> => {
-        return await api.post<string, LoginDTO>(
+    nextLogin: async (loginReq: LoginDTO): Promise<UserDTO> => {
+        return await api.post<UserDTO, LoginDTO>(
             '/api/auth/login',
             loginReq,
             {

@@ -37,6 +37,8 @@ module.exports = {
             colors: {
                 primary: {
                     DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
+                    dark: 'rgb(var(--color-primary-dark) / <alpha-value>)',
+                    light: 'rgb(var(--color-primary-light) / <alpha-value>)',
                     hover: 'rgb(var(--color-primary-hover) / <alpha-value>)',
                     active: 'rgb(var(--color-primary-active) / <alpha-value>)',
                     foreground: 'rgb(var(--color-primary-foreground) / <alpha-value>)',
@@ -89,9 +91,19 @@ module.exports = {
                     secondary: 'rgb(var(--color-text-secondary) / <alpha-value>)',
                     tertiary: 'rgb(var(--color-text-tertiary) / <alpha-value>)',
                     disabled: 'rgb(var(--color-text-disabled) / <alpha-value>)',
+                    muted: 'rgb(var(--color-text-muted) / <alpha-value>)',
+                },
+                text: {
+                    primary: 'rgb(var(--color-text-primary) / <alpha-value>)',
+                    secondary: 'rgb(var(--color-text-secondary) / <alpha-value>)',
+                    tertiary: 'rgb(var(--color-text-tertiary) / <alpha-value>)',
+                    muted: 'rgb(var(--color-text-muted) / <alpha-value>)',
                 },
                 border: {
                     DEFAULT: 'rgb(var(--color-border) / <alpha-value>)',
+                    light: 'rgb(var(--color-border-light) / <alpha-value>)',
+                    medium: 'rgb(var(--color-border-medium) / <alpha-value>)',
+                    strong: 'rgb(var(--color-border-strong) / <alpha-value>)',
                     hover: 'rgb(var(--color-border-hover) / <alpha-value>)',
                     focus: 'rgb(var(--color-border-focus) / <alpha-value>)',
                     error: 'rgb(var(--color-border-error) / <alpha-value>)'

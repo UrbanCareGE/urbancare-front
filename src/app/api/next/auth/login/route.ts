@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     try {
         const credentials = await request.json();
 
-        const authToken = await AuthService.nextLogin(credentials)
+        const userInfo = await AuthService.nextLogin(credentials)
 
         if (!authToken) {
             return Response.json(
