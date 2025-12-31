@@ -1,5 +1,3 @@
-// app/api/auth/login/route.ts
-
 import {AuthService} from "@/service/auth-service";
 import {RegisterDTO} from "@/model/auth.dto";
 

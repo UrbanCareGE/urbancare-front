@@ -82,7 +82,7 @@ export default function AuthProvider({children}: { children: ReactNode }) {
         mutationFn: AuthService.logout,
         onSuccess: () => {
             queryClient.clear();
-            router.push('/auth/login');
+            window.location.href = '/auth/login';
         },
     });
 
