@@ -25,7 +25,7 @@ interface DynamicPanelFooterProps {
 
 const DynamicPanelRoot = ({className, children}: DynamicPanelRootProps) => {
     return (
-        <div className={cn("w-full flex flex-col h-full", className)}>
+        <div className={cn("flex flex-col", className)}>
             {children}
         </div>
     );
@@ -34,7 +34,7 @@ const DynamicPanelRoot = ({className, children}: DynamicPanelRootProps) => {
 const DynamicPanelHeader = ({className, children}: DynamicPanelHeaderProps) => {
     return (
         <div className={cn(
-            "w-full h-20 px-4 pb-2", className)}>
+            "w-full h-auto px-4 pb-2", className)}>
             {children}
         </div>
     );
@@ -43,7 +43,7 @@ const DynamicPanelHeader = ({className, children}: DynamicPanelHeaderProps) => {
 const DynamicPanelBody = ({className, children,}: DynamicPanelBodyProps) => {
     return (
         <div className={cn(
-            "w-full flex-1 overflow-scroll px-4", className)}>
+            "w-full flex-1 px-4 overflow-scroll", className)}>
             {children}
         </div>
     );
@@ -52,7 +52,7 @@ const DynamicPanelBody = ({className, children,}: DynamicPanelBodyProps) => {
 const DynamicPanelFooter = ({className, children,}: DynamicPanelFooterProps) => {
     return (
         <div className={cn(
-            "w-full flex flex-col h-24 items-center justify-center px-4", className
+            "h-auto", className
         )}>
             {children}
         </div>

@@ -120,7 +120,7 @@
     --color-success-container-foreground: 76 175 80;
 
     --color-error: 239 68 68; /* red-500 */
-    --color-error-container:254 242 242;
+    --color-error-container: 254 242 242;
     --color-error-hover: 220 38 38; /* red-600 */
     --color-error-foreground: 251 251 251; /* white */
     --color-error-background: 254 242 242; /* red-50 */
@@ -419,18 +419,10 @@
     animation-fill-mode: forwards;
   }
 
-  .animate-slide-up {
-    animation: slide-up 0.3s ease-out forwards;
-    animation-fill-mode: forwards;
-  }
-
-  .animation-delay-200 {
-    animation-delay: 0.2s;
-  }
-
-  .animation-delay-400 {
-    animation-delay: 0.4s;
-  }
+  //.animate-slide-up {
+  //  animation: slide-up 0.3s ease-out forwards;
+  //  animation-fill-mode: forwards;
+  //}
 
 
 }

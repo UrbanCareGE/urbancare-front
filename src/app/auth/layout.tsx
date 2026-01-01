@@ -3,7 +3,7 @@ import {DesktopAdapter, MobileAdapter} from "@/components/common/layouts/Respons
 import MobileLayout from "@/app/auth/mobile-layout";
 import DesktopLayout from "@/app/auth/desktop-layout";
 
-export default function HomeLayoutl({children}: { children: React.ReactNode }) {
+export default function HomeLayout({children}: { children: React.ReactNode }) {
     return (
         <>
             <MobileAdapter>
