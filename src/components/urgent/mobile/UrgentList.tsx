@@ -1,14 +1,43 @@
 'use client'
 
-import UrgentCard from "@/components/urgent/mobile/UrgentCard";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {Leapfrog} from "ldrs/react";
-import {cn} from "@/lib/utils";
+import {cn, formatTime} from "@/lib/utils";
 import {Basic} from "@/app/layout";
 
 import 'ldrs/react/Leapfrog.css'
 import {useFetchUrgent} from "@/hooks/query/urgent/use-fetch-urgent";
+import {NewUrgentCard, UrgentCardStatus, ActionButtonProps} from "@/components/urgent/NewUrgentCard";
+import {UrgentItemDTO} from "@/model/urgent.dto";
+import {UrgentService} from "@/service/urgent-service";
 
+const mapUrgentItemToCardProps = (item: UrgentItemDTO) => {
+    const status: UrgentCardStatus = item.resolved ? 'resolved' : 'urgent';
+    const initials = `${item.userInfo.name[0]}${item.userInfo.surname[0]}`.toUpperCase();
+
+    const actions: ActionButtonProps[] = item.resolved
+        ? [{icon: '❤️', label: 'მადლობა', variant: 'success'}]
+        : [{
+            icon: '✓',
+            label: 'შესრულებულია',
+            variant: 'primary',
+            onClick: () => UrgentService.resolve(item.id)
+        }];
+
+    return {
+        status,
+        icon: item.resolved ? '✓' : '🆘',
+        label: item.resolved ? 'შესრულებულია' : 'SOS',
+        title: `${item.userInfo.name} ${item.userInfo.surname}`,
+        message: item.content,
+        meta: [
+            {icon: '⏱️', text: formatTime(item.createdAt.toString())},
+        ],
+        responders: [{initials, color: 'primary' as const}],
+        responderText: item.resolved ? 'დაეხმარა' : 'მოითხოვა დახმარება',
+        actions,
+    };
+};
 
 const UrgentList = () => {
     const authContext = useAuth();
@@ -24,7 +53,7 @@ const UrgentList = () => {
     }
 
     return (
-        <ul className="flex flex-col gap-3 py-3">
+        <ul className="flex flex-col gap-3 py-3 px-4">
             {isLoading && <ListLoader/>}
 
             {isError && (
@@ -34,7 +63,7 @@ const UrgentList = () => {
             )}
 
             {data && data.length > 0 && data?.map((item) => (
-                <UrgentCard key={item.id} {...item}/>
+                <NewUrgentCard key={item.id} {...mapUrgentItemToCardProps(item)}/>
             ))}
         </ul>
     );

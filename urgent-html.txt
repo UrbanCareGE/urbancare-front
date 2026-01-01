@@ -1,0 +1,792 @@
+
+r-background: #F8FAFC;
+            --color-surface: #FFFFFF;
+			            --color-surface-variant: #F1F5F9;
+						            --color-surface-container: #E2E8F0;
+
+									            /* Text Colors */
+												            --color-text-primary: #212121;
+															            --color-text-secondary: #616161;
+																		            --color-text-tertiary: #9E9E9E;
+
+																					            /* Border Colors */
+																								            --color-border: #E2E8F0;
+																											            --color-border-strong: #CBD5E1;
+
+																														            /* Status Colors */
+																																	            --color-success: #4CAF50;
+																																				            --color-success-bg: #E8F5E9;
+																																							            --color-warning: #FF9800;
+																																										            --color-warning-bg: #FFF3E0;
+																																													            --color-error: #F44336;
+																																																            --color-error-bg: #FFEBEE;
+																																																			            --color-info: #2196F3;
+																																																						            --color-inf<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeighborHub - Urgent Alerts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Brand Colors */
+            --color-primary: #1976D2;
+            --color-primary-light: #42A5F5;
+            --color-primary-dark: #1565C0;
+            --color-primary-container: #BBDEFB;
+            --color-secondary: #7C4DFF;
+            --color-tertiary: #00BCD4;
+
+            /* Surface Colors */
+      o-bg: #E3F2FD;
+        }
+
+        [data-theme="dark"] {
+            --color-primary: #F48FB1;
+            --color-primary-light: #F8BBD9;
+            --color-primary-dark: #EC407A;
+            --color-primary-container: #880E4F;
+            --color-secondary: #CE93D8;
+            --color-tertiary: #80DEEA;
+
+            --color-background: #121212;
+            --color-surface: #1E1E1E;
+            --color-surface-variant: #2D2D2D;
+            --color-surface-container: #242424;
+
+            --color-text-primary: #FAFAFA;
+            --color-text-secondary: #B0B0B0;
+            --color-text-tertiary: #757575;
+
+            --color-border: #334155;
+            --color-border-strong: #475569;
+
+            --color-success: #81C784;
+            --color-success-bg: #1B3D1C;
+            --color-warning: #FFB74D;
+            --color-warning-bg: #3D2E1A;
+            --color-error: #EF5350;
+            --color-error-bg: #3D1A1A;
+            --color-info: #64B5F6;
+            --color-info-bg: #1A2D3D;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--color-background);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            padding: 40px 24px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .title h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .title span {
+            font-size: 28px;
+        }
+
+        .theme-toggle {
+            display: flex;
+            gap: 8px;
+        }
+
+        .theme-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--color-text-primary);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .theme-btn.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+        }
+
+        [data-theme="dark"] .theme-btn.active {
+            color: #121212;
+        }
+
+        /* SOS Cards */
+        .sos-card {
+            background: var(--color-surface);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sos-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        /* Urgent State */
+        .sos-card.urgent {
+            border-left-color: var(--color-error);
+        }
+
+        .sos-card.urgent::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-error), transparent);
+            animation: pulse-line 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-line {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* In Progress State */
+        .sos-card.in-progress {
+            border-left-color: var(--color-warning);
+        }
+
+        /* Resolved State */
+        .sos-card.resolved {
+            border-left-color: var(--color-success);
+            opacity: 0.85;
+        }
+
+        /* Card Header */
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .card-type {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sos-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .urgent .sos-icon {
+            background: var(--color-error-bg);
+        }
+
+        .in-progress .sos-icon {
+            background: var(--color-warning-bg);
+        }
+
+        .resolved .sos-icon {
+            background: var(--color-success-bg);
+        }
+
+        .card-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .urgent .card-label {
+            color: var(--color-error);
+        }
+
+        .in-progress .card-label {
+            color: var(--color-warning);
+        }
+
+        .resolved .card-label {
+            color: var(--color-success);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        /* Status Badge */
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .urgent .status-badge {
+            background: var(--color-error-bg);
+            color: var(--color-error);
+        }
+
+        .in-progress .status-badge {
+            background: var(--color-warning-bg);
+            color: var(--color-warning);
+        }
+
+        .resolved .status-badge {
+            background: var(--color-success-bg);
+            color: var(--color-success);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .urgent .pulse-dot {
+            background: var(--color-error);
+        }
+
+        .in-progress .pulse-dot {
+            background: var(--color-warning);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        /* Card Content */
+        .card-content {
+            margin-bottom: 16px;
+        }
+
+        .card-message {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--color-text-tertiary);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .meta-icon {
+            font-size: 14px;
+        }
+
+        /* Card Footer */
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 16px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .responders {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .avatar-stack {
+            display: flex;
+        }
+
+        .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid var(--color-surface);
+            margin-left: -8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .avatar:first-child {
+            margin-left: 0;
+        }
+
+        .avatar.blue { background: var(--color-primary); }
+        .avatar.purple { background: var(--color-secondary); }
+        .avatar.teal { background: var(--color-tertiary); }
+        .avatar.more {
+            background: var(--color-surface-container);
+            color: var(--color-text-secondary);
+        }
+
+        .responder-text {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        [data-theme="dark"] .btn-primary {
+            color: #121212;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--color-surface-variant);
+            color: var(--color-text-primary);
+            border: 1px solid var(--color-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-surface-container);
+        }
+
+        .btn-success {
+            background: var(--color-success);
+            color: white;
+        }
+
+        /* Resolved overlay text */
+        .resolved-banner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: var(--color-success-bg);
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+
+        .resolved-banner span {
+            font-size: 13px;
+            color: var(--color-success);
+            font-weight: 500;
+        }
+
+        /* Section Label */
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--color-text-tertiary);
+            margin-bottom: 12px;
+            margin-top: 32px;
+        }
+
+        .section-label:first-of-type {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="title">
+            <span>🚨</span>
+            <h1>Urgent Alerts</h1>
+        </div>
+        <div class="theme-toggle">
+            <button class="theme-btn active" data-theme-btn="light">☀️ Light</button>
+            <button class="theme-btn" data-theme-btn="dark">🌙 Dark</button>
+        </div>
+    </div>
+
+    <!-- Urgent Cards -->
+    <div class="section-label">🔴 Active Emergencies</div>
+
+    <div class="sos-card urgent">
+        <div class="card-header">
+            <div class="card-type">
+                <div class="sos-icon">🆘</div>
+                <div>
+                    <div class="card-label">SOS Alert</div>
+                    <div class="card-title">Medical Emergency - Elderly Resident</div>
+                </div>
+            </div>
+            <div class="status-badge">
+                <span class="pulse-dot"></span>
+                Urgent
+            </div>
+        </div>
+        <div class="card-content">
+            <div class="card-message">
+                82-year-old resident fell in their home and cannot get up. Possible hip injury. Family member called for immediate neighborhood assistance while waiting for ambulance.
+            </div>
+            <div class="card-meta">
+                <div class="meta-item">
+                    <span class="meta-icon">📍</span>
+                    <span>142 Oak Avenue</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">⏱️</span>
+                    <span>3 minutes ago</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">📞</span>
+                    <span>EMS Notified</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="responders">
+                <div class="avatar-stack">
+                    <div class="avatar blue">JM</div>
+                    <div class="avatar purple">SK</div>
+                </div>
+                <span class="responder-text">2 neighbors responding</span>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-secondary">📍 Directions</button>
+                <button class="btn btn-primary">🤝 I Can Help</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="sos-card urgent">
+        <div class="card-header">
+            <div class="card-type">
+                <div class="sos-icon">⚠️</div>
+                <div>
+                    <div class="card-label">Safety Alert</div>
+                    <div class="card-title">Gas Smell Reported - Multiple Homes</div>
+                </div>
+            </div>
+            <div class="status-badge">
+                <span class="pulse-dot"></span>
+                Urgent
+            </div>
+        </div>
+        <div class="card-content">
+            <div class="card-message">
+                Strong gas odor detected in Maple Street area. Gas company has been contacted. Please stay indoors, avoid using electrical switches, and keep windows closed until all-clear is given.
+            </div>
+            <div class="card-meta">
+                <div class="meta-item">
+                    <span class="meta-icon">📍</span>
+                    <span>Maple Street Block</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">⏱️</span>
+                    <span>8 minutes ago</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">🏠</span>
+                    <span>~15 homes affected</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="responders">
+                <div class="avatar-stack">
+                    <div class="avatar blue">TC</div>
+                    <div class="avatar purple">RW</div>
+                    <div class="avatar teal">AM</div>
+                    <div class="avatar more">+4</div>
+                </div>
+                <span class="responder-text">7 neighbors alerted</span>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-secondary">📢 Share Alert</button>
+                <button class="btn btn-primary">✓ Mark as Seen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- In Progress Cards -->
+    <div class="section-label">🟡 Being Addressed</div>
+
+    <div class="sos-card in-progress">
+        <div class="card-header">
+            <div class="card-type">
+                <div class="sos-icon">🔧</div>
+                <div>
+                    <div class="card-label">Assistance Needed</div>
+                    <div class="card-title">Power Outage - Elderly Care</div>
+                </div>
+            </div>
+            <div class="status-badge">
+                <span class="pulse-dot"></span>
+                In Progress
+            </div>
+        </div>
+        <div class="card-content">
+            <div class="card-message">
+                Power outage affecting senior resident with medical equipment. Neighbor is providing generator support. Looking for additional extension cords and portable heater.
+            </div>
+            <div class="card-meta">
+                <div class="meta-item">
+                    <span class="meta-icon">📍</span>
+                    <span>89 Birch Lane</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">⏱️</span>
+                    <span>45 minutes ago</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">⚡</span>
+                    <span>Est. 2hr power restore</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="responders">
+                <div class="avatar-stack">
+                    <div class="avatar blue">DL</div>
+                    <div class="avatar purple">MK</div>
+                    <div class="avatar teal">PS</div>
+                </div>
+                <span class="responder-text">3 neighbors helping</span>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-secondary">💬 Message</button>
+                <button class="btn btn-primary">🔌 I Have Supplies</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="sos-card in-progress">
+        <div class="card-header">
+            <div class="card-type">
+                <div class="sos-icon">🐕</div>
+                <div>
+                    <div class="card-label">Lost Pet Alert</div>
+                    <div class="card-title">Missing Dog - Golden Retriever</div>
+                </div>
+            </div>
+            <div class="status-badge">
+                <span class="pulse-dot"></span>
+                Searching
+            </div>
+        </div>
+        <div class="card-content">
+            <div class="card-message">
+                "Max" escaped through back gate around 2pm. Friendly, wearing blue collar with tags. Last seen heading toward the park. Owner is elderly and very worried.
+            </div>
+            <div class="card-meta">
+                <div class="meta-item">
+                    <span class="meta-icon">📍</span>
+                    <span>Last seen: Cedar Park</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">⏱️</span>
+                    <span>1 hour ago</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">👀</span>
+                    <span>2 possible sightings</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="responders">
+                <div class="avatar-stack">
+                    <div class="avatar blue">LR</div>
+                    <div class="avatar purple">JT</div>
+                    <div class="avatar teal">BN</div>
+                    <div class="avatar more">+8</div>
+                </div>
+                <span class="responder-text">11 neighbors searching</span>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-secondary">📸 View Photo</button>
+                <button class="btn btn-primary">👁️ I Spotted Max</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resolved Cards -->
+    <div class="section-label">🟢 Recently Resolved</div>
+
+    <div class="sos-card resolved">
+        <div class="card-header">
+            <div class="card-type">
+                <div class="sos-icon">✓</div>
+                <div>
+                    <div class="card-label">Resolved</div>
+                    <div class="card-title">Locked Out - Single Parent</div>
+                </div>
+            </div>
+            <div class="status-badge">
+                ✓ Resolved
+            </div>
+        </div>
+        <div class="card-content">
+            <div class="card-message">
+                Parent locked out with children in the car. Neighbor provided phone to call locksmith and stayed until help arrived.
+            </div>
+            <div class="card-meta">
+                <div class="meta-item">
+                    <span class="meta-icon">📍</span>
+                    <span>55 Pine Street</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">⏱️</span>
+                    <span>Resolved 2 hours ago</span>
+                </div>
+            </div>
+            <div class="resolved-banner">
+                <span>🎉</span>
+                <span>Resolved thanks to Sarah M. — locksmith arrived in 20 minutes!</span>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="responders">
+                <div class="avatar-stack">
+                    <div class="avatar blue">SM</div>
+                </div>
+                <span class="responder-text">1 neighbor helped</span>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-success">❤️ Thank Sarah</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="sos-card resolved">
+        <div class="card-header">
+            <div class="card-type">
+                <div class="sos-icon">✓</div>
+                <div>
+                    <div class="card-label">Resolved</div>
+                    <div class="card-title">Water Main Break - Emergency Shutoff</div>
+                </div>
+            </div>
+            <div class="status-badge">
+                ✓ Resolved
+            </div>
+        </div>
+        <div class="card-content">
+            <div class="card-message">
+                Water main break caused flooding in basement. Neighbors helped locate shutoff valve and move belongings while city crew was dispatched.
+            </div>
+            <div class="card-meta">
+                <div class="meta-item">
+                    <span class="meta-icon">📍</span>
+                    <span>203 Elm Drive</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">⏱️</span>
+                    <span>Resolved yesterday</span>
+                </div>
+            </div>
+            <div class="resolved-banner">
+                <span>🙏</span>
+                <span>Community effort! 5 neighbors helped minimize water damage</span>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="responders">
+                <div class="avatar-stack">
+                    <div class="avatar blue">TK</div>
+                    <div class="avatar purple">RJ</div>
+                    <div class="avatar teal">AL</div>
+                    <div class="avatar more">+2</div>
+                </div>
+                <span class="responder-text">5 neighbors helped</span>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-success">❤️ Thank Team</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Theme toggle
+    const themeBtns = document.querySelectorAll('[data-theme-btn]');
+    themeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const theme = btn.dataset.themeBtn;
+            document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : '');
+            themeBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+</script>
+</body>
+</html>
