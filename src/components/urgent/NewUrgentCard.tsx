@@ -6,6 +6,7 @@ import {Badge} from '@/components/ui/badge';
 import {Avatar, AvatarFallback} from '@/components/ui/avatar';
 import {Button} from '@/components/ui/button';
 import {cn} from '@/lib/utils';
+import {Loader} from 'lucide-react';
 
 // Types
 export type UrgentCardStatus = 'urgent' | 'in-progress' | 'resolved';
@@ -21,6 +22,7 @@ export interface UrgentCardProps {
     responderText: string;
     actions: ActionButtonProps[];
     resolvedMessage?: string;
+    isPending?: boolean;
     className?: string;
 }
 
@@ -37,8 +39,10 @@ export interface ResponderProps {
 export interface ActionButtonProps {
     icon?: string;
     label: string;
+    pendingLabel?: string;
     variant: 'primary' | 'secondary' | 'success';
     onClick?: () => void;
+    isPending?: boolean;
 }
 
 // Status configuration
@@ -229,9 +233,9 @@ const UrgentCardFooter = ({
     actions: ActionButtonProps[];
 }) => {
     const buttonVariants = {
-        primary: 'bg-primary text-white hover:bg-primary/90',
-        secondary: 'bg-surface-variant border border-border hover:bg-surface-container',
-        success: 'bg-success text-white hover:bg-success/90',
+        primary: 'bg-primary text-white lg:hover:bg-primary/90',
+        secondary: 'bg-primary text-white lg:hover:bg-primary/90',
+        success: 'bg-success text-white lg:hover:bg-success/90',
     };
 
     return (
@@ -246,13 +250,23 @@ const UrgentCardFooter = ({
                         key={index}
                         variant="reaction"
                         onClick={action.onClick}
+                        disabled={action.isPending}
                         className={cn(
                             'h-9 px-4 rounded-lg text-sm font-medium',
                             buttonVariants[action.variant]
                         )}
                     >
-                        {action.icon && <span>{action.icon}</span>}
-                        {action.label}
+                        {action.isPending ? (
+                            <>
+                                <Loader className="animate-spin w-4 h-4"/>
+                                იგზავნება
+                            </>
+                        ) : (
+                            <>
+                                {action.icon && <span>{action.icon}</span>}
+                                {action.label}
+                            </>
+                        )}
                     </Button>
                 ))}
             </div>
@@ -272,6 +286,7 @@ export const NewUrgentCard = ({
     responderText,
     actions,
     resolvedMessage,
+    isPending,
     className,
 }: UrgentCardProps) => {
     const config = statusConfig[status];
@@ -282,6 +297,7 @@ export const NewUrgentCard = ({
                 'relative p-5 border-l-4 overflow-hidden transition-all hover:-translate-y-0.5 hover:shadow-lg',
                 config.borderColor,
                 status === 'resolved' && 'opacity-85',
+                isPending && 'opacity-80 pointer-events-none',
                 className
             )}
         >
