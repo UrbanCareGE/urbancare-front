@@ -5,7 +5,6 @@ import ReactQueryProvider from "@/components/provider/ReactQueryProvider";
 import MyThemeProvider from "@/components/provider/MyThemeProvider";
 import {headers} from "next/headers";
 import ResponsiveLayout from "@/components/common/layouts/ResponsiveLayout";
-import {ChatProvider} from "@/components/provider/ChatProvider";
 import AuthProvider from "@/components/provider/AuthProvider";
 
 export const metadata: Metadata = {
@@ -38,9 +37,7 @@ export default async function RootLayout({children}: Children) {
             <MyThemeProvider>
                 <AuthProvider>
                     <ResponsiveLayout initialIsMobile={isMobile}>
-                        <ChatProvider>
-                            {children}
-                        </ChatProvider>
+                        {children}
                     </ResponsiveLayout>
                 </AuthProvider>
             </MyThemeProvider>

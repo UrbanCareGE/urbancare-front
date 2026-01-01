@@ -228,7 +228,7 @@ module.exports = {
                 },
                 slideUp: {
                     '0%': {
-                        transform: 'translateY(100%)',
+                        transform: 'translateY(20px)',
                         opacity: 0
                     },
                     '100%': {

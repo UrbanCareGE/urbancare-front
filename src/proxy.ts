@@ -77,6 +77,7 @@ async function verifyAuthToken(token: string): Promise<{
 export async function proxy(request: NextRequest) {
     const {pathname} = request.nextUrl;
 
+    // Skip static files, api, etc.
     if (
         pathname.startsWith('/_next') ||
         pathname.startsWith('/api') ||
@@ -87,9 +88,18 @@ export async function proxy(request: NextRequest) {
 
     const authToken = request.cookies.get('auth-token')?.value;
 
+    if (matchesRoute(pathname, RouteConfig.public)) {
+        // const {isValid} = await verifyAuthToken(authToken || '');
+        //
+        // if (isValid && matchesRoute(pathname, RouteConfig.authOnly)) {
+        //     return NextResponse.redirect(new URL('/', request.url));
+        // }
+
+        return NextResponse.next();
+    }
+
     const {isValid, user} = await verifyAuthToken(authToken || '');
 
-    // Handle protected routes
     if (matchesRoute(pathname, RouteConfig.protected)) {
         if (!isValid) {
             const loginUrl = new URL('/auth/login', request.url);
@@ -98,7 +108,6 @@ export async function proxy(request: NextRequest) {
         }
     }
 
-    // Handle admin routes
     if (matchesRoute(pathname, RouteConfig.admin)) {
         if (!isValid) {
             const loginUrl = new URL('/auth/login', request.url);
@@ -111,16 +120,6 @@ export async function proxy(request: NextRequest) {
         }
     }
 
-    // Redirect authenticated users away from auth pages
-    if (isValid && matchesRoute(pathname, RouteConfig.authOnly)) {
-        // Will be handled by the root page which redirects to first apartment
-        return NextResponse.redirect(new URL('/', request.url));
-    }
-
-    // Redirect root to first apartment (handled by root page.tsx)
-    // The root page will fetch user and redirect to /apartment/{firstApartmentId}
-
-    // Add user info to headers for server components (optional)
     const response = NextResponse.next();
     if (isValid && user) {
         response.headers.set('x-user-id', user.id);
