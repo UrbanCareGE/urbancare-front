@@ -11,7 +11,8 @@ import {
     Headset,
     Home,
     Newspaper,
-    Settings
+    Settings,
+    ShieldAlert
 } from "lucide-react";
 import NavigationArea from "@/components/home/sidebar/mobile/navigation/NavigationArea";
 import {NeighborhoodSelect} from "@/components/home/NeighborhoodSelect";
@@ -26,6 +27,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {LogoutButton} from "@/components/auth/LogoutButton";
 import {useAuth} from "@/components/provider/AuthProvider";
+import {Chat} from "@/components/chat/Chat";
+import UrgentList from "@/components/urgent/mobile/UrgentList";
 
 // ==================== HEADER COMPONENTS ====================
 
@@ -155,26 +158,80 @@ const DesktopSidebar = () => (
     </aside>
 );
 
+// ==================== RIGHT PANEL COMPONENTS ====================
+
+type IslandProps = {
+    title: string;
+    icon?: React.ReactNode;
+    children: React.ReactNode;
+    className?: string;
+}
+
+const Island = ({title, icon, children, className}: IslandProps) => (
+    <div className={cn("bg-surface rounded-panel border border-border overflow-hidden flex flex-col", className)}>
+        <div className="px-4 py-3 border-b border-border bg-surface-variant flex items-center gap-2">
+            {icon}
+            <h3 className="font-semibold text-sm text-foreground-primary">{title}</h3>
+        </div>
+        <div className="flex-1 overflow-hidden">
+            {children}
+        </div>
+    </div>
+);
+
+const UrgentIsland = () => (
+    <Island
+        title="სასწრაფო"
+        icon={<ShieldAlert className="w-4 h-4 text-error"/>}
+        className="max-h-[45%]"
+    >
+        <div className="overflow-y-auto h-full">
+            <UrgentList/>
+        </div>
+    </Island>
+);
+
+const ChatIsland = () => (
+    <Island title="ჩატი" className="flex-1 min-h-[200px]">
+        <div className="h-full">
+            <Chat/>
+        </div>
+    </Island>
+);
+
+const RightPanel = () => (
+    <aside className="w-[400px] flex flex-col gap-4 flex-shrink-0 py-4 pr-4">
+        <UrgentIsland/>
+        <ChatIsland/>
+    </aside>
+);
+
 // ==================== MAIN LAYOUT ====================
 
-export const DesktopLayout = ({children}: { children: React.ReactNode }) => {
+export const LargeDesktopLayout = ({children}: { children: React.ReactNode }) => {
     return (
         <ChatProvider>
             <div className="flex h-screen bg-background overflow-hidden">
                 {/* Left Column - Sidebar */}
                 <DesktopSidebar/>
 
-                {/* Right Area - Header + Content */}
+                {/* Center Area - Header + Content */}
                 <div className="flex-1 flex flex-col min-w-0">
                     {/* Header */}
                     <DesktopHeader/>
 
-                    {/* Main Content */}
-                    <main className="flex-1 overflow-y-auto p-6">
-                        <div className="max-w-4xl mx-auto">
-                            {children}
-                        </div>
-                    </main>
+                    {/* Content + Right Panel */}
+                    <div className="flex-1 flex overflow-hidden">
+                        {/* Main Content */}
+                        <main className="flex-1 overflow-y-auto p-6 min-w-0">
+                            <div className="max-w-3xl">
+                                {children}
+                            </div>
+                        </main>
+
+                        {/* Right Panel */}
+                        <RightPanel/>
+                    </div>
                 </div>
             </div>
         </ChatProvider>
