@@ -1,40 +1,34 @@
 'use client'
 
 import React from "react";
+import {cn} from "@/lib/utils";
+import {AiFillHome} from "react-icons/ai";
 
-export function UrbanCareLogo({size = 36}: { size?: number }) {
-    return (
-        <svg width={size} height={size} viewBox="0 0 80 80" fill="none">
-            <rect width="80" height="80" rx="16" fill="url(#uc-gradient)"/>
-            <path
-                d="M20 35L40 20L60 35V58C60 59.1046 59.1046 60 58 60H22C20.8954 60 20 59.1046 20 58V35Z"
-                stroke="white"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-            <path
-                d="M32 60V42H48V60"
-                stroke="white"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-            <defs>
-                <linearGradient id="uc-gradient" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#1976D2"/>
-                    <stop offset="1" stopColor="#1565C0"/>
-                </linearGradient>
-            </defs>
-        </svg>
-    );
+type UrbanCareIconProps = {
+    className?: string,
+    iconClassName?: string,
+}
+
+export const UrbanCareIcon = ({className, iconClassName}: UrbanCareIconProps) => {
+    return <div
+        className={cn("relative w-14 h-14 rounded-panel bg-gradient-primary flex items-center justify-center shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] overflow-hidden", className)}>
+        <AiFillHome fill={'white'} className={cn('w-8 h-8', iconClassName)}/>
+    </div>;
+}
+
+type UrbanCareTextIconProps = {
+    className?: string;
+}
+
+export const UrbanCareTextIcon = ({className}: UrbanCareTextIconProps) => {
+    return <span className={cn("text-2xl font-bold bg-gradient-primary-text", className)}>UrbanCare</span>
 }
 
 export const AppLogo = () => {
     return (
-        <div className="h-12 flex justify-start items-center mr-auto">
-            <span className={"ml-3 font-semibold text-xl text-center mr-auto"}>URBANCARE</span>
-            <UrbanCareLogo/>
+        <div className="h-12 flex justify-start items-center mr-aut gap-3">
+            <UrbanCareIcon className={"w-10 h-10"}/>
+            <UrbanCareTextIcon/>
         </div>
     );
 };

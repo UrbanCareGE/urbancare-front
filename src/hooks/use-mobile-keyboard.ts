@@ -9,7 +9,6 @@ const useIsVirtualKeyboardOpen = () => {
         const handleResize = () => {
             // Logic to determine if keyboard is open based on window height change
             // A common threshold for the minimum height change to be considered a keyboard
-            debugger
             const minKeyboardHeight = 100;
             const currentViewportHeight = window.innerHeight;
             const initialViewportHeight = window.visualViewport?.height || window.screen.height;

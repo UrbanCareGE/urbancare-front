@@ -3,16 +3,21 @@ import {Button} from "@/components/ui/button";
 
 type OauthFormProps = {
     className?: string;
-    handleOauthLogin: (provider: string) => void;
+    handleOauthLogin?: (provider: string) => void;
 }
 
 export const OauthForm = ({className, handleOauthLogin}: OauthFormProps) => {
+    const defaultHandler = (provider: string) => {
+        console.log(`OAuth login with ${provider}`);
+    };
+
+    const handler = handleOauthLogin || defaultHandler;
     return <div className="flex flex-col gap-3">
         {/* Google */}
         <Button
             variant="outline"
             className="w-full h-[52px] rounded-[14px] border-[1.5px] border-border-medium bg-white hover:bg-white hover:border-border-hover shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-all duration-200 text-text-primary text-[15px] font-semibold gap-3"
-            onClick={() => handleOauthLogin("google")}
+            onClick={() => handler("google")}
         >
             <svg viewBox="0 0 24 24" className="w-5 h-5">
                 <path
@@ -34,7 +39,7 @@ export const OauthForm = ({className, handleOauthLogin}: OauthFormProps) => {
         {/* Apple */}
         <Button
             className="w-full h-[52px] rounded-[14px] bg-[#212121] hover:bg-black shadow-[0_4px_12px_rgba(33,33,33,0.2)] transition-all duration-200 text-white text-[15px] font-semibold gap-3"
-            onClick={() => handleOauthLogin("apple")}
+            onClick={() => handler("apple")}
         >
             <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white">
                 <path
@@ -46,7 +51,7 @@ export const OauthForm = ({className, handleOauthLogin}: OauthFormProps) => {
         {/* Facebook */}
         <Button
             className="w-full h-[52px] rounded-[14px] bg-[#1877F2] hover:bg-[#166FE5] shadow-[0_4px_12px_rgba(24,119,242,0.3)] transition-all duration-200 text-white text-[15px] font-semibold gap-3"
-            onClick={() => handleOauthLogin("facebook")}
+            onClick={() => handler("facebook")}
         >
             <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white">
                 <path

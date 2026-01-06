@@ -139,5 +139,6 @@ export const config = {
          * - public files (public folder)
          */
         '/((?!_next/static|_next/image|favicon.ico|.*\\..*|public).*)',
+
     ],
 };

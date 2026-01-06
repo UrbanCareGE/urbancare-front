@@ -10,6 +10,7 @@ import NavigationArea from "@/components/home/sidebar/mobile/navigation/Navigati
 import {NavSideBarHeader} from "@/components/home/sidebar/mobile/navigation/NavSideBarHeader";
 import {useMobileScroll} from "@/hooks/use-mobile-scroll";
 import {cn} from "@/lib/utils";
+import {AppLogo, UrbanCareTextIcon} from "@/components/common/logo/AppLogo";
 
 export const MobileHeader = () => {
     const {isVisible} = useMobileScroll()
@@ -36,7 +37,8 @@ export const MobileHeader = () => {
                     </MobileSideBar.Footer>
                 </MobileSideBar.Content>
             </MobileSideBar>
-            <span className={"ml-3 font-semibold text-xl text-center mr-auto"}>URBANCARE</span>
+            <UrbanCareTextIcon className={"ml-3 mr-auto"}/>
+            {/*<span className={"ml-3 font-semibold text-xl text-center mr-auto"}>URBANCARE</span>*/}
             <MobileSideBar side={'right'}>
                 <MobileSideBar.Trigger>
                     <ActiveUserAvatar/>

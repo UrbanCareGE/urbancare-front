@@ -17,6 +17,7 @@ import {
     ThreadViewCommentButton
 } from "@/components/thread/mobile/thread-card/thread-view/comment/ThreadViewCommentButton";
 import {useThreadDetails} from "@/hooks/query/thread/use-thread-details";
+import {AppLogo} from "@/components/common/logo/AppLogo";
 
 interface ThreadPreviewProps {
     threadId: string;
@@ -68,9 +69,7 @@ export const Thread = ({threadId, defaultOpen}: ThreadPreviewProps) => {
             </ThreadCard>
             <Previewable.View className={"space-y-3 pb-3"}>
                 <Previewable.Header>
-                    <p className="text-xl font-semibold text-slate-700 leading-relaxed whitespace-pre-wrap">
-                        URBANCARE
-                    </p>
+                   <AppLogo/>
                 </Previewable.Header>
                 <Previewable.Body className={"space-y-3 px-3"}>
                     <ThreadCard thread={data} className={"px-0"}>

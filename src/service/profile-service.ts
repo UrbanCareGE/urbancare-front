@@ -4,8 +4,8 @@ import {SuccessDTO} from "@/model/common.dto";
 
 export const ProfileService = {
     updateProfile: async (data: UpdateProfileDTO): Promise<UserDTO> => {
-        const response = await api.put<UserDTO, UpdateProfileDTO>(
-            '/api/secure/user/profile',
+        const response = await api.patch<UserDTO, UpdateProfileDTO>(
+            '/api/secure/user/me',
             data
         );
         return response.data;
@@ -28,18 +28,17 @@ export const ProfileService = {
     },
 
     getCars: async (): Promise<CarModel[]> => {
-        const { data } = await api.get<CarModel[]>('/api/secure/user/data/cars');
+        const {data} = await api.get<CarModel[]>('/api/secure/user/data/cars');
         return data;
     },
 
     addCar: async (dto: AddCarModel): Promise<CarModel> => {
-        const { data } = await api.post<CarModel>('/api/secure/user/data/cars', dto);
+        const {data} = await api.post<CarModel>('/api/secure/user/data/cars', dto);
         return data;
     },
 
     deleteCar: async (id: string): Promise<void> => {
-        const { data } = await api.delete(`/api/secure/user/data/cars/${id}`);
-        return data;
+        await api.delete(`/api/secure/user/data/cars/${id}`);
     }
 };
 

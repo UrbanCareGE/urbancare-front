@@ -6,6 +6,8 @@ import MyThemeProvider from "@/components/provider/MyThemeProvider";
 import {headers} from "next/headers";
 import ResponsiveLayout from "@/components/common/layouts/ResponsiveLayout";
 import AuthProvider from "@/components/provider/AuthProvider";
+import {ProfileCompletionModal} from "@/components/profile/ProfileCompletionModal";
+import {Toaster} from "sonner";
 
 export const metadata: Metadata = {
     title: "urbancare",
@@ -39,6 +41,7 @@ export default async function RootLayout({children}: Children) {
                     <ResponsiveLayout initialIsMobile={isMobile}>
                         {children}
                     </ResponsiveLayout>
+                    <Toaster position="top-right" richColors />
                 </AuthProvider>
             </MyThemeProvider>
         </ReactQueryProvider>

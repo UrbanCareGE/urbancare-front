@@ -38,10 +38,10 @@ const OTPInput = React.forwardRef<
                     ref={ref}
                     aria-describedby={formMessageId}
                     className={cn(
-                        "flex h-12 sm:h-12 w-full rounded-md border border-input-border bg-input py-1 text-sm sm:text-base shadow-md transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-text-placeholder focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 caret-black",
+                        "flex h-[52px] w-full rounded-xl border-[1.5px] border-border-medium bg-white text-[15px] text-text-primary placeholder:text-text-muted transition-all duration-200 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground hover:border-border-hover focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 caret-black",
                         {"pl-10 pr-10": icon, "pl-3 pr-10": !icon},
                         {"ring-2 ring-error placeholder:text-error focus:placeholder:text-text-placeholder": formError},
-                        {"focus-visible:ring-2 focus-visible:ring-primary": !formError},
+                        {"focus:border-primary focus:ring-4 focus:ring-primary-light": !formError},
                         className
                     )}
                     {...props}
@@ -80,7 +80,7 @@ const OTPInput = React.forwardRef<
                 type="button"
                 onClick={handleGetOtp}
                 disabled={isPending}
-                className="h-12 sm:h-12 bg-primary text-white rounded-md text-base md:text-sm px-2"
+                className="h-[52px] bg-gradient-primary text-white rounded-[14px] text-[15px] font-semibold px-4 shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] transition-all duration-200"
             >
                 მიღება
             </Button>

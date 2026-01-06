@@ -1,6 +1,7 @@
 import type {NextConfig} from "next";
 
 const nextConfig: NextConfig = {
+    reactStrictMode: true, // Disable to prevent double animations in dev
     images: {
         remotePatterns: [
             {

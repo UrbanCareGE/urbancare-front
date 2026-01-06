@@ -2,7 +2,7 @@
 
 import {createContext, ReactNode, useContext} from 'react';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
-import {usePathname, useRouter} from 'next/navigation';
+import {usePathname} from 'next/navigation';
 import {AuthService} from "@/service/auth-service";
 import {ApartmentDTO, LoginDTO, UserDTO} from "@/model/auth.dto";
 import {PulsingLoader} from "@/components/common/loader/GlobalLoader";
@@ -42,7 +42,6 @@ const isPublicRoute = (pathname: string) => {
 
 export default function AuthProvider({children}: { children: ReactNode }) {
     const queryClient = useQueryClient();
-    const router = useRouter();
     const pathname = usePathname();
 
     const isPublic = isPublicRoute(pathname);
@@ -73,7 +72,7 @@ export default function AuthProvider({children}: { children: ReactNode }) {
                 selectedApartment: joinedApartments[0]
             } as User)
             if (user?.joinedApartments?.length) {
-                router.replace(`/apartment/${user.joinedApartments[0].id}`);
+                window.location.href = `/apartment/${user.joinedApartments[0].id}`;
             }
         },
     });

@@ -16,8 +16,8 @@ function ActiveUserAvatarSkeleton() {
 
 export const ActiveUserAvatar = () => {
     const {user, isLoading} = useAuth();
-    const initials = `${user?.name[0]}${user?.surname[0]}`.toUpperCase();
-
+    // const initials = `${user?.name[0]}${user?.surname[0]}`.toUpperCase();
+    const initials = 'temp'
 
     if (isLoading) {
         return <ActiveUserAvatarSkeleton/>;

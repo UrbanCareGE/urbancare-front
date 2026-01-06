@@ -3,7 +3,7 @@
 import React, {useContext, useState} from 'react';
 import {cn} from "@/lib/utils";
 import {Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle} from "@/components/ui/sheet";
-import {XIcon} from "lucide-react";
+import {X} from "lucide-react";
 
 interface PreviewableCardContextValue {
     isOpen: boolean;
@@ -71,8 +71,10 @@ interface PreviewableHeaderProps {
 const PreviewableHeader = ({className, children}: PreviewableHeaderProps) => {
     return <div className={cn("flex items-center h-16 w-full px-3 bg-white border-b", className)}>
         {children}
-        <SheetClose className="shrink-0 ml-auto">
-            <XIcon className="w-8 h-8"/>
+        <SheetClose asChild>
+            <div className={"bg-surface-container/60 rounded-panel my-1 p-1"}>
+                <X className={"h-7 w-7 text-foreground-secondary"}></X>
+            </div>
         </SheetClose>
     </div>
 }
