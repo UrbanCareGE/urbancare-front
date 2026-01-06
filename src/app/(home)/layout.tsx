@@ -1,8 +1,9 @@
 import React from "react";
-import {DesktopAdapter, MobileAdapter, TabletAdapter} from "@/components/common/layouts/ResponsiveSwitch";
+import {DesktopAdapter, LargeDesktopAdapter, MobileAdapter, TabletAdapter} from "@/components/common/layouts/ResponsiveSwitch";
 import {Children} from "@/app/layout";
 import {MobileLayout} from "@/app/(home)/mobile-layout";
 import {DesktopLayout} from "@/app/(home)/desktop-layout";
+import {LargeDesktopLayout} from "@/app/(home)/large-desktop-layout";
 import {HydrationBoundary, QueryClient} from "@tanstack/react-query";
 import {cookies} from "next/headers";
 import {dehydrate} from "@tanstack/query-core";
@@ -49,6 +50,12 @@ export default async function HomeLayout({children}: Children) {
                     {children}
                 </DesktopLayout>
             </DesktopAdapter>
+
+            <LargeDesktopAdapter>
+                <LargeDesktopLayout>
+                    {children}
+                </LargeDesktopLayout>
+            </LargeDesktopAdapter>
         </HydrationBoundary>
     )
 }

@@ -32,3 +32,13 @@ export const TabletAdapter = ({children}: Children) => {
         <>{children}</>
     );
 }
+
+export const LargeDesktopAdapter = ({children}: Children) => {
+    const {isLargeDesktop} = useResponsive();
+
+    if (!isLargeDesktop) return <></>
+
+    return (
+        <>{children}</>
+    );
+}

@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import React from "react";
 import {NavigationLinkAccordion} from "@/components/home/sidebar/mobile/navigation/NavigationLinkAccordion";
-import {SheetClose} from "@/components/ui/sheet";
 import {useParams} from "next/navigation";
 
 export type NavChildItem = {
@@ -31,8 +30,8 @@ export type NavItem = {
     navigable?: boolean; // If true with children, parent label navigates and only icon expands accordion
 }
 
-// Paths relative to /apartment/[apartmentId]/
-const getNavigationItems = (apartmentId: string): NavItem[] => [
+// Paths relative to /apartment/[apartmentId]/ - exported for reuse in desktop sidebar
+export const getNavigationItems = (apartmentId: string): NavItem[] => [
     {
         href: `/apartment/${apartmentId}/urgent`,
         label: "სასწრაფო",
@@ -108,25 +107,38 @@ const getNavigationItems = (apartmentId: string): NavItem[] => [
     },
 ];
 
-const NavigationArea = () => {
-    const {apartmentId} = useParams<{ apartmentId: string }>();
-    const navigationItems = apartmentId ? getNavigationItems(apartmentId) : [];
-    return (
-        <div className={"w-full flex flex-col gap-2 py-3"}>
-            {navigationItems.map(navigationItem => {
-                if (navigationItem.children && navigationItem.children.length > 0) {
-                    return <NavigationLinkAccordion key={navigationItem.href} navigationItem={navigationItem}/>
-                } else {
-                    return <SheetClose key={navigationItem.href + 'close'} asChild>
-                        <NavigationLink key={navigationItem.href} navigationItem={navigationItem}
-                                        href={navigationItem.href}/>
-                    </SheetClose>;
-                }
-            })
-            }
-        </div>
-    )
+type NavigationAreaProps = {
+    inSheet?: boolean;
+    className?: string;
 }
 
+const NavigationArea = ({inSheet = true, className}: NavigationAreaProps) => {
+    const {apartmentId} = useParams<{ apartmentId: string }>();
+    const navigationItems = apartmentId ? getNavigationItems(apartmentId) : [];
+
+    return (
+        <nav className={className ?? "w-full flex flex-col gap-2 py-3"}>
+            {navigationItems.map(navigationItem => {
+                if (navigationItem.children && navigationItem.children.length > 0) {
+                    return (
+                        <NavigationLinkAccordion
+                            key={navigationItem.href}
+                            navigationItem={navigationItem}
+                            inSheet={inSheet}
+                        />
+                    );
+                }
+                return (
+                    <NavigationLink
+                        key={navigationItem.href}
+                        navigationItem={navigationItem}
+                        href={navigationItem.href}
+                        inSheet={inSheet}
+                    />
+                );
+            })}
+        </nav>
+    );
+}
 
 export default NavigationArea;

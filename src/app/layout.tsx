@@ -1,11 +1,11 @@
 import type {Metadata} from "next";
 import "./globals.scss";
-import React from "react";
+import React, {Suspense} from "react";
 import ReactQueryProvider from "@/components/provider/ReactQueryProvider";
 import MyThemeProvider from "@/components/provider/MyThemeProvider";
-import {headers} from "next/headers";
-import ResponsiveLayout from "@/components/common/layouts/ResponsiveLayout";
+import ResponsiveLayoutServer from "@/components/common/layouts/ResponsiveLayoutServer";
 import AuthProvider from "@/components/provider/AuthProvider";
+import {PulsingLoader} from "@/components/common/loader/GlobalLoader";
 import {ProfileCompletionModal} from "@/components/profile/ProfileCompletionModal";
 import {Toaster} from "sonner";
 
@@ -23,11 +23,7 @@ export interface Basic {
     children?: React.ReactNode;
 }
 
-export default async function RootLayout({children}: Children) {
-    const headersList = await headers();
-    const agent = headersList.get("user-agent") || "";
-    const isMobile = /mobile|android|iphone|ipad|phone/i.test(agent);
-
+export default function RootLayout({children}: Children) {
     return (
         <html
             lang="en"
@@ -38,10 +34,11 @@ export default async function RootLayout({children}: Children) {
         <ReactQueryProvider>
             <MyThemeProvider>
                 <AuthProvider>
-                    <ResponsiveLayout initialIsMobile={isMobile}>
-                        {children}
-                    </ResponsiveLayout>
-                    <Toaster position="top-right" richColors />
+                    <Suspense fallback={<PulsingLoader/>}>
+                        <ResponsiveLayoutServer>
+                            {children}
+                        </ResponsiveLayoutServer>
+                    </Suspense>
                 </AuthProvider>
             </MyThemeProvider>
         </ReactQueryProvider>

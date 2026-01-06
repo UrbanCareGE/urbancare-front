@@ -8,20 +8,27 @@ import {Basic} from "@/app/layout";
 import 'ldrs/react/Leapfrog.css'
 import {useFetchUrgent} from "@/hooks/query/urgent/use-fetch-urgent";
 import {NewUrgentCard, UrgentCardStatus, ActionButtonProps} from "@/components/urgent/NewUrgentCard";
-import {UrgentItemDTO} from "@/model/urgent.dto";
-import {UrgentService} from "@/service/urgent-service";
+import {OptimisticUrgentItem} from "@/hooks/query/urgent/use-create-urgent";
+import {useResolveUrgent} from "@/hooks/query/urgent/use-resolve-urgent";
 
-const mapUrgentItemToCardProps = (item: UrgentItemDTO) => {
+const mapUrgentItemToCardProps = (
+    item: OptimisticUrgentItem,
+    onResolve: (id: string) => void,
+    resolvingId: string | null
+) => {
     const status: UrgentCardStatus = item.resolved ? 'resolved' : 'urgent';
-    const initials = `${item.userInfo.name[0]}${item.userInfo.surname[0]}`.toUpperCase();
+    const initials = `${item.userInfo.name[0] ?? ''}${item.userInfo.surname[0] ?? ''}`.toUpperCase();
+    const isResolving = resolvingId === item.id;
 
     const actions: ActionButtonProps[] = item.resolved
         ? [{icon: '❤️', label: 'მადლობა', variant: 'success'}]
         : [{
             icon: '✓',
             label: 'შესრულებულია',
+            pendingLabel: '...იგზავნება',
             variant: 'primary',
-            onClick: () => UrgentService.resolve(item.id)
+            onClick: () => onResolve(item.id),
+            isPending: isResolving,
         }];
 
     return {
@@ -36,13 +43,22 @@ const mapUrgentItemToCardProps = (item: UrgentItemDTO) => {
         responders: [{initials, color: 'primary' as const}],
         responderText: item.resolved ? 'დაეხმარა' : 'მოითხოვა დახმარება',
         actions,
+        isPending: item._isPending,
     };
 };
 
 const UrgentList = () => {
     const authContext = useAuth();
     const {user} = authContext;
-    const {data, isLoading, isError} = useFetchUrgent(authContext)
+    const {data, isLoading, isError} = useFetchUrgent(authContext);
+    const {mutate: resolveUrgent, variables: resolvingId, isPending: isResolving} = useResolveUrgent();
+
+    // Cast to OptimisticUrgentItem[] since cache may contain optimistic items with _isPending flag
+    const items = data as OptimisticUrgentItem[] | undefined;
+
+    const handleResolve = (id: string) => {
+        resolveUrgent(id);
+    };
 
     if (!user?.selectedApartment?.id) {
         return (
@@ -62,8 +78,11 @@ const UrgentList = () => {
                 </div>
             )}
 
-            {data && data.length > 0 && data?.map((item) => (
-                <NewUrgentCard key={item.id} {...mapUrgentItemToCardProps(item)}/>
+            {items && items.length > 0 && items.map((item) => (
+                <NewUrgentCard
+                    key={item.id}
+                    {...mapUrgentItemToCardProps(item, handleResolve, isResolving ? resolvingId ?? null : null)}
+                />
             ))}
         </ul>
     );

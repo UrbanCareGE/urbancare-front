@@ -23,6 +23,7 @@ export interface AuthContextType {
     user: User | null;
     isLoading: boolean;
     isAuthenticated: boolean;
+    isManager: boolean;
     updateUser: (data: Partial<User>) => void;
     refetchUser: () => Promise<void>;
     selectApartment: (apartment: ApartmentDTO) => void;
@@ -107,6 +108,7 @@ export default function AuthProvider({children}: { children: ReactNode }) {
         user: user ?? null,
         isLoading: isPublic ? false : isLoading,
         isAuthenticated: !!user,
+        isManager: user?.selectedApartment?.role === 'ADMIN',
         updateUser,
         refetchUser,
         selectApartment,

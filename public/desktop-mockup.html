@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanCare Desktop Layout Mockup</title>
+    <style>
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'FiraGO', 'Segoe UI', sans-serif;
+            background-color: rgb(248 250 252);
+            color: rgb(33 33 33);
+            min-height: 100vh;
+        }
+
+        /* CSS Variables matching your Tailwind config */
+        :root {
+            --color-primary: rgb(25, 118, 210);
+            --color-primary-dark: rgb(21, 101, 192);
+            --color-primary-container: rgb(187, 222, 251);
+            --color-primary-container-foreground: rgb(21, 101, 192);
+
+            --color-secondary: rgb(124, 77, 255);
+            --color-secondary-container: rgb(232, 222, 248);
+            --color-secondary-container-foreground: rgb(74, 20, 140);
+
+            --color-error: rgb(239, 68, 68);
+            --color-error-container: rgb(254, 242, 242);
+            --color-error-container-foreground: rgb(244, 67, 54);
+
+            --color-surface: rgb(255, 255, 255);
+            --color-surface-variant: rgb(241, 245, 249);
+            --color-background: rgb(248, 250, 252);
+
+            --color-border: rgb(224, 224, 224);
+            --color-border-light: rgb(226, 232, 240);
+
+            --color-text-primary: rgb(33, 33, 33);
+            --color-text-secondary: rgb(97, 97, 97);
+            --color-text-muted: rgb(158, 158, 158);
+
+            --nav-width: 280px;
+            --header-height: 64px;
+            --right-panel-width: 320px;
+            --radius: 0.5rem;
+            --panel-radius: 0.75rem;
+        }
+
+        /* Main Layout Container */
+        .layout {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ==================== LEFT SIDEBAR ==================== */
+        .sidebar {
+            width: var(--nav-width);
+            height: 100vh;
+            background-color: var(--color-surface);
+            border-right: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            height: var(--header-height);
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--color-border-light);
+        }
+
+        .sidebar-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.75rem;
+        }
+
+        .sidebar-footer {
+            padding: 1rem;
+            border-top: 1px solid var(--color-border-light);
+        }
+
+        /* Navigation Items */
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+            text-decoration: none;
+            color: var(--color-text-primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-item:hover {
+            background-color: var(--color-surface-variant);
+        }
+
+        .nav-item.active {
+            background-color: var(--color-primary-container);
+            color: var(--color-primary-container-foreground);
+        }
+
+        .nav-item.urgent {
+            background-color: var(--color-error-container);
+            color: var(--color-error-container-foreground);
+        }
+
+        .nav-item.urgent:hover {
+            background-color: rgb(254, 226, 226);
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        /* Accordion sub-items */
+        .nav-accordion {
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-accordion-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+            border: none;
+            background: transparent;
+            color: var(--color-text-primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .nav-accordion-trigger:hover {
+            background-color: var(--color-surface-variant);
+        }
+
+        .nav-accordion-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-accordion-arrow {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-accordion.open .nav-accordion-arrow {
+            transform: rotate(180deg);
+        }
+
+        .nav-accordion-content {
+            display: none;
+            padding-left: 2.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .nav-accordion.open .nav-accordion-content {
+            display: block;
+        }
+
+        .nav-sub-item {
+            display: block;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+            text-decoration: none;
+            color: var(--color-text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .nav-sub-item:hover {
+            background-color: var(--color-surface-variant);
+            color: var(--color-text-primary);
+        }
+
+        /* Apartment Selector */
+        .apartment-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border-radius: var(--radius);
+            background-color: var(--color-surface-variant);
+            cursor: pointer;
+        }
+
+        .apartment-icon {
+            width: 32px;
+            height: 32px;
+            background-color: var(--color-primary-container);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+        }
+
+        .apartment-info {
+            flex: 1;
+        }
+
+        .apartment-label {
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .apartment-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        /* ==================== MAIN CONTENT AREA ==================== */
+        .main-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        /* Header */
+        .header {
+            height: var(--header-height);
+            background-color: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+            text-decoration: none;
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .header-nav-item:hover {
+            background-color: var(--color-surface-variant);
+            color: var(--color-text-primary);
+        }
+
+        .header-nav-item.active {
+            background-color: var(--color-primary-container);
+            color: var(--color-primary-container-foreground);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+            border: none;
+            background: transparent;
+            color: var(--color-text-secondary);
+        }
+
+        .header-icon-btn:hover {
+            background-color: var(--color-surface-variant);
+        }
+
+        /* User Avatar */
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        /* Content Layout */
+        .content-area {
+            flex: 1;
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            overflow: hidden;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            background-color: var(--color-surface);
+            border-radius: var(--panel-radius);
+            overflow-y: auto;
+            min-width: 0;
+        }
+
+        .main-content-inner {
+            padding: 1.5rem;
+        }
+
+        /* Sample Content */
+        .sample-card {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border-light);
+            border-radius: var(--panel-radius);
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .sample-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .sample-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--color-surface-variant);
+        }
+
+        .sample-meta {
+            flex: 1;
+        }
+
+        .sample-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .sample-time {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        .sample-body {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* ==================== RIGHT PANEL (3-column only) ==================== */
+        .right-panel {
+            width: var(--right-panel-width);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            flex-shrink: 0;
+        }
+
+        .island {
+            background-color: var(--color-surface);
+            border-radius: var(--panel-radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .island-header {
+            padding: 0.75rem 1rem;
+            background-color: var(--color-surface-variant);
+            border-bottom: 1px solid var(--color-border-light);
+        }
+
+        .island-title {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--color-text-primary);
+        }
+
+        .island-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.75rem;
+        }
+
+        /* Urgent Island */
+        .urgent-island {
+            max-height: 45%;
+        }
+
+        .urgent-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: var(--radius);
+            margin-bottom: 0.5rem;
+            background-color: var(--color-error-container);
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .urgent-item:hover {
+            background-color: rgb(254, 226, 226);
+        }
+
+        .urgent-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--color-error);
+            flex-shrink: 0;
+        }
+
+        .urgent-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .urgent-title {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--color-error-container-foreground);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .urgent-time {
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Chat Island */
+        .chat-island {
+            flex: 1;
+            min-height: 200px;
+        }
+
+        .chat-placeholder {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* ==================== RESPONSIVE: 2-column vs 3-column ==================== */
+
+        /* Default: 3-column (1400px+) */
+        .right-panel {
+            display: flex;
+        }
+
+        /* 2-column: hide right panel below 1400px */
+        @media (max-width: 1399px) {
+            .right-panel {
+                display: none;
+            }
+        }
+
+        /* Below 1024px: not designed for this mockup */
+        @media (max-width: 1023px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .header::before {
+                content: "Mobile/Tablet view - use actual app";
+                color: var(--color-error);
+                font-size: 0.75rem;
+            }
+        }
+
+        /* ==================== Utility Classes ==================== */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* SVG Icons */
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <!-- ==================== LEFT SIDEBAR ==================== -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="sidebar-logo">URBANCARE</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <!-- Urgent -->
+                <a href="#" class="nav-item urgent">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+                        <path d="M12 8v4"/>
+                        <path d="M12 16h.01"/>
+                    </svg>
+                    <span>სასწრაფო</span>
+                </a>
+
+                <!-- News -->
+                <a href="#" class="nav-item active">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 11 18-5v12L3 14v-3z"/>
+                        <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>
+                    </svg>
+                    <span>სიახლეები</span>
+                </a>
+
+                <!-- Services (with accordion) -->
+                <div class="nav-accordion">
+                    <button class="nav-accordion-trigger" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="nav-accordion-left">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+                                <path d="m17 21-5-5"/>
+                                <path d="m13 17 5 5"/>
+                                <path d="m2 4 8.06 8.06"/>
+                                <path d="m9 7 1 1"/>
+                                <path d="m2 11 2 2"/>
+                            </svg>
+                            <span>სერვისები</span>
+                        </span>
+                        <svg class="nav-accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="nav-accordion-content">
+                        <a href="#" class="nav-sub-item">განათლება</a>
+                        <a href="#" class="nav-sub-item">ფიტნესი</a>
+                        <a href="#" class="nav-sub-item">ვეტი</a>
+                        <a href="#" class="nav-sub-item">ხელობა</a>
+                        <a href="#" class="nav-sub-item">სხვა</a>
+                    </div>
+                </div>
+
+                <!-- Requests -->
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                        <path d="M12 11h4"/>
+                        <path d="M12 16h4"/>
+                        <path d="M8 11h.01"/>
+                        <path d="M8 16h.01"/>
+                    </svg>
+                    <span>მოთხოვნები</span>
+                </a>
+
+                <!-- Maintenance -->
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="16" height="20" x="4" y="2" rx="2"/>
+                        <path d="M8 6h8"/>
+                        <path d="M8 12h8"/>
+                        <path d="M8 18h8"/>
+                    </svg>
+                    <span>მიმდინარე სამუშაოები</span>
+                </a>
+
+                <!-- Notices (with accordion) -->
+                <div class="nav-accordion">
+                    <button class="nav-accordion-trigger" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="nav-accordion-left">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M15 12h-5"/>
+                                <path d="M15 8h-5"/>
+                                <path d="M19 17V5a2 2 0 0 0-2-2H4"/>
+                                <path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/>
+                            </svg>
+                            <span>განცხადებები</span>
+                        </span>
+                        <svg class="nav-accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="nav-accordion-content">
+                        <a href="#" class="nav-sub-item">ბინა</a>
+                        <a href="#" class="nav-sub-item">მანქანა</a>
+                        <a href="#" class="nav-sub-item">პარკინგი</a>
+                    </div>
+                </div>
+
+                <!-- Documents -->
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    <span>დოკუმენტები</span>
+                </a>
+
+                <!-- Info (with accordion) -->
+                <div class="nav-accordion">
+                    <button class="nav-accordion-trigger" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="nav-accordion-left">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 7v14"/>
+                                <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>
+                            </svg>
+                            <span>ინფორმაცია</span>
+                        </span>
+                        <svg class="nav-accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="nav-accordion-content">
+                        <a href="#" class="nav-sub-item">კონტაქტები</a>
+                        <a href="#" class="nav-sub-item">წესდება</a>
+                        <a href="#" class="nav-sub-item">ავტომობილები</a>
+                    </div>
+                </div>
+
+                <!-- Finance -->
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" x2="21" y1="22" y2="22"/>
+                        <line x1="6" x2="6" y1="18" y2="11"/>
+                        <line x1="10" x2="10" y1="18" y2="11"/>
+                        <line x1="14" x2="14" y1="18" y2="11"/>
+                        <line x1="18" x2="18" y1="18" y2="11"/>
+                        <polygon points="12 2 20 7 4 7"/>
+                    </svg>
+                    <span>ფინანსები</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="apartment-selector">
+                    <div class="apartment-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                    </div>
+                    <div class="apartment-info">
+                        <div class="apartment-label">არჩეული ლოკაცია</div>
+                        <div class="apartment-name">თბილისი, ვაკე #42</div>
+                    </div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ==================== MAIN AREA ==================== -->
+        <div class="main-area">
+            <!-- Header -->
+            <header class="header">
+                <nav class="header-nav">
+                    <a href="#" class="header-nav-item active">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                        <span>მთავარი</span>
+                    </a>
+                    <a href="#" class="header-nav-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 11a9 9 0 0 1 9 9"/>
+                            <path d="M4 4a16 16 0 0 1 16 16"/>
+                            <circle cx="5" cy="19" r="1"/>
+                        </svg>
+                        <span>ფიდი</span>
+                    </a>
+                    <a href="#" class="header-nav-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 3v16a2 2 0 0 0 2 2h16"/>
+                            <path d="m19 9-5 5-4-4-3 3"/>
+                        </svg>
+                        <span>სტატისტიკა</span>
+                    </a>
+                    <a href="#" class="header-nav-item">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                            <path d="M12 17h.01"/>
+                        </svg>
+                        <span>დახმარება</span>
+                    </a>
+                </nav>
+
+                <div class="header-right">
+                    <button class="header-icon-btn" title="Notifications">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+                        </svg>
+                    </button>
+                    <button class="header-icon-btn" title="Settings">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </button>
+                    <div class="user-avatar" title="User Profile">
+                        გლ
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Main Content -->
+                <main class="main-content">
+                    <div class="main-content-inner">
+                        <h1 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; color: var(--color-text-primary);">სიახლეები</h1>
+
+                        <!-- Sample Thread Cards -->
+                        <div class="sample-card">
+                            <div class="sample-card-header">
+                                <div class="sample-avatar"></div>
+                                <div class="sample-meta">
+                                    <div class="sample-name">გიორგი ლომიძე</div>
+                                    <div class="sample-time">2 საათის წინ</div>
+                                </div>
+                            </div>
+                            <div class="sample-body">
+                                დღეს 18:00 საათზე ჩატარდება საერთო კრება ეზოში. გთხოვთ დაესწროთ ყველა მნიშვნელოვანი საკითხების განხილვისთვის.
+                            </div>
+                        </div>
+
+                        <div class="sample-card">
+                            <div class="sample-card-header">
+                                <div class="sample-avatar"></div>
+                                <div class="sample-meta">
+                                    <div class="sample-name">ნინო კაპანაძე</div>
+                                    <div class="sample-time">5 საათის წინ</div>
+                                </div>
+                            </div>
+                            <div class="sample-body">
+                                ლიფტის რემონტი დასრულებულია. ყველა სართულზე მუშაობს გამართულად. მადლობა მოთმინებისთვის!
+                            </div>
+                        </div>
+
+                        <div class="sample-card">
+                            <div class="sample-card-header">
+                                <div class="sample-avatar"></div>
+                                <div class="sample-meta">
+                                    <div class="sample-name">დავით მაისურაძე</div>
+                                    <div class="sample-time">გუშინ</div>
+                                </div>
+                            </div>
+                            <div class="sample-body">
+                                შეგახსენებთ, რომ ყოველთვიური გადასახადის ბოლო ვადაა 15 იანვარი. გთხოვთ დროულად დაფაროთ დავალიანება.
+                            </div>
+                        </div>
+
+                        <div class="sample-card">
+                            <div class="sample-card-header">
+                                <div class="sample-avatar"></div>
+                                <div class="sample-meta">
+                                    <div class="sample-name">მარიამ ჯანელიძე</div>
+                                    <div class="sample-time">2 დღის წინ</div>
+                                </div>
+                            </div>
+                            <div class="sample-body">
+                                ვეძებ ძიძას 3 წლის ბავშვისთვის, კვირაში 3 დღე. თუ ვინმეს იცნობთ საიმედო ადამიანს, გთხოვთ დამიკავშირდეთ.
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+                <!-- Right Panel (visible only on 1400px+) -->
+                <aside class="right-panel">
+                    <!-- Urgent Island -->
+                    <div class="island urgent-island">
+                        <div class="island-header">
+                            <h3 class="island-title">სასწრაფო</h3>
+                        </div>
+                        <div class="island-body">
+                            <div class="urgent-item">
+                                <svg class="urgent-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+                                    <path d="M12 8v4"/>
+                                    <path d="M12 16h.01"/>
+                                </svg>
+                                <div class="urgent-content">
+                                    <div class="urgent-title">წყალი გაითიშება!</div>
+                                    <div class="urgent-time">10 წუთის წინ</div>
+                                </div>
+                            </div>
+                            <div class="urgent-item">
+                                <svg class="urgent-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+                                    <path d="M12 8v4"/>
+                                    <path d="M12 16h.01"/>
+                                </svg>
+                                <div class="urgent-content">
+                                    <div class="urgent-title">დენი გაითიშება რემონტის გამო</div>
+                                    <div class="urgent-time">2 საათის წინ</div>
+                                </div>
+                            </div>
+                            <div class="urgent-item">
+                                <svg class="urgent-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+                                    <path d="M12 8v4"/>
+                                    <path d="M12 16h.01"/>
+                                </svg>
+                                <div class="urgent-content">
+                                    <div class="urgent-title">ლიფტი არ მუშაობს</div>
+                                    <div class="urgent-time">გუშინ</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Island -->
+                    <div class="island chat-island">
+                        <div class="island-header">
+                            <h3 class="island-title">ჩატი</h3>
+                        </div>
+                        <div class="island-body">
+                            <div class="chat-placeholder">
+                                <div style="text-align: center;">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 0.5rem; opacity: 0.5;">
+                                        <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
+                                    </svg>
+                                    <div>TalkJS ჩატი აქ გამოჩნდება</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breakpoint Indicator (for development) -->
+    <div style="position: fixed; bottom: 1rem; right: 1rem; padding: 0.5rem 1rem; background: rgba(0,0,0,0.8); color: white; font-size: 0.75rem; border-radius: 0.25rem; font-family: monospace;">
+        <span id="breakpoint-indicator">Loading...</span>
+    </div>
+
+    <script>
+        // Update breakpoint indicator
+        function updateBreakpoint() {
+            const width = window.innerWidth;
+            const indicator = document.getElementById('breakpoint-indicator');
+
+            if (width >= 1400) {
+                indicator.textContent = `${width}px - 3-column (Large Desktop)`;
+                indicator.style.background = 'rgba(76, 175, 80, 0.9)';
+            } else if (width >= 1024) {
+                indicator.textContent = `${width}px - 2-column (Desktop)`;
+                indicator.style.background = 'rgba(33, 150, 243, 0.9)';
+            } else if (width >= 768) {
+                indicator.textContent = `${width}px - 2-column (Tablet)`;
+                indicator.style.background = 'rgba(255, 152, 0, 0.9)';
+            } else {
+                indicator.textContent = `${width}px - Mobile (not designed)`;
+                indicator.style.background = 'rgba(239, 68, 68, 0.9)';
+            }
+        }
+
+        updateBreakpoint();
+        window.addEventListener('resize', updateBreakpoint);
+    </script>
+</body>
+</html>

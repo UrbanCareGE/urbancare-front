@@ -2,27 +2,29 @@
 
 import {useEffect, useState} from 'react'
 
-export type DeviceType = 'mobile' | 'tablet' | 'desktop'
+export type DeviceType = 'mobile' | 'tablet' | 'desktop' | 'largeDesktop'
 
 export interface DeviceInfo {
     type: DeviceType
     isMobile: boolean
     isTablet: boolean
     isDesktop: boolean
+    isLargeDesktop: boolean
     width: number
     height: number
 }
 
 const BREAKPOINTS = {
     mobile: 768,
-    medium: 1000,
     tablet: 1024,
+    largeDesktop: 1400,
 } as const
 
 function getDeviceType(width: number): DeviceType {
     if (width < BREAKPOINTS.mobile) return 'mobile'
     if (width < BREAKPOINTS.tablet) return 'tablet'
-    return 'desktop'
+    if (width < BREAKPOINTS.largeDesktop) return 'desktop'
+    return 'largeDesktop'
 }
 
 export function useDevice(): DeviceInfo {
@@ -33,6 +35,7 @@ export function useDevice(): DeviceInfo {
                 isMobile: false,
                 isTablet: false,
                 isDesktop: true,
+                isLargeDesktop: false,
                 width: 0,
                 height: 0,
             }
@@ -47,6 +50,7 @@ export function useDevice(): DeviceInfo {
             isMobile: type === 'mobile',
             isTablet: type === 'tablet',
             isDesktop: type === 'desktop',
+            isLargeDesktop: type === 'largeDesktop',
             width,
             height,
         }
@@ -63,6 +67,7 @@ export function useDevice(): DeviceInfo {
                 isMobile: type === 'mobile',
                 isTablet: type === 'tablet',
                 isDesktop: type === 'desktop',
+                isLargeDesktop: type === 'largeDesktop',
                 width,
                 height,
             })
