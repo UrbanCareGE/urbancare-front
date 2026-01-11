@@ -72,7 +72,7 @@ const PreviewableHeader = ({className, children}: PreviewableHeaderProps) => {
     return <div className={cn("flex items-center h-16 w-full px-3 bg-white border-b", className)}>
         {children}
         <SheetClose asChild>
-            <div className={"bg-surface-container/60 rounded-panel my-1 p-1"}>
+            <div className={"bg-surface-container/60 rounded-panel my-1 p-1 ml-auto"}>
                 <X className={"h-7 w-7 text-foreground-secondary"}></X>
             </div>
         </SheetClose>

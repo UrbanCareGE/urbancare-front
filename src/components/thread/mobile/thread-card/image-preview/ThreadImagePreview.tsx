@@ -75,7 +75,6 @@ export const ThreadImagePreview = ({className, imageLinks}: ThreadImagePreviewPr
                             isLoaded(imageLinks[0]) ? "opacity-100" : "opacity-0"
                         )}
                         onLoad={() => handleImageLoad(imageLinks[0])}
-                        unoptimized
                     />
                 </div>
             )}
@@ -100,7 +99,6 @@ export const ThreadImagePreview = ({className, imageLinks}: ThreadImagePreviewPr
                                     isLoaded(link) ? "opacity-100" : "opacity-0"
                                 )}
                                 onLoad={() => handleImageLoad(link)}
-                                unoptimized
                             />
                         </div>
                     ))}
@@ -125,7 +123,6 @@ export const ThreadImagePreview = ({className, imageLinks}: ThreadImagePreviewPr
                                 isLoaded(displayImages[0]) ? "opacity-100" : "opacity-0"
                             )}
                             onLoad={() => handleImageLoad(displayImages[0])}
-                            unoptimized
                         />
                     </div>
 
@@ -146,7 +143,6 @@ export const ThreadImagePreview = ({className, imageLinks}: ThreadImagePreviewPr
                                     isLoaded(displayImages[1]) ? "opacity-100" : "opacity-0"
                                 )}
                                 onLoad={() => handleImageLoad(displayImages[1])}
-                                unoptimized
                             />
                         </div>
 
@@ -167,7 +163,6 @@ export const ThreadImagePreview = ({className, imageLinks}: ThreadImagePreviewPr
                                     isLoaded(displayImages[2]) ? "opacity-100" : "opacity-0"
                                 )}
                                 onLoad={() => handleImageLoad(displayImages[2])}
-                                unoptimized
                             />
                             {remainingCount > 0 && isLoaded(displayImages[2]) && (
                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -217,7 +212,6 @@ export const ThreadImagePreview = ({className, imageLinks}: ThreadImagePreviewPr
                                                     isLoaded(link) ? "opacity-100" : "opacity-0"
                                                 )}
                                                 onLoad={() => handleImageLoad(link)}
-                                                unoptimized
                                             />
                                         </div>
                                     </CarouselItem>

@@ -167,7 +167,7 @@ export function getServerFileUrl(id: string): string {
 }
 
 export function getClientFileUrl(id?: string): string {
-    if (id === undefined) return 'yle'
-    return `${NEXT_API_URL}/api/secure/file/${id}`
+    if (id === undefined) return ''
+    return id
 }
 

@@ -2,12 +2,13 @@
 
 import React, {useRef, useState} from 'react';
 import {Camera, Loader2} from 'lucide-react';
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {Avatar, AvatarFallback} from "@/components/ui/avatar";
 import {getClientFileUrl} from "@/lib/api-client";
 import {useAuth} from '@/components/provider/AuthProvider';
 import {FileService} from '@/service/file-service';
 import {useUpdateProfileImage} from '@/hooks/query/user/use-update-profile-image';
 import {toast} from 'sonner';
+import Image from "next/image";
 
 export function ProfileImageUpload() {
     const {user} = useAuth();
@@ -54,9 +55,10 @@ export function ProfileImageUpload() {
         <div className="flex flex-col items-center gap-4">
             <div className="relative">
                 <Avatar className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-primary">
-                    <AvatarImage
+                    <Image
                         src={getClientFileUrl(user.profileImageId)}
                         alt="Profile"
+                        fill
                         className="object-cover"
                     />
                     <AvatarFallback className="text-2xl sm:text-3xl">

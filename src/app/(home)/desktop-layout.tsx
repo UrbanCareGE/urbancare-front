@@ -5,14 +5,7 @@ import {ChatProvider} from "@/components/provider/ChatProvider";
 import {cn} from "@/lib/utils";
 import Link from "next/link";
 import {useParams, usePathname} from "next/navigation";
-import {
-    Bell,
-    ChartColumnIncreasingIcon,
-    Headset,
-    Home,
-    Newspaper,
-    Settings
-} from "lucide-react";
+import {Bell, ChartColumnIncreasingIcon, Headset, Home, Newspaper, Settings} from "lucide-react";
 import NavigationArea from "@/components/home/sidebar/mobile/navigation/NavigationArea";
 import {NeighborhoodSelect} from "@/components/home/NeighborhoodSelect";
 import {ActiveUserAvatar} from "@/components/common/avatar/ActiveUserAvatar";
@@ -155,8 +148,6 @@ const DesktopSidebar = () => (
     </aside>
 );
 
-// ==================== MAIN LAYOUT ====================
-
 export const DesktopLayout = ({children}: { children: React.ReactNode }) => {
     return (
         <ChatProvider>
@@ -171,7 +162,7 @@ export const DesktopLayout = ({children}: { children: React.ReactNode }) => {
 
                     {/* Main Content */}
                     <main className="flex-1 overflow-y-auto p-6">
-                        <div className="max-w-4xl mx-auto">
+                        <div className="max-w-4xl mx-auto flex flex-col h-full">
                             {children}
                         </div>
                     </main>

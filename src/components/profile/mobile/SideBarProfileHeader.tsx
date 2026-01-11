@@ -1,10 +1,11 @@
 'use client'
 
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {Avatar, AvatarFallback} from "@/components/ui/avatar";
 import React from "react";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {Skeleton} from "@/components/ui/skeleton";
 import {getClientFileUrl} from "@/lib/api-client";
+import Image from "next/image";
 
 function ProfileSideBarViewSkeleton() {
     return (
@@ -36,7 +37,12 @@ export const SideBarProfileHeader = () => {
         <div className="flex flex-1 items-center gap-3 w-full">
             <div className="relative inline-block outline-none">
                 <Avatar className="h-16 w-16 cursor-pointer ring-2 ring-offset-1 ring-gray-200">
-                    <AvatarImage src={getClientFileUrl(user?.profileImageId)} alt="@shadcn" className={'object-cover'}/>
+                    <Image
+                        src={getClientFileUrl(user?.profileImageId)}
+                        alt="@shadcn"
+                        fill
+                        className="object-cover"
+                    />
                     <AvatarFallback>{initials}</AvatarFallback>
                 </Avatar>
                 <span
