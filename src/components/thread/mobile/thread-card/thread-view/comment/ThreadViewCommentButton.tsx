@@ -8,6 +8,7 @@ import {useCreateComment} from "@/hooks/query/thread/use-create-comment";
 import {UserAvatar} from "@/components/common/avatar/UserAvatar";
 import {useAuth} from "@/components/provider/AuthProvider";
 import {ThreadInfoDTO} from "@/model/thread.dto";
+import {useParams} from "next/navigation";
 
 type ThreadViewCommentButtonProps = {
     thread: ThreadInfoDTO;
@@ -16,14 +17,16 @@ type ThreadViewCommentButtonProps = {
 export const ThreadViewCommentButton = ({thread}: ThreadViewCommentButtonProps) => {
     const [commentText, setCommentText] = useState('');
     const {user} = useAuth();
+    const {apartmentId} = useParams<{apartmentId: string}>();
 
     const {onSubmit} = useCreateComment()
 
     const handleAddComment = () => {
+        if (!apartmentId) return;
         if (commentText.trim()) {
             setCommentText('');
         }
-        onSubmit(thread.id, {content: commentText})
+        onSubmit(apartmentId, thread.id, {content: commentText})
     };
 
     if (!user) {

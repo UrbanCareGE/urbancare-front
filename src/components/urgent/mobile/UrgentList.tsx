@@ -10,6 +10,7 @@ import {useFetchUrgent} from "@/hooks/query/urgent/use-fetch-urgent";
 import {NewUrgentCard, UrgentCardStatus, ActionButtonProps} from "@/components/urgent/NewUrgentCard";
 import {OptimisticUrgentItem} from "@/hooks/query/urgent/use-create-urgent";
 import {useResolveUrgent} from "@/hooks/query/urgent/use-resolve-urgent";
+import {useParams} from "next/navigation";
 
 const mapUrgentItemToCardProps = (
     item: OptimisticUrgentItem,
@@ -48,8 +49,8 @@ const mapUrgentItemToCardProps = (
 };
 
 const UrgentList = () => {
+    const {apartmentId} = useParams<{apartmentId: string}>();
     const authContext = useAuth();
-    const {user} = authContext;
     const {data, isLoading, isError} = useFetchUrgent(authContext);
     const {mutate: resolveUrgent, variables: resolvingId, isPending: isResolving} = useResolveUrgent();
 
@@ -57,10 +58,11 @@ const UrgentList = () => {
     const items = data as OptimisticUrgentItem[] | undefined;
 
     const handleResolve = (id: string) => {
-        resolveUrgent(id);
+        if (!apartmentId) return;
+        resolveUrgent({apartmentId, id});
     };
 
-    if (!user?.selectedApartment?.id) {
+    if (!apartmentId) {
         return (
             <div className="flex items-center justify-center p-4">
                 No apartment selected

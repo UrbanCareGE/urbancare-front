@@ -18,7 +18,7 @@ export function useReactionVote() {
 
     return useMutation({
         mutationFn: async ({apartmentId, reactionId, optionId}: ReactionVoteModel) => {
-            return ThreadService.pollVote(reactionId, apartmentId, {pollItemId: optionId});
+            return ThreadService.pollVote(apartmentId, reactionId, {pollItemId: optionId});
         },
         onMutate: async ({optionId, threadId}) => {
             const queryDetailKey = ['threads', 'detail', threadId];

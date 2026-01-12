@@ -17,8 +17,8 @@ export function usePollVote() {
     const {user} = useAuth();
 
     const pollVoteMutation = useMutation({
-        mutationFn: async ({pollId, voteId}: PollVoteModel) => {
-            return ThreadService.pollVote(pollId, {pollItemId: voteId});
+        mutationFn: async ({apartmentId, pollId, voteId}: PollVoteModel) => {
+            return ThreadService.pollVote(apartmentId, pollId, {pollItemId: voteId});
         },
         onMutate: async ({voteId, threadId}) => {
             const queryDetailKey = ['threads', 'detail', threadId];

@@ -5,7 +5,7 @@ import {SuccessDTO} from "@/model/common.dto";
 export const ProfileService = {
     updateProfile: async (data: UpdateProfileDTO): Promise<UserDTO> => {
         const response = await api.patch<UserDTO, UpdateProfileDTO>(
-            '/api/secure/user/me',
+            '/api/user/me',
             data
         );
         return response.data;
@@ -13,7 +13,7 @@ export const ProfileService = {
 
     updateProfileImage: async (data: UpdateProfileImageDTO): Promise<UserDTO> => {
         const response = await api.patch<UserDTO, UpdateProfileImageDTO>(
-            '/api/secure/user/me',
+            '/api/user/me',
             data
         );
         return response.data;
@@ -21,24 +21,24 @@ export const ProfileService = {
 
     changePassword: async (data: ChangePasswordDTO): Promise<SuccessDTO> => {
         const response = await api.put<SuccessDTO, ChangePasswordDTO>(
-            '/api/secure/user/password',
+            '/api/user/password',
             data
         );
         return response.data;
     },
 
     getCars: async (): Promise<CarModel[]> => {
-        const {data} = await api.get<CarModel[]>('/api/secure/user/data/cars');
+        const {data} = await api.get<CarModel[]>('/api/user/data/cars');
         return data;
     },
 
     addCar: async (dto: AddCarModel): Promise<CarModel> => {
-        const {data} = await api.post<CarModel>('/api/secure/user/data/cars', dto);
+        const {data} = await api.post<CarModel>('/api/user/data/cars', dto);
         return data;
     },
 
     deleteCar: async (id: string): Promise<void> => {
-        await api.delete(`/api/secure/user/data/cars/${id}`);
+        await api.delete(`/api/user/data/cars/${id}`);
     }
 };
 

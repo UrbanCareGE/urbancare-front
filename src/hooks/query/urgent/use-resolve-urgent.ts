@@ -11,11 +11,11 @@ export function useResolveUrgent() {
     const {user} = useAuth();
 
     return useMutation({
-        mutationFn: async (id: string) => {
-            return await UrgentService.resolve(id);
+        mutationFn: async ({apartmentId, id}: {apartmentId: string, id: string}) => {
+            return await UrgentService.resolve(apartmentId, id);
         },
 
-        onSuccess: (_, id) => {
+        onSuccess: (_, {id}) => {
             const queryKey = ['urgent', 'list', user?.selectedApartment?.id];
             queryClient.setQueryData<OptimisticUrgentItem[]>(
                 queryKey,

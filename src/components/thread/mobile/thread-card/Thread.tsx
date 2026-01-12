@@ -18,6 +18,7 @@ import {
 } from "@/components/thread/mobile/thread-card/thread-view/comment/ThreadViewCommentButton";
 import {useThreadDetails} from "@/hooks/query/thread/use-thread-details";
 import {AppLogo} from "@/components/common/logo/AppLogo";
+import {useParams} from "next/navigation";
 
 interface ThreadPreviewProps {
     threadId: string;
@@ -43,7 +44,8 @@ function ThreadSkeleton() {
 }
 
 export const Thread = ({threadId, defaultOpen}: ThreadPreviewProps) => {
-    const {data, isPending, error} = useThreadDetails(threadId);
+    const {apartmentId} = useParams<{apartmentId: string}>();
+    const {data, isPending, error} = useThreadDetails(apartmentId, threadId);
 
     if (isPending && !data) {
         return <ThreadSkeleton/>

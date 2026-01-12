@@ -12,7 +12,7 @@ export async function GET(
         const cookieStore = await cookies();
         const token = cookieStore.get('auth-token')?.value;
 
-        const targetUrl = `${JAVA_API_URL}/api/secure/file/${id}`;
+        const targetUrl = `${JAVA_API_URL}/api/file/${id}`;
 
         const response = await fetch(targetUrl, {
             headers: token ? { 'Authorization': `Bearer ${token}` } : {},

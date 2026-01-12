@@ -5,10 +5,12 @@ import {cn} from "@/lib/utils";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
 import {useReactionVote} from "@/hooks/query/thread/use-reaction-vote";
 import {useAuth} from "@/components/provider/AuthProvider";
+import {useParams} from "next/navigation";
 
 export const ThreadUpvoteButton = ({className}: { className?: string }) => {
     const {thread} = useThread();
     const {user} = useAuth();
+    const {apartmentId} = useParams<{apartmentId: string}>();
     const {mutate, isPending} = useReactionVote();
 
     const reactions = thread.reactions;
@@ -16,7 +18,6 @@ export const ThreadUpvoteButton = ({className}: { className?: string }) => {
     const dislikeOption = reactions?.items?.[1];
 
     const userId = user?.id;
-    const apartmentId = user?.selectedApartment?.id;
 
     const isLiked = likeOption?.voters?.some(voter => voter.id === userId) ?? false;
     const isDisliked = dislikeOption?.voters?.some(voter => voter.id === userId) ?? false;

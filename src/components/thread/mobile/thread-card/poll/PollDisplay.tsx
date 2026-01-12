@@ -6,6 +6,7 @@ import {cn} from '@/lib/utils';
 import {Circle, CircleCheck} from "lucide-react";
 import {usePollVote} from "@/hooks/query/thread/use-poll-vote";
 import {useAuth} from "@/components/provider/AuthProvider";
+import {useParams} from "next/navigation";
 
 interface PollDisplayProps {
     thread: ThreadInfoDTO;
@@ -91,9 +92,9 @@ const PollOptionBar = ({thread, option, totalVotes, isHighest, isVotedByUser, ap
 
 export const PollDisplay = ({thread, className}: PollDisplayProps) => {
     const {user} = useAuth();
+    const {apartmentId} = useParams<{apartmentId: string}>();
     const poll = thread.poll;
 
-    const apartmentId = user?.selectedApartment?.id;
     const userId = user?.id;
 
     if (!poll || !apartmentId || !userId) return null;

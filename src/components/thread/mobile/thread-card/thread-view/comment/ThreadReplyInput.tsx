@@ -3,6 +3,7 @@ import {UserAvatar} from "@/components/common/avatar/UserAvatar";
 import {UserSnapshotDTO} from "@/model/auth.dto";
 import {useCreateComment} from "@/hooks/query/thread/use-create-comment";
 import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
+import {useParams} from "next/navigation";
 
 type ReplyInputProps = {
     commentId: string;
@@ -20,12 +21,14 @@ export const ReplyInput = ({
                                placeholder = "Add a reply..."
                            }: ReplyInputProps) => {
     const {thread} = useThread()
+    const {apartmentId} = useParams<{apartmentId: string}>();
     const [replyText, setReplyText] = useState("");
     const {onSubmit: createReply} = useCreateComment()
 
     const handleSubmit = () => {
+        if (!apartmentId) return;
         if (replyText.trim()) {
-            createReply(thread.id, {content: replyText, replyToId: commentId})
+            createReply(apartmentId, thread.id, {content: replyText, replyToId: commentId})
             onSubmit(replyText.trim());
             setReplyText("");
         }

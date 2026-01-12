@@ -6,6 +6,7 @@ import {ThreadService} from "@/service/thread-service";
 import {ThreadInfoDTO, ThreadVoteDTO, VoteType} from "@/model/thread.dto";
 
 interface VoteRequest {
+    apartmentId: string;
     threadId: string;
     vote: ThreadVoteDTO;
 }
@@ -45,8 +46,8 @@ export function useThreadVote() {
     const isProcessingRef = useRef(false);
 
     const mutation = useMutation({
-        mutationFn: async ({threadId, vote}: VoteRequest) => {
-            return ThreadService.vote(threadId, vote);
+        mutationFn: async ({apartmentId, threadId, vote}: VoteRequest) => {
+            return ThreadService.vote(apartmentId, threadId, vote);
         },
         onMutate: async ({threadId, vote}) => {
             const queryDetailKey = ['threads', 'detail', threadId];
@@ -103,8 +104,9 @@ export function useThreadVote() {
         mutation.mutate(nextVote);
     }, [mutation]);
 
-    const vote = useCallback((threadId: string, voteType: VoteType) => {
+    const vote = useCallback((apartmentId: string, threadId: string, voteType: VoteType) => {
         const request: VoteRequest = {
+            apartmentId,
             threadId,
             vote: {voteType}
         };

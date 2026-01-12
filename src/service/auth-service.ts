@@ -11,7 +11,7 @@ export const AuthService = {
     },
     nextLogin: async (loginReq: LoginDTO): Promise<ApiResponse<UserDTO>> => {
         return await api.post<UserDTO, LoginDTO>(
-            '/api/auth/login',
+            '/auth/login',
             loginReq,
             {
                 server: true,
@@ -28,7 +28,7 @@ export const AuthService = {
     },
     nextRegister: async (registerDTO: RegisterDTO): Promise<string> => {
         const { data } = await api.post<string, RegisterDTO>(
-            '/api/auth/register',
+            '/auth/register',
             registerDTO,
             {
                 server: true,
@@ -38,18 +38,18 @@ export const AuthService = {
     },
     generateOtp: async (phone: string): Promise<string> => {
         const { data } = await api.post<string>(
-            '/api/otp/generate',
+            '/public/otp/generate',
             undefined,
             {params: {phone}}
         );
         return data;
     },
     getUserInfo: async (): Promise<UserDTO> => {
-        const { data } = await api.get<UserDTO>('/api/secure/user/me');
+        const { data } = await api.get<UserDTO>('/api/user/me');
         return data;
     },
     nextGetUserInfo: async (authToken: string): Promise<UserDTO> => {
-        const { data } = await api.get<UserDTO>('/api/secure/user/me', {
+        const { data } = await api.get<UserDTO>('/api/user/me', {
             server: true,
             authToken,
             headers: {
@@ -59,11 +59,7 @@ export const AuthService = {
         return data;
     },
     getChatInfo: async (apartmentId: string): Promise<ChatDTO[]> => {
-        const { data } = await api.get<ChatDTO[]>(`/api/secure/chat/${apartmentId}/list`);
-        return data;
-    },
-    googleOauth: async (): Promise<unknown> => {
-        const { data } = await api.get<void>('/oauth2/authentication/google');
+        const { data } = await api.get<ChatDTO[]>(`/api/apartment/${apartmentId}/chat/list`);
         return data;
     },
     logout: async (): Promise<void> => {

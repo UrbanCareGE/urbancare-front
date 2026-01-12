@@ -8,8 +8,8 @@ export function useCreateComment() {
     const queryClient = useQueryClient();
 
     const {mutate, isPending, isError, error} = useMutation({
-        mutationFn: ({threadId, commentDto}: { threadId: string, commentDto: CreateThreadCommentDTO }) =>
-            ThreadService.createComment(threadId, commentDto),
+        mutationFn: ({apartmentId, threadId, commentDto}: { apartmentId: string, threadId: string, commentDto: CreateThreadCommentDTO }) =>
+            ThreadService.createComment(apartmentId, threadId, commentDto),
 
         onMutate: async ({threadId, commentDto}) => {
             await queryClient.cancelQueries({queryKey: ['threads', 'detail', threadId]});
@@ -92,8 +92,8 @@ export function useCreateComment() {
         },
     });
 
-    const onSubmit = (threadId: string, commentDto: CreateThreadCommentDTO) => {
-        mutate({threadId, commentDto});
+    const onSubmit = (apartmentId: string, threadId: string, commentDto: CreateThreadCommentDTO) => {
+        mutate({apartmentId, threadId, commentDto});
     }
 
     return {onSubmit, isPending, isError, error}
