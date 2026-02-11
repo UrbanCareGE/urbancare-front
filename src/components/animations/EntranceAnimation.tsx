@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useRef, useEffect, ReactNode } from 'react';
 import { gsap } from 'gsap';
@@ -55,7 +55,16 @@ const EntranceAnimation: React.FC<EntranceAnimationProps> = ({
     return () => {
       gsap.killTweensOf(el);
     };
-  }, [distance, direction, reverse, duration, ease, initialOpacity, scale, delay]);
+  }, [
+    distance,
+    direction,
+    reverse,
+    duration,
+    ease,
+    initialOpacity,
+    scale,
+    delay,
+  ]);
 
   return <div ref={ref}>{children}</div>;
 };

@@ -1,44 +1,36 @@
-'use client'
+'use client';
 
-import {Children} from "@/app/layout";
-import {useResponsive} from "@/components/common/layouts/ResponsiveLayout";
+import { Children } from '@/app/layout';
+import { useResponsive } from '@/components/common/layouts/ResponsiveLayout';
 
-export const MobileAdapter = ({children}: Children) => {
-    const {isMobile} = useResponsive();
+export const MobileAdapter = ({ children }: Children) => {
+  const { isMobile } = useResponsive();
 
-    if (!isMobile) return <></>
+  if (!isMobile) return <></>;
 
-    return (
-        <>{children}</>
-    );
+  return <>{children}</>;
 };
 
-export const DesktopAdapter = ({children}: Children) => {
-    const {isDesktop} = useResponsive();
+export const DesktopAdapter = ({ children }: Children) => {
+  const { isDesktop } = useResponsive();
 
-    if (!isDesktop) return <></>
+  if (!isDesktop) return <></>;
 
-    return (
-        <>{children}</>
-    );
-}
+  return <>{children}</>;
+};
 
-export const TabletAdapter = ({children}: Children) => {
-    const {isTablet} = useResponsive();
+export const TabletAdapter = ({ children }: Children) => {
+  const { isTablet } = useResponsive();
 
-    if (!isTablet) return <></>
+  if (!isTablet) return <></>;
 
-    return (
-        <>{children}</>
-    );
-}
+  return <>{children}</>;
+};
 
-export const LargeDesktopAdapter = ({children}: Children) => {
-    const {isLargeDesktop} = useResponsive();
+export const LargeDesktopAdapter = ({ children }: Children) => {
+  const { isLargeDesktop } = useResponsive();
 
-    if (!isLargeDesktop) return <></>
+  if (!isLargeDesktop) return <></>;
 
-    return (
-        <>{children}</>
-    );
-}
+  return <>{children}</>;
+};

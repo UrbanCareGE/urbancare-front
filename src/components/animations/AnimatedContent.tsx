@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useRef, useEffect, ReactNode } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -32,7 +32,7 @@ const AnimatedContent: React.FC<AnimatedContentProps> = ({
   scale = 1,
   threshold = 0.1,
   delay = 0,
-  onComplete
+  onComplete,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -47,7 +47,7 @@ const AnimatedContent: React.FC<AnimatedContentProps> = ({
     gsap.set(el, {
       [axis]: offset,
       scale,
-      opacity: animateOpacity ? initialOpacity : 1
+      opacity: animateOpacity ? initialOpacity : 1,
     });
 
     gsap.to(el, {
@@ -62,12 +62,12 @@ const AnimatedContent: React.FC<AnimatedContentProps> = ({
         trigger: el,
         start: `top ${startPct}%`,
         toggleActions: 'play none none none',
-        once: true
-      }
+        once: true,
+      },
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      ScrollTrigger.getAll().forEach((t) => t.kill());
       gsap.killTweensOf(el);
     };
   }, [
@@ -81,7 +81,7 @@ const AnimatedContent: React.FC<AnimatedContentProps> = ({
     scale,
     threshold,
     delay,
-    onComplete
+    onComplete,
   ]);
 
   return <div ref={ref}>{children}</div>;

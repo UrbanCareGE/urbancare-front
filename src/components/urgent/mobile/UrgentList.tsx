@@ -1,104 +1,119 @@
-'use client'
+'use client';
 
-import {useAuth} from "@/components/provider/AuthProvider";
-import {Leapfrog} from "ldrs/react";
-import {cn, formatTime} from "@/lib/utils";
-import {Basic} from "@/app/layout";
+import { useAuth } from '@/components/provider/AuthProvider';
+import { Leapfrog } from 'ldrs/react';
+import { cn, formatTime } from '@/lib/utils';
+import { Basic } from '@/app/layout';
 
-import 'ldrs/react/Leapfrog.css'
-import {useFetchUrgent} from "@/hooks/query/urgent/use-fetch-urgent";
-import {NewUrgentCard, UrgentCardStatus, ActionButtonProps} from "@/components/urgent/NewUrgentCard";
-import {OptimisticUrgentItem} from "@/hooks/query/urgent/use-create-urgent";
-import {useResolveUrgent} from "@/hooks/query/urgent/use-resolve-urgent";
+import 'ldrs/react/Leapfrog.css';
+import { useFetchUrgent } from '@/hooks/query/urgent/use-fetch-urgent';
+import {
+  NewUrgentCard,
+  UrgentCardStatus,
+  ActionButtonProps,
+} from '@/components/urgent/NewUrgentCard';
+import { OptimisticUrgentItem } from '@/hooks/query/urgent/use-create-urgent';
+import { useResolveUrgent } from '@/hooks/query/urgent/use-resolve-urgent';
 
 const mapUrgentItemToCardProps = (
-    item: OptimisticUrgentItem,
-    onResolve: (id: string) => void,
-    resolvingId: string | null
+  item: OptimisticUrgentItem,
+  onResolve: (id: string) => void,
+  resolvingId: string | null
 ) => {
-    const status: UrgentCardStatus = item.resolved ? 'resolved' : 'urgent';
-    const initials = `${item.userInfo.name[0] ?? ''}${item.userInfo.surname[0] ?? ''}`.toUpperCase();
-    const isResolving = resolvingId === item.id;
+  const status: UrgentCardStatus = item.resolved ? 'resolved' : 'urgent';
+  const initials =
+    `${item.userInfo.name[0] ?? ''}${item.userInfo.surname[0] ?? ''}`.toUpperCase();
+  const isResolving = resolvingId === item.id;
 
-    const actions: ActionButtonProps[] = item.resolved
-        ? [{icon: '❤️', label: 'მადლობა', variant: 'success'}]
-        : [{
-            icon: '✓',
-            label: 'შესრულებულია',
-            pendingLabel: '...იგზავნება',
-            variant: 'primary',
-            onClick: () => onResolve(item.id),
-            isPending: isResolving,
-        }];
+  const actions: ActionButtonProps[] = item.resolved
+    ? [{ icon: '❤️', label: 'მადლობა', variant: 'success' }]
+    : [
+        {
+          icon: '✓',
+          label: 'შესრულებულია',
+          pendingLabel: '...იგზავნება',
+          variant: 'primary',
+          onClick: () => onResolve(item.id),
+          isPending: isResolving,
+        },
+      ];
 
-    return {
-        status,
-        icon: item.resolved ? '✓' : '🆘',
-        label: item.resolved ? 'შესრულებულია' : 'SOS',
-        title: `${item.userInfo.name} ${item.userInfo.surname}`,
-        message: item.content,
-        meta: [
-            {icon: '⏱️', text: formatTime(item.createdAt.toString())},
-        ],
-        responders: [{initials, color: 'primary' as const}],
-        responderText: item.resolved ? 'დაეხმარა' : 'მოითხოვა დახმარება',
-        actions,
-        isPending: item._isPending,
-    };
+  return {
+    status,
+    icon: item.resolved ? '✓' : '🆘',
+    label: item.resolved ? 'შესრულებულია' : 'SOS',
+    title: `${item.userInfo.name} ${item.userInfo.surname}`,
+    message: item.content,
+    meta: [{ icon: '⏱️', text: formatTime(item.createdAt.toString()) }],
+    responders: [{ initials, color: 'primary' as const }],
+    responderText: item.resolved ? 'დაეხმარა' : 'მოითხოვა დახმარება',
+    actions,
+    isPending: item._isPending,
+  };
 };
 
 const UrgentList = () => {
-    const authContext = useAuth();
-    const {user} = authContext;
-    const {data, isLoading, isError} = useFetchUrgent(authContext);
-    const {mutate: resolveUrgent, variables: resolvingId, isPending: isResolving} = useResolveUrgent();
+  const authContext = useAuth();
+  const { user } = authContext;
+  const { data, isLoading, isError } = useFetchUrgent(authContext);
+  const {
+    mutate: resolveUrgent,
+    variables: resolvingId,
+    isPending: isResolving,
+  } = useResolveUrgent();
 
-    // Cast to OptimisticUrgentItem[] since cache may contain optimistic items with _isPending flag
-    const items = data as OptimisticUrgentItem[] | undefined;
+  // Cast to OptimisticUrgentItem[] since cache may contain optimistic items with _isPending flag
+  const items = data as OptimisticUrgentItem[] | undefined;
 
-    const handleResolve = (id: string) => {
-        resolveUrgent(id);
-    };
+  const handleResolve = (id: string) => {
+    resolveUrgent(id);
+  };
 
-    if (!user?.selectedApartment?.id) {
-        return (
-            <div className="flex items-center justify-center p-4">
-                No apartment selected
-            </div>
-        );
-    }
-
+  if (!user?.selectedApartment?.id) {
     return (
-        <ul className="flex flex-col gap-3 py-3 px-4">
-            {isLoading && <ListLoader/>}
-
-            {isError && (
-                <div className="flex items-center justify-center p-4 text-red-500">
-                    Error loading urgent items
-                </div>
-            )}
-
-            {items && items.length > 0 && items.map((item) => (
-                <NewUrgentCard
-                    key={item.id}
-                    {...mapUrgentItemToCardProps(item, handleResolve, isResolving ? resolvingId ?? null : null)}
-                />
-            ))}
-        </ul>
+      <div className="flex items-center justify-center p-4">
+        No apartment selected
+      </div>
     );
+  }
+
+  return (
+    <ul className="flex flex-col gap-3 py-3 px-4">
+      {isLoading && <ListLoader />}
+
+      {isError && (
+        <div className="flex items-center justify-center p-4 text-red-500">
+          Error loading urgent items
+        </div>
+      )}
+
+      {items &&
+        items.length > 0 &&
+        items.map((item) => (
+          <NewUrgentCard
+            key={item.id}
+            {...mapUrgentItemToCardProps(
+              item,
+              handleResolve,
+              isResolving ? (resolvingId ?? null) : null
+            )}
+          />
+        ))}
+    </ul>
+  );
 };
 
-
-const ListLoader = ({className}: Basic) => {
-    return (
-        <div className={cn("z-60 flex w-full h-14 justify-center items-center fixed top-[70%]", className)}>
-            <Leapfrog
-                size="40"
-                speed="1.75"
-                color="#02c2c5"
-            />
-        </div>
-    );
+const ListLoader = ({ className }: Basic) => {
+  return (
+    <div
+      className={cn(
+        'z-60 flex w-full h-14 justify-center items-center fixed top-[70%]',
+        className
+      )}
+    >
+      <Leapfrog size="40" speed="1.75" color="#02c2c5" />
+    </div>
+  );
 };
 
 export default UrgentList;

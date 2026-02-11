@@ -1,55 +1,55 @@
 export type ErrorResp = {
-    key: string;
-    message: string;
-    code: number;
-    data?: unknown;
-    stack?: unknown;
-}
+  key: string;
+  message: string;
+  code: number;
+  data?: unknown;
+  stack?: unknown;
+};
 
 export type SuccessResponse<T> = {
-    success: true;
-    data: T;
+  success: true;
+  data: T;
 };
 
 export type ErrorResponse = {
-    success: false;
-    error: ErrorResp;
+  success: false;
+  error: ErrorResp;
 };
 
 export interface PairIdNameWrapperDTO {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 }
 
 export interface IdWrapperDTO {
-    id: string;
+  id: string;
 }
 
 export interface SuccessDTO {
-    success: boolean;
+  success: boolean;
 }
 
 export interface PagingDTO {
-    page: number;
-    size: number;
+  page: number;
+  size: number;
 }
 
 export interface SortRestDTO {
-    direction: 'DESC' | 'ASC';
-    property: string;
-    ignoreCase: boolean;
-    nullHandling: string;
-    descending: boolean,
-    ascending: boolean
+  direction: 'DESC' | 'ASC';
+  property: string;
+  ignoreCase: boolean;
+  nullHandling: string;
+  descending: boolean;
+  ascending: boolean;
 }
 
 export interface PagingRespDTO<TResponse> {
-    content: TResponse[];
-    totalPages: number;
-    totalElements: number;
-    last: boolean;
-    numberOfElements: number,
-    first: boolean;
-    number: number;
-    sort?: SortRestDTO;
+  content: TResponse[];
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  numberOfElements: number;
+  first: boolean;
+  number: number;
+  sort?: SortRestDTO;
 }

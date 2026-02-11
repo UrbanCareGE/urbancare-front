@@ -1,41 +1,43 @@
-'use client'
+'use client';
 
-import React from "react";
-import {useThread} from "@/components/thread/mobile/thread-card/ThreadCard";
-import {usePreviewable} from "@/components/thread/mobile/Previewable";
-import {PollDisplay} from "@/components/thread/mobile/thread-card/poll/PollDisplay";
-import {ThreadImagePreview} from "@/components/thread/mobile/thread-card/image-preview/ThreadImagePreview";
-import {getClientFileUrl} from "@/lib/api-client";
+import React from 'react';
+import { useThread } from '@/components/thread/mobile/thread-card/ThreadCard';
+import { usePreviewable } from '@/components/thread/mobile/Previewable';
+import { PollDisplay } from '@/components/thread/mobile/thread-card/poll/PollDisplay';
+import { ThreadImagePreview } from '@/components/thread/mobile/thread-card/image-preview/ThreadImagePreview';
+import { getClientFileUrl } from '@/lib/api-client';
 
 interface ThreadCardContentProps {
-    className?: string;
+  className?: string;
 }
 
-export const ThreadPreviewContent = ({className}: ThreadCardContentProps) => {
-    const {thread} = useThread();
-    const {openView} = usePreviewable();
+export const ThreadPreviewContent = ({ className }: ThreadCardContentProps) => {
+  const { thread } = useThread();
+  const { openView } = usePreviewable();
 
-    return (
-        <div className={`flex flex-col gap-5 ${className || ''}`}>
-            {/* Title - max 3 lines with ellipsis */}
-            {thread.title && (
-                <h2 className="text-lg font-semibold text-sky-950 mb-2 line-clamp-3">
-                    {thread.title}
-                </h2>
-            )}
+  return (
+    <div className={`flex flex-col gap-5 ${className || ''}`}>
+      {/* Title - max 3 lines with ellipsis */}
+      {thread.title && (
+        <h2 className="text-lg font-semibold text-sky-950 mb-2 line-clamp-3">
+          {thread.title}
+        </h2>
+      )}
 
-            <p className="text-sky-950 leading-relaxed whitespace-pre-wrap line-clamp-3" onClick={openView}>
-                {thread.content}
-            </p>
+      <p
+        className="text-sky-950 leading-relaxed whitespace-pre-wrap line-clamp-3"
+        onClick={openView}
+      >
+        {thread.content}
+      </p>
 
-            {thread.imageIds &&
-                <ThreadImagePreview imageLinks={thread.imageIds.map(id => getClientFileUrl(id))}/>
-            }
+      {thread.imageIds && (
+        <ThreadImagePreview
+          imageLinks={thread.imageIds.map((id) => getClientFileUrl(id))}
+        />
+      )}
 
-            {thread.poll && (
-                <PollDisplay thread={thread} className="mt-3"/>
-            )}
-
-        </div>
-    );
+      {thread.poll && <PollDisplay thread={thread} className="mt-3" />}
+    </div>
+  );
 };
