@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UrgentService } from '@/service/urgent-service';
 import { UrgentItemDTO } from '@/model/urgent.dto';
-import { UserContextType } from '@/components/provider/AuthProvider';
+import { AuthContextType } from '@/components/provider/AuthProvider';
 import { toast } from 'sonner';
 
 export type OptimisticUrgentItem = UrgentItemDTO & {
@@ -10,7 +10,7 @@ export type OptimisticUrgentItem = UrgentItemDTO & {
 };
 
 export function useCreateUrgent(
-  userContext: UserContextType,
+  userContext: AuthContextType,
   onSuccess?: (urgent: UrgentItemDTO) => void
 ) {
   const queryClient = useQueryClient();

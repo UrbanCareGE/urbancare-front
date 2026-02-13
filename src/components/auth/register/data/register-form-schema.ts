@@ -2,6 +2,12 @@ import { z } from 'zod';
 
 export const registerSchema = z
   .object({
+    firstName: z
+      .string()
+      .min(2, { message: 'სახელი უნდა შედგებოდეს მინიმუმ 2 ასოსგან' }),
+    lastName: z
+      .string()
+      .min(2, { message: 'გვარი უნდა შედგებოდეს მინიმუმ 2 ასოსგან' }),
     phone: z.string().refine((val) => /^\+?[1-9]\d{7,14}$/.test(val), {
       message: 'გთხოვთ შეიყვანოთ ტელეფონი',
     }),

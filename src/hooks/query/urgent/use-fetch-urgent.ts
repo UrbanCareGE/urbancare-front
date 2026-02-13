@@ -2,9 +2,9 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { UrgentService } from '@/service/urgent-service';
-import { UserContextType } from '@/components/provider/AuthProvider';
+import { AuthContextType } from '@/components/provider/AuthProvider';
 
-export function useFetchUrgent(userContext: UserContextType) {
+export function useFetchUrgent(userContext: AuthContextType) {
   const { user, isLoading } = userContext;
   const queryResult = useQuery({
     queryKey: ['urgent', 'list', user?.selectedApartment.id],

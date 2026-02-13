@@ -10,7 +10,7 @@ import { useFetchChat } from '@/hooks/query/chat/use-fetch-chat';
 export const Chat = () => {
   const authInfo = useAuth();
   const { user, isLoading, isAuthenticated } = authInfo;
-  const { data, isLoading: isFetchingChat } = useFetchChat(authInfo);
+  const { data, isLoading: isFetchingChat } = useFetchChat();
 
   if (isLoading || isFetchingChat) {
     return <Skeleton className="h-full w-full rounded-md flex-1" />;
