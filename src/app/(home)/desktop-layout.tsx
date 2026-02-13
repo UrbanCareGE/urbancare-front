@@ -27,8 +27,6 @@ import {
 import { LogoutButton } from '@/components/auth/LogoutButton';
 import { useAuth } from '@/components/provider/AuthProvider';
 
-// ==================== HEADER COMPONENTS ====================
-
 const HeaderLogo = () => (
   <Link href="/" className="flex items-center">
     <span className="font-bold text-xl text-primary tracking-tight">
@@ -133,8 +131,6 @@ const DesktopHeader = () => (
     <HeaderActions />
   </header>
 );
-
-// ==================== SIDEBAR COMPONENTS ====================
 
 const SidebarHeader = () => (
   <div className="h-16 px-4 flex items-center border-b border-border">

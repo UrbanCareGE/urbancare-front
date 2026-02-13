@@ -20,7 +20,7 @@ type PersonalInfoFormData = z.infer<typeof personalInfoSchema>;
 
 export function PersonalInfoForm() {
   const { user } = useAuth();
-  const { updateProfile, isPending } = useUpdateProfile();
+  const { mutateAsync, isPending } = useUpdateProfile();
 
   const form = useForm<PersonalInfoFormData>({
     resolver: zodResolver(personalInfoSchema),
@@ -32,7 +32,7 @@ export function PersonalInfoForm() {
 
   const onSubmit = async (data: PersonalInfoFormData) => {
     try {
-      await updateProfile(data);
+      await mutateAsync(data);
     } catch (error) {
       console.error('Update profile error:', error);
     }

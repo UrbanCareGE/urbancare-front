@@ -7,6 +7,16 @@ export interface UrgentItemDTO {
   userInfo: UserSnapshotDTO;
 }
 
+export interface CreateUrgentItemDTO {
+  apartmentId: string;
+  content: string;
+}
+
+export interface ResolveUrgentItemDTO {
+  id: string;
+  apartmentId: string;
+}
+
 export interface UserSnapshotDTO {
   name: string;
   surname: string;

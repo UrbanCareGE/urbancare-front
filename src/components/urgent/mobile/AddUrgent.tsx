@@ -17,8 +17,7 @@ import { useCreateUrgent } from '@/hooks/query/urgent/use-create-urgent';
 import { UrgentItemDTO } from '@/model/urgent.dto';
 
 const AddUrgent = () => {
-  const userContext = useAuth();
-  const { user } = userContext;
+  const { user } = useAuth();
   const [text, setText] = useState<string>('');
   const [open, setOpen] = useState(false);
 
@@ -27,10 +26,7 @@ const AddUrgent = () => {
     setOpen(false);
   };
 
-  const { onSubmit, isPending, isError, error } = useCreateUrgent(
-    userContext,
-    onSuccess
-  );
+  const { onSubmit, isPending, isError, error } = useCreateUrgent(onSuccess);
 
   const handleAdd = () => {
     if (!text.trim()) return;

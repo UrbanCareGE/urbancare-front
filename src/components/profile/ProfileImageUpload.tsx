@@ -14,7 +14,7 @@ export function ProfileImageUpload() {
   const { user } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
-  const { updateProfileImage, isPending } = useUpdateProfileImage();
+  const { mutateAsync, isPending } = useUpdateProfileImage();
 
   if (!user) return null;
 
@@ -37,7 +37,7 @@ export function ProfileImageUpload() {
     try {
       setUploading(true);
       const response = await FileService.uploadPublicFile(file);
-      await updateProfileImage({ profileImageId: response.id });
+      await mutateAsync({ profileImageId: response.id });
     } catch (error) {
       toast.error('ფოტოს ატვირთვა ვერ მოხერხდა');
       console.error('Upload error:', error);

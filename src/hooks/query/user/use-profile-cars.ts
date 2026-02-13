@@ -24,23 +24,18 @@ export function useProfileCars() {
   const addCarMutation = useMutation({
     mutationFn: (data: AddCarModel) => ProfileService.addCar(data),
     onMutate: async (newCar) => {
-      // Cancel any outgoing refetches
       await queryClient.cancelQueries({ queryKey: CARS_QUERY_KEY });
 
-      // Snapshot the previous value
       const previousCars = queryClient.getQueryData<CarModel[]>(CARS_QUERY_KEY);
 
-      // Optimistically add the new car with a temporary id
       queryClient.setQueryData<CarModel[]>(CARS_QUERY_KEY, (old) => [
         ...(old ?? []),
         { id: `temp-${Date.now()}`, licensePlate: newCar.licensePlate },
       ]);
 
-      // Return context with the snapshot
       return { previousCars };
     },
     onSuccess: (savedCar) => {
-      // Replace optimistic entry with actual response
       queryClient.setQueryData<CarModel[]>(
         CARS_QUERY_KEY,
         (old) =>
@@ -50,7 +45,6 @@ export function useProfileCars() {
       );
     },
     onError: (_error, _newCar, context) => {
-      // Rollback to previous state
       if (context?.previousCars) {
         queryClient.setQueryData(CARS_QUERY_KEY, context.previousCars);
       }
@@ -65,7 +59,6 @@ export function useProfileCars() {
 
       const previousCars = queryClient.getQueryData<CarModel[]>(CARS_QUERY_KEY);
 
-      // Optimistically remove the car
       queryClient.setQueryData<CarModel[]>(
         CARS_QUERY_KEY,
         (old) => old?.filter((car) => car.id !== deletedId) ?? []

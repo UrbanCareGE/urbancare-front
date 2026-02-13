@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, ReactNode, useContext } from 'react';
+import { createContext, ReactNode, useContext, useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 import { AuthService } from '@/service/auth-service';
@@ -20,7 +20,7 @@ export interface User {
 }
 
 export interface AuthContextType {
-  user: User | null;
+  user: User;
   isLoading: boolean;
   isAuthenticated: boolean;
   isManager: boolean;
@@ -47,9 +47,15 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
   const isPublic = isPublicRoute(pathname);
 
+  const handleAuthError = () => {
+    queryClient.clear();
+    window.location.href = '/auth/login';
+  };
+
   const {
     data: user,
     isLoading,
+    isError,
     refetch,
   } = useQuery({
     queryKey: ['user'],
@@ -66,6 +72,12 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     staleTime: 5 * 60 * 1e3,
     gcTime: 10 * 60 * 1e3,
   });
+
+  useEffect(() => {
+    if (isError && !isPublic) {
+      handleAuthError();
+    }
+  }, [isError, isPublic]);
 
   const loginMutation = useMutation<UserDTO, ErrorResponse, LoginDTO>({
     mutationFn: AuthService.login,
@@ -108,8 +120,17 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     await refetch();
   };
 
+  if (isLoading && !isPublic) {
+    return <PulsingLoader />;
+  }
+
+  if (!user && !isPublic) {
+    handleAuthError();
+    return <PulsingLoader />;
+  }
+
   const value: AuthContextType = {
-    user: user ?? null,
+    user: user!,
     isLoading: isPublic ? false : isLoading,
     isAuthenticated: !!user,
     isManager: user?.selectedApartment?.role === 'ADMIN',
@@ -123,10 +144,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     loginError: loginMutation.error,
     resetLoginError: loginMutation.reset,
   };
-
-  if (isLoading && !isPublic) {
-    return <PulsingLoader />;
-  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

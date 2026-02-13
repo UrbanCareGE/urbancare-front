@@ -1,32 +1,21 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UrgentService } from '@/service/urgent-service';
-import { UrgentItemDTO } from '@/model/urgent.dto';
-import { AuthContextType } from '@/components/provider/AuthProvider';
+import { CreateUrgentItemDTO, UrgentItemDTO } from '@/model/urgent.dto';
 import { toast } from 'sonner';
+import { useAuth } from '@/components/provider/AuthProvider';
 
 export type OptimisticUrgentItem = UrgentItemDTO & {
   _isPending?: boolean;
   _tempId?: string;
 };
 
-export function useCreateUrgent(
-  userContext: AuthContextType,
-  onSuccess?: (urgent: UrgentItemDTO) => void
-) {
+export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
+  const { user } = useAuth();
   const queryClient = useQueryClient();
-  const { user } = userContext;
 
   const { mutate, isPending, isError, error } = useMutation({
-    mutationFn: async ({
-      content,
-    }: {
-      apartmentId: string;
-      content: string;
-    }) => {
-      return await UrgentService.add(
-        user?.selectedApartment?.id ?? '',
-        content
-      );
+    mutationFn: async ({ content, apartmentId }: CreateUrgentItemDTO) => {
+      return await UrgentService.add(apartmentId, content);
     },
 
     onMutate: async ({ apartmentId, content }) => {
@@ -83,8 +72,8 @@ export function useCreateUrgent(
     },
   });
 
-  const onSubmit = (apartmentId: string, content: string) => {
-    mutate({ apartmentId, content });
+  const onSubmit = (content: string) => {
+    mutate({ apartmentId: user!.selectedApartment.id, content: content });
   };
 
   return { onSubmit, isPending, isError, error };

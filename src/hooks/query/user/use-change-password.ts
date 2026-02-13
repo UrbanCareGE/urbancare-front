@@ -4,7 +4,7 @@ import { ChangePasswordDTO } from '@/model/auth.dto';
 import { toast } from 'sonner';
 
 export function useChangePassword() {
-  const mutation = useMutation({
+  return useMutation({
     mutationFn: (data: ChangePasswordDTO) =>
       ProfileService.changePassword(data),
     onSuccess: () => {
@@ -14,9 +14,4 @@ export function useChangePassword() {
       toast.error('პაროლის შეცვლა ვერ მოხერხდა');
     },
   });
-
-  return {
-    changePassword: mutation.mutateAsync,
-    isPending: mutation.isPending,
-  };
 }

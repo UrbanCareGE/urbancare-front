@@ -29,7 +29,7 @@ const profileSchema = z.object({
 
 export function ProfileCompletionModal() {
   const { user, isAuthenticated } = useAuth();
-  const { updateProfile, isPending } = useUpdateProfile();
+  const { mutateAsync, isPending } = useUpdateProfile();
   const [isOpen, setIsOpen] = useState(false);
 
   const form = useForm<z.infer<typeof profileSchema>>({
@@ -42,7 +42,6 @@ export function ProfileCompletionModal() {
 
   useEffect(() => {
     if (isAuthenticated && user) {
-      // Check if name or surname is missing/empty
       const needsCompletion =
         !user.name ||
         !user.surname ||
@@ -50,7 +49,6 @@ export function ProfileCompletionModal() {
         user.surname.trim() === '';
       setIsOpen(needsCompletion);
 
-      // Pre-fill form if values exist
       if (user.name) form.setValue('name', user.name);
       if (user.surname) form.setValue('surname', user.surname);
     }
@@ -58,11 +56,9 @@ export function ProfileCompletionModal() {
 
   const onSubmit = async (values: z.infer<typeof profileSchema>) => {
     try {
-      await updateProfile(values);
+      await mutateAsync(values);
       setIsOpen(false);
-    } catch (error) {
-      // Error is handled by the hook
-    }
+    } catch (error) {}
   };
 
   const handleClose = () => {
