@@ -1,7 +1,7 @@
 'use client';
 
 import { Send } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useCreateComment } from '@/hooks/query/thread/use-create-comment';
@@ -9,6 +9,7 @@ import { UserAvatar } from '@/components/common/avatar/UserAvatar';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { ThreadInfoDTO } from '@/model/thread.dto';
 import { useParams } from 'next/navigation';
+import { useSearchParams } from 'next/dist/client/components/navigation';
 
 type ThreadViewCommentButtonProps = {
   thread: ThreadInfoDTO;
@@ -20,6 +21,16 @@ export const ThreadViewCommentButton = ({
   const [commentText, setCommentText] = useState('');
   const { user } = useAuth();
   const { apartmentId } = useParams<{ apartmentId: string }>();
+  const commentRef = useRef<HTMLTextAreaElement | null>(null);
+  const searchParams = useSearchParams();
+  const shouldFocusComment = searchParams.get('comment') === 'true';
+
+  useEffect(() => {
+    if (shouldFocusComment && commentRef.current) {
+      console.log("epeee");
+      commentRef.current.focus();
+    }
+  }, [shouldFocusComment]);
 
   const { onSubmit } = useCreateComment();
 
@@ -44,6 +55,7 @@ export const ThreadViewCommentButton = ({
       />
       <div className="flex-1 relative">
         <Textarea
+          ref={commentRef}
           placeholder="დაწერეთ კომენტარი..."
           value={commentText}
           onChange={(e) => setCommentText(e.target.value)}

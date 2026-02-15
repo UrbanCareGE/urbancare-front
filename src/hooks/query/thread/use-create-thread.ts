@@ -54,7 +54,6 @@ export function useCreateThread() {
                 return {
                   ...page,
                   content: [id, ...page.content],
-                  numberOfElements: page.numberOfElements + 1,
                 };
               }
               return page;

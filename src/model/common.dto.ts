@@ -48,13 +48,15 @@ export interface SortRestDTO {
 
 export interface PagingRespDTO<TResponse> {
   content: TResponse[];
-  totalPages: number;
-  totalElements: number;
-  last: boolean;
-  numberOfElements: number;
-  first: boolean;
-  number: number;
   sort?: SortRestDTO;
+  page: PageInfo;
+}
+
+export interface PageInfo {
+  size: number;
+  number: number;
+  totalElements: number;
+  totalPages: number;
 }
 
 export type OptimisticData<T> = T & {

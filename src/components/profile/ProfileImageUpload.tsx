@@ -1,25 +1,26 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Camera, Loader2 } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { getClientFileUrl } from '@/lib/api-client';
 import { useAuth } from '@/components/provider/AuthProvider';
-import { FileService } from '@/service/file-service';
 import { useUpdateProfileImage } from '@/hooks/query/user/use-update-profile-image';
 import { toast } from 'sonner';
 import Image from 'next/image';
+import { useUploadFile } from '@/hooks/query/file/use-upload-file';
 
 export function ProfileImageUpload() {
   const { user } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [uploading, setUploading] = useState(false);
-  const { mutateAsync, isPending } = useUpdateProfileImage();
-
+  const { mutateAsync: uploadFileImageMutation, isPending: isUploading } =
+    useUploadFile();
+  const { mutateAsync: updateProfileImageMutation, isPending: isUpdating } =
+    useUpdateProfileImage();
   const initials = `${user.name[0]}${user.surname[0]}`.toUpperCase();
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    const file: File | undefined = e.target.files?.[0];
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
@@ -33,21 +34,19 @@ export function ProfileImageUpload() {
     }
 
     try {
-      setUploading(true);
-      const response = await FileService.uploadPublicFile(file);
-      await mutateAsync({ profileImageId: response.id });
+      const uploadedFile = await uploadFileImageMutation({ file });
+      await updateProfileImageMutation({ profileImageId: uploadedFile.id });
     } catch (error) {
       toast.error('ფოტოს ატვირთვა ვერ მოხერხდა');
       console.error('Upload error:', error);
     } finally {
-      setUploading(false);
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
     }
   };
 
-  const isLoading = uploading || isPending;
+  const isLoading = isUploading || isUpdating;
 
   return (
     <div className="flex flex-col items-center gap-4">

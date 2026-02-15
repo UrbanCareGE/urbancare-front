@@ -15,6 +15,14 @@ export function useAddCar() {
 
       const previousCars = queryClient.getQueryData<CarDTO[]>(CARS_QUERY_KEY);
 
+      const isDuplicate = previousCars?.some(
+        (car) => car.licensePlate === newCar.licensePlate
+      );
+
+      if (isDuplicate) {
+        throw new Error('ეს მანქანა უკვე დამატებულია');
+      }
+
       queryClient.setQueryData<CarDTO[]>(CARS_QUERY_KEY, (old) => [
         ...(old ?? []),
         { id: `temp-${Date.now()}`, licensePlate: newCar.licensePlate },
@@ -31,11 +39,11 @@ export function useAddCar() {
           ]
       );
     },
-    onError: (_error, _newCar, context) => {
+    onError: (error, _newCar, context) => {
       if (context?.previousCars) {
         queryClient.setQueryData(CARS_QUERY_KEY, context.previousCars);
       }
-      toast.error('მანქანის დამატება ვერ მოხერხდა');
+      toast.error(error.message || 'მანქანის დამატება ვერ მოხერხდა');
     },
   });
 }

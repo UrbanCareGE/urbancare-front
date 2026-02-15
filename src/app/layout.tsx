@@ -6,6 +6,7 @@ import MyThemeProvider from '@/components/provider/MyThemeProvider';
 import ResponsiveLayoutServer from '@/components/common/layouts/ResponsiveLayoutServer';
 import AuthProvider from '@/components/provider/AuthProvider';
 import { PulsingLoader } from '@/components/common/loader/GlobalLoader';
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   title: 'urbancare',
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: Children) {
               <Suspense fallback={<PulsingLoader />}>
                 <ResponsiveLayoutServer>{children}</ResponsiveLayoutServer>
               </Suspense>
+              <Toaster position="bottom-right" richColors />
             </AuthProvider>
           </MyThemeProvider>
         </ReactQueryProvider>

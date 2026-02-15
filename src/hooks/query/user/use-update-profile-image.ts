@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { ProfileService } from '@/service/profile-service';
 import { UpdateProfileImageDTO } from '@/model/auth.dto';
 import { useAuth } from '@/components/provider/AuthProvider';
@@ -10,10 +10,12 @@ export function useUpdateProfileImage() {
   return useMutation({
     mutationFn: (data: UpdateProfileImageDTO) =>
       ProfileService.updateProfileImage(data),
-    onSuccess: (data) => {
+    onMutate: async (data: UpdateProfileImageDTO) => {
       updateUser({
         profileImageId: data.profileImageId,
       });
+    },
+    onSuccess: (data) => {
       toast.success('პროფილის ფოტო წარმატებით განახლდა');
     },
     onError: () => {

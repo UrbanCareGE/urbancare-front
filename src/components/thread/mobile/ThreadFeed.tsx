@@ -17,12 +17,12 @@ export interface ThreadFeedProps {
 export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
   const searchParams = useSearchParams();
   const queryThreadId = searchParams.get('threadId');
-  const { user, isLoading: isUserLoading } = useAuth();
-  const apartmentId = user?.selectedApartment?.id;
+  const { user } = useAuth();
+  const apartmentId = user.selectedApartment.id;
 
   const { ref, inView } = useInView({
     threshold: 0.1,
-    rootMargin: '400px',
+    rootMargin: '256px',
   });
 
   const {
@@ -49,7 +49,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  if (isUserLoading || (isPostFetchLoading && !data)) {
+  if (isPostFetchLoading && !data) {
     return (
       <div className="flex-1 w-full bg-slate-100 space-y-4 py-4">
         <div className="max-w-2xl mx-auto px-4 space-y-4">
@@ -79,7 +79,10 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       </div>
 
       {data?.pages.map((page) => (
-        <div key={page.number} className="max-w-2xl mx-auto px-3 space-y-4">
+        <div
+          key={page.page.number}
+          className="max-w-2xl mx-auto px-3 space-y-4"
+        >
           {page.content.map((threadId) => {
             return (
               <Thread key={threadId} threadId={threadId} defaultOpen={false} />

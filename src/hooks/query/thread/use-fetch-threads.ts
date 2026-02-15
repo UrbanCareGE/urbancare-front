@@ -32,7 +32,9 @@ export function useInfiniteThreads(apartmentId?: string, tags?: string[]) {
     queryFn: fetchItems,
     initialPageParam: 0,
     getNextPageParam: (lastPage) =>
-      lastPage.last ? null : lastPage.number + 1,
+      lastPage.page.number === lastPage.page.totalPages - 1
+        ? null
+        : lastPage.page.number + 1,
     enabled: !!apartmentId,
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
