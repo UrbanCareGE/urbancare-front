@@ -1,3 +1,6 @@
+import { getBindingIdentifiers } from '@babel/types';
+import keys = getBindingIdentifiers.keys;
+
 export type ErrorResp = {
   key: string;
   message: string;
@@ -53,3 +56,8 @@ export interface PagingRespDTO<TResponse> {
   number: number;
   sort?: SortRestDTO;
 }
+
+export type OptimisticData<T> = T & {
+  _isPending?: boolean;
+  _tempId?: string;
+};

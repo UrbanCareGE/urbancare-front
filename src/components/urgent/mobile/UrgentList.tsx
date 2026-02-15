@@ -1,6 +1,5 @@
 'use client';
 
-import { useAuth } from '@/components/provider/AuthProvider';
 import { Leapfrog } from 'ldrs/react';
 import { cn, formatTime } from '@/lib/utils';
 import { Basic } from '@/app/layout';
@@ -8,16 +7,17 @@ import { Basic } from '@/app/layout';
 import 'ldrs/react/Leapfrog.css';
 import { useFetchUrgent } from '@/hooks/query/urgent/use-fetch-urgent';
 import {
+  ActionButtonProps,
   NewUrgentCard,
   UrgentCardStatus,
-  ActionButtonProps,
 } from '@/components/urgent/NewUrgentCard';
-import { OptimisticUrgentItem } from '@/hooks/query/urgent/use-create-urgent';
 import { useResolveUrgent } from '@/hooks/query/urgent/use-resolve-urgent';
 import { useParams } from 'next/navigation';
+import { OptimisticData } from '@/model/common.dto';
+import { UrgentItemDTO } from '@/model/urgent.dto';
 
 const mapUrgentItemToCardProps = (
-  item: OptimisticUrgentItem,
+  item: OptimisticData<UrgentItemDTO>,
   onResolve: (id: string) => void,
   resolvingId: string | null
 ) => {
@@ -55,8 +55,7 @@ const mapUrgentItemToCardProps = (
 
 const UrgentList = () => {
   const { apartmentId } = useParams<{ apartmentId: string }>();
-  const authContext = useAuth();
-  const { data, isLoading, isError } = useFetchUrgent(authContext);
+  const { data, isLoading, isError } = useFetchUrgent();
   const {
     mutate: resolveUrgent,
     variables: resolvingId,
@@ -64,7 +63,7 @@ const UrgentList = () => {
   } = useResolveUrgent();
 
   // Cast to OptimisticUrgentItem[] since cache may contain optimistic items with _isPending flag
-  const items = data as OptimisticUrgentItem[] | undefined;
+  const items = data as OptimisticData<UrgentItemDTO>[] | undefined;
 
   const handleResolve = (id: string) => {
     if (!apartmentId) return;

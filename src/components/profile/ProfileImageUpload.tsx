@@ -16,8 +16,6 @@ export function ProfileImageUpload() {
   const [uploading, setUploading] = useState(false);
   const { mutateAsync, isPending } = useUpdateProfileImage();
 
-  if (!user) return null;
-
   const initials = `${user.name[0]}${user.surname[0]}`.toUpperCase();
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {

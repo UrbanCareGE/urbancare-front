@@ -26,7 +26,7 @@ const changePasswordSchema = z
 type ChangePasswordFormData = z.infer<typeof changePasswordSchema>;
 
 export function ChangePasswordForm() {
-  const { changePassword, isPending } = useChangePassword();
+  const { mutateAsync, isPending } = useChangePassword();
 
   const form = useForm<ChangePasswordFormData>({
     resolver: zodResolver(changePasswordSchema),
@@ -39,7 +39,7 @@ export function ChangePasswordForm() {
 
   const onSubmit = async (data: ChangePasswordFormData) => {
     try {
-      await changePassword({
+      await mutateAsync({
         oldPassword: data.oldPassword,
         newPassword: data.newPassword,
       });
@@ -111,7 +111,7 @@ export function ChangePasswordForm() {
           <Button
             type="submit"
             className="w-full h-12 bg-primary text-white rounded-3xl"
-            disabled={isPending || !form.formState.isDirty}
+            disabled={isPending || !form.formState.isValid}
           >
             {isPending ? 'მიმდინარეობს...' : 'პაროლის შეცვლა'}
           </Button>

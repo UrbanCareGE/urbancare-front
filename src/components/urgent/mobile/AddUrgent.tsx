@@ -12,12 +12,10 @@ import {
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
-import { useAuth } from '@/components/provider/AuthProvider';
 import { useCreateUrgent } from '@/hooks/query/urgent/use-create-urgent';
 import { UrgentItemDTO } from '@/model/urgent.dto';
 
 const AddUrgent = () => {
-  const { user } = useAuth();
   const [text, setText] = useState<string>('');
   const [open, setOpen] = useState(false);
 
@@ -30,9 +28,7 @@ const AddUrgent = () => {
 
   const handleAdd = () => {
     if (!text.trim()) return;
-    if (user?.selectedApartment?.id) {
-      onSubmit(user.selectedApartment.id, text);
-    }
+    onSubmit(text);
   };
 
   return (

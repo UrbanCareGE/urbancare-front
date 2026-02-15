@@ -25,8 +25,8 @@ export function PersonalInfoForm() {
   const form = useForm<PersonalInfoFormData>({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: {
-      name: user?.name || '',
-      surname: user?.surname || '',
+      name: user.name || '',
+      surname: user.surname || '',
     },
   });
 
@@ -37,8 +37,6 @@ export function PersonalInfoForm() {
       console.error('Update profile error:', error);
     }
   };
-
-  if (!user) return null;
 
   return (
     <div className="w-full space-y-3">

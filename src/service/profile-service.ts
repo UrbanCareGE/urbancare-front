@@ -26,7 +26,7 @@ export const ProfileService = {
 
   changePassword: async (data: ChangePasswordDTO): Promise<SuccessDTO> => {
     const response = await api.put<SuccessDTO, ChangePasswordDTO>(
-      '/api/user/password',
+      '/api/user/change-password',
       data
     );
     return response.data;

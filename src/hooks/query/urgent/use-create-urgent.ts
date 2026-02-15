@@ -3,11 +3,7 @@ import { UrgentService } from '@/service/urgent-service';
 import { CreateUrgentItemDTO, UrgentItemDTO } from '@/model/urgent.dto';
 import { toast } from 'sonner';
 import { useAuth } from '@/components/provider/AuthProvider';
-
-export type OptimisticUrgentItem = UrgentItemDTO & {
-  _isPending?: boolean;
-  _tempId?: string;
-};
+import { OptimisticData } from '@/model/common.dto';
 
 export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
   const { user } = useAuth();
@@ -24,10 +20,10 @@ export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
       await queryClient.cancelQueries({ queryKey });
 
       const previousItems =
-        queryClient.getQueryData<OptimisticUrgentItem[]>(queryKey);
+        queryClient.getQueryData<OptimisticData<UrgentItemDTO>[]>(queryKey);
 
       const tempId = `temp-${Date.now()}`;
-      const optimisticItem: OptimisticUrgentItem = {
+      const optimisticItem: OptimisticData<UrgentItemDTO> = {
         id: tempId,
         _tempId: tempId,
         _isPending: true,
@@ -41,8 +37,9 @@ export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
         },
       };
 
-      queryClient.setQueryData<OptimisticUrgentItem[]>(queryKey, (prev) =>
-        prev ? [optimisticItem, ...prev] : [optimisticItem]
+      queryClient.setQueryData<OptimisticData<UrgentItemDTO>[]>(
+        queryKey,
+        (prev) => (prev ? [optimisticItem, ...prev] : [optimisticItem])
       );
 
       return { previousItems, tempId, queryKey };
@@ -51,7 +48,7 @@ export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
     onSuccess: (urgentItemDTO, variables, context) => {
       if (!context) return;
 
-      queryClient.setQueryData<OptimisticUrgentItem[]>(
+      queryClient.setQueryData<OptimisticData<UrgentItemDTO>[]>(
         context.queryKey,
         (prev) =>
           prev?.map((item) =>
@@ -73,7 +70,7 @@ export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
   });
 
   const onSubmit = (content: string) => {
-    mutate({ apartmentId: user!.selectedApartment.id, content: content });
+    mutate({ apartmentId: user.selectedApartment.id, content: content });
   };
 
   return { onSubmit, isPending, isError, error };

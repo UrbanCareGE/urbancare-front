@@ -9,7 +9,7 @@ export interface ApiResponse<TData = unknown> {
 }
 
 export const NEXT_API_URL = process.env.NEXT_PUBLIC_APP_URL || '';
-export const JAVA_API_URL = process.env.JAVA_API_URL || '';
+export const JAVA_API_URL = process.env.NEXT_PUBLIC_JAVA_API_URL || '';
 
 interface ApiCallOptions<TRequest = unknown> {
   data?: TRequest;

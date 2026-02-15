@@ -82,6 +82,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const loginMutation = useMutation<UserDTO, ErrorResponse, LoginDTO>({
     mutationFn: AuthService.login,
     onSuccess: async (user) => {
+      console.log('epee');
       const { joinedApartments, ...dto } = user;
       queryClient.setQueryData(['user'], {
         ...dto,
@@ -91,6 +92,9 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       if (user?.joinedApartments?.length) {
         window.location.href = `/apartment/${user.joinedApartments[0].id}`;
       }
+    },
+    onError: (error) => {
+      console.error(error);
     },
   });
 
@@ -128,6 +132,11 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     handleAuthError();
     return <PulsingLoader />;
   }
+
+  // if (!user?.selectedApartment) {
+  //   // TODO ak unda gadavagdot
+  //   return <PulsingLoader />;
+  // }
 
   const value: AuthContextType = {
     user: user!,

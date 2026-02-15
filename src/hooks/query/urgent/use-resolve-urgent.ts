@@ -4,8 +4,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UrgentService } from '@/service/urgent-service';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { toast } from 'sonner';
-import { OptimisticUrgentItem } from './use-create-urgent';
-import { ResolveUrgentItemDTO } from '@/model/urgent.dto';
+import { ResolveUrgentItemDTO, UrgentItemDTO } from '@/model/urgent.dto';
+import { OptimisticData } from '@/model/common.dto';
 
 export function useResolveUrgent() {
   const { user } = useAuth();
@@ -18,10 +18,12 @@ export function useResolveUrgent() {
 
     onSuccess: (_, { id }) => {
       const queryKey = ['urgent', 'list', user?.selectedApartment?.id];
-      queryClient.setQueryData<OptimisticUrgentItem[]>(queryKey, (prev) =>
-        prev?.map((item) =>
-          item.id === id ? { ...item, resolved: true } : item
-        )
+      queryClient.setQueryData<OptimisticData<UrgentItemDTO>[]>(
+        queryKey,
+        (prev) =>
+          prev?.map((item) =>
+            item.id === id ? { ...item, resolved: true } : item
+          )
       );
     },
 

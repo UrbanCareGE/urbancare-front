@@ -2,7 +2,8 @@
 
 import { cookies } from 'next/headers';
 
-const JAVA_API_URL = process.env.JAVA_API_URL || 'http://localhost:8080';
+const JAVA_API_URL =
+  process.env.NEXT_PUBLIC_JAVA_API_URL || 'http://localhost:8080';
 
 async function handleRequest(
   request: Request,

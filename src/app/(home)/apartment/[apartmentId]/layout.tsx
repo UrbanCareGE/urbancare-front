@@ -1,5 +1,4 @@
 import React from 'react';
-import { ProfileCompletionModal } from '@/components/profile/ProfileCompletionModal';
 
 interface ApartmentLayoutProps {
   children: React.ReactNode;
@@ -13,9 +12,5 @@ interface ApartmentLayoutProps {
 export default async function ApartmentLayout({
   children,
 }: ApartmentLayoutProps) {
-  return (
-    <>
-      {children} <ProfileCompletionModal />
-    </>
-  );
+  return <>{children}</>;
 }

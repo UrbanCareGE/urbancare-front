@@ -14,7 +14,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { useProfileCars } from '@/hooks/query/user/use-profile-cars';
 import { Input } from '@/components/ui/input';
 import { z } from 'zod';
 import {
@@ -26,6 +25,10 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { useFetchCar } from '@/hooks/query/user/cars/use-fetch-car';
+import { useAddCar } from '@/hooks/query/user/cars/use-add-car';
+import { useDeleteCar } from '@/hooks/query/user/cars/use-delete-car';
+import { CarDTO } from '@/model/auth.dto';
 
 const licensePlateSchema = z
   .string()
@@ -36,8 +39,11 @@ const licensePlateSchema = z
 const PersonalCarsForm = () => {
   const { user } = useAuth();
   const { isMobile } = useDevice();
-  const { cars, isLoading, addCar, isAdding, deleteCar, isDeleting } =
-    useProfileCars();
+  const { data, isPending: isCarFetching } = useFetchCar();
+  const { mutateAsync: addCarMutate, isPending: isAdding } = useAddCar();
+  const { mutateAsync: deleteCarMutate, isPending: isDeleting } =
+    useDeleteCar();
+  const cars = (data as CarDTO[]) ?? [];
 
   const [isEditing, setIsEditing] = useState(false);
   const [licensePlate, setLicensePlate] = useState('');
@@ -54,7 +60,7 @@ const PersonalCarsForm = () => {
 
   const handleConfirmDelete = async () => {
     if (carToDelete) {
-      await deleteCar(carToDelete.id);
+      await deleteCarMutate(carToDelete.id);
       setDeleteDialogOpen(false);
       setCarToDelete(null);
     }
@@ -69,7 +75,7 @@ const PersonalCarsForm = () => {
     const result = licensePlateSchema.safeParse(licensePlate);
     if (!result.success) return;
     setIsEditing(false);
-    await addCar({ licensePlate: result.data });
+    await addCarMutate({ licensePlate: result.data });
     setLicensePlate('');
   };
 
@@ -132,7 +138,7 @@ const PersonalCarsForm = () => {
         </button>
       </h3>
 
-      {isLoading ? (
+      {isCarFetching ? (
         <p className="text-base text-center text-slate-500">იტვირთება...</p>
       ) : cars.length === 0 && !isEditing ? (
         <p className={'text-base text-center text-slate-700'}>

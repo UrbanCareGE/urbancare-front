@@ -8,7 +8,7 @@ export function useFetchUrgent() {
   const { user, isLoading } = useAuth();
   return useQuery({
     queryKey: ['urgent', 'list', user?.selectedApartment.id],
-    queryFn: () => UrgentService.getAll(user?.selectedApartment?.id ?? 'yle'),
+    queryFn: () => UrgentService.getAll(user.selectedApartment.id),
     enabled: !isLoading && !!user?.selectedApartment.id,
     staleTime: 5 * 60 * 1e3,
   });

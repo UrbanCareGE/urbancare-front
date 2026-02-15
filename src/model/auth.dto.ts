@@ -56,3 +56,12 @@ export interface ChangePasswordDTO {
   oldPassword: string;
   newPassword: string;
 }
+
+export interface CarDTO {
+  id: string;
+  licensePlate: string;
+}
+
+export interface AddCarDTO {
+  licensePlate: string;
+}
