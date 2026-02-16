@@ -4,9 +4,10 @@ import { Clock } from 'lucide-react';
 import React from 'react';
 import { useThread } from '@/components/thread/mobile/thread-card/ThreadCard';
 import { cn, formatTime } from '@/lib/utils';
-import { usePreviewable } from '@/components/thread/mobile/Previewable';
 import { ThreadTags } from '@/components/thread/mobile/thread-card/common/ThreadTags';
 import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
+import { useAuth } from '@/components/provider/AuthProvider';
 
 interface ThreadCardHeaderProps {
   className?: string;
@@ -15,10 +16,16 @@ interface ThreadCardHeaderProps {
 export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
   const { thread } = useThread();
   const { userInfo, createdAt } = thread;
-  const { openView } = usePreviewable();
+  const router = useRouter();
+  const { user } = useAuth();
 
   return (
-    <div className={cn('flex items-start gap-3', className)} onClick={openView}>
+    <div
+      className={cn('flex items-start gap-3', className)}
+      onClick={() => {
+        router.push(`thread/${thread.id}`);
+      }}
+    >
       <Avatar className="cursor-pointer w-12 h-12 rounded-full">
         <Image
           src={getClientFileUrl(userInfo?.profileImageId)}

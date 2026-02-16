@@ -13,7 +13,7 @@ interface ThreadCardContentProps {
 
 export const ThreadPreviewContent = ({ className }: ThreadCardContentProps) => {
   const { thread } = useThread();
-  const { openView } = usePreviewable();
+  // const { openView } = usePreviewable();
 
   return (
     <div className={`flex flex-col gap-5 ${className || ''}`}>
@@ -26,7 +26,7 @@ export const ThreadPreviewContent = ({ className }: ThreadCardContentProps) => {
 
       <p
         className="text-sky-950 leading-relaxed whitespace-pre-wrap line-clamp-3"
-        onClick={openView}
+        // onClick={openView}
       >
         {thread.content}
       </p>
