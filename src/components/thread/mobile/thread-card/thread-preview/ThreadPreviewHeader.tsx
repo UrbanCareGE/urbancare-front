@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { getClientFileUrl } from '@/lib/api-client';
-import { Clock } from 'lucide-react';
+import { Clock, Ellipsis } from 'lucide-react';
 import React from 'react';
 import { useThread } from '@/components/thread/mobile/thread-card/ThreadCard';
 import { cn, formatTime } from '@/lib/utils';
@@ -14,14 +14,13 @@ interface ThreadCardHeaderProps {
 }
 
 export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
+  const router = useRouter();
   const { thread } = useThread();
   const { userInfo, createdAt } = thread;
-  const router = useRouter();
-  const { user } = useAuth();
 
   return (
     <div
-      className={cn('flex items-start gap-3', className)}
+      className={cn('flex items-start gap-3 w-full', className)}
       onClick={() => {
         router.push(`thread/${thread.id}`);
       }}
@@ -39,8 +38,8 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
           </AvatarFallback>
         )}
       </Avatar>
-      <div className={'flex flex-col flex-1 '}>
-        <div className="flex flex-1 justify-start gap-2 min-w-0">
+      <div className={'flex flex-col min-w-0'}>
+        <div className="flex justify-start gap-2 min-w-0">
           <h3 className="font-semibold text-sky-950 text-base truncate">
             {userInfo && userInfo.name} {userInfo && userInfo.surname}
           </h3>
@@ -51,6 +50,7 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
         </div>
         <ThreadTags tags={thread.tags} className="mt-1" />
       </div>
+      <Ellipsis className={'shrink-0 ml-auto text-icon'}>aw</Ellipsis>
     </div>
   );
 };

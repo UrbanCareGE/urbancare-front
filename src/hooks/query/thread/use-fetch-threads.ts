@@ -28,7 +28,7 @@ export function useInfiniteThreads(apartmentId?: string, tags?: string[]) {
   };
 
   return useInfiniteQuery({
-    queryKey: ['threads', 'list', apartmentId],
+    queryKey: ['threads', 'list', apartmentId, tags],
     queryFn: fetchItems,
     initialPageParam: 0,
     getNextPageParam: (lastPage) =>

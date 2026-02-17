@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { Card } from '@/components/ui/card';
@@ -8,22 +8,37 @@ import { cn } from '@/lib/utils';
 import { Thread } from '@/components/thread/mobile/thread-card/Thread';
 import { ThreadCreateForm } from '@/components/thread/mobile/ThreadCreateForm';
 import { useInfiniteThreads } from '@/hooks/query/thread/use-fetch-threads';
-import { useSearchParams } from 'next/dist/client/components/navigation';
+import { ThreadFeedTagFilter } from '@/components/thread/mobile/tag/ThreadFeedTagFilter';
+import { useForm } from 'react-hook-form';
+import { TagsFilterSchema } from '@/components/thread/mobile/tag/thread-filter-schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 
 export interface ThreadFeedProps {
   defaultTags?: string[];
 }
 
 export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
-  const searchParams = useSearchParams();
-  const queryThreadId = searchParams.get('threadId');
   const { user } = useAuth();
   const apartmentId = user.selectedApartment.id;
 
-  const { ref, inView } = useInView({
-    threshold: 0.1,
-    rootMargin: '256px',
+  const form = useForm<z.infer<typeof TagsFilterSchema>>({
+    resolver: zodResolver(TagsFilterSchema),
+    defaultValues: {
+      tags: defaultTags,
+    },
   });
+  const selectedTags = form.watch('tags') || [];
+
+  const inViewOptions = useMemo(
+    () => ({
+      threshold: 0.1,
+      rootMargin: '256px',
+    }),
+    []
+  );
+
+  const { ref, inView } = useInView(inViewOptions);
 
   const {
     data,
@@ -35,19 +50,38 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     refetch,
   } = useInfiniteThreads(
     apartmentId,
-    defaultTags.length > 0 ? defaultTags : undefined
+    selectedTags.length > 0 ? selectedTags : undefined
   );
-
-  // Refetch when tags change
-  useEffect(() => {
-    refetch();
-  }, [defaultTags, refetch]);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  const allThreads = useMemo(() => {
+    if (!data?.pages) return [];
+    return data.pages.flatMap((page) =>
+      page.content.map((threadId) => ({
+        threadId,
+        pageNumber: page.page.number,
+      }))
+    );
+  }, [data?.pages]);
+
+  const handleToggleTag = useCallback(
+    (tag: string) => {
+      if (selectedTags.includes(tag)) {
+        form.setValue(
+          'tags',
+          selectedTags.filter((t) => t !== tag)
+        );
+      } else {
+        form.setValue('tags', [...selectedTags, tag]);
+      }
+    },
+    [selectedTags, form]
+  );
 
   if (isPostFetchLoading && !data) {
     return (
@@ -78,26 +112,17 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
         <ThreadCreateForm />
       </div>
 
-      {data?.pages.map((page) => (
-        <div
-          key={page.page.number}
-          className="max-w-2xl mx-auto px-3 space-y-4"
-        >
-          {page.content.map((threadId) => {
-            return (
-              <Thread key={threadId} threadId={threadId} defaultOpen={false} />
-            );
-          })}
-        </div>
-      ))}
+      <ThreadFeedTagFilter
+        className=""
+        selectedTags={selectedTags}
+        onClick={handleToggleTag}
+      />
 
-      {queryThreadId != null && (
-        <Thread
-          key={queryThreadId}
-          threadId={queryThreadId}
-          defaultOpen={true}
-        />
-      )}
+      <div className="max-w-2xl mx-auto px-3 space-y-4">
+        {allThreads.map(({ threadId }) => (
+          <Thread key={threadId} threadId={threadId} defaultOpen={false} />
+        ))}
+      </div>
 
       {isFetchingNextPage && <LoadingSkeleton />}
       {hasNextPage && <div ref={ref} className="h-20" />}

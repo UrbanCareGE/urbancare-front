@@ -45,6 +45,8 @@ export const ThreadTagType = {
   MAINTENANCE: 'MAINTENANCE',
 } as const;
 
+export const ALL_TAGS = Object.values(ThreadTagType);
+
 export type ThreadTagValue = (typeof ThreadTagType)[keyof typeof ThreadTagType];
 
 export const ThreadTagConfig: Record<

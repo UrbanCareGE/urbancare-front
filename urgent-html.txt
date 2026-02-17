@@ -56,7 +56,7 @@ r-background: #F8FAFC;
             --color-secondary: #CE93D8;
             --color-tertiary: #80DEEA;
 
-            --color-background: #121212;
+            --color-background: #E7E2DA;
             --color-surface: #1E1E1E;
             --color-surface-variant: #2D2D2D;
             --color-surface-container: #242424;

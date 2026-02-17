@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { AppLogo } from '@/components/common/logo/AppLogo';
+import { AppLogo, UrbanCareTextIcon } from '@/components/common/logo/AppLogo';
 import { ThreadCard } from '@/components/thread/mobile/thread-card/ThreadCard';
 import { ThreadViewHeader } from '@/components/thread/mobile/thread-card/thread-view/ThreadViewHeader';
 import { ThreadViewContent } from '@/components/thread/mobile/thread-card/thread-view/ThreadViewContent';
@@ -32,11 +32,11 @@ export default function ThreadPage() {
       }}
     >
       <OverlayPage.Header>
-        <AppLogo />
+        <UrbanCareTextIcon />
       </OverlayPage.Header>
 
       <OverlayPage.Content>
-        <ThreadCard thread={data} className="px-0">
+        <ThreadCard thread={data} className="px-3">
           <ThreadCard.Header className="px-3">
             <ThreadViewHeader />
           </ThreadCard.Header>

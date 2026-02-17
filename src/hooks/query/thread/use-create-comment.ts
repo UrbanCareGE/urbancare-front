@@ -6,6 +6,7 @@ import {
   ThreadCommentDTO,
   ThreadInfoDTO,
 } from '@/model/thread.dto';
+import { OptimisticData } from '@/model/common.dto';
 
 export function useCreateComment() {
   const { user } = useAuth();
@@ -23,70 +24,59 @@ export function useCreateComment() {
     }) => ThreadService.createComment(apartmentId, threadId, commentDto),
 
     onMutate: async ({ threadId, commentDto }) => {
+      const threadQueryKey = ['threads', 'detail', threadId];
       await queryClient.cancelQueries({
-        queryKey: ['threads', 'detail', threadId],
+        queryKey: threadQueryKey,
       });
 
-      const previous = queryClient.getQueryData([
-        'threads',
-        'detail',
-        threadId,
-      ]);
+      const tempId = `temp-${Date.now()}`;
 
-      if (user) {
-        queryClient.setQueryData(
-          ['threads', 'detail', threadId],
-          (old: ThreadInfoDTO) => {
-            const newComment: ThreadCommentDTO = {
-              id: `temp-${Date.now()}`,
-              content: commentDto.content,
-              createdAt: new Date(),
-              userInfo: {
-                id: user.id,
-                name: user.name,
-                surname: user.surname,
-                profileImageId: user.profileImageId,
-              },
-              selfVote: 0,
-              voteDiff: 0,
-            };
+      const newComment: OptimisticData<ThreadCommentDTO> = {
+        _tempId: tempId,
+        _isPending: true,
+        id: tempId,
+        content: commentDto.content,
+        createdAt: new Date(),
+        userInfo: {
+          id: user.id,
+          name: user.name,
+          surname: user.surname,
+          profileImageId: user.profileImageId,
+        },
+        selfVote: 0,
+        voteDiff: 0,
+      };
 
-            if (commentDto.replyToId) {
-              const parentComment = old.comments.find(
-                (c) => c.id === commentDto.replyToId
-              );
-              parentComment?.replies?.push(newComment);
+      queryClient.setQueryData(
+        ['threads', 'detail', threadId],
+        (old: ThreadInfoDTO) => {
+          if (commentDto.replyToId) {
+            const parentComment = old.comments.find(
+              (c) => c.id === commentDto.replyToId
+            );
+            parentComment?.replies?.push(newComment);
 
-              return {
-                ...old,
-                comments: [...(old.comments || [])],
-                commentCount: (old.commentCount || 0) + 1,
-              };
-            }
             return {
               ...old,
-              comments: [...(old.comments || []), newComment],
+              comments: [...(old.comments || [])],
               commentCount: (old.commentCount || 0) + 1,
             };
           }
-        );
-      }
+          return {
+            ...old,
+            comments: [...(old.comments || []), newComment],
+            commentCount: (old.commentCount || 0) + 1,
+          };
+        }
+      );
 
-      return { previous };
+      return { tempId };
     },
+    onSuccess: (newComment, { threadId }, context) => {
+      const tempId = context?.tempId;
+      const threadQueryKey = ['threads', 'detail', threadId];
 
-    onError: (err, { threadId }, context) => {
-      if (context?.previous) {
-        queryClient.setQueryData(
-          ['threads', 'detail', threadId],
-          context.previous
-        );
-      }
-    },
-
-    onSuccess: (newComment, { threadId }) => {
-      const queryKey = ['threads', 'detail', threadId];
-      queryClient.setQueryData<ThreadInfoDTO>(queryKey, (old) => {
+      queryClient.setQueryData<ThreadInfoDTO>(threadQueryKey, (old) => {
         if (!old) return old;
 
         if (newComment.replyToId) {
@@ -96,7 +86,7 @@ export function useCreateComment() {
           if (parentComment) {
             parentComment.replies =
               parentComment.replies?.filter(
-                (comment) => !comment.id.startsWith('temp-')
+                (comment) => comment.id !== tempId
               ) || [];
             parentComment.replies.push(newComment);
           }
@@ -111,9 +101,7 @@ export function useCreateComment() {
         return {
           ...old,
           comments: [
-            ...(old.comments.filter(
-              (comment) => !comment.id.startsWith('temp-')
-            ) || []),
+            ...(old.comments.filter((comment) => comment.id !== tempId) || []),
             newComment,
           ],
           commentCount: (old.commentCount || 0) + 1,
@@ -121,8 +109,22 @@ export function useCreateComment() {
       });
 
       queryClient.invalidateQueries({
-        queryKey,
+        queryKey: threadQueryKey,
         refetchType: 'none',
+      });
+    },
+    onError: (err, { threadId }, context) => {
+      const tempId = context?.tempId;
+      const threadQueryKey = ['threads', 'detail', threadId];
+
+      queryClient.setQueryData<ThreadInfoDTO>(threadQueryKey, (old) => {
+        if (!old) return old;
+
+        return {
+          ...old,
+          comments: old.comments.filter((comment) => comment.id !== tempId),
+          commentCount: (old.commentCount || 0) + 1,
+        };
       });
     },
   });

@@ -10,7 +10,7 @@ import NavigationArea from '@/components/home/sidebar/mobile/navigation/Navigati
 import { NavSideBarHeader } from '@/components/home/sidebar/mobile/navigation/NavSideBarHeader';
 import { useMobileScroll } from '@/hooks/use-mobile-scroll';
 import { cn } from '@/lib/utils';
-import { AppLogo, UrbanCareTextIcon } from '@/components/common/logo/AppLogo';
+import { UrbanCareTextIcon } from '@/components/common/logo/AppLogo';
 
 export const MobileHeader = () => {
   const { isVisible } = useMobileScroll();
@@ -18,7 +18,7 @@ export const MobileHeader = () => {
   return (
     <header
       className={cn(
-        'h-20 w-full flex items-center px-3 border-b border-border sticky top-0 bg-surface !z-[20] transition-all duration-500 ease-in-out will-change-transform -translate-y-20',
+        'h-20 flex items-center px-3 border-b border-border sticky top-0 bg-surface !z-[20] transition-all duration-500 ease-in-out will-change-transform -translate-y-20',
         {
           'translate-y-0': isVisible,
           'opacity-0': !isVisible,

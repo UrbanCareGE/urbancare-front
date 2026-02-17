@@ -7,14 +7,15 @@ import {
 } from '@tanstack/react-query';
 import { ThreadService } from '@/service/thread-service';
 import { useAuth } from '@/components/provider/AuthProvider';
-import { PagingRespDTO } from '@/model/common.dto';
+import { OptimisticData, PagingRespDTO } from '@/model/common.dto';
 import { ThreadInfoDTO } from '@/model/thread.dto';
+import content from '*.bmp';
 
 export function useCreateThread() {
   const queryClient = useQueryClient();
   const { user } = useAuth();
 
-  const { mutate, mutateAsync, isError, isPending, error } = useMutation({
+  return useMutation({
     mutationFn: async ({
       apartmentId,
       title,
@@ -62,7 +63,7 @@ export function useCreateThread() {
         }
       );
 
-      const tempThread: ThreadInfoDTO = {
+      const tempThread: OptimisticData<ThreadInfoDTO> = {
         id,
         title,
         content,
@@ -72,6 +73,8 @@ export function useCreateThread() {
         imageIds: [],
         selfVote: 0,
         voteDiff: 0,
+        _isPending: true,
+        _tempId: id,
         userInfo: {
           id: user!.id,
           profileImageId: user!.profileImageId,
@@ -80,12 +83,15 @@ export function useCreateThread() {
         },
       };
 
-      queryClient.setQueryData<ThreadInfoDTO>(queryDetailKey, tempThread);
+      queryClient.setQueryData<OptimisticData<ThreadInfoDTO>>(
+        queryDetailKey,
+        tempThread
+      );
 
       return { tempId: id };
     },
 
-    onSuccess: (threadInfo, variables, context) => {
+    onSuccess: (threadInfo, dto, context) => {
       const tempId = context?.tempId;
       const queryListKey = ['threads', 'list', user?.selectedApartment.id];
 
@@ -112,21 +118,36 @@ export function useCreateThread() {
 
       queryClient.removeQueries({ queryKey: ['threads', 'detail', tempId] });
 
-      queryClient.setQueryData<ThreadInfoDTO>(
+      queryClient.setQueryData<OptimisticData<ThreadInfoDTO>>(
         ['threads', 'detail', threadInfo.id],
-        threadInfo
+        { ...threadInfo, _isPending: false }
       );
     },
-    onError: (error) => {
-      console.error('Thread creation failed:', error);
+    onError: (error, dto, context) => {
+      const tempId = context?.tempId;
+
+      const queryListKey = ['threads', 'list', user?.selectedApartment.id];
+
+      queryClient.setQueryData<InfiniteData<PagingRespDTO<string>>>(
+        queryListKey,
+        (prev) => {
+          if (!prev) return prev;
+          return {
+            ...prev,
+            pages: prev.pages.map((page, index) => {
+              if (index === 0) {
+                return {
+                  ...page,
+                  content: page.content.filter((id) => id !== tempId),
+                };
+              }
+              return page;
+            }),
+          };
+        }
+      );
+
+      queryClient.removeQueries({ queryKey: ['threads', 'detail', tempId] });
     },
   });
-
-  return {
-    mutate,
-    mutateAsync,
-    isPending,
-    isError,
-    error,
-  };
 }

@@ -92,7 +92,6 @@ export const ThreadCreateForm = () => {
     },
   });
 
-  const titleLength = form.watch('title')?.length || 0;
   const bodyLength = form.watch('body')?.length || 0;
   const fileEntries = form.watch('files') || [];
   const selectedTags = form.watch('tags') || [];
@@ -104,7 +103,7 @@ export const ThreadCreateForm = () => {
 
     const currentFiles = form.getValues('files') || [];
 
-    const availableSlots = 5 - currentFiles.length;
+    const availableSlots = 10 - currentFiles.length;
     const filesToAdd = selectedFiles.slice(0, availableSlots);
 
     const newEntries: FileEntry[] = filesToAdd.map((file) => ({
