@@ -18,7 +18,7 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
   return (
     <Card
       className={cn(
-        'flex items-center overflow-hidden border-0 bg-white p-3 cursor-pointer',
+        'flex items-center overflow-hidden shadow-xl border-border border bg-surface p-3 cursor-pointer',
         className
       )}
     >
