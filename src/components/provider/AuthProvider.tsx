@@ -8,7 +8,6 @@ import { ApartmentDTO, LoginDTO, UserDTO } from '@/model/auth.dto';
 import { PulsingLoader } from '@/components/common/loader/GlobalLoader';
 import { RouteConfig } from '@/proxy';
 import { ErrorResponse } from '@/model/common.dto';
-import { ApiResponse } from '@/lib/api-client';
 
 export interface User {
   id: string;

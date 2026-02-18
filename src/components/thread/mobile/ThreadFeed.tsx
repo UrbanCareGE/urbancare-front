@@ -99,7 +99,9 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       <div className="flex-1 w-full">
         <div className="max-w-2xl mx-auto px-4 pt-24">
           <div className="bg-[rgb(var(--color-error-background))] border border-[rgb(var(--color-error)/0.3)] rounded-xl p-4 text-center">
-            <p className="text-[rgb(var(--color-error))] text-sm">Failed to load threads</p>
+            <p className="text-[rgb(var(--color-error))] text-sm">
+              Failed to load threads
+            </p>
           </div>
         </div>
       </div>

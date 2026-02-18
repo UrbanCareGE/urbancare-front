@@ -68,9 +68,7 @@ interface ThreadCardHeaderProps {
 
 const ThreadCardHeader = ({ className, children }: ThreadCardHeaderProps) => {
   return (
-    <div
-      className={cn('flex items-center justify-start w-full', className)}
-    >
+    <div className={cn('flex items-center justify-start w-full', className)}>
       {children}
     </div>
   );

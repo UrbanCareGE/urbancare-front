@@ -34,7 +34,8 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
         />
         {userInfo && (
           <AvatarFallback className="text-xs font-semibold bg-[rgb(var(--color-primary-container))] text-[rgb(var(--color-primary))]">
-            {userInfo.name[0]}{userInfo.surname[0]}
+            {userInfo.name[0]}
+            {userInfo.surname[0]}
           </AvatarFallback>
         )}
       </Avatar>
@@ -50,7 +51,11 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
         </div>
         <ThreadTags tags={thread.tags} className="mt-1.5" />
       </div>
-      <Ellipsis className={'shrink-0 text-[rgb(var(--color-icon))] hover:text-[rgb(var(--color-text-secondary))] transition-colors'} />
+      <Ellipsis
+        className={
+          'shrink-0 text-[rgb(var(--color-icon))] hover:text-[rgb(var(--color-text-secondary))] transition-colors'
+        }
+      />
     </div>
   );
 };

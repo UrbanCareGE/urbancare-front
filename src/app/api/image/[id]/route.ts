@@ -1,8 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
-const JAVA_API_URL =
-  process.env.NEXT_PUBLIC_JAVA_API_URL;
+const JAVA_API_URL = process.env.NEXT_PUBLIC_JAVA_API_URL;
 
 export async function GET(
   request: NextRequest,
