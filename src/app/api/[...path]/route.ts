@@ -9,6 +9,7 @@ async function handleRequest(
   request: Request,
   { params }: { params: Promise<{ path: string[] }> }
 ) {
+  console.log('აქ შემოდის', JAVA_API_URL);
   try {
     console.log(JAVA_API_URL);
     const cookieStore = await cookies();
