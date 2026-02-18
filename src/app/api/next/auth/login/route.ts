@@ -17,7 +17,7 @@ export async function POST(request: Request) {
 
     jsonResponse.headers.set(
       'Set-Cookie',
-      `auth-token=${authToken}; Path=/; Max-Age=${60 * 60 * 24 * 7}; HttpOnly; SameSite=Lax`
+      `auth-token=${authToken}; Path=/; Max-Age=${60 * 60 * 24 * 7}; HttpOnly; Secure; SameSite=None; Domain=urbancare.ge`
     );
 
     return jsonResponse;
