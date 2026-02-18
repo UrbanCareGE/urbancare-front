@@ -8,6 +8,7 @@ import { ApartmentDTO, LoginDTO, UserDTO } from '@/model/auth.dto';
 import { PulsingLoader } from '@/components/common/loader/GlobalLoader';
 import { RouteConfig } from '@/proxy';
 import { ErrorResponse } from '@/model/common.dto';
+import { ApiResponse } from '@/lib/api-client';
 
 export interface User {
   id: string;
@@ -79,9 +80,14 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [isError, isPublic]);
 
-  const loginMutation = useMutation<UserDTO, ErrorResponse, LoginDTO>({
+  const loginMutation = useMutation<
+    ApiResponse<UserDTO>,
+    ErrorResponse,
+    LoginDTO
+  >({
     mutationFn: AuthService.nextLogin,
-    onSuccess: async (user) => {
+    onSuccess: async (userResp) => {
+      const user = userResp.data as UserDTO;
       const { joinedApartments, ...dto } = user;
       queryClient.setQueryData(['user'], {
         ...dto,
