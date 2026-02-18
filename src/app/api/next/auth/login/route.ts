@@ -1,6 +1,4 @@
-// app/api/next/auth/login/route.ts
-
-import { AuthService } from '@/service/auth-service';
+import { cookies } from 'next/headers';
 
 export async function POST(request: Request) {
   try {
@@ -13,12 +11,16 @@ export async function POST(request: Request) {
       return Response.json({ error: 'No token received' }, { status: 500 });
     }
 
-    return Response.json(data, {
-      status: 200,
-      headers: {
-        'Set-Cookie': `auth-token=${authToken}; Path=/; Max-Age=${60 * 60 * 24 * 7}; HttpOnly; Secure; SameSite=None`,
-      },
+    const cookieStore = await cookies();
+    cookieStore.set('auth-token', authToken, {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7,
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
     });
+
+    return Response.json(data);
   } catch (error) {
     console.error('Login error:', error);
     return Response.json({ error: 'Internal server error' }, { status: 500 });
