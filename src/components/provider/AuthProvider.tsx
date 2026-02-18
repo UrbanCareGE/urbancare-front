@@ -82,7 +82,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const loginMutation = useMutation<UserDTO, ErrorResponse, LoginDTO>({
     mutationFn: AuthService.login,
     onSuccess: async (user) => {
-      console.log('epee');
       const { joinedApartments, ...dto } = user;
       queryClient.setQueryData(['user'], {
         ...dto,
