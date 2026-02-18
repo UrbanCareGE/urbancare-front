@@ -9,7 +9,6 @@ import { ThreadService } from '@/service/thread-service';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { OptimisticData, PagingRespDTO } from '@/model/common.dto';
 import { ThreadInfoDTO } from '@/model/thread.dto';
-import content from '*.bmp';
 
 export function useCreateThread() {
   const queryClient = useQueryClient();
@@ -41,7 +40,12 @@ export function useCreateThread() {
     },
     onMutate: async ({ apartmentId, title, content, imageIds }) => {
       const id = 'temp-' + Date.now();
-      const queryListKey = ['threads', 'list', user?.selectedApartment.id];
+      const queryListKey = [
+        'threads',
+        'list',
+        user?.selectedApartment.id,
+        null,
+      ];
       const queryDetailKey = ['threads', 'detail', id];
 
       queryClient.setQueryData<InfiniteData<PagingRespDTO<string>>>(
@@ -93,7 +97,12 @@ export function useCreateThread() {
 
     onSuccess: (threadInfo, dto, context) => {
       const tempId = context?.tempId;
-      const queryListKey = ['threads', 'list', user?.selectedApartment.id];
+      const queryListKey = [
+        'threads',
+        'list',
+        user?.selectedApartment.id,
+        null,
+      ];
 
       queryClient.setQueryData<InfiniteData<PagingRespDTO<string>>>(
         queryListKey,

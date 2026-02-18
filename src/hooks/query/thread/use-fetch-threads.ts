@@ -7,14 +7,14 @@ import { ThreadService } from '@/service/thread-service';
  *  უსასრულო სქროლისთვის ვინახავთ მხოლოდ id-ებს ქეშში და paging-ინფორმაციას
  *  თითოეულ ინფოს პოსტისთვის შეგვიძლია ცალკე მივწვდეთ და ოპტიმისტური განახლებები ვაკეთოთ მარტივად
  * */
-export function useInfiniteThreads(apartmentId?: string, tags?: string[]) {
+export function useInfiniteThreads(apartmentId: string, tags: string[] | null) {
   const queryClient = useQueryClient();
 
   const fetchItems = async ({ pageParam = 0 }) => {
     const data = await ThreadService.getAll(
       apartmentId!,
       { page: pageParam, size: 15 },
-      tags
+      tags ?? []
     );
 
     data.content.forEach((thread) => {
