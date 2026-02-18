@@ -10,10 +10,7 @@ export interface CreateThreadDTO {
   content: string;
   imageIds: string[];
   tags?: string[];
-  poll?: {
-    title: string;
-    items: string[] | undefined;
-  };
+  poll?: string[];
 }
 
 export interface CreateThreadCommentDTO {

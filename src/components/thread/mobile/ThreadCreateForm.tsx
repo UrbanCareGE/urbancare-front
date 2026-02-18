@@ -215,10 +215,7 @@ export const ThreadCreateForm = () => {
         tags: values.tags,
         poll:
           values.pollOptions != null && values.pollOptions.length > 0
-            ? {
-                title: '',
-                items: values.pollOptions,
-              }
+            ? values.pollOptions
             : undefined,
       });
 

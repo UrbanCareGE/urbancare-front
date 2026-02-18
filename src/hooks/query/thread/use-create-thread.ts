@@ -28,7 +28,7 @@ export function useCreateThread() {
       content: string;
       imageIds: string[];
       tags?: string[];
-      poll?: { title: string; items: string[] | undefined };
+      poll?: string[];
     }) => {
       return await ThreadService.add(apartmentId, {
         title,
