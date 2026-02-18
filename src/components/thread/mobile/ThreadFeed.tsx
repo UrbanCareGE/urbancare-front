@@ -50,7 +50,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     refetch,
   } = useInfiniteThreads(
     apartmentId,
-    selectedTags.length > 0 ? selectedTags : undefined
+    selectedTags.length > 0 ? selectedTags : null
   );
 
   useEffect(() => {
