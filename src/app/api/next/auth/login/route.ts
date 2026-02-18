@@ -4,10 +4,10 @@ import { AuthService } from '@/service/auth-service';
 import { cookies } from 'next/headers';
 
 export async function POST(request: Request) {
+  console.log('🔥 LOGIN ROUTE HIT');
+  console.log('URL:', request.url);
+  console.log('Headers:', Object.fromEntries(request.headers));
   try {
-    console.log('🔥 LOGIN ROUTE HIT');
-    console.log('URL:', request.url);
-    console.log('Headers:', Object.fromEntries(request.headers));
     const credentials = await request.json();
 
     const { data, headers } = await AuthService.nextLogin(credentials);
