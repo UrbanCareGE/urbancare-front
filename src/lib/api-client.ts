@@ -8,7 +8,7 @@ export interface ApiResponse<TData = unknown> {
   error?: ErrorResponse;
 }
 
-export const NEXT_API_URL = process.env.NEXT_PUBLIC_APP_URL || '';
+export const NEXT_API_URL = ''; // Client-side Next.js routes must be relative — never hardcode an origin here
 export const JAVA_API_URL = process.env.NEXT_PUBLIC_JAVA_API_URL || '';
 
 interface ApiCallOptions<TRequest = unknown> {
@@ -30,7 +30,19 @@ function buildUrl(
   path: string,
   params?: Record<string, string | number | boolean>
 ): string {
-  const url = new URL(path.startsWith('/') ? path : `/${path}`, baseUrl);
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+
+  if (!baseUrl) {
+    if (!params) return normalizedPath;
+    const searchParams = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+      searchParams.append(key, String(value));
+    });
+    const query = searchParams.toString();
+    return query ? `${normalizedPath}?${query}` : normalizedPath;
+  }
+
+  const url = new URL(normalizedPath, baseUrl);
 
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
