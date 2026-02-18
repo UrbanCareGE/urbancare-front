@@ -6,14 +6,10 @@ import { useFetchUrgent } from '@/hooks/query/urgent/use-fetch-urgent';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useParams } from 'next/navigation';
 
-export function UrgentPreviewMobile() {
-  return <div className={'bg-blue-950 flex flex-1'}></div>;
-}
-
 export default function UrgentPreview() {
   const authContext = useAuth();
   const { apartmentId } = useParams<{ apartmentId: string }>();
-  const { data: urgentItems, isLoading, error } = useFetchUrgent(authContext);
+  const { data: urgentItems, isLoading, error } = useFetchUrgent();
 
   return (
     <div className="h-full flex flex-col overflow-hidden">

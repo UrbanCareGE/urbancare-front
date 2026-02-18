@@ -48,7 +48,10 @@ const ThreadCardRoot = ({
     <ThreadContext.Provider value={contextValue}>
       <Card
         className={cn(
-          'overflow-hidden shadow-xl border-border border-2 bg-surface p-3 space-y-3 transition-all duration-200 cursor-pointer',
+          'overflow-hidden rounded-2xl border border-[rgb(var(--color-border))] bg-[rgb(var(--color-surface))] p-4 space-y-4',
+          'shadow-sm shadow-[rgb(var(--color-shadow)/0.06)]',
+          'transition-all duration-200 cursor-pointer',
+          'hover:-translate-y-0.5 hover:shadow-md hover:shadow-[rgb(var(--color-shadow)/0.10)] hover:border-[rgb(var(--color-border-medium))]',
           className
         )}
       >
@@ -66,7 +69,7 @@ interface ThreadCardHeaderProps {
 const ThreadCardHeader = ({ className, children }: ThreadCardHeaderProps) => {
   return (
     <div
-      className={cn('flex items-center justify-start pb-3 w-full', className)}
+      className={cn('flex items-center justify-start w-full', className)}
     >
       {children}
     </div>
@@ -91,7 +94,7 @@ const ThreadCardFooter = ({ className, children }: ThreadCardFooterProps) => {
   return (
     <div
       className={cn(
-        'flex items-center justify-between w-full border-slate-100 gap-3 pt-3',
+        'flex items-center justify-between w-full gap-3',
         className
       )}
     >

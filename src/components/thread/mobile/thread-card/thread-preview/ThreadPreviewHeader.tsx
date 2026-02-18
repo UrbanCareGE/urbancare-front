@@ -25,7 +25,7 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
         router.push(`thread/${thread.id}`);
       }}
     >
-      <Avatar className="cursor-pointer w-12 h-12 rounded-full">
+      <Avatar className="cursor-pointer w-10 h-10 rounded-full shrink-0 ring-2 ring-[rgb(var(--color-border))]">
         <Image
           src={getClientFileUrl(userInfo?.profileImageId)}
           alt="@shadcn"
@@ -33,24 +33,24 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
           className="object-cover"
         />
         {userInfo && (
-          <AvatarFallback>
-            {userInfo.name[0] + ' ' + userInfo.surname[0]}
+          <AvatarFallback className="text-xs font-semibold bg-[rgb(var(--color-primary-container))] text-[rgb(var(--color-primary))]">
+            {userInfo.name[0]}{userInfo.surname[0]}
           </AvatarFallback>
         )}
       </Avatar>
-      <div className={'flex flex-col min-w-0'}>
-        <div className="flex justify-start gap-2 min-w-0">
-          <h3 className="font-semibold text-sky-950 text-base truncate">
+      <div className={'flex flex-col min-w-0 flex-1'}>
+        <div className="flex items-center justify-between gap-2 min-w-0">
+          <h3 className="font-semibold text-[rgb(var(--color-text-primary))] text-sm truncate">
             {userInfo && userInfo.name} {userInfo && userInfo.surname}
           </h3>
-          <span className="text-xs text-sky-900 flex items-center gap-1">
+          <span className="text-xs text-[rgb(var(--color-text-tertiary))] flex items-center gap-1 shrink-0">
             <Clock className="w-3 h-3" />
             {formatTime(createdAt.toString())}
           </span>
         </div>
-        <ThreadTags tags={thread.tags} className="mt-1" />
+        <ThreadTags tags={thread.tags} className="mt-1.5" />
       </div>
-      <Ellipsis className={'shrink-0 ml-auto text-icon'}>aw</Ellipsis>
+      <Ellipsis className={'shrink-0 text-[rgb(var(--color-icon))] hover:text-[rgb(var(--color-text-secondary))] transition-colors'} />
     </div>
   );
 };

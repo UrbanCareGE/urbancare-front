@@ -85,7 +85,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
 
   if (isPostFetchLoading && !data) {
     return (
-      <div className="flex-1 w-full bg-slate-100 space-y-4 py-4">
+      <div className="flex-1 w-full space-y-4 py-4">
         <div className="max-w-2xl mx-auto px-4 space-y-4">
           <StartThreadFormSkeleton />
           <LoadingSkeleton />
@@ -96,10 +96,10 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
 
   if (error) {
     return (
-      <div className="flex-1 w-full bg-slate-100">
+      <div className="flex-1 w-full">
         <div className="max-w-2xl mx-auto px-4 pt-24">
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
-            <p className="text-red-600">Failed to load threads</p>
+          <div className="bg-[rgb(var(--color-error-background))] border border-[rgb(var(--color-error)/0.3)] rounded-xl p-4 text-center">
+            <p className="text-[rgb(var(--color-error))] text-sm">Failed to load threads</p>
           </div>
         </div>
       </div>
@@ -128,8 +128,8 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       {hasNextPage && <div ref={ref} className="h-20" />}
 
       {!hasNextPage && data?.pages && data.pages.length > 0 && (
-        <div className="text-center py-8 text-slate-500 text-sm">
-          🎉 No more threads
+        <div className="text-center py-8 text-[rgb(var(--color-text-tertiary))] text-xs">
+          ყველა პოსტი ნახულია
         </div>
       )}
     </div>
@@ -142,22 +142,23 @@ export type StartThreadFormSkeletonProps = {
 
 function LoadingSkeleton() {
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {[1, 2, 3, 4, 5].map((i) => (
         <div
           key={i}
-          className="bg-white rounded-2xl border border-slate-200 p-4 animate-pulse"
+          className="bg-[rgb(var(--color-surface))] rounded-2xl border border-[rgb(var(--color-border))] p-4 animate-pulse shadow-sm"
         >
-          <div className="flex gap-3 mb-3">
-            <div className="w-12 h-12 rounded-full bg-slate-200"></div>
-            <div className="flex-1">
-              <div className="h-4 bg-slate-200 rounded w-1/3 mb-2"></div>
-              <div className="h-3 bg-slate-200 rounded w-1/4"></div>
+          <div className="flex gap-3 mb-4">
+            <div className="w-10 h-10 rounded-full bg-[rgb(var(--color-surface-container))] shrink-0"></div>
+            <div className="flex-1 space-y-2 pt-0.5">
+              <div className="h-3.5 bg-[rgb(var(--color-surface-container))] rounded-full w-1/3"></div>
+              <div className="h-3 bg-[rgb(var(--color-surface-container))] rounded-full w-1/5"></div>
             </div>
           </div>
           <div className="space-y-2">
-            <div className="h-4 bg-slate-200 rounded w-full"></div>
-            <div className="h-4 bg-slate-200 rounded w-5/6"></div>
+            <div className="h-4 bg-[rgb(var(--color-surface-container))] rounded-full w-3/4"></div>
+            <div className="h-3 bg-[rgb(var(--color-surface-container))] rounded-full w-full"></div>
+            <div className="h-3 bg-[rgb(var(--color-surface-container))] rounded-full w-5/6"></div>
           </div>
         </div>
       ))}
@@ -171,13 +172,13 @@ export function StartThreadFormSkeleton({
   return (
     <Card
       className={cn(
-        'flex shadow-lg border-slate-200 bg-white animate-pulse p-3 items-center',
+        'flex shadow-sm border-[rgb(var(--color-border))] bg-[rgb(var(--color-surface))] animate-pulse p-3 items-center rounded-2xl',
         className
       )}
     >
-      <div className="w-12 h-12 rounded-full bg-slate-200 flex-shrink-0" />
+      <div className="w-10 h-10 rounded-full bg-[rgb(var(--color-surface-container))] flex-shrink-0" />
       <div className="flex-1 px-4 py-3">
-        <div className="bg-slate-200 rounded-xl h-6 w-full mr-auto" />
+        <div className="bg-[rgb(var(--color-surface-container))] rounded-full h-5 w-full mr-auto" />
       </div>
     </Card>
   );

@@ -16,16 +16,15 @@ export const ThreadPreviewContent = ({ className }: ThreadCardContentProps) => {
   // const { openView } = usePreviewable();
 
   return (
-    <div className={`flex flex-col gap-5 ${className || ''}`}>
-      {/* Title - max 3 lines with ellipsis */}
+    <div className={`flex flex-col gap-3 ${className || ''}`}>
       {thread.title && (
-        <h2 className="text-lg font-semibold text-sky-950 mb-2 line-clamp-3">
+        <h2 className="text-base font-semibold text-[rgb(var(--color-text-primary))] line-clamp-2 leading-snug tracking-tight">
           {thread.title}
         </h2>
       )}
 
       <p
-        className="text-sky-950 leading-relaxed whitespace-pre-wrap line-clamp-3"
+        className="text-sm text-[rgb(var(--color-text-secondary))] leading-relaxed whitespace-pre-wrap line-clamp-3"
         // onClick={openView}
       >
         {thread.content}
