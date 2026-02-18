@@ -80,7 +80,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   }, [isError, isPublic]);
 
   const loginMutation = useMutation<UserDTO, ErrorResponse, LoginDTO>({
-    mutationFn: AuthService.login,
+    mutationFn: AuthService.nextLogin,
     onSuccess: async (user) => {
       const { joinedApartments, ...dto } = user;
       queryClient.setQueryData(['user'], {
