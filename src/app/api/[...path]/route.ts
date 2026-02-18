@@ -3,7 +3,7 @@
 import { cookies } from 'next/headers';
 
 const JAVA_API_URL =
-  process.env.NEXT_PUBLIC_JAVA_API_URL || 'http://localhost:8080';
+  process.env.NEXT_PUBLIC_JAVA_API_URL || process.env.NEXT_PUBLIC_APP_URL;
 
 async function handleRequest(
   request: Request,

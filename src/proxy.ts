@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 export const RouteConfig = {
-  public: ['next/auth/login', 'next/auth/register'],
+  public: ['/auth/login', '/auth/register'],
 
   protected: ['/apartment/*'],
 
