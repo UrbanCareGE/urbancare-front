@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     return Response.json(data, {
       status: 200,
       headers: {
-        'Set-Cookie': `auth-token=${authToken}; Path=/; Max-Age=${60 * 60 * 24 * 7}; HttpOnly; Secure; SameSite=None; Domain=urbancare.ge`,
+        'Set-Cookie': `auth-token=${authToken}; Path=/; Max-Age=${60 * 60 * 24 * 7}; HttpOnly; Secure; SameSite=None`,
       },
     });
   } catch (error) {
