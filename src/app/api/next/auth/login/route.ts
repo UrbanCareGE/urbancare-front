@@ -1,33 +1,42 @@
 // app/api/auth/login/route.ts
 
-import { AuthService } from '@/service/auth-service';
-import { cookies } from 'next/headers';
+const JAVA_API_URL = process.env.JAVA_API_URL || 'http://localhost:8080';
 
 export async function POST(request: Request) {
-  console.log('🔥 LOGIN ROUTE HIT');
-  console.log('URL:', request.url);
-  console.log('Headers:', Object.fromEntries(request.headers));
   try {
     const credentials = await request.json();
 
-    const { data, headers } = await AuthService.nextLogin(credentials);
+    // Call the Java backend directly
+    const response = await fetch(`${JAVA_API_URL}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    });
 
-    const authToken = headers['access-token'];
+    if (!response.ok) {
+      return Response.json(
+        { error: 'Login failed' },
+        { status: response.status }
+      );
+    }
 
-    if (!authToken) {
+    // Extract token from response body
+    const token = await response.text();
+
+    if (!token) {
       return Response.json({ error: 'No token received' }, { status: 500 });
     }
 
-    const cookieStore = await cookies();
-    cookieStore.set('auth-token', authToken, {
-      path: '/',
-      maxAge: 60 * 60 * 24 * 7,
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-    });
+    const jsonResponse = Response.json({ success: true });
 
-    return Response.json(data);
+    jsonResponse.headers.set(
+      'Set-Cookie',
+      `auth-token=${token}; Path=/; Max-Age=${60 * 60 * 24 * 7}; HttpOnly; SameSite=Lax`
+    );
+
+    return jsonResponse;
   } catch (error) {
     console.error('Login error:', error);
     return Response.json({ error: 'Internal server error' }, { status: 500 });
