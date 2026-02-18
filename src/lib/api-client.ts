@@ -47,6 +47,8 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
   options: ApiCallOptions<TRequest> = {}
 ): Promise<ApiResponse<TResponse>> {
   try {
+    console.log('>>> LOGIN ROUTE HIT'); // if you never see this, middleware is blocking it
+
     const { data, params, server, authToken, headers = {} } = options;
     const isFormData = data instanceof FormData;
 
