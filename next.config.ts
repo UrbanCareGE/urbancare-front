@@ -6,9 +6,7 @@ const nextConfig: NextConfig = {
     loader: 'custom',
     loaderFile: './src/lib/image-loader.ts',
   },
-  // for dev
-  allowedDevOrigins: ['*.ngrok-free.app', 'urbancare.ge'],
-  // for production behind reverse proxy
+  allowedDevOrigins: ['*.ngrok-free.app', 'urbancare.ge', 'www.urbancare.ge'],
   async headers() {
     return [
       {

@@ -44,7 +44,6 @@ export function LoginFormCard() {
   });
 
   const onSubmit = (values: z.infer<typeof LoginFormSchema>) => {
-    console.log('eheee');
     const { phone, password } = values;
     const loginReq: LoginDTO = {
       phone: phone,
