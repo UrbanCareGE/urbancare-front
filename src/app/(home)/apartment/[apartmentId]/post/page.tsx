@@ -1,4 +1,4 @@
-import ThreadFeed from '@/components/thread/mobile/ThreadFeed';
+import ThreadFeed from '@/components/thread/ThreadFeed';
 
 export default function PostPage() {
   return (

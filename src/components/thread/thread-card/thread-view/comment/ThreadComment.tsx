@@ -3,8 +3,8 @@ import { ThreadCommentDTO } from '@/model/thread.dto';
 import { cn, formatTime } from '@/lib/utils';
 import { CornerDownRight } from 'lucide-react';
 import { UserAvatar } from '@/components/common/avatar/UserAvatar';
-import { ThreadCommentReply } from '@/components/thread/mobile/thread-card/thread-view/comment/ThreadCommentReply';
-import { ReplyInput } from '@/components/thread/mobile/thread-card/thread-view/comment/ThreadReplyInput';
+import { ReplyInput } from '@/components/thread/thread-card/thread-view/comment/ThreadReplyInput';
+import { ThreadCommentReply } from '@/components/thread/thread-card/thread-view/comment/ThreadCommentReply';
 
 type ThreadCommentProps = {
   comment: ThreadCommentDTO;

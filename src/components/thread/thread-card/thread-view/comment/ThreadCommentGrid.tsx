@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { useThread } from '@/components/thread/mobile/thread-card/ThreadCard';
 import { cn } from '@/lib/utils';
-import { ThreadComment } from '@/components/thread/mobile/thread-card/thread-view/comment/ThreadComment';
+import { ThreadComment } from '@/components/thread/thread-card/thread-view/comment/ThreadComment';
+import { useThread } from '@/components/thread/thread-card/ThreadCard';
 
 interface ThreadCommentsProps {
   className?: string;

@@ -1,11 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useThread } from '@/components/thread/mobile/thread-card/ThreadCard';
-import { usePreviewable } from '@/components/thread/mobile/Previewable';
-import { PollDisplay } from '@/components/thread/mobile/thread-card/poll/PollDisplay';
-import { ThreadImagePreview } from '@/components/thread/mobile/thread-card/image-preview/ThreadImagePreview';
 import { getClientFileUrl } from '@/lib/api-client';
+import { ThreadImagePreview } from '@/components/thread/thread-card/image-preview/ThreadImagePreview';
+import PollDisplay from '@/components/thread/thread-card/poll/PollDisplay';
+import { useThread } from '@/components/thread/thread-card/ThreadCard';
 
 interface ThreadCardContentProps {
   className?: string;
@@ -13,7 +12,6 @@ interface ThreadCardContentProps {
 
 export const ThreadPreviewContent = ({ className }: ThreadCardContentProps) => {
   const { thread } = useThread();
-  // const { openView } = usePreviewable();
 
   return (
     <div className={`flex flex-col gap-3 ${className || ''}`}>

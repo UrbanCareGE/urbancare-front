@@ -2,17 +2,17 @@
 
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { AppLogo, UrbanCareTextIcon } from '@/components/common/logo/AppLogo';
-import { ThreadCard } from '@/components/thread/mobile/thread-card/ThreadCard';
-import { ThreadViewHeader } from '@/components/thread/mobile/thread-card/thread-view/ThreadViewHeader';
-import { ThreadViewContent } from '@/components/thread/mobile/thread-card/thread-view/ThreadViewContent';
-import { ThreadPreviewActionSection } from '@/components/thread/mobile/thread-card/thread-preview/ThreadPreviewActionSection';
+import { UrbanCareTextIcon } from '@/components/common/logo/AppLogo';
 import { useThreadDetails } from '@/hooks/query/thread/use-thread-details';
 import { useAuth } from '@/components/provider/AuthProvider';
-import { ThreadCommentsHeader } from '@/components/thread/mobile/thread-card/thread-view/comment/ThreadCommentsHeader';
-import { ThreadCommentGrid } from '@/components/thread/mobile/thread-card/thread-view/comment/ThreadCommentGrid';
-import { ThreadViewCommentButton } from '@/components/thread/mobile/thread-card/thread-view/comment/ThreadViewCommentButton';
 import { OverlayPage } from '@/components/common/layouts/OverlayPage';
+import ThreadCard from '@/components/thread/thread-card/ThreadCard';
+import { ThreadViewContent } from '@/components/thread/thread-card/thread-view/ThreadViewContent';
+import { ThreadViewHeader } from '@/components/thread/thread-card/thread-view/ThreadViewHeader';
+import { ThreadPreviewActionSection } from '@/components/thread/thread-card/thread-preview/ThreadPreviewActionSection';
+import { ThreadCommentsHeader } from '@/components/thread/thread-card/thread-view/comment/ThreadCommentsHeader';
+import { ThreadCommentGrid } from '@/components/thread/thread-card/thread-view/comment/ThreadCommentGrid';
+import { ThreadViewCommentButton } from '@/components/thread/thread-card/thread-view/comment/ThreadViewCommentButton';
 
 export default function ThreadPage() {
   const { threadId } = useParams<{ threadId: string }>();

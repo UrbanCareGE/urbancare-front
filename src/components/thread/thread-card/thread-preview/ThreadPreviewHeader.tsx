@@ -2,12 +2,12 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { getClientFileUrl } from '@/lib/api-client';
 import { Clock, Ellipsis } from 'lucide-react';
 import React from 'react';
-import { useThread } from '@/components/thread/mobile/thread-card/ThreadCard';
 import { cn, formatTime } from '@/lib/utils';
-import { ThreadTags } from '@/components/thread/mobile/thread-card/common/ThreadTags';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/components/provider/AuthProvider';
+import { useThread } from '@/components/thread/thread-card/ThreadCard';
+import ThreadTags from '@/components/thread/thread-card/common/ThreadTags';
 
 interface ThreadCardHeaderProps {
   className?: string;

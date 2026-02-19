@@ -1,8 +1,6 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import { CreateThreadButton } from '@/components/thread/mobile/CreateThreadButton';
-import ThreadForm from '@/components/thread/mobile/thread-form/ThreadForm';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { DrawerClose } from '@/components/ui/drawer';
@@ -67,6 +65,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useAuth } from '@/components/provider/AuthProvider';
+import ThreadForm from '@/components/thread/thread-form/ThreadForm';
+import { CreateThreadButton } from '@/components/thread/CreateThreadButton';
 
 const ALL_TAGS = Object.values(ThreadTagType);
 

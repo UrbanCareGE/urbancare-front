@@ -2,9 +2,9 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { getClientFileUrl } from '@/lib/api-client';
 import { Clock } from 'lucide-react';
 import React from 'react';
-import { useThread } from '@/components/thread/mobile/thread-card/ThreadCard';
 import { cn, formatTime } from '@/lib/utils';
 import Image from 'next/image';
+import { useThread } from '@/components/thread/thread-card/ThreadCard';
 
 interface ThreadCardHeaderProps {
   className?: string;

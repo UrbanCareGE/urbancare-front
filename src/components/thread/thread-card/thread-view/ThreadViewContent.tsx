@@ -1,8 +1,8 @@
 import React from 'react';
-import { useThread } from '@/components/thread/mobile/thread-card/ThreadCard';
-import { PollDisplay } from '@/components/thread/mobile/thread-card/poll/PollDisplay';
-import { ThreadImagePreview } from '@/components/thread/mobile/thread-card/image-preview/ThreadImagePreview';
 import { getClientFileUrl } from '@/lib/api-client';
+import { ThreadImagePreview } from '@/components/thread/thread-card/image-preview/ThreadImagePreview';
+import PollDisplay from '@/components/thread/thread-card/poll/PollDisplay';
+import { useThread } from '@/components/thread/thread-card/ThreadCard';
 
 interface ThreadCardContentProps {
   className?: string;

@@ -18,7 +18,7 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
   return (
     <Card
       className={cn(
-        'flex items-center overflow-hidden shadow-xl border-border border bg-surface p-3 cursor-pointer',
+        'flex gap-2 items-center overflow-hidden shadow-xl border-border border bg-surface p-2 cursor-pointer',
         className
       )}
     >
@@ -32,7 +32,7 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
         <AvatarFallback>{user?.name + ' ' + user?.surname[0]}</AvatarFallback>
       </Avatar>
       <div className="flex-1">
-        <div className="rounded-xl px-4 py-3 text-slate-400 transition-colors mr-auto">
+        <div className="flex items-center rounded-full px-4 h-10 py-3 text-slate-400 transition-colors mr-auto">
           What&apos;s on your mind?
         </div>
       </div>

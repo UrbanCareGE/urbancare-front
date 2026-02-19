@@ -5,14 +5,14 @@ import { useInView } from 'react-intersection-observer';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { Thread } from '@/components/thread/mobile/thread-card/Thread';
-import { ThreadCreateForm } from '@/components/thread/mobile/ThreadCreateForm';
 import { useInfiniteThreads } from '@/hooks/query/thread/use-fetch-threads';
-import { ThreadFeedTagFilter } from '@/components/thread/mobile/tag/ThreadFeedTagFilter';
 import { useForm } from 'react-hook-form';
-import { TagsFilterSchema } from '@/components/thread/mobile/tag/thread-filter-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { TagsFilterSchema } from '@/components/thread/tag/thread-filter-schema';
+import { ThreadFeedTagFilter } from '@/components/thread/tag/ThreadFeedTagFilter';
+import { ThreadCreateForm } from '@/components/thread/ThreadCreateForm';
+import { Thread } from '@/components/thread/thread-card/Thread';
 
 export interface ThreadFeedProps {
   defaultTags?: string[];
@@ -85,11 +85,17 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
 
   if (isPostFetchLoading && !data) {
     return (
-      <div className="flex-1 w-full space-y-4 py-4">
-        <div className="max-w-2xl mx-auto px-4 space-y-4">
-          <StartThreadFormSkeleton />
-          <LoadingSkeleton />
+      <div className="flex-1 overflow-y-scroll space-y-4 py-4">
+        <div className="max-w-2xl mx-auto px-3">
+          <ThreadCreateForm />
         </div>
+
+        <ThreadFeedTagFilter
+          className=""
+          selectedTags={selectedTags}
+          onClick={handleToggleTag}
+        />
+        <LoadingSkeleton />
       </div>
     );
   }

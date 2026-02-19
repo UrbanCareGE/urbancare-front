@@ -27,7 +27,6 @@ export const ThreadViewCommentButton = ({
 
   useEffect(() => {
     if (shouldFocusComment && commentRef.current) {
-      console.log('epeee');
       commentRef.current.focus();
     }
   }, [shouldFocusComment]);

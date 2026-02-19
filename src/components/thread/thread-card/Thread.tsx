@@ -1,12 +1,12 @@
 'use client';
 
-import ThreadCard from '@/components/thread/mobile/thread-card/ThreadCard';
-import { ThreadPreviewHeader } from '@/components/thread/mobile/thread-card/thread-preview/ThreadPreviewHeader';
-import { ThreadPreviewContent } from '@/components/thread/mobile/thread-card/thread-preview/ThreadPreviewContent';
 import React from 'react';
-import { ThreadPreviewActionSection } from '@/components/thread/mobile/thread-card/thread-preview/ThreadPreviewActionSection';
 import { useThreadDetails } from '@/hooks/query/thread/use-thread-details';
 import { useParams } from 'next/navigation';
+import ThreadCard from '@/components/thread/thread-card/ThreadCard';
+import { ThreadPreviewHeader } from '@/components/thread/thread-card/thread-preview/ThreadPreviewHeader';
+import { ThreadPreviewContent } from '@/components/thread/thread-card/thread-preview/ThreadPreviewContent';
+import { ThreadPreviewActionSection } from '@/components/thread/thread-card/thread-preview/ThreadPreviewActionSection';
 
 interface ThreadPreviewProps {
   threadId: string;

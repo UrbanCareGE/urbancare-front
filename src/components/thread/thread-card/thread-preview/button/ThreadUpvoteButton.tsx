@@ -2,10 +2,10 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ThumbsDown, ThumbsUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useThread } from '@/components/thread/mobile/thread-card/ThreadCard';
 import { useReactionVote } from '@/hooks/query/thread/use-reaction-vote';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useParams } from 'next/navigation';
+import { useThread } from '@/components/thread/thread-card/ThreadCard';
 
 export const ThreadUpvoteButton = ({ className }: { className?: string }) => {
   const { thread } = useThread();
