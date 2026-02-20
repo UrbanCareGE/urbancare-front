@@ -152,7 +152,7 @@ module.exports = {
           foreground: 'rgb(var(--color-info-foreground) / <alpha-value>)',
           background: 'rgb(var(--color-info-background) / <alpha-value>)',
           container: {
-            DEFAULT: 'rgb(var(--color-inføo-container) / <alpha-value>)',
+            DEFAULT: 'rgb(var(--color-info-container) / <alpha-value>)',
             foreground:
               'rgb(var(--color-info-container-foreground) / <alpha-value>)',
           },
@@ -359,7 +359,6 @@ module.exports = {
           'scroll var(--animation-duration, 60s) var(--animation-direction, forwards) linear infinite',
       },
       fontFamily: {
-        // Set FiraGO as the default sans font
         sans: [
           'FiraGO',
           'Noto Sans Georgian',
@@ -369,16 +368,14 @@ module.exports = {
           'Roboto',
           'sans-serif',
         ],
-        // Optional: Create a specific Georgian font utility
         georgian: ['FiraGO', 'Noto Sans Georgian', 'sans-serif'],
-        lineHeight: {
-          'tight-georgian': '1.2', // For buttons and compact text
-          'normal-georgian': '1.3', // For body text
-          'relaxed-georgian': '1.4', // For comfortable reading
-        },
         poppins: ['Poppins', 'sans-serif'],
         roboto: ['var(--font-roboto)', 'sans-serif'],
-        sans: ['var(--font-inter)', 'sans-serif'],
+      },
+      lineHeight: {
+        'tight-georgian': '1.2',
+        'normal-georgian': '1.3',
+        'relaxed-georgian': '1.4',
       },
       fontSize: {
         '4xl': '2.25rem',
