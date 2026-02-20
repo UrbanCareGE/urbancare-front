@@ -15,6 +15,7 @@ import {
   urgentResponderColors,
   urgentStatusConfig,
 } from '@/components/urgent/data/urgent-data';
+import { useAuth } from '@/components/provider/AuthProvider';
 
 const PulseDot = ({
   color,
@@ -179,13 +180,16 @@ type UrgentCardFooterProps = {
   responders: ResponderProps[];
   responderText: string;
   actions: ActionButtonProps[];
+  issuerId: string;
 };
 
 const UrgentCardFooter = ({
   responders,
   responderText,
   actions,
+  issuerId,
 }: UrgentCardFooterProps) => {
+  const { user } = useAuth();
   const buttonVariants = {
     primary: 'bg-primary text-white lg:hover:bg-primary/90',
     secondary: 'bg-primary text-white lg:hover:bg-primary/90',
@@ -199,30 +203,31 @@ const UrgentCardFooter = ({
         <span className="text-xs text-text-secondary">{responderText}</span>
       </div>
       <div className="flex gap-2">
-        {actions.map((action, index) => (
-          <Button
-            key={index}
-            variant="reaction"
-            onClick={action.onClick}
-            disabled={action.isPending}
-            className={cn(
-              'h-9 px-4 rounded-lg text-sm font-medium',
-              buttonVariants[action.variant]
-            )}
-          >
-            {action.isPending ? (
-              <>
-                <Loader className="animate-spin w-4 h-4" />
-                იგზავნება
-              </>
-            ) : (
-              <>
-                {action.icon && <span>{action.icon}</span>}
-                {action.label}
-              </>
-            )}
-          </Button>
-        ))}
+        {user.id === issuerId &&
+          actions.map((action, index) => (
+            <Button
+              key={index}
+              variant="reaction"
+              onClick={action.onClick}
+              disabled={action.isPending}
+              className={cn(
+                'h-9 px-4 rounded-lg text-sm font-medium',
+                buttonVariants[action.variant]
+              )}
+            >
+              {action.isPending ? (
+                <>
+                  <Loader className="animate-spin w-4 h-4" />
+                  იგზავნება
+                </>
+              ) : (
+                <>
+                  {action.icon && <span>{action.icon}</span>}
+                  {action.label}
+                </>
+              )}
+            </Button>
+          ))}
       </div>
     </div>
   );
@@ -239,7 +244,7 @@ export type UrgentCardProps = {
   responderText: string;
   actions: ActionButtonProps[];
   resolvedMessage?: string;
-  issuerId?: string;
+  issuerId: string;
   isPending?: boolean;
   className?: string;
 };
@@ -256,10 +261,10 @@ export const UrgentCard = ({
   actions,
   resolvedMessage,
   isPending,
+  issuerId,
   className,
 }: UrgentCardProps) => {
   const config = urgentStatusConfig[status];
-
   return (
     <Card
       className={cn(
@@ -292,6 +297,7 @@ export const UrgentCard = ({
         responders={responders}
         responderText={responderText}
         actions={actions}
+        issuerId={issuerId}
       />
     </Card>
   );

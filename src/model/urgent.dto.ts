@@ -21,5 +21,5 @@ export interface UserSnapshotDTO {
   id: string;
   name: string;
   surname: string;
-  profileImageId: string;
+  profileImageId?: string;
 }

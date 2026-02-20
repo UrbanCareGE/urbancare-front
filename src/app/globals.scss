@@ -178,25 +178,25 @@
     /* Overlay */
     --color-overlay: 0 0 0; /* black with opacity */
 
-    --background: hsl(0 0% 100%);
-    --foreground: hsl(0 0% 3.9%);
-    --card: hsl(0 0% 100%);
-    --card-foreground: hsl(0 0% 3.9%);
-    --popover: hsl(0 0% 100%);
-    --popover-foreground: hsl(0 0% 3.9%);
-    --primary: hsl(0 0% 9%);
-    --primary-foreground: hsl(0 0% 98%);
-    --secondary: hsl(0 0% 96.1%);
-    --secondary-foreground: hsl(0 0% 9%);
-    --muted: hsl(0 0% 96.1%);
-    --muted-foreground: hsl(0 0% 45.1%);
-    --accent: hsl(0 0% 96.1%);
-    --accent-foreground: hsl(0 0% 9%);
-    --destructive: hsl(0 84.2% 60.2%);
-    --destructive-foreground: hsl(0 0% 98%);
-    --border: hsl(182 64% 47%); /* Converted #29C2C4 to HSL */
-    --input: hsl(182 64% 47%);
-    --ring: hsl(182 64% 47%);
+    --background: rgb(245 245 248);           /* --color-background */
+    --foreground: rgb(33 33 33);              /* --color-text-primary */
+    --card: rgb(255 255 255);                 /* --color-surface */
+    --card-foreground: rgb(33 33 33);         /* --color-text-primary */
+    --popover: rgb(255 255 255);              /* --color-surface-elevated */
+    --popover-foreground: rgb(33 33 33);      /* --color-text-primary */
+    --primary: rgb(25 118 210);              /* --color-primary */
+    --primary-foreground: rgb(255 255 255);  /* --color-primary-foreground */
+    --secondary: rgb(241 245 249);           /* --color-surface-variant */
+    --secondary-foreground: rgb(33 33 33);   /* --color-text-primary */
+    --muted: rgb(241 245 249);               /* --color-surface-variant */
+    --muted-foreground: rgb(97 97 97);       /* --color-text-secondary */
+    --accent: rgb(187 222 251);              /* --color-primary-light */
+    --accent-foreground: rgb(21 101 192);    /* --color-primary-dark */
+    --destructive: rgb(239 68 68);           /* --color-error */
+    --destructive-foreground: rgb(251 251 251); /* --color-error-foreground */
+    --border: rgb(224 224 224);              /* --color-border */
+    --input: rgb(203 213 225);               /* --color-input-border */
+    --ring: rgb(25 118 210);                 /* --color-border-focus */
     --chart-1: hsl(12 76% 61%);
     --chart-2: hsl(173 58% 39%);
     --chart-3: hsl(197 37% 24%);
@@ -284,8 +284,8 @@
     --color-hover: 22 34 66; /* #162242 */
     --color-active: 30 46 88; /* #1E2E58 */
     --color-focus-ring: 99 179 255;
-    --color-disabled: 16 26 52;
-    --color-disabled-foreground: 68 85 128;
+    --color-disabled: 5 5 5;           /* light slate - visible on white */
+    --color-disabled-foreground: 148 163 184; /* muted grey text */
 
     /* Input Colors */
     --color-input-background: 11 18 37; /* #0B1225 */
@@ -307,25 +307,25 @@
     --color-overlay: 0 0 0;
 
     /* shadcn tokens — tuned to navy-indigo */
-    --background: hsl(228 60% 6%);
-    --foreground: hsl(224 80% 95%);
-    --card: hsl(228 55% 9%);
-    --card-foreground: hsl(224 80% 95%);
-    --popover: hsl(228 55% 9%);
-    --popover-foreground: hsl(224 80% 95%);
-    --primary: hsl(210 100% 70%);
-    --primary-foreground: hsl(228 60% 6%);
-    --secondary: hsl(228 40% 14%);
-    --secondary-foreground: hsl(224 80% 95%);
-    --muted: hsl(228 40% 12%);
-    --muted-foreground: hsl(222 30% 65%);
-    --accent: hsl(228 40% 16%);
-    --accent-foreground: hsl(224 80% 95%);
-    --destructive: hsl(0 72% 55%);
-    --destructive-foreground: hsl(224 80% 95%);
-    --border: hsl(228 45% 22%);
-    --input: hsl(228 45% 22%);
-    --ring: hsl(210 100% 70%);
+    --background: rgb(7 12 26);              /* --color-background */
+    --foreground: rgb(228 235 255);          /* --color-text-primary */
+    --card: rgb(11 18 37);                   /* --color-surface */
+    --card-foreground: rgb(228 235 255);     /* --color-text-primary */
+    --popover: rgb(16 26 52);                /* --color-surface-elevated */
+    --popover-foreground: rgb(228 235 255);  /* --color-text-primary */
+    --primary: rgb(99 179 255);              /* --color-primary */
+    --primary-foreground: rgb(7 12 26);      /* --color-primary-foreground */
+    --secondary: rgb(20 31 60);              /* --color-surface-variant */
+    --secondary-foreground: rgb(228 235 255);/* --color-text-primary */
+    --muted: rgb(14 22 44);                  /* --color-surface-secondary */
+    --muted-foreground: rgb(110 130 180);    /* --color-text-muted */
+    --accent: rgb(26 40 74);                 /* --color-surface-container */
+    --accent-foreground: rgb(228 235 255);   /* --color-text-primary */
+    --destructive: rgb(252 129 129);         /* --color-error */
+    --destructive-foreground: rgb(7 12 26);  /* --color-error-foreground */
+    --border: rgb(38 58 100);               /* --color-border */
+    --input: rgb(38 58 100);                /* --color-input-border */
+    --ring: rgb(99 179 255);                /* --color-border-focus */
     --chart-1: hsl(210 90% 60%);
     --chart-2: hsl(160 70% 45%);
     --chart-3: hsl(30 85% 58%);

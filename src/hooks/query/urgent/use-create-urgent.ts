@@ -32,8 +32,10 @@ export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
         expiresAt: new Date(),
         createdAt: new Date(),
         userInfo: {
-          name: user?.name ?? '',
-          surname: user?.surname ?? '',
+          name: user.name,
+          surname: user.surname,
+          id: user.id,
+          profileImageId: user.profileImageId
         },
       };
 

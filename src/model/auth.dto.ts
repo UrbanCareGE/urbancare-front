@@ -34,6 +34,7 @@ export interface UserDTO {
   surname: string;
   profileImageId?: string;
   joinedApartments: ApartmentDTO[];
+  selectedApartmentId?: string;
 }
 
 export interface UserSnapshotDTO {

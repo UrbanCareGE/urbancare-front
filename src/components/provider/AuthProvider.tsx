@@ -37,6 +37,12 @@ export interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const getApartmentWithId = (apartments: ApartmentDTO[], apartmentId?: string) {
+  if (apartmentId) {
+    return apartments.
+  }
+}
+
 const isPublicRoute = (pathname: string) => {
   return RouteConfig.public.some((route) => pathname.startsWith(route));
 };
