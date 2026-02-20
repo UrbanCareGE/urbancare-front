@@ -28,7 +28,7 @@ import {
 import { LogoutButton } from '@/components/auth/LogoutButton';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { Chat } from '@/components/chat/Chat';
-import UrgentList from '@/components/urgent/mobile/UrgentList';
+import UrgentList from '@/components/urgent/UrgentList';
 
 // ==================== HEADER COMPONENTS ====================
 

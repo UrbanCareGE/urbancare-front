@@ -1,5 +1,5 @@
-import ThreadFeed from '@/components/thread/mobile/ThreadFeed';
 import { ThreadTagType } from '@/model/thread.dto';
+import ThreadFeed from '@/components/thread/ThreadFeed';
 
 export default function ServicesPage() {
   return (

@@ -31,27 +31,22 @@ async function handleRequest(
       forwardHeaders.set('Authorization', `Bearer ${token}`);
     }
 
-    // Forward content-type if present
     const contentType = request.headers.get('content-type');
     if (contentType) {
       forwardHeaders.set('Content-Type', contentType);
     }
 
-    // Handle request body for POST/PUT/PATCH
     let body: BodyInit | undefined = undefined;
     if (['POST', 'PUT', 'PATCH'].includes(request.method)) {
-      // Use arrayBuffer to preserve binary data (important for file uploads)
       body = await request.arrayBuffer();
     }
 
-    // Make proxied request to Java API
     const response = await fetch(targetUrl, {
       method: request.method,
       headers: forwardHeaders,
       body: body,
     });
 
-    // Get response data
     const responseData = await response.bytes();
 
     // Return response

@@ -6,21 +6,22 @@ import { Basic } from '@/app/layout';
 
 import 'ldrs/react/Leapfrog.css';
 import { useFetchUrgent } from '@/hooks/query/urgent/use-fetch-urgent';
-import {
-  ActionButtonProps,
-  NewUrgentCard,
-  UrgentCardStatus,
-} from '@/components/urgent/NewUrgentCard';
+import { UrgentCard, UrgentCardProps } from '@/components/urgent/UrgentCard';
 import { useResolveUrgent } from '@/hooks/query/urgent/use-resolve-urgent';
 import { useParams } from 'next/navigation';
 import { OptimisticData } from '@/model/common.dto';
 import { UrgentItemDTO } from '@/model/urgent.dto';
+import { useAuth } from '@/components/provider/AuthProvider';
+import {
+  ActionButtonProps,
+  UrgentCardStatus,
+} from '@/components/urgent/data/urgent-data';
 
-const mapUrgentItemToCardProps = (
+export const mapUrgentItemToCardProps = (
   item: OptimisticData<UrgentItemDTO>,
   onResolve: (id: string) => void,
   resolvingId: string | null
-) => {
+): UrgentCardProps => {
   const status: UrgentCardStatus = item.resolved ? 'resolved' : 'urgent';
   const initials =
     `${item.userInfo.name[0] ?? ''}${item.userInfo.surname[0] ?? ''}`.toUpperCase();
@@ -49,11 +50,13 @@ const mapUrgentItemToCardProps = (
     responders: [{ initials, color: 'primary' as const }],
     responderText: item.resolved ? 'დაეხმარა' : 'მოითხოვა დახმარება',
     actions,
+    issuerId: item.userInfo.id,
     isPending: item._isPending,
   };
 };
 
 const UrgentList = () => {
+  const user = useAuth();
   const { apartmentId } = useParams<{ apartmentId: string }>();
   const { data, isLoading, isError } = useFetchUrgent();
   const {
@@ -62,7 +65,6 @@ const UrgentList = () => {
     isPending: isResolving,
   } = useResolveUrgent();
 
-  // Cast to OptimisticUrgentItem[] since cache may contain optimistic items with _isPending flag
   const items = data as OptimisticData<UrgentItemDTO>[] | undefined;
 
   const handleResolve = (id: string) => {
@@ -79,7 +81,7 @@ const UrgentList = () => {
   }
 
   return (
-    <ul className="flex flex-col gap-3 py-3 px-4">
+    <ul className="flex flex-col gap-3 py-3 px-4 overflow-y-scroll">
       {isLoading && <ListLoader />}
 
       {isError && (
@@ -91,7 +93,7 @@ const UrgentList = () => {
       {items &&
         items.length > 0 &&
         items.map((item) => (
-          <NewUrgentCard
+          <UrgentCard
             key={item.id}
             {...mapUrgentItemToCardProps(
               item,

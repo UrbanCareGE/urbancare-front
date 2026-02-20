@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Sheet, SheetContent } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
-import { Card } from '@/components/ui/card';
 
 interface ThreadFormDrawerContextValue {
   isOpen: boolean;
@@ -13,7 +12,7 @@ const ThreadFormSheetContext = React.createContext<
   ThreadFormDrawerContextValue | undefined
 >(undefined);
 
-const useThreadDrawer = () => {
+export const useThreadDrawer = () => {
   const context = useContext(ThreadFormSheetContext);
   if (context === undefined) {
     throw new Error('useThread must be used within a ThreadCard');
@@ -59,18 +58,15 @@ export const ThreadFormTrigger = ({
   const { isOpen, openDrawer } = useThreadDrawer();
 
   return (
-    <Card
+    <div
       onClick={(e) => {
         e.stopPropagation();
         openDrawer();
       }}
-      className={cn(
-        'overflow-hidden shadow-sm border-slate-200 bg-white transition-all duration-200 cursor-pointer hover:shadow-md hover:border-slate-300',
-        className
-      )}
+      className={className}
     >
       {children}
-    </Card>
+    </div>
   );
 };
 

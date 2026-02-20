@@ -18,6 +18,8 @@ export interface ResolveUrgentItemDTO {
 }
 
 export interface UserSnapshotDTO {
+  id: string;
   name: string;
   surname: string;
+  profileImageId: string;
 }

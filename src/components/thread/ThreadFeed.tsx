@@ -3,14 +3,12 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useAuth } from '@/components/provider/AuthProvider';
-import { Card } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
 import { useInfiniteThreads } from '@/hooks/query/thread/use-fetch-threads';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { TagsFilterSchema } from '@/components/thread/tag/thread-filter-schema';
-import { ThreadFeedTagFilter } from '@/components/thread/tag/ThreadFeedTagFilter';
+import { ThreadFeedFilters } from '@/components/thread/tag/ThreadFeedTagFilter';
 import { ThreadCreateForm } from '@/components/thread/ThreadCreateForm';
 import { Thread } from '@/components/thread/thread-card/Thread';
 
@@ -90,7 +88,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
           <ThreadCreateForm />
         </div>
 
-        <ThreadFeedTagFilter
+        <ThreadFeedFilters
           className=""
           selectedTags={selectedTags}
           onClick={handleToggleTag}
@@ -120,7 +118,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
         <ThreadCreateForm />
       </div>
 
-      <ThreadFeedTagFilter
+      <ThreadFeedFilters
         className=""
         selectedTags={selectedTags}
         onClick={handleToggleTag}
@@ -171,23 +169,5 @@ function LoadingSkeleton() {
         </div>
       ))}
     </div>
-  );
-}
-
-export function StartThreadFormSkeleton({
-  className,
-}: StartThreadFormSkeletonProps) {
-  return (
-    <Card
-      className={cn(
-        'flex shadow-sm border-[rgb(var(--color-border))] bg-[rgb(var(--color-surface))] animate-pulse p-3 items-center rounded-2xl',
-        className
-      )}
-    >
-      <div className="w-10 h-10 rounded-full bg-[rgb(var(--color-surface-container))] flex-shrink-0" />
-      <div className="flex-1 px-4 py-3">
-        <div className="bg-[rgb(var(--color-surface-container))] rounded-full h-5 w-full mr-auto" />
-      </div>
-    </Card>
   );
 }

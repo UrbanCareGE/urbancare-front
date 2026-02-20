@@ -229,9 +229,7 @@ export const ThreadCreateForm = () => {
 
   return (
     <ThreadForm>
-      <ThreadForm.Trigger>
-        <CreateThreadButton />
-      </ThreadForm.Trigger>
+      <CreateThreadButton />
       <ThreadForm.Sheet>
         {/* Header */}
         <SheetHeader className="border-b border px-3 py-3">

@@ -31,7 +31,7 @@ export const ActiveUserAvatar = () => {
 
   return (
     <div className="relative inline-block outline-none">
-      <Avatar className="cursor-pointer w-12 h-12 rounded-full">
+      <Avatar className="cursor-pointer w-11 h-11 rounded-full">
         <Image
           src={getClientFileUrl(user?.profileImageId)}
           alt="@shadcn"

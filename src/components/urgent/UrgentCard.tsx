@@ -7,86 +7,15 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Loader } from 'lucide-react';
+import {
+  ActionButtonProps,
+  MetaItemProps,
+  ResponderProps,
+  UrgentCardStatus,
+  urgentResponderColors,
+  urgentStatusConfig,
+} from '@/components/urgent/data/urgent-data';
 
-// Types
-export type UrgentCardStatus = 'urgent' | 'in-progress' | 'resolved';
-
-export interface UrgentCardProps {
-  status: UrgentCardStatus;
-  icon: string;
-  label: string;
-  title: string;
-  message: string;
-  meta: MetaItemProps[];
-  responders: ResponderProps[];
-  responderText: string;
-  actions: ActionButtonProps[];
-  resolvedMessage?: string;
-  isPending?: boolean;
-  className?: string;
-}
-
-export interface MetaItemProps {
-  icon: string;
-  text: string;
-}
-
-export interface ResponderProps {
-  initials: string;
-  color: 'primary' | 'secondary' | 'tertiary' | 'muted';
-}
-
-export interface ActionButtonProps {
-  icon?: string;
-  label: string;
-  pendingLabel?: string;
-  variant: 'primary' | 'secondary' | 'success';
-  onClick?: () => void;
-  isPending?: boolean;
-}
-
-// Status configuration
-const statusConfig = {
-  urgent: {
-    borderColor: 'border-l-error',
-    badgeBg: 'bg-error/10',
-    badgeText: 'text-error',
-    iconBg: 'bg-error/10',
-    labelColor: 'text-error',
-    pulseColor: 'bg-error',
-    showPulse: true,
-    badgeLabel: 'Urgent',
-  },
-  'in-progress': {
-    borderColor: 'border-l-warning',
-    badgeBg: 'bg-warning/10',
-    badgeText: 'text-warning',
-    iconBg: 'bg-warning/10',
-    labelColor: 'text-warning',
-    pulseColor: 'bg-warning',
-    showPulse: true,
-    badgeLabel: 'In Progress',
-  },
-  resolved: {
-    borderColor: 'border-l-success',
-    badgeBg: 'bg-success/10',
-    badgeText: 'text-success',
-    iconBg: 'bg-success/10',
-    labelColor: 'text-success',
-    pulseColor: 'bg-success',
-    showPulse: false,
-    badgeLabel: 'Resolved',
-  },
-};
-
-const responderColors = {
-  primary: 'bg-primary',
-  secondary: 'bg-secondary',
-  tertiary: 'bg-tertiary',
-  muted: 'bg-surface-container text-text-secondary',
-};
-
-// Sub-components
 const PulseDot = ({
   color,
   className,
@@ -106,7 +35,7 @@ const StatusBadge = ({
   status: UrgentCardStatus;
   label?: string;
 }) => {
-  const config = statusConfig[status];
+  const config = urgentStatusConfig[status];
 
   return (
     <Badge
@@ -138,14 +67,14 @@ const AvatarStack = ({ responders }: { responders: ResponderProps[] }) => (
         key={index}
         className={cn(
           'w-7 h-7 border-2 border-surface text-xs font-semibold text-white',
-          responderColors[responder.color],
+          urgentResponderColors[responder.color],
           index > 0 && '-ml-2'
         )}
       >
         <AvatarFallback
           className={cn(
             'text-xs font-semibold text-white',
-            responderColors[responder.color]
+            urgentResponderColors[responder.color]
           )}
         >
           {responder.initials}
@@ -168,7 +97,7 @@ const UrgentCardIcon = ({
   icon: string;
   status: UrgentCardStatus;
 }) => {
-  const config = statusConfig[status];
+  const config = urgentStatusConfig[status];
 
   return (
     <div
@@ -182,20 +111,22 @@ const UrgentCardIcon = ({
   );
 };
 
+type UrgentCardHeaderProps = {
+  status: UrgentCardStatus;
+  icon: string;
+  label: string;
+  title: string;
+  badgeLabel?: string;
+};
+
 const UrgentCardHeader = ({
   status,
   icon,
   label,
   title,
   badgeLabel,
-}: {
-  status: UrgentCardStatus;
-  icon: string;
-  label: string;
-  title: string;
-  badgeLabel?: string;
-}) => {
-  const config = statusConfig[status];
+}: UrgentCardHeaderProps) => {
+  const config = urgentStatusConfig[status];
 
   return (
     <div className="flex items-start justify-between mb-3">
@@ -220,15 +151,17 @@ const UrgentCardHeader = ({
   );
 };
 
+type UrgentCardContentProps = {
+  message: string;
+  meta: MetaItemProps[];
+  resolvedMessage?: string;
+};
+
 const UrgentCardContent = ({
   message,
   meta,
   resolvedMessage,
-}: {
-  message: string;
-  meta: MetaItemProps[];
-  resolvedMessage?: string;
-}) => (
+}: UrgentCardContentProps) => (
   <div className="mb-4">
     <p className="text-sm text-text-secondary mb-3 leading-relaxed">
       {message}
@@ -242,15 +175,17 @@ const UrgentCardContent = ({
   </div>
 );
 
+type UrgentCardFooterProps = {
+  responders: ResponderProps[];
+  responderText: string;
+  actions: ActionButtonProps[];
+};
+
 const UrgentCardFooter = ({
   responders,
   responderText,
   actions,
-}: {
-  responders: ResponderProps[];
-  responderText: string;
-  actions: ActionButtonProps[];
-}) => {
+}: UrgentCardFooterProps) => {
   const buttonVariants = {
     primary: 'bg-primary text-white lg:hover:bg-primary/90',
     secondary: 'bg-primary text-white lg:hover:bg-primary/90',
@@ -293,8 +228,23 @@ const UrgentCardFooter = ({
   );
 };
 
-// Main component
-export const NewUrgentCard = ({
+export type UrgentCardProps = {
+  status: UrgentCardStatus;
+  icon: string;
+  label: string;
+  title: string;
+  message: string;
+  meta: MetaItemProps[];
+  responders: ResponderProps[];
+  responderText: string;
+  actions: ActionButtonProps[];
+  resolvedMessage?: string;
+  issuerId?: string;
+  isPending?: boolean;
+  className?: string;
+};
+
+export const UrgentCard = ({
   status,
   icon,
   label,
@@ -308,7 +258,7 @@ export const NewUrgentCard = ({
   isPending,
   className,
 }: UrgentCardProps) => {
-  const config = statusConfig[status];
+  const config = urgentStatusConfig[status];
 
   return (
     <Card
@@ -347,4 +297,4 @@ export const NewUrgentCard = ({
   );
 };
 
-export default NewUrgentCard;
+export default UrgentCard;

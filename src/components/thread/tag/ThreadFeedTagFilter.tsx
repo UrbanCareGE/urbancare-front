@@ -13,7 +13,7 @@ type ThreadTagValueProps = {
   selectedTags: string[];
 };
 
-export const ThreadFeedTagFilter = ({
+export const ThreadFeedFilters = ({
   className,
   onClick,
   selectedTags,

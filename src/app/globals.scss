@@ -19,11 +19,11 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background: linear-gradient(
-      135deg,
-      #EEF2FF 0%,
-      #F5F5F8 28%,
-      #F0F9FF 62%,
-      #F5F3FF 100%
+                    135deg,
+                    #EEF2FF 0%,
+                    #F5F5F8 28%,
+                    #F0F9FF 62%,
+                    #F5F3FF 100%
     );
     background-attachment: fixed;
     min-height: 100svh;
@@ -31,11 +31,11 @@
 
   .dark body {
     background: linear-gradient(
-      135deg,
-      #070C1A 0%,
-      #0B1225 35%,
-      #091622 68%,
-      #0B0D20 100%
+                    135deg,
+                    #070C1A 0%,
+                    #0B1225 35%,
+                    #091622 68%,
+                    #0B0D20 100%
     );
     background-attachment: fixed;
   }
@@ -160,7 +160,7 @@
     --color-info-container-foreground: 33 150 243;
 
     /* Input Colors */
-    --color-input-background: 251 251 251;
+    --color-input-background: 247 247 247;
     --color-input-background-hover: 248 250 252;
     --color-input-background-disabled: 241 245 249;
     --color-input-border: 203 213 225;
@@ -171,7 +171,7 @@
     --color-input-focus-ring: 187 222 251;
     --color-input-error-ring: 255 235 238;
 
-    --color-icon: 75 85 99;
+    --color-icon: 107 114 128;
 
     --color-shadow: 0 0 0; /* black */
 

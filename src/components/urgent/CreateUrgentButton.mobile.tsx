@@ -14,8 +14,9 @@ import { useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { useCreateUrgent } from '@/hooks/query/urgent/use-create-urgent';
 import { UrgentItemDTO } from '@/model/urgent.dto';
+import { PlusIcon } from 'lucide-react';
 
-const AddUrgent = () => {
+const CreateUrgentButtonMobile = () => {
   const [text, setText] = useState<string>('');
   const [open, setOpen] = useState(false);
 
@@ -34,7 +35,13 @@ const AddUrgent = () => {
   return (
     <Drawer open={open} onOpenChange={setOpen} shouldScaleBackground={false}>
       <DrawerTrigger asChild>
-        <Button className={'m-4'}>+ შექმნა</Button>
+        <div
+          className={
+            'fixed bottom-20 right-4 p-3 rounded-full aspect-square bg-primary'
+          }
+        >
+          <PlusIcon className={'w-8 h-8 text-white'} />
+        </div>
       </DrawerTrigger>
       <DrawerContent className={'bg-white'}>
         <DrawerHeader>
@@ -70,4 +77,4 @@ const AddUrgent = () => {
   );
 };
 
-export default AddUrgent;
+export default CreateUrgentButtonMobile;

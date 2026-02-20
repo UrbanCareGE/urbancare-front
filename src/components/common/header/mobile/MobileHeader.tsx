@@ -18,7 +18,7 @@ export const MobileHeader = () => {
   return (
     <header
       className={cn(
-        'h-20 flex items-center px-3 border-b border-border sticky top-0 bg-surface !z-[20] transition-all duration-500 ease-in-out will-change-transform -translate-y-20',
+        'h-[4rem] flex items-center px-3 border-b border-border sticky top-0 bg-surface !z-[20] transition-all duration-500 ease-in-out will-change-transform -translate-y-20',
         {
           'translate-y-0': isVisible,
           'opacity-0': !isVisible,
@@ -27,7 +27,7 @@ export const MobileHeader = () => {
     >
       <MobileSideBar side={'left'}>
         <MobileSideBar.Trigger>
-          <Menu className={'w-7 h-7 text-foreground-primary'} />
+          <Menu className={'w-7 h-7 text-icon'} />
         </MobileSideBar.Trigger>
         <MobileSideBar.Content>
           <MobileSideBar.Header>
