@@ -64,4 +64,3 @@ export const urgentResponderColors = {
   tertiary: 'bg-tertiary',
   muted: 'bg-surface-container text-text-secondary',
 };
-
