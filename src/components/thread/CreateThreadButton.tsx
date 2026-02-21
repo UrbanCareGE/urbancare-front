@@ -18,7 +18,7 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
   const threadDrawer = useThreadDrawer();
 
   return (
-    <div className={cn('flex gap-2 px-1 items-center', className)}>
+    <div className={cn('flex gap-2 px-1 items-center bg-surface', className)}>
       <Avatar className="cursor-pointer w-10 h-10 rounded-full">
         <Image
           src={getClientFileUrl(user?.profileImageId)}
@@ -30,7 +30,7 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
       </Avatar>
       <div className="flex-1">
         <div
-          className="flex items-center rounded-full px-4 py-2 h-10 bg-surface transition-colors mr-auto text-sm text-muted-foreground"
+          className="flex items-center rounded-full px-4 py-2 h-10 bg-surface-container transition-colors mr-auto text-sm text-muted-foreground"
           onClick={threadDrawer.openDrawer}
         >
           რისი გაზიარება გსურთ?

@@ -119,7 +119,6 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       </div>
 
       <ThreadFeedFilters
-        className=""
         selectedTags={selectedTags}
         onClick={handleToggleTag}
       />
@@ -152,19 +151,19 @@ function LoadingSkeleton() {
       {[1, 2, 3, 4, 5].map((i) => (
         <div
           key={i}
-          className="bg-[rgb(var(--color-surface))] rounded-2xl border border-[rgb(var(--color-border))] p-4 animate-pulse shadow-sm"
+          className="bg-surface rounded-2xl border border-border p-4 animate-pulse shadow-sm"
         >
           <div className="flex gap-3 mb-4">
-            <div className="w-10 h-10 rounded-full bg-[rgb(var(--color-surface-container))] shrink-0"></div>
+            <div className="w-10 h-10 rounded-full bg-surface-container shrink-0"></div>
             <div className="flex-1 space-y-2 pt-0.5">
-              <div className="h-3.5 bg-[rgb(var(--color-surface-container))] rounded-full w-1/3"></div>
-              <div className="h-3 bg-[rgb(var(--color-surface-container))] rounded-full w-1/5"></div>
+              <div className="h-3.5 bg-surface-container rounded-full w-1/3"></div>
+              <div className="h-3 bg-surface-container rounded-full w-1/5"></div>
             </div>
           </div>
           <div className="space-y-2">
-            <div className="h-4 bg-[rgb(var(--color-surface-container))] rounded-full w-3/4"></div>
-            <div className="h-3 bg-[rgb(var(--color-surface-container))] rounded-full w-full"></div>
-            <div className="h-3 bg-[rgb(var(--color-surface-container))] rounded-full w-5/6"></div>
+            <div className="h-4 bg-surface-container rounded-full w-3/4"></div>
+            <div className="h-3 bg-surface-container rounded-full w-full"></div>
+            <div className="h-3 bg-surface-container rounded-full w-5/6"></div>
           </div>
         </div>
       ))}
