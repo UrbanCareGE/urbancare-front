@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ThreadTagConfig, ThreadTagValue } from '@/model/thread.dto';
+import { ThreadTagConfig, ThreadTagValue } from '@/model/dto/thread.dto';
 import { cn } from '@/lib/utils';
 
 interface ThreadTagsProps {

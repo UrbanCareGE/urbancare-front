@@ -14,7 +14,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { FormInput } from '@/components/common/input/FormInput';
 import { OTPInput } from '@/components/auth/register/OTPInput';
-import { RegisterDTO } from '@/model/auth.dto';
+import { RegisterDTO } from '@/model/dto/auth.dto';
 import { registerSchema } from '@/components/auth/register/data/register-form-schema';
 import { useRegister } from '@/hooks/query/auth/use-register';
 import { useForm } from 'react-hook-form';

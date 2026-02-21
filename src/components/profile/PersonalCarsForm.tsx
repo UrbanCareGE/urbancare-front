@@ -28,7 +28,7 @@ import { Button } from '@/components/ui/button';
 import { useFetchCar } from '@/hooks/query/user/cars/use-fetch-car';
 import { useAddCar } from '@/hooks/query/user/cars/use-add-car';
 import { useDeleteCar } from '@/hooks/query/user/cars/use-delete-car';
-import { CarDTO } from '@/model/auth.dto';
+import { CarDTO } from '@/model/dto/auth.dto';
 
 const licensePlateSchema = z
   .string()

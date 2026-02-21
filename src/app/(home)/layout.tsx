@@ -12,7 +12,7 @@ import { LargeDesktopLayout } from '@/app/(home)/large-desktop-layout';
 import { HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { cookies } from 'next/headers';
 import { dehydrate } from '@tanstack/query-core';
-import { User } from '@/components/provider/AuthProvider';
+import { UserModel } from '@/components/provider/AuthProvider';
 import { AuthService } from '@/service/auth-service';
 
 export default async function HomeLayout({ children }: Children) {
@@ -33,7 +33,7 @@ export default async function HomeLayout({ children }: Children) {
             ...dto,
             joinedApartments,
             selectedApartment: joinedApartments[0],
-          } as User;
+          } as UserModel;
         },
       });
     } catch {

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import './globals.scss';
+import './globals.css';
 import React, { Suspense } from 'react';
 import ReactQueryProvider from '@/components/provider/ReactQueryProvider';
 import MyThemeProvider from '@/components/provider/MyThemeProvider';

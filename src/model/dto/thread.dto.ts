@@ -1,4 +1,4 @@
-import { UserSnapshotDTO } from '@/model/auth.dto';
+import { UserSnapshotDTO } from '@/model/dto/auth.dto';
 
 export enum VoteType {
   UPVOTE = 'UPVOTE',

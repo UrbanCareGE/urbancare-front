@@ -1,5 +1,5 @@
 import { api } from '@/lib/api-client';
-import { UrgentItemDTO } from '@/model/urgent.dto';
+import { UrgentItemDTO } from '@/model/dto/urgent.dto';
 
 export const UrgentService = {
   add: async (apartmentId: string, content: string): Promise<UrgentItemDTO> => {

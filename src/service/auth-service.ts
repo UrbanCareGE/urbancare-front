@@ -1,5 +1,5 @@
 import { api, ApiResponse } from '@/lib/api-client';
-import { ChatDTO, LoginDTO, RegisterDTO, UserDTO } from '@/model/auth.dto';
+import { ChatDTO, LoginDTO, RegisterDTO, UserDTO } from '@/model/dto/auth.dto';
 
 export const AuthService = {
   login: async (loginReq: LoginDTO): Promise<UserDTO> => {

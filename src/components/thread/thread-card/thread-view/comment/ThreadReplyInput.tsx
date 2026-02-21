@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UserAvatar } from '@/components/common/avatar/UserAvatar';
-import { UserSnapshotDTO } from '@/model/auth.dto';
+import { UserSnapshotDTO } from '@/model/dto/auth.dto';
 import { useCreateComment } from '@/hooks/query/thread/use-create-comment';
 import { useParams } from 'next/navigation';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';

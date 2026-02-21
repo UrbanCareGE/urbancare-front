@@ -5,7 +5,7 @@ import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { FormInput } from '@/components/common/input/FormInput';
 import { Button } from '@/components/ui/button';
 import { KeyRound, Loader2, UserIcon } from 'lucide-react';
-import { LoginDTO } from '@/model/auth.dto';
+import { LoginDTO } from '@/model/dto/auth.dto';
 import LoginFormSchema from '@/components/auth/login/data/login-form-schema';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useForm } from 'react-hook-form';

@@ -5,8 +5,8 @@ import {
   CreateThreadCommentDTO,
   ThreadCommentDTO,
   ThreadInfoDTO,
-} from '@/model/thread.dto';
-import { OptimisticData } from '@/model/common.dto';
+} from '@/model/dto/thread.dto';
+import { OptimisticData } from '@/model/dto/common.dto';
 
 export function useCreateComment() {
   const { user } = useAuth();

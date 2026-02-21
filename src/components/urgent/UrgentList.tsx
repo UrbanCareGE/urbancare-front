@@ -9,8 +9,8 @@ import { useFetchUrgent } from '@/hooks/query/urgent/use-fetch-urgent';
 import { UrgentCard, UrgentCardProps } from '@/components/urgent/UrgentCard';
 import { useResolveUrgent } from '@/hooks/query/urgent/use-resolve-urgent';
 import { useParams } from 'next/navigation';
-import { OptimisticData } from '@/model/common.dto';
-import { UrgentItemDTO } from '@/model/urgent.dto';
+import { OptimisticData } from '@/model/dto/common.dto';
+import { UrgentItemDTO } from '@/model/dto/urgent.dto';
 import { useAuth } from '@/components/provider/AuthProvider';
 import {
   ActionButtonProps,

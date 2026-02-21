@@ -7,8 +7,8 @@ import {
   ThreadInfoDTO,
   ThreadVoteDTO,
   ThreadVoteRespDTO,
-} from '@/model/thread.dto';
-import { PagingDTO, PagingRespDTO } from '@/model/common.dto';
+} from '@/model/dto/thread.dto';
+import { PagingDTO, PagingRespDTO } from '@/model/dto/common.dto';
 
 export const ThreadService = {
   add: async (

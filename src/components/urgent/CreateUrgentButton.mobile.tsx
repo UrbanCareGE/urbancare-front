@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { useCreateUrgent } from '@/hooks/query/urgent/use-create-urgent';
-import { UrgentItemDTO } from '@/model/urgent.dto';
+import { UrgentItemDTO } from '@/model/dto/urgent.dto';
 import { PlusIcon } from 'lucide-react';
 
 const CreateUrgentButtonMobile = () => {

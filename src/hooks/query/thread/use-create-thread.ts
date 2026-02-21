@@ -7,8 +7,8 @@ import {
 } from '@tanstack/react-query';
 import { ThreadService } from '@/service/thread-service';
 import { useAuth } from '@/components/provider/AuthProvider';
-import { OptimisticData, PagingRespDTO } from '@/model/common.dto';
-import { ThreadInfoDTO } from '@/model/thread.dto';
+import { OptimisticData, PagingRespDTO } from '@/model/dto/common.dto';
+import { ThreadInfoDTO } from '@/model/dto/thread.dto';
 
 export function useCreateThread() {
   const queryClient = useQueryClient();

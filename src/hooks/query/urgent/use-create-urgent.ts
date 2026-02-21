@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UrgentService } from '@/service/urgent-service';
-import { CreateUrgentItemDTO, UrgentItemDTO } from '@/model/urgent.dto';
+import { CreateUrgentItemDTO, UrgentItemDTO } from '@/model/dto/urgent.dto';
 import { toast } from 'sonner';
 import { useAuth } from '@/components/provider/AuthProvider';
-import { OptimisticData } from '@/model/common.dto';
+import { OptimisticData } from '@/model/dto/common.dto';
 
 export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
   const { user } = useAuth();
@@ -35,7 +35,7 @@ export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
           name: user.name,
           surname: user.surname,
           id: user.id,
-          profileImageId: user.profileImageId
+          profileImageId: user.profileImageId,
         },
       };
 

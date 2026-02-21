@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { ErrorResponse } from '@/model/common.dto';
+import { ErrorResponse } from '@/model/dto/common.dto';
 import { AuthService } from '@/service/auth-service';
 import { useFormContext } from 'react-hook-form';
 

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AddCarDTO, CarDTO } from '@/model/auth.dto';
+import { AddCarDTO, CarDTO } from '@/model/dto/auth.dto';
 import { ProfileService } from '@/service/profile-service';
 import { toast } from 'sonner';
 

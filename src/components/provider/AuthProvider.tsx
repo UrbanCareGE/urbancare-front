@@ -4,29 +4,30 @@ import { createContext, ReactNode, useContext, useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 import { AuthService } from '@/service/auth-service';
-import { ApartmentDTO, LoginDTO, UserDTO } from '@/model/auth.dto';
+import { ApartmentDTO, LoginDTO, UserDTO } from '@/model/dto/auth.dto';
 import { PulsingLoader } from '@/components/common/loader/GlobalLoader';
 import { RouteConfig } from '@/proxy';
-import { ErrorResponse } from '@/model/common.dto';
+import { ErrorResponse } from '@/model/dto/common.dto';
 
-export interface User {
+export interface UserModel {
   id: string;
   phone: string;
   name: string;
   surname: string;
   profileImageId?: string;
   joinedApartments: ApartmentDTO[];
-  selectedApartment: ApartmentDTO;
+  selectedApartment?: ApartmentDTO;
+  selectedApartmentId: string;
 }
 
 export interface AuthContextType {
-  user: User;
+  user: UserModel;
   isLoading: boolean;
   isAuthenticated: boolean;
   isManager: boolean;
-  updateUser: (data: Partial<User>) => void;
+  updateUser: (data: Partial<UserModel>) => void;
   refetchUser: () => Promise<void>;
-  selectApartment: (apartment: ApartmentDTO) => void;
+  selectApartment: (apartment: string) => void;
   logIn: (credentials: LoginDTO) => void;
   logOut: () => void;
   isLoggingIn: boolean;
@@ -37,11 +38,21 @@ export interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const getApartmentWithId = (apartments: ApartmentDTO[], apartmentId?: string) {
+const getApartmentWithId = (
+  apartments: ApartmentDTO[],
+  apartmentId?: string
+) => {
   if (apartmentId) {
-    return apartments.
+    const apartmentIdx = apartments.findIndex(
+      (apartment) => apartment.id === apartmentId
+    );
+    if (apartmentIdx === -1) return apartments[0];
+
+    return apartments[apartmentIdx];
   }
-}
+
+  return apartments[0];
+};
 
 const isPublicRoute = (pathname: string) => {
   return RouteConfig.public.some((route) => pathname.startsWith(route));
@@ -66,12 +77,14 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   } = useQuery({
     queryKey: ['user'],
     queryFn: async () => {
-      const { joinedApartments, ...dto } = await AuthService.getUserInfo();
+      const { joinedApartments, selectedApartmentId, ...dto } =
+        await AuthService.getUserInfo();
       return {
         ...dto,
         joinedApartments,
-        selectedApartment: joinedApartments[0],
-      } as User;
+        selectedApartmentId,
+        selectedApartment: selectedApartmentId,
+      } as UserModel;
     },
     enabled: !isPublic,
     retry: false,
@@ -88,12 +101,16 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const loginMutation = useMutation<UserDTO, ErrorResponse, LoginDTO>({
     mutationFn: AuthService.login,
     onSuccess: async (user) => {
-      const { joinedApartments, ...dto } = user;
+      const { joinedApartments, selectedApartmentId, ...dto } = user;
       queryClient.setQueryData(['user'], {
         ...dto,
         joinedApartments,
-        selectedApartment: joinedApartments[0],
-      } as User);
+        selectedApartmentId,
+        selectedApartment: getApartmentWithId(
+          joinedApartments,
+          selectedApartmentId
+        ),
+      } as UserModel);
       if (user?.joinedApartments?.length) {
         window.location.href = `/apartment/${user.joinedApartments[0].id}`;
       }
@@ -111,15 +128,22 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     },
   });
 
-  const selectApartment = (apartment: ApartmentDTO) => {
-    queryClient.setQueryData(['user'], (old: User | null) => {
+  const selectApartment = (apartmentId: string) => {
+    queryClient.setQueryData(['user'], (old: UserModel | null) => {
       if (!old) return null;
-      return { ...old, selectedApartment: apartment };
+      return {
+        ...old,
+        selectedApartmentId: apartmentId,
+        selectedApartment: getApartmentWithId(
+          old?.joinedApartments,
+          apartmentId
+        ),
+      } as UserModel;
     });
   };
 
-  const updateUser = (data: Partial<User>) => {
-    queryClient.setQueryData(['user'], (old: User | null) => {
+  const updateUser = (data: Partial<UserModel>) => {
+    queryClient.setQueryData(['user'], (old: UserModel | null) => {
       if (!old) return null;
       return { ...old, ...data };
     });

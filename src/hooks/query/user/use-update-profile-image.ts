@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { ProfileService } from '@/service/profile-service';
-import { UpdateProfileImageDTO } from '@/model/auth.dto';
+import { UpdateProfileImageDTO } from '@/model/dto/auth.dto';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { toast } from 'sonner';
 

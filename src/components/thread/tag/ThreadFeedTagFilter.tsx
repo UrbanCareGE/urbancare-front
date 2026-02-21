@@ -3,7 +3,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
-import { ALL_TAGS, ThreadTagConfig } from '@/model/thread.dto';
+import { ALL_TAGS, ThreadTagConfig } from '@/model/dto/thread.dto';
 import { cn } from '@/lib/utils';
 import React from 'react';
 

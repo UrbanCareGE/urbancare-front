@@ -3,7 +3,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ThreadService } from '@/service/thread-service';
 import { useAuth } from '@/components/provider/AuthProvider';
-import { ThreadInfoDTO } from '@/model/thread.dto';
+import { ThreadInfoDTO } from '@/model/dto/thread.dto';
 
 export interface ReactionVoteModel {
   apartmentId: string;

@@ -1,5 +1,5 @@
 import { UserAvatar } from '@/components/common/avatar/UserAvatar';
-import { ThreadCommentDTO } from '@/model/thread.dto';
+import { ThreadCommentDTO } from '@/model/dto/thread.dto';
 import { formatTime } from '@/lib/utils';
 import { Clock } from 'lucide-react';
 import React from 'react';

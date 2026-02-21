@@ -19,7 +19,7 @@ import {
   ThreadTagConfig,
   ThreadTagType,
   ThreadTagValue,
-} from '@/model/thread.dto';
+} from '@/model/dto/thread.dto';
 import {
   Popover,
   PopoverContent,

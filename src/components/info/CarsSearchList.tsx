@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CarInfo } from '@/model/info.dto';
+import { CarInfo } from '@/model/dto/info.dto';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';

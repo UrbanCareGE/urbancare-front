@@ -1,5 +1,5 @@
 import { api } from '@/lib/api-client';
-import { IdWrapperDTO } from '@/model/common.dto';
+import { IdWrapperDTO } from '@/model/dto/common.dto';
 
 export const FileService = {
   uploadProtectedFile: async (

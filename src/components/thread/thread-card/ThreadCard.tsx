@@ -4,7 +4,7 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { ThreadInfoDTO } from '@/model/thread.dto';
+import { ThreadInfoDTO } from '@/model/dto/thread.dto';
 
 interface ThreadContextValue {
   thread: ThreadInfoDTO;

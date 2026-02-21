@@ -19,7 +19,9 @@ interface FloatingPanelBodyProps {
 
 const FloatingPanelRoot = ({ className, children }: FloatingPanelRootProps) => {
   return (
-    <div className={cn('w-full flex flex-col h-full bg-background', className)}>
+    <div
+      className={cn('w-full flex flex-col h-full bg-background ', className)}
+    >
       {children}
     </div>
   );

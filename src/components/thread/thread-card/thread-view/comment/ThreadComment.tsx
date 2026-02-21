@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ThreadCommentDTO } from '@/model/thread.dto';
+import { ThreadCommentDTO } from '@/model/dto/thread.dto';
 import { cn, formatTime } from '@/lib/utils';
 import { CornerDownRight } from 'lucide-react';
 import { UserAvatar } from '@/components/common/avatar/UserAvatar';

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { PollOptionDTO, ThreadInfoDTO } from '@/model/thread.dto';
+import { PollOptionDTO, ThreadInfoDTO } from '@/model/dto/thread.dto';
 import { cn } from '@/lib/utils';
 import { Circle, CircleCheck } from 'lucide-react';
 import { usePollVote } from '@/hooks/query/thread/use-poll-vote';

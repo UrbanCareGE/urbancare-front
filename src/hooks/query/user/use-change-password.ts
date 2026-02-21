@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { ProfileService } from '@/service/profile-service';
-import { ChangePasswordDTO } from '@/model/auth.dto';
+import { ChangePasswordDTO } from '@/model/dto/auth.dto';
 import { toast } from 'sonner';
 
 export function useChangePassword() {

@@ -4,8 +4,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UrgentService } from '@/service/urgent-service';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { toast } from 'sonner';
-import { ResolveUrgentItemDTO, UrgentItemDTO } from '@/model/urgent.dto';
-import { OptimisticData } from '@/model/common.dto';
+import { ResolveUrgentItemDTO, UrgentItemDTO } from '@/model/dto/urgent.dto';
+import { OptimisticData } from '@/model/dto/common.dto';
 
 export function useResolveUrgent() {
   const { user } = useAuth();

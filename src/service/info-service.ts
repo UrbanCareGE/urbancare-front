@@ -3,7 +3,7 @@ import {
   ApartmentDocument,
   CarInfo,
   CreateApartmentDocument,
-} from '@/model/info.dto';
+} from '@/model/dto/info.dto';
 import { api } from '@/lib/api-client';
 
 export const InfoService = {

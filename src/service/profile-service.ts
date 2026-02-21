@@ -4,8 +4,8 @@ import {
   UpdateProfileImageDTO,
   ChangePasswordDTO,
   UserDTO,
-} from '@/model/auth.dto';
-import { SuccessDTO } from '@/model/common.dto';
+} from '@/model/dto/auth.dto';
+import { SuccessDTO } from '@/model/dto/common.dto';
 
 export const ProfileService = {
   updateProfile: async (data: UpdateProfileDTO): Promise<UserDTO> => {

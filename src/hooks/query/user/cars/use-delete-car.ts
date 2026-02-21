@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ProfileService } from '@/service/profile-service';
-import { CarDTO } from '@/model/auth.dto';
+import { CarDTO } from '@/model/dto/auth.dto';
 import { toast } from 'sonner';
 
 export function useDeleteCar() {

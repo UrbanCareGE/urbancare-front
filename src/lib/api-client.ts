@@ -1,4 +1,4 @@
-import type { ErrorResponse } from '@/model/common.dto';
+import type { ErrorResponse } from '@/model/dto/common.dto';
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 

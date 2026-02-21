@@ -1,4 +1,4 @@
-import { ThreadTagType } from '@/model/thread.dto';
+import { ThreadTagType } from '@/model/dto/thread.dto';
 import ThreadFeed from '@/components/thread/ThreadFeed';
 
 export default function DocumentsPage() {

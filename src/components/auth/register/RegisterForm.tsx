@@ -17,7 +17,7 @@ import { OTPInput } from '@/components/auth/register/OTPInput';
 import Link from 'next/link';
 import { OauthForm } from '@/components/auth/oauith/OauthForm';
 import { useRegister } from '@/hooks/query/auth/use-register';
-import { RegisterDTO } from '@/model/auth.dto';
+import { RegisterDTO } from '@/model/dto/auth.dto';
 import { registerSchema } from '@/components/auth/register/data/register-form-schema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

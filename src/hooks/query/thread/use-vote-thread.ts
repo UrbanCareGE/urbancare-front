@@ -3,7 +3,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useCallback, useRef } from 'react';
 import { ThreadService } from '@/service/thread-service';
-import { ThreadInfoDTO, ThreadVoteDTO, VoteType } from '@/model/thread.dto';
+import { ThreadInfoDTO, ThreadVoteDTO, VoteType } from '@/model/dto/thread.dto';
 
 interface VoteRequest {
   apartmentId: string;

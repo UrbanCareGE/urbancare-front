@@ -1,5 +1,5 @@
 import { AuthService } from '@/service/auth-service';
-import { RegisterDTO } from '@/model/auth.dto';
+import { RegisterDTO } from '@/model/dto/auth.dto';
 
 export async function POST(request: Request) {
   try {
