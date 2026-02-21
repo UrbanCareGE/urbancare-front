@@ -101,7 +101,7 @@ const PersonalCarsForm = () => {
 
   return (
     <div className="w-full space-y-3">
-      <h3 className="text-lg text-slate-800 font-semibold flex items-center">
+      <h3 className="text-lg text-primary font-semibold flex items-center">
         მანქანის ნომრები
         {isMobile ? (
           <Popover>

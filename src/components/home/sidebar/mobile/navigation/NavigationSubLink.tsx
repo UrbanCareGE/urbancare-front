@@ -23,7 +23,7 @@ const NavigationSubLinkInner = ({
   <Link
     href={fullHref}
     className={
-      'h-7 group relative flex items-center gap-9 px-1 border-l hover:bg-surface-variant transition-colors'
+      'h-7 group relative flex items-center gap-9 px-1 border-l border-border hover:bg-surface-variant transition-colors'
     }
   >
     <div

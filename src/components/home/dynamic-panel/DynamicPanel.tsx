@@ -51,7 +51,7 @@ const DynamicPanelFooter = ({
 };
 
 const DynamicPanelSeparator = () => {
-  return <Separator className={'bg-gray-200'} />;
+  return <Separator className={'bg-border'} />;
 };
 
 export const DynamicPanel = Object.assign(DynamicPanelRoot, {

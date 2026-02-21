@@ -24,7 +24,7 @@ export interface Basic {
 
 export default function RootLayout({ children }: Children) {
   return (
-    <html lang="en" style={{ colorScheme: '' }} suppressHydrationWarning>
+    <html lang="en" style={{ colorScheme: 'dark' }} suppressHydrationWarning>
       <body
         className="h-dvh w-dvw antialiased bg-background text-foreground"
         suppressHydrationWarning

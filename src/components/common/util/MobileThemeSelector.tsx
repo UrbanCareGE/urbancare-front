@@ -25,7 +25,7 @@ export const MobileThemeSelector = () => {
           className={`h-auto flex-1 flex items-center justify-center px-2 py-3 rounded-lg transition-all ${
             theme === id
               ? 'bg-primary-container/30 border-2 border-primary'
-              : 'bg-surface-variant/50 border-2 border-gray-200'
+              : 'bg-surface-variant/50 border-2 border-border'
           }`}
         >
           <div className="w-full h-full flex flex-col items-center justify-center gap-1">
