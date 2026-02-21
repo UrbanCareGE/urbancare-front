@@ -36,7 +36,7 @@ export const SideBarProfileHeader = () => {
   return (
     <div className="flex flex-1 items-center gap-3 w-full">
       <div className="relative inline-block outline-none">
-        <Avatar className="h-16 w-16 cursor-pointer ring-2 ring-offset-1 ring-gray-200">
+        <Avatar className="h-14 w-14 cursor-pointer ring ring-2 ring-foreground-secondary">
           <Image
             src={getClientFileUrl(user?.profileImageId)}
             alt="@shadcn"
@@ -48,10 +48,10 @@ export const SideBarProfileHeader = () => {
         <span className="absolute bottom-0 right-0 block w-4 h-4 rounded-full border-2 border-white bg-green-400" />
       </div>
       <div className="flex flex-col mr-auto">
-        <p className="font-semibold text-xl">
+        <p className="font-semibold text-xl text-foreground-primary">
           {user?.name} {user?.surname}
         </p>
-        <span className="text-base text-sky-950 inline">@{user?.phone}</span>
+        <span className="text-base text-foreground-secondary inline">@{user?.phone}</span>
       </div>
     </div>
   );

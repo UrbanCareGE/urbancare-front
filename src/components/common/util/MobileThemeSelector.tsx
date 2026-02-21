@@ -14,13 +14,6 @@ const themeOptions = [
 
 export const MobileThemeSelector = () => {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
 
   return (
     <div className="flex w-full gap-1 ">
@@ -42,7 +35,7 @@ export const MobileThemeSelector = () => {
                 'text-primary': id === 'dark',
               })}
             />
-            <span className="text-center text-base font-base text-gray-800">
+            <span className="text-center text-base font-base text-foreground-primary">
               {label}
             </span>
           </div>

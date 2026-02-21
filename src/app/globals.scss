@@ -18,26 +18,12 @@
   body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: linear-gradient(
-                    135deg,
-                    #EEF2FF 0%,
-                    #F5F5F8 28%,
-                    #F0F9FF 62%,
-                    #F5F3FF 100%
-    );
-    background-attachment: fixed;
+    background: #F0F2F5;
     min-height: 100svh;
   }
 
   .dark body {
-    background: linear-gradient(
-                    135deg,
-                    #070C1A 0%,
-                    #0B1225 35%,
-                    #091622 68%,
-                    #0B0D20 100%
-    );
-    background-attachment: fixed;
+    background: #18191A;
   }
 
 
@@ -80,123 +66,128 @@
     }
   }
   :root {
-    --color-primary: 25 118 210; /* blue-500 */
-    --color-primary-dark: 21 101 192; /* blue-700 */
-    --color-primary-container: 187 222 251;
-    --color-primary-hover: 66 165 245; /* blue-600 */
-    --color-primary-active: 21 101 192; /* blue-700 */
-    --color-primary-foreground: 255 255 255; /* white */
-    --color-primary-container-foreground: 21 101 192;
-    --color-primary-light: 187 222 251; /* blue-200 */
+    /* Primary — Facebook blue */
+    --color-primary: 24 119 242;             /* #1877F2 */
+    --color-primary-dark: 10 102 227;        /* #0A66E3 */
+    --color-primary-container: 214 232 254;  /* pale blue tint */
+    --color-primary-hover: 40 130 250;       /* slightly lighter */
+    --color-primary-active: 10 102 227;
+    --color-primary-foreground: 255 255 255;
+    --color-primary-container-foreground: 24 119 242;
+    --color-primary-light: 214 232 254;
 
-    --color-secondary: 124 77 255; /* slate-500 */
-    --color-secondary-container: 232 222 248;
-    --color-secondary-hover: 71 85 105; /* slate-600 */
-    --color-secondary-active: 51 65 85; /* slate-700 */
+    /* Secondary — neutral grey */
+    --color-secondary: 101 103 107;          /* #65676B */
+    --color-secondary-container: 228 230 235;
+    --color-secondary-hover: 76 77 80;
+    --color-secondary-active: 62 64 66;
     --color-secondary-foreground: 255 255 255;
-    --color-secondary-container-foreground: 74 20 140;
+    --color-secondary-container-foreground: 101 103 107;
 
-    --color-tertiary: 0 188 212; /* slate-500 */
-    --color-tertiary-container: 178 235 242;
-    --color-tertiary-hover: 71 85 105; /* slate-600 */
-    --color-tertiary-active: 51 65 85; /* slate-700 */
+    /* Tertiary — keep for compatibility */
+    --color-tertiary: 24 119 242;
+    --color-tertiary-container: 214 232 254;
+    --color-tertiary-hover: 10 102 227;
+    --color-tertiary-active: 10 102 227;
     --color-tertiary-foreground: 255 255 255;
-    --color-tertiary-container-foreground: 0 96 100;
+    --color-tertiary-container-foreground: 24 119 242;
 
-    --color-background: 245 245 248; /* white */
-    --color-background-secondary: 239 235 229; /* slate-50 */
-    --color-background-tertiary: 241 245 249; /* slate-100 */
-    --color-background-hover: 241 245 249; /* slate-100 */
+    /* Backgrounds */
+    --color-background: 240 242 245;         /* #F0F2F5 — Facebook light bg */
+    --color-background-secondary: 235 237 240;
+    --color-background-tertiary: 228 230 235;
+    --color-background-hover: 228 230 235;
 
-    --color-surface: 255 255 255; /* Card backgrounds */
-    --color-surface-elevated: 255 255 255; /* Modals, dropdowns */
-    --color-surface-variant: 241 245 249; /* Secondary containers, sidebars */
-    --color-surface-container: 226 232 240; /* Input backgrounds, wells */
-    --color-surface-container-high: 203 213 225; /* Highlighted containers */
-    --color-surface-secondary: 248 250 252;
-    --color-surface-hover: 241 245 249;
+    /* Surfaces */
+    --color-surface: 255 255 255;            /* pure white cards */
+    --color-surface-elevated: 255 255 255;
+    --color-surface-variant: 240 242 245;    /* sidebar/secondary panels */
+    --color-surface-container: 228 230 235;  /* input wells */
+    --color-surface-container-high: 206 208 212;
+    --color-surface-secondary: 247 248 250;
+    --color-surface-hover: 240 242 245;
 
-    --color-text-primary: 33 33 33; /* Headings, body text */
-    --color-text-secondary: 97 97 97; /* Descriptions, secondary */
-    --color-text-tertiary: 158 158 158; /* Placeholders, hints */
-    --color-text-disabled: 189 189 189; /* Disabled states */
-    --color-text-muted: 158 158 158; /* #9E9E9E */
+    /* Text */
+    --color-text-primary: 5 5 5;            /* #050505 — near black */
+    --color-text-secondary: 101 103 107;    /* #65676B */
+    --color-text-tertiary: 138 141 145;     /* #8A8D91 */
+    --color-text-disabled: 188 190 194;
+    --color-text-muted: 138 141 145;
 
-    --color-border: 224 224 224; /* slate-200 */
-    --color-border-light: 226 232 240; /* #E2E8F0 */
-    --color-border-medium: 203 213 225; /* #CBD5E1 */
-    --color-border-strong: 189 189 189;
-    --color-border-hover: 158 158 158; /* #9E9E9E */
-    --color-border-focus: 25 118 219; /* blue-500 */
-    --color-border-error: 239 68 68; /* red-500 */
+    /* Borders */
+    --color-border: 206 208 212;            /* #CED0D4 */
+    --color-border-light: 218 220 224;
+    --color-border-medium: 206 208 212;
+    --color-border-strong: 176 179 184;
+    --color-border-hover: 138 141 145;
+    --color-border-focus: 24 119 242;
+    --color-border-error: 220 38 38;
 
     /* State Colors */
-    --color-success: 76 175 80; /* green-500 */
-    --color-success-hover: 22 163 74; /* green-600 */
-    --color-success-container: 232 245 233; /* white */
-    --color-success-background: 240 253 244; /* green-50 */
+    --color-success: 36 159 75;
+    --color-success-hover: 22 134 60;
+    --color-success-container: 224 248 232;
+    --color-success-background: 240 253 244;
     --color-success-foreground: 255 255 255;
-    --color-success-container-foreground: 76 175 80;
+    --color-success-container-foreground: 36 159 75;
 
-    --color-error: 239 68 68; /* red-500 */
+    --color-error: 220 38 38;
     --color-error-container: 254 242 242;
-    --color-error-hover: 220 38 38; /* red-600 */
-    --color-error-foreground: 251 251 251; /* white */
-    --color-error-background: 254 242 242; /* red-50 */
-    --color-error-container-foreground: 244 67 54;
+    --color-error-hover: 185 28 28;
+    --color-error-foreground: 255 255 255;
+    --color-error-background: 254 242 242;
+    --color-error-container-foreground: 220 38 38;
 
-    --color-warning: 255 152 0; /* amber-500 */
+    --color-warning: 234 107 0;
     --color-warning-container: 255 243 224;
-    --color-warning-hover: 217 119 6; /* amber-600 */
-    --color-warning-foreground: 255 255 255; /* white */
-    --color-warning-background: 255 251 235; /* amber-50 */
-    --color-warning-container-foreground: 255 152 0;
+    --color-warning-hover: 194 88 0;
+    --color-warning-foreground: 255 255 255;
+    --color-warning-background: 255 251 235;
+    --color-warning-container-foreground: 234 107 0;
 
-    --color-info: 33 150 243; /* sky-500 */
-    --color-info-container: 227 242 253;
-    --color-info-hover: 2 132 199; /* sky-600 */
-    --color-info-foreground: 255 255 255; /* white */
-    --color-info-background: 240 249 255; /* sky-50 */
-    --color-info-container-foreground: 33 150 243;
+    --color-info: 24 119 242;
+    --color-info-container: 214 232 254;
+    --color-info-hover: 10 102 227;
+    --color-info-foreground: 255 255 255;
+    --color-info-background: 214 232 254;
+    --color-info-container-foreground: 24 119 242;
 
-    /* Input Colors */
-    --color-input-background: 247 247 247;
-    --color-input-background-hover: 248 250 252;
-    --color-input-background-disabled: 241 245 249;
-    --color-input-border: 203 213 225;
-    --color-input-border-hover: 148 163 184;
-    --color-input-border-focus: 25 118 210;
-    --color-input-border-error: 244 67 54;
-    --color-input-placeholder: 100 116 139;
-    --color-input-focus-ring: 187 222 251;
-    --color-input-error-ring: 255 235 238;
+    /* Inputs */
+    --color-input-background: 240 242 245;
+    --color-input-background-hover: 228 230 235;
+    --color-input-background-disabled: 235 237 240;
+    --color-input-border: 206 208 212;
+    --color-input-border-hover: 138 141 145;
+    --color-input-border-focus: 24 119 242;
+    --color-input-border-error: 220 38 38;
+    --color-input-placeholder: 138 141 145;
+    --color-input-focus-ring: 214 232 254;
+    --color-input-error-ring: 254 226 226;
 
-    --color-icon: 107 114 128;
+    --color-icon: 101 103 107;
+    --color-shadow: 0 0 0;
+    --color-overlay: 0 0 0;
 
-    --color-shadow: 0 0 0; /* black */
-
-    /* Overlay */
-    --color-overlay: 0 0 0; /* black with opacity */
-
-    --background: rgb(245 245 248);           /* --color-background */
-    --foreground: rgb(33 33 33);              /* --color-text-primary */
-    --card: rgb(255 255 255);                 /* --color-surface */
-    --card-foreground: rgb(33 33 33);         /* --color-text-primary */
-    --popover: rgb(255 255 255);              /* --color-surface-elevated */
-    --popover-foreground: rgb(33 33 33);      /* --color-text-primary */
-    --primary: rgb(25 118 210);              /* --color-primary */
-    --primary-foreground: rgb(255 255 255);  /* --color-primary-foreground */
-    --secondary: rgb(241 245 249);           /* --color-surface-variant */
-    --secondary-foreground: rgb(33 33 33);   /* --color-text-primary */
-    --muted: rgb(241 245 249);               /* --color-surface-variant */
-    --muted-foreground: rgb(97 97 97);       /* --color-text-secondary */
-    --accent: rgb(187 222 251);              /* --color-primary-light */
-    --accent-foreground: rgb(21 101 192);    /* --color-primary-dark */
-    --destructive: rgb(239 68 68);           /* --color-error */
-    --destructive-foreground: rgb(251 251 251); /* --color-error-foreground */
-    --border: rgb(224 224 224);              /* --color-border */
-    --input: rgb(203 213 225);               /* --color-input-border */
-    --ring: rgb(25 118 210);                 /* --color-border-focus */
+    /* shadcn tokens */
+    --background: rgb(240 242 245);
+    --foreground: rgb(5 5 5);
+    --card: rgb(255 255 255);
+    --card-foreground: rgb(5 5 5);
+    --popover: rgb(255 255 255);
+    --popover-foreground: rgb(5 5 5);
+    --primary: rgb(24 119 242);
+    --primary-foreground: rgb(255 255 255);
+    --secondary: rgb(240 242 245);
+    --secondary-foreground: rgb(5 5 5);
+    --muted: rgb(240 242 245);
+    --muted-foreground: rgb(101 103 107);
+    --accent: rgb(228 230 235);
+    --accent-foreground: rgb(5 5 5);
+    --destructive: rgb(220 38 38);
+    --destructive-foreground: rgb(255 255 255);
+    --border: rgb(206 208 212);
+    --input: rgb(206 208 212);
+    --ring: rgb(24 119 242);
     --chart-1: hsl(12 76% 61%);
     --chart-2: hsl(173 58% 39%);
     --chart-3: hsl(197 37% 24%);
@@ -207,125 +198,139 @@
   }
 
   .dark {
-    --color-primary: 99 179 255; /* vivid blue-400 */
-    --color-primary-hover: 66 153 255; /* blue-500 */
-    --color-primary-active: 37 99 235; /* blue-600 */
-    --color-primary-foreground: 7 12 26; /* deep navy */
+    /* Primary — bright blue on dark */
+    --color-primary: 45 136 255;             /* #2D88FF */
+    --color-primary-hover: 66 149 255;
+    --color-primary-active: 24 119 242;
+    --color-primary-foreground: 255 255 255;
+    --color-primary-container: 36 37 38;
+    --color-primary-container-foreground: 45 136 255;
+    --color-primary-light: 45 136 255;
+    --color-primary-dark: 24 119 242;
 
-    /* Secondary Colors */
-    --color-secondary: 167 139 250; /* violet-400 - more vibrant than slate */
-    --color-secondary-hover: 139 92 246; /* violet-500 */
-    --color-secondary-active: 109 40 217; /* violet-700 */
-    --color-secondary-foreground: 7 12 26; /* deep navy */
+    /* Secondary */
+    --color-secondary: 176 179 184;          /* #B0B3B8 */
+    --color-secondary-container: 58 59 60;
+    --color-secondary-hover: 196 197 200;
+    --color-secondary-active: 138 141 145;
+    --color-secondary-foreground: 24 25 26;
+    --color-secondary-container-foreground: 176 179 184;
 
-    /* Background Colors — deep navy-indigo instead of flat slate */
-    --color-background: 7 12 26; /* #070C1A - deep navy */
-    --color-background-secondary: 11 18 37; /* #0B1225 */
-    --color-background-tertiary: 16 26 52; /* #101A34 */
-    --color-background-hover: 22 34 66; /* #162242 */
+    /* Tertiary */
+    --color-tertiary: 45 136 255;
+    --color-tertiary-container: 36 37 38;
+    --color-tertiary-hover: 66 149 255;
+    --color-tertiary-active: 24 119 242;
+    --color-tertiary-foreground: 255 255 255;
+    --color-tertiary-container-foreground: 45 136 255;
 
-    /* Surface Colors — layered navy depth */
-    --color-surface: 11 18 37; /* #0B1225 - card surface */
-    --color-surface-elevated: 16 26 52; /* #101A34 - modals/dropdowns */
-    --color-surface-variant: 20 31 60; /* #14203C - sidebars */
-    --color-surface-container: 26 40 74; /* #1A284A - wells/inputs */
-    --color-surface-container-high: 34 52 90; /* #22345A - highlighted */
-    --color-surface-secondary: 14 22 44; /* #0E162C */
-    --color-surface-hover: 26 40 74; /* #1A284A */
+    /* Backgrounds — Facebook dark grey scale */
+    --color-background: 24 25 26;            /* #18191A — darkest */
+    --color-background-secondary: 36 37 38;  /* #242526 */
+    --color-background-tertiary: 58 59 60;   /* #3A3B3C */
+    --color-background-hover: 48 49 50;
 
-    /* Text — slight blue tint, softer on the eyes than pure white */
-    --color-text-primary: 228 235 255; /* #E4EBFF - warm blue-white */
-    --color-text-secondary: 168 185 228; /* #A8B9E4 - muted blue-gray */
-    --color-text-tertiary: 110 130 180; /* #6E82B4 - subtle blue */
-    --color-text-disabled: 68 85 128; /* #445580 */
-    --color-text-placeholder: 90 110 160; /* #5A6EA0 */
-    --color-text-inverse: 7 12 26; /* deep navy */
-    --color-text-muted: 110 130 180;
+    /* Surfaces — layered grey */
+    --color-surface: 36 37 38;               /* #242526 — cards */
+    --color-surface-elevated: 58 59 60;      /* #3A3B3C — modals/dropdowns */
+    --color-surface-variant: 42 43 44;       /* sidebars */
+    --color-surface-container: 58 59 60;     /* input wells */
+    --color-surface-container-high: 72 73 74;
+    --color-surface-secondary: 30 31 32;
+    --color-surface-hover: 48 49 50;
 
-    /* Border Colors — blue-tinted, more depth */
-    --color-border: 38 58 100; /* #263A64 */
-    --color-border-light: 32 48 86; /* #203056 */
-    --color-border-medium: 44 68 116; /* #2C4474 */
-    --color-border-strong: 56 82 140; /* #38528C */
-    --color-border-hover: 72 102 168; /* #4866A8 */
-    --color-border-focus: 99 179 255; /* blue-400 */
-    --color-border-error: 252 129 129; /* red-400 */
+    /* Text */
+    --color-text-primary: 228 230 235;       /* #E4E6EB */
+    --color-text-secondary: 176 179 184;     /* #B0B3B8 */
+    --color-text-tertiary: 138 141 145;      /* #8A8D91 */
+    --color-text-disabled: 78 79 80;
+    --color-text-placeholder: 138 141 145;
+    --color-text-inverse: 24 25 26;
+    --color-text-muted: 138 141 145;
+
+    /* Borders */
+    --color-border: 62 64 66;                /* #3E4042 */
+    --color-border-light: 48 49 50;
+    --color-border-medium: 72 73 74;
+    --color-border-strong: 96 98 100;
+    --color-border-hover: 112 114 116;
+    --color-border-focus: 45 136 255;
+    --color-border-error: 248 113 113;
 
     /* State Colors */
-    --color-success: 52 211 153; /* emerald-400 */
-    --color-success-hover: 16 185 129; /* emerald-500 */
-    --color-success-container: 6 52 36; /* #063424 */
-    --color-success-background: 6 52 36;
-    --color-success-foreground: 7 12 26;
+    --color-success: 52 211 153;
+    --color-success-hover: 16 185 129;
+    --color-success-container: 36 37 38;
+    --color-success-background: 36 37 38;
+    --color-success-foreground: 24 25 26;
     --color-success-container-foreground: 52 211 153;
 
-    --color-error: 252 129 129; /* red-400 */
-    --color-error-container: 80 14 14; /* #500E0E */
-    --color-error-hover: 239 68 68; /* red-500 */
-    --color-error-foreground: 7 12 26;
-    --color-error-background: 80 14 14;
-    --color-error-container-foreground: 252 129 129;
+    --color-error: 248 113 113;
+    --color-error-container: 58 24 24;
+    --color-error-hover: 239 68 68;
+    --color-error-foreground: 24 25 26;
+    --color-error-background: 58 24 24;
+    --color-error-container-foreground: 248 113 113;
 
-    --color-warning: 251 191 36; /* amber-400 */
-    --color-warning-container: 78 38 4; /* #4E2604 */
-    --color-warning-hover: 245 158 11; /* amber-500 */
-    --color-warning-foreground: 7 12 26;
-    --color-warning-background: 78 38 4;
+    --color-warning: 251 191 36;
+    --color-warning-container: 58 44 12;
+    --color-warning-hover: 245 158 11;
+    --color-warning-foreground: 24 25 26;
+    --color-warning-background: 58 44 12;
     --color-warning-container-foreground: 251 191 36;
 
-    --color-info: 56 189 248; /* sky-400 */
-    --color-info-container: 6 40 72; /* #062848 */
-    --color-info-hover: 14 165 233; /* sky-500 */
-    --color-info-foreground: 7 12 26;
-    --color-info-background: 6 40 72;
-    --color-info-container-foreground: 56 189 248;
+    --color-info: 45 136 255;
+    --color-info-container: 36 37 38;
+    --color-info-hover: 66 149 255;
+    --color-info-foreground: 24 25 26;
+    --color-info-background: 36 37 38;
+    --color-info-container-foreground: 45 136 255;
 
     /* Interactive States */
-    --color-hover: 22 34 66; /* #162242 */
-    --color-active: 30 46 88; /* #1E2E58 */
-    --color-focus-ring: 99 179 255;
-    --color-disabled: 5 5 5;           /* light slate - visible on white */
-    --color-disabled-foreground: 148 163 184; /* muted grey text */
+    --color-hover: 48 49 50;
+    --color-active: 58 59 60;
+    --color-focus-ring: 45 136 255;
+    --color-disabled: 42 43 44;
+    --color-disabled-foreground: 96 98 100;
 
-    /* Input Colors */
-    --color-input-background: 11 18 37; /* #0B1225 */
-    --color-input-background-hover: 16 26 52;
-    --color-input-background-disabled: 7 12 26;
-    --color-input-border: 38 58 100; /* #263A64 */
-    --color-input-border-hover: 56 82 140;
-    --color-input-border-focus: 99 179 255;
-    --color-input-border-error: 252 129 129;
-    --color-input-text: 228 235 255;
-    --color-input-placeholder: 110 130 180;
-    --color-input-focus-ring: 26 58 120;
-    --color-input-error-ring: 80 14 14;
+    /* Inputs */
+    --color-input-background: 58 59 60;
+    --color-input-background-hover: 72 73 74;
+    --color-input-background-disabled: 36 37 38;
+    --color-input-border: 62 64 66;
+    --color-input-border-hover: 96 98 100;
+    --color-input-border-focus: 45 136 255;
+    --color-input-border-error: 248 113 113;
+    --color-input-text: 228 230 235;
+    --color-input-placeholder: 138 141 145;
+    --color-input-focus-ring: 45 136 255;
+    --color-input-error-ring: 58 24 24;
 
-    --color-icon: 110 130 180;
+    --color-icon: 138 141 145;
 
-    /* Shadow & Overlay */
     --color-shadow: 0 0 0;
     --color-overlay: 0 0 0;
 
-    /* shadcn tokens — tuned to navy-indigo */
-    --background: rgb(7 12 26);              /* --color-background */
-    --foreground: rgb(228 235 255);          /* --color-text-primary */
-    --card: rgb(11 18 37);                   /* --color-surface */
-    --card-foreground: rgb(228 235 255);     /* --color-text-primary */
-    --popover: rgb(16 26 52);                /* --color-surface-elevated */
-    --popover-foreground: rgb(228 235 255);  /* --color-text-primary */
-    --primary: rgb(99 179 255);              /* --color-primary */
-    --primary-foreground: rgb(7 12 26);      /* --color-primary-foreground */
-    --secondary: rgb(20 31 60);              /* --color-surface-variant */
-    --secondary-foreground: rgb(228 235 255);/* --color-text-primary */
-    --muted: rgb(14 22 44);                  /* --color-surface-secondary */
-    --muted-foreground: rgb(110 130 180);    /* --color-text-muted */
-    --accent: rgb(26 40 74);                 /* --color-surface-container */
-    --accent-foreground: rgb(228 235 255);   /* --color-text-primary */
-    --destructive: rgb(252 129 129);         /* --color-error */
-    --destructive-foreground: rgb(7 12 26);  /* --color-error-foreground */
-    --border: rgb(38 58 100);               /* --color-border */
-    --input: rgb(38 58 100);                /* --color-input-border */
-    --ring: rgb(99 179 255);                /* --color-border-focus */
+    /* shadcn tokens */
+    --background: rgb(24 25 26);
+    --foreground: rgb(228 230 235);
+    --card: rgb(36 37 38);
+    --card-foreground: rgb(228 230 235);
+    --popover: rgb(58 59 60);
+    --popover-foreground: rgb(228 230 235);
+    --primary: rgb(45 136 255);
+    --primary-foreground: rgb(255 255 255);
+    --secondary: rgb(58 59 60);
+    --secondary-foreground: rgb(228 230 235);
+    --muted: rgb(42 43 44);
+    --muted-foreground: rgb(138 141 145);
+    --accent: rgb(58 59 60);
+    --accent-foreground: rgb(228 230 235);
+    --destructive: rgb(248 113 113);
+    --destructive-foreground: rgb(24 25 26);
+    --border: rgb(62 64 66);
+    --input: rgb(62 64 66);
+    --ring: rgb(45 136 255);
     --chart-1: hsl(210 90% 60%);
     --chart-2: hsl(160 70% 45%);
     --chart-3: hsl(30 85% 58%);

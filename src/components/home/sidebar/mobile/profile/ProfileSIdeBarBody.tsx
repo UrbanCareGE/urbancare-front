@@ -54,14 +54,14 @@ export const ProfileSideBarBody = () => {
           <MobileThemeSelector />
         </ProfileSideBarGroup.Content>
       </ProfileSideBarGroup>
-      <Separator className={'bg-gray-200'} />
+      <Separator className={'bg-border'} />
       <ProfileSideBarGroup className={'px-4'}>
         <ProfileSideBarGroup.Header title={'ენა'} />
         <ProfileSideBarGroup.Content>
           <LanguageSelector />
         </ProfileSideBarGroup.Content>
       </ProfileSideBarGroup>
-      <Separator className={'bg-gray-200'} />
+      <Separator className={'bg-border'} />
       <ProfileSideBarGroup className={'px-4'}>
         <ProfileSideBarGroup.Header title={'ანგარიში'} />
         <ProfileSideBarGroup.Content>
@@ -77,7 +77,7 @@ export const ProfileSideBarBody = () => {
           ))}
         </ProfileSideBarGroup.Content>
       </ProfileSideBarGroup>
-      <Separator className={'bg-gray-200'} />
+      <Separator className={'bg-border'} />
       <ProfileSideBarGroup className={'px-4'}>
         <ProfileSideBarGroup.Header title={'ტექნიკური მხარდაჭერა'} />
         <ProfileSideBarGroup.Content>

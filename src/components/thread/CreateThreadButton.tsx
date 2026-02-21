@@ -18,7 +18,7 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
   const threadDrawer = useThreadDrawer();
 
   return (
-    <div className={cn('flex gap-2 px-1 items-center bg-surface', className)}>
+    <div className={cn('flex gap-2 px-1 items-center', className)}>
       <Avatar className="cursor-pointer w-10 h-10 rounded-full">
         <Image
           src={getClientFileUrl(user?.profileImageId)}

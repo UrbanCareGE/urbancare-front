@@ -23,7 +23,7 @@ export const ProfileSideBarGroupHeader = ({
   children,
 }: ProfileSideBarGroupHeaderProps) => {
   return (
-    <h3 className={cn('text-base text-gray-600 tracking-wide mb-2', className)}>
+    <h3 className={cn('text-base text-foreground-secondary tracking-wide mb-2', className)}>
       {title}
     </h3>
   );

@@ -107,7 +107,7 @@ const MobileSideBarHeaderComponent = ({
   return (
     <div
       className={cn(
-        'h-auto w-full py-4 px-3 border-b bg-background border-gray-200',
+        'h-auto w-full py-4 px-3 border-b bg-background border-border',
         className
       )}
     >
