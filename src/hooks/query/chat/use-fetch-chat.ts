@@ -6,9 +6,9 @@ export function useFetchChat() {
   const { user, isLoading } = useAuth();
 
   return useQuery({
-    queryKey: ['chat', 'info', user!.selectedApartment.id],
-    queryFn: () => AuthService.getChatInfo(user!.selectedApartment!.id),
-    enabled: !isLoading && !!user?.selectedApartment.id,
+    queryKey: ['chat', 'info', user.selectedApartmentId],
+    queryFn: () => AuthService.getChatInfo(user.selectedApartmentId),
+    enabled: !isLoading && !!user.selectedApartmentId,
     staleTime: 5 * 60 * 1e3,
   });
 }

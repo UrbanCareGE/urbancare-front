@@ -72,7 +72,7 @@ export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
   });
 
   const onSubmit = (content: string) => {
-    mutate({ apartmentId: user.selectedApartment.id, content: content });
+    mutate({ apartmentId: user.selectedApartmentId, content: content });
   };
 
   return { onSubmit, isPending, isError, error };

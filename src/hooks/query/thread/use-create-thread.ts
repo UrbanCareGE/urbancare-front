@@ -40,12 +40,7 @@ export function useCreateThread() {
     },
     onMutate: async ({ apartmentId, title, content, imageIds }) => {
       const id = 'temp-' + Date.now();
-      const queryListKey = [
-        'threads',
-        'list',
-        user?.selectedApartment.id,
-        null,
-      ];
+      const queryListKey = ['threads', 'list', user.selectedApartmentId, null];
       const queryDetailKey = ['threads', 'detail', id];
 
       queryClient.setQueryData<InfiniteData<PagingRespDTO<string>>>(
@@ -97,12 +92,7 @@ export function useCreateThread() {
 
     onSuccess: (threadInfo, dto, context) => {
       const tempId = context?.tempId;
-      const queryListKey = [
-        'threads',
-        'list',
-        user?.selectedApartment.id,
-        null,
-      ];
+      const queryListKey = ['threads', 'list', user.selectedApartmentId, null];
 
       queryClient.setQueryData<InfiniteData<PagingRespDTO<string>>>(
         queryListKey,
@@ -135,7 +125,7 @@ export function useCreateThread() {
     onError: (error, dto, context) => {
       const tempId = context?.tempId;
 
-      const queryListKey = ['threads', 'list', user?.selectedApartment.id];
+      const queryListKey = ['threads', 'list', user.selectedApartmentId];
 
       queryClient.setQueryData<InfiniteData<PagingRespDTO<string>>>(
         queryListKey,

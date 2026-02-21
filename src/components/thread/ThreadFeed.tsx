@@ -18,7 +18,7 @@ export interface ThreadFeedProps {
 
 export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
   const { user } = useAuth();
-  const apartmentId = user.selectedApartment.id;
+  const apartmentId = user.selectedApartmentId;
 
   const form = useForm<z.infer<typeof TagsFilterSchema>>({
     resolver: zodResolver(TagsFilterSchema),

@@ -3,13 +3,10 @@ import { Separator } from '@/components/ui/separator';
 import React from 'react';
 import { NavigationLink } from '@/components/home/sidebar/mobile/navigation/NavigationLink';
 import {
-  CircleQuestionMarkIcon,
   HandshakeIcon,
   HeadsetIcon,
   Lock,
   SettingsIcon,
-  ShieldUser,
-  ShieldUserIcon,
   UserPen,
 } from 'lucide-react';
 import { NavItem } from '@/components/home/sidebar/mobile/navigation/NavigationArea';
@@ -26,7 +23,7 @@ export const profileItems: NavItem[] = [
   {
     href: '/privacy',
     label: 'კონფიდენციალურობა',
-    icon: <ShieldUserIcon className={'text-primary'} />,
+    icon: <HandshakeIcon className={'text-primary'} />,
   },
 ];
 
@@ -34,7 +31,7 @@ export const supportItems: NavItem[] = [
   {
     href: '/about',
     label: 'ჩვენ შესახებ',
-    icon: <CircleQuestionMarkIcon className={'text-primary'} />,
+    icon: <HandshakeIcon className={'text-primary'} />,
   },
   {
     href: '/support',

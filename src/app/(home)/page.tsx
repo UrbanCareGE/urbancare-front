@@ -17,7 +17,7 @@ export default function RootPage() {
     }
 
     if (user?.joinedApartments?.length) {
-      router.replace(`/apartment/${user.joinedApartments[0].id}`);
+      router.replace(`/apartment/${user.selectedApartmentId}`);
     }
   }, [user, isLoading, isAuthenticated, router]);
 
