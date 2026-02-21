@@ -20,9 +20,9 @@ const CarsSearchList = ({ cars }: CarsSearchListProps) => {
 
   return (
     <div className="flex flex-col">
-      <div className="px-4 py-3 sticky top-0 bg-white z-10">
+      <div className="px-4 py-3 sticky top-0 bg-[rgb(var(--color-surface))] z-10">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[rgb(var(--color-icon))]" />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -33,7 +33,7 @@ const CarsSearchList = ({ cars }: CarsSearchListProps) => {
       </div>
       <ul className="px-4">
         {filteredCars.length === 0 ? (
-          <p className="text-center text-slate-500 py-8">
+          <p className="text-center text-[rgb(var(--color-text-secondary))] py-8">
             {search ? 'მანქანა ვერ მოიძებნა' : 'მანქანები არ არის დამატებული'}
           </p>
         ) : (
@@ -41,8 +41,8 @@ const CarsSearchList = ({ cars }: CarsSearchListProps) => {
             <Card key={car.id} className="mb-4 px-3 py-2">
               <h3 className="font-semibold text-lg">{car.licensePlate}</h3>
               <Separator className="mt-1" />
-              <p className="mt-2 text-slate-700">{car.name}</p>
-              <p className="text-slate-500">{car.phone}</p>
+              <p className="mt-2 text-[rgb(var(--color-text-primary))]">{car.name}</p>
+              <p className="text-[rgb(var(--color-text-secondary))]">{car.phone}</p>
             </Card>
           ))
         )}

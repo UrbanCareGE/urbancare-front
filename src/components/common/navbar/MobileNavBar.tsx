@@ -76,7 +76,7 @@ export const MobileNavBar = ({ className }: Basic) => {
     <footer
       suppressHydrationWarning
       className={cn(
-        'fixed bottom-0 left-0 right-0 h-16 w-full flex justify-center items-center shadow-xl rounded-tr-panel bg-white transition-transform duration-300 ease-in-out z-[40] will-change-transform border-t',
+        'fixed bottom-0 left-0 right-0 h-16 w-full flex justify-center items-center shadow-xl rounded-tr-panel bg-[rgb(var(--color-surface))] transition-transform duration-300 ease-in-out z-[40] will-change-transform border-t border-[rgb(var(--color-border))]',
         isVisible ? 'translate-y-0' : 'translate-y-full',
         className
       )}

@@ -23,8 +23,10 @@ const NavigationLinkInner = forwardRef<
     ref={ref}
     {...props}
     className={cn(
-      'h-9 group flex items-center gap-2 rounded-panel px-1',
-      'hover:bg-surface-variant transition-colors',
+      'h-9 group flex items-center gap-2 rounded-panel px-1 transition-colors',
+      isActive
+        ? 'bg-primary-container/60 text-primary'
+        : 'hover:bg-surface-variant text-foreground-primary',
       className
     )}
     aria-current={isActive ? 'page' : undefined}
@@ -32,16 +34,24 @@ const NavigationLinkInner = forwardRef<
     {navigationItem.icon && (
       <div
         className={cn(
-          'flex-shrink-0 p-2 flex justify-center items-center bg-primary-container/50 text-primary-container-foreground rounded-panel',
-          navigationItem.className
+          'flex-shrink-0 p-2 flex justify-center items-center rounded-panel',
+          isActive
+            ? 'bg-primary-container text-primary-container-foreground'
+            : cn('bg-primary-container/50 text-primary-container-foreground', navigationItem.className)
         )}
       >
         {navigationItem.icon}
       </div>
     )}
-    <p className="flex-1 text-foreground-primary text-left truncate leading-tight tracking-wide font-normal text-lg">
+    <p className={cn(
+      'flex-1 text-left truncate leading-tight tracking-wide text-lg',
+      isActive ? 'font-semibold' : 'font-normal'
+    )}>
       {navigationItem.label}
     </p>
+    {isActive && (
+      <span className="w-1 h-5 rounded-full bg-primary flex-shrink-0 mr-1" />
+    )}
   </Link>
 ));
 NavigationLinkInner.displayName = 'NavigationLinkInner';

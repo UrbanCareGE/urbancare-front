@@ -98,7 +98,7 @@ export const NavigationLinkAccordion = ({
             >
               <ChevronRight
                 className={cn(
-                  'h-6 w-6 shrink-0 text-sky-950 transition-transform duration-200',
+                  'h-6 w-6 shrink-0 text-[rgb(var(--color-icon))] transition-transform duration-200',
                   { 'rotate-90': isOpen }
                 )}
               />

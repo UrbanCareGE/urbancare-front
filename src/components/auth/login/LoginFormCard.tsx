@@ -86,8 +86,8 @@ export function LoginFormCard() {
                     <FormInput
                       placeholder="მომხმარებელი"
                       disabled={isLoggingIn}
-                      icon={<UserIcon className="text-gray-600" />}
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-white text-[15px] text-text-primary placeholder:text-text-muted hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      icon={<UserIcon className="text-[rgb(var(--color-icon))]" />}
+                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -104,11 +104,11 @@ export function LoginFormCard() {
                   <FormControl>
                     <FormInput
                       placeholder="პაროლი"
-                      icon={<KeyRound className="text-gray-600" />}
+                      icon={<KeyRound className="text-[rgb(var(--color-icon))]" />}
                       type="password"
                       isPasswordType
                       disabled={isLoggingIn}
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-white text-[15px] text-text-primary placeholder:text-text-muted hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>

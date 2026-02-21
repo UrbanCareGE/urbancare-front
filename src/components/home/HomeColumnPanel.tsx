@@ -18,7 +18,7 @@ interface HomeColumnPanelBodyProps {
 
 const HomeColumnPanelRoot = ({ className, children }: HomeColumnPanelProps) => {
   return (
-    <div className={cn('flex flex-col h-screen bg-gray-100', className)}>
+    <div className={cn('flex flex-col h-screen bg-background', className)}>
       {children}
     </div>
   );

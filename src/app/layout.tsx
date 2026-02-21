@@ -26,7 +26,7 @@ export default function RootLayout({ children }: Children) {
   return (
     <html lang="en" style={{ colorScheme: '' }} suppressHydrationWarning>
       <body
-        className="h-dvh w-dvw antialiased bg-background text-sky-950 "
+        className="h-dvh w-dvw antialiased bg-background text-foreground"
         suppressHydrationWarning
       >
         <ReactQueryProvider>

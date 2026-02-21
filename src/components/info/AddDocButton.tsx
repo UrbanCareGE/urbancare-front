@@ -43,7 +43,7 @@ const AddDocButton = () => {
       </SheetTrigger>
       <SheetContent
         side={'bottom'}
-        className={'h-full bg-slate-50 flex flex-col'}
+        className={'h-full bg-[rgb(var(--color-background))] flex flex-col'}
       >
         <SheetHeader
           className={
@@ -152,8 +152,8 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
             render={({ field }) => (
               <FormItem>
                 <div className="flex items-center justify-between mb-2">
-                  <FormLabel className="text-sm font-medium text-slate-700 flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-slate-400" />
+                  <FormLabel className="text-sm font-medium text-[rgb(var(--color-text-primary))] flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-[rgb(var(--color-icon))]" />
                     აღწერა <span className="text-red-500">*</span>
                   </FormLabel>
                   <span
@@ -163,7 +163,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                         ? 'text-red-600'
                         : titleLength > 70
                           ? 'text-amber-600'
-                          : 'text-slate-400'
+                          : 'text-[rgb(var(--color-icon))]'
                     )}
                   >
                     {titleLength}/100
@@ -173,7 +173,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                   <Input
                     placeholder="დოკუმენტის სათაური..."
                     maxLength={100}
-                    className="bg-white"
+                    className="bg-[rgb(var(--color-surface))]"
                     {...field}
                   />
                 </FormControl>
@@ -188,11 +188,11 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
             name="type"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-sm font-medium text-slate-700 mb-2 block">
+                <FormLabel className="text-sm font-medium text-[rgb(var(--color-text-primary))] mb-2 block">
                   დოკუმენტის ტიპი
                 </FormLabel>
                 <FormControl>
-                  <div className="flex rounded-lg p-1 bg-white">
+                  <div className="flex rounded-lg p-1 bg-[rgb(var(--color-surface))]">
                     <button
                       type="button"
                       onClick={() => field.onChange('TEXT')}
@@ -200,7 +200,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                         'flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-md text-sm font-medium transition-all',
                         field.value === 'TEXT'
                           ? 'text-white/80 bg-primary hover:text-white shadow-sm'
-                          : 'bg-white text-slate-900'
+                          : 'bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-primary))]'
                       )}
                     >
                       <FileText className="w-4 h-4" />
@@ -213,7 +213,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                         'flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-md text-sm font-medium transition-all',
                         field.value === 'PDF'
                           ? 'text-white/80 bg-primary hover:text-white shadow-sm'
-                          : 'bg-white text-slate-900'
+                          : 'bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-primary))]'
                       )}
                     >
                       <Paperclip className="w-4 h-4" />
@@ -234,8 +234,8 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
               render={({ field }) => (
                 <FormItem>
                   <div className="flex items-center justify-between mb-2">
-                    <FormLabel className="text-sm font-medium text-slate-700 flex items-center gap-2">
-                      <FileText className="w-4 h-4 text-slate-400" />
+                    <FormLabel className="text-sm font-medium text-[rgb(var(--color-text-primary))] flex items-center gap-2">
+                      <FileText className="w-4 h-4 text-[rgb(var(--color-icon))]" />
                       ტექსტი <span className="text-red-500">*</span>
                     </FormLabel>
                     <span
@@ -245,7 +245,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                           ? 'text-red-600'
                           : textLength > 4000
                             ? 'text-amber-600'
-                            : 'text-slate-400'
+                            : 'text-[rgb(var(--color-icon))]'
                       )}
                     >
                       {textLength}/5000
@@ -254,7 +254,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                   <FormControl>
                     <Textarea
                       placeholder="დოკუმენტის ტექსტი..."
-                      className="min-h-40 resize-none bg-white"
+                      className="min-h-40 resize-none bg-[rgb(var(--color-surface))]"
                       maxLength={5000}
                       {...field}
                     />
@@ -273,11 +273,11 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
               render={() => (
                 <FormItem>
                   <div className="flex items-center justify-between mb-2">
-                    <FormLabel className="text-sm font-medium text-slate-700 flex items-center gap-2">
-                      <Paperclip className="w-4 h-4 text-slate-400" />
+                    <FormLabel className="text-sm font-medium text-[rgb(var(--color-text-primary))] flex items-center gap-2">
+                      <Paperclip className="w-4 h-4 text-[rgb(var(--color-icon))]" />
                       ფაილები <span className="text-red-500">*</span>
                     </FormLabel>
-                    <span className="text-xs text-slate-500">
+                    <span className="text-xs text-[rgb(var(--color-text-secondary))]">
                       {uploadedFiles.length}/10 ფაილი
                     </span>
                   </div>
@@ -296,17 +296,17 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                     variant="outline"
                     onClick={() => fileInputRef.current?.click()}
                     disabled={uploadedFiles.length >= 10 || isUploading}
-                    className="w-full h-auto bg-white border-2 border-dashed border-slate-300 hover:border-primary hover:bg-primary/5 transition-all group"
+                    className="w-full h-auto bg-[rgb(var(--color-surface))] border-2 border-dashed border-[rgb(var(--color-border-medium))] hover:border-primary hover:bg-primary/5 transition-all group"
                   >
                     <div className="flex flex-col items-center gap-2 py-4">
-                      <div className="w-10 h-10 rounded-full bg-slate-100 group-hover:bg-primary/10 flex items-center justify-center transition-colors">
-                        <Upload className="w-5 h-5 text-slate-600 group-hover:text-primary transition-colors" />
+                      <div className="w-10 h-10 rounded-full bg-[rgb(var(--color-surface-container))] group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+                        <Upload className="w-5 h-5 text-[rgb(var(--color-text-secondary))] group-hover:text-primary transition-colors" />
                       </div>
                       <div className="text-center">
-                        <p className="text-sm font-medium text-slate-700">
+                        <p className="text-sm font-medium text-[rgb(var(--color-text-primary))]">
                           {isUploading ? 'იტვირთება...' : 'ფაილის ატვირთვა'}
                         </p>
-                        <p className="text-xs text-slate-500 mt-0.5">
+                        <p className="text-xs text-[rgb(var(--color-text-secondary))] mt-0.5">
                           PDF, DOC, XLS, TXT
                         </p>
                       </div>
@@ -319,20 +319,20 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                       {uploadedFiles.map((file) => (
                         <div
                           key={file.id}
-                          className="flex items-center justify-between p-3 bg-white rounded-lg border border-slate-200"
+                          className="flex items-center justify-between p-3 bg-[rgb(var(--color-surface))] rounded-lg border border-[rgb(var(--color-border))]"
                         >
                           <div className="flex items-center gap-2">
-                            <Paperclip className="w-4 h-4 text-slate-400" />
-                            <span className="text-sm text-slate-700 truncate max-w-[200px]">
+                            <Paperclip className="w-4 h-4 text-[rgb(var(--color-icon))]" />
+                            <span className="text-sm text-[rgb(var(--color-text-primary))] truncate max-w-[200px]">
                               {file.name}
                             </span>
                           </div>
                           <button
                             type="button"
                             onClick={() => handleRemoveFile(file.id)}
-                            className="p-1 hover:bg-slate-100 rounded transition-colors"
+                            className="p-1 hover:bg-[rgb(var(--color-surface-container))] rounded transition-colors"
                           >
-                            <X className="w-4 h-4 text-slate-500" />
+                            <X className="w-4 h-4 text-[rgb(var(--color-text-secondary))]" />
                           </button>
                         </div>
                       ))}
@@ -347,7 +347,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
         </div>
 
         {/* Footer with Submit Button */}
-        <SheetFooter className="border-t border-slate-200 px-6 py-4 bg-slate-50/50 mt-auto">
+        <SheetFooter className="border-t border-[rgb(var(--color-border))] px-6 py-4 bg-[rgb(var(--color-surface-variant))] mt-auto">
           <Button
             type="submit"
             disabled={

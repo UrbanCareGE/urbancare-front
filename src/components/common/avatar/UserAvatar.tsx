@@ -16,21 +16,20 @@ export const UserAvatar = ({
 }: UserAvatarProps) => {
   const initials = `${firstName[0]}${surname[0]}`.toUpperCase();
 
-  // TODO akac igive
-  if (!profileImageId) {
-    return <div></div>;
-  }
-
   return (
     <div className="relative inline-block outline-none">
-      <Avatar className="cursor-pointer w-10 h-10 rounded-full bg-primary">
-        <Image
-          src={getClientFileUrl(profileImageId)}
-          alt="@shadcn"
-          fill
-          className="object-cover"
-        />
-        <AvatarFallback>{initials}</AvatarFallback>
+      <Avatar className="cursor-pointer w-10 h-10 rounded-full">
+        {profileImageId && (
+          <Image
+            src={getClientFileUrl(profileImageId)}
+            alt={initials}
+            fill
+            className="object-cover"
+          />
+        )}
+        <AvatarFallback className="text-xs font-semibold bg-[rgb(var(--color-primary-container))] text-[rgb(var(--color-primary))]">
+          {initials}
+        </AvatarFallback>
       </Avatar>
     </div>
   );

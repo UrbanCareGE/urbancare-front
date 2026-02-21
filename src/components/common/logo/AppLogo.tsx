@@ -41,7 +41,7 @@ export const UrbanCareTextIcon = ({ className }: UrbanCareTextIconProps) => {
 
 export const AppLogo = () => {
   return (
-    <div className="h-12 flex justify-start items-center mr-aut gap-3">
+    <div className="h-12 flex justify-start items-center mr-auto gap-3">
       <UrbanCareIcon className={'w-10 h-10'} />
       <UrbanCareTextIcon />
     </div>

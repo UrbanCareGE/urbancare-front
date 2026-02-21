@@ -29,14 +29,13 @@ import { LogoutButton } from '@/components/auth/LogoutButton';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { Chat } from '@/components/chat/Chat';
 import UrgentList from '@/components/urgent/UrgentList';
+import { UrbanCareTextIcon } from '@/components/common/logo/AppLogo';
 
 // ==================== HEADER COMPONENTS ====================
 
 const HeaderLogo = () => (
   <Link href="/" className="flex items-center">
-    <span className="font-bold text-xl text-primary tracking-tight">
-      URBANCARE
-    </span>
+    <UrbanCareTextIcon className="text-xl" />
   </Link>
 );
 

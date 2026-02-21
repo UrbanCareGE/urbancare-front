@@ -36,7 +36,7 @@ export const ThreadFormSheet = ({
       <SheetContent
         side={'bottom'}
         className={cn(
-          'flex flex-col h-full w-full bg-slate-50 overflow-y-scroll',
+          'flex flex-col h-full w-full bg-[rgb(var(--color-background))] overflow-y-scroll',
           className
         )}
       >

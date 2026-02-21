@@ -26,12 +26,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { LogoutButton } from '@/components/auth/LogoutButton';
 import { useAuth } from '@/components/provider/AuthProvider';
+import { UrbanCareTextIcon } from '@/components/common/logo/AppLogo';
 
 const HeaderLogo = () => (
   <Link href="/" className="flex items-center">
-    <span className="font-bold text-xl text-primary tracking-tight">
-      URBANCARE
-    </span>
+    <UrbanCareTextIcon className="text-xl" />
   </Link>
 );
 
