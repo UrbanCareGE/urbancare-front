@@ -17,7 +17,7 @@ import { ThreadViewCommentButton } from '@/components/thread/thread-card/thread-
 export default function ThreadPage() {
   const { threadId } = useParams<{ threadId: string }>();
   const { user } = useAuth();
-  const apartmentId = user.selectedApartment.id;
+  const apartmentId = user.selectedApartmentId
   const { data, isPending, error } = useThreadDetails(apartmentId, threadId);
   const router = useRouter();
 
@@ -49,7 +49,7 @@ export default function ThreadPage() {
         </ThreadCard>
 
         <ThreadCard thread={data} className="px-0 space-y-0">
-          <ThreadCard.Header className="border-b px-3">
+          <ThreadCard.Header className="border-b border-border px-3 pb-3">
             <ThreadCommentsHeader />
           </ThreadCard.Header>
           <ThreadCard.Body>

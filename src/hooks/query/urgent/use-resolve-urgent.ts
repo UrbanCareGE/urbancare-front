@@ -17,7 +17,7 @@ export function useResolveUrgent() {
     },
 
     onSuccess: (_, { id }) => {
-      const queryKey = ['urgent', 'list', user?.selectedApartment?.id];
+      const queryKey = ['urgent', 'list', user.selectedApartmentId];
       queryClient.setQueryData<OptimisticData<UrgentItemDTO>[]>(
         queryKey,
         (prev) =>

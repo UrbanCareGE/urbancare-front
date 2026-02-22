@@ -17,7 +17,7 @@ export const ThreadCommentGrid = ({ className }: ThreadCommentsProps) => {
       {/* Comments List */}
       <div>
         {thread.comments.length === 0 ? (
-          <div className="text-center py-8 text-slate-500">
+          <div className="text-center py-8 text-text-muted">
             <p>კომენტარები ჯერ არ არის</p>
             <p className="text-sm mt-1">იყავი პირველი ვინც დაწერს კომენტარს</p>
           </div>

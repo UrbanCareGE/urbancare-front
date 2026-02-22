@@ -4,8 +4,7 @@ import { Clock, Ellipsis } from 'lucide-react';
 import React from 'react';
 import { cn, formatTime } from '@/lib/utils';
 import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
-import { useAuth } from '@/components/provider/AuthProvider';
+import { useRouter } from 'next/navigation';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
 import ThreadTags from '@/components/thread/thread-card/common/ThreadTags';
 

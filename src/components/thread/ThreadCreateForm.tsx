@@ -125,16 +125,16 @@ export const ThreadCreateForm = () => {
       newEntries.map(async (entry, index) => {
         const result = await FileService.uploadPublicFile(entry.file);
         return { index: currentFiles.length + index, fileId: result.id };
-      })
+      }),
     );
 
     const currentFormFiles = form.getValues('files') || [];
     const updatedFormFiles = currentFormFiles.map((f, i) => {
       const success = results.find(
-        (r) => r.status === 'fulfilled' && r.value.index === i
+        (r) => r.status === 'fulfilled' && r.value.index === i,
       );
       const failed = results.find(
-        (r) => r.status === 'rejected' // need to track index differently
+        (r) => r.status === 'rejected', // need to track index differently
       );
 
       if (success && success.status === 'fulfilled') {
@@ -196,19 +196,19 @@ export const ThreadCreateForm = () => {
   const handleDeselectTag = (tag: string) => {
     form.setValue(
       'tags',
-      selectedTags.filter((t) => t !== tag)
+      selectedTags.filter((t) => t !== tag),
     );
   };
 
   const onSubmit = async (values: z.infer<typeof createThreadSchema>) => {
-    if (!user?.selectedApartment?.id) {
+    if (!user.selectedApartmentId) {
       console.error('No apartment selected');
       return;
     }
 
     try {
       mutate({
-        apartmentId: user.selectedApartment.id,
+        apartmentId: user.selectedApartmentId,
         title: values.title,
         content: values.body,
         imageIds: values.files?.map((f) => f.fileId!) ?? [],
@@ -225,7 +225,6 @@ export const ThreadCreateForm = () => {
     }
   };
 
-  const unselectedTags = ALL_TAGS.filter((tag) => !selectedTags.includes(tag));
 
   return (
     <ThreadForm>
@@ -311,7 +310,7 @@ export const ThreadCreateForm = () => {
                       <PopoverTrigger>
                         <Info className="w-4 h-4 text-foreground-disabled" />
                       </PopoverTrigger>
-                      <PopoverContent className="bg-tooltip border-border text-primary-foreground text-center">
+                      <PopoverContent className="bg-surface border border-border text-primary-foreground text-center">
                         თეგი გაძლევთ საშუალებას თქვენი პოსტი გახდეს უფრო
                         სპეციფიური, თუ მიუთითებთ შესაბამის თეგებს, პოსტი
                         გამოჩნდება შესაბამისი ძებნის ფილტრების მითითების
@@ -323,48 +322,19 @@ export const ThreadCreateForm = () => {
                       <HoverCardTrigger>
                         <Info className="w-4 h-4 text-foreground-disabled" />
                       </HoverCardTrigger>
-                      <HoverCardContent className="bg-surface-variant opacity-100">
+                      <HoverCardContent className="bg-surface-variant opacity-100 border border-border">
                         აირჩიეთ თეგები თქვენი პოსტისთვის
                       </HoverCardContent>
                     </HoverCard>
                   )}
                 </div>
 
-                {/* Selected tags */}
-                <div className="space-y-2">
-                  {selectedTags.length === 0 ? (
-                    <p className="text-sm text-foreground-tertiary">
-                      სპეციფიკაცია არ არის არჩეული
-                    </p>
-                  ) : (
-                    <div className="flex flex-wrap gap-2">
-                      {selectedTags.map((tag) => {
-                        const config = ThreadTagConfig[tag as ThreadTagValue];
-                        return (
-                          <button
-                            key={tag}
-                            type={'button'}
-                            onClick={() => handleDeselectTag(tag)}
-                            className={cn(
-                              'px-3 py-1 rounded-full text-sm font-medium transition-all border-none',
-                              config.bg,
-                              config.text,
-                              'hover:opacity-70'
-                            )}
-                          >
-                            {config.label}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-
                 {/* Available tags */}
-                {unselectedTags.length > 0 && (
+                {ALL_TAGS.length > 0 && (
                   <div className="flex flex-wrap gap-2">
-                    {unselectedTags.map((tag) => {
+                    {ALL_TAGS.map((tag) => {
                       const config = ThreadTagConfig[tag];
+                      const isTagSelected = selectedTags.includes(tag);
                       return (
                         <button
                           key={tag}
@@ -372,7 +342,10 @@ export const ThreadCreateForm = () => {
                           onClick={() => handleSelectTag(tag)}
                           className={cn(
                             'px-3 py-1 rounded-full text-sm font-medium bg-surface text-foreground-tertiary transition-all',
-                            'hover:border-hover hover:bg-surface-variant'
+                            'hover:border-hover hover:bg-surface-variant',
+                            isTagSelected ? config.bg : undefined,
+                            isTagSelected ? config.text : undefined,
+                            isTagSelected ? 'hover:opacity-70' : undefined
                           )}
                         >
                           {config.label}
@@ -557,7 +530,7 @@ export const ThreadCreateForm = () => {
             </div>
 
             {/* Footer with Submit Button */}
-            <SheetFooter className="border-t border px-6 py-4 bg-surface-variant/50 mt-auto">
+            <SheetFooter className="px-6 py-4 mt-auto">
               <div className="space-y-2">
                 <Button
                   type="submit"
@@ -571,7 +544,7 @@ export const ThreadCreateForm = () => {
                     </div>
                   ) : (
                     <DrawerClose asChild={true}>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 bg-gradient-primary">
                         <Sparkles className="w-4 h-4" />
                         გამოქვეყნება
                       </div>
@@ -588,7 +561,7 @@ export const ThreadCreateForm = () => {
       </ThreadForm.Sheet>
 
       <Dialog open={tagLimitDialogOpen} onOpenChange={setTagLimitDialogOpen}>
-        <DialogContent className="w-[calc(100%-2rem)] max-w-md rounded-2xl">
+        <DialogContent className="w-[calc(100%-2rem)] max-w-md rounded-2xl border-border">
           <DialogHeader>
             <DialogTitle>თეგების ლიმიტი</DialogTitle>
             <DialogDescription>

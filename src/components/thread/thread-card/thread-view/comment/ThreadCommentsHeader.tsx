@@ -5,7 +5,7 @@ export const ThreadCommentsHeader = () => {
   const { thread } = useThread();
   const { commentCount } = thread;
   return (
-    <h2 className="text-lg font-semibold text-slate-900">
+    <h2 className="text-lg font-semibold text-text-primary">
       კომენტარები ({commentCount})
     </h2>
   );

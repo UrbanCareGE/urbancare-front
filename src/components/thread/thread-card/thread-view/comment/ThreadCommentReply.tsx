@@ -20,15 +20,15 @@ export const ThreadCommentReply = ({ comment }: ThreadCommentReplyProps) => {
       />
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1 flex-wrap">
-          <h4 className="font-bold text-slate-900 text-base">
+          <h4 className="font-bold text-text-primary text-base">
             {userInfo.name} {userInfo.surname}
           </h4>
-          <span className="text-xs text-slate-400 flex items-center gap-1.5">
+          <span className="ml-auto text-xs text-text-muted flex items-center gap-1.5">
             <Clock className="w-4 h-4" />
             {formatTime(createdAt.toString())}
           </span>
         </div>
-        <p className="text-slate-700 text-sm leading-relaxed whitespace-pre-wrap break-words">
+        <p className="text-text-primary text-sm leading-relaxed whitespace-pre-wrap break-words">
           {content}
         </p>
       </div>

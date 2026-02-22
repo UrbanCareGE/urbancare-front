@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ThreadCommentDTO } from '@/model/dto/thread.dto';
 import { cn, formatTime } from '@/lib/utils';
-import { CornerDownRight } from 'lucide-react';
+import { Clock, CornerDownRight } from 'lucide-react';
 import { UserAvatar } from '@/components/common/avatar/UserAvatar';
 import { ReplyInput } from '@/components/thread/thread-card/thread-view/comment/ThreadReplyInput';
 import { ThreadCommentReply } from '@/components/thread/thread-card/thread-view/comment/ThreadCommentReply';
@@ -34,7 +34,7 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
   };
 
   return (
-    <div className="py-4 px-4 bg-white">
+    <div className="py-4 px-4 bg-surface">
       {/* Main Comment */}
       <div className="flex gap-3">
         <UserAvatar
@@ -44,17 +44,18 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
         />
         <div className="flex-1 min-w-0">
           {/* Header */}
-          <div className="flex items-baseline gap-1 mb-1">
-            <span className="font-semibold text-sm text-slate-900">
+          <div className="flex items-baseline mb-1">
+            <span className="font-semibold text-sm text-text-primary">
               {userInfo.name} {userInfo.surname}
             </span>
-            <span className="text-xs text-slate-500">
+            <span className="ml-auto flex gap-1 text-xs text-text-muted">
+              <Clock className="w-4 h-4" />
               {formatTime(createdAt.toString())}
             </span>
           </div>
 
           {/* Content */}
-          <p className="text-sm text-slate-900 leading-relaxed whitespace-pre-wrap break-words mb-2">
+          <p className="text-sm text-text-primary leading-relaxed whitespace-pre-wrap break-words mb-2">
             {content}
           </p>
 
@@ -101,7 +102,7 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
           {remainingRepliesCount > 0 && (
             <button
               onClick={() => setShowAllReplies(true)}
-              className="flex items-center gap-2 text-sm font-medium text-blue-600 py-2"
+              className="flex items-center gap-2 text-sm font-medium text-text-primary py-2"
             >
               <CornerDownRight className="w-4 h-4" />
               <span>

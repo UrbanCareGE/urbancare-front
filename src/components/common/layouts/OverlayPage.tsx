@@ -4,7 +4,6 @@
 import React, { createContext, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 type OverlayContextType = {
@@ -26,10 +25,10 @@ type OverlayPageProps = {
 };
 
 const OverlayPageRoot = ({
-  children,
-  className,
-  onClose,
-}: OverlayPageProps) => {
+                           children,
+                           className,
+                           onClose,
+                         }: OverlayPageProps) => {
   const router = useRouter();
 
   const handleClose = onClose ?? (() => router.back());
@@ -38,8 +37,8 @@ const OverlayPageRoot = ({
     <OverlayContext.Provider value={{ onClose: handleClose }}>
       <div
         className={cn(
-          'fixed inset-0 z-[300] bg-background flex flex-col h-dvh w-dvw',
-          className
+          'fixed inset-0 z-[100] bg-background flex flex-col h-dvh w-dvw',
+          className,
         )}
       >
         {children}
@@ -48,7 +47,6 @@ const OverlayPageRoot = ({
   );
 };
 
-// Header
 type HeaderProps = {
   children?: React.ReactNode;
   className?: string;
@@ -58,23 +56,23 @@ type HeaderProps = {
 };
 
 const OverlayPageHeader = ({
-  children,
-  className,
-  showBack = true,
-  showClose = false,
-  title,
-}: HeaderProps) => {
+                             children,
+                             className,
+                             showBack = true,
+                             showClose = false,
+                             title,
+                           }: HeaderProps) => {
   const { onClose } = useOverlay();
 
   return (
     <header
       className={cn(
-        'h-20  flex items-center justify-between px-2 py-3 border-b bg-white shrink-0',
-        className
+        'h-16 flex items-center justify-between px-2 py-3 border-b border-border bg-surface shrink-0',
+        className,
       )}
     >
       <div className="flex items-center gap-2">
-        {showBack && <ArrowLeft className="w-7 h-7" onClick={onClose} />}
+        {showBack && <ArrowLeft className="w-7 h-7 text-icon" onClick={onClose} />}
         {title && <h1 className="font-semibold text-lg">{title}</h1>}
         {children}
       </div>
@@ -84,14 +82,13 @@ const OverlayPageHeader = ({
           onClick={onClose}
           className="hover:bg-slate-100 rounded-full transition-colors"
         >
-          <X className="w-5 h-5 w-1" />
+          <X className="h-5 w-1" />
         </button>
       )}
     </header>
   );
 };
 
-// Content (scrollable)
 type ContentProps = {
   children: React.ReactNode;
   className?: string;
@@ -105,7 +102,6 @@ const OverlayPageContent = ({ children, className }: ContentProps) => {
   );
 };
 
-// Footer (fixed bottom)
 type FooterProps = {
   children: React.ReactNode;
   className?: string;
@@ -113,7 +109,7 @@ type FooterProps = {
 
 const OverlayPageFooter = ({ children, className }: FooterProps) => {
   return (
-    <footer className={cn('shrink-0 bg-white border-t', className)}>
+    <footer className={cn('shrink-0 bg-surface border-t border-border', className)}>
       {children}
     </footer>
   );

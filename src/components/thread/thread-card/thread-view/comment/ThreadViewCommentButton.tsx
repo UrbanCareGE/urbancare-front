@@ -46,7 +46,7 @@ export const ThreadViewCommentButton = ({
   }
 
   return (
-    <div className="flex items-center min-h-20 border-b px-3 py-1 gap-3 w-full">
+    <div className="flex items-center min-h-16 px-3 py-1 gap-3 w-full">
       <UserAvatar
         profileImageId={user?.profileImageId}
         firstName={user?.name}
@@ -59,17 +59,16 @@ export const ThreadViewCommentButton = ({
           value={commentText}
           onChange={(e) => setCommentText(e.target.value)}
           rows={1}
-          className="w-full px-4 py-2.5 pr-11 bg-slate-50 border border-slate-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all resize-none text-sm"
+          className="w-full px-4 py-2.5 pr-11 bg-input border border-border rounded-full focus:outline-none focus:ring-2 focus:ring-primary transition-all resize-none text-sm"
           style={{ minHeight: '40px', maxHeight: '100px' }}
         />
-        <Button
-          variant={'ghost'}
+        <button
           onClick={handleAddComment}
           disabled={!commentText.trim()}
-          className="absolute right-1.5 bottom-1.5 h-7 w-7 rounded-full bg-primary hover:bg-opacity-80 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
+          className="absolute right-2 bottom-1.5 h-8 w-8 rounded-full bg-primary hover:bg-opacity-80 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
         >
-          <Send className="w-3.5 h-3.5 text-white" />
-        </Button>
+          <Send className="w-5 h-5 text-white" />
+        </button>
       </div>
     </div>
   );
