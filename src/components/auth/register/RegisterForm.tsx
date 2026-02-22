@@ -8,7 +8,7 @@ import {
   BadgeCheck,
   KeyRound,
   PhoneIcon,
-  RotateCcwKey,
+  RotateCcw,
   User,
 } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -133,7 +133,7 @@ export function RegisterForm() {
                 <FormInput
                   placeholder="გაიმეორეთ პაროლი*"
                   type="password"
-                  icon={<RotateCcwKey />}
+                  icon={<RotateCcw />}
                   disabled={isPending}
                   isPasswordType={true}
                   {...field}

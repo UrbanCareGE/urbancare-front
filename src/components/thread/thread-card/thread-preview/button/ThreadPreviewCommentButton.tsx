@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { MessageCircleMore } from 'lucide-react';
 import React from 'react';
-import { useThread } from '@/components/thread/mobile/thread-card/ThreadCard';
+import { useThread } from '@/components/thread/thread-card/ThreadCard';
 
 interface ThreadShareButtonProps {
   className?: string;

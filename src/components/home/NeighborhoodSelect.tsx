@@ -244,7 +244,7 @@ export const NeighborhoodSelect = () => {
       const apt = joinedApartments.find((e) => e.id === newApartmentId);
       if (!apt) return;
 
-      selectApartment(apt);
+      selectApartment(apt.id);
 
       const newPath = pathname.replace(
         `/apartment/${apartmentId}`,

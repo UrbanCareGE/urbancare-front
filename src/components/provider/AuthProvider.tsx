@@ -24,7 +24,7 @@ export interface AuthContextType {
   user: UserModel;
   isLoading: boolean;
   isAuthenticated: boolean;
-  isManager?: string;
+  isManager?: boolean;
   updateUser: (data: Partial<UserModel>) => void;
   refetchUser: () => Promise<void>;
   selectApartment: (apartment: string) => void;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useThread } from '@/components/thread/mobile/thread-card/ThreadCard';
+import { useThread } from '@/components/thread/thread-card/ThreadCard';
 
 export const ThreadPreviewStatsSection = () => {
   const { thread } = useThread();
