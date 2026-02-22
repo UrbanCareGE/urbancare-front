@@ -55,7 +55,7 @@ export const mapUrgentItemToCardProps = (
   };
 };
 
-const UrgentList = () => {
+const UrgentFeed = () => {
   const user = useAuth();
   const { apartmentId } = useParams<{ apartmentId: string }>();
   const { data, isLoading, isError } = useFetchUrgent();
@@ -119,4 +119,4 @@ const ListLoader = ({ className }: Basic) => {
   );
 };
 
-export default UrgentList;
+export default UrgentFeed;

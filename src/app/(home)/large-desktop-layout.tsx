@@ -28,7 +28,7 @@ import {
 import { LogoutButton } from '@/components/auth/LogoutButton';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { Chat } from '@/components/chat/Chat';
-import UrgentList from '@/components/urgent/UrgentList';
+import UrgentFeed from '@/components/urgent/UrgentFeed';
 import { UrbanCareTextIcon } from '@/components/common/logo/AppLogo';
 
 // ==================== HEADER COMPONENTS ====================
@@ -195,7 +195,7 @@ const UrgentIsland = () => (
     className="max-h-[45%]"
   >
     <div className="overflow-y-auto h-full">
-      <UrgentList />
+      <UrgentFeed />
     </div>
   </Island>
 );

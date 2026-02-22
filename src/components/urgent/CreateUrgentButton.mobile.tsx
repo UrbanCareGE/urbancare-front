@@ -43,7 +43,7 @@ const CreateUrgentButtonMobile = () => {
           <PlusIcon className={'w-8 h-8 text-white'} />
         </div>
       </DrawerTrigger>
-      <DrawerContent className={'bg-white'}>
+      <DrawerContent className={'bg-surface border-border'}>
         <DrawerHeader>
           <DrawerTitle className={'text-md'}>
             დააფიქსირეთ სასწრაფო შეტყობინება
@@ -69,7 +69,12 @@ const CreateUrgentButtonMobile = () => {
           )}
 
           <DrawerClose asChild>
-            <Button variant="outline">გაუქმება</Button>
+            <Button
+              variant="outline"
+              className={'bg-error-container/30 text-error border-none'}
+            >
+              გაუქმება
+            </Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

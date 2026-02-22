@@ -232,7 +232,7 @@ export const ThreadCreateForm = () => {
       <CreateThreadButton />
       <ThreadForm.Sheet>
         {/* Header */}
-        <SheetHeader className="border-b border px-3 py-3">
+        <SheetHeader className="px-3 py-3">
           <SheetDescription className={'sr-only'}>
             ახალი პოსტის შექმნის ფორმა
           </SheetDescription>
@@ -247,7 +247,7 @@ export const ThreadCreateForm = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 rounded-full [&_svg]:size-7"
+                className="h-8 w-8 text-icon [&_svg]:size-7"
               >
                 <X />
               </Button>
@@ -311,7 +311,7 @@ export const ThreadCreateForm = () => {
                       <PopoverTrigger>
                         <Info className="w-4 h-4 text-foreground-disabled" />
                       </PopoverTrigger>
-                      <PopoverContent className="bg-tooltip text-primary-foreground text-center">
+                      <PopoverContent className="bg-tooltip border-border text-primary-foreground text-center">
                         თეგი გაძლევთ საშუალებას თქვენი პოსტი გახდეს უფრო
                         სპეციფიური, თუ მიუთითებთ შესაბამის თეგებს, პოსტი
                         გამოჩნდება შესაბამისი ძებნის ფილტრების მითითების
@@ -343,10 +343,10 @@ export const ThreadCreateForm = () => {
                         return (
                           <button
                             key={tag}
-                            type="button"
+                            type={'button'}
                             onClick={() => handleDeselectTag(tag)}
                             className={cn(
-                              'px-3 py-1 rounded-full text-sm font-medium transition-all',
+                              'px-3 py-1 rounded-full text-sm font-medium transition-all border-none',
                               config.bg,
                               config.text,
                               'hover:opacity-70'
@@ -371,7 +371,7 @@ export const ThreadCreateForm = () => {
                           type="button"
                           onClick={() => handleSelectTag(tag)}
                           className={cn(
-                            'px-3 py-1 rounded-full text-sm font-medium border bg-surface text-foreground-tertiary transition-all',
+                            'px-3 py-1 rounded-full text-sm font-medium bg-surface text-foreground-tertiary transition-all',
                             'hover:border-hover hover:bg-surface-variant'
                           )}
                         >
@@ -416,7 +416,7 @@ export const ThreadCreateForm = () => {
                         variant="outline"
                         onClick={() => fileInputRef.current?.click()}
                         disabled={fileEntries.length >= 5 || isPending}
-                        className="w-full h-auto border-2 border-dashed hover:border-primary hover:bg-primary/5 transition-all group"
+                        className="w-full h-auto border-2 border-dashed border-border hover:border-primary hover:bg-primary/5 transition-all group"
                       >
                         <div className="flex flex-col items-center gap-2">
                           <div className="w-10 h-10 rounded-full bg-surface-container group-hover:bg-primary/10 flex items-center justify-center transition-colors">

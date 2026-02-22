@@ -67,7 +67,7 @@ const AvatarStack = ({ responders }: { responders: ResponderProps[] }) => (
       <Avatar
         key={index}
         className={cn(
-          'w-7 h-7 border-2 border-surface text-xs font-semibold text-white',
+          'w-7 h-7 border-2 border-border text-xs font-semibold text-white',
           urgentResponderColors[responder.color],
           index > 0 && '-ml-2'
         )}
@@ -268,7 +268,7 @@ export const UrgentCard = ({
   return (
     <Card
       className={cn(
-        'relative p-5 border-l-4 overflow-hidden transition-all hover:-translate-y-0.5 hover:shadow-lg',
+        'relative p-5 border-l-4 overflow-hidden border-border transition-all hover:-translate-y-0.5 hover:shadow-lg',
         config.borderColor,
         status === 'resolved' && 'opacity-85',
         isPending && 'opacity-80 pointer-events-none',

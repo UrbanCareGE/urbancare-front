@@ -1,13 +1,13 @@
 'use client';
 
 import React from 'react';
-import UrgentList from '@/components/urgent/UrgentList';
+import UrgentFeed from '@/components/urgent/UrgentFeed';
 import CreateUrgentButtonMobile from '@/components/urgent/CreateUrgentButton.mobile';
 
 const Page = () => {
   return (
     <div className={'flex flex-col'}>
-      <UrgentList />
+      <UrgentFeed />
       <CreateUrgentButtonMobile />
     </div>
   );

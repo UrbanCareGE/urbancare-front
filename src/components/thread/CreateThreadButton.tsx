@@ -19,7 +19,7 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
 
   return (
     <div className={cn('flex gap-2 px-1 items-center', className)}>
-      <Avatar className="cursor-pointer w-10 h-10 rounded-full">
+      <Avatar className="cursor-pointer w-10 h-10 rounded-full ring ring-2 ring-border">
         <Image
           src={getClientFileUrl(user?.profileImageId)}
           alt="@shadcn"

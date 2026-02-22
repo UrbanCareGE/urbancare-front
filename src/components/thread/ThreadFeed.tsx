@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { TagsFilterSchema } from '@/components/thread/tag/thread-filter-schema';
-import { ThreadFeedFilters } from '@/components/thread/tag/ThreadFeedTagFilter';
+import { ThreadFeedTagFilters } from '@/components/thread/tag/ThreadFeedTagFilter';
 import { ThreadCreateForm } from '@/components/thread/ThreadCreateForm';
 import { Thread } from '@/components/thread/thread-card/Thread';
 
@@ -26,7 +26,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       tags: defaultTags,
     },
   });
-  const selectedTags = form.watch('tags') || [];
+  const selectedTags = form.watch('tags');
 
   const inViewOptions = useMemo(
     () => ({
@@ -88,7 +88,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
           <ThreadCreateForm />
         </div>
 
-        <ThreadFeedFilters
+        <ThreadFeedTagFilters
           className=""
           selectedTags={selectedTags}
           onClick={handleToggleTag}
@@ -118,7 +118,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
         <ThreadCreateForm />
       </div>
 
-      <ThreadFeedFilters
+      <ThreadFeedTagFilters
         selectedTags={selectedTags}
         onClick={handleToggleTag}
       />

@@ -13,7 +13,7 @@ type ThreadTagValueProps = {
   selectedTags: string[];
 };
 
-export const ThreadFeedFilters = ({
+export const ThreadFeedTagFilters = ({
   className,
   onClick,
   selectedTags,
@@ -28,7 +28,7 @@ export const ThreadFeedFilters = ({
               key={tag}
               onClick={() => onClick(tag)}
               className={cn(
-                'basis-auto pl-2 text-center py-1 px-2 rounded-full text-sm font-medium border border-border transition-all',
+                'basis-auto pl-2 text-center py-1 px-2 rounded-full text-sm font-medium transition-all',
                 selectedTags.includes(tag)
                   ? [config.bg, config.text]
                   : 'bg-surface text-foreground-tertiary hover:border-hover hover:bg-surface-variant'
