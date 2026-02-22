@@ -13,7 +13,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   return (
     <>
       {user && (
-        <Session appId="tblkKdHv" userId={user?.id}>
+        <Session appId="tblkKdHv" userId={user.id}>
           {children}
         </Session>
       )}

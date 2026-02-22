@@ -3,7 +3,7 @@ import { Chat } from '@/components/chat/Chat';
 
 export default function HomePage() {
   return (
-    <div className={'flex-1 bg-white'}>
+    <div className={'flex-1 bg-background'}>
       <Chat />
     </div>
   );

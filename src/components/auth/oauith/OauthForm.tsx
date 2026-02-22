@@ -17,7 +17,7 @@ export const OauthForm = ({ className, handleOauthLogin }: OauthFormProps) => {
       {/* Google */}
       <Button
         variant="outline"
-        className="w-full h-[52px] rounded-[14px] border-[1.5px] border-border-medium bg-white hover:bg-white hover:border-border-hover shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-all duration-200 text-text-primary text-[15px] font-semibold gap-3"
+        className="w-full h-[52px] rounded-[14px] border-[1.5px] border-border bg-surface hover:bg-hover hover:border-border-hover shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-all duration-200 text-text-primary text-[15px] font-semibold gap-3"
         onClick={() => handler('google')}
       >
         <svg viewBox="0 0 24 24" className="w-5 h-5">

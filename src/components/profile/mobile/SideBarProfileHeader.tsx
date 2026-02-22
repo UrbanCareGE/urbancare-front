@@ -51,7 +51,9 @@ export const SideBarProfileHeader = () => {
         <p className="font-semibold text-xl text-foreground-primary">
           {user?.name} {user?.surname}
         </p>
-        <span className="text-base text-foreground-secondary inline">@{user?.phone}</span>
+        <span className="text-base text-foreground-secondary inline">
+          @{user?.phone}
+        </span>
       </div>
     </div>
   );

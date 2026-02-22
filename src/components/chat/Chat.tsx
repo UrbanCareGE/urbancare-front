@@ -6,29 +6,28 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useState } from 'react';
 import { useFetchChat } from '@/hooks/query/chat/use-fetch-chat';
+import { useTheme } from 'next-themes';
 
 export const Chat = () => {
-  const authInfo = useAuth();
-  const { user, isLoading, isAuthenticated } = authInfo;
   const { data, isLoading: isFetchingChat } = useFetchChat();
+  const { theme } = useTheme();
 
-  if (isLoading || isFetchingChat) {
+  if (isFetchingChat) {
     return <Skeleton className="h-full w-full rounded-md flex-1" />;
-  }
-
-  if (!isAuthenticated || !user) {
-    return <div>Please login to access chat</div>;
   }
 
   if (!data) {
     return <div>No chat available</div>;
   }
 
+  const chatTheme = theme === 'dark' ? 'default_dark' : 'default';
+
   // Session is now in ChatProvider, so just render Chatbox
   return (
     <Chatbox
       conversationId={data[0].id}
       style={{ width: '100%', height: '100%' }}
+      theme={chatTheme}
       loadingComponent={
         <Skeleton className="h-full w-full rounded-md flex-1" />
       }

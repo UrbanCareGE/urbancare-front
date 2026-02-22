@@ -37,16 +37,21 @@ const NavigationLinkInner = forwardRef<
           'flex-shrink-0 p-2 flex justify-center items-center rounded-panel',
           isActive
             ? 'bg-primary-container text-primary-container-foreground'
-            : cn('bg-primary-container/50 text-primary-container-foreground', navigationItem.className)
+            : cn(
+                'bg-primary-container/50 text-primary-container-foreground',
+                navigationItem.className
+              )
         )}
       >
         {navigationItem.icon}
       </div>
     )}
-    <p className={cn(
-      'flex-1 text-left truncate leading-tight tracking-wide text-lg',
-      isActive ? 'font-semibold' : 'font-normal'
-    )}>
+    <p
+      className={cn(
+        'flex-1 text-left truncate leading-tight tracking-wide text-lg',
+        isActive ? 'font-semibold' : 'font-normal'
+      )}
+    >
       {navigationItem.label}
     </p>
     {isActive && (

@@ -8,7 +8,7 @@ import {
   KeyRound,
   Loader2,
   PhoneIcon,
-  RotateCcwKey,
+  RotateCcw,
 } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
@@ -99,7 +99,9 @@ export function RegisterFormCard() {
                     <FormInput
                       placeholder="ტელეფონი"
                       disabled={isPending}
-                      icon={<PhoneIcon className="text-[rgb(var(--color-icon))]" />}
+                      icon={
+                        <PhoneIcon className="text-[rgb(var(--color-icon))]" />
+                      }
                       className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
@@ -117,7 +119,9 @@ export function RegisterFormCard() {
                   <FormControl>
                     <FormInput
                       placeholder="პაროლი"
-                      icon={<KeyRound className="text-[rgb(var(--color-icon))]" />}
+                      icon={
+                        <KeyRound className="text-[rgb(var(--color-icon))]" />
+                      }
                       type="password"
                       isPasswordType
                       disabled={isPending}
@@ -138,7 +142,9 @@ export function RegisterFormCard() {
                   <FormControl>
                     <FormInput
                       placeholder="გაიმეორეთ პაროლი"
-                      icon={<RotateCcwKey className="text-[rgb(var(--color-icon))]" />}
+                      icon={
+                        <RotateCcw className="text-[rgb(var(--color-icon))]" />
+                      }
                       type="password"
                       isPasswordType
                       disabled={isPending}
@@ -160,7 +166,9 @@ export function RegisterFormCard() {
                     <OTPInput
                       placeholder="ერთჯერადი კოდი"
                       type="text"
-                      icon={<BadgeCheck className="text-[rgb(var(--color-icon))]" />}
+                      icon={
+                        <BadgeCheck className="text-[rgb(var(--color-icon))]" />
+                      }
                       disabled={isPending}
                       {...field}
                     />

@@ -41,8 +41,12 @@ const CarsSearchList = ({ cars }: CarsSearchListProps) => {
             <Card key={car.id} className="mb-4 px-3 py-2">
               <h3 className="font-semibold text-lg">{car.licensePlate}</h3>
               <Separator className="mt-1" />
-              <p className="mt-2 text-[rgb(var(--color-text-primary))]">{car.name}</p>
-              <p className="text-[rgb(var(--color-text-secondary))]">{car.phone}</p>
+              <p className="mt-2 text-[rgb(var(--color-text-primary))]">
+                {car.name}
+              </p>
+              <p className="text-[rgb(var(--color-text-secondary))]">
+                {car.phone}
+              </p>
             </Card>
           ))
         )}

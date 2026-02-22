@@ -11,18 +11,6 @@ export default function LoginPage() {
     <div className="relative min-h-screen bg-background overflow-scroll">
       {/* Background Decorations */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {/* Grid Pattern */}
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgb(var(--color-border-light)) 1px, transparent 1px),
-              linear-gradient(90deg, rgb(var(--color-border-light)) 1px, transparent 1px)
-            `,
-            backgroundSize: '40px 40px',
-          }}
-        />
-
         {/* Animated Blobs */}
         <div className="absolute -top-24 -right-24 w-72 h-72 bg-primary-light rounded-full blur-[80px] opacity-40 animate-blob" />
         <div className="absolute bottom-[20%] -left-20 w-64 h-64 bg-gradient-secondary-purple rounded-full blur-[80px] opacity-40 animate-blob animation-delay-2000" />

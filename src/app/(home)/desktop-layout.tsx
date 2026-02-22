@@ -52,7 +52,7 @@ const HeaderQuickNav = () => {
         const isActive =
           item.href === ''
             ? pathname === `/apartment/${apartmentId}` ||
-            pathname === `/apartment/${apartmentId}/`
+              pathname === `/apartment/${apartmentId}/`
             : pathname.startsWith(fullHref);
 
         return (
@@ -63,7 +63,7 @@ const HeaderQuickNav = () => {
               'flex items-center gap-2 px-3 py-2 rounded-panel text-sm font-medium transition-colors',
               isActive
                 ? 'bg-primary-container text-primary-container-foreground'
-                : 'text-foreground-secondary hover:bg-surface-variant',
+                : 'text-foreground-secondary hover:bg-surface-variant'
             )}
           >
             <item.icon className="w-4 h-4" />

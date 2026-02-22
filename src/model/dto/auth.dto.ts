@@ -24,7 +24,7 @@ export type ApartmentRole = 'MEMBER' | 'ADMIN';
 export interface ApartmentDTO {
   id: string;
   name: string;
-  role: ApartmentRole;
+  isManager: boolean;
 }
 
 export interface UserDTO {
@@ -32,9 +32,10 @@ export interface UserDTO {
   phone: string;
   name: string;
   surname: string;
+  email: string;
   profileImageId?: string;
-  joinedApartments: ApartmentDTO[];
   selectedApartmentId?: string;
+  joinedApartments: ApartmentDTO[];
 }
 
 export interface UserSnapshotDTO {
