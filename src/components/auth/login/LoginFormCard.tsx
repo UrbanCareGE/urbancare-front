@@ -32,7 +32,6 @@ export function LoginFormCard() {
 
   const handleOAuthLogin = (provider: string) => {
     // Handle OAuth login
-    console.log(`Login with ${provider}`);
   };
 
   const form = useForm<z.infer<typeof LoginFormSchema>>({
@@ -49,7 +48,6 @@ export function LoginFormCard() {
       phone: phone,
       password: password,
     };
-    console.log(loginReq);
     logIn(loginReq);
   };
 

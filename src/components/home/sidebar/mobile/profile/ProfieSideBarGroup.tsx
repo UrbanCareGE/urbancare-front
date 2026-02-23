@@ -25,7 +25,7 @@ export const ProfileSideBarGroupHeader = ({
   return (
     <h3
       className={cn(
-        'text-base text-foreground-secondary tracking-wide mb-2',
+        'text-base text-foreground-secondary tracking-wide mb-5',
         className
       )}
     >
@@ -47,7 +47,7 @@ export const ProfileSideBarGroupRoot = ({
   className,
   children,
 }: ProfileSideBarGroupProps) => {
-  return <div className={cn('flex flex-col py-3', className)}>{children}</div>;
+  return <div className={cn('flex flex-col py-2', className)}>{children}</div>;
 };
 
 export const ProfileSideBarGroup = Object.assign(ProfileSideBarGroupRoot, {

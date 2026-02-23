@@ -25,10 +25,10 @@ type OverlayPageProps = {
 };
 
 const OverlayPageRoot = ({
-                           children,
-                           className,
-                           onClose,
-                         }: OverlayPageProps) => {
+  children,
+  className,
+  onClose,
+}: OverlayPageProps) => {
   const router = useRouter();
 
   const handleClose = onClose ?? (() => router.back());
@@ -38,7 +38,7 @@ const OverlayPageRoot = ({
       <div
         className={cn(
           'fixed inset-0 z-[100] bg-background flex flex-col h-dvh w-dvw',
-          className,
+          className
         )}
       >
         {children}
@@ -56,23 +56,25 @@ type HeaderProps = {
 };
 
 const OverlayPageHeader = ({
-                             children,
-                             className,
-                             showBack = true,
-                             showClose = false,
-                             title,
-                           }: HeaderProps) => {
+  children,
+  className,
+  showBack = true,
+  showClose = false,
+  title,
+}: HeaderProps) => {
   const { onClose } = useOverlay();
 
   return (
     <header
       className={cn(
         'h-16 flex items-center justify-between px-2 py-3 border-b border-border bg-surface shrink-0',
-        className,
+        className
       )}
     >
       <div className="flex items-center gap-2">
-        {showBack && <ArrowLeft className="w-7 h-7 text-icon" onClick={onClose} />}
+        {showBack && (
+          <ArrowLeft className="w-7 h-7 text-icon" onClick={onClose} />
+        )}
         {title && <h1 className="font-semibold text-lg">{title}</h1>}
         {children}
       </div>
@@ -109,7 +111,9 @@ type FooterProps = {
 
 const OverlayPageFooter = ({ children, className }: FooterProps) => {
   return (
-    <footer className={cn('shrink-0 bg-surface border-t border-border', className)}>
+    <footer
+      className={cn('shrink-0 bg-surface border-t border-border', className)}
+    >
       {children}
     </footer>
   );

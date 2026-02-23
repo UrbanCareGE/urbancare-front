@@ -125,16 +125,16 @@ export const ThreadCreateForm = () => {
       newEntries.map(async (entry, index) => {
         const result = await FileService.uploadPublicFile(entry.file);
         return { index: currentFiles.length + index, fileId: result.id };
-      }),
+      })
     );
 
     const currentFormFiles = form.getValues('files') || [];
     const updatedFormFiles = currentFormFiles.map((f, i) => {
       const success = results.find(
-        (r) => r.status === 'fulfilled' && r.value.index === i,
+        (r) => r.status === 'fulfilled' && r.value.index === i
       );
       const failed = results.find(
-        (r) => r.status === 'rejected', // need to track index differently
+        (r) => r.status === 'rejected' // need to track index differently
       );
 
       if (success && success.status === 'fulfilled') {
@@ -196,7 +196,7 @@ export const ThreadCreateForm = () => {
   const handleDeselectTag = (tag: string) => {
     form.setValue(
       'tags',
-      selectedTags.filter((t) => t !== tag),
+      selectedTags.filter((t) => t !== tag)
     );
   };
 
@@ -224,7 +224,6 @@ export const ThreadCreateForm = () => {
       console.error('Submission failed:', error);
     }
   };
-
 
   return (
     <ThreadForm>

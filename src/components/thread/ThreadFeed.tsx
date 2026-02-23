@@ -89,7 +89,6 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
         </div>
 
         <ThreadFeedTagFilters
-          className=""
           selectedTags={selectedTags}
           onClick={handleToggleTag}
         />
@@ -147,11 +146,11 @@ export type StartThreadFormSkeletonProps = {
 
 function LoadingSkeleton() {
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 px-3">
       {[1, 2, 3, 4, 5].map((i) => (
         <div
           key={i}
-          className="bg-surface rounded-2xl border border-border p-4 animate-pulse shadow-sm"
+          className="bg-surface rounded-2xl p-4 animate-pulse shadow-sm"
         >
           <div className="flex gap-3 mb-4">
             <div className="w-10 h-10 rounded-full bg-surface-container shrink-0"></div>

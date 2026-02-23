@@ -41,7 +41,6 @@ export function RegisterFormCard() {
 
   const handleOAuthLogin = (provider: string) => {
     // Handle OAuth registration
-    console.log(`Register with ${provider}`);
   };
 
   const form = useForm<z.infer<typeof registerSchema>>({

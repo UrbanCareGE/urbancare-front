@@ -25,8 +25,7 @@ export const ThreadViewHeader = ({ className }: ThreadCardHeaderProps) => {
           className="object-cover"
         />
         {userInfo && (
-          <AvatarFallback
-            className="text-xs font-semibold bg-[rgb(var(--color-primary-container))] text-[rgb(var(--color-primary))]">
+          <AvatarFallback className="text-xs font-semibold bg-[rgb(var(--color-primary-container))] text-[rgb(var(--color-primary))]">
             {userInfo.name[0]}
             {userInfo.surname[0]}
           </AvatarFallback>

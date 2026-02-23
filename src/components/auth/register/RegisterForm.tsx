@@ -4,13 +4,7 @@ import React from 'react';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import {
-  BadgeCheck,
-  KeyRound,
-  PhoneIcon,
-  RotateCcw,
-  User,
-} from 'lucide-react';
+import { BadgeCheck, KeyRound, PhoneIcon, RotateCcw, User } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { FormInput } from '@/components/common/input/FormInput';
 import { OTPInput } from '@/components/auth/register/OTPInput';

@@ -68,7 +68,7 @@ export const ProfileSideBarBody = () => {
           {profileItems.map((item, index) => (
             <SheetClose asChild key={item.href}>
               <NavigationLink
-                className={'px-0 pr-2'}
+                className={'px-0 pr-2 mb-2'}
                 key={item.href}
                 navigationItem={item}
                 href={item.href}
@@ -84,7 +84,7 @@ export const ProfileSideBarBody = () => {
           {supportItems.map((item, index) => (
             <SheetClose asChild key={item.href}>
               <NavigationLink
-                className={'px-0 pr-2'}
+                className={'px-0 pr-2 mb-2'}
                 key={item.href}
                 navigationItem={item}
                 href={item.href}

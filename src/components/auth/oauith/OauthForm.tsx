@@ -7,9 +7,7 @@ type OauthFormProps = {
 };
 
 export const OauthForm = ({ className, handleOauthLogin }: OauthFormProps) => {
-  const defaultHandler = (provider: string) => {
-    console.log(`OAuth login with ${provider}`);
-  };
+  const defaultHandler = (provider: string) => {};
 
   const handler = handleOauthLogin || defaultHandler;
   return (
