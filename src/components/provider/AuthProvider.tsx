@@ -61,15 +61,24 @@ const getApartmentWithId = (
 };
 
 const isPublicRoute = (pathname: string) => {
-  return RouteConfig.public.some((route) => pathname.startsWith(route));
+  // Normalize pathname: remove trailing slash for comparison
+  const normalizedPath =
+    pathname.endsWith('/') && pathname !== '/'
+      ? pathname.slice(0, -1)
+      : pathname;
+
+  return RouteConfig.public.some(
+    (route) =>
+      normalizedPath === route || normalizedPath.startsWith(route + '/')
+  );
 };
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const queryClient = useQueryClient();
   const pathname = usePathname();
-  console.log('pathname aris es ' + pathname);
 
   const isPublic = isPublicRoute(pathname);
+  console.log('pathName', pathname);
 
   const handleAuthError = useCallback(() => {
     queryClient.clear();
@@ -90,7 +99,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         ...dto,
         joinedApartments,
         selectedApartmentId,
-        selectedApartment: getApartmentWithId(joinedApartments, selectedApartmentId),
+        selectedApartment: getApartmentWithId(
+          joinedApartments,
+          selectedApartmentId
+        ),
       } as UserModel;
     },
     enabled: !isPublic,

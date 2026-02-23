@@ -10,7 +10,6 @@ async function handleRequest(
   { params }: { params: Promise<{ path: string[] }> }
 ) {
   try {
-    console.log(JAVA_API_URL);
     const cookieStore = await cookies();
     const token = cookieStore.get('auth-token')?.value;
 

@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 export const RouteConfig = {
-  public: ['/auth/login', '/auth/register'],
+  public: ['/auth/login', '/auth/register', '/auth/recover-password'],
 
   protected: ['/apartment/*'],
 
@@ -25,7 +25,6 @@ function matchesRoute(pathname: string, routes: string[]): boolean {
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  console.log(`Proxying ${pathname}`);
 
   if (
     pathname.startsWith('/_next') ||
@@ -34,8 +33,6 @@ export async function proxy(request: NextRequest) {
   ) {
     return NextResponse.next();
   }
-
-  console.log('ak movida');
 
   const authToken = request.cookies.get('auth-token')?.value;
 
@@ -50,8 +47,6 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(loginUrl);
     }
   }
-
-  console.log('akac');
 
   return NextResponse.next();
 }
