@@ -1,6 +1,12 @@
 'use client';
 
-import { createContext, ReactNode, useContext, useEffect } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+} from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 import { AuthService } from '@/service/auth-service';
@@ -64,10 +70,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
   const isPublic = isPublicRoute(pathname);
 
-  const handleAuthError = () => {
+  const handleAuthError = useCallback(() => {
     queryClient.clear();
     window.location.href = '/auth/login';
-  };
+  }, [queryClient]);
 
   const {
     data: user,
@@ -93,10 +99,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    if (isError && !isPublic) {
+    if (!user && !isLoading && !isPublic) {
       handleAuthError();
     }
-  }, [isError, isPublic]);
+  }, [user, isLoading, isPublic, handleAuthError]);
 
   const loginMutation = useMutation<UserDTO, ErrorResponse, LoginDTO>({
     mutationFn: AuthService.login,
