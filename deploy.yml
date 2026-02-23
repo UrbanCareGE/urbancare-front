@@ -17,8 +17,8 @@ jobs:
           username: ${{ secrets.HETZNER_USER }}
           key: ${{ secrets.HETZNER_SSH_KEY }}
           script: |
-            cd /var/www/myapp
+            cd /var/www/urbancare
             git pull origin main
             npm ci
             npm run build
-            pm2 restart nextapp
+            pm2 restart urbancare
