@@ -39,7 +39,7 @@ export const AuthService = {
     return data;
   },
   getUserInfo: async (): Promise<UserDTO> => {
-    const { data } = await api.get<UserDTO>('/api/next/user/me');
+    const { data } = await api.get<UserDTO>('/api/user/me');
     return data;
   },
   nextGetUserInfo: async (authToken: string): Promise<UserDTO> => {
