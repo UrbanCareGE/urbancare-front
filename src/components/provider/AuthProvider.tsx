@@ -67,6 +67,7 @@ const isPublicRoute = (pathname: string) => {
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const queryClient = useQueryClient();
   const pathname = usePathname();
+  console.log('pathname aris es ' + pathname);
 
   const isPublic = isPublicRoute(pathname);
 
@@ -89,7 +90,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         ...dto,
         joinedApartments,
         selectedApartmentId,
-        selectedApartment: selectedApartmentId,
+        selectedApartment: getApartmentWithId(joinedApartments, selectedApartmentId),
       } as UserModel;
     },
     enabled: !isPublic,
