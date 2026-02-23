@@ -99,10 +99,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    if (!user && !isLoading && !isPublic) {
+    if (isError && !isPublic) {
       handleAuthError();
     }
-  }, [user, isLoading, isPublic, handleAuthError]);
+  }, [isError, isPublic, handleAuthError]);
 
   const loginMutation = useMutation<UserDTO, ErrorResponse, LoginDTO>({
     mutationFn: AuthService.login,
@@ -159,19 +159,9 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     await refetch();
   };
 
-  if (isLoading && !isPublic) {
+  if ((isLoading || isError || !user) && !isPublic) {
     return <PulsingLoader />;
   }
-
-  if (!user && !isPublic) {
-    handleAuthError();
-    return <PulsingLoader />;
-  }
-
-  // if (!user?.selectedApartment) {
-  //   // TODO ak unda gadavagdot
-  //   return <PulsingLoader />;
-  // }
 
   const value: AuthContextType = {
     user: user!,
