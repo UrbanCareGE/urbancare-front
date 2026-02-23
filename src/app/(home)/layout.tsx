@@ -16,8 +16,6 @@ import { UserModel } from '@/components/provider/AuthProvider';
 import { AuthService } from '@/service/auth-service';
 
 export default async function HomeLayout({ children }: Children) {
-  const c = await cookies();
-  const authToken = c.get('auth-token')?.value;
 
   const qc = new QueryClient();
 
