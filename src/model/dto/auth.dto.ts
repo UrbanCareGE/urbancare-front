@@ -35,7 +35,7 @@ export interface UserDTO {
   email: string;
   profileImageId?: string;
   selectedApartmentId?: string;
-  joinedApartments: ApartmentDTO[];
+  joinedApartments?: ApartmentDTO[];
 }
 
 export interface UserSnapshotDTO {
