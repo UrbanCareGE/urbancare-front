@@ -52,11 +52,7 @@ export function LoginFormCard() {
   };
 
   return (
-    <Card
-      className={
-        'border-border-light shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.04),0_12px_32px_rgba(0,0,0,0.06)] rounded-3xl animate-slide-up'
-      }
-    >
+    <Card className={'border-border-light rounded-3xl animate-slide-up'}>
       <CardContent className="p-8">
         <h1 className="text-2xl font-bold text-center text-primary mb-2">
           მოგესალმებით
@@ -87,7 +83,7 @@ export function LoginFormCard() {
                       icon={
                         <UserIcon className="text-[rgb(var(--color-icon))]" />
                       }
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-xl border border-border bg-surface text-[15px] text-text-primary placeholder:text-text-muted hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -110,7 +106,7 @@ export function LoginFormCard() {
                       type="password"
                       isPasswordType
                       disabled={isLoggingIn}
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-xl border border-border bg-surface text-[15px] text-text-primary placeholder:text-text-muted hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -132,7 +128,7 @@ export function LoginFormCard() {
             <Button
               type="submit"
               disabled={isLoggingIn}
-              className="w-full h-[52px] rounded-[14px] bg-gradient-primary shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 text-white text-base font-semibold relative overflow-hidden"
+              className="w-full h-[52px] rounded-[14px] bg-gradient-primary shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 text-text-primary font-semibold relative overflow-hidden"
             >
               <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent" />
               {isLoggingIn ? (

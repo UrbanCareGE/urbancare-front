@@ -36,6 +36,33 @@ module.exports = {
         big: '1600px',
       },
       colors: {
+        /*
+         * COLOR USAGE QUICK REFERENCE:
+         * ────────────────────────────────────────────────────────────────
+         * bg-primary          → Primary buttons, main CTAs
+         * bg-primary-container → Soft primary backgrounds (badges, chips)
+         * text-primary        → Primary button text (usually white)
+         *
+         * bg-secondary        → Secondary/cancel buttons
+         * bg-secondary-container → Soft grey backgrounds
+         *
+         * bg-tertiary         → Purple accent buttons, special features
+         * bg-tertiary-container → Soft purple backgrounds for badges/tags
+         * text-tertiary       → Purple accent text
+         *
+         * bg-surface          → Card backgrounds
+         * bg-surface-elevated → Modal/dropdown backgrounds
+         * bg-surface-variant  → Sidebar, secondary panels
+         *
+         * text-text-primary   → Main body text
+         * text-text-secondary → Subtitles, less important text
+         * text-text-tertiary  → Hints, placeholders
+         *
+         * bg-success/error/warning/info → State feedback colors
+         * ────────────────────────────────────────────────────────────────
+         */
+        // PRIMARY (Blue) - Main actions, links, CTAs
+        // Use: bg-primary, text-primary-foreground, hover:bg-primary-hover
         primary: {
           DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
           dark: 'rgb(var(--color-primary-dark) / <alpha-value>)',
@@ -49,6 +76,8 @@ module.exports = {
               'rgb(var(--color-primary-container-foreground) / <alpha-value>)',
           },
         },
+        // SECONDARY (Grey) - Cancel buttons, less important actions
+        // Use: bg-secondary, text-secondary-foreground, hover:bg-secondary-hover
         secondary: {
           DEFAULT: 'rgb(var(--color-secondary) / <alpha-value>)',
           hover: 'rgb(var(--color-secondary-hover) / <alpha-value>)',
@@ -60,8 +89,12 @@ module.exports = {
               'rgb(var(--color-secondary-container-foreground) / <alpha-value>)',
           },
         },
+        // TERTIARY (Purple) - Accent, badges, tags, special features
+        // Use: bg-tertiary, text-tertiary, bg-tertiary-container
         tertiary: {
           DEFAULT: 'rgb(var(--color-tertiary) / <alpha-value>)',
+          dark: 'rgb(var(--color-tertiary-dark) / <alpha-value>)',
+          light: 'rgb(var(--color-tertiary-light) / <alpha-value>)',
           hover: 'rgb(var(--color-tertiary-hover) / <alpha-value>)',
           active: 'rgb(var(--color-tertiary-active) / <alpha-value>)',
           foreground: 'rgb(var(--color-tertiary-foreground) / <alpha-value>)',
@@ -76,6 +109,8 @@ module.exports = {
           hover: 'rgb(var(--color-accent-hover) / <alpha-value>)',
           foreground: 'rgb(var(--color-accent-foreground) / <alpha-value>)',
         },
+        // SURFACE - Card/panel backgrounds
+        // surface: cards | elevated: modals/dropdowns | variant: sidebars
         surface: {
           DEFAULT: 'rgb(var(--color-surface) / <alpha-value>)',
           elevated: 'rgb(var(--color-surface-elevated) / <alpha-value>)',
@@ -86,11 +121,14 @@ module.exports = {
           secondary: 'rgb(var(--color-surface-secondary) / <alpha-value>)',
           hover: 'rgb(var(--color-surface-hover) / <alpha-value>)',
         },
+        // BACKGROUND - Page/app background
         background: {
           DEFAULT: 'rgb(var(--color-background) / <alpha-value>)',
           secondary: 'rgb(var(--color-background-secondary) / <alpha-value>)',
           hover: 'rgb(var(--color-background-hover) / <alpha-value>)',
         },
+        // TEXT COLORS
+        // primary: main text | secondary: subtitles | tertiary: hints
         foreground: {
           primary: 'rgb(var(--color-text-primary) / <alpha-value>)',
           secondary: 'rgb(var(--color-text-secondary) / <alpha-value>)',
@@ -113,6 +151,8 @@ module.exports = {
           focus: 'rgb(var(--color-border-focus) / <alpha-value>)',
           error: 'rgb(var(--color-border-error) / <alpha-value>)',
         },
+        // STATE COLORS - Feedback & status indicators
+        // success: completed actions, confirmations
         success: {
           DEFAULT: 'rgb(var(--color-success) / <alpha-value>)',
           hover: 'rgb(var(--color-success-hover) / <alpha-value>)',
@@ -124,6 +164,7 @@ module.exports = {
               'rgb(var(--color-success-container-foreground) / <alpha-value>)',
           },
         },
+        // error: errors, deletions, destructive actions
         error: {
           DEFAULT: 'rgb(var(--color-error) / <alpha-value>)',
           hover: 'rgb(var(--color-error-hover) / <alpha-value>)',
@@ -135,6 +176,7 @@ module.exports = {
               'rgb(var(--color-error-container-foreground) / <alpha-value>)',
           },
         },
+        // warning: caution, pending, requires attention
         warning: {
           DEFAULT: 'rgb(var(--color-warning) / <alpha-value>)',
           hover: 'rgb(var(--color-warning-hover) / <alpha-value>)',
@@ -146,6 +188,7 @@ module.exports = {
               'rgb(var(--color-warning-container-foreground) / <alpha-value>)',
           },
         },
+        // info: tips, help, informational messages
         info: {
           DEFAULT: 'rgb(var(--color-info) / <alpha-value>)',
           hover: 'rgb(var(--color-info-hover) / <alpha-value>)',

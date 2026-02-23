@@ -66,6 +66,46 @@
     }
   }
   :root {
+    /*
+    ╔════════════════════════════════════════════════════════════════════════════╗
+    ║                        COLOR USAGE GUIDE                                    ║
+    ╠════════════════════════════════════════════════════════════════════════════╣
+    ║                                                                            ║
+    ║  PRIMARY (Blue) - Main brand color, use for:                               ║
+    ║    • Primary buttons, links, CTAs                                          ║
+    ║    • Active/selected states (tabs, navigation)                             ║
+    ║    • Progress bars, loading indicators                                     ║
+    ║    • Important highlights                                                  ║
+    ║                                                                            ║
+    ║  SECONDARY (Grey) - Neutral UI elements, use for:                          ║
+    ║    • Secondary buttons (cancel, back)                                      ║
+    ║    • Less important text/icons                                             ║
+    ║    • Dividers, separators                                                  ║
+    ║    • Disabled states                                                       ║
+    ║                                                                            ║
+    ║  TERTIARY (Purple) - Accent color, use for:                                ║
+    ║    • Special badges, tags, labels                                          ║
+    ║    • Notifications, alerts (non-error/warning)                             ║
+    ║    • Feature highlights, promotions                                        ║
+    ║    • Alternative action buttons                                            ║
+    ║    • Categories, filters                                                   ║
+    ║    • Decorative elements, gradients                                        ║
+    ║                                                                            ║
+    ║  SURFACE - Card/panel backgrounds, use for:                                ║
+    ║    • Card backgrounds (surface)                                            ║
+    ║    • Modal backgrounds (surface-elevated)                                  ║
+    ║    • Sidebar backgrounds (surface-variant)                                 ║
+    ║    • Input field backgrounds (surface-container)                           ║
+    ║                                                                            ║
+    ║  STATE COLORS - Feedback, use for:                                         ║
+    ║    • success: completed actions, positive feedback                         ║
+    ║    • error: errors, deletions, destructive actions                         ║
+    ║    • warning: caution, pending states                                      ║
+    ║    • info: tips, help text, informational messages                         ║
+    ║                                                                            ║
+    ╚════════════════════════════════════════════════════════════════════════════╝
+    */
+
     /* Primary — Facebook blue */
     --color-primary: 24 119 242;             /* #1877F2 */
     --color-primary-dark: 10 102 227;        /* #0A66E3 */
@@ -84,13 +124,15 @@
     --color-secondary-foreground: 255 255 255;
     --color-secondary-container-foreground: 101 103 107;
 
-    /* Tertiary — keep for compatibility */
-    --color-tertiary: 24 119 242;
-    --color-tertiary-container: 214 232 254;
-    --color-tertiary-hover: 10 102 227;
-    --color-tertiary-active: 10 102 227;
+    /* Tertiary — purple accent */
+    --color-tertiary: 124 58 237;              /* #7C3AED — violet-600 */
+    --color-tertiary-dark: 109 40 217;         /* #6D28D9 — violet-700 */
+    --color-tertiary-light: 237 233 254;       /* #EDE9FE — violet-100 */
+    --color-tertiary-container: 237 233 254;   /* #EDE9FE — violet-100 */
+    --color-tertiary-hover: 109 40 217;        /* #6D28D9 — violet-700 */
+    --color-tertiary-active: 91 33 182;        /* #5B21B6 — violet-800 */
     --color-tertiary-foreground: 255 255 255;
-    --color-tertiary-container-foreground: 24 119 242;
+    --color-tertiary-container-foreground: 124 58 237;
 
     /* Backgrounds */
     --color-background: 240 242 245;         /* #F0F2F5 — Facebook light bg */
@@ -217,13 +259,15 @@
     --color-secondary-foreground: 24 25 26;
     --color-secondary-container-foreground: 176 179 184;
 
-    /* Tertiary */
-    --color-tertiary: 45 136 255;
-    --color-tertiary-container: 36 37 38;
-    --color-tertiary-hover: 66 149 255;
-    --color-tertiary-active: 24 119 242;
-    --color-tertiary-foreground: 255 255 255;
-    --color-tertiary-container-foreground: 45 136 255;
+    /* Tertiary — purple accent */
+    --color-tertiary: 167 139 250;             /* #A78BFA — violet-400 */
+    --color-tertiary-dark: 139 92 246;         /* #8B5CF6 — violet-500 */
+    --color-tertiary-light: 196 181 253;       /* #C4B5FD — violet-300 */
+    --color-tertiary-container: 46 16 101;     /* dark purple bg */
+    --color-tertiary-hover: 196 181 253;       /* #C4B5FD — violet-300 */
+    --color-tertiary-active: 139 92 246;       /* #8B5CF6 — violet-500 */
+    --color-tertiary-foreground: 24 25 26;
+    --color-tertiary-container-foreground: 167 139 250;
 
     /* Backgrounds — Facebook dark grey scale */
     --color-background: 24 25 26;            /* #18191A — darkest */
