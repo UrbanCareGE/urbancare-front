@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { BarChart2, Check, Plus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
 
 /**
  * Props interface for the Poll component
@@ -186,18 +185,6 @@ export const Poll = ({
       {/* Poll Content */}
       {isPollMode && (
         <div className="space-y-3 p-4 bg-surface-variant rounded-lg border border-border">
-          {/* Allow others to add toggle */}
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-foreground-primary">
-              სხვებს შეუძლიათ ვარიანტების დამატება
-            </span>
-            <Switch
-              checked={allowOthersToAdd}
-              onCheckedChange={setAllowOthersToAdd}
-              disabled={isDisabled}
-            />
-          </div>
-
           {/* Existing options */}
           {pollOptions.length > 0 && (
             <div className="space-y-2">
