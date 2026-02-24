@@ -40,7 +40,7 @@ export function PersonalInfoForm() {
 
   return (
     <div className="w-full space-y-3">
-      <h3 className="text-lg font-semibold text-primary">პირადი ინფორმაცია</h3>
+      <h3 className="text-lg font-semibold text-text-primary">პირადი ინფორმაცია</h3>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
@@ -77,7 +77,7 @@ export function PersonalInfoForm() {
           />
           <Button
             type="submit"
-            className="w-full h-12 bg-primary text-white rounded-3xl"
+            className="w-full h-12 bg-primary text-text-primary rounded-3xl disabled:text-disabled-foreground disabled:bg-disabled"
             disabled={isPending || !form.formState.isDirty}
           >
             {isPending ? 'მიმდინარეობს...' : 'შენახვა'}

@@ -60,12 +60,12 @@ const CreateUrgentButtonMobile = () => {
           />
         </div>
         <DrawerFooter>
-          <Button onClick={handleAdd} disabled={isPending || !text.trim()}>
+          <Button onClick={handleAdd} disabled={isPending || !text.trim()} className={"bg-primary text-primary-foreground disabled:bg-disabled disabled:text-disabled-foreground"}>
             {isPending ? 'იგზავნება...' : 'გაგზავნა'}
           </Button>
 
           {isError && (
-            <p className="text-red-500 text-sm">შეცდომა: {error?.message}</p>
+            <p className="text-error-foreground text-sm">შეცდომა: {error?.message}</p>
           )}
 
           <DrawerClose asChild>

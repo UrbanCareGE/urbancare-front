@@ -110,7 +110,7 @@ export function ChangePasswordForm() {
           />
           <Button
             type="submit"
-            className="w-full h-12 bg-primary text-white rounded-3xl"
+            className="w-full h-12 bg-primary text-text-primary rounded-3xl disabled:text-disabled-foreground disabled:bg-disabled"
             disabled={isPending || !form.formState.isValid}
           >
             {isPending ? 'მიმდინარეობს...' : 'პაროლის შეცვლა'}

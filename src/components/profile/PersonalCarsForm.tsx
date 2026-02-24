@@ -101,14 +101,14 @@ const PersonalCarsForm = () => {
 
   return (
     <div className="w-full space-y-3">
-      <h3 className="text-lg text-primary font-semibold flex items-center">
+      <h3 className="text-lg text-text-primary font-semibold flex items-center">
         მანქანის ნომრები
         {isMobile ? (
           <Popover>
             <PopoverTrigger>
               <Info className={'ml-3'} />
             </PopoverTrigger>
-            <PopoverContent className={'bg-tooltip text-slate-50 text-center'}>
+            <PopoverContent className={'bg-tooltip text-text-primary border-border text-center'}>
               მანქანის ნომრის დამატებით მეზობლები შეძლებენ მარტივად
               დაგიკავშირდნენ გადაუდებელ სიტუაციებში (თუ მანქანა გზას კეტავს, ან
               სამშენებლო სამუშაოების შემთხვევაში)

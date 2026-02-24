@@ -20,6 +20,7 @@ jobs:
             cd /var/www/urbancare
             git fetch origin
             git reset --hard origin/main
+            rm -rf .next     
             npm ci
             npm run build
             pm2 restart urbancare
