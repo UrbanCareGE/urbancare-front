@@ -40,7 +40,9 @@ export function PersonalInfoForm() {
 
   return (
     <div className="w-full space-y-3">
-      <h3 className="text-lg font-semibold text-text-primary">პირადი ინფორმაცია</h3>
+      <h3 className="text-lg font-semibold text-text-primary">
+        პირადი ინფორმაცია
+      </h3>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField

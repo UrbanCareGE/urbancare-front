@@ -9,14 +9,13 @@ export default function RootPage() {
   const router = useRouter();
   const { user, isLoading, isAuthenticated } = useAuth();
 
-  // useEffect(() => {
-  //   if (isLoading) return;
-  //
-  //   // Redirect authenticated users to their apartment
-  //   if (isAuthenticated && user?.joinedApartments?.length) {
-  //     router.replace(`/apartment/${user.selectedApartmentId}`);
-  //   }
-  // }, [user, isLoading, isAuthenticated, router]);
+  useEffect(() => {
+    if (isLoading) return;
+
+    if (isAuthenticated && user?.joinedApartments?.length) {
+      router.replace(`/apartment/${user.selectedApartmentId}`);
+    }
+  }, [user, isLoading, isAuthenticated, router]);
 
   // Show loading while checking auth
   if (isLoading) {
@@ -25,10 +24,6 @@ export default function RootPage() {
         <div className="animate-spin h-8 w-8 border-4 bg-border-primary border-t-transparent rounded-full" />
       </div>
     );
-  }
-
-  if (!isAuthenticated) {
-    return <LandingPage />;
   }
 
   // Show loading while redirecting authenticated users

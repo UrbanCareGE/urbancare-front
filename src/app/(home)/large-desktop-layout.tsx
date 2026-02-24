@@ -31,8 +31,6 @@ import { Chat } from '@/components/chat/Chat';
 import UrgentFeed from '@/components/urgent/UrgentFeed';
 import { UrbanCareTextIcon } from '@/components/common/logo/AppLogo';
 
-// ==================== HEADER COMPONENTS ====================
-
 const HeaderLogo = () => (
   <Link href="/" className="flex items-center">
     <UrbanCareTextIcon className="text-xl" />
@@ -90,7 +88,11 @@ const HeaderUserDropdown = () => {
           <ActiveUserAvatar />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-72" align="end" sideOffset={8}>
+      <DropdownMenuContent
+        className="bg-surface border-border w-72"
+        align="end"
+        sideOffset={8}
+      >
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">
@@ -136,8 +138,6 @@ const DesktopHeader = () => (
   </header>
 );
 
-// ==================== SIDEBAR COMPONENTS ====================
-
 const SidebarHeader = () => (
   <div className="h-16 px-4 flex items-center border-b border-border">
     <HeaderLogo />
@@ -163,8 +163,6 @@ const DesktopSidebar = () => (
     <SidebarFooter />
   </aside>
 );
-
-// ==================== RIGHT PANEL COMPONENTS ====================
 
 type IslandProps = {
   title: string;
@@ -214,8 +212,6 @@ const RightPanel = () => (
     <ChatIsland />
   </aside>
 );
-
-// ==================== MAIN LAYOUT ====================
 
 export const LargeDesktopLayout = ({
   children,

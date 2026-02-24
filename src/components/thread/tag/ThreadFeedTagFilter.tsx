@@ -20,7 +20,7 @@ export const ThreadFeedTagFilters = ({
 }: ThreadTagValueProps) => {
   return (
     <Carousel orientation={'horizontal'} opts={{ align: 'start' }}>
-      <CarouselContent className={'px-6 -ml-2 gap-1'}>
+      <CarouselContent className={'px-6 -ml-2 gap-1 max-w-2xl'}>
         {ALL_TAGS.map((tag) => {
           const config = ThreadTagConfig[tag];
           return (

@@ -99,7 +99,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
 
   if (error) {
     return (
-      <div className="flex-1 w-full">
+      <div className="flex-1 w-full max-w-md">
         <div className="max-w-2xl mx-auto px-4 pt-24">
           <div className="bg-[rgb(var(--color-error-background))] border border-[rgb(var(--color-error)/0.3)] rounded-xl p-4 text-center">
             <p className="text-[rgb(var(--color-error))] text-sm">
@@ -112,8 +112,8 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
   }
 
   return (
-    <div className="flex-1 overflow-y-scroll space-y-4 py-4">
-      <div className="max-w-2xl mx-auto px-3">
+    <div className="max-w-2xl space-y-4 py-4 mx-auto">
+      <div className="w-full mx-auto px-3">
         <ThreadCreateForm />
       </div>
 
@@ -122,7 +122,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
         onClick={handleToggleTag}
       />
 
-      <div className="max-w-2xl mx-auto px-3 space-y-4">
+      <div className="w-full px-3 space-y-4">
         {allThreads.map(({ threadId }) => (
           <Thread key={threadId} threadId={threadId} defaultOpen={false} />
         ))}
@@ -133,7 +133,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
 
       {!hasNextPage && data?.pages && data.pages.length > 0 && (
         <div className="text-center py-8 text-[rgb(var(--color-text-tertiary))] text-xs">
-          ყველა პოსტი ნახულია
+          ყველა პოსტი ნანახია
         </div>
       )}
     </div>

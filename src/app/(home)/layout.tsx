@@ -16,7 +16,6 @@ import { UserModel } from '@/components/provider/AuthProvider';
 import { AuthService } from '@/service/auth-service';
 
 export default async function HomeLayout({ children }: Children) {
-
   const qc = new QueryClient();
 
   // Only prefetch if we have a token - don't block rendering on failure

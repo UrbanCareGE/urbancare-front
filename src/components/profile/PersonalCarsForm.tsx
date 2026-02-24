@@ -108,7 +108,11 @@ const PersonalCarsForm = () => {
             <PopoverTrigger>
               <Info className={'ml-3'} />
             </PopoverTrigger>
-            <PopoverContent className={'bg-tooltip text-text-primary border-border text-center'}>
+            <PopoverContent
+              className={
+                'bg-tooltip text-text-primary border-border text-center'
+              }
+            >
               მანქანის ნომრის დამატებით მეზობლები შეძლებენ მარტივად
               დაგიკავშირდნენ გადაუდებელ სიტუაციებში (თუ მანქანა გზას კეტავს, ან
               სამშენებლო სამუშაოების შემთხვევაში)
