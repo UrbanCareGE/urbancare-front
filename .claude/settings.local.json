@@ -10,7 +10,8 @@
       "Bash(npx tailwindcss --help:*)",
       "Bash(npm install:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(xargs:*)"
     ]
   }
 }

@@ -3,11 +3,19 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 export const RouteConfig = {
-  public: ['/auth/login', '/auth/register', '/auth/recover-password'],
+  public: [
+    '/',
+    '/welcome',
+    '/auth/login',
+    '/auth/register',
+    '/auth/recover-password',
+  ],
 
   protected: ['/apartment/*'],
 
   authOnly: ['/auth/login', '/auth/register'],
+
+  redirectToLanding: ['/'],
 };
 
 function matchesRoute(pathname: string, routes: string[]): boolean {
@@ -35,6 +43,17 @@ export async function proxy(request: NextRequest) {
   }
 
   const authToken = request.cookies.get('auth-token')?.value;
+
+  if (matchesRoute(pathname, RouteConfig.redirectToLanding)) {
+    const welcomeUrl = new URL('/welcome', request.url);
+    return NextResponse.redirect(welcomeUrl);
+  }
+
+  if (matchesRoute(pathname, RouteConfig.authOnly)) {
+    if (authToken) {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
+  }
 
   if (matchesRoute(pathname, RouteConfig.public)) {
     return NextResponse.next();
