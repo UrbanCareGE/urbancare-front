@@ -32,9 +32,7 @@ export default function RootLayout({ children }: Children) {
         <ReactQueryProvider>
           <MyThemeProvider>
             <AuthProvider>
-              <Suspense fallback={<PulsingLoader />}>
                 <ResponsiveLayoutServer>{children}</ResponsiveLayoutServer>
-              </Suspense>
               <Toaster position="bottom-right" richColors />
             </AuthProvider>
           </MyThemeProvider>

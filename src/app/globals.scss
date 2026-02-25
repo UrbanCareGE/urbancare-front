@@ -27,32 +27,31 @@
   }
 
 
-  /* styles/globals.css */
-  //::-webkit-scrollbar {
-  //  width: 6px;
-  //  height: 8px;
-  //}
-  //
-  //::-webkit-scrollbar-track {
-  //  background: #f3f4f6; /* Tailwind gray-100 */
-  //}
-  //
-  //::-webkit-scrollbar-thumb {
-  //  background-color: var(--mint-green-bold); /* Tailwind blue-500 */
-  //  border-radius: 8px;
-  //  border: 1px solid #f3f4f6;
-  //}
-  //
-  ///* Optional dark mode support */
-  //@media (prefers-color-scheme: dark) {
-  //  ::-webkit-scrollbar-track {
-  //    background: var(--color-grey-darker-black); /* Tailwind gray-800 */
-  //  }
-  //  ::-webkit-scrollbar-thumb {
-  //    background-color: var(--color-material-green-500); /* Tailwind blue-600 */
-  //    border: 2px solid var(--color-material-green-500);
-  //  }
-  //}
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f3f4f6; /* Tailwind gray-100 */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--mint-green-bold); /* Tailwind blue-500 */
+    border-radius: 8px;
+    border: 1px solid #f3f4f6;
+  }
+
+  /* Optional dark mode support */
+  @media (prefers-color-scheme: dark) {
+    ::-webkit-scrollbar-track {
+      background: var(--color-grey-darker-black); /* Tailwind gray-800 */
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--color-material-green-500); /* Tailwind blue-600 */
+      border: 2px solid var(--color-material-green-500);
+    }
+  }
   @layer utilities {
     .scrollbar-hide::-webkit-scrollbar {
       display: none;

@@ -220,28 +220,22 @@ export const LargeDesktopLayout = ({
 }) => {
   return (
     <ChatProvider>
-      <div className="flex h-screen bg-background overflow-hidden">
-        {/* Left Column - Sidebar */}
+      <div className="fixed inset-0 flex bg-background">
         <DesktopSidebar />
 
-        {/* Center Area - Header + Content */}
         <div className="flex-1 flex flex-col min-w-0">
           {/* Header */}
           <DesktopHeader />
 
-          {/* Content + Right Panel */}
           <div className="flex-1 flex overflow-hidden">
-            {/* Main Content */}
             <main className="flex-1 overflow-y-auto p-6">
               <div className="max-w-4xl mx-auto flex flex-col h-full">
                 {children}
               </div>
             </main>
-
-            {/* Right Panel */}
-            <RightPanel />
           </div>
         </div>
+        <RightPanel />
       </div>
     </ChatProvider>
   );
