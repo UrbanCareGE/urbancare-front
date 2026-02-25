@@ -11,7 +11,9 @@
       "Bash(npm install:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Skill(design)",
+      "Bash(grep:*)"
     ]
   }
 }

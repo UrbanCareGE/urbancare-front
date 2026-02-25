@@ -1,3 +1,5 @@
+'use client';
+
 import { NavChildItem } from '@/components/home/sidebar/mobile/navigation/NavigationArea';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -10,31 +12,44 @@ type NavigationSubLinkProps = {
   inSheet?: boolean;
 };
 
-// Inner sub-link component
 const NavigationSubLinkInner = ({
   fullHref,
   child,
   isActive,
+  textSize,
 }: {
   fullHref: string;
   child: NavChildItem;
   isActive: boolean;
+  textSize: string;
 }) => (
   <Link
     href={fullHref}
-    className={
-      'h-7 group relative flex items-center gap-9 px-1 border-l border-border hover:bg-surface-variant transition-colors'
-    }
+    className={cn(
+      'group flex items-center gap-2.5 px-2 py-1 rounded-md transition-all duration-150',
+      isActive
+        ? 'bg-primary-container/40 text-primary'
+        : 'text-foreground-secondary hover:bg-surface-variant hover:text-foreground-primary'
+    )}
   >
-    <div
+    {/* Dot indicator */}
+    <span
       className={cn(
-        'h-full w-1 rounded-full',
-        isActive ? 'bg-primary' : 'bg-primary-bg/80'
+        'w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all duration-150',
+        isActive
+          ? 'bg-primary scale-125'
+          : 'bg-[rgb(var(--color-border-strong))] group-hover:bg-[rgb(var(--color-primary)/0.5)]'
       )}
-    ></div>
-    <p className="flex-1 text-foreground-primary text-left truncate leading-tight font-medium text-base">
+    />
+    <span
+      className={cn(
+        'flex-1 text-left truncate leading-tight tracking-wide',
+        textSize,
+        isActive ? 'font-semibold' : 'font-medium'
+      )}
+    >
       {child.label}
-    </p>
+    </span>
   </Link>
 );
 
@@ -45,8 +60,8 @@ export const NavigationSubLink = ({
 }: NavigationSubLinkProps) => {
   const pathname = usePathname();
   const fullHref = `${parentHref}/${child.href}`;
-
   const isActive = pathname === fullHref || pathname.startsWith(`${fullHref}/`);
+  const textSize = inSheet ? 'text-base' : 'text-[13px]';
 
   if (inSheet) {
     return (
@@ -55,6 +70,7 @@ export const NavigationSubLink = ({
           fullHref={fullHref}
           child={child}
           isActive={isActive}
+          textSize={textSize}
         />
       </SheetClose>
     );
@@ -65,6 +81,7 @@ export const NavigationSubLink = ({
       fullHref={fullHref}
       child={child}
       isActive={isActive}
+      textSize={textSize}
     />
   );
 };

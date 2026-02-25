@@ -14,86 +14,90 @@ type NavigationLinkProps = {
   inSheet?: boolean;
 } & ComponentPropsWithoutRef<typeof Link>;
 
-// Inner link component (reusable)
-const NavigationLinkInner = forwardRef<
-  HTMLAnchorElement,
-  Omit<NavigationLinkProps, 'inSheet'> & { isActive: boolean }
->(({ navigationItem, className, isActive, ...props }, ref) => (
-  <Link
-    ref={ref}
-    {...props}
-    className={cn(
-      'h-9 group flex items-center gap-2 rounded-panel px-1 transition-colors',
-      isActive
-        ? 'bg-primary-container/60 text-primary'
-        : 'hover:bg-surface-variant text-foreground-primary',
-      className
-    )}
-    aria-current={isActive ? 'page' : undefined}
-  >
-    {navigationItem.icon && (
-      <div
+type NavigationLinkInnerProps = Omit<NavigationLinkProps, 'inSheet'> & {
+  isActive: boolean;
+};
+
+const NavigationLinkInner = forwardRef<HTMLAnchorElement, NavigationLinkInnerProps>(
+  ({ navigationItem, className, isActive, ...props }, ref) => (
+    <Link
+      ref={ref}
+      {...props}
+      className={cn(
+        'group relative flex items-center gap-2.5 rounded-panel px-2 py-1 transition-all duration-150',
+        isActive
+          ? 'bg-primary-container/50 text-primary'
+          : 'text-foreground-primary hover:bg-surface-variant',
+        className
+      )}
+      aria-current={isActive ? 'page' : undefined}
+    >
+      {/* Left accent bar */}
+      {isActive && (
+        <span className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full bg-primary" />
+      )}
+
+      {/* Icon container */}
+      {navigationItem.icon && (
+        <div
+          className={cn(
+            'w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-lg transition-colors duration-150',
+            isActive
+              ? 'bg-primary-container text-primary-container-foreground'
+              : cn('text-primary-container-foreground', navigationItem.className)
+          )}
+        >
+          {navigationItem.icon}
+        </div>
+      )}
+
+      {/* Label */}
+      <p
         className={cn(
-          'flex-shrink-0 p-2 flex justify-center items-center rounded-panel',
-          isActive
-            ? 'bg-primary-container text-primary-container-foreground'
-            : cn(
-                'bg-primary-container/50 text-primary-container-foreground',
-                navigationItem.className
-              )
+          'flex-1 text-left truncate leading-tight tracking-wide',
+          isActive ? 'font-semibold' : 'font-medium'
         )}
       >
-        {navigationItem.icon}
-      </div>
-    )}
-    <p
-      className={cn(
-        'flex-1 text-left truncate leading-tight tracking-wide text-lg',
-        isActive ? 'font-semibold' : 'font-normal'
-      )}
-    >
-      {navigationItem.label}
-    </p>
-    {isActive && (
-      <span className="w-1 h-5 rounded-full bg-primary flex-shrink-0 mr-1" />
-    )}
-  </Link>
-));
+        {navigationItem.label}
+      </p>
+    </Link>
+  )
+);
 NavigationLinkInner.displayName = 'NavigationLinkInner';
 
-export const NavigationLink = forwardRef<
-  HTMLAnchorElement,
-  NavigationLinkProps
->(({ navigationItem, className, inSheet = true, ...props }, ref) => {
-  const pathname = usePathname();
+export const NavigationLink = forwardRef<HTMLAnchorElement, NavigationLinkProps>(
+  ({ navigationItem, className, inSheet = true, ...props }, ref) => {
+    const pathname = usePathname();
 
-  const isActive =
-    pathname === navigationItem.href ||
-    (navigationItem.href !== '/' && pathname.startsWith(navigationItem.href));
+    const isActive =
+      pathname === navigationItem.href ||
+      (navigationItem.href !== '/' && pathname.startsWith(navigationItem.href));
 
-  if (inSheet) {
+    // Mobile (in-sheet): taller rows for touch targets
+    if (inSheet) {
+      return (
+        <SheetClose asChild>
+          <NavigationLinkInner
+            ref={ref}
+            navigationItem={navigationItem}
+            className={cn('py-1.5 text-xl', className)}
+            isActive={isActive}
+            {...props}
+          />
+        </SheetClose>
+      );
+    }
+
     return (
-      <SheetClose asChild>
-        <NavigationLinkInner
-          ref={ref}
-          navigationItem={navigationItem}
-          className={className}
-          isActive={isActive}
-          {...props}
-        />
-      </SheetClose>
+      <NavigationLinkInner
+        ref={ref}
+        navigationItem={navigationItem}
+        className={cn('text-lg', className)}
+        isActive={isActive}
+        {...props}
+      />
     );
   }
-
-  return (
-    <NavigationLinkInner
-      ref={ref}
-      navigationItem={navigationItem}
-      className={className}
-      isActive={isActive}
-      {...props}
-    />
-  );
-});
+);
 
 NavigationLink.displayName = 'NavigationLink';

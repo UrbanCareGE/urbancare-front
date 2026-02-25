@@ -233,9 +233,9 @@ export const LargeDesktopLayout = ({
                 {children}
               </div>
             </main>
+            <RightPanel />
           </div>
         </div>
-        <RightPanel />
       </div>
     </ChatProvider>
   );
