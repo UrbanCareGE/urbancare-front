@@ -160,7 +160,10 @@ const NavigationArea = ({ inSheet = true, className }: NavigationAreaProps) => {
           {/* Nav items */}
           <div className="flex flex-col gap-0">
             {group.items.map((navigationItem) => {
-              if (navigationItem.children && navigationItem.children.length > 0) {
+              if (
+                navigationItem.children &&
+                navigationItem.children.length > 0
+              ) {
                 return (
                   <NavigationLinkAccordion
                     key={navigationItem.href}

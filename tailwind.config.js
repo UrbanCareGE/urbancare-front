@@ -33,7 +33,9 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        big: '1600px',
+        mobile: '768px', // md equivalent
+        tablet: '1024px', // lg equivalent
+        desktop: '1400px', // custom
       },
       colors: {
         /*

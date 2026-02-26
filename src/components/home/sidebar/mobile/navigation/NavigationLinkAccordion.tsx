@@ -86,10 +86,11 @@ export const NavigationLinkAccordion = ({
   const { navigable } = navigationItem;
 
   // Auto-open if a child route is currently active
-  const hasActiveChild = navigationItem.children?.some((child) => {
-    const fullHref = `${navigationItem.href}/${child.href}`;
-    return pathname === fullHref || pathname.startsWith(`${fullHref}/`);
-  }) ?? false;
+  const hasActiveChild =
+    navigationItem.children?.some((child) => {
+      const fullHref = `${navigationItem.href}/${child.href}`;
+      return pathname === fullHref || pathname.startsWith(`${fullHref}/`);
+    }) ?? false;
 
   const isParentActive =
     pathname === navigationItem.href ||
@@ -122,7 +123,10 @@ export const NavigationLinkAccordion = ({
                 href={navigationItem.href}
                 className="flex items-center gap-2.5 flex-1 min-w-0"
               >
-                <NavRowContent navigationItem={navigationItem} isActive={isParentActive} />
+                <NavRowContent
+                  navigationItem={navigationItem}
+                  isActive={isParentActive}
+                />
               </Link>
             </SheetClose>
           ) : (
@@ -130,7 +134,10 @@ export const NavigationLinkAccordion = ({
               href={navigationItem.href}
               className="flex items-center gap-2.5 flex-1 min-w-0"
             >
-              <NavRowContent navigationItem={navigationItem} isActive={isParentActive} />
+              <NavRowContent
+                navigationItem={navigationItem}
+                isActive={isParentActive}
+              />
             </Link>
           )}
 
@@ -153,7 +160,10 @@ export const NavigationLinkAccordion = ({
 
         <AnimatePresence initial={false}>
           {isOpen && (
-            <AccordionChildren navigationItem={navigationItem} inSheet={inSheet} />
+            <AccordionChildren
+              navigationItem={navigationItem}
+              inSheet={inSheet}
+            />
           )}
         </AnimatePresence>
       </div>
@@ -174,7 +184,10 @@ export const NavigationLinkAccordion = ({
           <span className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full bg-primary" />
         )}
 
-        <NavRowContent navigationItem={navigationItem} isActive={isParentActive} />
+        <NavRowContent
+          navigationItem={navigationItem}
+          isActive={isParentActive}
+        />
 
         <ChevronRight
           className={cn(
@@ -186,7 +199,10 @@ export const NavigationLinkAccordion = ({
 
       <AnimatePresence initial={false}>
         {isOpen && (
-          <AccordionChildren navigationItem={navigationItem} inSheet={inSheet} />
+          <AccordionChildren
+            navigationItem={navigationItem}
+            inSheet={inSheet}
+          />
         )}
       </AnimatePresence>
     </div>

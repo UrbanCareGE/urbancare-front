@@ -7,13 +7,15 @@ import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
 import {
   Bell,
-  ChartColumnIncreasingIcon,
-  Headset,
-  Home,
+  CircleUser,
+  HouseIcon,
+  MessageSquare,
   Newspaper,
+  SendIcon,
   Settings,
   ShieldAlert,
 } from 'lucide-react';
+import { motion } from 'motion/react';
 import NavigationArea from '@/components/home/sidebar/mobile/navigation/NavigationArea';
 import { NeighborhoodSelect } from '@/components/home/NeighborhoodSelect';
 import { ActiveUserAvatar } from '@/components/common/avatar/ActiveUserAvatar';
@@ -31,46 +33,78 @@ import { Chat } from '@/components/chat/Chat';
 import UrgentFeed from '@/components/urgent/UrgentFeed';
 import { UrbanCareTextIcon } from '@/components/common/logo/AppLogo';
 
-const HeaderLogo = () => (
-  <Link href="/" className="flex items-center">
-    <UrbanCareTextIcon className="text-xl" />
-  </Link>
-);
+type NavItem = {
+  href: string;
+  label: string;
+  icon: React.ElementType;
+  isAbsolute?: boolean;
+};
 
-const headerNavItems = [
-  { href: '', label: 'მთავარი', icon: Home },
-  { href: 'news', label: 'ფიდი', icon: Newspaper },
-  { href: 'finances', label: 'სტატისტიკა', icon: ChartColumnIncreasingIcon },
-  { href: 'help', label: 'დახმარება', icon: Headset },
+const headerNavItems: NavItem[] = [
+  { href: 'post', label: 'პოსტები', icon: HouseIcon },
+  { href: 'urgent', label: 'სასწრაფო', icon: ShieldAlert },
+  { href: '', label: 'მთავარი', icon: SendIcon },
+  { href: '/welcome', label: 'სიახლეები', icon: Newspaper, isAbsolute: true },
+  { href: 'profile', label: 'პროფილი', icon: CircleUser },
 ];
 
-const HeaderQuickNav = () => {
+// ── Header islands ────────────────────────────────────────────────────────────
+
+const HeaderLogoIsland = () => (
+  <div className="relative overflow-hidden bg-surface rounded-2xl px-5 py-2.5 flex items-center flex-shrink-0 shadow-sm shadow-shadow/5">
+    <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] to-tertiary/[0.04] pointer-events-none" />
+    <Link href="/" className="flex items-center">
+      <UrbanCareTextIcon className="text-xl" />
+    </Link>
+  </div>
+);
+
+const HeaderNavIsland = () => {
   const pathname = usePathname();
   const { apartmentId } = useParams<{ apartmentId: string }>();
 
+  const getHref = (item: NavItem) => {
+    if (item.isAbsolute) return item.href;
+    if (!apartmentId) return '/';
+    return item.href
+      ? `/apartment/${apartmentId}/${item.href}`
+      : `/apartment/${apartmentId}`;
+  };
+
+  const isActive = (item: NavItem) => {
+    const href = getHref(item);
+    if (item.isAbsolute || item.href === '') return pathname === href;
+    return pathname === href || pathname.startsWith(href + '/');
+  };
+
   return (
-    <nav className="flex items-center gap-1">
+    <nav className="flex items-center gap-1 bg-surface rounded-2xl p-1 shadow-sm shadow-shadow/5">
       {headerNavItems.map((item) => {
-        const fullHref = `/apartment/${apartmentId}/${item.href}`;
-        const isActive =
-          item.href === ''
-            ? pathname === `/apartment/${apartmentId}` ||
-              pathname === `/apartment/${apartmentId}/`
-            : pathname.startsWith(fullHref);
+        const href = getHref(item);
+        const active = isActive(item);
 
         return (
           <Link
             key={item.href}
-            href={fullHref}
+            href={href}
             className={cn(
-              'flex items-center gap-2 px-3 py-2 rounded-panel text-sm font-medium transition-colors',
-              isActive
-                ? 'bg-primary-container text-primary-container-foreground'
-                : 'text-foreground-secondary hover:bg-surface-variant'
+              'relative flex items-center gap-2 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors duration-200',
+              active
+                ? 'text-primary'
+                : 'text-foreground-secondary hover:text-foreground-primary'
             )}
           >
-            <item.icon className="w-4 h-4" />
-            <span>{item.label}</span>
+            {active && (
+              <motion.div
+                layoutId="desktop-nav-indicator"
+                className="absolute inset-0 bg-surface-variant rounded-xl"
+                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+              />
+            )}
+            <item.icon
+              className={cn('relative z-10 w-4 h-4', active && 'text-primary')}
+            />
+            <span className="relative z-10">{item.label}</span>
           </Link>
         );
       })}
@@ -122,47 +156,53 @@ const HeaderUserDropdown = () => {
   );
 };
 
-const HeaderActions = () => (
-  <div className="flex items-center gap-3">
-    <button className="p-2 rounded-full hover:bg-surface-variant transition-colors text-foreground-secondary">
-      <Bell className="w-5 h-5" />
+const HeaderActionsIsland = () => (
+  <div className="flex items-center gap-2 bg-surface rounded-2xl px-3 py-2 shadow-sm shadow-shadow/5 flex-shrink-0">
+    <button className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-surface-variant transition-colors duration-200 text-foreground-secondary hover:text-foreground-primary">
+      <Bell className="w-4 h-4" />
     </button>
     <HeaderUserDropdown />
   </div>
 );
 
+// Header grid mirrors the content row below: [sidebar col] [main col] [right panel col]
+// Nav centered within the main column = centered above the feed
 const DesktopHeader = () => (
-  <header className="h-16 bg-surface border-b border-border flex items-center justify-between px-6 flex-shrink-0">
-    <HeaderQuickNav />
-    <HeaderActions />
-  </header>
-);
-
-const SidebarHeader = () => (
-  <div className="h-16 px-4 flex items-center border-b border-border">
-    <HeaderLogo />
+  <div className="flex-shrink-0 grid grid-cols-[260px_1fr_380px] gap-3 items-center">
+    <HeaderLogoIsland />
+    <div className="flex justify-center">
+      <HeaderNavIsland />
+    </div>
+    <div className="flex justify-end">
+      <HeaderActionsIsland />
+    </div>
   </div>
 );
 
-const SidebarNav = () => (
-  <div className="flex-1 overflow-y-auto px-3 py-4">
-    <NavigationArea inSheet={false} className="w-full flex flex-col gap-1" />
+// ── Sidebar (nav + footer only — logo lives in the header) ───────────────────
+
+const SidebarNavIsland = () => (
+  <div className="flex-1 bg-surface rounded-2xl overflow-hidden flex flex-col min-h-0">
+    <div className="flex-1 overflow-y-auto px-3 py-3 scrollbar-hide">
+      <NavigationArea inSheet={false} className="w-full flex flex-col gap-1" />
+    </div>
   </div>
 );
 
-const SidebarFooter = () => (
-  <div className="border-t border-border">
+const SidebarFooterIsland = () => (
+  <div className="bg-surface rounded-2xl overflow-hidden flex-shrink-0">
     <NeighborhoodSelect />
   </div>
 );
 
 const DesktopSidebar = () => (
-  <aside className="w-[280px] h-full bg-surface border-r border-border flex flex-col flex-shrink-0">
-    <SidebarHeader />
-    <SidebarNav />
-    <SidebarFooter />
+  <aside className="w-[260px] flex flex-col gap-3 flex-shrink-0 ">
+    <SidebarNavIsland />
+    <SidebarFooterIsland />
   </aside>
 );
+
+// ── Right panel islands ───────────────────────────────────────────────────────
 
 type IslandProps = {
   title: string;
@@ -174,11 +214,11 @@ type IslandProps = {
 const Island = ({ title, icon, children, className }: IslandProps) => (
   <div
     className={cn(
-      'bg-surface rounded-panel border border-border overflow-hidden flex flex-col',
+      'bg-surface rounded-2xl overflow-hidden flex flex-col',
       className
     )}
   >
-    <div className="px-4 py-3 border-b border-border bg-surface-variant flex items-center gap-2">
+    <div className="px-4 py-2.5 bg-surface-variant flex items-center gap-2 flex-shrink-0">
       {icon}
       <h3 className="font-semibold text-sm text-foreground-primary">{title}</h3>
     </div>
@@ -192,14 +232,18 @@ const UrgentIsland = () => (
     icon={<ShieldAlert className="w-4 h-4 text-error" />}
     className="max-h-[45%]"
   >
-    <div className="overflow-y-auto h-full">
+    <div className="overflow-y-auto h-full scrollbar-hide">
       <UrgentFeed />
     </div>
   </Island>
 );
 
 const ChatIsland = () => (
-  <Island title="ჩატი" className="flex-1 min-h-[200px]">
+  <Island
+    title="ჩატი"
+    icon={<MessageSquare className="w-4 h-4 text-primary" />}
+    className="border border-border flex-1 min-h-[456px]"
+  >
     <div className="h-full">
       <Chat />
     </div>
@@ -207,11 +251,13 @@ const ChatIsland = () => (
 );
 
 const RightPanel = () => (
-  <aside className="w-[400px] flex flex-col gap-4 flex-shrink-0 py-4 pr-4">
+  <aside className="w-[380px] flex flex-col gap-3 flex-shrink-0">
     <UrgentIsland />
     <ChatIsland />
   </aside>
 );
+
+// ── Layout ───────────────────────────────────────────────────────────────────
 
 export const LargeDesktopLayout = ({
   children,
@@ -220,19 +266,21 @@ export const LargeDesktopLayout = ({
 }) => {
   return (
     <ChatProvider>
-      <div className="fixed inset-0 flex bg-background">
-        <DesktopSidebar />
-
-        <div className="flex-1 flex flex-col min-w-0">
-          {/* Header */}
+      <div className="fixed inset-0 bg-background overflow-hidden">
+        <div className="h-full max-w-[1440px] mx-auto flex flex-col p-3 gap-3">
+          {/* Full-width header row — nav is truly centered */}
           <DesktopHeader />
 
-          <div className="flex-1 flex overflow-hidden">
-            <main className="flex-1 overflow-y-auto p-6">
-              <div className="max-w-4xl mx-auto flex flex-col h-full">
+          {/* Content row */}
+          <div className="flex-1 flex gap-3 overflow-hidden min-h-0">
+            <DesktopSidebar />
+
+            <main className="flex-1 overflow-y-auto">
+              <div className="max-w-4xl mx-auto flex flex-col py-2">
                 {children}
               </div>
             </main>
+
             <RightPanel />
           </div>
         </div>

@@ -2,16 +2,20 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50 flex items-center justify-center px-6">
+    <div
+      className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50 flex items-center justify-center px-6">
       {/* Background blobs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#BBDEFB] rounded-full blur-[80px] opacity-30 animate-pulse" />
-        <div className="absolute bottom-[20%] -left-20 w-64 h-64 bg-gradient-to-br from-[#7C4DFF]/20 to-[#00BCD4]/20 rounded-full blur-[80px] opacity-30 animate-pulse" />
+        <div
+          className="absolute -top-24 -right-24 w-72 h-72 bg-[#BBDEFB] rounded-full blur-[80px] opacity-30 animate-pulse" />
+        <div
+          className="absolute bottom-[20%] -left-20 w-64 h-64 bg-gradient-to-br from-[#7C4DFF]/20 to-[#00BCD4]/20 rounded-full blur-[80px] opacity-30 animate-pulse" />
       </div>
 
       <div className="relative z-10 max-w-md w-full text-center">
         {/* 404 Badge */}
-        <div className="mx-auto w-20 h-20 rounded-2xl bg-gradient-to-br from-[#1976D2]/10 to-[#1565C0]/10 border border-[#1976D2]/20 flex items-center justify-center mb-6 shadow-sm">
+        <div
+          className="mx-auto w-20 h-20 rounded-2xl bg-gradient-to-br from-[#1976D2]/10 to-[#1565C0]/10 border border-[#1976D2]/20 flex items-center justify-center mb-6 shadow-sm">
           <span className="text-2xl font-bold text-[#1976D2] font-[family-name:var(--font-space-grotesk)]">
             404
           </span>
@@ -19,12 +23,14 @@ export default function NotFound() {
 
         {/* Logo */}
         <div className="inline-flex items-center gap-2 mb-6">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1976D2] to-[#1565C0] flex items-center justify-center shadow-md">
+          <div
+            className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1976D2] to-[#1565C0] flex items-center justify-center shadow-md">
             <svg viewBox="0 0 24 24" className="w-4 h-4" fill="white">
               <path d="M12 2L3 9V20C3 20.55 3.45 21 4 21H9V14H15V21H20C20.55 21 21 20.55 21 20V9L12 2Z" />
             </svg>
           </div>
-          <span className="text-lg font-bold bg-gradient-to-br from-[#212121] to-[#1565C0] bg-clip-text text-transparent font-[family-name:var(--font-space-grotesk)]">
+          <span
+            className="text-lg font-bold bg-gradient-to-br from-[#212121] to-[#1565C0] bg-clip-text text-transparent font-[family-name:var(--font-space-grotesk)]">
             UrbanCare
           </span>
         </div>

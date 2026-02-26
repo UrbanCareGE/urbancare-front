@@ -57,28 +57,34 @@ export function useDevice(): DeviceInfo {
   });
 
   useEffect(() => {
-    function handleResize() {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      const type = getDeviceType(width);
+    let timeoutId: NodeJS.Timeout;
 
-      setDeviceInfo({
-        type,
-        isMobile: type === 'mobile',
-        isTablet: type === 'tablet',
-        isDesktop: type === 'desktop',
-        isLargeDesktop: type === 'largeDesktop',
-        width,
-        height,
-      });
+    function handleResize() {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const type = getDeviceType(width);
+
+        setDeviceInfo({
+          type,
+          isMobile: type === 'mobile',
+          isTablet: type === 'tablet',
+          isDesktop: type === 'desktop',
+          isLargeDesktop: type === 'largeDesktop',
+          width,
+          height,
+        });
+      }, 100);
     }
 
     window.addEventListener('resize', handleResize);
-
-    // Call once to set initial value
     handleResize();
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return deviceInfo;

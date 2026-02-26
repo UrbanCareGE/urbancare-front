@@ -39,7 +39,9 @@ export const ProfileSideBarGroupContent = ({
   children,
 }: ProfileSideBarGroupContentProps) => {
   return (
-    <div className={cn('flex flex-col px-3 gap-0.5', className)}>{children}</div>
+    <div className={cn('flex flex-col px-3 gap-0.5', className)}>
+      {children}
+    </div>
   );
 };
 
@@ -47,7 +49,9 @@ export const ProfileSideBarGroupRoot = ({
   className,
   children,
 }: ProfileSideBarGroupProps) => {
-  return <div className={cn('flex flex-col py-1.5', className)}>{children}</div>;
+  return (
+    <div className={cn('flex flex-col py-1.5', className)}>{children}</div>
+  );
 };
 
 export const ProfileSideBarGroup = Object.assign(ProfileSideBarGroupRoot, {

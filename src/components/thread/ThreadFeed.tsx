@@ -33,7 +33,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       threshold: 0.1,
       rootMargin: '256px',
     }),
-    []
+    [],
   );
 
   const { ref, inView } = useInView(inViewOptions);
@@ -48,7 +48,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     refetch,
   } = useInfiniteThreads(
     apartmentId,
-    selectedTags.length > 0 ? selectedTags : null
+    selectedTags.length > 0 ? selectedTags : null,
   );
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       page.content.map((threadId) => ({
         threadId,
         pageNumber: page.page.number,
-      }))
+      })),
     );
   }, [data?.pages]);
 
@@ -72,36 +72,21 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       if (selectedTags.includes(tag)) {
         form.setValue(
           'tags',
-          selectedTags.filter((t) => t !== tag)
+          selectedTags.filter((t) => t !== tag),
         );
       } else {
         form.setValue('tags', [...selectedTags, tag]);
       }
     },
-    [selectedTags, form]
+    [selectedTags, form],
   );
-
-  if (isPostFetchLoading && !data) {
-    return (
-      <div className="flex-1 overflow-y-scroll space-y-4 py-4">
-        <div className="max-w-2xl mx-auto px-3">
-          <ThreadCreateForm />
-        </div>
-
-        <ThreadFeedTagFilters
-          selectedTags={selectedTags}
-          onClick={handleToggleTag}
-        />
-        <LoadingSkeleton />
-      </div>
-    );
-  }
 
   if (error) {
     return (
-      <div className="flex-1 w-full max-w-md">
+      <div className="w-full max-w-md">
         <div className="max-w-2xl mx-auto px-4 pt-24">
-          <div className="bg-[rgb(var(--color-error-background))] border border-[rgb(var(--color-error)/0.3)] rounded-xl p-4 text-center">
+          <div
+            className="bg-[rgb(var(--color-error-background))] border border-[rgb(var(--color-error)/0.3)] rounded-xl p-4 text-center">
             <p className="text-[rgb(var(--color-error))] text-sm">
               Failed to load threads
             </p>
@@ -112,27 +97,29 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
   }
 
   return (
-    <div className="max-w-2xl space-y-4 py-4 mx-auto">
-      <div className="w-full mx-auto px-3">
-        <ThreadCreateForm />
-      </div>
+    <div className="max-w-2xl space-y-4 mx-auto">
+      <ThreadCreateForm />
 
       <ThreadFeedTagFilters
         selectedTags={selectedTags}
         onClick={handleToggleTag}
       />
 
-      <div className="w-full px-3 space-y-4">
-        {allThreads.map(({ threadId }) => (
-          <Thread key={threadId} threadId={threadId} defaultOpen={false} />
-        ))}
-      </div>
+      {allThreads && (
+        <div className="w-full space-y-4">
+          {allThreads.map(({ threadId }) => (
+            <Thread key={threadId} threadId={threadId} defaultOpen={false} />
+          ))}
+        </div>
+      )}
 
-      {isFetchingNextPage && <LoadingSkeleton />}
+      {isPostFetchLoading && !data && <ThreadsFeedLoadingSkeleton />}
+
+      {isFetchingNextPage && <ThreadsFeedLoadingSkeleton />}
       {hasNextPage && <div ref={ref} className="h-20" />}
 
       {!hasNextPage && data?.pages && data.pages.length > 0 && (
-        <div className="text-center py-8 text-[rgb(var(--color-text-tertiary))] text-xs">
+        <div className="text-center py-8 text-text-tertiary text-xs">
           ყველა პოსტი ნანახია
         </div>
       )}
@@ -140,13 +127,9 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
   );
 }
 
-export type StartThreadFormSkeletonProps = {
-  className?: string;
-};
-
-function LoadingSkeleton() {
+const ThreadsFeedLoadingSkeleton = () => {
   return (
-    <div className="space-y-3 px-3">
+    <div className="max-w-2xl space-y-4 mx-auto">
       {[1, 2, 3, 4, 5].map((i) => (
         <div
           key={i}
@@ -168,4 +151,4 @@ function LoadingSkeleton() {
       ))}
     </div>
   );
-}
+};
