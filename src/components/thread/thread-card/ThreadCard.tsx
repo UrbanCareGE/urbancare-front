@@ -49,9 +49,7 @@ const ThreadCardRoot = ({
       <Card
         className={cn(
           'overflow-hidden rounded-2xl border-none bg-surface p-4 space-y-4',
-          'shadow-sm shadow-shadow',
           'transition-all duration-200 cursor-pointer',
-          'hover:shadow-md hover:shadow-[rgb(var(--color-shadow)/0.10)] hover:border-[rgb(var(--color-border-medium))]',
           className
         )}
       >

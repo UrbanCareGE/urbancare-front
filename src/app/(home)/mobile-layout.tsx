@@ -12,7 +12,6 @@ import { ChatProvider } from '@/components/provider/ChatProvider';
 export const MobileLayout = ({ children }: Children) => {
   const path = usePathname();
   const isKeyboardOpen = useIsVirtualKeyboardOpen();
-  // Check if we're on the apartment home page (chat)
   const isApartmentHome = /^\/apartment\/[^/]+$/.test(path);
   return (
     <ChatProvider>
@@ -20,7 +19,7 @@ export const MobileLayout = ({ children }: Children) => {
         className={cn(
           'w-full relative scrollbar-hide',
           { 'flex flex-col h-full': isApartmentHome },
-          { 'min-h-full': !isApartmentHome }
+          { 'min-h-full': !isApartmentHome },
         )}
       >
         <MobileHeader />

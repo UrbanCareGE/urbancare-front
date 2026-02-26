@@ -33,9 +33,17 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        mobile: '768px', // md equivalent
-        tablet: '1024px', // lg equivalent
-        desktop: '1400px', // custom
+        sm: '640px', // large phones
+        md: '768px', // tablets
+        lg: '1024px', // laptops
+        xl: '1280px', // desktops
+        '2xl': '1536px', // large desktops
+
+        // Max-width - "this size and DOWN"
+        'max-sm': { max: '639px' }, // only mobile
+        'max-md': { max: '767px' }, // mobile + small tablets
+        'max-lg': { max: '1023px' }, // below laptop
+        'max-xl': { max: '1279px' }, // below desktop
       },
       colors: {
         /*

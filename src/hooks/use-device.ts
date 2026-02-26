@@ -2,28 +2,38 @@
 
 import { useEffect, useState } from 'react';
 
-export type DeviceType = 'mobile' | 'tablet' | 'desktop' | 'largeDesktop';
+export type DeviceType =
+  | 'mobile'
+  | 'tablet'
+  | 'laptop'
+  | 'desktop'
+  | 'largeDesktop';
 
 export interface DeviceInfo {
   type: DeviceType;
   isMobile: boolean;
   isTablet: boolean;
+  isLaptop: boolean;
   isDesktop: boolean;
   isLargeDesktop: boolean;
   width: number;
   height: number;
 }
 
+// Matches Tailwind config
 const BREAKPOINTS = {
-  mobile: 768,
-  tablet: 1024,
-  largeDesktop: 1400,
+  sm: 640, // large phones
+  md: 768, // tablets
+  lg: 1024, // laptops
+  xl: 1280, // desktops
+  '2xl': 1536, // large desktops
 } as const;
 
 function getDeviceType(width: number): DeviceType {
-  if (width < BREAKPOINTS.mobile) return 'mobile';
-  if (width < BREAKPOINTS.tablet) return 'tablet';
-  if (width < BREAKPOINTS.largeDesktop) return 'desktop';
+  if (width < BREAKPOINTS.sm) return 'mobile';
+  if (width < BREAKPOINTS.md) return 'tablet';
+  if (width < BREAKPOINTS.lg) return 'laptop';
+  if (width < BREAKPOINTS.xl) return 'desktop';
   return 'largeDesktop';
 }
 
@@ -34,6 +44,7 @@ export function useDevice(): DeviceInfo {
         type: 'desktop',
         isMobile: false,
         isTablet: false,
+        isLaptop: false,
         isDesktop: true,
         isLargeDesktop: false,
         width: 0,
@@ -49,6 +60,7 @@ export function useDevice(): DeviceInfo {
       type,
       isMobile: type === 'mobile',
       isTablet: type === 'tablet',
+      isLaptop: type === 'laptop',
       isDesktop: type === 'desktop',
       isLargeDesktop: type === 'largeDesktop',
       width,
@@ -70,6 +82,7 @@ export function useDevice(): DeviceInfo {
           type,
           isMobile: type === 'mobile',
           isTablet: type === 'tablet',
+          isLaptop: type === 'laptop',
           isDesktop: type === 'desktop',
           isLargeDesktop: type === 'largeDesktop',
           width,

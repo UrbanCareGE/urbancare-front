@@ -147,12 +147,12 @@ const NavigationArea = ({ inSheet = true, className }: NavigationAreaProps) => {
         <div key={groupIndex} className={cn(groupIndex > 0 && 'mt-1')}>
           {/* Section divider between groups */}
           {groupIndex > 0 && (
-            <div className="mx-2 border-t border-[rgb(var(--color-border))] mb-1 mt-0" />
+            <div className="mx-2 border-t border-border mb-1 mt-0" />
           )}
 
           {/* Section label */}
           {group.label && (
-            <p className="px-3 mb-0 text-xs font-semibold uppercase tracking-widest text-[rgb(var(--color-text-tertiary))]">
+            <p className="px-3 mb-0 text-xs font-semibold uppercase tracking-widest text-text-tertiary">
               {group.label}
             </p>
           )}

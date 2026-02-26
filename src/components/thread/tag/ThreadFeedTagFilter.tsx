@@ -1,8 +1,4 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from '@/components/ui/carousel';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { ALL_TAGS, ThreadTagConfig } from '@/model/dto/thread.dto';
 import { cn } from '@/lib/utils';
 import React from 'react';
@@ -14,13 +10,13 @@ type ThreadTagValueProps = {
 };
 
 export const ThreadFeedTagFilters = ({
-  className,
-  onClick,
-  selectedTags,
-}: ThreadTagValueProps) => {
+                                       className,
+                                       onClick,
+                                       selectedTags,
+                                     }: ThreadTagValueProps) => {
   return (
-    <Carousel orientation={'horizontal'} opts={{ align: 'start' }}>
-      <CarouselContent className={'px-6 -ml-2 gap-1 max-w-2xl'}>
+    <Carousel orientation={'horizontal'} opts={{ align: 'start' }} className={cn('', className)}>
+      <CarouselContent className={cn('px-6 -ml-2 gap-1 max-w-2xl')}>
         {ALL_TAGS.map((tag) => {
           const config = ThreadTagConfig[tag];
           return (
@@ -31,7 +27,7 @@ export const ThreadFeedTagFilters = ({
                 'basis-auto pl-2 text-center py-1 px-2 rounded-full text-sm font-medium transition-all',
                 selectedTags.includes(tag)
                   ? [config.bg, config.text]
-                  : 'bg-surface text-foreground-tertiary hover:border-hover hover:bg-surface-variant'
+                  : 'bg-surface text-foreground-tertiary hover:border-hover hover:bg-surface-variant',
               )}
             >
               {config.label}

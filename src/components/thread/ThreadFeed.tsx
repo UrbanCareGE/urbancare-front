@@ -103,6 +103,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       <ThreadFeedTagFilters
         selectedTags={selectedTags}
         onClick={handleToggleTag}
+        className={'desktop:block'}
       />
 
       {allThreads && (

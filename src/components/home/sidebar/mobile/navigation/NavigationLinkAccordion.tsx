@@ -65,7 +65,7 @@ const AccordionChildren = ({
     className="overflow-hidden"
   >
     {/* Tree connector line + indented children */}
-    <div className="ml-5 pl-3 border-l-2 border-[rgb(var(--color-border))] flex flex-col py-0">
+    <div className="ml-5 pl-3 border-l-2 border-border flex flex-col py-0">
       {navigationItem.children?.map((child) => (
         <NavigationSubLink
           key={navigationItem.href + child.href}
@@ -151,7 +151,7 @@ export const NavigationLinkAccordion = ({
           >
             <ChevronRight
               className={cn(
-                'h-4 w-4 text-[rgb(var(--color-icon))] transition-transform duration-200',
+                'h-4 w-4 text-icon transition-transform duration-200',
                 isOpen && 'rotate-90'
               )}
             />
@@ -191,7 +191,7 @@ export const NavigationLinkAccordion = ({
 
         <ChevronRight
           className={cn(
-            'flex-shrink-0 h-4 w-4 text-[rgb(var(--color-icon))] transition-transform duration-200',
+            'flex-shrink-0 h-4 w-4 text-icon transition-transform duration-200',
             isOpen && 'rotate-90'
           )}
         />

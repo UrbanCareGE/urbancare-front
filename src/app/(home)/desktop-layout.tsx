@@ -2,33 +2,8 @@
 
 import React from 'react';
 import { ChatProvider } from '@/components/provider/ChatProvider';
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
-import { useParams, usePathname } from 'next/navigation';
-import {
-  Bell,
-  CircleUser,
-  HouseIcon,
-  Newspaper,
-  SendIcon,
-  Settings,
-  ShieldAlert,
-} from 'lucide-react';
-import { motion } from 'motion/react';
 import NavigationArea from '@/components/home/sidebar/mobile/navigation/NavigationArea';
 import { NeighborhoodSelect } from '@/components/home/NeighborhoodSelect';
-import { ActiveUserAvatar } from '@/components/common/avatar/ActiveUserAvatar';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { LogoutButton } from '@/components/auth/LogoutButton';
-import { useAuth } from '@/components/provider/AuthProvider';
-import { UrbanCareTextIcon } from '@/components/common/logo/AppLogo';
 import { DesktopHeader } from '@/components/common/header/desktop/DesktopHeader';
 
 const SidebarNavIsland = () => (
@@ -65,7 +40,7 @@ export const DesktopLayout = ({ children }: { children: React.ReactNode }) => {
             <DesktopSidebar />
 
             <main className="flex-1 overflow-y-auto">
-              <div className="max-w-4xl mx-auto flex flex-col py-2">
+              <div className="max-w-4xl mx-auto flex flex-col">
                 {children}
               </div>
             </main>
