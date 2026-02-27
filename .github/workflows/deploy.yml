@@ -19,8 +19,7 @@ jobs:
           script: |
             cd /var/www/urbancare
             git fetch origin
-            git reset --hard origin/main
-            rm -rf .next
+            git pull
             npm ci
             npm run build
             pm2 restart urbancare
