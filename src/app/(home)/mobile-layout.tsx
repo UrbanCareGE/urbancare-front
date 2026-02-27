@@ -19,7 +19,7 @@ export const MobileLayout = ({ children }: Children) => {
         className={cn(
           'w-full relative scrollbar-hide',
           { 'flex flex-col h-full': isApartmentHome },
-          { 'min-h-full': !isApartmentHome },
+          { 'min-h-full': !isApartmentHome }
         )}
       >
         <MobileHeader />

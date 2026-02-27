@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { TagsFilterSchema } from '@/components/thread/tag/thread-filter-schema';
 import { ThreadFeedTagFilters } from '@/components/thread/tag/ThreadFeedTagFilter';
-import { ThreadCreateForm } from '@/components/thread/ThreadCreateForm';
+import { CreateThreadFormContainer } from '@/components/thread/thread-form/CreateThreadForm';
 import { Thread } from '@/components/thread/thread-card/Thread';
 
 export interface ThreadFeedProps {
@@ -33,7 +33,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       threshold: 0.1,
       rootMargin: '256px',
     }),
-    [],
+    []
   );
 
   const { ref, inView } = useInView(inViewOptions);
@@ -48,7 +48,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     refetch,
   } = useInfiniteThreads(
     apartmentId,
-    selectedTags.length > 0 ? selectedTags : null,
+    selectedTags.length > 0 ? selectedTags : null
   );
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       page.content.map((threadId) => ({
         threadId,
         pageNumber: page.page.number,
-      })),
+      }))
     );
   }, [data?.pages]);
 
@@ -72,21 +72,20 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       if (selectedTags.includes(tag)) {
         form.setValue(
           'tags',
-          selectedTags.filter((t) => t !== tag),
+          selectedTags.filter((t) => t !== tag)
         );
       } else {
         form.setValue('tags', [...selectedTags, tag]);
       }
     },
-    [selectedTags, form],
+    [selectedTags, form]
   );
 
   if (error) {
     return (
       <div className="w-full max-w-md">
         <div className="max-w-2xl mx-auto px-4 pt-24">
-          <div
-            className="bg-[rgb(var(--color-error-background))] border border-[rgb(var(--color-error)/0.3)] rounded-xl p-4 text-center">
+          <div className="bg-[rgb(var(--color-error-background))] border border-[rgb(var(--color-error)/0.3)] rounded-xl p-4 text-center">
             <p className="text-[rgb(var(--color-error))] text-sm">
               Failed to load threads
             </p>
@@ -98,7 +97,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
 
   return (
     <div className="max-w-2xl space-y-4 mx-auto">
-      <ThreadCreateForm />
+      <CreateThreadFormContainer />
 
       <ThreadFeedTagFilters
         selectedTags={selectedTags}

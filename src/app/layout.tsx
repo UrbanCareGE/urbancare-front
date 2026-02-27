@@ -24,19 +24,19 @@ export interface Basic {
 export default function RootLayout({ children }: Children) {
   return (
     <html lang="en" style={{ colorScheme: 'dark' }} suppressHydrationWarning>
-    <body
-      className="h-dvh w-dvw antialiased bg-background text-foreground"
-      suppressHydrationWarning
-    >
-    <ReactQueryProvider>
-      <MyThemeProvider>
-        <AuthProvider>
-          <ResponsiveLayoutServer>{children}</ResponsiveLayoutServer>
-          <Toaster position="bottom-right" richColors />
-        </AuthProvider>
-      </MyThemeProvider>
-    </ReactQueryProvider>
-    </body>
+      <body
+        className="h-dvh w-dvw antialiased bg-background text-foreground"
+        suppressHydrationWarning
+      >
+        <ReactQueryProvider>
+          <MyThemeProvider>
+            <AuthProvider>
+              <ResponsiveLayoutServer>{children}</ResponsiveLayoutServer>
+              <Toaster position="bottom-right" richColors />
+            </AuthProvider>
+          </MyThemeProvider>
+        </ReactQueryProvider>
+      </body>
     </html>
   );
 }

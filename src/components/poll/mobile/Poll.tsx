@@ -99,7 +99,6 @@ export const Poll = ({
   isDisabled = false,
 }: PollProps) => {
   // Local UI state
-  const [allowOthersToAdd, setAllowOthersToAdd] = useState(false);
   const [isAddingOption, setIsAddingOption] = useState(false);
   const [currentOption, setCurrentOption] = useState('');
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
@@ -161,7 +160,7 @@ export const Poll = ({
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 bg-background">
       {/* Poll Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">

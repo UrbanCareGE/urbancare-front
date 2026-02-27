@@ -1,6 +1,12 @@
 import { useParams, usePathname } from 'next/navigation';
 import React from 'react';
-import { CircleUser, HouseIcon, Newspaper, SendIcon, ShieldAlert } from 'lucide-react';
+import {
+  CircleUser,
+  HouseIcon,
+  Newspaper,
+  SendIcon,
+  ShieldAlert,
+} from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { motion } from 'motion/react';
@@ -52,7 +58,7 @@ export const HeaderNavIsland = () => {
               'relative flex items-center gap-2 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors duration-200',
               active
                 ? 'text-primary'
-                : 'text-foreground-secondary hover:text-foreground-primary',
+                : 'text-foreground-secondary hover:text-foreground-primary'
             )}
           >
             {active && (
@@ -65,7 +71,7 @@ export const HeaderNavIsland = () => {
             <item.icon
               className={cn(
                 'relative z-10 w-4 h-4',
-                active ? 'text-primary' : '',
+                active ? 'text-primary' : ''
               )}
             />
             <span className="relative z-10">{item.label}</span>

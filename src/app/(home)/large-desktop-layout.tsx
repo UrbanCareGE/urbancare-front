@@ -4,7 +4,16 @@ import React from 'react';
 import { ChatProvider } from '@/components/provider/ChatProvider';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { Bell, CircleUser, HouseIcon, MessageSquare, Newspaper, SendIcon, Settings, ShieldAlert } from 'lucide-react';
+import {
+  Bell,
+  CircleUser,
+  HouseIcon,
+  MessageSquare,
+  Newspaper,
+  SendIcon,
+  Settings,
+  ShieldAlert,
+} from 'lucide-react';
 import NavigationArea from '@/components/home/sidebar/mobile/navigation/NavigationArea';
 import { NeighborhoodSelect } from '@/components/home/NeighborhoodSelect';
 import { ActiveUserAvatar } from '@/components/common/avatar/ActiveUserAvatar';
@@ -38,10 +47,8 @@ const headerNavItems: NavItem[] = [
   { href: 'profile', label: 'პროფილი', icon: CircleUser },
 ];
 
-
 const HeaderLogoIsland = () => (
-  <div
-    className="relative overflow-hidden bg-surface rounded-2xl px-5 py-2.5 flex items-center flex-shrink-0 shadow-sm shadow-shadow/5">
+  <div className="relative overflow-hidden bg-surface rounded-2xl px-5 py-2.5 flex items-center flex-shrink-0 shadow-sm shadow-shadow/5">
     <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] to-tertiary/[0.04] pointer-events-none" />
     <Link href="/" className="flex items-center">
       <UrbanCareTextIcon className="text-xl" />
@@ -95,8 +102,7 @@ const HeaderUserDropdown = () => {
 
 const HeaderActionsIsland = () => (
   <div className="flex items-center gap-2 bg-surface rounded-2xl px-3 py-2 shadow-sm shadow-shadow/5 flex-shrink-0">
-    <button
-      className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-surface-variant transition-colors duration-200 text-foreground-secondary hover:text-foreground-primary">
+    <button className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-surface-variant transition-colors duration-200 text-foreground-secondary hover:text-foreground-primary">
       <Bell className="w-4 h-4" />
     </button>
     <HeaderUserDropdown />
@@ -137,7 +143,7 @@ const Island = ({ title, icon, children, className }: IslandProps) => (
   <div
     className={cn(
       'bg-surface rounded-2xl overflow-hidden flex flex-col',
-      className,
+      className
     )}
   >
     <div className="px-4 py-2.5 bg-surface-variant flex items-center gap-2 flex-shrink-0">
@@ -182,8 +188,8 @@ const RightPanel = () => (
 // ── Layout ───────────────────────────────────────────────────────────────────
 
 export const LargeDesktopLayout = ({
-                                     children,
-                                   }: {
+  children,
+}: {
   children: React.ReactNode;
 }) => {
   return (
@@ -198,9 +204,7 @@ export const LargeDesktopLayout = ({
             <DesktopSidebar />
 
             <main className="flex-1 overflow-y-auto">
-              <div className="max-w-4xl mx-auto flex flex-col">
-                {children}
-              </div>
+              <div className="max-w-4xl mx-auto flex flex-col">{children}</div>
             </main>
 
             <RightPanel />

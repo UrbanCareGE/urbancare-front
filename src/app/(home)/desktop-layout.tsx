@@ -40,9 +40,7 @@ export const DesktopLayout = ({ children }: { children: React.ReactNode }) => {
             <DesktopSidebar />
 
             <main className="flex-1 overflow-y-auto">
-              <div className="max-w-4xl mx-auto flex flex-col">
-                {children}
-              </div>
+              <div className="max-w-4xl mx-auto flex flex-col">{children}</div>
             </main>
           </div>
         </div>

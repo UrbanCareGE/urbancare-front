@@ -15,10 +15,8 @@ import {
 import { ActiveUserAvatar } from '@/components/common/avatar/ActiveUserAvatar';
 import { LogoutButton } from '@/components/auth/LogoutButton';
 
-
 const HeaderLogoIsland = () => (
-  <div
-    className="relative overflow-hidden bg-surface border border-border rounded-2xl px-5 py-2.5 flex items-center flex-shrink-0 shadow-sm shadow-shadow/5">
+  <div className="relative overflow-hidden bg-surface border border-border rounded-2xl px-5 py-2.5 flex items-center flex-shrink-0 shadow-sm shadow-shadow/5">
     <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] to-tertiary/[0.04] pointer-events-none" />
     <Link href="/" className="flex items-center">
       <UrbanCareTextIcon className="text-xl" />
@@ -26,12 +24,9 @@ const HeaderLogoIsland = () => (
   </div>
 );
 
-
 const HeaderActionsIsland = () => (
-  <div
-    className="flex items-center gap-2 bg-surface border border-border rounded-2xl px-3 py-2 shadow-sm shadow-shadow/5 flex-shrink-0">
-    <button
-      className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-surface-variant transition-colors duration-200 text-foreground-secondary hover:text-foreground-primary">
+  <div className="flex items-center gap-2 bg-surface border border-border rounded-2xl px-3 py-2 shadow-sm shadow-shadow/5 flex-shrink-0">
+    <button className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-surface-variant transition-colors duration-200 text-foreground-secondary hover:text-foreground-primary">
       <Bell className="w-4 h-4" />
     </button>
     <HeaderUserDropdown />

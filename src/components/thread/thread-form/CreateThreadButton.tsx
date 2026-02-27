@@ -7,7 +7,7 @@ import { getClientFileUrl } from '@/lib/api-client';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { ArrowDownNarrowWide, SlidersHorizontal } from 'lucide-react';
-import { useThreadDrawer } from '@/components/thread/thread-form/ThreadForm';
+import { useThreadDrawer } from '@/components/thread/thread-form/CreateThreadSheet';
 
 export type StartThreadFormProps = {
   className?: string;
