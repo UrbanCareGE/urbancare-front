@@ -8,7 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.0.3
@@ -16,12 +15,12 @@ jobs:
           host: ${{ secrets.HETZNER_HOST }}
           username: ${{ secrets.HETZNER_USER }}
           key: ${{ secrets.HETZNER_SSH_KEY }}
-          passphrase: : ${{ secrets.HETZNER_PASSPHRASE }}
+          passphrase: ${{ secrets.HETZNER_PASSPHRASE }}
           script: |
             cd /var/www/urbancare
             git fetch origin
             git reset --hard origin/main
-            rm -rf .next     
+            rm -rf .next
             npm ci
             npm run build
             pm2 restart urbancare
