@@ -23,13 +23,13 @@ interface PollOptionBarProps {
 }
 
 const PollOptionBar = ({
-  thread,
-  option,
-  totalVotes,
-  isHighest,
-  isVotedByUser,
-  apartmentId,
-}: PollOptionBarProps) => {
+                         thread,
+                         option,
+                         totalVotes,
+                         isHighest,
+                         isVotedByUser,
+                         apartmentId,
+                       }: PollOptionBarProps) => {
   const percentage =
     totalVotes > 0 ? Math.round((option.voteCount / totalVotes) * 100) : 0;
   const { mutate, isPending } = usePollVote();
@@ -47,10 +47,10 @@ const PollOptionBar = ({
   return (
     <div className="space-y-1">
       <div className="flex justify-between items-center text-sm">
-        <span className={cn('text-sky-950', isHighest && 'font-semibold')}>
+        <span className={cn('text-text-primary', isHighest && 'font-semibold')}>
           {option.content}
         </span>
-        <span className={cn('text-sky-800', isHighest && 'font-semibold')}>
+        <span className={cn('text-text-primary', isHighest && 'font-semibold')}>
           {percentage}%
         </span>
       </div>
@@ -62,16 +62,15 @@ const PollOptionBar = ({
           className={cn('transition-colors', isPending && 'opacity-50')}
         >
           {isVotedByUser ? (
-            <CircleCheck className="w-5 h-5 text-primary" />
+            <CircleCheck className="w-5 h-5 text-tertiary" />
           ) : (
-            <Circle className="w-5 h-5 text-slate-400" />
+            <Circle className="w-5 h-5 text-tertiary" />
           )}
         </button>
-        <div className="relative flex-1 ml-3 h-8 bg-slate-100 rounded-lg overflow-hidden">
+        <div className="relative flex-1 ml-3 h-8 bg-surface-container rounded-lg overflow-hidden">
           <div
             className={cn(
-              'absolute inset-y-0 left-0 rounded-lg transition-all duration-500 ease-out',
-              isHighest ? 'bg-primary' : 'bg-primary/60'
+              'absolute inset-y-0 bg-tertiary left-0 rounded-lg transition-all duration-500 ease-out'
             )}
             style={{ width: `${percentage}%` }}
           />
@@ -79,7 +78,7 @@ const PollOptionBar = ({
             <span
               className={cn(
                 'text-sm',
-                percentage > 50 ? 'text-white' : 'text-sky-900'
+                percentage > 50 ? 'text-tertiary-foreground' : 'text-text-secondary'
               )}
             >
               {option.voteCount} {option.voteCount === 1 ? 'ხმა' : 'ხმა'}

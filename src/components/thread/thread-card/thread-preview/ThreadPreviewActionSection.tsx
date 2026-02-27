@@ -1,7 +1,7 @@
 import React from 'react';
-import { ThreadUpvoteButton } from '@/components/thread/thread-card/thread-preview/button/ThreadUpvoteButton';
-import { ThreadPreviewCommentButton } from '@/components/thread/thread-card/thread-preview/button/ThreadCommentButton';
-import { ThreadShareButton } from '@/components/thread/thread-card/thread-preview/button/ThreadShareButton';
+import { ThreadUpvoteButton } from '@/components/thread/thread-card/thread-preview/action/ThreadUpvoteButton';
+import { ThreadPreviewCommentButton } from '@/components/thread/thread-card/thread-preview/action/ThreadCommentButton';
+import { ThreadShareButton } from '@/components/thread/thread-card/thread-preview/action/ThreadShareButton';
 
 export const ThreadPreviewActionSection = () => {
   return (

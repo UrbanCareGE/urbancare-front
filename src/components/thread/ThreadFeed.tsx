@@ -7,8 +7,8 @@ import { useInfiniteThreads } from '@/hooks/query/thread/use-fetch-threads';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { TagsFilterSchema } from '@/components/thread/tag/thread-filter-schema';
-import { ThreadFeedTagFilters } from '@/components/thread/tag/ThreadFeedTagFilter';
+import { TagsFilterSchema } from '@/components/thread/data/thread-filter-schema';
+import { TagsFilterMobile } from '@/components/thread/filter/TagsFilter.mobile';
 import { CreateThreadFormContainer } from '@/components/thread/thread-form/CreateThreadForm';
 import { Thread } from '@/components/thread/thread-card/Thread';
 
@@ -99,7 +99,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     <div className="max-w-2xl space-y-4 mx-auto">
       <CreateThreadFormContainer />
 
-      <ThreadFeedTagFilters
+      <TagsFilterMobile
         selectedTags={selectedTags}
         onClick={handleToggleTag}
         className={'desktop:block'}

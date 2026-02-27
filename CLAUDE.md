@@ -370,7 +370,7 @@ useDevice() → { type, isMobile, isTablet, isDesktop, width, height }
 @/* → ./src/*
 
 // Example
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/action';
 import { useAuth } from '@/components/provider/AuthProvider';
 ```
 

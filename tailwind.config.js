@@ -51,7 +51,7 @@ module.exports = {
          * ────────────────────────────────────────────────────────────────
          * bg-primary          → Primary buttons, main CTAs
          * bg-primary-container → Soft primary backgrounds (badges, chips)
-         * text-primary        → Primary button text (usually white)
+         * text-primary        → Primary action text (usually white)
          *
          * bg-secondary        → Secondary/cancel buttons
          * bg-secondary-container → Soft grey backgrounds

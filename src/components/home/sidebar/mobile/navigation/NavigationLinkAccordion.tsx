@@ -106,7 +106,7 @@ export const NavigationLinkAccordion = ({
     inSheet ? 'py-1.5 text-xl' : 'py-1 text-lg'
   );
 
-  // ── Navigable: Link navigates, chevron button toggles accordion ──
+  // ── Navigable: Link navigates, chevron action toggles accordion ──
   if (navigable) {
     return (
       <div className="w-full">
@@ -170,7 +170,7 @@ export const NavigationLinkAccordion = ({
     );
   }
 
-  // ── Non-navigable: entire row is a toggle button ──
+  // ── Non-navigable: entire row is a toggle action ──
   return (
     <div className="w-full">
       <button

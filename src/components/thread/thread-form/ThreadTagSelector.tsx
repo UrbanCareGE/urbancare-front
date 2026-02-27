@@ -1,21 +1,9 @@
 import { Info, Tag } from 'lucide-react';
 import React from 'react';
 import { useDevice } from '@/hooks/use-device';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@/components/ui/hover-card';
-import {
-  ALL_TAGS,
-  ThreadTagConfig,
-  ThreadTagValue,
-} from '@/model/dto/thread.dto';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import { ALL_TAGS, ThreadTagConfig, ThreadTagValue } from '@/model/dto/thread.dto';
 import { cn } from '@/lib/utils';
 
 export type ThreadTagSelectorProps = {
@@ -24,9 +12,9 @@ export type ThreadTagSelectorProps = {
 };
 
 export const ThreadTagSelector = ({
-  selectedTags,
-  onToggleTag,
-}: ThreadTagSelectorProps) => {
+                                    selectedTags,
+                                    onToggleTag,
+                                  }: ThreadTagSelectorProps) => {
   const { isMobile } = useDevice();
 
   return (
@@ -71,10 +59,10 @@ export const ThreadTagSelector = ({
                 onClick={() => onToggleTag(tag)}
                 className={cn(
                   'px-3 py-1 rounded-full text-sm font-medium bg-surface text-foreground-tertiary transition-all',
-                  'hover:border-hover hover:bg-surface-variant',
+                  'lg:hover:border-hover lg:hover:bg-surface-variant',
                   isTagSelected ? config.bg : undefined,
                   isTagSelected ? config.text : undefined,
-                  isTagSelected ? 'hover:opacity-70' : undefined
+                  isTagSelected ? 'hover:opacity-70' : undefined,
                 )}
               >
                 {config.label}

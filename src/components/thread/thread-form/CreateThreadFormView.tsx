@@ -64,7 +64,9 @@ export const CreateThreadFormView = ({
 }: CreateThreadFormViewProps) => {
   return (
     <CreateThreadSheet>
-      <CreateThreadButton />
+      <CreateThreadSheet.Trigger>
+        <CreateThreadButton />
+      </CreateThreadSheet.Trigger>
 
       <CreateThreadSheet.Content>
         <ThreadFormHeader />
