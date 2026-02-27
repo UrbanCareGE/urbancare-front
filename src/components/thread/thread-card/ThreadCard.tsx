@@ -49,7 +49,7 @@ const ThreadCardRoot = ({
       <Card
         className={cn(
           'overflow-hidden rounded-2xl border-none bg-surface p-4 space-y-4',
-          'transition-all duration-200 cursor-pointer',
+          'transition-all duration-200 cursor-pointer lg:hover:shadow-md lg:hover:translate-y-[-1px]',
           className
         )}
       >

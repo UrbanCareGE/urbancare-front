@@ -30,7 +30,7 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
       </Avatar>
       <div className="flex-1">
         <div
-          className="flex items-center rounded-full px-4 py-2 h-10 bg-surface-container transition-colors mr-auto text-sm text-muted-foreground"
+          className="flex items-center rounded-full px-4 py-2 h-10 bg-surface-container transition-colors mr-auto text-sm text-muted-foreground lg:hover:bg-surface-hover lg:cursor-pointer"
           onClick={threadDrawer.openDrawer}
         >
           რისი გაზიარება გსურთ?

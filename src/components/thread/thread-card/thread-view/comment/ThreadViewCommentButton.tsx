@@ -65,7 +65,7 @@ export const ThreadViewCommentButton = ({
         <button
           onClick={handleAddComment}
           disabled={!commentText.trim()}
-          className="absolute right-2 bottom-1.5 h-8 w-8 rounded-full bg-primary hover:bg-opacity-80 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
+          className="absolute right-2 bottom-1.5 h-8 w-8 rounded-full bg-primary lg:hover:bg-primary/80 lg:active:scale-90 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
         >
           <Send className="w-5 h-5 text-white" />
         </button>

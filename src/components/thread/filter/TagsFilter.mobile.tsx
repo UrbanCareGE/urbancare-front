@@ -35,7 +35,7 @@ export const TagsFilterMobile = ({
                 'basis-auto pl-2 text-center py-1 px-2 rounded-full text-sm font-medium transition-all',
                 selectedTags.includes(tag)
                   ? [config.bg, config.text]
-                  : 'bg-surface text-foreground-tertiary hover:border-hover hover:bg-surface-variant',
+                  : 'bg-surface text-foreground-tertiary lg:hover:border-hover lg:hover:bg-surface-variant lg:active:scale-95',
               )}
             >
               {config.label}

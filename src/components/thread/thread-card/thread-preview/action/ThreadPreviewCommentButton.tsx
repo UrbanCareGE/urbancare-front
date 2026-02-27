@@ -16,7 +16,7 @@ export const ThreadPreviewCommentButton = ({
     <Button
       variant="ghost"
       size="icon"
-      className="h-9 w-9 text-slate-600 hover:text-slate-900"
+      className="h-9 w-9 text-icon lg:hover:text-foreground-primary lg:hover:bg-surface-variant lg:active:scale-95"
     >
       <MessageCircleMore className="w-4 h-4" />
     </Button>

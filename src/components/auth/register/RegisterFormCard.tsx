@@ -101,7 +101,7 @@ export function RegisterFormCard() {
                       icon={
                         <PhoneIcon className="text-[rgb(var(--color-icon))]" />
                       }
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -124,7 +124,7 @@ export function RegisterFormCard() {
                       type="password"
                       isPasswordType
                       disabled={isPending}
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -147,7 +147,7 @@ export function RegisterFormCard() {
                       type="password"
                       isPasswordType
                       disabled={isPending}
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -193,7 +193,7 @@ export function RegisterFormCard() {
                         ვეთანხმები{' '}
                         <Link
                           href="/terms"
-                          className="font-semibold text-primary hover:text-primary-dark transition-colors"
+                          className="font-semibold text-primary lg:hover:text-primary-dark transition-colors"
                           onClick={(e) => e.stopPropagation()}
                         >
                           წესებსა და პირობებს
@@ -209,7 +209,7 @@ export function RegisterFormCard() {
             <Button
               type="submit"
               disabled={isPending}
-              className="w-full h-[52px] rounded-[14px] bg-gradient-primary shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 text-white text-base font-semibold relative overflow-hidden"
+              className="w-full h-[52px] rounded-[14px] bg-gradient-primary shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] lg:hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] lg:hover:-translate-y-0.5 lg:active:translate-y-0 transition-all duration-200 text-white text-base font-semibold relative overflow-hidden"
             >
               <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent" />
               {isPending ? (
@@ -229,7 +229,7 @@ export function RegisterFormCard() {
             უკვე გაქვთ ანგარიში?{' '}
             <Link
               href="/auth/login"
-              className="text-primary font-semibold hover:text-primary-dark transition-colors"
+              className="text-primary font-semibold lg:hover:text-primary-dark transition-colors"
             >
               შესვლა
             </Link>

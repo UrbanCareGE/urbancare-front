@@ -72,14 +72,14 @@ export default function Error({
         <div className="flex flex-col gap-3">
           <button
             onClick={reset}
-            className="w-full py-3 px-6 bg-gradient-to-r from-[#1976D2] to-[#1565C0] text-white text-sm font-semibold rounded-xl shadow-[0_4px_16px_rgba(25,118,210,0.3)] hover:shadow-[0_6px_24px_rgba(25,118,210,0.4)] active:scale-[0.98] transition-all duration-200"
+            className="w-full py-3 px-6 bg-gradient-to-r from-[#1976D2] to-[#1565C0] text-white text-sm font-semibold rounded-xl shadow-[0_4px_16px_rgba(25,118,210,0.3)] lg:hover:shadow-[0_6px_24px_rgba(25,118,210,0.4)] lg:active:scale-[0.98] transition-all duration-200"
           >
             Try again
           </button>
 
           <button
             onClick={() => (window.location.href = '/')}
-            className="w-full py-3 px-6 bg-white text-[#1976D2] text-sm font-semibold rounded-xl border border-[#1976D2]/20 hover:bg-blue-50/50 active:scale-[0.98] transition-all duration-200"
+            className="w-full py-3 px-6 bg-white text-[#1976D2] text-sm font-semibold rounded-xl border border-[#1976D2]/20 lg:hover:bg-blue-50/50 lg:active:scale-[0.98] transition-all duration-200"
           >
             Back to home
           </button>

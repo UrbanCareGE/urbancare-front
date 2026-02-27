@@ -20,7 +20,7 @@ export const ThreadPreviewCommentButton = ({
   return (
     <Button
       className={cn(
-        'h-9 px-3 rounded-full bg-tertiary/10 transition-all [&_svg]:size-5 text-tertiary'
+        'h-9 px-3 rounded-full bg-tertiary/10 transition-all [&_svg]:size-5 text-tertiary lg:hover:bg-tertiary/20 lg:active:scale-95'
       )}
       onClick={() => {
         router.push(`thread/${thread.id}?comment=true`);

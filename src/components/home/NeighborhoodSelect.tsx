@@ -109,7 +109,7 @@ const ApartmentCard = ({
       'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
       isSelected
         ? 'bg-primary/5 border-2 border-primary'
-        : 'bg-card border border-border hover:border-primary/50 hover:bg-accent/50'
+        : 'bg-card border border-border lg:hover:border-primary/50 lg:hover:bg-accent/50 lg:active:scale-[0.98]'
     )}
   >
     <ApartmentImage
@@ -139,7 +139,7 @@ const AddLocationButton = ({ onClick }: { onClick?: () => void }) => (
     variant="outline"
     className={cn(
       'w-full h-auto p-3 rounded-xl border-2 border-dashed',
-      'text-muted-foreground hover:text-primary hover:border-primary',
+      'text-muted-foreground lg:hover:text-primary lg:hover:border-primary',
       'transition-all duration-200'
     )}
     onClick={onClick}
@@ -207,7 +207,7 @@ const SectionHeader = ({ isOpen }: { isOpen: boolean }) => (
       <Button
         variant="ghost"
         size="sm"
-        className="h-auto py-1 px-2 text-xs font-semibold text-primary hover:text-primary/80 hover:bg-primary/5"
+        className="h-auto py-1 px-2 text-xs font-semibold text-primary lg:hover:text-primary/80 lg:hover:bg-primary/5 lg:active:scale-95"
       >
         {isOpen ? 'დახურვა' : 'შეცვლა'}
         <ChevronDown

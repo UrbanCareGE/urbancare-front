@@ -45,7 +45,7 @@ export const ThreadViewHeader = ({ className }: ThreadCardHeaderProps) => {
       </div>
       <Ellipsis
         className={
-          'shrink-0 text-[rgb(var(--color-icon))] hover:text-[rgb(var(--color-text-secondary))] transition-colors'
+          'shrink-0 text-[rgb(var(--color-icon))] lg:hover:text-[rgb(var(--color-text-secondary))] transition-colors cursor-pointer lg:active:scale-90'
         }
       />
     </div>

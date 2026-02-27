@@ -29,7 +29,7 @@ const NavigationLinkInner = forwardRef<
       'group relative flex items-center gap-2.5 rounded-panel px-2 py-1 transition-all duration-150',
       isActive
         ? 'bg-primary-container/50 text-primary'
-        : 'text-foreground-primary hover:bg-surface-variant',
+        : 'text-foreground-primary lg:hover:bg-surface-variant',
       className
     )}
     aria-current={isActive ? 'page' : undefined}

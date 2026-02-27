@@ -199,7 +199,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                       className={cn(
                         'flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-md text-sm font-medium transition-all',
                         field.value === 'TEXT'
-                          ? 'text-white/80 bg-primary hover:text-white shadow-sm'
+                          ? 'text-white/80 bg-primary lg:hover:text-white lg:hover:bg-primary/90 shadow-sm lg:active:scale-[0.98]'
                           : 'bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-primary))]'
                       )}
                     >
@@ -212,7 +212,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                       className={cn(
                         'flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-md text-sm font-medium transition-all',
                         field.value === 'PDF'
-                          ? 'text-white/80 bg-primary hover:text-white shadow-sm'
+                          ? 'text-white/80 bg-primary lg:hover:text-white lg:hover:bg-primary/90 shadow-sm lg:active:scale-[0.98]'
                           : 'bg-[rgb(var(--color-surface))] text-[rgb(var(--color-text-primary))]'
                       )}
                     >
@@ -296,11 +296,11 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                     variant="outline"
                     onClick={() => fileInputRef.current?.click()}
                     disabled={uploadedFiles.length >= 10 || isUploading}
-                    className="w-full h-auto bg-[rgb(var(--color-surface))] border-2 border-dashed border-[rgb(var(--color-border-medium))] hover:border-primary hover:bg-primary/5 transition-all group"
+                    className="w-full h-auto bg-[rgb(var(--color-surface))] border-2 border-dashed border-[rgb(var(--color-border-medium))] lg:hover:border-primary lg:hover:bg-primary/5 transition-all group"
                   >
                     <div className="flex flex-col items-center gap-2 py-4">
-                      <div className="w-10 h-10 rounded-full bg-[rgb(var(--color-surface-container))] group-hover:bg-primary/10 flex items-center justify-center transition-colors">
-                        <Upload className="w-5 h-5 text-[rgb(var(--color-text-secondary))] group-hover:text-primary transition-colors" />
+                      <div className="w-10 h-10 rounded-full bg-[rgb(var(--color-surface-container))] lg:group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+                        <Upload className="w-5 h-5 text-[rgb(var(--color-text-secondary))] lg:group-hover:text-primary transition-colors" />
                       </div>
                       <div className="text-center">
                         <p className="text-sm font-medium text-[rgb(var(--color-text-primary))]">
@@ -330,7 +330,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                           <button
                             type="button"
                             onClick={() => handleRemoveFile(file.id)}
-                            className="p-1 hover:bg-[rgb(var(--color-surface-container))] rounded transition-colors"
+                            className="p-1 lg:hover:bg-[rgb(var(--color-surface-container))] lg:active:scale-90 rounded transition-colors"
                           >
                             <X className="w-4 h-4 text-[rgb(var(--color-text-secondary))]" />
                           </button>
@@ -354,7 +354,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
               !titleLength ||
               (docType === 'TEXT' ? !textLength : !uploadedFiles.length)
             }
-            className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg shadow-primary/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-primary/90 lg:hover:from-primary/90 lg:hover:to-primary lg:hover:-translate-y-0.5 lg:active:translate-y-0 shadow-lg shadow-primary/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4" />

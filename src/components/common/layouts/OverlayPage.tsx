@@ -82,7 +82,7 @@ const OverlayPageHeader = ({
       {showClose && (
         <button
           onClick={onClose}
-          className="hover:bg-slate-100 rounded-full transition-colors"
+          className="p-1.5 lg:hover:bg-surface-variant rounded-full transition-colors text-foreground-secondary lg:hover:text-foreground-primary"
         >
           <X className="h-5 w-1" />
         </button>

@@ -10,7 +10,7 @@ export const NavSideBarHeader = () => {
       <SheetClose asChild>
         <button
           type="button"
-          className="p-1.5 rounded-panel bg-surface-container/60 hover:bg-surface-container transition-colors text-foreground-secondary hover:text-foreground-primary"
+          className="p-1.5 rounded-panel bg-surface-container/60 lg:hover:bg-surface-container transition-colors text-foreground-secondary lg:hover:text-foreground-primary"
           aria-label="Close navigation"
         >
           <X className="h-5 w-5" />

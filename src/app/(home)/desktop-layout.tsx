@@ -27,7 +27,6 @@ const DesktopSidebar = () => (
   </aside>
 );
 
-// ── Layout ───────────────────────────────────────────────────────────────────
 
 export const DesktopLayout = ({ children }: { children: React.ReactNode }) => {
   return (

@@ -36,7 +36,7 @@ function FeatureCard({
     <Card
       className={cn(
         'border-border-light bg-surface/80 backdrop-blur-sm rounded-2xl',
-        'hover:shadow-lg hover:-translate-y-1 transition-all duration-300',
+        'lg:hover:shadow-lg lg:hover:-translate-y-1 transition-all duration-300',
         'animate-slide-up'
       )}
       style={{ animationDelay: `${delay}ms` }}
@@ -105,7 +105,7 @@ export function LandingPage() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-text-secondary hover:text-primary"
+                  className="text-text-secondary lg:hover:text-primary"
                 >
                   შესვლა
                 </Button>
@@ -150,7 +150,7 @@ export function LandingPage() {
             <Link href="/auth/register">
               <Button
                 size="lg"
-                className="w-full sm:w-auto h-14 px-8 rounded-2xl bg-gradient-primary shadow-[0_4px_20px_rgba(var(--color-primary)/0.4)] hover:shadow-[0_6px_28px_rgba(var(--color-primary)/0.5)] hover:-translate-y-1 transition-all duration-300 text-lg font-semibold"
+                className="w-full sm:w-auto h-14 px-8 rounded-2xl bg-gradient-primary shadow-[0_4px_20px_rgba(var(--color-primary)/0.4)] lg:hover:shadow-[0_6px_28px_rgba(var(--color-primary)/0.5)] lg:hover:-translate-y-1 lg:active:translate-y-0 transition-all duration-300 text-lg font-semibold"
               >
                 დაწყება
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -160,7 +160,7 @@ export function LandingPage() {
               <Button
                 variant="outline"
                 size="lg"
-                className="w-full sm:w-auto h-14 px-8 rounded-2xl border-2 border-border hover:border-primary hover:text-primary transition-all duration-300 text-lg"
+                className="w-full sm:w-auto h-14 px-8 rounded-2xl border-2 border-border lg:hover:border-primary lg:hover:text-primary lg:active:scale-[0.98] transition-all duration-300 text-lg"
               >
                 გაიგე მეტი
                 <ChevronDown className="w-5 h-5 ml-2" />
@@ -313,7 +313,7 @@ export function LandingPage() {
                 <Link href="/auth/register">
                   <Button
                     size="lg"
-                    className="h-14 px-8 rounded-2xl bg-gradient-primary shadow-[0_4px_20px_rgba(var(--color-primary)/0.4)] hover:shadow-[0_6px_28px_rgba(var(--color-primary)/0.5)] hover:-translate-y-1 transition-all duration-300 text-lg font-semibold"
+                    className="h-14 px-8 rounded-2xl bg-gradient-primary shadow-[0_4px_20px_rgba(var(--color-primary)/0.4)] lg:hover:shadow-[0_6px_28px_rgba(var(--color-primary)/0.5)] lg:hover:-translate-y-1 lg:active:translate-y-0 transition-all duration-300 text-lg font-semibold"
                   >
                     რეგისტრაცია უფასოა
                     <ArrowRight className="w-5 h-5 ml-2" />
@@ -389,7 +389,7 @@ export function LandingPage() {
                 <Link href="/auth/register">
                   <Button
                     size="lg"
-                    className="w-full sm:w-auto h-14 px-10 rounded-2xl bg-gradient-primary shadow-[0_4px_20px_rgba(var(--color-primary)/0.4)] hover:shadow-[0_6px_28px_rgba(var(--color-primary)/0.5)] hover:-translate-y-1 transition-all duration-300 text-lg font-semibold"
+                    className="w-full sm:w-auto h-14 px-10 rounded-2xl bg-gradient-primary shadow-[0_4px_20px_rgba(var(--color-primary)/0.4)] lg:hover:shadow-[0_6px_28px_rgba(var(--color-primary)/0.5)] lg:hover:-translate-y-1 lg:active:translate-y-0 transition-all duration-300 text-lg font-semibold"
                   >
                     უფასო რეგისტრაცია
                   </Button>
@@ -398,7 +398,7 @@ export function LandingPage() {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="w-full sm:w-auto h-14 px-10 rounded-2xl border-2 border-border hover:border-primary hover:text-primary transition-all duration-300 text-lg"
+                    className="w-full sm:w-auto h-14 px-10 rounded-2xl border-2 border-border lg:hover:border-primary lg:hover:text-primary lg:active:scale-[0.98] transition-all duration-300 text-lg"
                   >
                     შესვლა
                   </Button>

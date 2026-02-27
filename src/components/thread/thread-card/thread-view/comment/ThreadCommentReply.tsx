@@ -12,7 +12,7 @@ export const ThreadCommentReply = ({ comment }: ThreadCommentReplyProps) => {
   const { userInfo, createdAt, content } = comment;
 
   return (
-    <div className="group relative flex items-center gap-3 py-2 rounded-lg hover:bg-slate-50 transition-all duration-200">
+    <div className="group relative flex items-center gap-3 py-2 rounded-lg lg:hover:bg-surface-variant/50 transition-all duration-200">
       <UserAvatar
         firstName={userInfo.name}
         surname={userInfo.surname}

@@ -134,7 +134,7 @@ const PersonalCarsForm = () => {
           onClick={handleStartEditing}
           disabled={isEditing || isAdding}
           className={cn(
-            'w-6 h-6 flex justify-center items-center ml-auto bg-primary rounded-full text-sm transition-opacity',
+            'w-6 h-6 flex justify-center items-center ml-auto bg-primary rounded-full text-sm transition-all lg:hover:bg-primary/80 lg:hover:scale-110 lg:active:scale-95',
             (isEditing || isAdding) && 'opacity-50 cursor-not-allowed'
           )}
         >
@@ -173,13 +173,13 @@ const PersonalCarsForm = () => {
           />
           <button
             onClick={handleAddCar}
-            className="w-8 h-8 flex justify-center items-center bg-green-500 rounded-full"
+            className="w-8 h-8 flex justify-center items-center bg-green-500 lg:hover:bg-green-600 lg:active:scale-95 rounded-full transition-colors"
           >
             <Check size={18} className="text-white" />
           </button>
           <button
             onClick={handleCancel}
-            className="w-8 h-8 flex justify-center items-center bg-red-500 rounded-full"
+            className="w-8 h-8 flex justify-center items-center bg-red-500 lg:hover:bg-red-600 lg:active:scale-95 rounded-full transition-colors"
           >
             <X size={18} className="text-white" />
           </button>
@@ -239,7 +239,7 @@ const Chip = ({
             onDelete();
           }}
           disabled={disabled}
-          className="ml-0.5 p-0.5 rounded-full hover:bg-white/20 transition-colors disabled:opacity-50"
+          className="ml-0.5 p-0.5 rounded-full lg:hover:bg-white/20 lg:active:scale-90 transition-colors disabled:opacity-50"
         >
           <X size={14} className="text-white/70" />
         </button>

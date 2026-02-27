@@ -59,10 +59,10 @@ export const ThreadTagSelector = ({
                 onClick={() => onToggleTag(tag)}
                 className={cn(
                   'px-3 py-1 rounded-full text-sm font-medium bg-surface text-foreground-tertiary transition-all',
-                  'lg:hover:border-hover lg:hover:bg-surface-variant',
+                  'lg:hover:border-hover lg:hover:bg-surface-variant lg:active:scale-95',
                   isTagSelected ? config.bg : undefined,
                   isTagSelected ? config.text : undefined,
-                  isTagSelected ? 'hover:opacity-70' : undefined,
+                  isTagSelected ? 'lg:hover:opacity-70 lg:active:scale-95' : undefined,
                 )}
               >
                 {config.label}

@@ -59,7 +59,7 @@ const PollOptionBar = ({
           type="button"
           onClick={handleVote}
           disabled={isPending}
-          className={cn('transition-colors', isPending && 'opacity-50')}
+          className={cn('transition-colors lg:hover:scale-110 lg:active:scale-90', isPending && 'opacity-50')}
         >
           {isVotedByUser ? (
             <CircleCheck className="w-5 h-5 text-tertiary" />

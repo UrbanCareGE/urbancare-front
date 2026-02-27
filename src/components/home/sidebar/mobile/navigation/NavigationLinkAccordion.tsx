@@ -102,7 +102,7 @@ export const NavigationLinkAccordion = ({
     'group relative flex items-center gap-2.5 rounded-panel px-2 transition-all duration-150',
     isParentActive
       ? 'bg-primary-container/50 text-primary'
-      : 'text-foreground-primary hover:bg-surface-variant',
+      : 'text-foreground-primary lg:hover:bg-surface-variant',
     inSheet ? 'py-1.5 text-xl' : 'py-1 text-lg'
   );
 
@@ -145,7 +145,7 @@ export const NavigationLinkAccordion = ({
           <button
             type="button"
             onClick={() => setIsOpen((prev) => !prev)}
-            className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-md hover:bg-surface-container transition-colors ml-auto"
+            className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-md lg:hover:bg-surface-container transition-colors ml-auto"
             aria-label={isOpen ? 'Collapse' : 'Expand'}
             aria-expanded={isOpen}
           >

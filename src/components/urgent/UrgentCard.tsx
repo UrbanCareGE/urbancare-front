@@ -268,7 +268,7 @@ export const UrgentCard = ({
   return (
     <Card
       className={cn(
-        'relative p-5 border-l-4 overflow-hidden border-border transition-all hover:-translate-y-0.5 hover:shadow-lg',
+        'relative p-5 border-l-4 overflow-hidden border-border transition-all lg:hover:-translate-y-0.5 lg:hover:shadow-lg',
         config.borderColor,
         status === 'resolved' && 'opacity-85',
         isPending && 'opacity-80 pointer-events-none',

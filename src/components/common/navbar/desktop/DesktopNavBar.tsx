@@ -58,7 +58,7 @@ export const HeaderNavIsland = () => {
               'relative flex items-center gap-2 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors duration-200',
               active
                 ? 'text-primary'
-                : 'text-foreground-secondary hover:text-foreground-primary'
+                : 'text-foreground-secondary lg:hover:text-foreground-primary lg:hover:bg-surface-variant/60 lg:active:scale-95'
             )}
           >
             {active && (

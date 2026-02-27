@@ -65,7 +65,7 @@ export function ProfileImageUpload() {
         <button
           onClick={() => fileInputRef.current?.click()}
           disabled={isLoading}
-          className="absolute bottom-0 right-0 p-2 bg-primary rounded-full text-white shadow-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="absolute bottom-0 right-0 p-2 bg-primary rounded-full text-white shadow-lg lg:hover:bg-primary/80 lg:hover:scale-110 lg:active:scale-95 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? (
             <Loader2 className="w-5 h-5 animate-spin" />

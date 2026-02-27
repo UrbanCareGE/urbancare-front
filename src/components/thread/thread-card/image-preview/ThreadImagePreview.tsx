@@ -183,7 +183,7 @@ export const ThreadImagePreview = ({
         <DialogContent className="max-w-full h-full w-full p-0 bg-black/95 border-none">
           <button
             onClick={() => setIsOpen(false)}
-            className="absolute top-4 right-4 z-50 p-2 rounded-full bg-black/50 text-white hover:bg-black/70"
+            className="absolute top-4 right-4 z-50 p-2 rounded-full bg-black/50 text-white lg:hover:bg-black/70 lg:active:scale-95"
           >
             <X className="w-6 h-6" />
           </button>
@@ -223,8 +223,8 @@ export const ThreadImagePreview = ({
               </CarouselContent>
               {count > 1 && (
                 <>
-                  <CarouselPrevious className="left-2 bg-black/50 text-white border-none hover:bg-black/70" />
-                  <CarouselNext className="right-2 bg-black/50 text-white border-none hover:bg-black/70" />
+                  <CarouselPrevious className="left-2 bg-black/50 text-white border-none lg:hover:bg-black/70" />
+                  <CarouselNext className="right-2 bg-black/50 text-white border-none lg:hover:bg-black/70" />
                 </>
               )}
             </Carousel>

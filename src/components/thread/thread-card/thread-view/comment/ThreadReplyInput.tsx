@@ -66,13 +66,13 @@ export const ReplyInput = ({
         <div className="flex justify-end gap-2">
           <button
             onClick={onCancel}
-            className="px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 rounded-full transition-colors"
+            className="px-4 py-2 text-sm font-medium text-foreground-secondary lg:hover:bg-surface-variant lg:active:scale-95 rounded-full transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={handleSubmit}
-            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
+            className="px-4 py-2 text-sm font-medium text-white bg-primary lg:hover:bg-primary/90 lg:active:scale-95 rounded-full transition-colors"
           >
             Reply
           </button>

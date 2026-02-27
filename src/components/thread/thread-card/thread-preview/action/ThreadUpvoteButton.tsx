@@ -55,8 +55,8 @@ export const ThreadUpvoteButton = ({ className }: { className?: string }) => {
         onClick={handleLike}
         disabled={isPending}
         className={cn(
-          'h-9 px-3 rounded-s-full rounded-e-none transition-all [&_svg]:size-5 text-primary bg-primary/10 disabled:bg-primary/10 text-sm',
-          { 'bg-primary disabled:bg-primary text-white': isLiked }
+          'h-9 px-3 rounded-s-full rounded-e-none transition-all [&_svg]:size-5 text-primary bg-primary/10 disabled:bg-primary/10 text-sm lg:hover:bg-primary/20 lg:active:scale-95',
+          { 'bg-primary disabled:bg-primary text-white lg:hover:bg-primary/90': isLiked }
         )}
       >
         <ThumbsUp
@@ -68,8 +68,8 @@ export const ThreadUpvoteButton = ({ className }: { className?: string }) => {
         onClick={handleDislike}
         disabled={isPending}
         className={cn(
-          'h-9 px-3 rounded-s-none text-error rounded-e-full transition-all [&_svg]:size-5 bg-error/10 text-sm disabled:bg-error/10 ',
-          { 'bg-error text-white disabled:bg-error': isDisliked }
+          'h-9 px-3 rounded-s-none text-error rounded-e-full transition-all [&_svg]:size-5 bg-error/10 text-sm disabled:bg-error/10 lg:hover:bg-error/20 lg:active:scale-95',
+          { 'bg-error text-white disabled:bg-error lg:hover:bg-error/90': isDisliked }
         )}
       >
         {dislikeCount}

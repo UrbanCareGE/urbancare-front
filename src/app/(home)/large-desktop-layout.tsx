@@ -102,7 +102,7 @@ const HeaderUserDropdown = () => {
 
 const HeaderActionsIsland = () => (
   <div className="flex items-center gap-2 bg-surface rounded-2xl px-3 py-2 shadow-sm shadow-shadow/5 flex-shrink-0">
-    <button className="w-8 h-8 rounded-xl flex items-center justify-center hover:bg-surface-variant transition-colors duration-200 text-foreground-secondary hover:text-foreground-primary">
+    <button className="w-8 h-8 rounded-xl flex items-center justify-center lg:hover:bg-surface-variant transition-colors duration-200 text-foreground-secondary lg:hover:text-foreground-primary lg:active:scale-95">
       <Bell className="w-4 h-4" />
     </button>
     <HeaderUserDropdown />

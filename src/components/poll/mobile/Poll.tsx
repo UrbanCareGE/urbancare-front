@@ -66,7 +66,7 @@ const EditableOption = ({
       <button
         type="button"
         onClick={handleSave}
-        className="w-8 h-8 flex justify-center items-center bg-success hover:bg-success/90 rounded-full transition-colors"
+        className="w-8 h-8 flex justify-center items-center bg-success lg:hover:bg-success/90 lg:active:scale-95 rounded-full transition-colors"
         aria-label="Save option"
       >
         <Check size={18} className="text-success-foreground" />
@@ -74,7 +74,7 @@ const EditableOption = ({
       <button
         type="button"
         onClick={onCancel}
-        className="w-8 h-8 flex justify-center items-center bg-error hover:bg-error/90 rounded-full transition-colors"
+        className="w-8 h-8 flex justify-center items-center bg-error lg:hover:bg-error/90 lg:active:scale-95 rounded-full transition-colors"
         aria-label="Cancel editing"
       >
         <X size={18} className="text-error-foreground" />
@@ -199,7 +199,7 @@ export const Poll = ({
                   <div
                     key={index}
                     onClick={() => !isDisabled && setEditingIndex(index)}
-                    className="flex items-center justify-between p-2 bg-surface rounded-md border border-border cursor-pointer hover:border-primary/50 transition-colors"
+                    className="flex items-center justify-between p-2 bg-surface rounded-md border border-border cursor-pointer lg:hover:border-primary/50 transition-colors"
                   >
                     <span className="text-sm text-foreground-secondary">
                       {index + 1}) {option}
@@ -211,7 +211,7 @@ export const Poll = ({
                         handleRemovePollOption(index);
                       }}
                       disabled={isDisabled}
-                      className="p-1 hover:bg-surface-container rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="p-1 lg:hover:bg-surface-container lg:active:scale-90 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                       aria-label={`Remove option ${index + 1}`}
                     >
                       <X className="w-4 h-4 text-foreground-tertiary" />
@@ -237,7 +237,7 @@ export const Poll = ({
               <button
                 type="button"
                 onClick={handleAddPollOption}
-                className="w-8 h-8 flex justify-center items-center bg-success hover:bg-success/90 rounded-full transition-colors"
+                className="w-8 h-8 flex justify-center items-center bg-success lg:hover:bg-success/90 lg:active:scale-95 rounded-full transition-colors"
                 aria-label="Add option"
               >
                 <Check size={18} className="text-success-foreground" />
@@ -245,7 +245,7 @@ export const Poll = ({
               <button
                 type="button"
                 onClick={handleCancelAddOption}
-                className="w-8 h-8 flex justify-center items-center bg-error hover:bg-error/90 rounded-full transition-colors"
+                className="w-8 h-8 flex justify-center items-center bg-error lg:hover:bg-error/90 lg:active:scale-95 rounded-full transition-colors"
                 aria-label="Cancel adding option"
               >
                 <X size={18} className="text-error-foreground" />
@@ -256,7 +256,7 @@ export const Poll = ({
               type="button"
               onClick={() => setIsAddingOption(true)}
               disabled={isDisabled}
-              className="flex items-center gap-2 w-full p-2 text-sm text-foreground-primary hover:text-foreground-secondary bg-surface rounded-md border border-dashed border-border transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 w-full p-2 text-sm text-foreground-primary lg:hover:text-foreground-secondary lg:hover:bg-surface-container lg:active:scale-[0.98] bg-surface rounded-md border border-dashed border-border transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Plus size={16} />
               ვარიანტის დამატება

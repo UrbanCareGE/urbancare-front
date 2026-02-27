@@ -23,7 +23,7 @@ export const ThreadFormFooter = ({
         <Button
           type="submit"
           disabled={isPending || !bodyLength || fileUploading}
-          className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg shadow-primary/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-primary/90 lg:hover:from-primary/90 lg:hover:to-primary lg:hover:-translate-y-0.5 lg:active:translate-y-0 shadow-lg shadow-primary/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isPending ? (
             <div className="flex items-center gap-2">

@@ -64,11 +64,11 @@ export const ThreadFileUpload = ({
               variant="outline"
               onClick={() => fileInputRef.current?.click()}
               disabled={fileEntries.length >= 5 || isPending}
-              className="w-full h-auto border-2 border-dashed border-border hover:border-primary hover:bg-primary/5 transition-all group"
+              className="w-full h-auto border-2 border-dashed border-border lg:hover:border-primary lg:hover:bg-primary/5 transition-all group"
             >
               <div className="flex flex-col items-center gap-2">
-                <div className="w-10 h-10 rounded-full bg-surface-container group-hover:bg-primary/10 flex items-center justify-center transition-colors">
-                  <Upload className="w-5 h-5 text-foreground-tertiary group-hover:text-primary transition-colors" />
+                <div className="w-10 h-10 rounded-full bg-surface-container lg:group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+                  <Upload className="w-5 h-5 text-foreground-tertiary lg:group-hover:text-primary transition-colors" />
                 </div>
                 <div className="text-center">
                   <p className="text-sm font-medium text-foreground-secondary">
@@ -110,7 +110,7 @@ export const ThreadFileUpload = ({
                             key={index}
                             className="flex-shrink-0 relative group"
                           >
-                            <div className="w-20 h-20 rounded-lg overflow-hidden bg-surface border-2 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 hover:border-primary/50 relative">
+                            <div className="w-20 h-20 rounded-lg overflow-hidden bg-surface border-2 shadow-sm lg:hover:shadow-md transition-all duration-300 lg:hover:scale-105 lg:hover:border-primary/50 relative">
                               {file.file.type.startsWith('image/') ? (
                                 <img
                                   src={file.previewUrl}
@@ -126,12 +126,12 @@ export const ThreadFileUpload = ({
                               <button
                                 type="button"
                                 onClick={() => onRemoveFile(index)}
-                                className="absolute -top-2 -right-2 p-1.5 bg-error text-error-foreground rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-error-hover hover:scale-110 shadow-lg z-20"
+                                className="absolute -top-2 -right-2 p-1.5 bg-error text-error-foreground rounded-full opacity-0 lg:group-hover:opacity-100 transition-all duration-200 lg:hover:bg-error/80 lg:hover:scale-110 shadow-lg z-20"
                               >
                                 <X className="w-3 h-3" />
                               </button>
 
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 lg:group-hover:opacity-100 transition-opacity">
                                 <div className="absolute bottom-1 left-1 right-1">
                                   <p className="text-xs font-medium text-primary-foreground truncate">
                                     {(file.file.size / 1024 / 1024).toFixed(1)}{' '}

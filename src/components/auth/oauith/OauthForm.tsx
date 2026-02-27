@@ -15,7 +15,7 @@ export const OauthForm = ({ className, handleOauthLogin }: OauthFormProps) => {
       {/* Google */}
       <Button
         variant="outline"
-        className="w-full h-[52px] rounded-[14px] border-[1.5px] border-border bg-surface hover:bg-hover hover:border-border-hover shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-all duration-200 text-text-primary text-[15px] font-semibold gap-3"
+        className="w-full h-[52px] rounded-[14px] border-[1.5px] border-border bg-surface lg:hover:bg-hover lg:hover:border-border-hover shadow-[0_2px_8px_rgba(0,0,0,0.04)] lg:hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] lg:active:scale-[0.98] transition-all duration-200 text-text-primary text-[15px] font-semibold gap-3"
         onClick={() => handler('google')}
       >
         <svg viewBox="0 0 24 24" className="w-5 h-5">
@@ -41,7 +41,7 @@ export const OauthForm = ({ className, handleOauthLogin }: OauthFormProps) => {
 
       {/* Apple */}
       <Button
-        className="w-full h-[52px] rounded-[14px] bg-[#212121] hover:bg-black shadow-[0_4px_12px_rgba(33,33,33,0.2)] transition-all duration-200 text-white text-[15px] font-semibold gap-3"
+        className="w-full h-[52px] rounded-[14px] bg-[#212121] lg:hover:bg-black lg:active:scale-[0.98] shadow-[0_4px_12px_rgba(33,33,33,0.2)] transition-all duration-200 text-white text-[15px] font-semibold gap-3"
         onClick={() => handler('apple')}
       >
         <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white">
@@ -52,7 +52,7 @@ export const OauthForm = ({ className, handleOauthLogin }: OauthFormProps) => {
 
       {/* Facebook */}
       <Button
-        className="w-full h-[52px] rounded-[14px] bg-[#1877F2] hover:bg-[#166FE5] shadow-[0_4px_12px_rgba(24,119,242,0.3)] transition-all duration-200 text-white text-[15px] font-semibold gap-3"
+        className="w-full h-[52px] rounded-[14px] bg-[#1877F2] lg:hover:bg-[#166FE5] lg:active:scale-[0.98] shadow-[0_4px_12px_rgba(24,119,242,0.3)] transition-all duration-200 text-white text-[15px] font-semibold gap-3"
         onClick={() => handler('facebook')}
       >
         <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white">

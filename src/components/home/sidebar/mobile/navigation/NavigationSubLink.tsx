@@ -29,7 +29,7 @@ const NavigationSubLinkInner = ({
       'group flex items-center gap-2.5 px-2 py-1 rounded-md transition-all duration-150',
       isActive
         ? 'bg-primary-container/40 text-primary'
-        : 'text-foreground-secondary hover:bg-surface-variant hover:text-foreground-primary'
+        : 'text-foreground-secondary lg:hover:bg-surface-variant lg:hover:text-foreground-primary'
     )}
   >
     {/* Dot indicator */}
@@ -38,7 +38,7 @@ const NavigationSubLinkInner = ({
         'w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all duration-150',
         isActive
           ? 'bg-primary scale-125'
-          : 'bg-[rgb(var(--color-border-strong))] group-hover:bg-[rgb(var(--color-primary)/0.5)]'
+          : 'bg-[rgb(var(--color-border-strong))] lg:group-hover:bg-[rgb(var(--color-primary)/0.5)]'
       )}
     />
     <span
