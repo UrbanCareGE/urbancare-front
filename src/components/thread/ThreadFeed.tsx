@@ -96,7 +96,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
   }
 
   return (
-    <div className="max-w-2xl space-y-4 mx-auto">
+    <div className="2xl:max-w-5xl space-y-4 mx-auto">
       <CreateThreadFormContainer />
 
       <TagsFilterMobile
@@ -129,7 +129,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
 
 const ThreadsFeedLoadingSkeleton = () => {
   return (
-    <div className="max-w-2xl space-y-4 mx-auto">
+    <div className="2xl:max-w-5xl space-y-4 mx-auto">
       {[1, 2, 3, 4, 5].map((i) => (
         <div
           key={i}

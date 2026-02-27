@@ -5,6 +5,7 @@ import { cn, formatTime } from '@/lib/utils';
 import { Basic } from '@/app/layout';
 
 import 'ldrs/react/Leapfrog.css';
+import { ShieldCheck } from 'lucide-react';
 import { useFetchUrgent } from '@/hooks/query/urgent/use-fetch-urgent';
 import { UrgentCard, UrgentCardProps } from '@/components/urgent/UrgentCard';
 import { useResolveUrgent } from '@/hooks/query/urgent/use-resolve-urgent';
@@ -55,6 +56,33 @@ export const mapUrgentItemToCardProps = (
   };
 };
 
+const UrgentEmptyState = () => (
+  <div className="flex flex-col items-center justify-center px-5 py-10 gap-5">
+    <div className="relative flex items-center justify-center">
+      <div className="absolute w-20 h-20 rounded-full bg-success/15 animate-pulse" />
+      <div className="absolute w-14 h-14 rounded-full bg-success/20" />
+      <div className="relative w-12 h-12 rounded-full bg-success-container flex items-center justify-center shadow-sm">
+        <ShieldCheck className="w-6 h-6 text-success" strokeWidth={2} />
+      </div>
+    </div>
+
+    <div className="flex flex-col items-center gap-1 text-center">
+      <p className="font-semibold text-sm text-foreground-primary">
+        ყველაფერი კარგადაა
+      </p>
+      <p className="text-xs text-foreground-secondary leading-relaxed">
+        სასწრაფო შეტყობინება არ არის
+      </p>
+    </div>
+
+    <div className="flex items-center gap-1.5">
+      <span className="w-1 h-1 rounded-full bg-success/30" />
+      <span className="w-1.5 h-1.5 rounded-full bg-success/50" />
+      <span className="w-1 h-1 rounded-full bg-success/30" />
+    </div>
+  </div>
+);
+
 const UrgentFeed = () => {
   const user = useAuth();
   const { apartmentId } = useParams<{ apartmentId: string }>();
@@ -89,6 +117,8 @@ const UrgentFeed = () => {
           Error loading urgent items
         </div>
       )}
+
+      {items && items.length === 0 && <UrgentEmptyState />}
 
       {items &&
         items.length > 0 &&

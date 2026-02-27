@@ -12,13 +12,13 @@ import { useMobileScroll } from '@/hooks/use-mobile-scroll';
 import { cn } from '@/lib/utils';
 import { UrbanCareTextIcon } from '@/components/common/logo/AppLogo';
 
-export const MobileHeader = () => {
+export const HeaderMobile = () => {
   const { isVisible } = useMobileScroll();
 
   return (
     <header
       className={cn(
-        'h-[4rem] flex items-center px-3 border-b border-border sticky top-0 bg-surface !z-[20] transition-all duration-500 ease-in-out will-change-transform -translate-y-20',
+        'h-[4rem] flex items-center px-3 sticky top-0 bg-surface !z-[20] transition-all duration-500 ease-in-out will-change-transform -translate-y-20',
         {
           'translate-y-0': isVisible,
           'opacity-0': !isVisible,

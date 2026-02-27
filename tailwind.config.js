@@ -3,7 +3,7 @@
 
 const plugin = require('tailwindcss/plugin');
 
-const shorthands = plugin(function ({ addUtilities }) {
+const shorthands = plugin(function({ addUtilities }) {
   addUtilities({
     '.global-centered': {
       position: 'fixed',
@@ -38,6 +38,7 @@ module.exports = {
         lg: '1024px', // laptops
         xl: '1280px', // desktops
         '2xl': '1536px', // large desktops
+        '4xl': '1920px', // ultrawide
 
         // Max-width - "this size and DOWN"
         'max-sm': { max: '639px' }, // only mobile

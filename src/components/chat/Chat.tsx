@@ -22,7 +22,6 @@ export const Chat = () => {
 
   const chatTheme = theme === 'dark' ? 'default_dark' : 'default';
 
-  // Session is now in ChatProvider, so just render Chatbox
   return (
     <Chatbox
       conversationId={data[0].id}

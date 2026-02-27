@@ -45,7 +45,7 @@ export const HeaderNavIsland = () => {
   };
 
   return (
-    <nav className="flex items-center gap-1 bg-surface border border-border rounded-2xl p-1 shadow-sm shadow-shadow/5">
+    <nav className="flex items-center gap-1 bg-surface rounded-2xl px-3 shadow-sm shadow-shadow/5 h-14">
       {headerNavItems.map((item) => {
         const href = getHref(item);
         const active = isActive(item);
@@ -55,7 +55,7 @@ export const HeaderNavIsland = () => {
             key={item.href}
             href={href}
             className={cn(
-              'relative flex items-center gap-2 px-3 py-1.5 rounded-xl text-sm font-medium transition-colors duration-200',
+              'relative flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-colors duration-200',
               active
                 ? 'text-primary'
                 : 'text-foreground-secondary lg:hover:text-foreground-primary lg:hover:bg-surface-variant/60 lg:active:scale-95'

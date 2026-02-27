@@ -2,20 +2,19 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-type DeviceType = 'mobile' | 'tablet' | 'desktop' | 'largeDesktop';
+type DeviceType = 'mobile' | 'tablet' | 'desktop';
 
 interface ResponsiveContextType {
   deviceType: DeviceType;
   isMobile: boolean;
   isTablet: boolean;
   isDesktop: boolean;
-  isLargeDesktop: boolean;
   width: number;
   mobileAgent: boolean;
 }
 
 const ResponsiveContext = createContext<ResponsiveContextType | undefined>(
-  undefined
+  undefined,
 );
 
 export function useResponsive() {
@@ -46,16 +45,13 @@ export default function ResponsiveLayout({ children, initialIsMobile }: Props) {
 
       if (width < 768) deviceType = 'mobile';
       else if (width < 1024) deviceType = 'tablet';
-      else if (width < 1400) deviceType = 'desktop';
-      else deviceType = 'largeDesktop';
+      else deviceType = 'desktop';
 
       setDimensions((oldValue) => ({ ...oldValue, width, deviceType }));
     };
 
-    // Set initial dimensions on mount
     handleResize();
 
-    // Debounce resize events for performance
     let timeoutId: NodeJS.Timeout;
     const debouncedResize = () => {
       clearTimeout(timeoutId);
@@ -74,7 +70,6 @@ export default function ResponsiveLayout({ children, initialIsMobile }: Props) {
     isMobile: dimensions.deviceType === 'mobile',
     isTablet: dimensions.deviceType === 'tablet',
     isDesktop: dimensions.deviceType === 'desktop',
-    isLargeDesktop: dimensions.deviceType === 'largeDesktop',
     width: dimensions.width,
     mobileAgent: dimensions.mobileAgent,
   };

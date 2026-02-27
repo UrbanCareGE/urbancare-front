@@ -27,7 +27,7 @@ export default function LanguageSelector() {
                 'w-full flex items-center gap-3 px-3 py-2 h-auto rounded-2xl border transition-all duration-200',
                 isSelected
                   ? 'bg-primary-container border-primary/25'
-                  : 'bg-transparent border-transparent lg:hover:bg-surface-hover lg:active:scale-[0.98]',
+                  : 'bg-transparent border-transparent lg:hover:bg-surface-hover lg:active:scale-[0.98]'
               )}
             >
               <span className="text-2xl leading-none select-none">
@@ -38,7 +38,7 @@ export default function LanguageSelector() {
                 <p
                   className={cn(
                     'text-sm font-semibold leading-tight',
-                    isSelected ? 'text-primary' : 'text-text-primary',
+                    isSelected ? 'text-primary' : 'text-text-primary'
                   )}
                 >
                   {lang.name}
@@ -46,7 +46,7 @@ export default function LanguageSelector() {
                 <p
                   className={cn(
                     'text-xs mt-0.5',
-                    isSelected ? 'text-primary/70' : 'text-text-muted',
+                    isSelected ? 'text-primary/70' : 'text-text-muted'
                   )}
                 >
                   {lang.native}
@@ -56,7 +56,7 @@ export default function LanguageSelector() {
               <div
                 className={cn(
                   'w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all duration-200',
-                  isSelected ? 'bg-primary border-primary' : 'border-border',
+                  isSelected ? 'bg-primary border-primary' : 'border-border'
                 )}
               >
                 {isSelected && (

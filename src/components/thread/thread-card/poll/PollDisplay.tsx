@@ -23,13 +23,13 @@ interface PollOptionBarProps {
 }
 
 const PollOptionBar = ({
-                         thread,
-                         option,
-                         totalVotes,
-                         isHighest,
-                         isVotedByUser,
-                         apartmentId,
-                       }: PollOptionBarProps) => {
+  thread,
+  option,
+  totalVotes,
+  isHighest,
+  isVotedByUser,
+  apartmentId,
+}: PollOptionBarProps) => {
   const percentage =
     totalVotes > 0 ? Math.round((option.voteCount / totalVotes) * 100) : 0;
   const { mutate, isPending } = usePollVote();
@@ -59,7 +59,10 @@ const PollOptionBar = ({
           type="button"
           onClick={handleVote}
           disabled={isPending}
-          className={cn('transition-colors lg:hover:scale-110 lg:active:scale-90', isPending && 'opacity-50')}
+          className={cn(
+            'transition-colors lg:hover:scale-110 lg:active:scale-90',
+            isPending && 'opacity-50'
+          )}
         >
           {isVotedByUser ? (
             <CircleCheck className="w-5 h-5 text-tertiary" />
@@ -78,7 +81,9 @@ const PollOptionBar = ({
             <span
               className={cn(
                 'text-sm',
-                percentage > 50 ? 'text-tertiary-foreground' : 'text-text-secondary'
+                percentage > 50
+                  ? 'text-tertiary-foreground'
+                  : 'text-text-secondary'
               )}
             >
               {option.voteCount} {option.voteCount === 1 ? 'ხმა' : 'ხმა'}

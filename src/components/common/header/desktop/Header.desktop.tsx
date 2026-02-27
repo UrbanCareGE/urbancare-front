@@ -1,7 +1,6 @@
 import React from 'react';
-import { HeaderNavIsland } from '@/components/common/navbar/desktop/DesktopNavBar';
+import { HeaderNavIsland } from '@/components/common/navbar/desktop/Navbar.desktop';
 import Link from 'next/link';
-import { UrbanCareTextIcon } from '@/components/common/logo/AppLogo';
 import { Bell, Settings } from 'lucide-react';
 import { useAuth } from '@/components/provider/AuthProvider';
 import {
@@ -15,28 +14,19 @@ import {
 import { ActiveUserAvatar } from '@/components/common/avatar/ActiveUserAvatar';
 import { LogoutButton } from '@/components/auth/LogoutButton';
 
-const HeaderLogoIsland = () => (
-  <div className="relative overflow-hidden bg-surface border border-border rounded-2xl px-5 py-2.5 flex items-center flex-shrink-0 shadow-sm shadow-shadow/5">
-    <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] to-tertiary/[0.04] pointer-events-none" />
-    <Link href="/" className="flex items-center">
-      <UrbanCareTextIcon className="text-xl" />
-    </Link>
-  </div>
-);
-
 const HeaderActionsIsland = () => (
-  <div className="flex items-center gap-2 bg-surface border border-border rounded-2xl px-3 py-2 shadow-sm shadow-shadow/5 flex-shrink-0">
-    <button className="w-8 h-8 rounded-xl flex items-center justify-center lg:hover:bg-surface-variant transition-colors duration-200 text-foreground-secondary lg:hover:text-foreground-primary lg:active:scale-95">
+  <div
+    className="flex items-center gap-2 bg-surface border border-border rounded-2xl px-3 py-2 shadow-sm shadow-shadow/5 flex-shrink-0">
+    <button
+      className="w-8 h-8 rounded-xl flex items-center justify-center lg:hover:bg-surface-variant transition-colors duration-200 text-foreground-secondary lg:hover:text-foreground-primary lg:active:scale-95">
       <Bell className="w-4 h-4" />
     </button>
     <HeaderUserDropdown />
   </div>
 );
 
-export const DesktopHeader = () => (
+export const HeaderDesktop = () => (
   <div className="flex-shrink-0 grid grid-cols-[260px_1fr] gap-3 items-center">
-    <HeaderLogoIsland />
-    {/* Main col: nav centered, actions pushed to far right */}
     <div className="relative flex items-center">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="pointer-events-auto">
@@ -50,7 +40,7 @@ export const DesktopHeader = () => (
   </div>
 );
 
-const HeaderUserDropdown = () => {
+export const HeaderUserDropdown = () => {
   const { user } = useAuth();
 
   return (
