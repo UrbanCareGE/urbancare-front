@@ -2,7 +2,13 @@
 
 import React from 'react';
 import { ChatProvider } from '@/components/provider/ChatProvider';
-import { HomeIcon, NavigationIcon, ShieldAlert, UserIcon } from 'lucide-react';
+import {
+  BellIcon,
+  HomeIcon,
+  NavigationIcon,
+  ShieldAlert,
+  UserIcon,
+} from 'lucide-react';
 import NavigationArea from '@/components/home/sidebar/mobile/navigation/NavigationArea';
 import { NeighborhoodSelect } from '@/components/home/NeighborhoodSelect';
 import { Chat } from '@/components/chat/Chat';
@@ -12,6 +18,7 @@ import { AppLogo } from '@/components/common/logo/AppLogo';
 import { HeaderUserDropdown } from '@/components/common/header/desktop/Header.desktop';
 import { HeaderNavIsland } from '@/components/common/navbar/desktop/Navbar.desktop';
 import { DesktopIsland } from '@/components/home/Island.desktop';
+import { ProfileIslandDesktop } from '@/components/home/ProfileIsland.desktop';
 
 const UrgentIsland = () => (
   <DesktopIsland
@@ -63,11 +70,7 @@ const NavigationIsland = () => (
   </DesktopIsland>
 );
 
-export const LayoutDesktop = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
   return (
     <ChatProvider>
       <div className="fixed inset-0 bg-background overflow-hidden">
@@ -95,7 +98,7 @@ export const LayoutDesktop = ({
 
           <HomeColumnPanel className="w-[356px]">
             <HomeColumnPanel.Header>
-              <HeaderUserDropdown />
+              <ProfileIslandDesktop />
             </HomeColumnPanel.Header>
             <HomeColumnPanel.Body>
               <UrgentIsland />

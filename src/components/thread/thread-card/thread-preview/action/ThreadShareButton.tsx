@@ -32,7 +32,6 @@ export function ThreadShareButton({
         }
       }
     } else {
-      // Fallback: copy to clipboard
       await navigator.clipboard.writeText(url);
       toast.success('ლინკი დაკოპირდა');
     }
@@ -44,7 +43,7 @@ export function ThreadShareButton({
       className="rounded-full h-9 px-3 transition-all [&_svg]:size-5 text-secondary bg-secondary/10 lg:hover:bg-secondary/20 lg:active:scale-95"
     >
       <Share2 className="text-secondary" />
-      გაზიარება
+      <span className={'hidden lg:inline'}>გაზიარება</span>
     </Button>
   );
 }

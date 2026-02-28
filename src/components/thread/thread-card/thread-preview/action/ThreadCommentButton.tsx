@@ -28,6 +28,7 @@ export const ThreadPreviewCommentButton = ({
     >
       <MessageCircle className="text-tertiary" />
       {thread.comments.length}
+      <span className={'hidden lg:inline'}>კომენტარი</span>
     </Button>
   );
 };

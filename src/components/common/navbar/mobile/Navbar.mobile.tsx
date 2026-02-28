@@ -78,7 +78,7 @@ export const NavbarMobile = ({ className }: Basic) => {
       className={cn(
         'fixed bottom-0 left-0 right-0 h-16 w-full flex justify-center items-center shadow-xl bg-surface transition-transform duration-300 ease-in-out z-[40] will-change-transform',
         isVisible ? 'translate-y-0' : 'translate-y-full',
-        className,
+        className
       )}
     >
       <nav className="relative w-full h-full flex justify-evenly items-center rounded-full">
@@ -86,7 +86,7 @@ export const NavbarMobile = ({ className }: Basic) => {
         <div
           className={cn(
             'absolute w-14 h-11 bg-primary transition-all duration-300 ease-out rounded-xl',
-            { hidden: activeIndex < 0 },
+            { hidden: activeIndex < 0 }
           )}
           style={{
             left: getBackgroundPosition(activeIndex),

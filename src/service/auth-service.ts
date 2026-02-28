@@ -32,9 +32,15 @@ export const AuthService = {
     );
     return data;
   },
-  generateOtp: async (phone: string): Promise<string> => {
+  generateOtp: async (phone: string): Promise<void> => {
+    await api.post<string>('/api/next/auth/otp', undefined, {
+      params: { phone },
+    });
+  },
+  nextGenerateOtp: async (phone: string): Promise<string> => {
     const { data } = await api.post<string>('/public/otp/generate', undefined, {
       params: { phone },
+      server: true,
     });
     return data;
   },

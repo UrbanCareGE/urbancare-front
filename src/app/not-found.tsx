@@ -53,12 +53,6 @@ export default function NotFound() {
             Go to dashboard
           </Link>
         </div>
-
-        <p className="mt-8 text-xs text-[#9E9E9E]">
-          Need help? href="/support" className="text-[#1976D2] hover:underline
-          font-medium"
-          <a>Contact support</a>
-        </p>
       </div>
     </div>
   );

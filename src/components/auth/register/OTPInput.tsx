@@ -46,7 +46,7 @@ const OTPInput = React.forwardRef<
           ref={ref}
           aria-describedby={formMessageId}
           className={cn(
-            'flex h-[52px] w-full rounded-xl border-[1.5px] border-border-medium bg-white text-[15px] text-text-primary placeholder:text-text-muted transition-all duration-200 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground lg:hover:border-border-hover focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 caret-black',
+            'flex h-[52px] w-full rounded-xl border-[1.5px] border-border-medium bg-surface-elevated text-[15px] text-text-primary placeholder:text-text-muted transition-all duration-200 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground lg:hover:border-border-hover focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 caret-black',
             { 'pl-10 pr-10': icon, 'pl-3 pr-10': !icon },
             {
               'ring-2 ring-error placeholder:text-error focus:placeholder:text-text-placeholder':

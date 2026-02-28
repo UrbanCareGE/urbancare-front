@@ -9,12 +9,16 @@ type IslandProps = {
   className?: string;
 };
 
-
-export const DesktopIsland = ({ title, icon, children, className }: IslandProps) => (
+export const DesktopIsland = ({
+  title,
+  icon,
+  children,
+  className,
+}: IslandProps) => (
   <Card
     className={cn(
       'bg-surface border-none overflow-hidden flex flex-col ',
-      className,
+      className
     )}
   >
     <div className="px-4 py-2.5 bg-surface-variant flex items-center gap-2 flex-shrink-0">

@@ -14,7 +14,7 @@ interface ResponsiveContextType {
 }
 
 const ResponsiveContext = createContext<ResponsiveContextType | undefined>(
-  undefined,
+  undefined
 );
 
 export function useResponsive() {

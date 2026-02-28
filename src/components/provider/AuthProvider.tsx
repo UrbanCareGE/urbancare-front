@@ -48,6 +48,9 @@ const getApartmentWithId = (
   apartments: ApartmentDTO[],
   apartmentId?: string
 ) => {
+  if (!apartments || apartments.length === 0) {
+    return null;
+  }
   if (apartmentId) {
     const apartmentIdx = apartments.findIndex(
       (apartment) => apartment.id === apartmentId
@@ -171,6 +174,12 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const refetchUser = async () => {
     await refetch();
   };
+
+  useEffect(() => {
+    if (!isPublic && user?.selectedApartmentId === null) {
+      window.location.href = '/welcome';
+    }
+  }, [user, isPublic]);
 
   if ((isLoading || isError || !user) && !isPublic) {
     return <PulsingLoader />;

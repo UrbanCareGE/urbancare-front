@@ -1,7 +1,13 @@
 'use client';
 
 import React from 'react';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { BadgeCheck, KeyRound, PhoneIcon, RotateCcw, User } from 'lucide-react';
@@ -48,7 +54,9 @@ export function RegisterForm() {
     <Form {...form}>
       <form
         className="flex flex-col justify-center items-center w-full gap-3 sm:gap-4 px-3"
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onSubmit, (errors) => {
+          console.warn('Register form validation errors:', errors);
+        })}
       >
         <FormField
           control={form.control}
@@ -179,6 +187,7 @@ export function RegisterForm() {
                   </Label>
                 </div>
               </FormControl>
+              <FormMessage className="text-xs text-error" />
             </FormItem>
           )}
         />

@@ -52,7 +52,6 @@ export const Thread = ({ threadId, defaultOpen }: ThreadPreviewProps) => {
         <ThreadPreviewContent />
       </ThreadCard.Body>
       <ThreadCard.Footer className={'flex-col px-0'}>
-        {/*<ThreadPreviewStatsSection/>*/}
         <ThreadPreviewActionSection />
       </ThreadCard.Footer>
     </ThreadCard>

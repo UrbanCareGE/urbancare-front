@@ -1,5 +1,9 @@
 import React from 'react';
-import { DesktopAdapter, MobileAdapter, TabletAdapter } from '@/components/common/layouts/ResponsiveSwitch';
+import {
+  DesktopAdapter,
+  MobileAdapter,
+  TabletAdapter,
+} from '@/components/common/layouts/ResponsiveSwitch';
 import { Children } from '@/app/layout';
 import { MobileLayout } from '@/app/(home)/layout.mobile';
 import { LayoutDesktop } from '@/app/(home)/layout.desktop';

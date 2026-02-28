@@ -9,7 +9,7 @@ export function useOtp() {
   const { getValues, trigger, setError } = useFormContext();
 
   const { mutate, isPending, error } = useMutation<
-    string,
+    undefined,
     ErrorResponse,
     string
   >({

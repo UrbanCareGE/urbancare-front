@@ -11,15 +11,9 @@ export interface LoginDTO {
   password: string;
 }
 
-export interface GetOtpDTO {
-  phone: string;
-}
-
 export interface ChatDTO {
   id: string;
 }
-
-export type ApartmentRole = 'MEMBER' | 'ADMIN';
 
 export interface ApartmentDTO {
   id: string;

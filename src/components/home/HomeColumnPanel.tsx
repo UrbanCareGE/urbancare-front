@@ -26,29 +26,13 @@ const HomeColumnPanelRoot = ({ className, children }: HomeColumnPanelProps) => {
 };
 
 const HomeColumnPanelHeader = ({
-                                 className,
-                                 children,
-                               }: HomeColumnPanelHeaderProps) => {
+  className,
+  children,
+}: HomeColumnPanelHeaderProps) => {
   return (
     <div
       className={cn(
         'flex justify-center items-center h-14 flex-shrink-0',
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
-};
-
-const HomeColumnPanelBody = ({
-                               className,
-                               children,
-                             }: HomeColumnPanelBodyProps) => {
-  return (
-    <div
-      className={cn(
-        'w-full min-h-0',
         className
       )}
     >
@@ -57,17 +41,18 @@ const HomeColumnPanelBody = ({
   );
 };
 
+const HomeColumnPanelBody = ({
+  className,
+  children,
+}: HomeColumnPanelBodyProps) => {
+  return <div className={cn('w-full min-h-0', className)}>{children}</div>;
+};
+
 const HomeColumnPanelFooter = ({
-                                 className,
-                                 children,
-                               }: HomeColumnPanelBodyProps) => {
-  return (
-    <div
-      className={cn('w-full min-h-0', className)}
-    >
-      {children}
-    </div>
-  );
+  className,
+  children,
+}: HomeColumnPanelBodyProps) => {
+  return <div className={cn('w-full min-h-0', className)}>{children}</div>;
 };
 
 export const HomeColumnPanel = Object.assign(HomeColumnPanelRoot, {

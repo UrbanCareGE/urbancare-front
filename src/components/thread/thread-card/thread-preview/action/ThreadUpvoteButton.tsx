@@ -62,6 +62,7 @@ export const ThreadUpvoteButton = ({ className }: { className?: string }) => {
           }
         )}
       >
+        <span className={'hidden lg:inline'}>მომწონს</span>
         <ThumbsUp
           className={cn('w-5 h-5 stroke-primary', { 'stroke-white': isLiked })}
         />
@@ -78,10 +79,11 @@ export const ThreadUpvoteButton = ({ className }: { className?: string }) => {
           }
         )}
       >
-        {dislikeCount}
+        <span className={'hidden lg:inline'}>არ მომწონს</span>
         <ThumbsDown
           className={cn('stroke-error', { 'stroke-white': isDisliked })}
         />
+        {dislikeCount}
       </Button>
     </div>
   );

@@ -1,5 +1,4 @@
 import { getBindingIdentifiers } from '@babel/types';
-import keys = getBindingIdentifiers.keys;
 
 export type ErrorResp = {
   key: string;
