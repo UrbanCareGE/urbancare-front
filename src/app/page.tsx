@@ -13,7 +13,7 @@ export default function RootPage() {
     if (isLoading) return;
 
     if (isAuthenticated && user?.joinedApartments?.length) {
-      router.replace(`/apartment/${user.selectedApartmentId}`);
+      router.replace(`/apartment/${user.selectedApartmentId!}`);
     } else {
       router.replace(`/welcome`);
     }

@@ -17,7 +17,7 @@ import { ThreadViewCommentButton } from '@/components/thread/thread-card/thread-
 export default function ThreadPage() {
   const { threadId } = useParams<{ threadId: string }>();
   const { user } = useAuth();
-  const apartmentId = user.selectedApartmentId;
+  const apartmentId = user.selectedApartmentId!;
   const { data, isPending, error } = useThreadDetails(apartmentId, threadId);
   const router = useRouter();
 

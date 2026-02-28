@@ -55,7 +55,7 @@ export const HeaderUserDropdown = () => {
       >
         <DropdownMenuItem asChild>
           <Link
-            href={`/apartment/${user.selectedApartmentId}/profile`}
+            href={`/apartment/${user.selectedApartmentId!}/profile`}
             className="cursor-pointer"
           >
             <Settings className="mr-2 h-4 w-4" />

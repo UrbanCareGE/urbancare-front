@@ -10,10 +10,11 @@ import {
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 import { AuthService } from '@/service/auth-service';
-import { ApartmentDTO, LoginDTO, UserDTO } from '@/model/dto/auth.dto';
+import { LoginDTO, UserDTO } from '@/model/dto/auth.dto';
 import { PulsingLoader } from '@/components/common/loader/GlobalLoader';
 import { RouteConfig } from '@/proxy';
 import { ErrorResponse } from '@/model/dto/common.dto';
+import { ApartmentDTO } from '@/model/dto/apartment.dto';
 
 export interface UserModel {
   id: string;

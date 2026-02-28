@@ -9,6 +9,7 @@ import {
   Loader2,
   PhoneIcon,
   RotateCcw,
+  UserIcon,
 } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
@@ -46,6 +47,8 @@ export function RegisterFormCard() {
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
+      firstName: '',
+      lastName: '',
       phone: '',
       password: '',
       confirmPassword: '',
@@ -56,8 +59,8 @@ export function RegisterFormCard() {
 
   const onSubmit = (values: z.infer<typeof registerSchema>) => {
     const registerReq: RegisterDTO = {
-      name: 'saxeli',
-      surname: 'saxeli',
+      name: values.firstName,
+      surname: values.lastName,
       password: values.password,
       phone: values.phone,
       otp: values.otp,
@@ -80,14 +83,48 @@ export function RegisterFormCard() {
         </p>
 
         {/* OAuth Buttons */}
-        <OauthForm handleOauthLogin={handleOAuthLogin} />
+        {/*<OauthForm handleOauthLogin={handleOAuthLogin} />*/}
 
         {/* Divider */}
-        <Separator />
+        {/*<Separator />*/}
 
         {/* Registration Form */}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <FormInput
+                      placeholder="სახელი"
+                      disabled={isPending}
+                      icon={<UserIcon className="text-icon" />}
+                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <FormInput
+                      placeholder="გვარი"
+                      disabled={isPending}
+                      icon={<UserIcon className="text-icon" />}
+                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
             {/* Phone */}
             <FormField
               control={form.control}

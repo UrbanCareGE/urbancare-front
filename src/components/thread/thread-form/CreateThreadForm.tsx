@@ -133,13 +133,13 @@ export const CreateThreadFormContainer = () => {
   };
 
   const onSubmit = async (values: z.infer<typeof createThreadSchema>) => {
-    if (!user.selectedApartmentId) {
+    if (!user.selectedApartmentId!) {
       console.error('No apartment selected');
       return;
     }
 
     mutate({
-      apartmentId: user.selectedApartmentId,
+      apartmentId: user.selectedApartmentId!,
       title: values.title,
       content: values.body,
       imageIds: values.files?.map((f) => f.fileId!) ?? [],
