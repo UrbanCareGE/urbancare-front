@@ -8,17 +8,15 @@ import { useFormContext } from 'react-hook-form';
 export function useOtp() {
   const { getValues, trigger, setError } = useFormContext();
 
-  const { mutate, isPending, error } = useMutation<
-    undefined,
-    ErrorResponse,
-    string
-  >({
-    mutationFn: AuthService.generateOtp,
-    onSuccess: (data) => {},
-    onError: (err) => {
-      console.log(err);
-    },
-  });
+  const { mutate, isPending, error } = useMutation<void, ErrorResponse, string>(
+    {
+      mutationFn: AuthService.generateOtp,
+      onSuccess: (data) => {},
+      onError: (err) => {
+        console.log(err);
+      },
+    }
+  );
 
   const handleGetOtp = async () => {
     const phone = getValues('phone');

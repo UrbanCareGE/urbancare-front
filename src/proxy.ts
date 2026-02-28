@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 export const RouteConfig = {
+  publicAndAuth: ['/welcome'],
   public: [
     '/welcome',
     '/auth/login',

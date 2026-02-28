@@ -13,7 +13,9 @@
       "Bash(git commit:*)",
       "Bash(xargs:*)",
       "Skill(design)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(head:*)",
+      "Bash(cd:*)"
     ]
   }
 }

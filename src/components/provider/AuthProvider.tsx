@@ -23,7 +23,7 @@ export interface UserModel {
   profileImageId?: string;
   joinedApartments: ApartmentDTO[];
   selectedApartment?: ApartmentDTO;
-  selectedApartmentId: string;
+  selectedApartmentId?: string;
 }
 
 export interface AuthContextType {
@@ -76,11 +76,24 @@ const isPublicRoute = (pathname: string) => {
   );
 };
 
+const isMixedRoute = (pathname: string) => {
+  const normalizedPath =
+    pathname.endsWith('/') && pathname !== '/'
+      ? pathname.slice(0, -1)
+      : pathname;
+
+  return RouteConfig.publicAndAuth.some(
+    (route) =>
+      normalizedPath === route || normalizedPath.startsWith(route + '/')
+  );
+};
+
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const queryClient = useQueryClient();
   const pathname = usePathname();
 
   const isPublic = isPublicRoute(pathname);
+  const isMixed = isMixedRoute(pathname);
   console.log('pathName', pathname);
 
   const handleAuthError = useCallback(() => {
@@ -108,17 +121,17 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         ),
       } as UserModel;
     },
-    enabled: !isPublic,
+    enabled: !isPublic || isMixed,
     retry: false,
     staleTime: 5 * 60 * 1e3,
     gcTime: 10 * 60 * 1e3,
   });
 
   useEffect(() => {
-    if (isError && !isPublic) {
+    if (isError && !isPublic && !isMixed) {
       handleAuthError();
     }
-  }, [isError, isPublic, handleAuthError]);
+  }, [isError, isPublic, isMixed, handleAuthError]);
 
   const loginMutation = useMutation<UserDTO, ErrorResponse, LoginDTO>({
     mutationFn: AuthService.login,
@@ -135,6 +148,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       } as UserModel);
       if (user?.joinedApartments?.length) {
         window.location.href = `/apartment/${user.joinedApartments[0].id}`;
+      } else {
+        window.location.href = '/welcome';
       }
     },
     onError: (error) => {
@@ -175,11 +190,11 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     await refetch();
   };
 
-  useEffect(() => {
-    if (!isPublic && user?.selectedApartmentId === null) {
-      window.location.href = '/welcome';
-    }
-  }, [user, isPublic]);
+  // useEffect(() => {
+  //   if (!isPublic && !user?.joinedApartments?.length) {
+  //     window.location.href = '/welcome';
+  //   }
+  // }, [user, isPublic, pathname]);
 
   if ((isLoading || isError || !user) && !isPublic) {
     return <PulsingLoader />;

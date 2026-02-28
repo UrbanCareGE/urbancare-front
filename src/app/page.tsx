@@ -14,10 +14,11 @@ export default function RootPage() {
 
     if (isAuthenticated && user?.joinedApartments?.length) {
       router.replace(`/apartment/${user.selectedApartmentId}`);
+    } else {
+      router.replace(`/welcome`);
     }
   }, [user, isLoading, isAuthenticated, router]);
 
-  // Show loading while checking auth
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-dvh bg-background">
@@ -26,7 +27,6 @@ export default function RootPage() {
     );
   }
 
-  // Show loading while redirecting authenticated users
   return (
     <div className="flex items-center justify-center h-dvh bg-background">
       <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" />

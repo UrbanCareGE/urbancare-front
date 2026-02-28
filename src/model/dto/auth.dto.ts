@@ -1,3 +1,5 @@
+import { ApartmentDTO } from '@/model/dto/apartment.dto';
+
 export interface RegisterDTO {
   phone: string;
   name: string;
@@ -13,12 +15,6 @@ export interface LoginDTO {
 
 export interface ChatDTO {
   id: string;
-}
-
-export interface ApartmentDTO {
-  id: string;
-  name: string;
-  isManager: boolean;
 }
 
 export interface UserDTO {
