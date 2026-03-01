@@ -80,9 +80,7 @@ export function LoginFormCard() {
                     <FormInput
                       placeholder="მომხმარებელი"
                       disabled={isLoggingIn}
-                      icon={
-                        <UserIcon className="text-[rgb(var(--color-icon))]" />
-                      }
+                      icon={<UserIcon className="text-icon" />}
                       className="h-[52px] rounded-xl border border-border bg-surface text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
@@ -100,9 +98,7 @@ export function LoginFormCard() {
                   <FormControl>
                     <FormInput
                       placeholder="პაროლი"
-                      icon={
-                        <KeyRound className="text-[rgb(var(--color-icon))]" />
-                      }
+                      icon={<KeyRound className="text-icon" />}
                       type="password"
                       isPasswordType
                       disabled={isLoggingIn}

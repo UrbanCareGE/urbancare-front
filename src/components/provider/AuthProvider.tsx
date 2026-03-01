@@ -65,7 +65,6 @@ const getApartmentWithId = (
 };
 
 const isPublicRoute = (pathname: string) => {
-  // Normalize pathname: remove trailing slash for comparison
   const normalizedPath =
     pathname.endsWith('/') && pathname !== '/'
       ? pathname.slice(0, -1)
@@ -95,7 +94,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
   const isPublic = isPublicRoute(pathname);
   const isMixed = isMixedRoute(pathname);
-  console.log('pathName', pathname);
 
   const handleAuthError = useCallback(() => {
     queryClient.clear();

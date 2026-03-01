@@ -15,8 +15,8 @@ interface TagBadgeProps {
 
 const TagBadge = ({ tag }: TagBadgeProps) => {
   const config = ThreadTagConfig[tag as ThreadTagValue] || {
-    bg: 'bg-[rgb(var(--color-surface-container))]',
-    text: 'text-[rgb(var(--color-text-secondary))]',
+    bg: 'bg-surface-container',
+    text: 'text-text-secondary',
     label: tag,
   };
 

@@ -36,7 +36,7 @@ export const CreateThreadSheetContent = ({
       <SheetContent
         side="bottom"
         className={cn(
-          'flex flex-col h-full w-full bg-[rgb(var(--color-background))] overflow-y-scroll',
+          'flex flex-col h-full w-full bg-background overflow-y-scroll',
           className
         )}
       >
