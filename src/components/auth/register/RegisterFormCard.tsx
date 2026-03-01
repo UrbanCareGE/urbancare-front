@@ -101,7 +101,7 @@ export function RegisterFormCard() {
                       placeholder="სახელი"
                       disabled={isPending}
                       icon={<UserIcon className="text-icon" />}
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-surface text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -118,7 +118,7 @@ export function RegisterFormCard() {
                       placeholder="გვარი"
                       disabled={isPending}
                       icon={<UserIcon className="text-icon" />}
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-surface text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -135,10 +135,8 @@ export function RegisterFormCard() {
                     <FormInput
                       placeholder="ტელეფონი"
                       disabled={isPending}
-                      icon={
-                        <PhoneIcon className="text-[rgb(var(--color-icon))]" />
-                      }
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      icon={<PhoneIcon className="text-icon" />}
+                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-surface text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -155,13 +153,11 @@ export function RegisterFormCard() {
                   <FormControl>
                     <FormInput
                       placeholder="პაროლი"
-                      icon={
-                        <KeyRound className="text-[rgb(var(--color-icon))]" />
-                      }
+                      icon={<KeyRound className="text-icon" />}
                       type="password"
                       isPasswordType
                       disabled={isPending}
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-surface text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -178,13 +174,11 @@ export function RegisterFormCard() {
                   <FormControl>
                     <FormInput
                       placeholder="გაიმეორეთ პაროლი"
-                      icon={
-                        <RotateCcw className="text-[rgb(var(--color-icon))]" />
-                      }
+                      icon={<RotateCcw className="text-icon" />}
                       type="password"
                       isPasswordType
                       disabled={isPending}
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-[rgb(var(--color-surface))] text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-surface text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -202,9 +196,7 @@ export function RegisterFormCard() {
                     <OTPInput
                       placeholder="ერთჯერადი კოდი"
                       type="text"
-                      icon={
-                        <BadgeCheck className="text-[rgb(var(--color-icon))]" />
-                      }
+                      icon={<BadgeCheck className="text-icon" />}
                       disabled={isPending}
                       {...field}
                     />

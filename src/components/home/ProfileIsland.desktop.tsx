@@ -37,8 +37,8 @@ export const ProfileIslandDesktop = () => {
       <div
         className={cn(
           'flex-1 min-w-0 flex items-center gap-3 px-2 py-1.5 rounded-xl',
-          'bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border))]',
-          'shadow-sm shadow-[rgb(var(--color-shadow)/0.05)]'
+          'bg-surface border border-border',
+          'shadow-sm shadow-shadow/5'
         )}
       >
         {/* Avatar + dropdown trigger */}
@@ -46,22 +46,22 @@ export const ProfileIslandDesktop = () => {
 
         {/* Name + apartment */}
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold leading-tight text-[rgb(var(--color-text-primary))] truncate">
+          <p className="text-sm font-semibold leading-tight text-text-primary truncate">
             {displayName}
           </p>
           {apartmentName && (
             <div className="flex items-center gap-1 mt-0.5">
               {isManager ? (
-                <ShieldCheck className="w-3 h-3 flex-shrink-0 text-[rgb(var(--color-tertiary))]" />
+                <ShieldCheck className="w-3 h-3 flex-shrink-0 text-tertiary" />
               ) : (
-                <Building2 className="w-3 h-3 flex-shrink-0 text-[rgb(var(--color-icon))]" />
+                <Building2 className="w-3 h-3 flex-shrink-0 text-icon" />
               )}
               <span
                 className={cn(
                   'text-[11px] leading-tight truncate',
                   isManager
-                    ? 'font-semibold text-[rgb(var(--color-tertiary))]'
-                    : 'text-[rgb(var(--color-text-secondary))]'
+                    ? 'font-semibold text-tertiary'
+                    : 'text-text-secondary'
                 )}
               >
                 {apartmentName}
@@ -76,7 +76,7 @@ export const ProfileIslandDesktop = () => {
             className={cn(
               'flex-shrink-0 inline-flex px-2 py-0.5 rounded-full',
               'text-[10px] font-bold tracking-wide',
-              'bg-[rgb(var(--color-tertiary-container))] text-[rgb(var(--color-tertiary-container-foreground))]'
+              'bg-tertiary-container text-tertiary-container-foreground'
             )}
           >
             ADM

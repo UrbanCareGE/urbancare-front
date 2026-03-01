@@ -27,7 +27,7 @@ export const UserAvatar = ({
             className="object-cover"
           />
         )}
-        <AvatarFallback className="text-xs font-semibold bg-[rgb(var(--color-primary-container))] text-[rgb(var(--color-primary))]">
+        <AvatarFallback className="text-xs font-semibold bg-primary-container text-primary">
           {initials}
         </AvatarFallback>
       </Avatar>

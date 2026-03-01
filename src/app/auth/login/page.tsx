@@ -16,7 +16,9 @@ export default function LoginPage() {
       </div>
 
       <DynamicPanel
-        className={'relative z-10 min-h-screen px-6 py-6 max-w-md mx-auto'}
+        className={
+          'relative z-10 min-h-screen px-6 py-6 max-w-md lg:max-w-xl mx-auto'
+        }
       >
         <DynamicPanel.Header>
           <LoginHeader />

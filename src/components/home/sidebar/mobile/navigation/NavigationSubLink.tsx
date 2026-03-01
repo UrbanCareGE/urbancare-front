@@ -38,7 +38,7 @@ const NavigationSubLinkInner = ({
         'w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all duration-150',
         isActive
           ? 'bg-primary scale-125'
-          : 'bg-[rgb(var(--color-border-strong))] lg:group-hover:bg-[rgb(var(--color-primary)/0.5)]'
+          : 'bg-border-strong lg:group-hover:bg-primary/50'
       )}
     />
     <span

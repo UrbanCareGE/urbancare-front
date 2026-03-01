@@ -7,7 +7,7 @@ export const ThreadPreviewActionSection = () => {
   return (
     <div
       className={
-        'flex justify-evenly items-center w-full border-t border-[rgb(var(--color-border))] pt-3'
+        'flex justify-evenly items-center w-full border-t border-border pt-3'
       }
     >
       <ThreadUpvoteButton />
