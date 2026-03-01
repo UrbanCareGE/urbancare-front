@@ -23,9 +23,9 @@ export interface Basic {
 
 export default function RootLayout({ children }: Children) {
   return (
-    <html lang="en" style={{ colorScheme: 'dark' }} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
-        className="h-dvh w-dvw antialiased bg-background text-foreground"
+        className="min-h-dvh antialiased bg-background text-foreground"
         suppressHydrationWarning
       >
         <ReactQueryProvider>

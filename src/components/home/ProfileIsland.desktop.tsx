@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'motion/react';
-import { Bell, Building2, ShieldCheck } from 'lucide-react';
+import { Bell, Building2, DoorClosed, PlusIcon, ShieldCheck } from 'lucide-react';
 import { HeaderUserDropdown } from '@/components/common/header/desktop/Header.desktop';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useMemo } from 'react';
@@ -18,27 +18,47 @@ export const ProfileIslandDesktop = () => {
       initial={{ opacity: 0, y: -6 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-      className="w-full flex items-center gap-2"
+      className="w-full flex items-center gap-2 justify-end"
     >
-      {/* Notification bell */}
       <button
         className={cn(
           'relative w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0',
           'bg-surface border border-border',
           'hover:bg-surface-hover hover:border-border-hover',
           'text-icon hover:text-text-primary',
-          'transition-all duration-200 shadow-sm active:scale-95'
+          'transition-all duration-200 shadow-sm active:scale-95',
         )}
       >
         <Bell className="w-4 h-4" />
       </button>
+      <button
+        className={cn(
+          'relative w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0',
+          'bg-surface border border-border',
+          'hover:bg-surface-hover hover:border-border-hover',
+          'text-icon hover:text-text-primary',
+          'transition-all duration-200 shadow-sm active:scale-95',
+        )}
+      >
+        <PlusIcon className="w-4 h-4" />
+      </button>
+      <button
+        className={cn(
+          'relative w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0',
+          'bg-surface border border-border',
+          'hover:bg-surface-hover hover:border-border-hover',
+          'text-icon hover:text-text-primary',
+          'transition-all duration-200 shadow-sm active:scale-95',
+        )}
+      >
+        <DoorClosed className="w-4 h-4" />
+      </button>
 
-      {/* Profile card */}
       <div
         className={cn(
-          'flex-1 min-w-0 flex items-center gap-3 px-2 py-1.5 rounded-xl',
-          'bg-surface border border-border',
-          'shadow-sm shadow-shadow/5'
+          'min-w-0 flex items-center justify-end gap-3 px-2 py-1.5 rounded-xl',
+          'bg-surface',
+          'shadow-sm shadow-shadow/5',
         )}
       >
         {/* Avatar + dropdown trigger */}
@@ -61,7 +81,7 @@ export const ProfileIslandDesktop = () => {
                   'text-[11px] leading-tight truncate',
                   isManager
                     ? 'font-semibold text-tertiary'
-                    : 'text-text-secondary'
+                    : 'text-text-secondary',
                 )}
               >
                 {apartmentName}
@@ -76,7 +96,7 @@ export const ProfileIslandDesktop = () => {
             className={cn(
               'flex-shrink-0 inline-flex px-2 py-0.5 rounded-full',
               'text-[10px] font-bold tracking-wide',
-              'bg-tertiary-container text-tertiary-container-foreground'
+              'bg-tertiary-container text-tertiary-container-foreground',
             )}
           >
             ADM
