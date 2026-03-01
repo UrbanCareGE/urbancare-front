@@ -43,68 +43,508 @@ const CommunityIllustration = () => (
     />
 
     {/* Far-left small building */}
-    <rect x="0" y="100" width="60" height="76" rx="4" fill="white" fillOpacity="0.06" />
-    <rect x="0" y="90" width="60" height="12" rx="3" fill="white" fillOpacity="0.1" />
-    <rect x="12" y="108" width="14" height="11" rx="2" fill="white" fillOpacity="0.4" />
-    <rect x="34" y="108" width="14" height="11" rx="2" fill="white" fillOpacity="0.2" />
-    <rect x="12" y="128" width="14" height="11" rx="2" fill="white" fillOpacity="0.2" />
-    <rect x="34" y="128" width="14" height="11" rx="2" fill="white" fillOpacity="0.4" />
-    <rect x="12" y="148" width="14" height="11" rx="2" fill="white" fillOpacity="0.4" />
-    <rect x="34" y="148" width="14" height="11" rx="2" fill="white" fillOpacity="0.2" />
+    <rect
+      x="0"
+      y="100"
+      width="60"
+      height="76"
+      rx="4"
+      fill="white"
+      fillOpacity="0.06"
+    />
+    <rect
+      x="0"
+      y="90"
+      width="60"
+      height="12"
+      rx="3"
+      fill="white"
+      fillOpacity="0.1"
+    />
+    <rect
+      x="12"
+      y="108"
+      width="14"
+      height="11"
+      rx="2"
+      fill="white"
+      fillOpacity="0.4"
+    />
+    <rect
+      x="34"
+      y="108"
+      width="14"
+      height="11"
+      rx="2"
+      fill="white"
+      fillOpacity="0.2"
+    />
+    <rect
+      x="12"
+      y="128"
+      width="14"
+      height="11"
+      rx="2"
+      fill="white"
+      fillOpacity="0.2"
+    />
+    <rect
+      x="34"
+      y="128"
+      width="14"
+      height="11"
+      rx="2"
+      fill="white"
+      fillOpacity="0.4"
+    />
+    <rect
+      x="12"
+      y="148"
+      width="14"
+      height="11"
+      rx="2"
+      fill="white"
+      fillOpacity="0.4"
+    />
+    <rect
+      x="34"
+      y="148"
+      width="14"
+      height="11"
+      rx="2"
+      fill="white"
+      fillOpacity="0.2"
+    />
 
     {/* Left building */}
-    <rect x="76" y="72" width="90" height="104" rx="6" fill="white" fillOpacity="0.09" />
-    <rect x="76" y="60" width="90" height="15" rx="4" fill="white" fillOpacity="0.13" />
-    <rect x="90" y="83" width="19" height="14" rx="2" fill="white" fillOpacity="0.5" />
-    <rect x="118" y="83" width="19" height="14" rx="2" fill="white" fillOpacity="0.2" />
-    <rect x="140" y="83" width="19" height="14" rx="2" fill="white" fillOpacity="0.5" />
-    <rect x="90" y="107" width="19" height="14" rx="2" fill="white" fillOpacity="0.2" />
-    <rect x="118" y="107" width="19" height="14" rx="2" fill="white" fillOpacity="0.5" />
-    <rect x="140" y="107" width="19" height="14" rx="2" fill="white" fillOpacity="0.2" />
-    <rect x="90" y="131" width="19" height="14" rx="2" fill="white" fillOpacity="0.5" />
-    <rect x="118" y="131" width="19" height="14" rx="2" fill="white" fillOpacity="0.2" />
-    <rect x="140" y="131" width="19" height="14" rx="2" fill="white" fillOpacity="0.5" />
-    <rect x="90" y="155" width="19" height="14" rx="2" fill="white" fillOpacity="0.2" />
-    <rect x="118" y="155" width="19" height="14" rx="2" fill="white" fillOpacity="0.5" />
-    <rect x="140" y="155" width="19" height="14" rx="2" fill="white" fillOpacity="0.2" />
+    <rect
+      x="76"
+      y="72"
+      width="90"
+      height="104"
+      rx="6"
+      fill="white"
+      fillOpacity="0.09"
+    />
+    <rect
+      x="76"
+      y="60"
+      width="90"
+      height="15"
+      rx="4"
+      fill="white"
+      fillOpacity="0.13"
+    />
+    <rect
+      x="90"
+      y="83"
+      width="19"
+      height="14"
+      rx="2"
+      fill="white"
+      fillOpacity="0.5"
+    />
+    <rect
+      x="118"
+      y="83"
+      width="19"
+      height="14"
+      rx="2"
+      fill="white"
+      fillOpacity="0.2"
+    />
+    <rect
+      x="140"
+      y="83"
+      width="19"
+      height="14"
+      rx="2"
+      fill="white"
+      fillOpacity="0.5"
+    />
+    <rect
+      x="90"
+      y="107"
+      width="19"
+      height="14"
+      rx="2"
+      fill="white"
+      fillOpacity="0.2"
+    />
+    <rect
+      x="118"
+      y="107"
+      width="19"
+      height="14"
+      rx="2"
+      fill="white"
+      fillOpacity="0.5"
+    />
+    <rect
+      x="140"
+      y="107"
+      width="19"
+      height="14"
+      rx="2"
+      fill="white"
+      fillOpacity="0.2"
+    />
+    <rect
+      x="90"
+      y="131"
+      width="19"
+      height="14"
+      rx="2"
+      fill="white"
+      fillOpacity="0.5"
+    />
+    <rect
+      x="118"
+      y="131"
+      width="19"
+      height="14"
+      rx="2"
+      fill="white"
+      fillOpacity="0.2"
+    />
+    <rect
+      x="140"
+      y="131"
+      width="19"
+      height="14"
+      rx="2"
+      fill="white"
+      fillOpacity="0.5"
+    />
+    <rect
+      x="90"
+      y="155"
+      width="19"
+      height="14"
+      rx="2"
+      fill="white"
+      fillOpacity="0.2"
+    />
+    <rect
+      x="118"
+      y="155"
+      width="19"
+      height="14"
+      rx="2"
+      fill="white"
+      fillOpacity="0.5"
+    />
+    <rect
+      x="140"
+      y="155"
+      width="19"
+      height="14"
+      rx="2"
+      fill="white"
+      fillOpacity="0.2"
+    />
 
     {/* Center tall building */}
-    <rect x="192" y="10" width="116" height="166" rx="7" fill="white" fillOpacity="0.13" />
-    <rect x="192" y="0" width="116" height="13" rx="4" fill="white" fillOpacity="0.18" />
-    <rect x="208" y="23" width="21" height="15" rx="2" fill="white" fillOpacity="0.6" />
-    <rect x="239" y="23" width="21" height="15" rx="2" fill="white" fillOpacity="0.25" />
-    <rect x="271" y="23" width="21" height="15" rx="2" fill="white" fillOpacity="0.6" />
-    <rect x="208" y="48" width="21" height="15" rx="2" fill="white" fillOpacity="0.25" />
-    <rect x="239" y="48" width="21" height="15" rx="2" fill="white" fillOpacity="0.6" />
-    <rect x="271" y="48" width="21" height="15" rx="2" fill="white" fillOpacity="0.25" />
-    <rect x="208" y="73" width="21" height="15" rx="2" fill="white" fillOpacity="0.6" />
-    <rect x="239" y="73" width="21" height="15" rx="2" fill="white" fillOpacity="0.6" />
-    <rect x="271" y="73" width="21" height="15" rx="2" fill="white" fillOpacity="0.25" />
-    <rect x="208" y="98" width="21" height="15" rx="2" fill="white" fillOpacity="0.25" />
-    <rect x="239" y="98" width="21" height="15" rx="2" fill="white" fillOpacity="0.6" />
-    <rect x="271" y="98" width="21" height="15" rx="2" fill="white" fillOpacity="0.6" />
-    <rect x="208" y="123" width="21" height="15" rx="2" fill="white" fillOpacity="0.6" />
-    <rect x="239" y="123" width="21" height="15" rx="2" fill="white" fillOpacity="0.25" />
-    <rect x="271" y="123" width="21" height="15" rx="2" fill="white" fillOpacity="0.6" />
-    <rect x="208" y="148" width="21" height="15" rx="2" fill="white" fillOpacity="0.25" />
-    <rect x="239" y="148" width="21" height="15" rx="2" fill="white" fillOpacity="0.6" />
-    <rect x="271" y="148" width="21" height="15" rx="2" fill="white" fillOpacity="0.25" />
+    <rect
+      x="192"
+      y="10"
+      width="116"
+      height="166"
+      rx="7"
+      fill="white"
+      fillOpacity="0.13"
+    />
+    <rect
+      x="192"
+      y="0"
+      width="116"
+      height="13"
+      rx="4"
+      fill="white"
+      fillOpacity="0.18"
+    />
+    <rect
+      x="208"
+      y="23"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.6"
+    />
+    <rect
+      x="239"
+      y="23"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.25"
+    />
+    <rect
+      x="271"
+      y="23"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.6"
+    />
+    <rect
+      x="208"
+      y="48"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.25"
+    />
+    <rect
+      x="239"
+      y="48"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.6"
+    />
+    <rect
+      x="271"
+      y="48"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.25"
+    />
+    <rect
+      x="208"
+      y="73"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.6"
+    />
+    <rect
+      x="239"
+      y="73"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.6"
+    />
+    <rect
+      x="271"
+      y="73"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.25"
+    />
+    <rect
+      x="208"
+      y="98"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.25"
+    />
+    <rect
+      x="239"
+      y="98"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.6"
+    />
+    <rect
+      x="271"
+      y="98"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.6"
+    />
+    <rect
+      x="208"
+      y="123"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.6"
+    />
+    <rect
+      x="239"
+      y="123"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.25"
+    />
+    <rect
+      x="271"
+      y="123"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.6"
+    />
+    <rect
+      x="208"
+      y="148"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.25"
+    />
+    <rect
+      x="239"
+      y="148"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.6"
+    />
+    <rect
+      x="271"
+      y="148"
+      width="21"
+      height="15"
+      rx="2"
+      fill="white"
+      fillOpacity="0.25"
+    />
     {/* Door */}
-    <rect x="237" y="163" width="26" height="13" rx="3" fill="white" fillOpacity="0.22" />
+    <rect
+      x="237"
+      y="163"
+      width="26"
+      height="13"
+      rx="3"
+      fill="white"
+      fillOpacity="0.22"
+    />
 
     {/* Right building */}
-    <rect x="328" y="58" width="72" height="118" rx="5" fill="white" fillOpacity="0.08" />
-    <rect x="328" y="47" width="72" height="13" rx="4" fill="white" fillOpacity="0.12" />
-    <rect x="340" y="70" width="16" height="12" rx="2" fill="white" fillOpacity="0.2" />
-    <rect x="364" y="70" width="16" height="12" rx="2" fill="white" fillOpacity="0.5" />
-    <rect x="340" y="92" width="16" height="12" rx="2" fill="white" fillOpacity="0.5" />
-    <rect x="364" y="92" width="16" height="12" rx="2" fill="white" fillOpacity="0.2" />
-    <rect x="340" y="114" width="16" height="12" rx="2" fill="white" fillOpacity="0.2" />
-    <rect x="364" y="114" width="16" height="12" rx="2" fill="white" fillOpacity="0.5" />
-    <rect x="340" y="136" width="16" height="12" rx="2" fill="white" fillOpacity="0.5" />
-    <rect x="364" y="136" width="16" height="12" rx="2" fill="white" fillOpacity="0.2" />
-    <rect x="340" y="158" width="16" height="12" rx="2" fill="white" fillOpacity="0.2" />
-    <rect x="364" y="158" width="16" height="12" rx="2" fill="white" fillOpacity="0.5" />
+    <rect
+      x="328"
+      y="58"
+      width="72"
+      height="118"
+      rx="5"
+      fill="white"
+      fillOpacity="0.08"
+    />
+    <rect
+      x="328"
+      y="47"
+      width="72"
+      height="13"
+      rx="4"
+      fill="white"
+      fillOpacity="0.12"
+    />
+    <rect
+      x="340"
+      y="70"
+      width="16"
+      height="12"
+      rx="2"
+      fill="white"
+      fillOpacity="0.2"
+    />
+    <rect
+      x="364"
+      y="70"
+      width="16"
+      height="12"
+      rx="2"
+      fill="white"
+      fillOpacity="0.5"
+    />
+    <rect
+      x="340"
+      y="92"
+      width="16"
+      height="12"
+      rx="2"
+      fill="white"
+      fillOpacity="0.5"
+    />
+    <rect
+      x="364"
+      y="92"
+      width="16"
+      height="12"
+      rx="2"
+      fill="white"
+      fillOpacity="0.2"
+    />
+    <rect
+      x="340"
+      y="114"
+      width="16"
+      height="12"
+      rx="2"
+      fill="white"
+      fillOpacity="0.2"
+    />
+    <rect
+      x="364"
+      y="114"
+      width="16"
+      height="12"
+      rx="2"
+      fill="white"
+      fillOpacity="0.5"
+    />
+    <rect
+      x="340"
+      y="136"
+      width="16"
+      height="12"
+      rx="2"
+      fill="white"
+      fillOpacity="0.5"
+    />
+    <rect
+      x="364"
+      y="136"
+      width="16"
+      height="12"
+      rx="2"
+      fill="white"
+      fillOpacity="0.2"
+    />
+    <rect
+      x="340"
+      y="158"
+      width="16"
+      height="12"
+      rx="2"
+      fill="white"
+      fillOpacity="0.2"
+    />
+    <rect
+      x="364"
+      y="158"
+      width="16"
+      height="12"
+      rx="2"
+      fill="white"
+      fillOpacity="0.5"
+    />
 
     {/* Decorative stars */}
     <circle cx="68" cy="18" r="1.5" fill="white" fillOpacity="0.4" />
@@ -132,7 +572,8 @@ export default function RegisterPage() {
           <div
             className="absolute inset-0 opacity-[0.07]"
             style={{
-              backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
+              backgroundImage:
+                'radial-gradient(circle, white 1px, transparent 1px)',
               backgroundSize: '28px 28px',
             }}
           />
