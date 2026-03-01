@@ -74,8 +74,8 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
   return (
     <ChatProvider>
       <div className="fixed inset-0 bg-background overflow-hidden">
-        <div className="h-full max-w-[1612px] mx-auto p-3 flex gap-8">
-          <HomeColumnPanel className="w-[356px]">
+        <div className="h-full max-w-[1612px] mx-auto p-3 flex justify-center gap-8">
+          <HomeColumnPanel className="flex-1 max-w-[356px]">
             <HomeColumnPanel.Header>
               <AppLogo />
             </HomeColumnPanel.Header>
@@ -87,7 +87,7 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
             </HomeColumnPanel.Footer>
           </HomeColumnPanel>
 
-          <HomeColumnPanel className="flex-1 min-w-0 flex-shrink-0">
+          <HomeColumnPanel className="flex-2 min-w-0 flex-shrink-0">
             <HomeColumnPanel.Header className={'bg-yellow'}>
               <HeaderNavIsland />
             </HomeColumnPanel.Header>
@@ -96,7 +96,7 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
             </HomeColumnPanel.Body>
           </HomeColumnPanel>
 
-          <HomeColumnPanel className="w-[356px]">
+          <HomeColumnPanel className="flex-1 max-w-[356px]">
             <HomeColumnPanel.Header>
               <ProfileIslandDesktop />
             </HomeColumnPanel.Header>
