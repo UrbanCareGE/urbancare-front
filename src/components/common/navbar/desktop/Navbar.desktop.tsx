@@ -21,7 +21,7 @@ type NavItem = {
 const headerNavItems: NavItem[] = [
   { href: 'post', label: 'პოსტები', icon: HouseIcon },
   { href: 'urgent', label: 'სასწრაფო', icon: ShieldAlert },
-  { href: '', label: 'მთავარი', icon: SendIcon },
+  { href: 'chat', label: 'მთავარი', icon: SendIcon },
   { href: '/welcome', label: 'სიახლეები', icon: Newspaper, isAbsolute: true },
   { href: 'profile', label: 'პროფილი', icon: CircleUser },
 ];
@@ -45,7 +45,7 @@ export const HeaderNavIsland = () => {
   };
 
   return (
-    <nav className="flex items-center gap-1 bg-surface rounded-2xl px-3 shadow-sm shadow-shadow/5 h-14">
+    <nav className="flex items-center gap-1 bg-surface rounded-2xl px-3 shadow-sm shadow-shadow/5 h-14 transition-all shadow-sm">
       {headerNavItems.map((item) => {
         const href = getHref(item);
         const active = isActive(item);

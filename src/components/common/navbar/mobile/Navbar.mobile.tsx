@@ -24,7 +24,7 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { path: 'post', icon: HouseIcon, label: 'Posts' },
   { path: 'urgent', icon: ShieldAlert, label: 'Urgent' },
-  { path: '', icon: SendIcon, label: 'Chat' },
+  { path: 'chat', icon: SendIcon, label: 'Chat' },
   { path: '/welcome', icon: Newspaper, label: 'welcome', isAbsolute: true },
   { path: 'profile', icon: CircleUser, label: 'Profile' },
 ];

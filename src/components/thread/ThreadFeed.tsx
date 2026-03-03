@@ -128,10 +128,10 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
 const ThreadsFeedLoadingSkeleton = () => {
   return (
     <div className="2xl:max-w-5xl space-y-4 mx-auto">
-      {[1, 2, 3, 4, 5].map((i) => (
+      {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
         <div
           key={i}
-          className="bg-surface rounded-2xl p-4 animate-pulse shadow-sm"
+          className="bg-surface rounded-2xl p-4 animate-pulse shadow-sm pb-20"
         >
           <div className="flex gap-3 mb-4">
             <div className="w-10 h-10 rounded-full bg-surface-container shrink-0"></div>

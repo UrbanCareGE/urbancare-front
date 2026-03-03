@@ -60,5 +60,11 @@ export async function proxy(request: NextRequest) {
     }
   }
 
+  // Redirect /apartment/[id] root to /apartment/[id]/chat
+  const apartmentRoot = pathname.match(/^\/apartment\/([^/]+)\/?$/);
+  if (apartmentRoot) {
+    return NextResponse.redirect(new URL(`/apartment/${apartmentRoot[1]}/chat`, request.url));
+  }
+
   return NextResponse.next();
 }

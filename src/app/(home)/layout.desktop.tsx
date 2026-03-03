@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ChatProvider } from '@/components/provider/ChatProvider';
 import { HomeIcon, NavigationIcon, ShieldAlert, UserIcon } from 'lucide-react';
 import NavigationArea from '@/components/home/sidebar/mobile/navigation/NavigationArea';
@@ -13,6 +13,7 @@ import { HeaderNavIsland } from '@/components/common/navbar/desktop/Navbar.deskt
 import { DesktopIsland } from '@/components/home/Island.desktop';
 import { ProfileIslandDesktop } from '@/components/home/ProfileIsland.desktop';
 import { useScrollRestoration } from '@/hooks/use-scroll-restoration';
+import { usePathname } from 'next/navigation';
 
 const UrgentIsland = () => (
   <DesktopIsland
@@ -66,11 +67,20 @@ const NavigationIsland = () => (
 
 export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
   const feedScrollRef = useScrollRestoration<HTMLDivElement>();
+  const pathName = usePathname();
+  const paths = pathName.split('/');
+
+  const showUrgent = useMemo(() => paths[paths.length - 1] !== 'urgent', [paths]);
+  const showChat = useMemo(
+    () => paths[paths.length - 1] !== 'chat',
+    [paths]
+  );
+
 
   return (
     <ChatProvider>
       <div className="fixed inset-0 bg-background overflow-hidden">
-        <div className="h-full max-w-[1652px] mx-auto p-3 flex justify-center gap-10">
+        <div className="h-dvh max-w-[1652px] mx-auto p-3 flex justify-center gap-10">
           <HomeColumnPanel className="flex-1 max-w-[456px] flex-shrink-1">
             <HomeColumnPanel.Header>
               <AppLogo />
@@ -83,15 +93,15 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
             </HomeColumnPanel.Footer>
           </HomeColumnPanel>
 
-          <HomeColumnPanel className="flex-[2] min-w-0 flex-shrink-0 min-w-[512px]">
+          <HomeColumnPanel className="flex-[2] min-w-0 min-w-[512px]">
             <HomeColumnPanel.Header>
               <HeaderNavIsland />
             </HomeColumnPanel.Header>
             <HomeColumnPanel.Body
               ref={feedScrollRef}
-              className="flex-1 overflow-y-scroll bg-transparent"
+              className="flex-1 overflow-y-scroll h-full flex flex-col"
             >
-              <div className="w-full flex flex-col h-full">{children}</div>
+              {children}
             </HomeColumnPanel.Body>
           </HomeColumnPanel>
 
@@ -100,10 +110,10 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
               <ProfileIslandDesktop />
             </HomeColumnPanel.Header>
             <HomeColumnPanel.Body>
-              <UrgentIsland />
+              {showUrgent && <UrgentIsland />}
             </HomeColumnPanel.Body>
             <HomeColumnPanel.Footer className="flex-1">
-              <ChatIsland />
+              {showChat && <ChatIsland />}
             </HomeColumnPanel.Footer>
           </HomeColumnPanel>
         </div>

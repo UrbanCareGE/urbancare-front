@@ -12,7 +12,7 @@ import { ChatProvider } from '@/components/provider/ChatProvider';
 export const MobileLayout = ({ children }: Children) => {
   const path = usePathname();
   const isKeyboardOpen = useIsVirtualKeyboardOpen();
-  const isApartmentHome = /^\/apartment\/[^/]+$/.test(path);
+  const isApartmentHome = path.match(/^\/apartment\//);
   return (
     <ChatProvider>
       <main
