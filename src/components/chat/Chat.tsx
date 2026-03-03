@@ -28,7 +28,7 @@ export const Chat = () => {
       style={{ width: '100%', height: '100%' }}
       theme={chatTheme}
       loadingComponent={
-        <Skeleton className="h-full w-full rounded-md flex-1" />
+        <Skeleton className="h-full w-full rounded-md flex-1 scrollbar-hide" />
       }
     />
   );

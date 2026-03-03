@@ -2,23 +2,17 @@
 
 import React from 'react';
 import { ChatProvider } from '@/components/provider/ChatProvider';
-import {
-  BellIcon,
-  HomeIcon,
-  NavigationIcon,
-  ShieldAlert,
-  UserIcon,
-} from 'lucide-react';
+import { HomeIcon, NavigationIcon, ShieldAlert, UserIcon } from 'lucide-react';
 import NavigationArea from '@/components/home/sidebar/mobile/navigation/NavigationArea';
 import { NeighborhoodSelect } from '@/components/home/NeighborhoodSelect';
 import { Chat } from '@/components/chat/Chat';
 import UrgentFeed from '@/components/urgent/UrgentFeed';
 import { HomeColumnPanel } from '@/components/home/HomeColumnPanel';
 import { AppLogo } from '@/components/common/logo/AppLogo';
-import { HeaderUserDropdown } from '@/components/common/header/desktop/Header.desktop';
 import { HeaderNavIsland } from '@/components/common/navbar/desktop/Navbar.desktop';
 import { DesktopIsland } from '@/components/home/Island.desktop';
 import { ProfileIslandDesktop } from '@/components/home/ProfileIsland.desktop';
+import { useScrollRestoration } from '@/hooks/use-scroll-restoration';
 
 const UrgentIsland = () => (
   <DesktopIsland
@@ -71,11 +65,13 @@ const NavigationIsland = () => (
 );
 
 export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
+  const feedScrollRef = useScrollRestoration<HTMLDivElement>();
+
   return (
     <ChatProvider>
       <div className="fixed inset-0 bg-background overflow-hidden">
-        <div className="h-full max-w-[1612px] mx-auto p-3 flex justify-center gap-10">
-          <HomeColumnPanel className="flex-1 max-w-[356px]">
+        <div className="h-full max-w-[1652px] mx-auto p-3 flex justify-center gap-10">
+          <HomeColumnPanel className="flex-1 max-w-[456px] flex-shrink-1">
             <HomeColumnPanel.Header>
               <AppLogo />
             </HomeColumnPanel.Header>
@@ -87,16 +83,19 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
             </HomeColumnPanel.Footer>
           </HomeColumnPanel>
 
-          <HomeColumnPanel className="flex-2 min-w-0 flex-shrink-0 max-w-[600px]">
-            <HomeColumnPanel.Header className={'bg-yellow'}>
+          <HomeColumnPanel className="flex-[2] min-w-0 flex-shrink-0 min-w-[512px]">
+            <HomeColumnPanel.Header>
               <HeaderNavIsland />
             </HomeColumnPanel.Header>
-            <HomeColumnPanel.Body className="flex-1 overflow-y-scroll bg-transparent">
-              <div className="mx-auto flex flex-col h-full">{children}</div>
+            <HomeColumnPanel.Body
+              ref={feedScrollRef}
+              className="flex-1 overflow-y-scroll bg-transparent"
+            >
+              <div className="w-full flex flex-col h-full">{children}</div>
             </HomeColumnPanel.Body>
           </HomeColumnPanel>
 
-          <HomeColumnPanel className="flex-1 max-w-[356px]">
+          <HomeColumnPanel className="flex-1 max-w-[456px] flex-shrink-1">
             <HomeColumnPanel.Header>
               <ProfileIslandDesktop />
             </HomeColumnPanel.Header>

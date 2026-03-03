@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
-import { Card } from '@/components/ui/card';
 
 interface HomeColumnPanelProps {
   className?: string;
@@ -41,12 +40,14 @@ const HomeColumnPanelHeader = ({
   );
 };
 
-const HomeColumnPanelBody = ({
-  className,
-  children,
-}: HomeColumnPanelBodyProps) => {
-  return <div className={cn('w-full min-h-0', className)}>{children}</div>;
-};
+const HomeColumnPanelBody = React.forwardRef<HTMLDivElement, HomeColumnPanelBodyProps>(
+  ({ className, children }, ref) => (
+    <div ref={ref} className={cn('w-full min-h-0', className)}>
+      {children}
+    </div>
+  )
+);
+HomeColumnPanelBody.displayName = 'HomeColumnPanelBody';
 
 const HomeColumnPanelFooter = ({
   className,

@@ -65,13 +65,13 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
               onClick={() => setIsReplying(!isReplying)}
               className={cn(
                 'text-xs font-medium transition-colors',
-                isReplying ? 'text-blue-600' : 'text-slate-600'
+                isReplying ? 'text-primary' : 'text-text-secondary'
               )}
             >
               Reply
             </button>
             {hasReplies && (
-              <span className="text-xs text-slate-500">
+              <span className="text-xs text-text-tertiary">
                 {replies.length} {replies.length === 1 ? 'reply' : 'replies'}
               </span>
             )}
@@ -115,7 +115,7 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
           {showAllReplies && replies.length > 3 && (
             <button
               onClick={() => setShowAllReplies(false)}
-              className="text-sm font-medium text-blue-600 py-2"
+              className="text-sm font-medium text-primary py-2"
             >
               Show less
             </button>

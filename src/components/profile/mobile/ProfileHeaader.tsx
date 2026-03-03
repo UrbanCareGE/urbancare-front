@@ -37,22 +37,24 @@ export default function SheetProfileHeader() {
   return (
     <div className="flex items-center gap-3 w-full">
       <div className="relative inline-block outline-none">
-        <Avatar className="h-12 w-12 cursor-pointer ring-2 ring-offset-1 ring-gray-200">
+        <Avatar className="h-12 w-12 cursor-pointer ring-2 ring-offset-1 ring-border">
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
           <AvatarImage src={''} alt={`${user?.name} ${user?.surname}`} />
           <AvatarFallback>{initials}</AvatarFallback>
         </Avatar>
-        <span className="absolute bottom-0 right-0 block w-3 h-3 rounded-full border-2 border-white bg-green-400" />
+        <span className="absolute bottom-0 right-0 block w-3 h-3 rounded-full border-2 border-surface bg-success" />
       </div>
       <div className="flex flex-col mr-auto">
-        <p className="font-semibold text-base text-gray-600">
+        <p className="font-semibold text-base text-text-primary">
           {user?.name} {user?.surname}
         </p>
-        <span className="text-xs text-gray-600 inline">@{user?.phone}</span>
+        <span className="text-xs text-text-secondary inline">
+          @{user?.phone}
+        </span>
       </div>
       <SheetClose asChild>
         <Link href={'/wkapwkpu'}>
-          <Pencil className={'w-5 h-5 text-gray-600'} />
+          <Pencil className={'w-5 h-5 text-icon'} />
         </Link>
       </SheetClose>
     </div>

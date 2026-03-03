@@ -69,16 +69,18 @@ export const ThreadImagePreview = ({
           {!isLoaded(imageLinks[0]) && (
             <Skeleton className="absolute inset-0 rounded-3xl" />
           )}
-          <Image
-            src={imageLinks[0]}
-            alt=""
-            fill
-            className={cn(
-              'object-cover bg-black/5 rounded-3xl transition-opacity',
-              isLoaded(imageLinks[0]) ? 'opacity-100' : 'opacity-0'
-            )}
-            onLoad={() => handleImageLoad(imageLinks[0])}
-          />
+          {imageLinks[0] && (
+            <Image
+              src={imageLinks[0]}
+              alt=""
+              fill
+              className={cn(
+                'object-cover bg-black/5 rounded-3xl transition-opacity',
+                isLoaded(imageLinks[0]) ? 'opacity-100' : 'opacity-0'
+              )}
+              onLoad={() => handleImageLoad(imageLinks[0])}
+            />
+          )}
         </div>
       )}
 

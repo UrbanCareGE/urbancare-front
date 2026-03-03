@@ -8,7 +8,7 @@ type RegisterLinkProps = {
 
 export const RegisterLink = ({ className }: RegisterLinkProps) => {
   return (
-    <label className={cn('text-md text-center text-gray-500', className)}>
+    <label className={cn('text-md text-center text-text-secondary', className)}>
       არ გაქვს ანგარიში?&nbsp;-&nbsp;
       <Link href={'/auth/register'} className={'text-primary'}>
         შექმენი

@@ -49,7 +49,7 @@ export const ReplyInput = ({
           value={replyText}
           onChange={(e) => setReplyText(e.target.value)}
           placeholder={placeholder}
-          className="w-full bg-transparent text-sm text-slate-900 placeholder:text-slate-400 outline-none resize-none border-b border-slate-300 focus:border-slate-900 pb-1 transition-colors"
+          className="w-full bg-transparent text-sm text-text-primary placeholder:text-text-tertiary outline-none resize-none border-b border-border focus:border-border-focus pb-1 transition-colors duration-200"
           rows={1}
           style={{
             minHeight: '24px',

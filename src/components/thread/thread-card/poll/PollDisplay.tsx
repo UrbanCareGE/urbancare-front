@@ -120,7 +120,7 @@ export const PollDisplay = ({ thread, className }: PollDisplayProps) => {
           isVotedByUser={option.voters.some((voter) => voter.id === userId)}
         />
       ))}
-      <div className="text-sm text-slate-500 text-center pt-1">
+      <div className="text-sm text-text-secondary text-center pt-1">
         სულ: {totalVotes} ხმა
       </div>
     </div>

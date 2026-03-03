@@ -10,13 +10,16 @@ import { useAuth } from '@/components/provider/AuthProvider';
 import { ThreadInfoDTO } from '@/model/dto/thread.dto';
 import { useParams } from 'next/navigation';
 import { useSearchParams } from 'next/dist/client/components/navigation';
+import { cn } from '@/lib/utils';
 
 type ThreadViewCommentButtonProps = {
   thread: ThreadInfoDTO;
+  className: string;
 };
 
 export const ThreadViewCommentButton = ({
   thread,
+  className,
 }: ThreadViewCommentButtonProps) => {
   const [commentText, setCommentText] = useState('');
   const { user } = useAuth();
@@ -46,7 +49,12 @@ export const ThreadViewCommentButton = ({
   }
 
   return (
-    <div className="flex items-center min-h-16 px-3 py-1 gap-3 w-full">
+    <div
+      className={cn(
+        'flex items-center min-h-16 px-3 py-1 gap-3 w-full',
+        className
+      )}
+    >
       <UserAvatar
         profileImageId={user?.profileImageId}
         firstName={user?.name}

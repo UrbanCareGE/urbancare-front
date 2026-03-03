@@ -97,8 +97,8 @@ export function ProfileCompletionModal() {
                     <FormInput
                       placeholder="სახელი"
                       disabled={isPending}
-                      icon={<User className="text-gray-600" />}
-                      className="rounded-xl border-[1.5px] border-border-medium bg-white text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      icon={<User className="text-icon" />}
+                      className="rounded-xl border-[1.5px] border-border-medium bg-surface text-[15px] text-text-primary placeholder:text-text-tertiary lg:hover:border-border-hover focus:border-border-focus focus:ring-4 focus:ring-primary-container transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -116,8 +116,8 @@ export function ProfileCompletionModal() {
                     <FormInput
                       placeholder="გვარი"
                       disabled={isPending}
-                      icon={<User className="text-gray-600" />}
-                      className="rounded-xl border-[1.5px] border-border-medium bg-white text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      icon={<User className="text-icon" />}
+                      className="rounded-xl border-[1.5px] border-border-medium bg-surface text-[15px] text-text-primary placeholder:text-text-tertiary lg:hover:border-border-hover focus:border-border-focus focus:ring-4 focus:ring-primary-container transition-all duration-200"
                       {...field}
                     />
                   </FormControl>

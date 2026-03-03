@@ -67,11 +67,11 @@ const PreviewableView = ({ className, children }: PreviewableViewProps) => {
       <SheetTitle className={'sr-only'}>კომენტარი</SheetTitle>
       <SheetContent
         side={'right'}
-        className={cn('h-full w-full bg-slate-50', className)}
+        className={cn('h-full w-full bg-background', className)}
       >
         <div
           className={cn(
-            'relative h-full overflow-y-auto bg-slate-50',
+            'relative h-full overflow-y-auto bg-background',
             className
           )}
         >
@@ -91,7 +91,7 @@ const PreviewableHeader = ({ className, children }: PreviewableHeaderProps) => {
   return (
     <div
       className={cn(
-        'flex items-center h-16 w-full px-3 bg-white border-b',
+        'flex items-center h-16 w-full px-3 bg-surface border-b border-border',
         className
       )}
     >
@@ -130,7 +130,7 @@ const PreviewableFooter = ({ className, children }: PreviewableFooterProps) => {
   return (
     <div
       className={cn(
-        'fixed bottom-0 h-20 flex w-full bg-white items-center shadow-2xl',
+        'fixed bottom-0 h-20 flex w-full bg-surface border-t border-border items-center shadow-lg shadow-shadow/10',
         className
       )}
     >

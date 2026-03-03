@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 
 interface ProfileSideBarGroupHeaderProps {
   title: string;
+  dotClassName?: string;
   className?: string;
   children?: React.ReactNode;
 }
@@ -19,18 +20,18 @@ interface ProfileSideBarGroupProps {
 
 export const ProfileSideBarGroupHeader = ({
   title,
+  dotClassName,
   className,
-  children,
 }: ProfileSideBarGroupHeaderProps) => {
   return (
-    <h3
-      className={cn(
-        'text-lg text-foreground-secondary tracking-wide mb-1',
-        className
+    <div className={cn('flex items-center gap-1.5 mb-2', className)}>
+      {dotClassName && (
+        <div className={cn('w-1.5 h-1.5 rounded-full shadow-sm', dotClassName)} />
       )}
-    >
-      {title}
-    </h3>
+      <h3 className="text-[10px] font-bold text-text-secondary uppercase tracking-widest">
+        {title}
+      </h3>
+    </div>
   );
 };
 
@@ -39,7 +40,7 @@ export const ProfileSideBarGroupContent = ({
   children,
 }: ProfileSideBarGroupContentProps) => {
   return (
-    <div className={cn('flex flex-col px-3 gap-0.5', className)}>
+    <div className={cn('flex flex-col gap-0.5', className)}>
       {children}
     </div>
   );
@@ -50,11 +51,11 @@ export const ProfileSideBarGroupRoot = ({
   children,
 }: ProfileSideBarGroupProps) => {
   return (
-    <div className={cn('flex flex-col py-1.5', className)}>{children}</div>
+    <div className={cn('flex flex-col py-3', className)}>{children}</div>
   );
 };
 
 export const ProfileSideBarGroup = Object.assign(ProfileSideBarGroupRoot, {
-  Header: ProfileSideBarGroupHeader,
+  Header:  ProfileSideBarGroupHeader,
   Content: ProfileSideBarGroupContent,
 });

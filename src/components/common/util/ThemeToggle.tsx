@@ -18,16 +18,16 @@ export default function ThemeToggle() {
   const isDark = theme === 'dark';
 
   return (
-    <div className="h-12 flex items-center justify-between px-2 gap-2 rounded-panel bg-gray-100 dark:bg-gray-700">
+    <div className="h-12 flex items-center justify-between px-2 gap-2 rounded-panel bg-surface-container">
       <div className="p-1 rounded-lg">
         {isDark ? (
-          <Moon className="h-5 w-5 text-blue-400" />
+          <Moon className="h-5 w-5 text-primary" />
         ) : (
-          <Sun className="h-5 w-5 text-yellow-500" />
+          <Sun className="h-5 w-5 text-warning" />
         )}
       </div>
       <div className={'mr-auto'}>
-        <p className="font-medium text-basetext-gray-900 dark:text-white">
+        <p className="font-medium text-text-primary">
           {isDark ? 'მუქი' : 'ნათელი'}
         </p>
       </div>

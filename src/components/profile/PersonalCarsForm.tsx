@@ -123,7 +123,9 @@ const PersonalCarsForm = () => {
             <HoverCardTrigger>
               <Info className={'ml-3'} />
             </HoverCardTrigger>
-            <HoverCardContent className={'bg-slate-50 opacity-100'}>
+            <HoverCardContent
+              className={'bg-surface-elevated border-border opacity-100'}
+            >
               მანქანის ნომრის დამატებით მეზობლები შეძლებენ მარტივად
               დაგიკავშირდნენ გადაუდებელ სიტუაციებში (თუ მანქანა გზას კეტავს, ან
               სამშენებლო სამუშაოების შემთხვევაში)
@@ -143,9 +145,11 @@ const PersonalCarsForm = () => {
       </h3>
 
       {isCarFetching ? (
-        <p className="text-base text-center text-slate-500">იტვირთება...</p>
+        <p className="text-base text-center text-text-secondary">
+          იტვირთება...
+        </p>
       ) : cars.length === 0 && !isEditing ? (
-        <p className={'text-base text-center text-slate-700'}>
+        <p className={'text-base text-center text-text-primary'}>
           ამჟამად თქვენ ანგარიშზე მანქანა <br /> არ არის დამატებული
         </p>
       ) : (
@@ -173,13 +177,13 @@ const PersonalCarsForm = () => {
           />
           <button
             onClick={handleAddCar}
-            className="w-8 h-8 flex justify-center items-center bg-green-500 lg:hover:bg-green-600 lg:active:scale-95 rounded-full transition-colors"
+            className="w-8 h-8 flex justify-center items-center bg-success lg:hover:bg-success-hover lg:active:scale-95 rounded-full transition-colors duration-200"
           >
             <Check size={18} className="text-white" />
           </button>
           <button
             onClick={handleCancel}
-            className="w-8 h-8 flex justify-center items-center bg-red-500 lg:hover:bg-red-600 lg:active:scale-95 rounded-full transition-colors"
+            className="w-8 h-8 flex justify-center items-center bg-error lg:hover:bg-error-hover lg:active:scale-95 rounded-full transition-colors duration-200"
           >
             <X size={18} className="text-white" />
           </button>

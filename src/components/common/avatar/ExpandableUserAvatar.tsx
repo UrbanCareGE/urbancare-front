@@ -17,7 +17,9 @@ export function ExpandableUserAvatar() {
           </Avatar>
         </PopoverTrigger>
         <PopoverContent
-          className={'w-64 bg-white border drop-shadow-sm text-black'}
+          className={
+            'w-64 bg-surface border border-border drop-shadow-sm text-text-primary'
+          }
         ></PopoverContent>
       </Popover>
     </div>

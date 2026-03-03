@@ -1,46 +1,125 @@
 'use client';
 
 import { Monitor, Moon, Sun } from 'lucide-react';
-import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 const themeOptions = [
-  { id: 'light', icon: Sun, label: 'ნათელი', desc: 'ღია და სუფთა' },
-  { id: 'dark', icon: Moon, label: 'მუქი', desc: 'თავლებისთვის საამო' },
-  { id: 'system', icon: Monitor, label: 'სისტემა', desc: 'სისტემური' },
+  { id: 'light',  icon: Sun,     label: 'ნათელი',   desc: 'ღია და სუფთა'       },
+  { id: 'dark',   icon: Moon,    label: 'მუქი',      desc: 'თვალებისთვის საამო' },
+  { id: 'system', icon: Monitor, label: 'სისტემა',   desc: 'სისტემური'          },
 ];
 
-export const MobileThemeSelector = () => {
+const iconStyles: Record<string, { active: string; base: string; icon: string }> = {
+  light:  { active: 'bg-amber-100 dark:bg-amber-900/30', base: 'bg-surface-container', icon: 'text-amber-500' },
+  dark:   { active: 'bg-primary-container',              base: 'bg-surface-container', icon: 'text-primary'   },
+  system: { active: 'bg-tertiary-container/50',          base: 'bg-surface-container', icon: 'text-tertiary'  },
+};
+
+interface MobileThemeSelectorProps {
+  vertical?: boolean;
+}
+
+export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorProps) => {
   const { theme, setTheme } = useTheme();
 
+  /* ── Vertical layout (desktop dropdown) ──────────────────────── */
+  if (vertical) {
+    return (
+      <div className="flex flex-col w-full gap-1">
+        {themeOptions.map(({ id, icon: Icon, label, desc }) => {
+          const isActive = theme === id;
+          const s = iconStyles[id];
+          return (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setTheme(id)}
+              className={cn(
+                'group w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl border transition-all duration-200 text-left',
+                isActive
+                  ? 'bg-primary-container border-primary/30 shadow-sm'
+                  : 'bg-primary-container border-border hover:bg-surface-hover hover:border-border'
+              )}
+            >
+              <div
+                className={cn(
+                  'w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-200',
+                  isActive ? s.active : s.base
+                )}
+              >
+                <Icon className={cn('w-4 h-4', s.icon)} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p
+                  className={cn(
+                    'text-sm font-semibold leading-tight',
+                    isActive ? 'text-primary' : 'text-text-primary'
+                  )}
+                >
+                  {label}
+                </p>
+                <p className="text-[10px] leading-tight text-text-secondary mt-0.5 truncate">
+                  {desc}
+                </p>
+              </div>
+              <div
+                className={cn(
+                  'w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center transition-all duration-200',
+                  isActive
+                    ? 'bg-primary scale-100 opacity-100'
+                    : 'bg-surface-container scale-75 opacity-0'
+                )}
+              >
+                <svg
+                  className="w-2.5 h-2.5 text-primary-foreground"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  strokeWidth={3.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
+
+  /* ── Horizontal layout (mobile sidebar) ──────────────────────── */
   return (
-    <div className="flex w-full gap-1 ">
-      {themeOptions.map(({ id, icon: Icon, label }) => (
-        <Button
-          variant={'ghost'}
-          key={id}
-          onClick={() => setTheme(id)}
-          className={`h-auto flex-1 flex items-center justify-center px-2 py-3 rounded-lg transition-all ${
-            theme === id
-              ? 'bg-primary-container/30 border-2 border-primary'
-              : 'bg-surface-variant/50 border-2 border-border'
-          }`}
-        >
-          <div className="w-full h-full flex flex-col items-center justify-center gap-1">
-            <Icon
-              className={cn('w-6 h-6 text-foreground-primary', {
-                'text-yellow-500': id === 'light',
-                'text-primary': id === 'dark',
-              })}
-            />
-            <span className="text-center text-base font-base text-foreground-primary">
+    <div className="grid grid-cols-3 gap-1.5 w-full">
+      {themeOptions.map(({ id, icon: Icon, label }) => {
+        const isActive = theme === id;
+        const s = iconStyles[id];
+        return (
+          <button
+            key={id}
+            type="button"
+            onClick={() => setTheme(id)}
+            className={cn(
+              'flex flex-col items-center justify-center gap-2 py-3.5 px-2 rounded-xl border transition-all duration-200',
+              isActive
+                ? 'bg-primary-container border-primary/30 shadow-sm'
+                : 'bg-background border-transparent hover:bg-surface-hover hover:border-border'
+            )}
+          >
+            {/* Icon bubble */}
+            <div className={cn('w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200', isActive ? s.active : s.base)}>
+              <Icon className={cn('w-5 h-5', s.icon)} />
+            </div>
+            <span className={cn('text-xs font-semibold text-center', isActive ? 'text-primary' : 'text-text-primary')}>
               {label}
             </span>
-          </div>
-        </Button>
-      ))}
+          </button>
+        );
+      })}
     </div>
   );
 };

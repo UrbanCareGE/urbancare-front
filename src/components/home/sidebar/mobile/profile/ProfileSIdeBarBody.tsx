@@ -1,13 +1,10 @@
 import { ProfileSideBarGroup } from '@/components/home/sidebar/mobile/profile/ProfieSideBarGroup';
-import { Separator } from '@/components/ui/separator';
 import React from 'react';
 import { NavigationLink } from '@/components/home/sidebar/mobile/navigation/NavigationLink';
 import {
   HandshakeIcon,
   HeadsetIcon,
-  Lock,
   SettingsIcon,
-  UserPen,
 } from 'lucide-react';
 import { NavItem } from '@/components/home/sidebar/mobile/navigation/NavigationArea';
 import { SheetClose } from '@/components/ui/sheet';
@@ -45,31 +42,48 @@ export const supportItems: NavItem[] = [
   },
 ];
 
+const GradientDivider = () => (
+  <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mx-4" />
+);
+
 export const ProfileSideBarBody = () => {
   return (
-    <div className={'w-full flex flex-col overflow-scroll'}>
-      <ProfileSideBarGroup className={'px-4'}>
-        <ProfileSideBarGroup.Header title={'ფონი'} />
+    <div className="w-full flex flex-col overflow-scroll">
+
+      <ProfileSideBarGroup className="px-4">
+        <ProfileSideBarGroup.Header
+          title="ფონი"
+          dotClassName="bg-amber-400 shadow-amber-400/50"
+        />
         <ProfileSideBarGroup.Content>
           <MobileThemeSelector />
         </ProfileSideBarGroup.Content>
       </ProfileSideBarGroup>
-      <Separator className={'bg-border'} />
-      <ProfileSideBarGroup className={'px-4'}>
-        <ProfileSideBarGroup.Header title={'ენა'} />
+
+      <GradientDivider />
+
+      <ProfileSideBarGroup className="px-4">
+        <ProfileSideBarGroup.Header
+          title="ენა"
+          dotClassName="bg-primary shadow-primary/50"
+        />
         <ProfileSideBarGroup.Content>
           <LanguageSelector />
         </ProfileSideBarGroup.Content>
       </ProfileSideBarGroup>
-      <Separator className={'bg-border'} />
-      <ProfileSideBarGroup className={'px-4'}>
-        <ProfileSideBarGroup.Header title={'ანგარიში'} />
+
+      <GradientDivider />
+
+      <ProfileSideBarGroup className="px-4">
+        <ProfileSideBarGroup.Header
+          title="ანგარიში"
+          dotClassName="bg-tertiary shadow-tertiary/50"
+        />
         <ProfileSideBarGroup.Content>
-          {profileItems.map((item, index) => (
+          {profileItems.map((item) => (
             <SheetClose asChild key={item.href}>
               <NavigationLink
-                className={'px-0 pr-2'}
-                key={item.href}
+                className="px-0 pr-2"
                 navigationItem={item}
                 href={item.href}
               />
@@ -77,15 +91,19 @@ export const ProfileSideBarBody = () => {
           ))}
         </ProfileSideBarGroup.Content>
       </ProfileSideBarGroup>
-      <Separator className={'bg-border'} />
-      <ProfileSideBarGroup className={'px-4'}>
-        <ProfileSideBarGroup.Header title={'ტექნიკური მხარდაჭერა'} />
+
+      <GradientDivider />
+
+      <ProfileSideBarGroup className="px-4">
+        <ProfileSideBarGroup.Header
+          title="ტექნიკური მხარდაჭერა"
+          dotClassName="bg-success shadow-success/50"
+        />
         <ProfileSideBarGroup.Content>
-          {supportItems.map((item, index) => (
+          {supportItems.map((item) => (
             <SheetClose asChild key={item.href}>
               <NavigationLink
-                className={'px-0 pr-2'}
-                key={item.href}
+                className="px-0 pr-2"
                 navigationItem={item}
                 href={item.href}
               />
@@ -93,6 +111,7 @@ export const ProfileSideBarBody = () => {
           ))}
         </ProfileSideBarGroup.Content>
       </ProfileSideBarGroup>
+
     </div>
   );
 };
