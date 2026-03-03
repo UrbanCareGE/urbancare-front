@@ -1,8 +1,8 @@
-import { useAuth } from '@/components/provider/AuthProvider';
-import { Button } from '@/components/ui/button';
-import { DeleteIcon, LogOut } from 'lucide-react';
-import { Spinner } from '@/components/ui/spinner';
+'use client';
+
 import React from 'react';
+import { Trash2 } from 'lucide-react';
+import { Spinner } from '@/components/ui/spinner';
 import { useDeleteThread } from '@/hooks/query/thread/use-delete-thread';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
 
@@ -10,18 +10,20 @@ export const ThreadDeleteButton = () => {
   const { thread } = useThread();
   const { mutate, isPending } = useDeleteThread();
 
-  const handleDelete = () => {
-    mutate(thread.id);
-  };
   return (
-    <Button
-      className="flex w-full items-center justify-center gap-2 px-4 py-1 bg-error-container text-error rounded-panel font-medium text-base lg:hover:bg-error/50 lg:hover:text-error-foreground"
-      onClick={handleDelete}
+    <button
+      onClick={() => mutate(thread.id)}
       disabled={isPending}
+      className="flex w-full items-center gap-3 px-2 py-2 text-sm rounded-lg lg:hover:bg-error/5 transition-colors duration-150 disabled:opacity-50"
     >
-      <DeleteIcon className="w-5 h-5" />
-      წაშლა
-      {isPending && <Spinner />}
-    </Button>
+      <div className="w-8 h-8 rounded-lg bg-error-container flex items-center justify-center shrink-0">
+        {isPending ? (
+          <Spinner className="w-4 h-4 text-error" />
+        ) : (
+          <Trash2 className="w-4 h-4 text-error" />
+        )}
+      </div>
+      <span className="font-medium text-error">წაშლა</span>
+    </button>
   );
 };

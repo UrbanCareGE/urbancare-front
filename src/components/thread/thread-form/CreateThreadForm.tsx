@@ -12,6 +12,7 @@ import {
   FileEntry,
 } from '@/components/thread/data/create-thread-schema';
 import { CreateThreadFormView } from '@/components/thread/thread-form/CreateThreadFormView';
+import { toast } from 'sonner';
 
 export const CreateThreadFormContainer = () => {
   const { user } = useAuth();
@@ -149,6 +150,8 @@ export const CreateThreadFormContainer = () => {
           ? values.pollOptions
           : undefined,
     });
+
+    toast.success('პოსტი დამატებულია');
 
     form.reset();
   };

@@ -5,6 +5,8 @@ import { getClientFileUrl } from '@/lib/api-client';
 import { MediaItem, ThreadImagePreview } from '@/components/thread/thread-card/image-preview/ThreadImagePreview';
 import PollDisplay from '@/components/thread/thread-card/poll/PollDisplay';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
+import { useRouter } from 'next/navigation';
+import { router } from 'next/client';
 
 interface ThreadCardContentProps {
   className?: string;
@@ -12,9 +14,15 @@ interface ThreadCardContentProps {
 
 export const ThreadPreviewContent = ({ className }: ThreadCardContentProps) => {
   const { thread } = useThread();
+  const router = useRouter();
 
   return (
-    <div className={`flex flex-col gap-3 ${className || ''}`}>
+    <div
+      className={`flex flex-col gap-3 ${className || ''}`}
+      onClick={() => {
+        router.push(`thread/${thread.id}`);
+      }}
+    >
       {thread.title && (
         <h2 className="text-base font-semibold text-text-primary line-clamp-2 leading-snug tracking-tight">
           {thread.title}

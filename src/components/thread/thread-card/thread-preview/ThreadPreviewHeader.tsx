@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
 import ThreadTags from '@/components/thread/thread-card/common/ThreadTags';
+import { ThreadOptionsDropDown } from '@/components/thread/thread-card/common/ThreadOptionsDropDown';
 
 interface ThreadCardHeaderProps {
   className?: string;
@@ -18,12 +19,7 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
   const { userInfo, createdAt } = thread;
 
   return (
-    <div
-      className={cn('flex items-start gap-3 w-full', className)}
-      onClick={() => {
-        router.push(`thread/${thread.id}`);
-      }}
-    >
+    <div className={cn('flex items-start gap-3 w-full', className)}>
       <Avatar className="cursor-pointer w-10 h-10 rounded-full shrink-0 ring-2 ring-border">
         <Image
           src={getClientFileUrl(userInfo?.profileImageId)}
@@ -38,8 +34,13 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
           </AvatarFallback>
         )}
       </Avatar>
-      <div className={'flex flex-col min-w-0 flex-1'}>
-        <div className="flex items-center justify-between gap-2 min-w-0">
+      <div
+        className={'flex flex-col min-w-0 flex-1'}
+        onClick={() => {
+          router.push(`thread/${thread.id}`);
+        }}
+      >
+        <div className="flex items-center justify-begin gap-2 min-w-0">
           <h3 className="font-semibold text-text-primary text-sm truncate">
             {userInfo && userInfo.name} {userInfo && userInfo.surname}
           </h3>
@@ -50,11 +51,7 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
         </div>
         <ThreadTags tags={thread.tags} className="mt-1.5" />
       </div>
-      <Ellipsis
-        className={
-          'shrink-0 text-icon lg:hover:text-text-secondary transition-colors cursor-pointer lg:active:scale-90'
-        }
-      />
+      <ThreadOptionsDropDown />
     </div>
   );
 };
