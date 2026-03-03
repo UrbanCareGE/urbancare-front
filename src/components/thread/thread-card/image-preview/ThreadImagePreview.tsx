@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import {
   Carousel,
@@ -12,29 +12,147 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
-import { X } from 'lucide-react';
+import { Play, X } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
+
+export interface MediaItem {
+  url: string;
+  type: 'image' | 'video';
+}
 
 interface ThreadImagePreviewProps {
   className?: string;
-  imageLinks: string[];
+  mediaItems: MediaItem[];
+}
+
+function MediaGridThumb({
+  item,
+  isDimmedWithCount,
+  remainingCount,
+  className,
+  onClick,
+}: {
+  item: MediaItem;
+  isDimmedWithCount?: boolean;
+  remainingCount?: number;
+  className?: string;
+  onClick: () => void;
+}) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  return (
+    <div
+      className={cn('relative overflow-hidden cursor-pointer bg-black/5', className)}
+      onClick={onClick}
+    >
+      {item.type === 'video' && (
+        <>
+          <video
+            src={item.url}
+            preload="metadata"
+            muted
+            playsInline
+            className={cn(
+              'absolute inset-0 w-full h-full object-cover',
+              isDimmedWithCount && 'brightness-50 blur-xs'
+            )}
+          />
+          {!isDimmedWithCount && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/20 pointer-events-none">
+              <div className="bg-black/60 rounded-full p-3">
+                <Play className="w-7 h-7 text-white fill-white" />
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
+      {item.type === 'image' && (
+        <>
+          {!imageLoaded && <Skeleton className="absolute inset-0" />}
+          <Image
+            src={item.url}
+            fill
+            alt=""
+            className={cn(
+              'object-cover transition-opacity',
+              isDimmedWithCount && 'brightness-50 blur-xs',
+              imageLoaded ? 'opacity-100' : 'opacity-0'
+            )}
+            onLoad={() => setImageLoaded(true)}
+          />
+        </>
+      )}
+
+      {isDimmedWithCount && remainingCount && remainingCount > 0 && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <span className="text-white text-3xl font-semibold">+{remainingCount}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CarouselMedia({
+  item,
+  isActive,
+}: {
+  item: MediaItem;
+  isActive: boolean;
+}) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (!isActive && videoRef.current) {
+      videoRef.current.pause();
+    }
+  }, [isActive]);
+
+  if (item.type === 'image') {
+    return (
+      <div className="relative w-full h-[80vh]">
+        {!imageLoaded && <Skeleton className="absolute inset-0" />}
+        <Image
+          src={item.url}
+          fill
+          alt=""
+          className={cn(
+            'object-contain transition-opacity',
+            imageLoaded ? 'opacity-100' : 'opacity-0'
+          )}
+          onLoad={() => setImageLoaded(true)}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-full h-[80vh] flex items-center justify-center">
+      <video
+        ref={videoRef}
+        src={item.url}
+        controls
+        playsInline
+        preload="metadata"
+        className="max-h-[80vh] max-w-full w-full object-contain rounded-lg"
+      />
+    </div>
+  );
 }
 
 export const ThreadImagePreview = ({
   className,
-  imageLinks,
+  mediaItems,
 }: ThreadImagePreviewProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
-  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    if (!api) {
-      return;
-    }
+    if (!api) return;
     setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap() + 1);
     api.on('select', () => {
@@ -42,184 +160,92 @@ export const ThreadImagePreview = ({
     });
   }, [api]);
 
-  const handleImageLoad = (link: string) => {
-    setLoadedImages((prev) => new Set(prev).add(link));
-  };
-
-  const isLoaded = (link: string) => loadedImages.has(link);
-
-  const displayImages = imageLinks.slice(0, 3);
-  const remainingCount = imageLinks.length - 3;
+  const displayItems = mediaItems.slice(0, 3);
+  const remainingCount = mediaItems.length - 3;
 
   const openCarousel = (index: number) => {
     setStartIndex(index);
     setIsOpen(true);
   };
 
-  if (imageLinks.length === 0) return null;
+  if (mediaItems.length === 0) return null;
 
   return (
     <>
-      {/* Image Grid */}
-      {imageLinks.length === 1 && (
-        <div
-          className={cn('relative w-full h-96 cursor-pointer', className)}
-          onClick={() => openCarousel(0)}
-        >
-          {!isLoaded(imageLinks[0]) && (
-            <Skeleton className="absolute inset-0 rounded-3xl" />
-          )}
-          {imageLinks[0] && (
-            <Image
-              src={imageLinks[0]}
-              alt=""
-              fill
-              className={cn(
-                'object-cover bg-black/5 rounded-3xl transition-opacity',
-                isLoaded(imageLinks[0]) ? 'opacity-100' : 'opacity-0'
-              )}
-              onLoad={() => handleImageLoad(imageLinks[0])}
-            />
-          )}
+      {/* Single item */}
+      {mediaItems.length === 1 && (
+        <div className={cn('relative w-full h-96', className)}>
+          <MediaGridThumb
+            item={mediaItems[0]}
+            className="absolute inset-0 rounded-3xl"
+            onClick={() => openCarousel(0)}
+          />
         </div>
       )}
 
-      {imageLinks.length === 2 && (
+      {/* Two items */}
+      {mediaItems.length === 2 && (
         <div className={cn('flex gap-1 h-80', className)}>
-          {displayImages.map((link, index) => (
-            <div
-              key={link}
-              className="relative flex-1 overflow-hidden rounded-lg cursor-pointer"
+          {displayItems.map((item, index) => (
+            <MediaGridThumb
+              key={item.url}
+              item={item}
+              className="flex-1 rounded-lg"
               onClick={() => openCarousel(index)}
-            >
-              {!isLoaded(link) && <Skeleton className="absolute inset-0" />}
-              <Image
-                src={link}
-                alt=""
-                fill
-                className={cn(
-                  'object-cover transition-opacity',
-                  isLoaded(link) ? 'opacity-100' : 'opacity-0'
-                )}
-                onLoad={() => handleImageLoad(link)}
-              />
-            </div>
+            />
           ))}
         </div>
       )}
 
-      {imageLinks.length >= 3 && (
+      {/* Three or more */}
+      {mediaItems.length >= 3 && (
         <div className={cn('flex gap-1 h-96', className)}>
-          <div
-            className="relative flex-1 overflow-hidden rounded-l-lg cursor-pointer"
+          <MediaGridThumb
+            item={displayItems[0]}
+            className="flex-1 rounded-l-lg"
             onClick={() => openCarousel(0)}
-          >
-            {!isLoaded(displayImages[0]) && (
-              <Skeleton className="absolute inset-0" />
-            )}
-            <Image
-              src={displayImages[0]}
-              alt=""
-              fill
-              className={cn(
-                'object-cover transition-opacity',
-                isLoaded(displayImages[0]) ? 'opacity-100' : 'opacity-0'
-              )}
-              onLoad={() => handleImageLoad(displayImages[0])}
-            />
-          </div>
-
+          />
           <div className="flex flex-col flex-1 gap-1">
-            <div
-              className="relative flex-1 overflow-hidden rounded-tr-lg cursor-pointer"
+            <MediaGridThumb
+              item={displayItems[1]}
+              className="flex-1 rounded-tr-lg"
               onClick={() => openCarousel(1)}
-            >
-              {!isLoaded(displayImages[1]) && (
-                <Skeleton className="absolute inset-0" />
-              )}
-              <Image
-                src={displayImages[1]}
-                alt=""
-                fill
-                className={cn(
-                  'object-cover transition-opacity',
-                  isLoaded(displayImages[1]) ? 'opacity-100' : 'opacity-0'
-                )}
-                onLoad={() => handleImageLoad(displayImages[1])}
-              />
-            </div>
-
-            <div
-              className="relative flex-1 overflow-hidden rounded-br-lg cursor-pointer"
+            />
+            <MediaGridThumb
+              item={displayItems[2]}
+              className="flex-1 rounded-br-lg"
+              isDimmedWithCount={remainingCount > 0}
+              remainingCount={remainingCount}
               onClick={() => openCarousel(2)}
-            >
-              {!isLoaded(displayImages[2]) && (
-                <Skeleton className="absolute inset-0" />
-              )}
-              <Image
-                src={displayImages[2]}
-                alt=""
-                fill
-                className={cn(
-                  'object-cover transition-opacity',
-                  remainingCount > 0 && 'brightness-50 blur-xs',
-                  isLoaded(displayImages[2]) ? 'opacity-100' : 'opacity-0'
-                )}
-                onLoad={() => handleImageLoad(displayImages[2])}
-              />
-              {remainingCount > 0 && isLoaded(displayImages[2]) && (
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <span className="text-white text-3xl font-semibold">
-                    +{remainingCount}
-                  </span>
-                </div>
-              )}
-            </div>
+            />
           </div>
         </div>
       )}
 
       {/* Fullscreen Carousel Modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogTitle className={'sr-only'}>opana</DialogTitle>
+        <DialogTitle className="sr-only">Media Preview</DialogTitle>
         <DialogContent className="max-w-full h-full w-full p-0 bg-black/95 border-none">
-          <button
-            onClick={() => setIsOpen(false)}
-            className="absolute top-4 right-4 z-50 p-2 rounded-full bg-black/50 text-white lg:hover:bg-black/70 lg:active:scale-95"
-          >
-            <X className="w-6 h-6" />
-          </button>
+          {/*<button*/}
+          {/*  onClick={() => setIsOpen(false)}*/}
+          {/*  className="absolute top-4 right-4 z-50 p-2 rounded-full bg-black/50 text-white lg:hover:bg-black/70 lg:active:scale-95"*/}
+          {/*>*/}
+          {/*  <X className="w-6 h-6" />*/}
+          {/*</button>*/}
 
           <div className="flex items-center justify-center h-full w-full px-12">
             <Carousel
-              opts={{
-                startIndex: startIndex,
-                loop: true,
-              }}
+              opts={{ startIndex, loop: true }}
               setApi={setApi}
               className="w-full max-w-5xl"
             >
               <CarouselContent>
-                {imageLinks.map((link, index) => (
+                {mediaItems.map((item, index) => (
                   <CarouselItem
-                    key={link}
+                    key={item.url}
                     className="flex items-center justify-center"
                   >
-                    <div className="relative w-full h-[80vh]">
-                      {!isLoaded(link) && (
-                        <Skeleton className="absolute inset-0" />
-                      )}
-                      <Image
-                        src={link}
-                        alt={`Image ${index + 1}`}
-                        fill
-                        className={cn(
-                          'object-contain transition-opacity',
-                          isLoaded(link) ? 'opacity-100' : 'opacity-0'
-                        )}
-                        onLoad={() => handleImageLoad(link)}
-                      />
-                    </div>
+                    <CarouselMedia item={item} isActive={current - 1 === index} />
                   </CarouselItem>
                 ))}
               </CarouselContent>
@@ -242,3 +268,5 @@ export const ThreadImagePreview = ({
     </>
   );
 };
+
+export const ThreadMediaPreview = ThreadImagePreview;

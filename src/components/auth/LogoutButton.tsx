@@ -14,7 +14,7 @@ export const LogoutButton = () => {
   };
   return (
     <Button
-      className="flex w-full items-center justify-center gap-2 px-4 py-1 bg-error-container text-error rounded-panel font-medium text-base lg:hover:bg-error lg:hover:text-error-foreground"
+      className="flex w-full items-center justify-center gap-2 px-4 py-1 bg-error-container text-error rounded-panel font-medium text-base lg:hover:bg-error/50 lg:hover:text-error-foreground"
       onClick={handleLogout}
       disabled={isLoggingOut}
     >

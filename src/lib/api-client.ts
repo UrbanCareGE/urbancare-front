@@ -172,5 +172,5 @@ export function getServerFileUrl(id: string): string {
 
 export function getClientFileUrl(id?: string): string {
   if (id === undefined) return '';
-  return id;
+  return `/api/file/${id}`;
 }

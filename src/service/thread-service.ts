@@ -13,27 +13,27 @@ import { PagingDTO, PagingRespDTO } from '@/model/dto/common.dto';
 export const ThreadService = {
   add: async (
     apartmentId: string,
-    addThreadDto: CreateThreadDTO
+    addThreadDto: CreateThreadDTO,
   ): Promise<ThreadInfoDTO> => {
     const { data } = await api.post<ThreadInfoDTO, CreateThreadDTO>(
       `/api/apartment/${apartmentId}/thread`,
-      addThreadDto
+      addThreadDto,
     );
     return data;
   },
   get: async (
     apartmentId: string,
-    threadId: string
+    threadId: string,
   ): Promise<ThreadInfoDTO> => {
     const { data } = await api.get<ThreadInfoDTO>(
-      `/api/apartment/${apartmentId}/thread/${threadId}`
+      `/api/apartment/${apartmentId}/thread/${threadId}`,
     );
     return data;
   },
   getAll: async (
     apartmentId: string,
     paging: PagingDTO,
-    tags?: string[]
+    tags?: string[],
   ): Promise<PagingRespDTO<ThreadInfoDTO>> => {
     const { data } = await api.get<PagingRespDTO<ThreadInfoDTO>>(
       `/api/apartment/${apartmentId}/thread/list`,
@@ -42,40 +42,45 @@ export const ThreadService = {
           ...paging,
           ...(tags && tags.length > 0 && { tags: tags.join(',') }),
         },
-      }
+      },
     );
     return data;
+  },
+  delete: async (
+    threadId: string,
+  ): Promise<void> => {
+    await api.delete(`/api/thread/${threadId}`);
   },
   vote: async (
     apartmentId: string,
     threadId: string,
-    voteDTO: ThreadVoteDTO
+    voteDTO: ThreadVoteDTO,
   ): Promise<ThreadVoteRespDTO> => {
     const { data } = await api.post<ThreadVoteRespDTO, ThreadVoteDTO>(
       `/api/apartment/${apartmentId}/thread/vote/${threadId}`,
-      voteDTO
+      voteDTO,
     );
     return data;
   },
   createComment: async (
     apartmentId: string,
     threadId: string,
-    commentDTO: CreateThreadCommentDTO
+    commentDTO: CreateThreadCommentDTO,
   ): Promise<ThreadCommentDTO> => {
     const { data } = await api.post<ThreadCommentDTO, CreateThreadCommentDTO>(
       `/api/apartment/${apartmentId}/thread/${threadId}/comment`,
-      commentDTO
+      commentDTO,
     );
     return data;
   },
   pollVote: async (
     apartmentId: string,
     pollId: string,
-    voteDTO: PollVoteDTO
+    voteDTO: PollVoteDTO,
   ): Promise<ThreadInfoDTO> => {
     const { data } = await api.post<ThreadInfoDTO, PollVoteDTO>(
       `/api/apartment/${apartmentId}/poll/${pollId}/vote`,
-      voteDTO
+      voteDTO,
     );
     return data;
   },

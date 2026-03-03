@@ -11,7 +11,8 @@ import { ThreadPreviewActionSection } from '@/components/thread/thread-card/thre
 import { ThreadCommentsHeader } from '@/components/thread/thread-card/thread-view/comment/ThreadCommentsHeader';
 import { ThreadCommentGrid } from '@/components/thread/thread-card/thread-view/comment/ThreadCommentGrid';
 import { ThreadViewCommentButton } from '@/components/thread/thread-card/thread-view/comment/ThreadViewCommentButton';
-import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export default function ThreadPage() {
   const { threadId } = useParams<{ threadId: string }>();
@@ -25,15 +26,21 @@ export default function ThreadPage() {
   }
 
   return (
-    <div className={'flex flex-col h-full gap-5'}>
-      <Button
-        variant={'ghost'}
-        onClick={() => {
-          router.back();
-        }}
+    <div className={'flex flex-col h-full gap-5 p-3 lg:p-0'}>
+      <button
+        onClick={() => router.back()}
+        className={cn(
+          'group flex items-center gap-2 self-start',
+          'px-2 py-1.5  rounded-lg',
+          'text-text-secondary hover:text-text-primary',
+          'hover:bg-surface-container',
+          'transition-all duration-200 active:scale-95'
+        )}
       >
-        back
-      </Button>
+        <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
+        <span className="text-sm font-medium">უკან დაბრუნება</span>
+      </button>
+
       <ThreadCard thread={data} className="px-3">
         <ThreadCard.Header className="px-3">
           <ThreadViewHeader />

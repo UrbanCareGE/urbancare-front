@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { getClientFileUrl } from '@/lib/api-client';
-import { ThreadImagePreview } from '@/components/thread/thread-card/image-preview/ThreadImagePreview';
+import { MediaItem, ThreadImagePreview } from '@/components/thread/thread-card/image-preview/ThreadImagePreview';
 import PollDisplay from '@/components/thread/thread-card/poll/PollDisplay';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
 
@@ -30,7 +30,12 @@ export const ThreadPreviewContent = ({ className }: ThreadCardContentProps) => {
 
       {thread.imageIds && (
         <ThreadImagePreview
-          imageLinks={thread.imageIds.map((id) => getClientFileUrl(id))}
+          mediaItems={thread.imageIds.map((id) => {
+            return {
+              url: getClientFileUrl(id),
+              type: 'image',
+            } as MediaItem;
+          })}
         />
       )}
 
