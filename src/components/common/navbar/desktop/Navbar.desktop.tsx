@@ -1,5 +1,7 @@
-import { useParams, usePathname } from 'next/navigation';
-import React from 'react';
+'use client';
+
+import { useParams, usePathname, useRouter } from 'next/navigation';
+import React, { useState, useTransition } from 'react';
 import {
   CircleUser,
   HouseIcon,
@@ -7,7 +9,6 @@ import {
   SendIcon,
   ShieldAlert,
 } from 'lucide-react';
-import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { motion } from 'motion/react';
 
@@ -18,7 +19,7 @@ type NavItem = {
   isAbsolute?: boolean;
 };
 
-const headerNavItems: NavItem[] = [
+const NAV_ITEMS: NavItem[] = [
   { href: 'post', label: 'პოსტები', icon: HouseIcon },
   { href: 'urgent', label: 'სასწრაფო', icon: ShieldAlert },
   { href: 'chat', label: 'მთავარი', icon: SendIcon },
@@ -28,7 +29,10 @@ const headerNavItems: NavItem[] = [
 
 export const HeaderNavIsland = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const { apartmentId } = useParams<{ apartmentId: string }>();
+  const [, startTransition] = useTransition();
+  const [optimisticIndex, setOptimisticIndex] = useState<number | null>(null);
 
   const getHref = (item: NavItem) => {
     if (item.isAbsolute) return item.href;
@@ -44,21 +48,37 @@ export const HeaderNavIsland = () => {
     return pathname === href || pathname.startsWith(href + '/');
   };
 
+  const actualActiveIndex = NAV_ITEMS.findIndex((item) => isActive(item));
+
+  const activeIndex = optimisticIndex ?? actualActiveIndex;
+
+  if (optimisticIndex !== null && actualActiveIndex === optimisticIndex) {
+    setOptimisticIndex(null);
+  }
+
+  const handleNavigation = (index: number, href: string) => {
+    setOptimisticIndex(index);
+
+    startTransition(() => {
+      router.push(href);
+    });
+  };
+
   return (
-    <nav className="flex items-center gap-1 bg-surface rounded-2xl px-3 shadow-sm shadow-shadow/5 h-14 transition-all shadow-sm">
-      {headerNavItems.map((item) => {
+    <nav className="flex items-center gap-1 bg-surface rounded-2xl px-3 shadow-sm shadow-shadow/5 h-14 transition-all">
+      {NAV_ITEMS.map((item, index) => {
         const href = getHref(item);
-        const active = isActive(item);
+        const active = index === activeIndex;
 
         return (
-          <Link
+          <button
             key={item.href}
-            href={href}
+            onClick={() => handleNavigation(index, href)}
             className={cn(
               'relative flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-colors duration-200',
               active
                 ? 'text-primary'
-                : 'text-foreground-secondary lg:hover:text-foreground-primary lg:hover:bg-surface-variant/60 lg:active:scale-95'
+                : 'text-foreground-secondary lg:hover:text-foreground-primary lg:hover:bg-surface-variant/60 lg:active:scale-95',
             )}
           >
             {active && (
@@ -71,11 +91,11 @@ export const HeaderNavIsland = () => {
             <item.icon
               className={cn(
                 'relative z-10 w-4 h-4',
-                active ? 'text-primary' : ''
+                active ? 'text-primary' : '',
               )}
             />
             <span className="relative z-10">{item.label}</span>
-          </Link>
+          </button>
         );
       })}
     </nav>

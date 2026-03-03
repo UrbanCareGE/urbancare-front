@@ -80,7 +80,7 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
   return (
     <ChatProvider>
       <div className="fixed inset-0 bg-background overflow-hidden">
-        <div className="h-dvh max-w-[1652px] mx-auto p-3 flex justify-center gap-10">
+        <div className="h-dvh max-w-[1512px] mx-auto p-3 flex justify-center gap-10">
           <HomeColumnPanel className="flex-1 max-w-[456px] flex-shrink-1">
             <HomeColumnPanel.Header>
               <AppLogo />

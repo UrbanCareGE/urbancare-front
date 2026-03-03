@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { TagsFilterSchema } from '@/components/thread/data/thread-filter-schema';
 import { TagsFilterMobile } from '@/components/thread/filter/TagsFilter.mobile';
+import { TagsFilterDesktop } from '@/components/thread/filter/TagsFilter.desktop';
 import { CreateThreadFormContainer } from '@/components/thread/thread-form/CreateThreadForm';
 import { Thread } from '@/components/thread/thread-card/Thread';
 
@@ -33,7 +34,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       threshold: 0.1,
       rootMargin: '256px',
     }),
-    []
+    [],
   );
 
   const { ref, inView } = useInView(inViewOptions);
@@ -48,7 +49,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     refetch,
   } = useInfiniteThreads(
     apartmentId,
-    selectedTags.length > 0 ? selectedTags : null
+    selectedTags.length > 0 ? selectedTags : null,
   );
 
   useEffect(() => {
@@ -63,7 +64,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       page.content.map((threadId) => ({
         threadId,
         pageNumber: page.page.number,
-      }))
+      })),
     );
   }, [data?.pages]);
 
@@ -72,14 +73,18 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       if (selectedTags.includes(tag)) {
         form.setValue(
           'tags',
-          selectedTags.filter((t) => t !== tag)
+          selectedTags.filter((t) => t !== tag),
         );
       } else {
         form.setValue('tags', [...selectedTags, tag]);
       }
     },
-    [selectedTags, form]
+    [selectedTags, form],
   );
+
+  const handleClearTags = useCallback(() => {
+    form.setValue('tags', []);
+  }, [form]);
 
   if (error) {
     return (
@@ -100,7 +105,11 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       <TagsFilterMobile
         selectedTags={selectedTags}
         onClick={handleToggleTag}
-        className={'desktop:block'}
+      />
+      <TagsFilterDesktop
+        selectedTags={selectedTags}
+        onClick={handleToggleTag}
+        onClear={handleClearTags}
       />
 
       {allThreads && (
@@ -131,10 +140,10 @@ const ThreadsFeedLoadingSkeleton = () => {
       {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
         <div
           key={i}
-          className="bg-surface rounded-2xl p-4 animate-pulse shadow-sm pb-20"
+          className="bg-surface rounded-2xl p-3 animate-pulse shadow-sm pb-20"
         >
           <div className="flex gap-3 mb-4">
-            <div className="w-10 h-10 rounded-full bg-surface-container shrink-0"></div>
+            <div className="w-11 h-11 lg:w-12 lg:h-12 rounded-full bg-surface-container shrink-0"></div>
             <div className="flex-1 space-y-2 pt-0.5">
               <div className="h-3.5 bg-surface-container rounded-full w-1/3"></div>
               <div className="h-3 bg-surface-container rounded-full w-1/5"></div>

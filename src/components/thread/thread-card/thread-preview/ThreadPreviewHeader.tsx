@@ -20,7 +20,7 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
 
   return (
     <div className={cn('flex items-start gap-3 w-full', className)}>
-      <Avatar className="cursor-pointer w-10 h-10 rounded-full shrink-0 ring-2 ring-border">
+      <Avatar className="cursor-pointer w-11 h-11 lg:w-12 lg:h-12  rounded-full shrink-0 ring-2 ring-border">
         <Image
           src={getClientFileUrl(userInfo?.profileImageId)}
           alt="@shadcn"

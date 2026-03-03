@@ -48,7 +48,7 @@ const ThreadCardRoot = ({
     <ThreadContext.Provider value={contextValue}>
       <Card
         className={cn(
-          'overflow-hidden rounded-2xl border-none bg-surface p-4 space-y-4',
+          'overflow-hidden rounded-2xl border-none bg-surface p-3 space-y-4',
           'transition-all duration-200 cursor-pointer lg:hover:shadow-md',
           className
         )}

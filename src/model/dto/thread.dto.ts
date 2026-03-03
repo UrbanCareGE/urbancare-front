@@ -1,4 +1,5 @@
 import { UserSnapshotDTO } from '@/model/dto/auth.dto';
+import { FileDTO } from '@/model/dto/file.dto';
 
 export enum VoteType {
   UPVOTE = 'UPVOTE',
@@ -106,7 +107,7 @@ export interface ThreadInfoDTO {
   id: string;
   title: string;
   content: string;
-  imageIds: string[];
+  images: FileDTO[];
   voteDiff: number;
   commentCount: number;
   selfVote: number;

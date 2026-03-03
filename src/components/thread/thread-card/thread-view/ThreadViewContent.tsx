@@ -22,12 +22,12 @@ export const ThreadViewContent = ({ className }: ThreadCardContentProps) => {
         {thread.content}
       </p>
 
-      {thread.imageIds && (
+      {thread.images && (
         <ThreadImagePreview
-          mediaItems={thread.imageIds.map((id) => {
+          mediaItems={thread.images.map(({ id, contentType }) => {
             return {
               url: getClientFileUrl(id),
-              type: 'image',
+              type: contentType,
             } as MediaItem;
           })}
         />

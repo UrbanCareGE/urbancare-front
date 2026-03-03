@@ -12,8 +12,9 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
-import { Play, X } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { ACCEPTED_IMAGE_TYPES, ACCEPTED_VIDEO_TYPES } from '@/components/thread/data/create-thread-schema';
 
 export interface MediaItem {
   url: string;
@@ -26,12 +27,12 @@ interface ThreadImagePreviewProps {
 }
 
 function MediaGridThumb({
-  item,
-  isDimmedWithCount,
-  remainingCount,
-  className,
-  onClick,
-}: {
+                          item,
+                          isDimmedWithCount,
+                          remainingCount,
+                          className,
+                          onClick,
+                        }: {
   item: MediaItem;
   isDimmedWithCount?: boolean;
   remainingCount?: number;
@@ -42,10 +43,13 @@ function MediaGridThumb({
 
   return (
     <div
-      className={cn('relative overflow-hidden cursor-pointer bg-black/5', className)}
+      className={cn(
+        'relative overflow-hidden cursor-pointer bg-black/5',
+        className,
+      )}
       onClick={onClick}
     >
-      {item.type === 'video' && (
+      {ACCEPTED_VIDEO_TYPES.includes(item.type) && (
         <>
           <video
             src={item.url}
@@ -54,7 +58,7 @@ function MediaGridThumb({
             playsInline
             className={cn(
               'absolute inset-0 w-full h-full object-cover',
-              isDimmedWithCount && 'brightness-50 blur-xs'
+              isDimmedWithCount && 'brightness-50 blur-xs',
             )}
           />
           {!isDimmedWithCount && (
@@ -67,7 +71,7 @@ function MediaGridThumb({
         </>
       )}
 
-      {item.type === 'image' && (
+      {ACCEPTED_IMAGE_TYPES.includes(item.type) && (
         <>
           {!imageLoaded && <Skeleton className="absolute inset-0" />}
           <Image
@@ -77,7 +81,7 @@ function MediaGridThumb({
             className={cn(
               'object-cover transition-opacity',
               isDimmedWithCount && 'brightness-50 blur-xs',
-              imageLoaded ? 'opacity-100' : 'opacity-0'
+              imageLoaded ? 'opacity-100' : 'opacity-0',
             )}
             onLoad={() => setImageLoaded(true)}
           />
@@ -86,7 +90,9 @@ function MediaGridThumb({
 
       {isDimmedWithCount && remainingCount && remainingCount > 0 && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <span className="text-white text-3xl font-semibold">+{remainingCount}</span>
+          <span className="text-white text-3xl font-semibold">
+            +{remainingCount}
+          </span>
         </div>
       )}
     </div>
@@ -94,9 +100,9 @@ function MediaGridThumb({
 }
 
 function CarouselMedia({
-  item,
-  isActive,
-}: {
+                         item,
+                         isActive,
+                       }: {
   item: MediaItem;
   isActive: boolean;
 }) {
@@ -119,7 +125,7 @@ function CarouselMedia({
           alt=""
           className={cn(
             'object-contain transition-opacity',
-            imageLoaded ? 'opacity-100' : 'opacity-0'
+            imageLoaded ? 'opacity-100' : 'opacity-0',
           )}
           onLoad={() => setImageLoaded(true)}
         />
@@ -142,9 +148,9 @@ function CarouselMedia({
 }
 
 export const ThreadImagePreview = ({
-  className,
-  mediaItems,
-}: ThreadImagePreviewProps) => {
+                                     className,
+                                     mediaItems,
+                                   }: ThreadImagePreviewProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
@@ -259,7 +265,8 @@ export const ThreadImagePreview = ({
           </div>
 
           {count > 1 && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/50 px-3 py-1 rounded-full text-sm">
+            <div
+              className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/50 px-3 py-1 rounded-full text-sm">
               {current} / {count}
             </div>
           )}

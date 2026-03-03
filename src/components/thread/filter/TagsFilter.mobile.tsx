@@ -22,7 +22,7 @@ export const TagsFilterMobile = ({
     <Carousel
       orientation={'horizontal'}
       opts={{ align: 'start' }}
-      className={cn('', className)}
+      className={cn('lg:hidden', className)}
     >
       <CarouselContent className={cn('px-6 -ml-2 gap-1 max-w-2xl')}>
         {ALL_TAGS.map((tag) => {

@@ -69,7 +69,7 @@ export function useCreateThread() {
         commentCount: 0,
         comments: [],
         createdAt: new Date(),
-        imageIds: [],
+        images: [],
         selfVote: 0,
         voteDiff: 0,
         _isPending: true,
