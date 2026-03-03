@@ -40,7 +40,7 @@ export const Thread = ({ threadId, defaultOpen }: ThreadPreviewProps) => {
   }
 
   if (error) {
-    return <div>coult not fetch data</div>;
+    return <></>;
   }
 
   return (

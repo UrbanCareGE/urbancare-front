@@ -47,9 +47,10 @@ export const ThreadService = {
     return data;
   },
   delete: async (
+    apartmentId: string,
     threadId: string,
   ): Promise<void> => {
-    await api.delete(`/api/thread/${threadId}`);
+    await api.delete(`/api/apartment/${apartmentId}/thread/${threadId}`);
   },
   vote: async (
     apartmentId: string,
