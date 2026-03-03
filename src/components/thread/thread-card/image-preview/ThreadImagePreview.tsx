@@ -14,11 +14,9 @@ import {
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Play } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ACCEPTED_IMAGE_TYPES, ACCEPTED_VIDEO_TYPES } from '@/components/thread/data/create-thread-schema';
-
 export interface MediaItem {
   url: string;
-  type: 'image' | 'video';
+  type: string;
 }
 
 interface ThreadImagePreviewProps {
@@ -40,6 +38,15 @@ function MediaGridThumb({
   onClick: () => void;
 }) {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+
+  useEffect(() => {
+    setImageLoaded(false);
+    setVideoLoaded(false);
+  }, [item.url]);
+
+  const isImage = item.type.startsWith('image');
+  const isVideo = item.type.startsWith('video');
 
   return (
     <div
@@ -49,29 +56,7 @@ function MediaGridThumb({
       )}
       onClick={onClick}
     >
-      {ACCEPTED_VIDEO_TYPES.includes(item.type) && (
-        <>
-          <video
-            src={item.url}
-            preload="metadata"
-            muted
-            playsInline
-            className={cn(
-              'absolute inset-0 w-full h-full object-cover',
-              isDimmedWithCount && 'brightness-50 blur-xs',
-            )}
-          />
-          {!isDimmedWithCount && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/20 pointer-events-none">
-              <div className="bg-black/60 rounded-full p-3">
-                <Play className="w-7 h-7 text-white fill-white" />
-              </div>
-            </div>
-          )}
-        </>
-      )}
-
-      {ACCEPTED_IMAGE_TYPES.includes(item.type) && (
+      {isImage && (
         <>
           {!imageLoaded && <Skeleton className="absolute inset-0" />}
           <Image
@@ -87,6 +72,32 @@ function MediaGridThumb({
           />
         </>
       )}
+
+      {isVideo && (
+        <>
+          {!videoLoaded && <Skeleton className="absolute inset-0" />}
+          <video
+            src={item.url}
+            preload="metadata"
+            muted
+            playsInline
+            onLoadedMetadata={() => setVideoLoaded(true)}
+            className={cn(
+              'absolute inset-0 w-full h-full object-cover transition-opacity',
+              videoLoaded ? 'opacity-100' : 'opacity-0',
+              isDimmedWithCount && 'brightness-50 blur-xs',
+            )}
+          />
+          {!isDimmedWithCount && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/20 pointer-events-none">
+              <div className="bg-black/60 rounded-full p-3">
+                <Play className="w-7 h-7 text-white fill-white" />
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
 
       {isDimmedWithCount && remainingCount && remainingCount > 0 && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -115,7 +126,7 @@ function CarouselMedia({
     }
   }, [isActive]);
 
-  if (item.type === 'image') {
+  if (ACCEPTED_IMAGE_TYPES.includes(item.type)) {
     return (
       <div className="relative w-full h-[80vh]">
         {!imageLoaded && <Skeleton className="absolute inset-0" />}

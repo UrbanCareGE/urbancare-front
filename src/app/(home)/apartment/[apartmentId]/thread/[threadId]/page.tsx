@@ -26,43 +26,52 @@ export default function ThreadPage() {
   }
 
   return (
-    <div className={'flex flex-col h-full gap-5 p-3 lg:p-0'}>
-      <button
-        onClick={() => router.back()}
-        className={cn(
-          'group flex items-center gap-2 self-start',
-          'px-2 py-1.5  rounded-lg',
-          'text-text-secondary hover:text-text-primary',
-          'hover:bg-surface-container',
-          'transition-all duration-200 active:scale-95'
-        )}
-      >
-        <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
-        <span className="text-sm font-medium">უკან დაბრუნება</span>
-      </button>
+    <div className="flex-1 flex flex-col overflow-hidden lg:flex-none lg:block">
+      {/* Scrollable area: full-height scroll on mobile, natural flow on desktop */}
+      <div className="flex-1 overflow-y-auto scrollbar-hide lg:overflow-visible">
+        <div className="flex flex-col gap-5 p-3 lg:p-0">
+          <button
+            onClick={() => router.back()}
+            className={cn(
+              'group flex items-center gap-2 self-start',
+              'px-2 py-1.5 rounded-lg',
+              'text-text-secondary hover:text-text-primary',
+              'hover:bg-surface-container',
+              'transition-all duration-200 active:scale-95'
+            )}
+          >
+            <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
+            <span className="text-sm font-medium">უკან დაბრუნება</span>
+          </button>
 
-      <ThreadCard thread={data} className="px-3">
-        <ThreadCard.Header className="px-3">
-          <ThreadViewHeader />
-        </ThreadCard.Header>
-        <ThreadCard.Body className="px-3">
-          <ThreadViewContent />
-        </ThreadCard.Body>
-        <ThreadCard.Footer className="flex-col px-0">
-          <ThreadPreviewActionSection />
-        </ThreadCard.Footer>
-      </ThreadCard>
+          <ThreadCard thread={data} className="px-3">
+            <ThreadCard.Header className="px-3">
+              <ThreadViewHeader />
+            </ThreadCard.Header>
+            <ThreadCard.Body className="px-3">
+              <ThreadViewContent />
+            </ThreadCard.Body>
+            <ThreadCard.Footer className="flex-col px-0">
+              <ThreadPreviewActionSection />
+            </ThreadCard.Footer>
+          </ThreadCard>
 
-      <ThreadCard thread={data} className="px-0">
-        <ThreadCard.Header className="border-b border-border px-3 pb-3">
-          <ThreadCommentsHeader />
-        </ThreadCard.Header>
-        <ThreadCard.Body>
-          <ThreadCommentGrid />
-        </ThreadCard.Body>
-      </ThreadCard>
+          <ThreadCard thread={data} className="px-0">
+            <ThreadCard.Header className="border-b border-border px-3 pb-3">
+              <ThreadCommentsHeader />
+            </ThreadCard.Header>
+            <ThreadCard.Body>
+              <ThreadCommentGrid />
+            </ThreadCard.Body>
+          </ThreadCard>
+        </div>
+      </div>
 
-      <ThreadViewCommentButton thread={data} className={'mt-auto'} />
+      {/* Comment input: anchored below scroll area on mobile, flows with content on desktop */}
+      <ThreadViewCommentButton
+        thread={data}
+        className="border-t border-border bg-surface lg:border-t-0 lg:bg-transparent lg:mt-5"
+      />
     </div>
   );
 }
