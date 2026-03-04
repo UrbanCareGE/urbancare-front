@@ -17,7 +17,7 @@ export const MobileLayout = ({ children }: Children) => {
     <ChatProvider>
       <main
         className={cn(
-          'w-full relative scrollbar-hide',
+          'w-full relative scrollbar-hide bg-background overscroll-y-contain',
           { 'flex flex-col h-dvh': isApartmentHome },
           { 'min-h-full': !isApartmentHome }
         )}

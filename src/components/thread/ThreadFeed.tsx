@@ -99,13 +99,10 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
   }
 
   return (
-    <div className="2xl:max-w-5xl space-y-4 mx-auto">
+    <div className="2xl:max-w-5xl space-y-4 mx-auto overfloy-y-scroll scrollbar-hide">
       <CreateThreadFormContainer />
 
-      <TagsFilterMobile
-        selectedTags={selectedTags}
-        onClick={handleToggleTag}
-      />
+      <TagsFilterMobile selectedTags={selectedTags} onClick={handleToggleTag} />
       <TagsFilterDesktop
         selectedTags={selectedTags}
         onClick={handleToggleTag}

@@ -55,13 +55,11 @@
   @layer utilities {
     .scrollbar-hide::-webkit-scrollbar {
       display: none;
-      background-color: transparent;
     }
 
     .scrollbar-hide {
       -ms-overflow-style: none;
       scrollbar-width: none;
-      background-color: transparent;
     }
   }
   :root {
