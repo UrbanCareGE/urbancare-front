@@ -1,12 +1,22 @@
 import React from 'react';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
+import { MessageCircle } from 'lucide-react';
 
 export const ThreadCommentsHeader = () => {
   const { thread } = useThread();
   const { commentCount } = thread;
+
   return (
-    <h2 className="text-lg font-semibold text-text-primary">
-      კომენტარები ({commentCount})
-    </h2>
+    <div className="flex items-center gap-2">
+      <MessageCircle className="w-5 h-5 text-text-secondary" />
+      <h2 className="text-base font-semibold text-text-primary">
+        კომენტარები
+        {commentCount > 0 && (
+          <span className="ml-1.5 text-sm font-normal text-text-tertiary">
+            ({commentCount})
+          </span>
+        )}
+      </h2>
+    </div>
   );
 };

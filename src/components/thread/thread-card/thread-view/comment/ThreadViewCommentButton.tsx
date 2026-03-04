@@ -3,7 +3,6 @@
 import { Send } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
 import { useCreateComment } from '@/hooks/query/thread/use-create-comment';
 import { UserAvatar } from '@/components/common/avatar/UserAvatar';
 import { useAuth } from '@/components/provider/AuthProvider';
@@ -51,7 +50,7 @@ export const ThreadViewCommentButton = ({
   return (
     <div
       className={cn(
-        'flex items-center min-h-16 px-4 py-1 gap-3 w-full',
+        'flex items-center px-3 py-2.5 gap-2.5 w-full',
         className
       )}
     >
@@ -67,15 +66,21 @@ export const ThreadViewCommentButton = ({
           value={commentText}
           onChange={(e) => setCommentText(e.target.value)}
           rows={1}
-          className="w-full px-4 py-2.5 pr-11 bg-input border border-border rounded-full focus:outline-none focus:ring-2 focus:ring-primary transition-all resize-none text-sm"
+          className="w-full px-4 py-2.5 pr-11 bg-surface-container border-none rounded-full focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all resize-none text-sm text-text-primary placeholder:text-text-tertiary"
           style={{ minHeight: '40px', maxHeight: '100px' }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              handleAddComment();
+            }
+          }}
         />
         <button
           onClick={handleAddComment}
           disabled={!commentText.trim()}
-          className="absolute right-2 bottom-1.5 h-8 w-8 rounded-full bg-primary lg:hover:bg-primary/80 lg:active:scale-90 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-colors"
+          className="absolute right-2 bottom-1.5 h-8 w-8 rounded-full bg-primary lg:hover:bg-primary/80 lg:active:scale-90 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center transition-all duration-150"
         >
-          <Send className="w-5 h-5 text-white" />
+          <Send className="w-4 h-4 text-white" />
         </button>
       </div>
     </div>

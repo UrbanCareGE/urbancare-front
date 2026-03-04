@@ -1,9 +1,15 @@
+'use client';
+
 import React, { useState } from 'react';
-import { UserAvatar } from '@/components/common/avatar/UserAvatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { getClientFileUrl } from '@/lib/api-client';
 import { UserSnapshotDTO } from '@/model/dto/auth.dto';
 import { useCreateComment } from '@/hooks/query/thread/use-create-comment';
 import { useParams } from 'next/navigation';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
+import { Send } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 type ReplyInputProps = {
   commentId: string;
@@ -25,56 +31,80 @@ export const ReplyInput = ({
   const [replyText, setReplyText] = useState('');
   const { onSubmit: createReply } = useCreateComment();
 
+  const initials = `${userInfo.name[0]}${userInfo.surname[0]}`.toUpperCase();
+  const hasText = replyText.trim().length > 0;
+
   const handleSubmit = () => {
-    if (!apartmentId) return;
-    if (replyText.trim()) {
-      createReply(apartmentId, thread.id, {
-        content: replyText,
-        replyToId: commentId,
-      });
-      onSubmit(replyText.trim());
-      setReplyText('');
-    }
+    if (!apartmentId || !replyText.trim()) return;
+    createReply(apartmentId, thread.id, {
+      content: replyText,
+      replyToId: commentId,
+    });
+    onSubmit(replyText.trim());
+    setReplyText('');
   };
 
   return (
-    <div className="flex items-start px-1 gap-3 py-2 rounded-lg">
-      <UserAvatar
-        firstName={userInfo.name}
-        surname={userInfo.surname}
-        profileImageId={userInfo.profileImageId}
-      />
-      <div className="flex-1">
-        <textarea
-          value={replyText}
-          onChange={(e) => setReplyText(e.target.value)}
-          placeholder={placeholder}
-          className="w-full bg-transparent text-sm text-text-primary placeholder:text-text-tertiary outline-none resize-none border-b border-border focus:border-border-focus pb-1 transition-colors duration-200"
-          rows={1}
-          style={{
-            minHeight: '24px',
-            maxHeight: '120px',
-            overflow: 'hidden',
-          }}
-          onInput={(e) => {
-            const target = e.target as HTMLTextAreaElement;
-            target.style.height = '24px';
-            target.style.height = target.scrollHeight + 'px';
-          }}
-          autoFocus
-        />
-        <div className="flex justify-end gap-2">
-          <button
-            onClick={onCancel}
-            className="px-4 py-2 text-sm font-medium text-foreground-secondary lg:hover:bg-surface-variant lg:active:scale-95 rounded-full transition-colors"
-          >
-            Cancel
-          </button>
+    <div className="flex items-start gap-2">
+      <Avatar className="w-8 h-8 rounded-full flex-shrink-0 mt-0.5">
+        {userInfo.profileImageId && (
+          <Image
+            src={getClientFileUrl(userInfo.profileImageId)}
+            alt={initials}
+            fill
+            className="object-cover"
+          />
+        )}
+        <AvatarFallback className="text-[10px] font-semibold bg-primary-container text-primary">
+          {initials}
+        </AvatarFallback>
+      </Avatar>
+
+      <div className="flex-1 min-w-0">
+        {/* Input pill matching comment bubble style */}
+        <div className="relative bg-surface-container rounded-2xl rounded-tl-sm">
+          <textarea
+            value={replyText}
+            onChange={(e) => setReplyText(e.target.value)}
+            placeholder={placeholder}
+            className="w-full bg-transparent text-[13px] text-text-primary placeholder:text-text-tertiary outline-none resize-none px-3.5 py-2.5 pr-11 leading-relaxed"
+            rows={1}
+            style={{ minHeight: '36px', maxHeight: '120px' }}
+            onInput={(e) => {
+              const t = e.target as HTMLTextAreaElement;
+              t.style.height = 'auto';
+              t.style.height = t.scrollHeight + 'px';
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSubmit();
+              }
+            }}
+            autoFocus
+          />
           <button
             onClick={handleSubmit}
-            className="px-4 py-2 text-sm font-medium text-white bg-primary lg:hover:bg-primary/90 lg:active:scale-95 rounded-full transition-colors"
+            disabled={!hasText}
+            className={cn(
+              'absolute right-2 bottom-1.5 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-150',
+              hasText
+                ? 'bg-primary text-white lg:hover:bg-primary/90 lg:active:scale-95'
+                : 'text-text-tertiary cursor-not-allowed'
+            )}
           >
-            Reply
+            <Send className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+        {/* Hint */}
+        <div className="flex items-center gap-1 mt-1 px-1">
+          <span className="text-[11px] text-text-tertiary">Enter to send ·</span>
+          <button
+            onClick={onCancel}
+            className="text-[11px] font-semibold text-text-secondary transition-colors lg:hover:text-primary"
+          >
+            Cancel
           </button>
         </div>
       </div>

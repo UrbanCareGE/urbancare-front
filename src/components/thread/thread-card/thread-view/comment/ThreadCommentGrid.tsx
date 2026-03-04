@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { ThreadComment } from '@/components/thread/thread-card/thread-view/comment/ThreadComment';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
 import { ThreadViewCommentButton } from '@/components/thread/thread-card/thread-view/comment/ThreadViewCommentButton';
+import { MessageCircle } from 'lucide-react';
 
 interface ThreadCommentsProps {
   className?: string;
@@ -19,19 +20,28 @@ export const ThreadCommentGrid = ({ className }: ThreadCommentsProps) => {
         thread={thread}
         className="border-t border-border bg-surface lg:border-t-0 lg:bg-transparent hidden lg:flex"
       />
-      {/* Comments List */}
-      <div>
-        {thread.comments.length === 0 ? (
-          <div className="text-center py-8 text-text-muted">
-            <p>კომენტარები ჯერ არ არის</p>
-            <p className="text-sm mt-1">იყავი პირველი ვინც დაწერს კომენტარს</p>
+
+      {thread.comments.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-12 gap-3">
+          <div className="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center">
+            <MessageCircle className="w-6 h-6 text-text-tertiary" />
           </div>
-        ) : (
-          thread.comments.map((comment) => (
+          <div className="text-center">
+            <p className="text-sm font-medium text-text-secondary">
+              კომენტარები ჯერ არ არის
+            </p>
+            <p className="text-xs text-text-tertiary mt-1">
+              იყავი პირველი ვინც დაწერს კომენტარს
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div className="divide-y divide-border/40">
+          {thread.comments.map((comment) => (
             <ThreadComment key={comment.id} comment={comment} />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

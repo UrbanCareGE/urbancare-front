@@ -1,10 +1,15 @@
+'use client';
+
 import React, { useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import { ThreadCommentDTO } from '@/model/dto/thread.dto';
 import { cn, formatTime } from '@/lib/utils';
-import { Clock, CornerDownRight } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { UserAvatar } from '@/components/common/avatar/UserAvatar';
 import { ReplyInput } from '@/components/thread/thread-card/thread-view/comment/ThreadReplyInput';
 import { ThreadCommentReply } from '@/components/thread/thread-card/thread-view/comment/ThreadCommentReply';
+
+const INITIAL_REPLIES = 3;
 
 type ThreadCommentProps = {
   comment: ThreadCommentDTO;
@@ -13,110 +18,105 @@ type ThreadCommentProps = {
 
 export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
   const { userInfo, createdAt, content, replies = [] } = comment;
-  const [showAllReplies, setShowAllReplies] = useState(false);
+  const [showAll, setShowAll] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
 
-  const hasReplies = replies && replies.length > 0;
-  const remainingRepliesCount = showAllReplies
-    ? 0
-    : Math.max(0, replies.length - 3);
-  const repliesToShow = showAllReplies ? replies : replies.slice(0, 3);
+  const hasReplies = replies.length > 0;
+  const visibleReplies = showAll ? replies : replies.slice(0, INITIAL_REPLIES);
+  const hiddenCount = replies.length - INITIAL_REPLIES;
 
   const handleReplySubmit = (text: string) => {
-    if (onReply) {
-      onReply(comment.id, text);
-    }
-    setIsReplying(false);
-  };
-
-  const handleCancelReply = () => {
+    onReply?.(comment.id, text);
     setIsReplying(false);
   };
 
   return (
-    <div className="py-4 px-4 bg-surface">
-      {/* Main Comment */}
-      <div className="flex gap-3">
-        <UserAvatar
-          firstName={userInfo.name}
-          surname={userInfo.surname}
-          profileImageId={userInfo.profileImageId}
-        />
+    <div className="px-3 py-3">
+      {/* Comment row */}
+      <div className="flex gap-2.5">
+        <div className="flex-shrink-0">
+          <UserAvatar
+            firstName={userInfo.name}
+            surname={userInfo.surname}
+            profileImageId={userInfo.profileImageId}
+          />
+        </div>
+
         <div className="flex-1 min-w-0">
-          {/* Header */}
-          <div className="flex items-baseline mb-1">
-            <span className="font-semibold text-sm text-text-primary">
+          {/* Content bubble */}
+          <div className="bg-surface-container rounded-2xl rounded-tl-sm px-3.5 py-2.5 inline-block max-w-full">
+            <p className="font-semibold text-[13px] leading-tight text-text-primary">
               {userInfo.name} {userInfo.surname}
-            </span>
-            <span className="ml-auto flex gap-1 text-xs text-text-muted">
-              <Clock className="w-4 h-4" />
-              {formatTime(createdAt.toString())}
-            </span>
+            </p>
+            <p className="text-[13px] text-text-primary leading-relaxed whitespace-pre-wrap break-words mt-1">
+              {content}
+            </p>
           </div>
 
-          {/* Content */}
-          <p className="text-sm text-text-primary leading-relaxed whitespace-pre-wrap break-words mb-2">
-            {content}
-          </p>
-
-          {/* Actions */}
-          <div className="flex items-center gap-4">
+          {/* Meta / actions */}
+          <div className="flex items-center gap-3 mt-1.5 px-1">
+            <span className="text-[11px] text-text-tertiary">
+              {formatTime(createdAt.toString())}
+            </span>
             <button
               onClick={() => setIsReplying(!isReplying)}
               className={cn(
-                'text-xs font-medium transition-colors',
-                isReplying ? 'text-primary' : 'text-text-secondary'
+                'text-[11px] font-bold transition-colors duration-150',
+                isReplying
+                  ? 'text-primary'
+                  : 'text-text-secondary lg:hover:text-primary'
               )}
             >
               Reply
             </button>
-            {hasReplies && (
-              <span className="text-xs text-text-tertiary">
-                {replies.length} {replies.length === 1 ? 'reply' : 'replies'}
-              </span>
-            )}
           </div>
+
+          {/* Animated reply input */}
+          <AnimatePresence>
+            {isReplying && (
+              <motion.div
+                initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                animate={{ opacity: 1, height: 'auto', marginTop: 8 }}
+                exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                className="overflow-hidden"
+              >
+                <ReplyInput
+                  commentId={comment.id}
+                  userInfo={userInfo}
+                  onSubmit={handleReplySubmit}
+                  onCancel={() => setIsReplying(false)}
+                  placeholder={`Reply to ${userInfo.name}...`}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
-      {/* Reply Input */}
-      {isReplying && (
-        <div className="mt-3">
-          <ReplyInput
-            commentId={comment.id}
-            userInfo={userInfo}
-            onSubmit={handleReplySubmit}
-            onCancel={handleCancelReply}
-            placeholder={`Reply to ${userInfo.name}...`}
-          />
-        </div>
-      )}
-
-      {/* Replies */}
+      {/* Replies — indented with left border connector */}
       {hasReplies && (
-        <div className="ml-5 mt-3">
-          {repliesToShow.map((reply) => (
+        <div className="mt-2 ml-[19px] pl-4 border-l-2 border-border/50 space-y-1">
+          {visibleReplies.map((reply) => (
             <ThreadCommentReply key={reply.id} comment={reply} />
           ))}
 
-          {remainingRepliesCount > 0 && (
+          {!showAll && hiddenCount > 0 && (
             <button
-              onClick={() => setShowAllReplies(true)}
-              className="flex items-center gap-2 text-sm font-medium text-text-primary py-2"
+              onClick={() => setShowAll(true)}
+              className="flex items-center gap-1 text-[12px] font-semibold text-primary py-1 transition-colors lg:hover:text-primary/75"
             >
-              <CornerDownRight className="w-4 h-4" />
-              <span>
-                {remainingRepliesCount} more{' '}
-                {remainingRepliesCount === 1 ? 'reply' : 'replies'}
-              </span>
+              <ChevronDown className="w-3.5 h-3.5" />
+              {hiddenCount} more {hiddenCount === 1 ? 'reply' : 'replies'}
             </button>
           )}
 
-          {showAllReplies && replies.length > 3 && (
+          {showAll && replies.length > INITIAL_REPLIES && (
             <button
-              onClick={() => setShowAllReplies(false)}
-              className="text-sm font-medium text-primary py-2"
+              onClick={() => setShowAll(false)}
+              className="flex items-center gap-1 text-[12px] font-semibold text-text-secondary py-1 transition-colors lg:hover:text-primary"
             >
+              <ChevronUp className="w-3.5 h-3.5" />
               Show less
             </button>
           )}
