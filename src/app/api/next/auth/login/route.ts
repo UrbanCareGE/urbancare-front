@@ -1,8 +1,6 @@
 import { cookies } from 'next/headers';
 import { AuthService } from '@/service/auth-service';
 
-const domain = process.env.NEXT_PUBLIC_DOMAIN;
-
 export async function POST(request: Request) {
   try {
     const credentials = await request.json();
@@ -16,7 +14,6 @@ export async function POST(request: Request) {
 
     const cookieStore = await cookies();
     cookieStore.set('auth-token', authToken, {
-      domain,
       path: '/',
       maxAge: 60 * 60 * 24 * 7,
       httpOnly: true,
