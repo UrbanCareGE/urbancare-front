@@ -7,9 +7,9 @@ export function useDeleteThread() {
 
   return useMutation({
     mutationFn: ({
-      apartmentId,
-      threadId,
-    }: {
+                   apartmentId,
+                   threadId,
+                 }: {
       apartmentId: string;
       threadId: string;
     }) => ThreadService.delete(apartmentId, threadId),
@@ -46,6 +46,7 @@ export function useDeleteThread() {
         queryClient.setQueryData(queryKey, data);
       });
     },
-    onSuccess: () => {},
+    onSuccess: () => {
+    },
   });
 }

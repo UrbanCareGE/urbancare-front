@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Ellipsis } from 'lucide-react';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ThreadDeleteButton } from '@/components/thread/thread-card/common/ThreadDeleteButton';
 import { ThreadSaveButton } from '@/components/thread/thread-card/common/ThreadSaveButton';
 import { ThreadCopyLinkButton } from '@/components/thread/thread-card/common/ThreadCopyLinkButton';
@@ -19,8 +19,7 @@ export const ThreadOptionsDropDown = () => {
   const { thread } = useThread();
   const { user } = useAuth();
 
-  const isOwnPost = thread.userInfo?.id === user?.id;
-  const canModify = isOwnPost;
+  const canModify = useMemo(() => thread.userInfo?.id === user?.id, [user, thread]);
 
   return (
     <DropdownMenu>
