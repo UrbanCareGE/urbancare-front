@@ -51,7 +51,7 @@ export const ThreadViewCommentButton = ({
   return (
     <div
       className={cn(
-        'flex items-center min-h-16 px-3 py-1 gap-3 w-full',
+        'flex items-center min-h-16 px-4 py-1 gap-3 w-full',
         className
       )}
     >

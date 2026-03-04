@@ -14,6 +14,8 @@ import {
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Play } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { ACCEPTED_IMAGE_TYPES } from '@/components/thread/data/create-thread-schema';
+
 export interface MediaItem {
   url: string;
   type: string;
@@ -41,8 +43,14 @@ function MediaGridThumb({
   const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
-    setImageLoaded(false);
-    setVideoLoaded(false);
+
+    const resetContent = () => {
+      setImageLoaded(false);
+      setVideoLoaded(false);
+    };
+
+    resetContent();
+
   }, [item.url]);
 
   const isImage = item.type.startsWith('image');
@@ -170,11 +178,19 @@ export const ThreadImagePreview = ({
 
   useEffect(() => {
     if (!api) return;
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
-    api.on('select', () => {
+
+    const updateState = () => {
+      setCount(api.scrollSnapList().length);
       setCurrent(api.selectedScrollSnap() + 1);
-    });
+    };
+
+    updateState();
+
+    api.on('select', updateState);
+
+    return () => {
+      api.off('select', updateState);
+    };
   }, [api]);
 
   const displayItems = mediaItems.slice(0, 3);

@@ -4,6 +4,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { ThreadComment } from '@/components/thread/thread-card/thread-view/comment/ThreadComment';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
+import { ThreadViewCommentButton } from '@/components/thread/thread-card/thread-view/comment/ThreadViewCommentButton';
 
 interface ThreadCommentsProps {
   className?: string;
@@ -14,6 +15,10 @@ export const ThreadCommentGrid = ({ className }: ThreadCommentsProps) => {
 
   return (
     <div className={cn('flex flex-col', className)}>
+      <ThreadViewCommentButton
+        thread={thread}
+        className="border-t border-border bg-surface lg:border-t-0 lg:bg-transparent hidden lg:flex"
+      />
       {/* Comments List */}
       <div>
         {thread.comments.length === 0 ? (

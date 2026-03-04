@@ -70,7 +70,7 @@ export default function ThreadPage() {
       {/* Comment input: anchored below scroll area on mobile, flows with content on desktop */}
       <ThreadViewCommentButton
         thread={data}
-        className="border-t border-border bg-surface lg:border-t-0 lg:bg-transparent lg:mt-5"
+        className="border-t border-border bg-surface lg:border-t-0 lg:bg-transparent lg:hidden"
       />
     </div>
   );
