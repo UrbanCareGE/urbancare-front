@@ -3,8 +3,6 @@
 
 import { Chatbox } from '@talkjs/react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useAuth } from '@/components/provider/AuthProvider';
-import { useState } from 'react';
 import { useFetchChat } from '@/hooks/query/chat/use-fetch-chat';
 import { useTheme } from 'next-themes';
 
@@ -13,7 +11,7 @@ export const Chat = () => {
   const { theme } = useTheme();
 
   if (isFetchingChat) {
-    return <Skeleton className="h-full w-full rounded-md flex-1" />;
+    return <Skeleton className="w-full rounded-md flex-1 min-h-0" />;
   }
 
   if (!data) {
@@ -25,10 +23,11 @@ export const Chat = () => {
   return (
     <Chatbox
       conversationId={data[0].id}
-      style={{ width: '100%', height: '100%' }}
+      className="flex-1 min-h-0"
+      style={{ width: '100%', flex: 1 }}
       theme={chatTheme}
       loadingComponent={
-        <Skeleton className="h-full w-full rounded-md flex-1 scrollbar-hide" />
+        <Skeleton className="h-full w-full rounded-md flex-1 scrollbar-hide overflow-y-scroll" />
       }
     />
   );

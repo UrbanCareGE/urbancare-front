@@ -93,7 +93,7 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
             </HomeColumnPanel.Footer>
           </HomeColumnPanel>
 
-          <HomeColumnPanel className="flex-[2] min-w-0 min-w-[512px]">
+          <HomeColumnPanel className="flex-[2] min-w-[512px]">
             <HomeColumnPanel.Header>
               <HeaderNavIsland />
             </HomeColumnPanel.Header>

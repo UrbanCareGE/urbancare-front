@@ -34,7 +34,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       threshold: 0.1,
       rootMargin: '256px',
     }),
-    [],
+    []
   );
 
   const { ref, inView } = useInView(inViewOptions);
@@ -49,7 +49,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     refetch,
   } = useInfiniteThreads(
     apartmentId,
-    selectedTags.length > 0 ? selectedTags : null,
+    selectedTags.length > 0 ? selectedTags : null
   );
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       page.content.map((threadId) => ({
         threadId,
         pageNumber: page.page.number,
-      })),
+      }))
     );
   }, [data?.pages]);
 
@@ -73,13 +73,13 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       if (selectedTags.includes(tag)) {
         form.setValue(
           'tags',
-          selectedTags.filter((t) => t !== tag),
+          selectedTags.filter((t) => t !== tag)
         );
       } else {
         form.setValue('tags', [...selectedTags, tag]);
       }
     },
-    [selectedTags, form],
+    [selectedTags, form]
   );
 
   const handleClearTags = useCallback(() => {

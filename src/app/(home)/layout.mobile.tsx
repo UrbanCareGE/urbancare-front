@@ -12,19 +12,26 @@ import { ChatProvider } from '@/components/provider/ChatProvider';
 export const MobileLayout = ({ children }: Children) => {
   const path = usePathname();
   const isKeyboardOpen = useIsVirtualKeyboardOpen();
-  const isApartmentHome = path.match(/^\/apartment\//);
+  const isChatPage = path.match(/\/chat$/);
+
   return (
     <ChatProvider>
       <main
         className={cn(
-          'w-full relative scrollbar-hide bg-background overscroll-y-contain',
-          { 'flex flex-col h-full': isApartmentHome },
-          { 'min-h-full': !isApartmentHome }
+          'w-full relative flex-1 flex flex-col min-h-0',
+          { 'overflow-hidden': isChatPage },
+          { 'scrollbar-hide overflow-y-auto': !isChatPage }
         )}
       >
         <HeaderMobile />
-        {children}
-        {!isKeyboardOpen && <div className={'h-16'} />}
+        <div
+          className={cn('flex-1 flex flex-col min-h-0', {
+            'overflow-y-auto scrollbar-hide': !isChatPage,
+          })}
+        >
+          {children}
+        </div>
+        {!isKeyboardOpen && <div className={'h-16 shrink-0'} />}
         <NavbarMobile className={'fixed !bottom-0'} />
       </main>
     </ChatProvider>
