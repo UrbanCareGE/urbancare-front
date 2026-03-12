@@ -23,7 +23,7 @@ export const Chat = () => {
   return (
     <Chatbox
       conversationId={data[0].id}
-      className="flex-1 min-h-0"
+      className="flex-1 min-h-0 h-full"
       style={{ width: '100%', flex: 1 }}
       theme={chatTheme}
       loadingComponent={

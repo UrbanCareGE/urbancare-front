@@ -32,7 +32,7 @@ const ChatIsland = () => (
     icon={<UserIcon className="w-4 h-4 text-error" />}
     className={'h-full'}
   >
-    <div className="overflow-y-auto h-full scrollbar-hide">
+    <div className="overflow-y-hidden h-full scrollbar-hide">
       <Chat />
     </div>
   </DesktopIsland>
@@ -112,7 +112,7 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
             <HomeColumnPanel.Body>
               {showUrgent && <UrgentIsland />}
             </HomeColumnPanel.Body>
-            <HomeColumnPanel.Footer className="flex-1">
+            <HomeColumnPanel.Footer className="flex-1 h-full">
               {showChat && <ChatIsland />}
             </HomeColumnPanel.Footer>
           </HomeColumnPanel>

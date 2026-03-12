@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useInfiniteThreads } from '@/hooks/query/thread/use-fetch-threads';
@@ -52,6 +52,9 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     selectedTags.length > 0 ? selectedTags : null
   );
 
+  const prevThreadCountRef = useRef(0);
+  const newPageFirstThreadRef = useRef<string | null>(null);
+
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
@@ -67,6 +70,30 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       }))
     );
   }, [data?.pages]);
+
+  // After new page loads, scroll to the first new thread
+  useEffect(() => {
+    const prevCount = prevThreadCountRef.current;
+    const currentCount = allThreads.length;
+
+    if (currentCount > prevCount && prevCount > 0) {
+      const firstNewThreadId = allThreads[prevCount]?.threadId;
+      if (firstNewThreadId) {
+        newPageFirstThreadRef.current = firstNewThreadId;
+
+        // Small delay to let the DOM render the new threads
+        requestAnimationFrame(() => {
+          const el = document.getElementById(`thread-${firstNewThreadId}`);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+          newPageFirstThreadRef.current = null;
+        });
+      }
+    }
+
+    prevThreadCountRef.current = currentCount;
+  }, [allThreads]);
 
   const handleToggleTag = useCallback(
     (tag: string) => {
@@ -112,15 +139,21 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       {allThreads && (
         <div className="w-full space-y-4">
           {allThreads.map(({ threadId }) => (
-            <Thread key={threadId} threadId={threadId} defaultOpen={false} />
+            <div key={threadId} id={`thread-${threadId}`}>
+              <Thread threadId={threadId} defaultOpen={false} />
+            </div>
           ))}
         </div>
       )}
 
       {isPostFetchLoading && !data && <ThreadsFeedLoadingSkeleton />}
 
-      {isFetchingNextPage && <ThreadsFeedLoadingSkeleton />}
-      {hasNextPage && <div ref={ref} className="h-20" />}
+      {isFetchingNextPage && (
+        <div className="min-h-[60vh]">
+          <ThreadsFeedLoadingSkeleton />
+        </div>
+      )}
+      {hasNextPage && !isFetchingNextPage && <div ref={ref} className="h-20" />}
 
       {!hasNextPage && data?.pages && data.pages.length > 0 && (
         <div className="text-center py-8 text-text-tertiary text-xs">

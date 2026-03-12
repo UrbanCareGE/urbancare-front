@@ -17,7 +17,7 @@ export const DesktopIsland = ({
 }: IslandProps) => (
   <Card
     className={cn(
-      'bg-surface border-none overflow-hidden flex flex-col ',
+      'bg-surface border-none overflow-hidden flex flex-col h-full ',
       className
     )}
   >
