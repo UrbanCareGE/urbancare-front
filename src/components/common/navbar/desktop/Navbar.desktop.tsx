@@ -65,7 +65,7 @@ export const HeaderNavIsland = () => {
   };
 
   return (
-    <nav className="flex items-center gap-1 bg-surface rounded-2xl px-3 shadow-sm shadow-shadow/5 h-14 transition-all">
+    <nav className="flex items-center gap-1 bg-surface rounded-urbancare-3xl px-3 shadow-sm shadow-shadow/5 h-14 transition-all">
       {NAV_ITEMS.map((item, index) => {
         const href = getHref(item);
         const active = index === activeIndex;
@@ -75,7 +75,7 @@ export const HeaderNavIsland = () => {
             key={item.href}
             onClick={() => handleNavigation(index, href)}
             className={cn(
-              'relative flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-colors duration-200',
+              'relative flex items-center gap-2 px-3 py-2 rounded-urbancare-xl text-urbancare-base font-medium transition-colors duration-200',
               active
                 ? 'text-primary'
                 : 'text-foreground-secondary lg:hover:text-foreground-primary lg:hover:bg-surface-variant/60 lg:active:scale-95',
@@ -84,7 +84,7 @@ export const HeaderNavIsland = () => {
             {active && (
               <motion.div
                 layoutId="desktop-nav-indicator"
-                className="absolute inset-0 bg-surface-variant rounded-xl"
+                className="absolute inset-0 bg-surface-variant rounded-urbancare-xl"
                 transition={{ type: 'spring', stiffness: 400, damping: 30 }}
               />
             )}

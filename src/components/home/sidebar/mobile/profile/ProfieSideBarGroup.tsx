@@ -26,9 +26,9 @@ export const ProfileSideBarGroupHeader = ({
   return (
     <div className={cn('flex items-center gap-1.5 mb-2', className)}>
       {dotClassName && (
-        <div className={cn('w-1.5 h-1.5 rounded-full shadow-sm', dotClassName)} />
+        <div className={cn('w-1.5 h-1.5 rounded-urbancare-full shadow-sm', dotClassName)} />
       )}
-      <h3 className="text-[10px] font-bold text-text-secondary uppercase tracking-widest">
+      <h3 className="text-urbancare-2xs font-bold text-text-secondary uppercase tracking-widest">
         {title}
       </h3>
     </div>

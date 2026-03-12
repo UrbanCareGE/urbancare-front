@@ -9,10 +9,10 @@ export const ThreadCommentsHeader = () => {
   return (
     <div className="flex items-center gap-2">
       <MessageCircle className="w-5 h-5 text-text-secondary" />
-      <h2 className="text-base font-semibold text-text-primary">
+      <h2 className="text-urbancare-xl font-semibold text-text-primary">
         კომენტარები
         {commentCount > 0 && (
-          <span className="ml-1.5 text-sm font-normal text-text-tertiary">
+          <span className="ml-1.5 text-urbancare-base font-normal text-text-tertiary">
             ({commentCount})
           </span>
         )}

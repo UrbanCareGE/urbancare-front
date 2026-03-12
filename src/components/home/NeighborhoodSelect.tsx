@@ -43,7 +43,7 @@ const ApartmentImage = ({
   return (
     <div
       className={cn(
-        'relative w-11 h-11 rounded-xl flex-shrink-0 overflow-hidden transition-all duration-200',
+        'relative w-11 h-11 rounded-urbancare-xl flex-shrink-0 overflow-hidden transition-all duration-200',
         isSelected
           ? 'ring-2 ring-primary ring-offset-2 ring-offset-background'
           : 'ring-1 ring-border'
@@ -69,19 +69,19 @@ const ApartmentInfo = ({
 }) => (
   <div className="flex flex-col items-start min-w-0 flex-1 gap-0.5">
     <div className="flex items-center gap-2">
-      <span className="font-semibold text-sm text-foreground truncate">
+      <span className="font-semibold text-urbancare-base text-foreground truncate">
         {name}
       </span>
       {isDefault && (
         <Badge
           variant="secondary"
-          className="text-[10px] px-1.5 py-0 h-4 font-semibold uppercase"
+          className="text-urbancare-2xs px-1.5 py-0 h-4 font-semibold uppercase"
         >
           Default
         </Badge>
       )}
     </div>
-    <span className="text-xs text-muted-foreground flex items-center gap-1 truncate w-full">
+    <span className="text-urbancare-sm text-muted-foreground flex items-center gap-1 truncate w-full">
       <MapPin className="w-3 h-3 flex-shrink-0" />
       <span className="truncate">{address ?? name}</span>
     </span>
@@ -90,8 +90,8 @@ const ApartmentInfo = ({
 
 const ActiveIndicator = () => (
   <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
-    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+    <span className="animate-ping absolute inline-flex h-full w-full rounded-urbancare-full bg-emerald-400 opacity-75" />
+    <span className="relative inline-flex rounded-urbancare-full h-2.5 w-2.5 bg-emerald-500" />
   </span>
 );
 
@@ -105,7 +105,7 @@ const ApartmentCard = ({
     type="button"
     onClick={onClick}
     className={cn(
-      'flex items-center gap-3 p-3 rounded-xl text-left transition-all duration-200 w-full',
+      'flex items-center gap-3 p-3 rounded-urbancare-xl text-left transition-all duration-200 w-full',
       'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
       isSelected
         ? 'bg-primary/5 border-2 border-primary'
@@ -126,7 +126,7 @@ const ApartmentCard = ({
 );
 
 const CurrentApartmentDisplay = ({ apartment }: { apartment: Apartment }) => (
-  <div className="flex items-center gap-3 p-3 bg-card rounded-xl border border-border">
+  <div className="flex items-center gap-3 p-3 bg-card rounded-urbancare-xl border border-border">
     <ApartmentImage src={apartment.image} alt={apartment.name} />
     <ApartmentInfo name={apartment.name} address={apartment.address} />
     <ActiveIndicator />
@@ -138,7 +138,7 @@ const AddLocationButton = ({ onClick }: { onClick?: () => void }) => (
     type="button"
     variant="outline"
     className={cn(
-      'w-full h-auto p-3 rounded-xl border-2 border-dashed',
+      'w-full h-auto p-3 rounded-urbancare-xl border-2 border-dashed',
       'text-muted-foreground lg:hover:text-primary lg:hover:border-primary',
       'transition-all duration-200'
     )}
@@ -155,8 +155,8 @@ const LoadingState = () => (
       <Skeleton className="h-3 w-28" />
     </div>
     <div className="px-3 pb-4">
-      <div className="flex items-center gap-3 p-3 bg-card rounded-xl border border-border">
-        <Skeleton className="w-11 h-11 rounded-xl flex-shrink-0" />
+      <div className="flex items-center gap-3 p-3 bg-card rounded-urbancare-xl border border-border">
+        <Skeleton className="w-11 h-11 rounded-urbancare-xl flex-shrink-0" />
         <div className="flex-1 space-y-2">
           <Skeleton className="h-4 w-32" />
           <Skeleton className="h-3 w-24" />
@@ -170,11 +170,11 @@ const LoadingState = () => (
 const ErrorState = ({ message }: { message?: string }) => (
   <div className="w-full border-t border-border bg-muted/30">
     <div className="px-3 py-4">
-      <div className="p-4 rounded-xl border-2 border-dashed border-destructive/50 bg-destructive/5">
-        <p className="text-sm text-destructive font-medium">
+      <div className="p-4 rounded-urbancare-xl border-2 border-dashed border-destructive/50 bg-destructive/5">
+        <p className="text-urbancare-base text-destructive font-medium">
           {message ?? 'Unable to load neighborhoods'}
         </p>
-        <p className="text-xs text-muted-foreground mt-1">
+        <p className="text-urbancare-sm text-muted-foreground mt-1">
           Please try refreshing the page
         </p>
       </div>
@@ -185,11 +185,11 @@ const ErrorState = ({ message }: { message?: string }) => (
 const EmptyState = ({ onAddLocation }: { onAddLocation?: () => void }) => (
   <div className="w-full border-t border-border bg-muted/30">
     <div className="px-3 py-4">
-      <div className="p-4 rounded-xl border border-border bg-card text-center">
-        <p className="text-sm text-foreground font-medium mb-1">
+      <div className="p-4 rounded-urbancare-xl border border-border bg-card text-center">
+        <p className="text-urbancare-base text-foreground font-medium mb-1">
           No neighborhoods yet
         </p>
-        <p className="text-xs text-muted-foreground mb-3">
+        <p className="text-urbancare-sm text-muted-foreground mb-3">
           Join a neighborhood to get started
         </p>
         <AddLocationButton onClick={onAddLocation} />
@@ -200,14 +200,14 @@ const EmptyState = ({ onAddLocation }: { onAddLocation?: () => void }) => (
 
 const SectionHeader = ({ isOpen }: { isOpen: boolean }) => (
   <div className="flex items-center justify-between px-4 py-3">
-    <span className="text-sm font-semibold text-muted-foreground">
+    <span className="text-urbancare-base font-semibold text-muted-foreground">
       არჩეული ლოკაცია
     </span>
     <CollapsibleTrigger asChild>
       <Button
         variant="ghost"
         size="sm"
-        className="h-auto py-1 px-2 text-xs font-semibold text-primary lg:hover:text-primary/80 lg:hover:bg-primary/5 lg:active:scale-95"
+        className="h-auto py-1 px-2 text-urbancare-sm font-semibold text-primary lg:hover:text-primary/80 lg:hover:bg-primary/5 lg:active:scale-95"
       >
         {isOpen ? 'დახურვა' : 'შეცვლა'}
         <ChevronDown

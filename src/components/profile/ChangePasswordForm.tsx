@@ -51,7 +51,7 @@ export function ChangePasswordForm() {
 
   return (
     <div className="w-full space-y-3">
-      <h3 className="text-lg font-semibold">პაროლის შეცვლა</h3>
+      <h3 className="text-urbancare-2xl font-semibold">პაროლის შეცვლა</h3>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
@@ -110,7 +110,7 @@ export function ChangePasswordForm() {
           />
           <Button
             type="submit"
-            className="w-full h-12 bg-primary text-text-primary rounded-3xl disabled:text-disabled-foreground disabled:bg-disabled"
+            className="w-full h-12 bg-primary text-text-primary rounded-urbancare-4xl disabled:text-disabled-foreground disabled:bg-disabled"
             disabled={isPending || !form.formState.isValid}
           >
             {isPending ? 'მიმდინარეობს...' : 'პაროლის შეცვლა'}

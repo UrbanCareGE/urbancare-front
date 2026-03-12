@@ -33,13 +33,13 @@ export const ThreadBodyField = ({
       render={({ field }) => (
         <FormItem>
           <div className="flex items-center justify-between mb-2">
-            <FormLabel className="text-sm font-medium text-foreground-secondary flex items-center gap-2">
+            <FormLabel className="text-urbancare-base font-medium text-foreground-secondary flex items-center gap-2">
               <FileText className="w-4 h-4 text-foreground-disabled" />
               ტექსტი <span className="text-error">*</span>
             </FormLabel>
             <span
               className={cn(
-                'text-xs font-medium transition-colors',
+                'text-urbancare-sm font-medium transition-colors',
                 bodyLength > 1900
                   ? 'text-error'
                   : bodyLength > 1700
@@ -54,12 +54,12 @@ export const ThreadBodyField = ({
             <Textarea
               placeholder="რას გააზიარებთ? გაგვიზიარეთ თქვენი აზრები, გამოცდილება ან შეკითხვა..."
               disabled={isPending}
-              className="min-h-40 resize-none text-base border bg-surface focus:border-primary focus:ring-primary/20 transition-all"
+              className="min-h-40 resize-none text-urbancare-xl border bg-surface focus:border-primary focus:ring-primary/20 transition-all"
               maxLength={2000}
               {...field}
             />
           </FormControl>
-          <FormMessage className="text-xs" />
+          <FormMessage className="text-urbancare-sm" />
         </FormItem>
       )}
     />

@@ -17,7 +17,7 @@ export const ThreadFormHeader = () => {
       <div className="flex items-center gap-2">
         <div className="w-8" />
         <div className="mr-auto ml-auto">
-          <SheetTitle className="text-lg font-semibold text-foreground-primary">
+          <SheetTitle className="text-urbancare-2xl font-semibold text-foreground-primary">
             ახალი პოსტი
           </SheetTitle>
         </div>

@@ -51,21 +51,21 @@ export function ProfileImageUpload() {
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="relative">
-        <Avatar className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-primary">
+        <Avatar className="w-24 h-24 sm:w-32 sm:h-32 rounded-urbancare-full bg-primary">
           <Image
             src={getClientFileUrl(user.profileImageId)}
             alt="Profile"
             fill
             className="object-cover"
           />
-          <AvatarFallback className="text-2xl sm:text-3xl">
+          <AvatarFallback className="text-urbancare-5xl sm:text-urbancare-7xl">
             {initials}
           </AvatarFallback>
         </Avatar>
         <button
           onClick={() => fileInputRef.current?.click()}
           disabled={isLoading}
-          className="absolute bottom-0 right-0 p-2 bg-primary rounded-full text-white shadow-lg lg:hover:bg-primary/80 lg:hover:scale-110 lg:active:scale-95 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="absolute bottom-0 right-0 p-2 bg-primary rounded-urbancare-full text-white shadow-lg lg:hover:bg-primary/80 lg:hover:scale-110 lg:active:scale-95 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? (
             <Loader2 className="w-5 h-5 animate-spin" />
@@ -83,10 +83,10 @@ export function ProfileImageUpload() {
         />
       </div>
       <div className="text-center">
-        <p className="text-lg sm:text-xl font-semibold">
+        <p className="text-urbancare-2xl sm:text-urbancare-3xl font-semibold">
           {user.name} {user.surname}
         </p>
-        <p className="text-sm text-muted-foreground">{user.phone}</p>
+        <p className="text-urbancare-base text-muted-foreground">{user.phone}</p>
       </div>
     </div>
   );

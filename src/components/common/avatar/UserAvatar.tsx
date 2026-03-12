@@ -18,7 +18,7 @@ export const UserAvatar = ({
 
   return (
     <div className="relative inline-block outline-none">
-      <Avatar className="cursor-pointer w-10 h-10 rounded-full">
+      <Avatar className="cursor-pointer w-10 h-10 rounded-urbancare-full">
         {profileImageId && (
           <Image
             src={getClientFileUrl(profileImageId)}
@@ -27,7 +27,7 @@ export const UserAvatar = ({
             className="object-cover"
           />
         )}
-        <AvatarFallback className="text-xs font-semibold bg-primary-container text-primary">
+        <AvatarFallback className="text-urbancare-sm font-semibold bg-primary-container text-primary">
           {initials}
         </AvatarFallback>
       </Avatar>

@@ -20,22 +20,22 @@ export function LandingHeader() {
     <header className="relative z-10 px-4 py-4 md:px-8">
       <nav className="max-w-6xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center">
+          <div className="w-10 h-10 rounded-urbancare-xl bg-gradient-primary flex items-center justify-center">
             <Building2 className="w-6 h-6 text-white" />
           </div>
-          <span className="text-xl font-bold text-text-primary">UrbanCare</span>
+          <span className="text-urbancare-3xl font-bold text-text-primary">UrbanCare</span>
         </div>
 
         {isAuthenticated ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="flex items-center gap-2 rounded-xl px-3 py-2 lg:hover:bg-surface-secondary transition-colors outline-none cursor-pointer">
+              <button className="flex items-center gap-2 rounded-urbancare-xl px-3 py-2 lg:hover:bg-surface-secondary transition-colors outline-none cursor-pointer">
                 <UserAvatar
                   firstName={user.name}
                   surname={user.surname}
                   profileImageId={user.profileImageId}
                 />
-                <span className="hidden sm:block text-sm font-medium text-text-primary">
+                <span className="hidden sm:block text-urbancare-base font-medium text-text-primary">
                   {user.name} {user.surname}
                 </span>
                 <ChevronDown className="w-4 h-4 text-text-secondary" />
@@ -77,7 +77,7 @@ export function LandingHeader() {
               </Button>
             </Link>
             <Link href="/auth/register">
-              <Button size="sm" className="rounded-xl bg-gradient-primary">
+              <Button size="sm" className="rounded-urbancare-xl bg-gradient-primary">
                 რეგისტრაცია
               </Button>
             </Link>

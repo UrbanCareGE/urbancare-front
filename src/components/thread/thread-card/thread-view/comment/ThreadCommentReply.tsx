@@ -17,7 +17,7 @@ export const ThreadCommentReply = ({ comment }: ThreadCommentReplyProps) => {
     <div className="flex gap-2 py-1">
       {/* Small avatar */}
       <div className="flex-shrink-0">
-        <Avatar className="w-8 h-8 rounded-full">
+        <Avatar className="w-8 h-8 rounded-urbancare-full">
           {userInfo.profileImageId && (
             <Image
               src={getClientFileUrl(userInfo.profileImageId)}
@@ -26,7 +26,7 @@ export const ThreadCommentReply = ({ comment }: ThreadCommentReplyProps) => {
               className="object-cover"
             />
           )}
-          <AvatarFallback className="text-[10px] font-semibold bg-primary-container text-primary">
+          <AvatarFallback className="text-urbancare-2xs font-semibold bg-primary-container text-primary">
             {initials}
           </AvatarFallback>
         </Avatar>
@@ -34,15 +34,15 @@ export const ThreadCommentReply = ({ comment }: ThreadCommentReplyProps) => {
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <div className="bg-surface-container rounded-2xl rounded-tl-sm px-3 py-2 inline-block max-w-full">
-          <p className="font-semibold text-[12px] leading-tight text-text-primary">
+        <div className="bg-surface-container rounded-urbancare-3xl rounded-tl-urbancare-xs px-3 py-2 inline-block max-w-full">
+          <p className="font-semibold text-urbancare-sm leading-tight text-text-primary">
             {userInfo.name} {userInfo.surname}
           </p>
-          <p className="text-[13px] text-text-primary leading-relaxed whitespace-pre-wrap break-words mt-0.5">
+          <p className="text-urbancare-md text-text-primary leading-relaxed whitespace-pre-wrap break-words mt-0.5">
             {content}
           </p>
         </div>
-        <p className="text-[11px] text-text-tertiary mt-0.5 px-1">
+        <p className="text-urbancare-xs text-text-tertiary mt-0.5 px-1">
           {formatTime(createdAt.toString())}
         </p>
       </div>

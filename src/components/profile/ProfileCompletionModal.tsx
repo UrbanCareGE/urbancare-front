@@ -70,11 +70,11 @@ export function ProfileCompletionModal() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent
-        className="w-11/12 rounded-panel"
+        className="w-11/12 rounded-urbancare-panel"
         onPointerDownOutside={(e) => e.preventDefault()} // Prevent closing by clicking outside
       >
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-primary">
+          <DialogTitle className="text-urbancare-5xl font-bold text-primary">
             დაასრულე პროფილი
           </DialogTitle>
           <DialogDescription className="text-secondary">
@@ -98,7 +98,7 @@ export function ProfileCompletionModal() {
                       placeholder="სახელი"
                       disabled={isPending}
                       icon={<User className="text-icon" />}
-                      className="rounded-xl border-[1.5px] border-border-medium bg-surface text-[15px] text-text-primary placeholder:text-text-tertiary lg:hover:border-border-hover focus:border-border-focus focus:ring-4 focus:ring-primary-container transition-all duration-200"
+                      className="rounded-urbancare-xl border-[1.5px] border-border-medium bg-surface text-urbancare-lg text-text-primary placeholder:text-text-tertiary lg:hover:border-border-hover focus:border-border-focus focus:ring-4 focus:ring-primary-container transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -117,7 +117,7 @@ export function ProfileCompletionModal() {
                       placeholder="გვარი"
                       disabled={isPending}
                       icon={<User className="text-icon" />}
-                      className="rounded-xl border-[1.5px] border-border-medium bg-surface text-[15px] text-text-primary placeholder:text-text-tertiary lg:hover:border-border-hover focus:border-border-focus focus:ring-4 focus:ring-primary-container transition-all duration-200"
+                      className="rounded-urbancare-xl border-[1.5px] border-border-medium bg-surface text-urbancare-lg text-text-primary placeholder:text-text-tertiary lg:hover:border-border-hover focus:border-border-focus focus:ring-4 focus:ring-primary-container transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -132,14 +132,14 @@ export function ProfileCompletionModal() {
                 variant="outline"
                 onClick={handleClose}
                 disabled={isPending}
-                className="flex-1 rounded-panel border-[1.5px] border-border-medium text-[15px] font-semibold bg-error-container/70 text-error"
+                className="flex-1 rounded-urbancare-panel border-[1.5px] border-border-medium text-urbancare-lg font-semibold bg-error-container/70 text-error"
               >
                 მოგვიანებით
               </Button>
               <Button
                 type="submit"
                 disabled={isPending}
-                className="flex-1 rounded-panel bg-gradient-primary shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] lg:hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] lg:hover:-translate-y-0.5 lg:active:translate-y-0 transition-all duration-200 text-white text-[15px] font-semibold relative overflow-hidden"
+                className="flex-1 rounded-urbancare-panel bg-gradient-primary shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] lg:hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] lg:hover:-translate-y-0.5 lg:active:translate-y-0 transition-all duration-200 text-white text-urbancare-lg font-semibold relative overflow-hidden"
               >
                 <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent" />
                 {isPending ? (

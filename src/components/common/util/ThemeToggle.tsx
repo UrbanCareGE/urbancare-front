@@ -18,8 +18,8 @@ export default function ThemeToggle() {
   const isDark = theme === 'dark';
 
   return (
-    <div className="h-12 flex items-center justify-between px-2 gap-2 rounded-panel bg-surface-container">
-      <div className="p-1 rounded-lg">
+    <div className="h-12 flex items-center justify-between px-2 gap-2 rounded-urbancare-panel bg-surface-container">
+      <div className="p-1 rounded-urbancare-lg">
         {isDark ? (
           <Moon className="h-5 w-5 text-primary" />
         ) : (

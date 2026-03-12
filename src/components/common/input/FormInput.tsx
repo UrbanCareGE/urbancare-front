@@ -45,7 +45,7 @@ const FormInput = React.forwardRef<
         ref={ref}
         aria-describedby={formMessageId}
         className={cn(
-          'flex h-12 sm:h-12 w-full rounded-md border border-input-border bg-input py-1 text-sm sm:text-base shadow-md transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-text-placeholder focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 caret-black',
+          'flex h-12 sm:h-12 w-full rounded-urbancare-md border border-input-border bg-input py-1 text-urbancare-base sm:text-urbancare-xl shadow-md transition-colors file:border-0 file:bg-transparent file:text-urbancare-base file:font-medium file:text-foreground placeholder:text-text-placeholder focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 caret-black',
           { 'pl-10 pr-10': icon, 'pl-3 pr-10': !icon },
           {
             'ring-2 ring-error placeholder:text-error focus:placeholder:text-text-placeholder':
@@ -106,7 +106,7 @@ const FormInput = React.forwardRef<
           <TooltipContent
             side="top"
             sideOffset={8}
-            className="max-w-xs bg-[var(--color-grey-800)] text-white text-sm text-center p-2"
+            className="max-w-xs bg-[var(--color-grey-800)] text-white text-urbancare-base text-center p-2"
           >
             {message}
           </TooltipContent>

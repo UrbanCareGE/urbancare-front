@@ -22,10 +22,10 @@ export const UserAvatarInfo = ({
         </AvatarFallback>
       </Avatar>
       <div className="flex flex-col leading-tight">
-        <span className="text-sm font-semibold text-primary">
+        <span className="text-urbancare-base font-semibold text-primary">
           {firstName} {lastName}
         </span>
-        <span className="text-xs text-primary font-semibold">@{username}</span>
+        <span className="text-urbancare-sm text-primary font-semibold">@{username}</span>
       </div>
     </div>
   );

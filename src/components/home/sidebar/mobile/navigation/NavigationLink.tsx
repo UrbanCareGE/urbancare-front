@@ -26,7 +26,7 @@ const NavigationLinkInner = forwardRef<
     ref={ref}
     {...props}
     className={cn(
-      'group relative flex items-center gap-2.5 rounded-panel px-2 py-1 transition-all duration-150',
+      'group relative flex items-center gap-2.5 rounded-urbancare-panel px-2 py-1 transition-all duration-150',
       isActive
         ? 'bg-primary-container/50 text-primary'
         : 'text-foreground-primary lg:hover:bg-surface-variant',
@@ -36,14 +36,14 @@ const NavigationLinkInner = forwardRef<
   >
     {/* Left accent bar */}
     {isActive && (
-      <span className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full bg-primary" />
+      <span className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-urbancare-full bg-primary" />
     )}
 
     {/* Icon container */}
     {navigationItem.icon && (
       <div
         className={cn(
-          'w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-lg transition-colors duration-150',
+          'w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-urbancare-lg transition-colors duration-150',
           isActive
             ? 'bg-primary-container text-primary-container-foreground'
             : cn('text-primary-container-foreground', navigationItem.className)
@@ -83,7 +83,7 @@ export const NavigationLink = forwardRef<
         <NavigationLinkInner
           ref={ref}
           navigationItem={navigationItem}
-          className={cn('py-1.5 text-xl', className)}
+          className={cn('py-1.5 text-urbancare-3xl', className)}
           isActive={isActive}
           {...props}
         />
@@ -95,7 +95,7 @@ export const NavigationLink = forwardRef<
     <NavigationLinkInner
       ref={ref}
       navigationItem={navigationItem}
-      className={cn('text-lg', className)}
+      className={cn('text-urbancare-2xl', className)}
       isActive={isActive}
       {...props}
     />

@@ -44,24 +44,24 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
 
         <div className="flex-1 min-w-0">
           {/* Content bubble */}
-          <div className="bg-surface-container rounded-2xl rounded-tl-sm px-3.5 py-2.5 inline-block max-w-full">
-            <p className="font-semibold text-[13px] leading-tight text-text-primary">
+          <div className="bg-surface-container rounded-urbancare-3xl rounded-tl-urbancare-xs px-3.5 py-2.5 inline-block max-w-full">
+            <p className="font-semibold text-urbancare-md leading-tight text-text-primary">
               {userInfo.name} {userInfo.surname}
             </p>
-            <p className="text-[13px] text-text-primary leading-relaxed whitespace-pre-wrap break-words mt-1">
+            <p className="text-urbancare-md text-text-primary leading-relaxed whitespace-pre-wrap break-words mt-1">
               {content}
             </p>
           </div>
 
           {/* Meta / actions */}
           <div className="flex items-center gap-3 mt-1.5 px-1">
-            <span className="text-[11px] text-text-tertiary">
+            <span className="text-urbancare-xs text-text-tertiary">
               {formatTime(createdAt.toString())}
             </span>
             <button
               onClick={() => setIsReplying(!isReplying)}
               className={cn(
-                'text-[11px] font-bold transition-colors duration-150',
+                'text-urbancare-xs font-bold transition-colors duration-150',
                 isReplying
                   ? 'text-primary'
                   : 'text-text-secondary lg:hover:text-primary'
@@ -104,7 +104,7 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
           {!showAll && hiddenCount > 0 && (
             <button
               onClick={() => setShowAll(true)}
-              className="flex items-center gap-1 text-[12px] font-semibold text-primary py-1 transition-colors lg:hover:text-primary/75"
+              className="flex items-center gap-1 text-urbancare-sm font-semibold text-primary py-1 transition-colors lg:hover:text-primary/75"
             >
               <ChevronDown className="w-3.5 h-3.5" />
               {hiddenCount} more {hiddenCount === 1 ? 'reply' : 'replies'}
@@ -114,7 +114,7 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
           {showAll && replies.length > INITIAL_REPLIES && (
             <button
               onClick={() => setShowAll(false)}
-              className="flex items-center gap-1 text-[12px] font-semibold text-text-secondary py-1 transition-colors lg:hover:text-primary"
+              className="flex items-center gap-1 text-urbancare-sm font-semibold text-text-secondary py-1 transition-colors lg:hover:text-primary"
             >
               <ChevronUp className="w-3.5 h-3.5" />
               Show less

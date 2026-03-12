@@ -15,17 +15,17 @@ interface ThreadPreviewProps {
 
 function ThreadSkeleton() {
   return (
-    <div className="bg-surface rounded-panel border border-border p-4 animate-pulse">
+    <div className="bg-surface rounded-urbancare-panel border border-border p-4 animate-pulse">
       <div className="flex gap-3 mb-3">
-        <div className="w-12 h-12 rounded-full bg-surface-container"></div>
+        <div className="w-12 h-12 rounded-urbancare-full bg-surface-container"></div>
         <div className="flex-1">
-          <div className="h-4 bg-surface-container rounded w-1/3 mb-2"></div>
-          <div className="h-3 bg-surface-container rounded w-1/4"></div>
+          <div className="h-4 bg-surface-container rounded-urbancare-sm w-1/3 mb-2"></div>
+          <div className="h-3 bg-surface-container rounded-urbancare-sm w-1/4"></div>
         </div>
       </div>
       <div className="space-y-2">
-        <div className="h-4 bg-surface-container rounded w-full"></div>
-        <div className="h-4 bg-surface-container rounded w-5/6"></div>
+        <div className="h-4 bg-surface-container rounded-urbancare-sm w-full"></div>
+        <div className="h-4 bg-surface-container rounded-urbancare-sm w-5/6"></div>
       </div>
     </div>
   );

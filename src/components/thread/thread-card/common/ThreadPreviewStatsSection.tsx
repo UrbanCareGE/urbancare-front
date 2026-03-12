@@ -4,7 +4,7 @@ import { useThread } from '@/components/thread/thread-card/ThreadCard';
 export const ThreadPreviewStatsSection = () => {
   const { thread } = useThread();
   return (
-    <div className="w-full px-4 py-3 flex items-center justify-start text-sm text-text-secondary border-y border-border">
+    <div className="w-full px-4 py-3 flex items-center justify-start text-urbancare-base text-text-secondary border-y border-border">
       <span className="">{thread.voteDiff} მოწონება</span>
       <span className="mx-2">·</span>
       <span>{thread.commentCount} კომენტარი</span>

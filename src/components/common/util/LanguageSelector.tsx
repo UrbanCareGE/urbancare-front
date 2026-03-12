@@ -16,10 +16,10 @@ interface LanguageSelectorProps {
 export default function LanguageSelector({ compact = false }: LanguageSelectorProps) {
   const [selected, setSelected] = useState('en');
 
-  const flagSize  = compact ? 'w-8 h-8 rounded-lg text-lg'  : 'w-10 h-10 rounded-xl text-2xl';
-  const rowPad    = compact ? 'gap-2.5 px-2.5 py-2 rounded-xl' : 'gap-3 px-3 py-2.5 rounded-2xl';
-  const nameSize  = compact ? 'text-sm'  : 'text-sm';
-  const nativeSize = compact ? 'text-[10px]' : 'text-xs';
+  const flagSize  = compact ? 'w-8 h-8 rounded-urbancare-lg text-urbancare-2xl'  : 'w-10 h-10 rounded-urbancare-xl text-urbancare-5xl';
+  const rowPad    = compact ? 'gap-2.5 px-2.5 py-2 rounded-urbancare-xl' : 'gap-3 px-3 py-2.5 rounded-urbancare-3xl';
+  const nameSize  = compact ? 'text-urbancare-base'  : 'text-urbancare-base';
+  const nativeSize = compact ? 'text-urbancare-2xs' : 'text-urbancare-sm';
   const checkSize = compact ? 'w-5 h-5' : 'w-5 h-5';
 
   return (
@@ -63,7 +63,7 @@ export default function LanguageSelector({ compact = false }: LanguageSelectorPr
             {/* Active checkmark */}
             <div
               className={cn(
-                'rounded-full flex-shrink-0 flex items-center justify-center transition-all duration-200',
+                'rounded-urbancare-full flex-shrink-0 flex items-center justify-center transition-all duration-200',
                 checkSize,
                 isSelected
                   ? 'bg-primary scale-100 opacity-100'

@@ -136,7 +136,7 @@ const FormDescription = React.forwardRef<
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn('text-[0.8rem] text-muted-foreground', className)}
+      className={cn('text-urbancare-md text-muted-foreground', className)}
       {...props}
     />
   );
@@ -156,7 +156,7 @@ const FormMessage = React.forwardRef<
       id={formMessageId}
       aria-disabled={!body}
       className={cn(
-        'text-[0.8rem] font-medium text-error min-h-[1rem] ', // force height
+        'text-urbancare-md font-medium text-error min-h-[1rem] ', // force height
         !body && 'invisible', // hide visually but keep space
         className
       )}

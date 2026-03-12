@@ -25,7 +25,7 @@ const PulseDot = ({
   className?: string;
 }) => (
   <span
-    className={cn('w-2 h-2 rounded-full animate-pulse', color, className)}
+    className={cn('w-2 h-2 rounded-urbancare-full animate-pulse', color, className)}
   />
 );
 
@@ -42,7 +42,7 @@ const StatusBadge = ({
     <Badge
       variant="outline"
       className={cn(
-        'gap-1.5 border-0 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide',
+        'gap-1.5 border-0 px-3 py-1.5 text-urbancare-sm font-semibold uppercase tracking-wide',
         config.badgeBg,
         config.badgeText
       )}
@@ -55,8 +55,8 @@ const StatusBadge = ({
 };
 
 const MetaItem = ({ icon, text }: MetaItemProps) => (
-  <div className="flex items-center gap-1.5 text-sm text-text-tertiary">
-    <span className="text-sm">{icon}</span>
+  <div className="flex items-center gap-1.5 text-urbancare-base text-text-tertiary">
+    <span className="text-urbancare-base">{icon}</span>
     <span>{text}</span>
   </div>
 );
@@ -67,14 +67,14 @@ const AvatarStack = ({ responders }: { responders: ResponderProps[] }) => (
       <Avatar
         key={index}
         className={cn(
-          'w-7 h-7 border-2 border-border text-xs font-semibold text-white',
+          'w-7 h-7 border-2 border-border text-urbancare-sm font-semibold text-white',
           urgentResponderColors[responder.color],
           index > 0 && '-ml-2'
         )}
       >
         <AvatarFallback
           className={cn(
-            'text-xs font-semibold text-white',
+            'text-urbancare-sm font-semibold text-white',
             urgentResponderColors[responder.color]
           )}
         >
@@ -86,8 +86,8 @@ const AvatarStack = ({ responders }: { responders: ResponderProps[] }) => (
 );
 
 const ResolvedBanner = ({ message }: { message: string }) => (
-  <div className="flex items-center gap-2 p-3 bg-success/10 rounded-lg mt-3">
-    <span className="text-sm text-success font-medium">{message}</span>
+  <div className="flex items-center gap-2 p-3 bg-success/10 rounded-urbancare-lg mt-3">
+    <span className="text-urbancare-base text-success font-medium">{message}</span>
   </div>
 );
 
@@ -103,7 +103,7 @@ const UrgentCardIcon = ({
   return (
     <div
       className={cn(
-        'w-9 h-9 rounded-xl flex items-center justify-center text-lg',
+        'w-9 h-9 rounded-urbancare-xl flex items-center justify-center text-urbancare-2xl',
         config.iconBg
       )}
     >
@@ -136,13 +136,13 @@ const UrgentCardHeader = ({
         <div>
           <div
             className={cn(
-              'text-xs font-semibold uppercase tracking-wide',
+              'text-urbancare-sm font-semibold uppercase tracking-wide',
               config.labelColor
             )}
           >
             {label}
           </div>
-          <div className="text-base font-semibold text-text-primary">
+          <div className="text-urbancare-xl font-semibold text-text-primary">
             {title}
           </div>
         </div>
@@ -164,7 +164,7 @@ const UrgentCardContent = ({
   resolvedMessage,
 }: UrgentCardContentProps) => (
   <div className="mb-4">
-    <p className="text-sm text-text-secondary mb-3 leading-relaxed">
+    <p className="text-urbancare-base text-text-secondary mb-3 leading-relaxed">
       {message}
     </p>
     <div className="flex flex-wrap gap-4">
@@ -200,7 +200,7 @@ const UrgentCardFooter = ({
     <div className="flex items-center justify-between pt-4 border-t border-border">
       <div className="flex items-center gap-2">
         <AvatarStack responders={responders} />
-        <span className="text-xs text-text-secondary">{responderText}</span>
+        <span className="text-urbancare-sm text-text-secondary">{responderText}</span>
       </div>
       <div className="flex gap-2">
         {user.id === issuerId &&
@@ -211,7 +211,7 @@ const UrgentCardFooter = ({
               onClick={action.onClick}
               disabled={action.isPending}
               className={cn(
-                'h-9 px-4 rounded-lg text-sm font-medium',
+                'h-9 px-4 rounded-urbancare-lg text-urbancare-base font-medium',
                 buttonVariants[action.variant]
               )}
             >

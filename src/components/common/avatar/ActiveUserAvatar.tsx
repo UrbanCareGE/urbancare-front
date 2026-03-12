@@ -10,7 +10,7 @@ import Image from 'next/image';
 function ActiveUserAvatarSkeleton() {
   return (
     <div className="relative inline-block">
-      <Skeleton className="h-12 w-12 rounded-full" />
+      <Skeleton className="h-12 w-12 rounded-urbancare-full" />
     </div>
   );
 }
@@ -24,7 +24,7 @@ export const ActiveUserAvatar = () => {
 
   return (
     <div className="relative inline-block outline-none">
-      <Avatar className="cursor-pointer w-11 h-11 rounded-full">
+      <Avatar className="cursor-pointer w-11 h-11 rounded-urbancare-full">
         <Image
           src={getClientFileUrl(user?.profileImageId)}
           alt="@shadcn"
@@ -33,7 +33,7 @@ export const ActiveUserAvatar = () => {
         />
         <AvatarFallback>{'TODO'}</AvatarFallback>
       </Avatar>
-      <span className="absolute bottom-0 right-0 block w-3 h-3 rounded-full border-2 border-white bg-success" />
+      <span className="absolute bottom-0 right-0 block w-3 h-3 rounded-urbancare-full border-2 border-white bg-success" />
     </div>
   );
 };

@@ -40,7 +40,7 @@ export function PersonalInfoForm() {
 
   return (
     <div className="w-full space-y-3">
-      <h3 className="text-lg font-semibold text-text-primary">
+      <h3 className="text-urbancare-2xl font-semibold text-text-primary">
         პირადი ინფორმაცია
       </h3>
       <Form {...form}>
@@ -79,7 +79,7 @@ export function PersonalInfoForm() {
           />
           <Button
             type="submit"
-            className="w-full h-12 bg-primary text-text-primary rounded-3xl disabled:text-disabled-foreground disabled:bg-disabled"
+            className="w-full h-12 bg-primary text-text-primary rounded-urbancare-4xl disabled:text-disabled-foreground disabled:bg-disabled"
             disabled={isPending || !form.formState.isDirty}
           >
             {isPending ? 'მიმდინარეობს...' : 'შენახვა'}

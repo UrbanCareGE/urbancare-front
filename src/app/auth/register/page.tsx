@@ -559,9 +559,9 @@ export default function RegisterPage() {
     <div className="relative min-h-screen bg-[rgb(var(--color-background))]">
       {/* ── Mobile background blobs ── */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden lg:hidden">
-        <div className="absolute -top-24 -right-24 w-72 h-72 bg-primary-light rounded-full blur-[80px] opacity-40 animate-blob" />
-        <div className="absolute bottom-[20%] -left-20 w-64 h-64 bg-gradient-secondary-purple rounded-full blur-[80px] opacity-40 animate-blob animation-delay-2000" />
-        <div className="absolute -bottom-12 right-[10%] w-52 h-52 bg-primary-hover rounded-full blur-[80px] opacity-40 animate-blob animation-delay-4000" />
+        <div className="absolute -top-24 -right-24 w-72 h-72 bg-primary-light rounded-urbancare-full blur-[80px] opacity-40 animate-blob" />
+        <div className="absolute bottom-[20%] -left-20 w-64 h-64 bg-gradient-secondary-purple rounded-urbancare-full blur-[80px] opacity-40 animate-blob animation-delay-2000" />
+        <div className="absolute -bottom-12 right-[10%] w-52 h-52 bg-primary-hover rounded-urbancare-full blur-[80px] opacity-40 animate-blob animation-delay-4000" />
       </div>
 
       {/* ── DESKTOP: two-column layout ── */}
@@ -578,39 +578,39 @@ export default function RegisterPage() {
             }}
           />
           {/* Ambient blobs */}
-          <div className="absolute -top-28 -left-28 w-80 h-80 bg-white/5 rounded-full blur-[90px] animate-blob" />
-          <div className="absolute top-1/2 -right-20 w-72 h-72 bg-white/5 rounded-full blur-[90px] animate-blob animation-delay-2000" />
-          <div className="absolute -bottom-20 left-1/3 w-64 h-64 bg-white/5 rounded-full blur-[90px] animate-blob animation-delay-4000" />
+          <div className="absolute -top-28 -left-28 w-80 h-80 bg-white/5 rounded-urbancare-full blur-[90px] animate-blob" />
+          <div className="absolute top-1/2 -right-20 w-72 h-72 bg-white/5 rounded-urbancare-full blur-[90px] animate-blob animation-delay-2000" />
+          <div className="absolute -bottom-20 left-1/3 w-64 h-64 bg-white/5 rounded-urbancare-full blur-[90px] animate-blob animation-delay-4000" />
 
           {/* Content */}
           <div className="relative z-10 flex flex-col h-full px-12 xl:px-16 py-10 justify-between">
             {/* Logo */}
             <div className="flex items-center gap-3">
               <UrbanCareIcon className="w-11 h-11 bg-white/20 shadow-none" />
-              <span className="text-[22px] font-bold text-white tracking-tight">
+              <span className="text-urbancare-4xl font-bold text-white tracking-tight">
                 UrbanCare
               </span>
             </div>
 
             {/* Headline + features */}
             <div className="flex-1 flex flex-col justify-center py-10">
-              <p className="text-white/60 text-sm font-semibold uppercase tracking-widest mb-3">
+              <p className="text-white/60 text-urbancare-base font-semibold uppercase tracking-widest mb-3">
                 ახალი ანგარიში
               </p>
-              <h1 className="text-4xl xl:text-5xl font-bold text-white leading-tight mb-4">
+              <h1 className="text-urbancare-8xl xl:text-urbancare-9xl font-bold text-white leading-tight mb-4">
                 შეუერთდი ჩვენ
               </h1>
-              <p className="text-white/65 text-[16px] leading-relaxed mb-10 max-w-[380px]">
+              <p className="text-white/65 text-urbancare-xl leading-relaxed mb-10 max-w-[380px]">
                 UrbanCare-ის საზოგადოებას უკვე ათასობით საცხოვრებელი ერთიანდება.
               </p>
 
               <div className="flex flex-col gap-3">
                 {features.map((f, i) => (
                   <div key={i} className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center text-white shrink-0">
+                    <div className="w-10 h-10 rounded-urbancare-xl bg-white/15 backdrop-blur-sm flex items-center justify-center text-white shrink-0">
                       {f.icon}
                     </div>
-                    <span className="text-white/80 text-[15px] font-medium">
+                    <span className="text-white/80 text-urbancare-lg font-medium">
                       {f.label}
                     </span>
                   </div>

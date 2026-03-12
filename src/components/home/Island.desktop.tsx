@@ -23,7 +23,7 @@ export const DesktopIsland = ({
   >
     <div className="px-4 py-2.5 bg-surface-variant flex items-center gap-2 flex-shrink-0">
       {icon}
-      <h3 className="font-semibold text-sm text-foreground-primary">{title}</h3>
+      <h3 className="font-semibold text-urbancare-base text-foreground-primary">{title}</h3>
     </div>
     <div className="flex-1 overflow-hidden">{children}</div>
   </Card>

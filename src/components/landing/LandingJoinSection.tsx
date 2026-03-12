@@ -23,22 +23,22 @@ export function LandingJoinSection({ onJoin }: LandingJoinSectionProps) {
     <section className="relative z-10 px-4 py-20 md:py-32 overflow-hidden">
       {/* Subtle section background glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/8 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] bg-tertiary/6 rounded-full blur-2xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/8 rounded-urbancare-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] bg-tertiary/6 rounded-urbancare-full blur-2xl" />
       </div>
 
       <div className="relative max-w-3xl mx-auto text-center">
         {/* Badge */}
-        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-urbancare-full bg-primary/10 text-primary text-urbancare-base font-medium mb-6">
           <Hash className="w-3.5 h-3.5" />
           კოდით შესვლა
         </span>
 
         {/* Title */}
-        <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
+        <h2 className="text-urbancare-7xl md:text-urbancare-8xl font-bold text-text-primary mb-4">
           შეუერთდი კორპუსს
         </h2>
-        <p className="text-text-secondary text-lg mb-12 max-w-lg mx-auto leading-relaxed">
+        <p className="text-text-secondary text-urbancare-2xl mb-12 max-w-lg mx-auto leading-relaxed">
           მიიღე კოდი ადმინისტრატორისგან და დაუყოვნებლივ შეუერთდი შენს კორპუსს
         </p>
 
@@ -50,7 +50,7 @@ export function LandingJoinSection({ onJoin }: LandingJoinSectionProps) {
           {/* Large code input */}
           <div
             className={cn(
-              'relative w-full rounded-2xl transition-all duration-300',
+              'relative w-full rounded-urbancare-3xl transition-all duration-300',
               'bg-surface/80 backdrop-blur-sm',
               'border-2',
               focused
@@ -70,10 +70,10 @@ export function LandingJoinSection({ onJoin }: LandingJoinSectionProps) {
               spellCheck={false}
               className={cn(
                 'w-full bg-transparent text-center',
-                'text-3xl md:text-4xl font-bold tracking-[0.25em]',
+                'text-urbancare-7xl md:text-urbancare-8xl font-bold tracking-[0.25em]',
                 'text-text-primary placeholder:text-text-tertiary/50',
                 'h-20 md:h-24 px-6',
-                'rounded-2xl outline-none',
+                'rounded-urbancare-3xl outline-none',
                 'transition-colors duration-200'
               )}
             />
@@ -85,7 +85,7 @@ export function LandingJoinSection({ onJoin }: LandingJoinSectionProps) {
             size="lg"
             disabled={!code.trim()}
             className={cn(
-              'h-14 px-10 rounded-2xl text-lg font-semibold',
+              'h-14 px-10 rounded-urbancare-3xl text-urbancare-2xl font-semibold',
               'bg-gradient-primary',
               'shadow-[0_4px_20px_rgba(var(--color-primary)/0.35)]',
               'lg:hover:shadow-[0_6px_28px_rgba(var(--color-primary)/0.5)]',
@@ -98,7 +98,7 @@ export function LandingJoinSection({ onJoin }: LandingJoinSectionProps) {
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
 
-          <p className="text-xs text-text-tertiary">
+          <p className="text-urbancare-sm text-text-tertiary">
             კოდი გამოგიგზავნა შენი კორპუსის ადმინისტრატორმა
           </p>
         </form>

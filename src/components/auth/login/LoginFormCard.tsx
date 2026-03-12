@@ -19,7 +19,7 @@ const Separator = () => {
   return (
     <div className="flex items-center gap-4 my-4">
       <div className="flex-1 h-px bg-text-muted" />
-      <span className="text-text-muted text-xs font-medium uppercase tracking-wide">
+      <span className="text-text-muted text-urbancare-sm font-medium uppercase tracking-wide">
         or
       </span>
       <div className="flex-1 h-px bg-text-muted" />
@@ -52,12 +52,12 @@ export function LoginFormCard() {
   };
 
   return (
-    <Card className={'border-border-light rounded-3xl animate-slide-up'}>
+    <Card className={'border-border-light rounded-urbancare-4xl animate-slide-up'}>
       <CardContent className="p-8">
-        <h1 className="text-2xl font-bold text-center text-primary mb-2">
+        <h1 className="text-urbancare-5xl font-bold text-center text-primary mb-2">
           მოგესალმებით
         </h1>
-        <p className="text-center text-secondary text-base mb-7">
+        <p className="text-center text-secondary text-urbancare-xl mb-7">
           გაიარე ავტორიზაცია
         </p>
 
@@ -81,7 +81,7 @@ export function LoginFormCard() {
                       placeholder="მომხმარებელი"
                       disabled={isLoggingIn}
                       icon={<UserIcon className="text-icon" />}
-                      className="h-[52px] rounded-xl border border-border bg-surface text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-urbancare-xl border border-border bg-surface text-urbancare-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -102,7 +102,7 @@ export function LoginFormCard() {
                       type="password"
                       isPasswordType
                       disabled={isLoggingIn}
-                      className="h-[52px] rounded-xl border border-border bg-surface text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-urbancare-xl border border-border bg-surface text-urbancare-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -114,7 +114,7 @@ export function LoginFormCard() {
             <div className="flex justify-end">
               <Link
                 href="/auth/recover-password"
-                className="text-[13px] font-semibold text-primary lg:hover:text-primary-dark transition-colors"
+                className="text-urbancare-md font-semibold text-primary lg:hover:text-primary-dark transition-colors"
               >
                 დაგავიწყდა პაროლი?
               </Link>
@@ -124,7 +124,7 @@ export function LoginFormCard() {
             <Button
               type="submit"
               disabled={isLoggingIn}
-              className="w-full h-[52px] rounded-[14px] bg-gradient-primary shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] lg:hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] lg:hover:-translate-y-0.5 lg:active:translate-y-0 transition-all duration-200 text-text-primary font-semibold relative overflow-hidden"
+              className="w-full h-[52px] rounded-urbancare-2xl bg-gradient-primary shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] lg:hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] lg:hover:-translate-y-0.5 lg:active:translate-y-0 transition-all duration-200 text-text-primary font-semibold relative overflow-hidden"
             >
               <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent" />
               {isLoggingIn ? (
@@ -139,7 +139,7 @@ export function LoginFormCard() {
           </form>
         </Form>
         <div className={'text-center py-6 animate-slide-up'}>
-          <p className="text-text-secondary text-sm">
+          <p className="text-text-secondary text-urbancare-base">
             არ გაქვთ ანგარიში?{' '}
             <Link
               href="/auth/register"

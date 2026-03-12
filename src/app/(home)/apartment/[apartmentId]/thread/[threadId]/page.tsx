@@ -34,14 +34,14 @@ export default function ThreadPage() {
             onClick={() => router.back()}
             className={cn(
               'group flex items-center gap-2 self-start',
-              'px-2 py-1.5 rounded-lg',
+              'px-2 py-1.5 rounded-urbancare-lg',
               'text-text-secondary hover:text-text-primary',
               'hover:bg-surface-container',
               'transition-all duration-200 active:scale-95'
             )}
           >
             <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
-            <span className="text-sm font-medium">უკან დაბრუნება</span>
+            <span className="text-urbancare-base font-medium">უკან დაბრუნება</span>
           </button>
 
           <ThreadCard thread={data} className="px-3">

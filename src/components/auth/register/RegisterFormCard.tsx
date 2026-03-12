@@ -29,7 +29,7 @@ const Separator = () => {
   return (
     <div className="flex items-center gap-4 my-4">
       <div className="flex-1 h-px bg-text-muted" />
-      <span className="text-text-muted text-xs font-medium uppercase tracking-wide">
+      <span className="text-text-muted text-urbancare-sm font-medium uppercase tracking-wide">
         or
       </span>
       <div className="flex-1 h-px bg-text-muted" />
@@ -71,14 +71,14 @@ export function RegisterFormCard() {
   return (
     <Card
       className={
-        'border-border-light shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.04),0_12px_32px_rgba(0,0,0,0.06)] rounded-3xl animate-slide-up'
+        'border-border-light shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.04),0_12px_32px_rgba(0,0,0,0.06)] rounded-urbancare-4xl animate-slide-up'
       }
     >
       <CardContent className="p-8">
-        <h1 className="text-2xl font-bold text-center text-primary mb-2">
+        <h1 className="text-urbancare-5xl font-bold text-center text-primary mb-2">
           შექმენი ანგარიში
         </h1>
-        <p className="text-center text-secondary text-base mb-7">
+        <p className="text-center text-secondary text-urbancare-xl mb-7">
           შეუერთდი UrbanCare-ს
         </p>
 
@@ -101,7 +101,7 @@ export function RegisterFormCard() {
                       placeholder="სახელი"
                       disabled={isPending}
                       icon={<UserIcon className="text-icon" />}
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-surface text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-urbancare-xl border-[1.5px] border-border-medium bg-surface text-urbancare-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -118,7 +118,7 @@ export function RegisterFormCard() {
                       placeholder="გვარი"
                       disabled={isPending}
                       icon={<UserIcon className="text-icon" />}
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-surface text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-urbancare-xl border-[1.5px] border-border-medium bg-surface text-urbancare-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -136,7 +136,7 @@ export function RegisterFormCard() {
                       placeholder="ტელეფონი"
                       disabled={isPending}
                       icon={<PhoneIcon className="text-icon" />}
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-surface text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-urbancare-xl border-[1.5px] border-border-medium bg-surface text-urbancare-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -157,7 +157,7 @@ export function RegisterFormCard() {
                       type="password"
                       isPasswordType
                       disabled={isPending}
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-surface text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-urbancare-xl border-[1.5px] border-border-medium bg-surface text-urbancare-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -178,7 +178,7 @@ export function RegisterFormCard() {
                       type="password"
                       isPasswordType
                       disabled={isPending}
-                      className="h-[52px] rounded-xl border-[1.5px] border-border-medium bg-surface text-[15px] text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                      className="h-[52px] rounded-urbancare-xl border-[1.5px] border-border-medium bg-surface text-urbancare-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                       {...field}
                     />
                   </FormControl>
@@ -218,7 +218,7 @@ export function RegisterFormCard() {
                         onCheckedChange={(checked) => field.onChange(checked)}
                         disabled={isPending}
                       />
-                      <Label className="text-[13px] cursor-pointer text-text-secondary">
+                      <Label className="text-urbancare-md cursor-pointer text-text-secondary">
                         ვეთანხმები{' '}
                         <Link
                           href="/terms"
@@ -238,7 +238,7 @@ export function RegisterFormCard() {
             <Button
               type="submit"
               disabled={isPending}
-              className="w-full h-[52px] rounded-[14px] bg-gradient-primary shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] lg:hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] lg:hover:-translate-y-0.5 lg:active:translate-y-0 transition-all duration-200 text-white text-base font-semibold relative overflow-hidden"
+              className="w-full h-[52px] rounded-urbancare-2xl bg-gradient-primary shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] lg:hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] lg:hover:-translate-y-0.5 lg:active:translate-y-0 transition-all duration-200 text-white text-urbancare-xl font-semibold relative overflow-hidden"
             >
               <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent" />
               {isPending ? (
@@ -254,7 +254,7 @@ export function RegisterFormCard() {
         </Form>
 
         <div className={'text-center py-6 animate-slide-up'}>
-          <p className="text-text-secondary text-sm">
+          <p className="text-text-secondary text-urbancare-base">
             უკვე გაქვთ ანგარიში?{' '}
             <Link
               href="/auth/login"

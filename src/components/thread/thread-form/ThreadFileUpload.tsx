@@ -40,11 +40,11 @@ export const ThreadFileUpload = ({
       render={() => (
         <FormItem>
           <div className="flex items-center justify-between mb-3">
-            <FormLabel className="text-sm font-medium text-foreground-secondary flex items-center gap-2">
+            <FormLabel className="text-urbancare-base font-medium text-foreground-secondary flex items-center gap-2">
               <ImageIconLucid className="w-4 h-4 text-foreground-disabled" />
               მედია ფაილები
             </FormLabel>
-            <span className="text-xs text-foreground-tertiary">
+            <span className="text-urbancare-sm text-foreground-tertiary">
               {fileEntries.length}/5 ფაილი
             </span>
           </div>
@@ -67,14 +67,14 @@ export const ThreadFileUpload = ({
               className="w-full h-auto border-2 border-dashed border-border lg:hover:border-primary lg:hover:bg-primary/5 transition-all group"
             >
               <div className="flex flex-col items-center gap-2">
-                <div className="w-10 h-10 rounded-full bg-surface-container lg:group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+                <div className="w-10 h-10 rounded-urbancare-full bg-surface-container lg:group-hover:bg-primary/10 flex items-center justify-center transition-colors">
                   <Upload className="w-5 h-5 text-foreground-tertiary lg:group-hover:text-primary transition-colors" />
                 </div>
                 <div className="text-center">
-                  <p className="text-sm font-medium text-foreground-secondary">
+                  <p className="text-urbancare-base font-medium text-foreground-secondary">
                     ფოტოს ან ვიდეოს ატვირთვა
                   </p>
-                  <p className="text-xs text-foreground-tertiary mt-0.5">
+                  <p className="text-urbancare-sm text-foreground-tertiary mt-0.5">
                     მაქს. 5 ფაილი, თითო 10MB-მდე
                   </p>
                 </div>
@@ -84,11 +84,11 @@ export const ThreadFileUpload = ({
             {fileEntries.length > 0 && (
               <div className="space-y-2">
                 <div className="flex items-center justify-between px-1">
-                  <p className="text-xs font-medium text-foreground-tertiary">
+                  <p className="text-urbancare-sm font-medium text-foreground-tertiary">
                     ატვირთული ფაილები
                   </p>
                   {fileEntries.length > 3 && (
-                    <p className="text-xs text-foreground-disabled">
+                    <p className="text-urbancare-sm text-foreground-disabled">
                       ← გადაფურცლეთ →
                     </p>
                   )}
@@ -97,11 +97,11 @@ export const ThreadFileUpload = ({
                 <div className="relative">
                   {fileEntries.length > 3 && (
                     <>
-                      <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-surface to-transparent z-10 pointer-events-none rounded-l-xl" />
-                      <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-surface to-transparent z-10 pointer-events-none rounded-r-xl" />
+                      <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-surface to-transparent z-10 pointer-events-none rounded-l-urbancare-xl" />
+                      <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-surface to-transparent z-10 pointer-events-none rounded-r-urbancare-xl" />
                     </>
                   )}
-                  <div className="overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide bg-surface-variant rounded-xl p-3">
+                  <div className="overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide bg-surface-variant rounded-urbancare-xl p-3">
                     <div className="flex gap-3">
                       {fileEntries.map((file, index) => {
                         if (!file || !file.previewUrl) return null;
@@ -110,7 +110,7 @@ export const ThreadFileUpload = ({
                             key={index}
                             className="flex-shrink-0 relative group"
                           >
-                            <div className="w-20 h-20 rounded-lg overflow-hidden bg-surface border-2 shadow-sm lg:hover:shadow-md transition-all duration-300 lg:hover:scale-105 lg:hover:border-primary/50 relative">
+                            <div className="w-20 h-20 rounded-urbancare-lg overflow-hidden bg-surface border-2 shadow-sm lg:hover:shadow-md transition-all duration-300 lg:hover:scale-105 lg:hover:border-primary/50 relative">
                               {file.file.type.startsWith('image/') ? (
                                 <img
                                   src={file.previewUrl}
@@ -126,21 +126,21 @@ export const ThreadFileUpload = ({
                               <button
                                 type="button"
                                 onClick={() => onRemoveFile(index)}
-                                className="absolute -top-2 -right-2 p-1.5 bg-error text-error-foreground rounded-full opacity-0 lg:group-hover:opacity-100 transition-all duration-200 lg:hover:bg-error/80 lg:hover:scale-110 shadow-lg z-20"
+                                className="absolute -top-2 -right-2 p-1.5 bg-error text-error-foreground rounded-urbancare-full opacity-0 lg:group-hover:opacity-100 transition-all duration-200 lg:hover:bg-error/80 lg:hover:scale-110 shadow-lg z-20"
                               >
                                 <X className="w-3 h-3" />
                               </button>
 
                               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 lg:group-hover:opacity-100 transition-opacity">
                                 <div className="absolute bottom-1 left-1 right-1">
-                                  <p className="text-xs font-medium text-primary-foreground truncate">
+                                  <p className="text-urbancare-sm font-medium text-primary-foreground truncate">
                                     {(file.file.size / 1024 / 1024).toFixed(1)}{' '}
                                     MB
                                   </p>
                                 </div>
                               </div>
 
-                              <div className="absolute top-1 left-1 w-5 h-5 bg-primary text-primary-foreground text-xs rounded-full flex items-center justify-center font-semibold shadow-sm">
+                              <div className="absolute top-1 left-1 w-5 h-5 bg-primary text-primary-foreground text-urbancare-sm rounded-urbancare-full flex items-center justify-center font-semibold shadow-sm">
                                 {index + 1}
                               </div>
                             </div>
@@ -154,7 +154,7 @@ export const ThreadFileUpload = ({
             )}
           </div>
 
-          <FormMessage className="text-xs" />
+          <FormMessage className="text-urbancare-sm" />
         </FormItem>
       )}
     />

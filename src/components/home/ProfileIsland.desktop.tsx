@@ -37,7 +37,7 @@ export const ProfileIslandDesktop = () => {
     >
       <button
         className={cn(
-          'relative w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0',
+          'relative w-10 h-10 rounded-urbancare-xl flex items-center justify-center flex-shrink-0',
           'bg-surface border border-border',
           'hover:bg-surface-hover hover:border-border-hover',
           'text-icon hover:text-text-primary',
@@ -48,7 +48,7 @@ export const ProfileIslandDesktop = () => {
       </button>
       <button
         className={cn(
-          'relative w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0',
+          'relative w-10 h-10 rounded-urbancare-xl flex items-center justify-center flex-shrink-0',
           'bg-surface border border-border',
           'hover:bg-surface-hover hover:border-border-hover',
           'text-icon hover:text-text-primary',
@@ -59,7 +59,7 @@ export const ProfileIslandDesktop = () => {
       </button>
       <button
         className={cn(
-          'relative w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0',
+          'relative w-10 h-10 rounded-urbancare-xl flex items-center justify-center flex-shrink-0',
           'bg-surface border border-border',
           'hover:bg-surface-hover hover:border-border-hover',
           'text-icon hover:text-text-primary',
@@ -73,7 +73,7 @@ export const ProfileIslandDesktop = () => {
         <PopoverTrigger asChild>
           <div
             className={cn(
-              'min-w-0 flex items-center justify-end gap-3 px-2 py-1.5 rounded-xl cursor-pointer',
+              'min-w-0 flex items-center justify-end gap-3 px-2 py-1.5 rounded-urbancare-xl cursor-pointer',
               'bg-surface border border-transparent',
               'hover:bg-surface-hover hover:border-border',
               'shadow-sm shadow-shadow/5',
@@ -84,7 +84,7 @@ export const ProfileIslandDesktop = () => {
 
             {/* Name + apartment */}
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold leading-tight text-text-primary truncate">
+              <p className="text-urbancare-base font-semibold leading-tight text-text-primary truncate">
                 {displayName}
               </p>
               {apartmentName && (
@@ -96,7 +96,7 @@ export const ProfileIslandDesktop = () => {
                   )}
                   <span
                     className={cn(
-                      'text-[11px] leading-tight truncate',
+                      'text-urbancare-xs leading-tight truncate',
                       isManager
                         ? 'font-semibold text-tertiary'
                         : 'text-text-secondary',
@@ -112,8 +112,8 @@ export const ProfileIslandDesktop = () => {
             {isManager && (
               <span
                 className={cn(
-                  'flex-shrink-0 inline-flex px-2 py-0.5 rounded-full',
-                  'text-[10px] font-bold tracking-wide',
+                  'flex-shrink-0 inline-flex px-2 py-0.5 rounded-urbancare-full',
+                  'text-urbancare-2xs font-bold tracking-wide',
                   'bg-tertiary-container text-tertiary-container-foreground',
                 )}
               >
@@ -132,15 +132,15 @@ export const ProfileIslandDesktop = () => {
           className={cn(
             'w-[var(--radix-popover-trigger-width)] p-0 overflow-hidden',
             'bg-surface border border-border',
-            'rounded-2xl shadow-xl shadow-shadow/10',
+            'rounded-urbancare-3xl shadow-xl shadow-shadow/10',
           )}
         >
           <div className="p-3 space-y-3">
             {/* Theme section */}
             <div>
               <div className="flex items-center gap-1.5 mb-2 px-1">
-                <div className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-sm shadow-amber-400/50" />
-                <p className="text-[10px] font-bold text-text-secondary uppercase tracking-widest">
+                <div className="w-1.5 h-1.5 rounded-urbancare-full bg-amber-400 shadow-sm shadow-amber-400/50" />
+                <p className="text-urbancare-2xs font-bold text-text-secondary uppercase tracking-widest">
                   ფონი
                 </p>
               </div>

@@ -19,7 +19,7 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
 
   return (
     <div className={cn('flex gap-2 px-1 items-center', className)}>
-      <Avatar className="cursor-pointer w-10 h-10 rounded-full ring-2 ring-border">
+      <Avatar className="cursor-pointer w-10 h-10 rounded-urbancare-full ring-2 ring-border">
         <Image
           src={getClientFileUrl(user?.profileImageId)}
           alt="@shadcn"
@@ -30,7 +30,7 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
       </Avatar>
       <div className="flex-1">
         <div
-          className="flex items-center rounded-full px-4 py-2 h-10 bg-surface-container transition-colors mr-auto text-sm text-muted-foreground lg:hover:bg-surface-hover lg:cursor-pointer"
+          className="flex items-center rounded-urbancare-full px-4 py-2 h-10 bg-surface-container transition-colors mr-auto text-urbancare-base text-muted-foreground lg:hover:bg-surface-hover lg:cursor-pointer"
           onClick={threadDrawer.openDrawer}
         >
           რისი გაზიარება გსურთ?

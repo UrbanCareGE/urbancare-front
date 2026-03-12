@@ -75,14 +75,14 @@ const OverlayPageHeader = ({
         {showBack && (
           <ArrowLeft className="w-7 h-7 text-icon" onClick={onClose} />
         )}
-        {title && <h1 className="font-semibold text-lg">{title}</h1>}
+        {title && <h1 className="font-semibold text-urbancare-2xl">{title}</h1>}
         {children}
       </div>
 
       {showClose && (
         <button
           onClick={onClose}
-          className="p-1.5 lg:hover:bg-surface-variant rounded-full transition-colors text-foreground-secondary lg:hover:text-foreground-primary"
+          className="p-1.5 lg:hover:bg-surface-variant rounded-urbancare-full transition-colors text-foreground-secondary lg:hover:text-foreground-primary"
         >
           <X className="h-5 w-1" />
         </button>

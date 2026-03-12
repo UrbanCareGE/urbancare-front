@@ -101,7 +101,7 @@ const PersonalCarsForm = () => {
 
   return (
     <div className="w-full space-y-3">
-      <h3 className="text-lg text-text-primary font-semibold flex items-center">
+      <h3 className="text-urbancare-2xl text-text-primary font-semibold flex items-center">
         მანქანის ნომრები
         {isMobile ? (
           <Popover>
@@ -136,7 +136,7 @@ const PersonalCarsForm = () => {
           onClick={handleStartEditing}
           disabled={isEditing || isAdding}
           className={cn(
-            'w-6 h-6 flex justify-center items-center ml-auto bg-primary rounded-full text-sm transition-all lg:hover:bg-primary/80 lg:hover:scale-110 lg:active:scale-95',
+            'w-6 h-6 flex justify-center items-center ml-auto bg-primary rounded-urbancare-full text-urbancare-base transition-all lg:hover:bg-primary/80 lg:hover:scale-110 lg:active:scale-95',
             (isEditing || isAdding) && 'opacity-50 cursor-not-allowed'
           )}
         >
@@ -145,11 +145,11 @@ const PersonalCarsForm = () => {
       </h3>
 
       {isCarFetching ? (
-        <p className="text-base text-center text-text-secondary">
+        <p className="text-urbancare-xl text-center text-text-secondary">
           იტვირთება...
         </p>
       ) : cars.length === 0 && !isEditing ? (
-        <p className={'text-base text-center text-text-primary'}>
+        <p className={'text-urbancare-xl text-center text-text-primary'}>
           ამჟამად თქვენ ანგარიშზე მანქანა <br /> არ არის დამატებული
         </p>
       ) : (
@@ -177,13 +177,13 @@ const PersonalCarsForm = () => {
           />
           <button
             onClick={handleAddCar}
-            className="w-8 h-8 flex justify-center items-center bg-success lg:hover:bg-success-hover lg:active:scale-95 rounded-full transition-colors duration-200"
+            className="w-8 h-8 flex justify-center items-center bg-success lg:hover:bg-success-hover lg:active:scale-95 rounded-urbancare-full transition-colors duration-200"
           >
             <Check size={18} className="text-white" />
           </button>
           <button
             onClick={handleCancel}
-            className="w-8 h-8 flex justify-center items-center bg-error lg:hover:bg-error-hover lg:active:scale-95 rounded-full transition-colors duration-200"
+            className="w-8 h-8 flex justify-center items-center bg-error lg:hover:bg-error-hover lg:active:scale-95 rounded-urbancare-full transition-colors duration-200"
           >
             <X size={18} className="text-white" />
           </button>
@@ -232,7 +232,7 @@ const Chip = ({
 }: ChipProps) => {
   return (
     <Badge
-      className={cn('text-lg flex items-center gap-1.5 pr-1.5', className)}
+      className={cn('text-urbancare-2xl flex items-center gap-1.5 pr-1.5', className)}
       {...props}
     >
       {children}
@@ -243,7 +243,7 @@ const Chip = ({
             onDelete();
           }}
           disabled={disabled}
-          className="ml-0.5 p-0.5 rounded-full lg:hover:bg-white/20 lg:active:scale-90 transition-colors disabled:opacity-50"
+          className="ml-0.5 p-0.5 rounded-urbancare-full lg:hover:bg-white/20 lg:active:scale-90 transition-colors disabled:opacity-50"
         >
           <X size={14} className="text-white/70" />
         </button>

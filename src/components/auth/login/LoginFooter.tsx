@@ -9,7 +9,7 @@ export const LoginFooter = ({ className }: LoginFooterProps) => {
   return (
     <div>
       {/*<div className={`text-center py-6 ${mounted ? 'animate-slide-up' : 'opacity-0'}`}>*/}
-      {/*    <p className="text-text-secondary text-sm">*/}
+      {/*    <p className="text-text-secondary text-urbancare-base">*/}
       {/*        არ გაქვთ ანგარიში?{" "}*/}
       {/*        <Link*/}
       {/*            href="/auth/register"*/}
@@ -22,7 +22,7 @@ export const LoginFooter = ({ className }: LoginFooterProps) => {
 
       {/*/!* Terms *!/*/}
       {/*<div className={`text-center pb-8 ${mounted ? 'animate-slide-up' : 'opacity-0'}`}>*/}
-      {/*    <p className="text-text-muted text-xs leading-relaxed">*/}
+      {/*    <p className="text-text-muted text-urbancare-sm leading-relaxed">*/}
       {/*        By continuing, you agree to our{" "}*/}
       {/*        <Link href="/terms"*/}
       {/*              className="text-text-secondary underline underline-offset-2 hover:text-primary">*/}

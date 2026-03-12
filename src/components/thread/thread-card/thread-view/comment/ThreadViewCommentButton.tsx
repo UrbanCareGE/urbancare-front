@@ -66,7 +66,7 @@ export const ThreadViewCommentButton = ({
           value={commentText}
           onChange={(e) => setCommentText(e.target.value)}
           rows={1}
-          className="w-full px-4 py-2.5 pr-11 bg-surface-container border-none rounded-full focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all resize-none text-sm text-text-primary placeholder:text-text-tertiary"
+          className="w-full px-4 py-2.5 pr-11 bg-surface-container border-none rounded-urbancare-full focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all resize-none text-urbancare-base text-text-primary placeholder:text-text-tertiary"
           style={{ minHeight: '40px', maxHeight: '100px' }}
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
@@ -78,7 +78,7 @@ export const ThreadViewCommentButton = ({
         <button
           onClick={handleAddComment}
           disabled={!commentText.trim()}
-          className="absolute right-2 bottom-1.5 h-8 w-8 rounded-full bg-primary lg:hover:bg-primary/80 lg:active:scale-90 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center transition-all duration-150"
+          className="absolute right-2 bottom-1.5 h-8 w-8 rounded-urbancare-full bg-primary lg:hover:bg-primary/80 lg:active:scale-90 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center transition-all duration-150"
         >
           <Send className="w-4 h-4 text-white" />
         </button>

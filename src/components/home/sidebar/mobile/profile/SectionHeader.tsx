@@ -8,7 +8,7 @@ type SectionHeaderProps = {
 export const SectionHeader = ({ value, className }: SectionHeaderProps) => {
   return (
     <TypographyLead
-      className={'text-start text-text-secondary font-semibold text-xl my-2'}
+      className={'text-start text-text-secondary font-semibold text-urbancare-3xl my-2'}
     >
       {value}
     </TypographyLead>

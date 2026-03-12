@@ -39,7 +39,7 @@ const CarsSearchList = ({ cars }: CarsSearchListProps) => {
         ) : (
           filteredCars.map((car) => (
             <Card key={car.id} className="mb-4 px-3 py-2">
-              <h3 className="font-semibold text-lg">{car.licensePlate}</h3>
+              <h3 className="font-semibold text-urbancare-2xl">{car.licensePlate}</h3>
               <Separator className="mt-1" />
               <p className="mt-2 text-text-primary">{car.name}</p>
               <p className="text-text-secondary">{car.phone}</p>

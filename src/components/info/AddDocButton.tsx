@@ -152,13 +152,13 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
             render={({ field }) => (
               <FormItem>
                 <div className="flex items-center justify-between mb-2">
-                  <FormLabel className="text-sm font-medium text-text-primary flex items-center gap-2">
+                  <FormLabel className="text-urbancare-base font-medium text-text-primary flex items-center gap-2">
                     <FileText className="w-4 h-4 text-icon" />
                     აღწერა <span className="text-red-500">*</span>
                   </FormLabel>
                   <span
                     className={cn(
-                      'text-xs font-medium transition-colors',
+                      'text-urbancare-sm font-medium transition-colors',
                       titleLength > 90
                         ? 'text-red-600'
                         : titleLength > 70
@@ -177,7 +177,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage className="text-xs" />
+                <FormMessage className="text-urbancare-sm" />
               </FormItem>
             )}
           />
@@ -188,16 +188,16 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
             name="type"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-sm font-medium text-text-primary mb-2 block">
+                <FormLabel className="text-urbancare-base font-medium text-text-primary mb-2 block">
                   დოკუმენტის ტიპი
                 </FormLabel>
                 <FormControl>
-                  <div className="flex rounded-lg p-1 bg-surface">
+                  <div className="flex rounded-urbancare-lg p-1 bg-surface">
                     <button
                       type="button"
                       onClick={() => field.onChange('TEXT')}
                       className={cn(
-                        'flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-md text-sm font-medium transition-all',
+                        'flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-urbancare-md text-urbancare-base font-medium transition-all',
                         field.value === 'TEXT'
                           ? 'text-white/80 bg-primary lg:hover:text-white lg:hover:bg-primary/90 shadow-sm lg:active:scale-[0.98]'
                           : 'bg-surface text-text-primary'
@@ -210,7 +210,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                       type="button"
                       onClick={() => field.onChange('PDF')}
                       className={cn(
-                        'flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-md text-sm font-medium transition-all',
+                        'flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-urbancare-md text-urbancare-base font-medium transition-all',
                         field.value === 'PDF'
                           ? 'text-white/80 bg-primary lg:hover:text-white lg:hover:bg-primary/90 shadow-sm lg:active:scale-[0.98]'
                           : 'bg-surface text-text-primary'
@@ -221,7 +221,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                     </button>
                   </div>
                 </FormControl>
-                <FormMessage className="text-xs" />
+                <FormMessage className="text-urbancare-sm" />
               </FormItem>
             )}
           />
@@ -234,13 +234,13 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
               render={({ field }) => (
                 <FormItem>
                   <div className="flex items-center justify-between mb-2">
-                    <FormLabel className="text-sm font-medium text-text-primary flex items-center gap-2">
+                    <FormLabel className="text-urbancare-base font-medium text-text-primary flex items-center gap-2">
                       <FileText className="w-4 h-4 text-icon" />
                       ტექსტი <span className="text-red-500">*</span>
                     </FormLabel>
                     <span
                       className={cn(
-                        'text-xs font-medium transition-colors',
+                        'text-urbancare-sm font-medium transition-colors',
                         textLength > 4500
                           ? 'text-red-600'
                           : textLength > 4000
@@ -259,7 +259,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className="text-xs" />
+                  <FormMessage className="text-urbancare-sm" />
                 </FormItem>
               )}
             />
@@ -273,11 +273,11 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
               render={() => (
                 <FormItem>
                   <div className="flex items-center justify-between mb-2">
-                    <FormLabel className="text-sm font-medium text-text-primary flex items-center gap-2">
+                    <FormLabel className="text-urbancare-base font-medium text-text-primary flex items-center gap-2">
                       <Paperclip className="w-4 h-4 text-icon" />
                       ფაილები <span className="text-red-500">*</span>
                     </FormLabel>
-                    <span className="text-xs text-text-secondary">
+                    <span className="text-urbancare-sm text-text-secondary">
                       {uploadedFiles.length}/10 ფაილი
                     </span>
                   </div>
@@ -299,14 +299,14 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                     className="w-full h-auto bg-surface border-2 border-dashed border-border-medium lg:hover:border-primary lg:hover:bg-primary/5 transition-all group"
                   >
                     <div className="flex flex-col items-center gap-2 py-4">
-                      <div className="w-10 h-10 rounded-full bg-surface-container lg:group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+                      <div className="w-10 h-10 rounded-urbancare-full bg-surface-container lg:group-hover:bg-primary/10 flex items-center justify-center transition-colors">
                         <Upload className="w-5 h-5 text-text-secondary lg:group-hover:text-primary transition-colors" />
                       </div>
                       <div className="text-center">
-                        <p className="text-sm font-medium text-text-primary">
+                        <p className="text-urbancare-base font-medium text-text-primary">
                           {isUploading ? 'იტვირთება...' : 'ფაილის ატვირთვა'}
                         </p>
-                        <p className="text-xs text-text-secondary mt-0.5">
+                        <p className="text-urbancare-sm text-text-secondary mt-0.5">
                           PDF, DOC, XLS, TXT
                         </p>
                       </div>
@@ -319,18 +319,18 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                       {uploadedFiles.map((file) => (
                         <div
                           key={file.id}
-                          className="flex items-center justify-between p-3 bg-surface rounded-lg border border-border"
+                          className="flex items-center justify-between p-3 bg-surface rounded-urbancare-lg border border-border"
                         >
                           <div className="flex items-center gap-2">
                             <Paperclip className="w-4 h-4 text-icon" />
-                            <span className="text-sm text-text-primary truncate max-w-[200px]">
+                            <span className="text-urbancare-base text-text-primary truncate max-w-[200px]">
                               {file.name}
                             </span>
                           </div>
                           <button
                             type="button"
                             onClick={() => handleRemoveFile(file.id)}
-                            className="p-1 lg:hover:bg-surface-container lg:active:scale-90 rounded transition-colors"
+                            className="p-1 lg:hover:bg-surface-container lg:active:scale-90 rounded-urbancare-sm transition-colors"
                           >
                             <X className="w-4 h-4 text-text-secondary" />
                           </button>
@@ -339,7 +339,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                     </div>
                   )}
 
-                  <FormMessage className="text-xs" />
+                  <FormMessage className="text-urbancare-sm" />
                 </FormItem>
               )}
             />
@@ -354,7 +354,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
               !titleLength ||
               (docType === 'TEXT' ? !textLength : !uploadedFiles.length)
             }
-            className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-primary/90 lg:hover:from-primary/90 lg:hover:to-primary lg:hover:-translate-y-0.5 lg:active:translate-y-0 shadow-lg shadow-primary/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full h-12 text-urbancare-xl font-semibold bg-gradient-to-r from-primary to-primary/90 lg:hover:from-primary/90 lg:hover:to-primary lg:hover:-translate-y-0.5 lg:active:translate-y-0 shadow-lg shadow-primary/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4" />

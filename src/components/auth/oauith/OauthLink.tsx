@@ -16,7 +16,7 @@ export const OauthLink = ({ children, className, href }: OauthLinkProps) => {
         'flex items-center justify-center',
         'p-4',
         'bg-surface border border-border',
-        'rounded-full shadow-2xl',
+        'rounded-urbancare-full shadow-2xl',
         'lg:hover:bg-surface-hover lg:hover:border-border-hover',
         'transition-colors duration-200',
         'font-medium',

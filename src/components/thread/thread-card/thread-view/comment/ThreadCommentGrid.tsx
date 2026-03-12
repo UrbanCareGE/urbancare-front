@@ -23,14 +23,14 @@ export const ThreadCommentGrid = ({ className }: ThreadCommentsProps) => {
 
       {thread.comments.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12 gap-3">
-          <div className="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center">
+          <div className="w-12 h-12 rounded-urbancare-full bg-surface-container flex items-center justify-center">
             <MessageCircle className="w-6 h-6 text-text-tertiary" />
           </div>
           <div className="text-center">
-            <p className="text-sm font-medium text-text-secondary">
+            <p className="text-urbancare-base font-medium text-text-secondary">
               კომენტარები ჯერ არ არის
             </p>
-            <p className="text-xs text-text-tertiary mt-1">
+            <p className="text-urbancare-sm text-text-tertiary mt-1">
               იყავი პირველი ვინც დაწერს კომენტარს
             </p>
           </div>

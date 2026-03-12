@@ -20,7 +20,7 @@ export const ThreadTagLimitDialog = ({
 }: ThreadTagLimitDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[calc(100%-2rem)] max-w-md rounded-2xl border-border">
+      <DialogContent className="w-[calc(100%-2rem)] max-w-md rounded-urbancare-3xl border-border">
         <DialogHeader>
           <DialogTitle>თეგების ლიმიტი</DialogTitle>
           <DialogDescription>

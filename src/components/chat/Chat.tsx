@@ -11,7 +11,7 @@ export const Chat = () => {
   const { theme } = useTheme();
 
   if (isFetchingChat) {
-    return <Skeleton className="w-full rounded-md flex-1 min-h-0" />;
+    return <Skeleton className="w-full rounded-urbancare-md flex-1 min-h-0" />;
   }
 
   if (!data) {
@@ -27,7 +27,7 @@ export const Chat = () => {
       style={{ width: '100%', flex: 1 }}
       theme={chatTheme}
       loadingComponent={
-        <Skeleton className="h-full w-full rounded-md flex-1 scrollbar-hide overflow-y-scroll" />
+        <Skeleton className="h-full w-full rounded-urbancare-md flex-1 scrollbar-hide overflow-y-scroll" />
       }
     />
   );

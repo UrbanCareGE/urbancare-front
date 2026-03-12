@@ -36,7 +36,7 @@ export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorPro
               type="button"
               onClick={() => setTheme(id)}
               className={cn(
-                'group w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl border transition-all duration-200 text-left',
+                'group w-full flex items-center gap-2.5 px-2.5 py-2 rounded-urbancare-xl border transition-all duration-200 text-left',
                 isActive
                   ? 'bg-primary-container border-primary/30 shadow-sm'
                   : 'bg-primary-container border-border hover:bg-surface-hover hover:border-border'
@@ -44,7 +44,7 @@ export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorPro
             >
               <div
                 className={cn(
-                  'w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-200',
+                  'w-8 h-8 rounded-urbancare-lg flex items-center justify-center flex-shrink-0 transition-all duration-200',
                   isActive ? s.active : s.base
                 )}
               >
@@ -53,19 +53,19 @@ export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorPro
               <div className="flex-1 min-w-0">
                 <p
                   className={cn(
-                    'text-sm font-semibold leading-tight',
+                    'text-urbancare-base font-semibold leading-tight',
                     isActive ? 'text-primary' : 'text-text-primary'
                   )}
                 >
                   {label}
                 </p>
-                <p className="text-[10px] leading-tight text-text-secondary mt-0.5 truncate">
+                <p className="text-urbancare-2xs leading-tight text-text-secondary mt-0.5 truncate">
                   {desc}
                 </p>
               </div>
               <div
                 className={cn(
-                  'w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center transition-all duration-200',
+                  'w-5 h-5 rounded-urbancare-full flex-shrink-0 flex items-center justify-center transition-all duration-200',
                   isActive
                     ? 'bg-primary scale-100 opacity-100'
                     : 'bg-surface-container scale-75 opacity-0'
@@ -104,17 +104,17 @@ export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorPro
             type="button"
             onClick={() => setTheme(id)}
             className={cn(
-              'flex flex-col items-center justify-center gap-2 py-3.5 px-2 rounded-xl border transition-all duration-200',
+              'flex flex-col items-center justify-center gap-2 py-3.5 px-2 rounded-urbancare-xl border transition-all duration-200',
               isActive
                 ? 'bg-primary-container border-primary/30 shadow-sm'
                 : 'bg-background border-transparent hover:bg-surface-hover hover:border-border'
             )}
           >
             {/* Icon bubble */}
-            <div className={cn('w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200', isActive ? s.active : s.base)}>
+            <div className={cn('w-10 h-10 rounded-urbancare-xl flex items-center justify-center transition-all duration-200', isActive ? s.active : s.base)}>
               <Icon className={cn('w-5 h-5', s.icon)} />
             </div>
-            <span className={cn('text-xs font-semibold text-center', isActive ? 'text-primary' : 'text-text-primary')}>
+            <span className={cn('text-urbancare-sm font-semibold text-center', isActive ? 'text-primary' : 'text-text-primary')}>
               {label}
             </span>
           </button>

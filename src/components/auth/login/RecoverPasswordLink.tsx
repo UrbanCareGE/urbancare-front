@@ -6,7 +6,7 @@ export const RecoverPasswordLink = () => {
     <Link
       href={'/public'}
       className={
-        'text-sm inline text-text-placeholder font-semibold text-end underline'
+        'text-urbancare-base inline text-text-placeholder font-semibold text-end underline'
       }
     >
       პაროლის აღდგენა

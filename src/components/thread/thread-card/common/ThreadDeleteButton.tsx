@@ -22,9 +22,9 @@ export const ThreadDeleteButton = () => {
         router.push(`/apartment/${apartmentId}/post`);
       }}
       disabled={isPending}
-      className="flex w-full items-center gap-3 px-2 py-2 text-sm rounded-lg lg:hover:bg-error/5 transition-colors duration-150 disabled:opacity-50"
+      className="flex w-full items-center gap-3 px-2 py-2 text-urbancare-base rounded-urbancare-lg lg:hover:bg-error/5 transition-colors duration-150 disabled:opacity-50"
     >
-      <div className="w-8 h-8 rounded-lg bg-error-container flex items-center justify-center shrink-0">
+      <div className="w-8 h-8 rounded-urbancare-lg bg-error-container flex items-center justify-center shrink-0">
         {isPending ? (
           <Spinner className="w-4 h-4 text-error" />
         ) : (
