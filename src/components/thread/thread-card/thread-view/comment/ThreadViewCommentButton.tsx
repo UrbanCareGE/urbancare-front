@@ -10,6 +10,7 @@ import { ThreadInfoDTO } from '@/model/dto/thread.dto';
 import { useParams } from 'next/navigation';
 import { useSearchParams } from 'next/dist/client/components/navigation';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/i18n';
 
 type ThreadViewCommentButtonProps = {
   thread: ThreadInfoDTO;
@@ -22,6 +23,7 @@ export const ThreadViewCommentButton = ({
 }: ThreadViewCommentButtonProps) => {
   const [commentText, setCommentText] = useState('');
   const { user } = useAuth();
+  const t = useTranslation();
   const { apartmentId } = useParams<{ apartmentId: string }>();
   const commentRef = useRef<HTMLTextAreaElement | null>(null);
   const searchParams = useSearchParams();
@@ -62,7 +64,7 @@ export const ThreadViewCommentButton = ({
       <div className="flex-1 relative">
         <Textarea
           ref={commentRef}
-          placeholder="დაწერეთ კომენტარი..."
+          placeholder={t.thread.writeComment}
           value={commentText}
           onChange={(e) => setCommentText(e.target.value)}
           rows={1}

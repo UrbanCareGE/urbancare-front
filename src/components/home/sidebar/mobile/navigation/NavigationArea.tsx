@@ -16,6 +16,7 @@ import React from 'react';
 import { NavigationLinkAccordion } from '@/components/home/sidebar/mobile/navigation/NavigationLinkAccordion';
 import { useParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/i18n';
 
 export type NavChildItem = {
   href: string; // Relative to parent
@@ -37,90 +38,90 @@ export type NavGroup = {
 };
 
 // Grouped navigation — exported for reuse
-export const getNavigationGroups = (apartmentId: string): NavGroup[] => [
+export const getNavigationGroups = (apartmentId: string, t: ReturnType<typeof useTranslation>): NavGroup[] => [
   {
     // No label for top-level quick-access items
     items: [
       {
         href: `/apartment/${apartmentId}/urgent`,
-        label: 'სასწრაფო',
+        label: t.nav.urgent,
         icon: <ShieldAlertIcon className="w-4 h-4" />,
         className: 'bg-error-container text-error-container-foreground',
       },
       {
         href: `/apartment/${apartmentId}/post/news`,
-        label: 'სიახლეები',
+        label: t.nav.news,
         icon: <MegaphoneIcon className="w-4 h-4" />,
         className: 'bg-primary-container text-primary-container-foreground',
       },
     ],
   },
   {
-    label: 'კომუნიტი',
+    label: t.sidebar.community,
     items: [
       {
         href: `/apartment/${apartmentId}/post/services`,
-        label: 'სერვისები',
+        label: t.sidebar.services,
         icon: <PocketKnifeIcon className="w-4 h-4" />,
         className: 'bg-secondary-container text-secondary-container-foreground',
         navigable: true,
         children: [
-          { href: 'learn', label: 'განათლება' },
-          { href: 'sport', label: 'ფიტნესი' },
-          { href: 'vet', label: 'ვეტი' },
-          { href: 'craft', label: 'ხელობა' },
-          { href: 'other', label: 'სხვა' },
+          { href: 'learn', label: t.sidebar.education },
+          { href: 'sport', label: t.sidebar.fitness },
+          { href: 'vet', label: t.sidebar.vet },
+          { href: 'craft', label: t.sidebar.craft },
+          { href: 'other', label: t.sidebar.other },
         ],
       },
       {
         href: `/apartment/${apartmentId}/post/requests`,
-        label: 'მოთხოვნები',
+        label: t.sidebar.requests,
         icon: <ClipboardListIcon className="w-4 h-4" />,
         className: 'bg-primary-container text-primary-container-foreground',
       },
       {
         href: `/apartment/${apartmentId}/post/maintenance`,
-        label: 'მიმდინარე სამუშაოები',
+        label: t.sidebar.currentWork,
         icon: <PaintRollerIcon className="w-4 h-4" />,
         className: 'bg-primary-container text-primary-container-foreground',
       },
       {
         href: `/apartment/${apartmentId}/post/notice`,
-        label: 'განცხადებები',
+        label: t.sidebar.announcements,
         icon: <ScrollTextIcon className="w-4 h-4" />,
         className: 'bg-primary-container text-primary-container-foreground',
         navigable: true,
         children: [
-          { href: 'apartment', label: 'ბინა' },
-          { href: 'car', label: 'მანქანა' },
-          { href: 'parking', label: 'პარკინგი' },
+          { href: 'apartment', label: t.sidebar.apartment },
+          { href: 'car', label: t.sidebar.car },
+          { href: 'parking', label: t.sidebar.parking },
         ],
       },
     ],
   },
   {
-    label: 'შენობა',
+    label: t.sidebar.building,
     items: [
       {
         href: `/apartment/${apartmentId}/documents`,
-        label: 'დოკუმენტები',
+        label: t.sidebar.documents,
         icon: <FileUser className="w-4 h-4" />,
         className: 'bg-primary-container text-primary-container-foreground',
       },
       {
         href: `/apartment/${apartmentId}/info`,
-        label: 'ინფორმაცია',
+        label: t.sidebar.information,
         icon: <BookOpenIcon className="w-4 h-4" />,
         className: 'bg-primary-container text-primary-container-foreground',
         children: [
-          { href: 'contact', label: 'კონტაქტები' },
-          { href: 'docs', label: 'წესდება' },
-          { href: 'cars', label: 'ავტომობილები' },
+          { href: 'contact', label: t.sidebar.contacts },
+          { href: 'docs', label: t.sidebar.rules },
+          { href: 'cars', label: t.sidebar.vehicles },
         ],
       },
       {
         href: `/apartment/${apartmentId}/finance`,
-        label: 'ფინანსები',
+        label: t.sidebar.finances,
         icon: <LandmarkIcon className="w-4 h-4" />,
         className: 'bg-primary-container text-primary-container-foreground',
       },
@@ -129,8 +130,8 @@ export const getNavigationGroups = (apartmentId: string): NavGroup[] => [
 ];
 
 // Backward-compat flat list
-export const getNavigationItems = (apartmentId: string) =>
-  getNavigationGroups(apartmentId).flatMap((g) => g.items);
+export const getNavigationItems = (apartmentId: string, t: ReturnType<typeof useTranslation>) =>
+  getNavigationGroups(apartmentId, t).flatMap((g) => g.items);
 
 type NavigationAreaProps = {
   inSheet?: boolean;
@@ -139,7 +140,8 @@ type NavigationAreaProps = {
 
 const NavigationArea = ({ inSheet = true, className }: NavigationAreaProps) => {
   const { apartmentId } = useParams<{ apartmentId: string }>();
-  const groups = apartmentId ? getNavigationGroups(apartmentId) : [];
+  const t = useTranslation();
+  const groups = apartmentId ? getNavigationGroups(apartmentId, t) : [];
 
   return (
     <nav className={cn('w-full flex flex-col', className)}>

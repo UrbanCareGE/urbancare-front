@@ -5,9 +5,11 @@ import { LogOut } from 'lucide-react';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { Spinner } from '@/components/ui/spinner';
 import React from 'react';
+import { useTranslation } from '@/i18n';
 
 export const LogoutButton = () => {
   const { logOut, isLoggingOut } = useAuth();
+  const t = useTranslation();
 
   const handleLogout = () => {
     logOut();
@@ -19,7 +21,7 @@ export const LogoutButton = () => {
       disabled={isLoggingOut}
     >
       <LogOut className="w-5 h-5" />
-      გასვლა
+      {t.auth.signOut}
       {isLoggingOut && <Spinner />}
     </Button>
   );

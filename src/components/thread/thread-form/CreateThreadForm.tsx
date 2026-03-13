@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -13,17 +13,20 @@ import {
 } from '@/components/thread/data/create-thread-schema';
 import { CreateThreadFormView } from '@/components/thread/thread-form/CreateThreadFormView';
 import { toast } from 'sonner';
+import { useTranslation } from '@/i18n';
 
 export const CreateThreadFormContainer = () => {
   const { user } = useAuth();
+  const t = useTranslation();
   const { mutate, isPending, isError, error } = useCreateThread();
   const [fileUploading, setFileUploading] = useState(false);
   const [tagLimitDialogOpen, setTagLimitDialogOpen] = useState(false);
   const [isPollMode, setIsPollMode] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const form = useForm<z.infer<typeof createThreadSchema>>({
-    resolver: zodResolver(createThreadSchema),
+  const schema = useMemo(() => createThreadSchema(t), [t]);
+  const form = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
     defaultValues: {
       title: '',
       body: '',
@@ -133,7 +136,7 @@ export const CreateThreadFormContainer = () => {
     }
   };
 
-  const onSubmit = async (values: z.infer<typeof createThreadSchema>) => {
+  const onSubmit = async (values: z.infer<typeof schema>) => {
     if (!user.selectedApartmentId!) {
       console.error('No apartment selected');
       return;
@@ -151,7 +154,7 @@ export const CreateThreadFormContainer = () => {
           : undefined,
     });
 
-    toast.success('პოსტი დამატებულია');
+    toast.success(t.thread.postAdded);
 
     form.reset();
   };

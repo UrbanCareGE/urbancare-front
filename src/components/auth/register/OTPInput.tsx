@@ -12,6 +12,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { AlertCircle } from 'lucide-react';
+import { useTranslation } from '@/i18n';
 
 type OTPInputProps = {
   icon?: React.ReactNode;
@@ -25,6 +26,7 @@ const OTPInput = React.forwardRef<
   const message = formError ? String(formError?.message ?? '') : '';
   const [tooltipOpen, setTooltipOpen] = React.useState(false);
   const { mutate, isPending, error, handleGetOtp } = useOtp();
+  const t = useTranslation();
 
   return (
     <div className="flex w-full items-center gap-1">
@@ -99,7 +101,7 @@ const OTPInput = React.forwardRef<
         disabled={isPending}
         className="h-[52px] bg-gradient-primary text-white rounded-urbancare-2xl text-urbancare-lg font-semibold px-4 shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] lg:hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] lg:hover:-translate-y-0.5 lg:active:translate-y-0 transition-all duration-200"
       >
-        მიღება
+        {t.auth.receiveOtp}
       </Button>
     </div>
   );

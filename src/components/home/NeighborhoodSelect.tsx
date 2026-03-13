@@ -13,6 +13,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
+import { useTranslation } from '@/i18n';
 
 interface Apartment {
   id: string;
@@ -198,10 +199,12 @@ const EmptyState = ({ onAddLocation }: { onAddLocation?: () => void }) => (
   </div>
 );
 
-const SectionHeader = ({ isOpen }: { isOpen: boolean }) => (
+const SectionHeader = ({ isOpen }: { isOpen: boolean }) => {
+  const t = useTranslation();
+  return (
   <div className="flex items-center justify-between px-4 py-3">
     <span className="text-urbancare-base font-semibold text-muted-foreground">
-      არჩეული ლოკაცია
+      {t.neighborhood.selectedLocation}
     </span>
     <CollapsibleTrigger asChild>
       <Button
@@ -209,7 +212,7 @@ const SectionHeader = ({ isOpen }: { isOpen: boolean }) => (
         size="sm"
         className="h-auto py-1 px-2 text-urbancare-sm font-semibold text-primary lg:hover:text-primary/80 lg:hover:bg-primary/5 lg:active:scale-95"
       >
-        {isOpen ? 'დახურვა' : 'შეცვლა'}
+        {isOpen ? t.common.close : t.common.change}
         <ChevronDown
           className={cn(
             'w-3.5 h-3.5 ml-1 transition-transform duration-200',
@@ -220,6 +223,7 @@ const SectionHeader = ({ isOpen }: { isOpen: boolean }) => (
     </CollapsibleTrigger>
   </div>
 );
+};
 
 export const NeighborhoodSelect = () => {
   const { isLoading, selectApartment, user } = useAuth();

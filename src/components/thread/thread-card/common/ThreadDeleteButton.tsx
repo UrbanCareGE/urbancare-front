@@ -7,11 +7,13 @@ import { useDeleteThread } from '@/hooks/query/thread/use-delete-thread';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from '@/i18n';
 
 export const ThreadDeleteButton = () => {
   const router = useRouter();
   const { thread } = useThread();
   const { user } = useAuth();
+  const t = useTranslation();
   const apartmentId = user.selectedApartmentId!;
   const { mutate, isPending } = useDeleteThread();
 
@@ -31,7 +33,7 @@ export const ThreadDeleteButton = () => {
           <Trash2 className="w-4 h-4 text-error" />
         )}
       </div>
-      <span className="font-medium text-error">წაშლა</span>
+      <span className="font-medium text-error">{t.common.delete}</span>
     </button>
   );
 };

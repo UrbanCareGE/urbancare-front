@@ -19,7 +19,13 @@
       "Bash(cd /Users/leogogichaishvili/UrbanCare/urbancare/src && grep -roh '\\\\brounded[^ \"]*' --include=\"*.tsx\" --include=\"*.ts\" | sort | uniq)",
       "Bash(cd /Users/leogogichaishvili/UrbanCare/urbancare/src && for class in \"rounded\" \"rounded-sm\" \"rounded-2xl\" \"rounded-3xl\" \"rounded-b-md\" \"rounded-b-none\" \"rounded-br-lg\" \"rounded-e-full\" \"rounded-e-none\" \"rounded-full\" \"rounded-l-lg\" \"rounded-l-none\" \"rounded-l-xl\" \"rounded-lg\" \"rounded-md\" \"rounded-panel\" \"rounded-r-full\" \"rounded-r-md\" \"rounded-r-none\" \"rounded-r-xl\" \"rounded-s-full\" \"rounded-s-none\" \"rounded-t-3xl\" \"rounded-t-none\" \"rounded-tl-sm\" \"rounded-tr-lg\" \"rounded-xl\"; do\n  echo \"=== $class ===\"\n  grep -rl \"$class\" --include=\"*.tsx\" --include=\"*.ts\" | sed 's|^|/Users/leogogichaishvili/UrbanCare/urbancare/|' | sort | uniq\ndone)",
       "Bash(cd /Users/leogogichaishvili/UrbanCare/urbancare/src && for class in \"rounded-\\\\[14px\\\\]\" \"rounded-\\\\[2px\\\\]\" \"rounded-t-\\\\[14px\\\\]\" \"rounded-t-\\\\[10px\\\\]\"; do\n  echo \"=== $class ===\"\n  grep -rl \"$class\" --include=\"*.tsx\" --include=\"*.ts\" | sed 's|^|/Users/leogogichaishvili/UrbanCare/urbancare/|' | sort | uniq\ndone)",
-      "Bash(npx next:*)"
+      "Bash(npx next:*)",
+      "Bash(find /Users/leogogichaishvili/UrbanCare/urbancare/src -type f \\\\\\( -name \"*.constants.ts\" -o -name \"*.strings.ts\" -o -name \"text*\" -o -name \"*strings*\" \\\\\\) 2>/dev/null | head -20)",
+      "Bash(npx tsc:*)",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//Users/leogogichaishvili/UrbanCare/urbancare/**)",
+      "Bash(done)"
     ]
   }
 }

@@ -9,24 +9,26 @@ import { FormInput } from '@/components/common/input/FormInput';
 import { Button } from '@/components/ui/button';
 import { KeyRound, Lock } from 'lucide-react';
 import { useChangePassword } from '@/hooks/query/user/use-change-password';
-
-const changePasswordSchema = z
-  .object({
-    oldPassword: z.string().min(6, 'პაროლი უნდა შეიცავდეს მინიმუმ 6 სიმბოლოს'),
-    newPassword: z.string().min(6, 'პაროლი უნდა შეიცავდეს მინიმუმ 6 სიმბოლოს'),
-    confirmPassword: z
-      .string()
-      .min(6, 'პაროლი უნდა შეიცავდეს მინიმუმ 6 სიმბოლოს'),
-  })
-  .refine((data) => data.newPassword === data.confirmPassword, {
-    message: 'პაროლები არ ემთხვევა',
-    path: ['confirmPassword'],
-  });
-
-type ChangePasswordFormData = z.infer<typeof changePasswordSchema>;
+import { useTranslation } from '@/i18n';
 
 export function ChangePasswordForm() {
+  const t = useTranslation();
   const { mutateAsync, isPending } = useChangePassword();
+
+  const changePasswordSchema = z
+    .object({
+      oldPassword: z.string().min(6, t.profileValidation.passwordMinLength),
+      newPassword: z.string().min(6, t.profileValidation.passwordMinLength),
+      confirmPassword: z
+        .string()
+        .min(6, t.profileValidation.passwordMinLength),
+    })
+    .refine((data) => data.newPassword === data.confirmPassword, {
+      message: t.profileValidation.passwordsDontMatch,
+      path: ['confirmPassword'],
+    });
+
+  type ChangePasswordFormData = z.infer<typeof changePasswordSchema>;
 
   const form = useForm<ChangePasswordFormData>({
     resolver: zodResolver(changePasswordSchema),
@@ -51,7 +53,7 @@ export function ChangePasswordForm() {
 
   return (
     <div className="w-full space-y-3">
-      <h3 className="text-urbancare-2xl font-semibold">პაროლის შეცვლა</h3>
+      <h3 className="text-urbancare-2xl font-semibold">{t.profile.changePassword}</h3>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField
@@ -61,7 +63,7 @@ export function ChangePasswordForm() {
               <FormItem>
                 <FormControl>
                   <FormInput
-                    placeholder="ძველი პაროლი*"
+                    placeholder={t.profile.oldPassword}
                     type="password"
                     icon={<Lock />}
                     isPasswordType={true}
@@ -79,7 +81,7 @@ export function ChangePasswordForm() {
               <FormItem>
                 <FormControl>
                   <FormInput
-                    placeholder="ახალი პაროლი*"
+                    placeholder={t.profile.newPassword}
                     type="password"
                     icon={<KeyRound />}
                     isPasswordType={true}
@@ -97,7 +99,7 @@ export function ChangePasswordForm() {
               <FormItem>
                 <FormControl>
                   <FormInput
-                    placeholder="გაიმეორეთ პაროლი*"
+                    placeholder={t.profile.repeatPassword}
                     type="password"
                     icon={<KeyRound />}
                     isPasswordType={true}
@@ -113,7 +115,7 @@ export function ChangePasswordForm() {
             className="w-full h-12 bg-primary text-text-primary rounded-urbancare-4xl disabled:text-disabled-foreground disabled:bg-disabled"
             disabled={isPending || !form.formState.isValid}
           >
-            {isPending ? 'მიმდინარეობს...' : 'პაროლის შეცვლა'}
+            {isPending ? t.common.inProgress : t.profile.changePassword}
           </Button>
         </form>
       </Form>

@@ -10,17 +10,19 @@ import { Button } from '@/components/ui/button';
 import { User } from 'lucide-react';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useUpdateProfile } from '@/hooks/query/user/use-update-profile';
-
-const personalInfoSchema = z.object({
-  name: z.string().min(2, 'სახელი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს'),
-  surname: z.string().min(2, 'გვარი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს'),
-});
-
-type PersonalInfoFormData = z.infer<typeof personalInfoSchema>;
+import { useTranslation } from '@/i18n';
 
 export function PersonalInfoForm() {
+  const t = useTranslation();
   const { user } = useAuth();
   const { mutateAsync, isPending } = useUpdateProfile();
+
+  const personalInfoSchema = z.object({
+    name: z.string().min(2, t.profileValidation.nameMinLength),
+    surname: z.string().min(2, t.profileValidation.surnameMinLength),
+  });
+
+  type PersonalInfoFormData = z.infer<typeof personalInfoSchema>;
 
   const form = useForm<PersonalInfoFormData>({
     resolver: zodResolver(personalInfoSchema),
@@ -41,7 +43,7 @@ export function PersonalInfoForm() {
   return (
     <div className="w-full space-y-3">
       <h3 className="text-urbancare-2xl font-semibold text-text-primary">
-        პირადი ინფორმაცია
+        {t.profile.personalInfo}
       </h3>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
@@ -52,7 +54,7 @@ export function PersonalInfoForm() {
               <FormItem>
                 <FormControl>
                   <FormInput
-                    placeholder="სახელი*"
+                    placeholder={t.profile.namePlaceholder}
                     icon={<User />}
                     disabled={isPending}
                     {...field}
@@ -68,7 +70,7 @@ export function PersonalInfoForm() {
               <FormItem>
                 <FormControl>
                   <FormInput
-                    placeholder="გვარი*"
+                    placeholder={t.profile.surnamePlaceholder}
                     icon={<User />}
                     disabled={isPending}
                     {...field}
@@ -82,7 +84,7 @@ export function PersonalInfoForm() {
             className="w-full h-12 bg-primary text-text-primary rounded-urbancare-4xl disabled:text-disabled-foreground disabled:bg-disabled"
             disabled={isPending || !form.formState.isDirty}
           >
-            {isPending ? 'მიმდინარეობს...' : 'შენახვა'}
+            {isPending ? t.common.inProgress : t.common.save}
           </Button>
         </form>
       </Form>

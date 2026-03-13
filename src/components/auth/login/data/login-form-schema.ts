@@ -1,17 +1,17 @@
 import { z } from 'zod';
+import type { TranslationKeys } from '@/i18n';
 
-const LoginFormSchema = z
-  .object({
-    phone: z.string().refine((val) => /^\+?[1-9]\d{7,14}$/.test(val), {
-      message: 'გთხოვთ შეიყვანოთ ტელეფონი',
-    }),
-    password: z
-      .string()
-      .min(6, { message: 'პაროლი უნდა შედგებოდეს მინიმუმ 6 სიმბოლოსგან.' }),
-  })
-  .refine((data) => true, {
-    message: 'გთხოვთ, დარწმუნდეთ, რომ პაროლები ერთმანეთს ემთხვევა.',
-    path: ['confirmPassword'],
-  });
-
-export default LoginFormSchema;
+export const createLoginFormSchema = (t: TranslationKeys) =>
+  z
+    .object({
+      phone: z.string().refine((val) => /^\+?[1-9]\d{7,14}$/.test(val), {
+        message: t.authValidation.enterPhone,
+      }),
+      password: z
+        .string()
+        .min(6, { message: t.authValidation.passwordMinLength }),
+    })
+    .refine((data) => true, {
+      message: t.authValidation.passwordsMustMatch,
+      path: ['confirmPassword'],
+    });

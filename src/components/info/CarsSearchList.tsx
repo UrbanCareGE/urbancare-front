@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Search } from 'lucide-react';
+import { useTranslation } from '@/i18n';
 
 interface CarsSearchListProps {
   cars: CarInfo[];
@@ -13,6 +14,7 @@ interface CarsSearchListProps {
 
 const CarsSearchList = ({ cars }: CarsSearchListProps) => {
   const [search, setSearch] = useState('');
+  const t = useTranslation();
 
   const filteredCars = cars.filter((car) =>
     car.licensePlate.toLowerCase().includes(search.toLowerCase())
@@ -26,7 +28,7 @@ const CarsSearchList = ({ cars }: CarsSearchListProps) => {
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="მოძებნე ნომრით..."
+            placeholder={t.info.searchByPlate}
             className="pl-9"
           />
         </div>
@@ -34,7 +36,7 @@ const CarsSearchList = ({ cars }: CarsSearchListProps) => {
       <ul className="px-4">
         {filteredCars.length === 0 ? (
           <p className="text-center text-text-secondary py-8">
-            {search ? 'მანქანა ვერ მოიძებნა' : 'მანქანები არ არის დამატებული'}
+            {search ? t.info.carNotFound : t.info.noCarsAdded}
           </p>
         ) : (
           filteredCars.map((car) => (

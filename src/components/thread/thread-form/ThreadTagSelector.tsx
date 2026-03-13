@@ -1,6 +1,7 @@
 import { Info, Tag } from 'lucide-react';
 import React from 'react';
 import { useDevice } from '@/hooks/use-device';
+import { useTranslation } from '@/i18n';
 import {
   Popover,
   PopoverContent,
@@ -28,13 +29,14 @@ export const ThreadTagSelector = ({
   onToggleTag,
 }: ThreadTagSelectorProps) => {
   const { isMobile } = useDevice();
+  const t = useTranslation();
 
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-2">
         <Tag className="w-4 h-4 text-foreground-disabled" />
         <span className="text-urbancare-base font-medium text-foreground-secondary">
-          გახადეთ პოსტი სპეციფიური
+          {t.threadForm.makePostSpecific}
         </span>
         {isMobile ? (
           <Popover>
@@ -42,9 +44,7 @@ export const ThreadTagSelector = ({
               <Info className="w-4 h-4 text-foreground-disabled" />
             </PopoverTrigger>
             <PopoverContent className="bg-surface border border-border text-primary-foreground text-center">
-              თეგი გაძლევთ საშუალებას თქვენი პოსტი გახდეს უფრო სპეციფიური, თუ
-              მიუთითებთ შესაბამის თეგებს, პოსტი გამოჩნდება შესაბამისი ძებნის
-              ფილტრების მითითების შემდეგაც
+              {t.threadForm.tagsDescription}
             </PopoverContent>
           </Popover>
         ) : (
@@ -53,7 +53,7 @@ export const ThreadTagSelector = ({
               <Info className="w-4 h-4 text-foreground-disabled" />
             </HoverCardTrigger>
             <HoverCardContent className="bg-surface-variant opacity-100 border border-border">
-              აირჩიეთ თეგები თქვენი პოსტისთვის
+              {t.threadForm.selectTags}
             </HoverCardContent>
           </HoverCard>
         )}
@@ -79,7 +79,7 @@ export const ThreadTagSelector = ({
                     : undefined
                 )}
               >
-                {config.label}
+                {t.tags[tag as keyof typeof t.tags]}
               </button>
             );
           })}

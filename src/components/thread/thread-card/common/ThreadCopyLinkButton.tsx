@@ -3,11 +3,13 @@
 import { Link2 } from 'lucide-react';
 import React from 'react';
 import { toast } from 'sonner';
+import { useTranslation } from '@/i18n';
 
 export const ThreadCopyLinkButton = () => {
+  const t = useTranslation();
   const handleCopy = async () => {
     await navigator.clipboard.writeText(window.location.href);
-    toast.success('ლინკი დაკოპირდა');
+    toast.success(t.thread.linkCopied);
   };
 
   return (
@@ -18,7 +20,7 @@ export const ThreadCopyLinkButton = () => {
       <div className="w-8 h-8 rounded-urbancare-lg bg-surface-container flex items-center justify-center shrink-0">
         <Link2 className="w-4 h-4 text-icon" />
       </div>
-      <span className="font-medium text-text-primary">ლინკის კოპირება</span>
+      <span className="font-medium text-text-primary">{t.thread.copyLink}</span>
     </button>
   );
 };

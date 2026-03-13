@@ -13,6 +13,7 @@ import { ThreadCommentGrid } from '@/components/thread/thread-card/thread-view/c
 import { ThreadViewCommentButton } from '@/components/thread/thread-card/thread-view/comment/ThreadViewCommentButton';
 import { ArrowLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/i18n';
 
 export default function ThreadPage() {
   const { threadId } = useParams<{ threadId: string }>();
@@ -20,6 +21,7 @@ export default function ThreadPage() {
   const apartmentId = user.selectedApartmentId!;
   const { data, isPending, error } = useThreadDetails(apartmentId, threadId);
   const router = useRouter();
+  const t = useTranslation();
 
   if (isPending || error) {
     return null;
@@ -41,7 +43,7 @@ export default function ThreadPage() {
             )}
           >
             <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
-            <span className="text-urbancare-base font-medium">უკან დაბრუნება</span>
+            <span className="text-urbancare-base font-medium">{t.common.goBack}</span>
           </button>
 
           <ThreadCard thread={data} className="px-3">

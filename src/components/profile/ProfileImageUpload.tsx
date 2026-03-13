@@ -9,8 +9,10 @@ import { useUpdateProfileImage } from '@/hooks/query/user/use-update-profile-ima
 import { toast } from 'sonner';
 import Image from 'next/image';
 import { useUploadFile } from '@/hooks/query/file/use-upload-file';
+import { useTranslation } from '@/i18n';
 
 export function ProfileImageUpload() {
+  const t = useTranslation();
   const { user } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { mutateAsync: uploadFileImageMutation, isPending: isUploading } =
@@ -24,12 +26,12 @@ export function ProfileImageUpload() {
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-      toast.error('გთხოვთ აირჩიოთ სურათი');
+      toast.error(t.profile.selectImage);
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      toast.error('ფაილის ზომა არ უნდა აღემატებოდეს 5MB-ს');
+      toast.error(t.profile.fileSizeMax5MB);
       return;
     }
 
@@ -37,7 +39,7 @@ export function ProfileImageUpload() {
       const uploadedFile = await uploadFileImageMutation({ file });
       await updateProfileImageMutation({ profileImageId: uploadedFile.id });
     } catch (error) {
-      toast.error('ფოტოს ატვირთვა ვერ მოხერხდა');
+      toast.error(t.profile.photoUploadFailed);
       console.error('Upload error:', error);
     } finally {
       if (fileInputRef.current) {

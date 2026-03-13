@@ -10,6 +10,7 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { X } from 'lucide-react';
+import { useTranslation } from '@/i18n';
 
 interface PreviewableCardContextValue {
   isOpen: boolean;
@@ -60,11 +61,12 @@ interface PreviewableViewProps {
 
 const PreviewableView = ({ className, children }: PreviewableViewProps) => {
   const { isOpen, closeView } = usePreviewable();
+  const t = useTranslation();
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && closeView()}>
-      <SheetDescription className={'sr-only'}>კომენტარი</SheetDescription>
-      <SheetTitle className={'sr-only'}>კომენტარი</SheetTitle>
+      <SheetDescription className={'sr-only'}>{t.thread.comment}</SheetDescription>
+      <SheetTitle className={'sr-only'}>{t.thread.comment}</SheetTitle>
       <SheetContent
         side={'right'}
         className={cn('h-full w-full bg-background', className)}

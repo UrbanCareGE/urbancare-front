@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { DrawerClose } from '@/components/ui/drawer';
 import { Sparkles } from 'lucide-react';
 import { SheetFooter } from '@/components/ui/sheet';
+import { useTranslation } from '@/i18n';
 
 interface ThreadFormFooterProps {
   isPending: boolean;
@@ -17,6 +18,7 @@ export const ThreadFormFooter = ({
   bodyLength,
   fileUploading,
 }: ThreadFormFooterProps) => {
+  const t = useTranslation();
   return (
     <SheetFooter className="px-6 py-4 mt-auto">
       <div className="space-y-2">
@@ -28,19 +30,19 @@ export const ThreadFormFooter = ({
           {isPending ? (
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-urbancare-full animate-spin" />
-              პოსტის შექმნა...
+              {t.thread.creatingPost}
             </div>
           ) : (
             <DrawerClose asChild={true}>
               <div className="flex items-center gap-2 bg-gradient-primary">
                 <Sparkles className="w-4 h-4" />
-                გამოქვეყნება
+                {t.common.publish}
               </div>
             </DrawerClose>
           )}
         </Button>
         <p className="text-urbancare-sm text-center text-foreground-tertiary">
-          დარწმუნდით, რომ პოსტი არ არღვევს საზოგადოების წესებს
+          {t.thread.communityRules}
         </p>
       </div>
     </SheetFooter>

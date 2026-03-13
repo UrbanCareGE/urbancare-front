@@ -12,12 +12,13 @@ import {
 } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import {
-  createThreadSchema,
   FileEntry,
+  CreateThreadSchemaType,
 } from '@/components/thread/data/create-thread-schema';
+import { useTranslation } from '@/i18n';
 
 interface ThreadFileUploadProps {
-  control: Control<z.infer<typeof createThreadSchema>>;
+  control: Control<z.infer<CreateThreadSchemaType>>;
   fileEntries: FileEntry[];
   isPending: boolean;
   fileInputRef: React.RefObject<HTMLInputElement | null>;
@@ -33,6 +34,7 @@ export const ThreadFileUpload = ({
   onFileChange,
   onRemoveFile,
 }: ThreadFileUploadProps) => {
+  const t = useTranslation();
   return (
     <FormField
       control={control}
@@ -42,10 +44,10 @@ export const ThreadFileUpload = ({
           <div className="flex items-center justify-between mb-3">
             <FormLabel className="text-urbancare-base font-medium text-foreground-secondary flex items-center gap-2">
               <ImageIconLucid className="w-4 h-4 text-foreground-disabled" />
-              მედია ფაილები
+              {t.threadForm.mediaFiles}
             </FormLabel>
             <span className="text-urbancare-sm text-foreground-tertiary">
-              {fileEntries.length}/5 ფაილი
+              {t.threadForm.filesCount.replace('{count}', String(fileEntries.length))}
             </span>
           </div>
 
@@ -72,10 +74,10 @@ export const ThreadFileUpload = ({
                 </div>
                 <div className="text-center">
                   <p className="text-urbancare-base font-medium text-foreground-secondary">
-                    ფოტოს ან ვიდეოს ატვირთვა
+                    {t.threadForm.uploadPhotoVideo}
                   </p>
                   <p className="text-urbancare-sm text-foreground-tertiary mt-0.5">
-                    მაქს. 5 ფაილი, თითო 10MB-მდე
+                    {t.threadForm.maxFilesHint}
                   </p>
                 </div>
               </div>
@@ -85,11 +87,11 @@ export const ThreadFileUpload = ({
               <div className="space-y-2">
                 <div className="flex items-center justify-between px-1">
                   <p className="text-urbancare-sm font-medium text-foreground-tertiary">
-                    ატვირთული ფაილები
+                    {t.threadForm.uploadedFiles}
                   </p>
                   {fileEntries.length > 3 && (
                     <p className="text-urbancare-sm text-foreground-disabled">
-                      ← გადაფურცლეთ →
+                      {t.threadForm.scrollHint}
                     </p>
                   )}
                 </div>

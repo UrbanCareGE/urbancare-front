@@ -17,19 +17,21 @@ import { useUpdateProfile } from '@/hooks/query/user/use-update-profile';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-
-const profileSchema = z.object({
-  name: z
-    .string()
-    .min(2, { message: 'სახელი უნდა შედგებოდეს მინიმუმ 2 ასოსგან' }),
-  surname: z
-    .string()
-    .min(2, { message: 'გვარი უნდა შედგებოდეს მინიმუმ 2 ასოსგან' }),
-});
+import { useTranslation } from '@/i18n';
 
 export function ProfileCompletionModal() {
+  const t = useTranslation();
   const { user, isAuthenticated } = useAuth();
   const { mutateAsync, isPending } = useUpdateProfile();
+
+  const profileSchema = z.object({
+    name: z
+      .string()
+      .min(2, { message: t.profileValidation.nameMinLength }),
+    surname: z
+      .string()
+      .min(2, { message: t.profileValidation.surnameMinLength }),
+  });
   const [isOpen, setIsOpen] = useState(false);
 
   const form = useForm<z.infer<typeof profileSchema>>({
@@ -75,10 +77,10 @@ export function ProfileCompletionModal() {
       >
         <DialogHeader>
           <DialogTitle className="text-urbancare-5xl font-bold text-primary">
-            დაასრულე პროფილი
+            {t.profile.completeProfile}
           </DialogTitle>
           <DialogDescription className="text-secondary">
-            გთხოვთ შეავსოთ თქვენი სახელი და გვარი
+            {t.profile.fillNameSurname}
           </DialogDescription>
         </DialogHeader>
 
@@ -95,7 +97,7 @@ export function ProfileCompletionModal() {
                 <FormItem>
                   <FormControl>
                     <FormInput
-                      placeholder="სახელი"
+                      placeholder={t.profile.nameInput}
                       disabled={isPending}
                       icon={<User className="text-icon" />}
                       className="rounded-urbancare-xl border-[1.5px] border-border-medium bg-surface text-urbancare-lg text-text-primary placeholder:text-text-tertiary lg:hover:border-border-hover focus:border-border-focus focus:ring-4 focus:ring-primary-container transition-all duration-200"
@@ -114,7 +116,7 @@ export function ProfileCompletionModal() {
                 <FormItem>
                   <FormControl>
                     <FormInput
-                      placeholder="გვარი"
+                      placeholder={t.profile.surnameInput}
                       disabled={isPending}
                       icon={<User className="text-icon" />}
                       className="rounded-urbancare-xl border-[1.5px] border-border-medium bg-surface text-urbancare-lg text-text-primary placeholder:text-text-tertiary lg:hover:border-border-hover focus:border-border-focus focus:ring-4 focus:ring-primary-container transition-all duration-200"
@@ -134,7 +136,7 @@ export function ProfileCompletionModal() {
                 disabled={isPending}
                 className="flex-1 rounded-urbancare-panel border-[1.5px] border-border-medium text-urbancare-lg font-semibold bg-error-container/70 text-error"
               >
-                მოგვიანებით
+                {t.common.later}
               </Button>
               <Button
                 type="submit"
@@ -145,10 +147,10 @@ export function ProfileCompletionModal() {
                 {isPending ? (
                   <>
                     <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                    დაელოდეთ
+                    {t.common.wait}
                   </>
                 ) : (
-                  'შენახვა'
+                  t.common.save
                 )}
               </Button>
             </div>

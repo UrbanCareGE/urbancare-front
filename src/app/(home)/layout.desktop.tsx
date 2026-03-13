@@ -14,56 +14,69 @@ import { DesktopIsland } from '@/components/home/Island.desktop';
 import { ProfileIslandDesktop } from '@/components/home/ProfileIsland.desktop';
 import { useScrollRestoration } from '@/hooks/use-scroll-restoration';
 import { usePathname } from 'next/navigation';
+import { useTranslation } from '@/i18n';
 
-const UrgentIsland = () => (
-  <DesktopIsland
-    title="სასწრაფო"
-    icon={<ShieldAlert className="w-4 h-4 text-error" />}
-  >
-    <div className="overflow-y-scroll scrollbar-hide">
-      <UrgentFeed />
-    </div>
-  </DesktopIsland>
-);
+const UrgentIsland = () => {
+  const t = useTranslation();
+  return (
+    <DesktopIsland
+      title={t.nav.urgent}
+      icon={<ShieldAlert className="w-4 h-4 text-error" />}
+    >
+      <div className="overflow-y-scroll scrollbar-hide">
+        <UrgentFeed />
+      </div>
+    </DesktopIsland>
+  );
+};
 
-const ChatIsland = () => (
-  <DesktopIsland
-    title="ჩატი"
-    icon={<UserIcon className="w-4 h-4 text-error" />}
-    className={'mt-auto h-full'}
-  >
-    <div className="overflow-y-hidden h-full scrollbar-hide">
-      <Chat />
-    </div>
-  </DesktopIsland>
-);
+const ChatIsland = () => {
+  const t = useTranslation();
+  return (
+    <DesktopIsland
+      title={t.nav.chat}
+      icon={<UserIcon className="w-4 h-4 text-error" />}
+      className={'mt-auto h-full'}
+    >
+      <div className="overflow-y-hidden h-full scrollbar-hide">
+        <Chat />
+      </div>
+    </DesktopIsland>
+  );
+};
 
-const NeighbourSelectIsland = () => (
-  <DesktopIsland
-    title="სამეზობლოები"
-    icon={<HomeIcon className="w-4 h-4 text-error" />}
-    className={'h-full'}
-  >
-    <div className="overflow-y-auto h-full scrollbar-hide">
-      <NeighborhoodSelect />
-    </div>
-  </DesktopIsland>
-);
+const NeighbourSelectIsland = () => {
+  const t = useTranslation();
+  return (
+    <DesktopIsland
+      title={t.nav.neighborhoods}
+      icon={<HomeIcon className="w-4 h-4 text-error" />}
+      className={'h-full'}
+    >
+      <div className="overflow-y-auto h-full scrollbar-hide">
+        <NeighborhoodSelect />
+      </div>
+    </DesktopIsland>
+  );
+};
 
-const NavigationIsland = () => (
-  <DesktopIsland
-    title="ნავიგაცია"
-    icon={<NavigationIcon className="w-4 h-4 text-error" />}
-    className={'h-full'}
-  >
-    <div className="overflow-y-auto h-full scrollbar-hide">
-      <NavigationArea
-        inSheet={false}
-        className="w-full flex flex-col gap-1 p-2"
-      />
-    </div>
-  </DesktopIsland>
-);
+const NavigationIsland = () => {
+  const t = useTranslation();
+  return (
+    <DesktopIsland
+      title={t.nav.navigation}
+      icon={<NavigationIcon className="w-4 h-4 text-error" />}
+      className={'h-full'}
+    >
+      <div className="overflow-y-auto h-full scrollbar-hide">
+        <NavigationArea
+          inSheet={false}
+          className="w-full flex flex-col gap-1 p-2"
+        />
+      </div>
+    </DesktopIsland>
+  );
+};
 
 export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
   const feedScrollRef = useScrollRestoration<HTMLDivElement>();

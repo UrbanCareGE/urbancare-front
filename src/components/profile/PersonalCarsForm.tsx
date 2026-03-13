@@ -29,15 +29,17 @@ import { useFetchCar } from '@/hooks/query/user/cars/use-fetch-car';
 import { useAddCar } from '@/hooks/query/user/cars/use-add-car';
 import { useDeleteCar } from '@/hooks/query/user/cars/use-delete-car';
 import { CarDTO } from '@/model/dto/auth.dto';
-
-const licensePlateSchema = z
-  .string()
-  .min(1, 'ნომერი აუცილებელია')
-  .max(13, 'მაქსიმუმ 13 სიმბოლო')
-  .regex(/^[A-Z0-9]+$/, 'მხოლოდ ლათინური ასოები და ციფრები');
+import { useTranslation } from '@/i18n';
 
 const PersonalCarsForm = () => {
+  const t = useTranslation();
   const { user } = useAuth();
+
+  const licensePlateSchema = z
+    .string()
+    .min(1, t.cars.numberRequired)
+    .max(13, t.cars.maxCharacters)
+    .regex(/^[A-Z0-9]+$/, t.cars.onlyLatinAndNumbers);
   const { isMobile } = useDevice();
   const { data, isPending: isCarFetching } = useFetchCar();
   const { mutateAsync: addCarMutate, isPending: isAdding } = useAddCar();
@@ -102,7 +104,7 @@ const PersonalCarsForm = () => {
   return (
     <div className="w-full space-y-3">
       <h3 className="text-urbancare-2xl text-text-primary font-semibold flex items-center">
-        მანქანის ნომრები
+        {t.cars.carNumbers}
         {isMobile ? (
           <Popover>
             <PopoverTrigger>
@@ -113,9 +115,7 @@ const PersonalCarsForm = () => {
                 'bg-tooltip text-text-primary border-border text-center'
               }
             >
-              მანქანის ნომრის დამატებით მეზობლები შეძლებენ მარტივად
-              დაგიკავშირდნენ გადაუდებელ სიტუაციებში (თუ მანქანა გზას კეტავს, ან
-              სამშენებლო სამუშაოების შემთხვევაში)
+              {t.cars.carDescription}
             </PopoverContent>
           </Popover>
         ) : (
@@ -126,9 +126,7 @@ const PersonalCarsForm = () => {
             <HoverCardContent
               className={'bg-surface-elevated border-border opacity-100'}
             >
-              მანქანის ნომრის დამატებით მეზობლები შეძლებენ მარტივად
-              დაგიკავშირდნენ გადაუდებელ სიტუაციებში (თუ მანქანა გზას კეტავს, ან
-              სამშენებლო სამუშაოების შემთხვევაში)
+              {t.cars.carDescription}
             </HoverCardContent>
           </HoverCard>
         )}
@@ -146,11 +144,11 @@ const PersonalCarsForm = () => {
 
       {isCarFetching ? (
         <p className="text-urbancare-xl text-center text-text-secondary">
-          იტვირთება...
+          {t.common.loading}
         </p>
       ) : cars.length === 0 && !isEditing ? (
         <p className={'text-urbancare-xl text-center text-text-primary'}>
-          ამჟამად თქვენ ანგარიშზე მანქანა <br /> არ არის დამატებული
+          {t.cars.noCarsAdded}
         </p>
       ) : (
         <div className="flex flex-wrap gap-2">
@@ -171,7 +169,7 @@ const PersonalCarsForm = () => {
           <Input
             value={licensePlate}
             onChange={handleInputChange}
-            placeholder="მაგ: AB123CD"
+            placeholder={t.cars.examplePlaceholder}
             className="flex-1"
             autoFocus
           />
@@ -193,23 +191,21 @@ const PersonalCarsForm = () => {
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>მანქანის წაშლა</DialogTitle>
+            <DialogTitle>{t.cars.deleteCar}</DialogTitle>
             <DialogDescription>
-              ნამდვილად გსურთ მანქანის ნომრის{' '}
-              <span className="font-semibold">{carToDelete?.licensePlate}</span>{' '}
-              წაშლა თქვენი ანგარიშიდან?
+              {t.cars.confirmDeleteCar}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="flex gap-2 sm:gap-0">
             <Button variant="outline" onClick={handleCancelDelete}>
-              არა
+              {t.common.no}
             </Button>
             <Button
               variant="destructive"
               onClick={handleConfirmDelete}
               disabled={isDeleting}
             >
-              დიახ
+              {t.common.yes}
             </Button>
           </DialogFooter>
         </DialogContent>

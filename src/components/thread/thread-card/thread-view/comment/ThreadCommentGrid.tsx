@@ -6,6 +6,7 @@ import { ThreadComment } from '@/components/thread/thread-card/thread-view/comme
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
 import { ThreadViewCommentButton } from '@/components/thread/thread-card/thread-view/comment/ThreadViewCommentButton';
 import { MessageCircle } from 'lucide-react';
+import { useTranslation } from '@/i18n';
 
 interface ThreadCommentsProps {
   className?: string;
@@ -13,6 +14,7 @@ interface ThreadCommentsProps {
 
 export const ThreadCommentGrid = ({ className }: ThreadCommentsProps) => {
   const { thread } = useThread();
+  const t = useTranslation();
 
   return (
     <div className={cn('flex flex-col', className)}>
@@ -28,10 +30,10 @@ export const ThreadCommentGrid = ({ className }: ThreadCommentsProps) => {
           </div>
           <div className="text-center">
             <p className="text-urbancare-base font-medium text-text-secondary">
-              კომენტარები ჯერ არ არის
+              {t.thread.noCommentsYet}
             </p>
             <p className="text-urbancare-sm text-text-tertiary mt-1">
-              იყავი პირველი ვინც დაწერს კომენტარს
+              {t.thread.beFirstToComment}
             </p>
           </div>
         </div>

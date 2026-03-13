@@ -6,8 +6,10 @@ import { useAuth } from '@/components/provider/AuthProvider';
 import { toast } from 'sonner';
 import { ResolveUrgentItemDTO, UrgentItemDTO } from '@/model/dto/urgent.dto';
 import { OptimisticData } from '@/model/dto/common.dto';
+import { useTranslation } from '@/i18n';
 
 export function useResolveUrgent() {
+  const t = useTranslation();
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
@@ -28,7 +30,7 @@ export function useResolveUrgent() {
     },
 
     onError: () => {
-      toast.error('შეცდომა შეტყობინების დასრულებისას');
+      toast.error(t.urgent.errorCompleting);
     },
   });
 }

@@ -6,9 +6,10 @@ import { z } from 'zod';
 import { X } from 'lucide-react';
 import { Form } from '@/components/ui/form';
 import {
-  createThreadSchema,
   FileEntry,
+  CreateThreadSchemaType,
 } from '@/components/thread/data/create-thread-schema';
+import { useTranslation } from '@/i18n';
 import { Poll } from '@/components/poll/mobile/Poll';
 import CreateThreadSheet from '@/components/thread/thread-form/CreateThreadSheet';
 import { CreateThreadButton } from '@/components/thread/thread-form/CreateThreadButton';
@@ -20,8 +21,8 @@ import { ThreadFormFooter } from '@/components/thread/thread-form/ThreadFormFoot
 import { ThreadTagLimitDialog } from '@/components/thread/thread-form/ThreadTagLimitDialog';
 
 interface CreateThreadFormViewProps {
-  form: UseFormReturn<z.infer<typeof createThreadSchema>>;
-  onSubmit: (values: z.infer<typeof createThreadSchema>) => void;
+  form: UseFormReturn<z.infer<CreateThreadSchemaType>>;
+  onSubmit: (values: z.infer<CreateThreadSchemaType>) => void;
   isPending: boolean;
   isError: boolean;
   error: Error | null;
@@ -62,6 +63,7 @@ export const CreateThreadFormView = ({
   onToggleTag,
   onTagLimitDialogChange,
 }: CreateThreadFormViewProps) => {
+  const t = useTranslation();
   return (
     <CreateThreadSheet>
       <CreateThreadSheet.Trigger>
@@ -113,10 +115,10 @@ export const CreateThreadFormView = ({
                     </div>
                     <div className="flex-1">
                       <p className="text-urbancare-base font-medium text-error">
-                        დაფიქსირდა შეცდომა
+                        {t.common.error}
                       </p>
                       <p className="text-urbancare-sm text-error mt-1">
-                        {error?.message || 'გთხოვთ სცადოთ თავიდან'}
+                        {error?.message || t.common.tryAgain}
                       </p>
                     </div>
                   </div>

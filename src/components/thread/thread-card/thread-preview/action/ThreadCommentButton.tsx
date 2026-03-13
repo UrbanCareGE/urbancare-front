@@ -6,6 +6,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
+import { useTranslation } from '@/i18n';
 
 interface ThreadCommentButtonProps {
   className?: string;
@@ -16,6 +17,7 @@ export const ThreadPreviewCommentButton = ({
 }: ThreadCommentButtonProps) => {
   const router = useRouter();
   const { thread } = useThread();
+  const t = useTranslation();
 
   return (
     <Button
@@ -28,7 +30,7 @@ export const ThreadPreviewCommentButton = ({
     >
       <MessageCircle className="text-tertiary" />
       {thread.comments.length}
-      <span className={'hidden lg:inline'}>კომენტარი</span>
+      <span className={'hidden lg:inline'}>{t.thread.comment}</span>
     </Button>
   );
 };

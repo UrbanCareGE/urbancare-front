@@ -12,6 +12,7 @@ import { useDebounce } from '@/hooks/use-debounce';
 import { useInfiniteApartments } from '@/hooks/query/apartment/use-fetch-apartments';
 import Image from 'next/image';
 import { getClientFileUrl } from '@/lib/api-client';
+import { useTranslation } from '@/i18n';
 
 function HeroMockUI() {
   return (
@@ -89,6 +90,7 @@ function SearchModal({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
+  const t = useTranslation();
   const [query, setQuery] = useState('');
   const debounce = useDebounce(query, 300);
 
@@ -124,16 +126,16 @@ function SearchModal({
         <div className="px-6 pt-5 pb-4 border-b border-border-light flex-shrink-0">
           <div className="pr-8">
             <DialogTitle className="text-urbancare-xl font-semibold text-text-primary">
-              კორპუსის ძიება
+              {t.landing.buildingSearch}
             </DialogTitle>
             <p className="text-urbancare-sm text-text-tertiary mt-0.5">
-              სახელის მიხედვით მოძებნე
+              {t.landing.findByName}
             </p>
           </div>
           <div className="relative mt-4">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-tertiary pointer-events-none" />
             <Input
-              placeholder="კორპუსის სახელი..."
+              placeholder={t.landing.buildingNamePlaceholder}
               className="pl-10 h-12 rounded-urbancare-xl bg-surface-container border-border text-text-primary placeholder:text-text-tertiary focus-visible:ring-2 focus-visible:ring-primary/25 focus-visible:border-border-focus"
               autoFocus
               value={query}
@@ -152,10 +154,10 @@ function SearchModal({
               </div>
               <div>
                 <p className="text-urbancare-base font-medium text-text-secondary">
-                  კორპუსის სახელი ჩაწერეთ
+                  {t.landing.enterBuildingName}
                 </p>
                 <p className="text-urbancare-sm text-text-tertiary mt-1">
-                  შედეგები ავტომატურად გამოჩნდება
+                  {t.landing.resultsAutoAppear}
                 </p>
               </div>
             </div>
@@ -178,10 +180,10 @@ function SearchModal({
               </div>
               <div>
                 <p className="text-urbancare-base font-medium text-text-secondary">
-                  კორპუსი ვერ მოიძებნა
+                  {t.landing.buildingNotFound}
                 </p>
                 <p className="text-urbancare-sm text-text-tertiary mt-1">
-                  სხვა სახელი სცადეთ
+                  {t.landing.tryAnotherName}
                 </p>
               </div>
             </div>
@@ -215,7 +217,7 @@ function SearchModal({
                       </p>
                       <p className="text-urbancare-sm text-text-tertiary mt-0.5 flex items-center gap-1">
                         <Building2 className="w-3 h-3 flex-shrink-0" />
-                        <span>საცხოვრებელი კორპუსი</span>
+                        <span>{t.landing.residentialBuilding}</span>
                       </p>
                     </div>
 
@@ -224,7 +226,7 @@ function SearchModal({
                       onClick={() => handleJoinApartment(apartment.id)}
                       className={'bg-primary'}
                     >
-                      გაწევრიანება
+                      {t.landing.joinMembership}
                     </Button>
                   </Link>
                 </li>
@@ -237,7 +239,7 @@ function SearchModal({
         {showResults && (
           <div className="px-6 py-3 border-t border-border-light flex-shrink-0">
             <p className="text-urbancare-sm text-text-tertiary">
-              {allApartments.length} კორპუსი მოიძებნა
+              {t.landing.buildingsFound.replace('{count}', String(allApartments.length))}
             </p>
           </div>
         )}
@@ -249,28 +251,28 @@ function SearchModal({
 export function LandingHero() {
   const { isAuthenticated } = useAuth();
   const [searchOpen, setSearchOpen] = useState(false);
+  const t = useTranslation();
 
   return (
     <section className="relative z-10 px-4 pt-12 pb-20 md:pt-20 md:pb-32">
       <div className="max-w-6xl mx-auto text-center">
         <div className="animate-slide-down">
           <span className="inline-block px-4 py-2 rounded-urbancare-full bg-primary/10 text-primary text-urbancare-base font-medium mb-6">
-            თქვენი ბინის მართვის პლატფორმა
+            {t.landing.yourPlatform}
           </span>
         </div>
 
         <h1 className="text-urbancare-8xl md:text-urbancare-9xl lg:text-urbancare-10xl font-bold text-text-primary mb-6 leading-tight animate-slide-up">
-          მართე შენი <span className="bg-gradient-primary-text">კორპუსი</span>
+          {t.landing.manageYourBuilding} <span className="bg-gradient-primary-text">{t.landing.buildingHighlight}</span>
           <br className="hidden md:block" />
-          მარტივად
+          {t.landing.simply}
         </h1>
 
         <p
           className="text-urbancare-2xl md:text-urbancare-3xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed animate-slide-up"
           style={{ animationDelay: '100ms' }}
         >
-          ერთიანი პლატფორმა მეზობლებთან კომუნიკაციისთვის, გამოკითხვებისთვის,
-          გადაუდებელი შეტყობინებებისთვის და დოკუმენტების მართვისთვის
+          {t.landing.platformDescription}
         </p>
 
         <div
@@ -283,7 +285,7 @@ export function LandingHero() {
               onClick={() => setSearchOpen(true)}
               className="w-full sm:w-auto h-14 px-8 rounded-urbancare-3xl bg-gradient-primary shadow-[0_4px_20px_rgba(var(--color-primary)/0.4)] lg:hover:shadow-[0_6px_28px_rgba(var(--color-primary)/0.5)] lg:hover:-translate-y-1 lg:active:translate-y-0 transition-all duration-300 text-urbancare-2xl font-semibold"
             >
-              დაწყება
+              {t.common.getStarted}
               <Search className="w-5 h-5 ml-2" />
             </Button>
           ) : (
@@ -292,7 +294,7 @@ export function LandingHero() {
                 size="lg"
                 className="w-full sm:w-auto h-14 px-8 rounded-urbancare-3xl bg-gradient-primary shadow-[0_4px_20px_rgba(var(--color-primary)/0.4)] lg:hover:shadow-[0_6px_28px_rgba(var(--color-primary)/0.5)] lg:hover:-translate-y-1 lg:active:translate-y-0 transition-all duration-300 text-urbancare-2xl font-semibold"
               >
-                დაწყება
+                {t.common.getStarted}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>
@@ -303,7 +305,7 @@ export function LandingHero() {
               size="lg"
               className="w-full sm:w-auto h-14 px-8 rounded-urbancare-3xl border-2 border-border lg:hover:border-primary lg:hover:text-primary lg:active:scale-[0.98] transition-all duration-300 text-urbancare-2xl"
             >
-              გაიგე მეტი
+              {t.common.learnMore}
               <ChevronDown className="w-5 h-5 ml-2" />
             </Button>
           </Link>

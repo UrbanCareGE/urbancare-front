@@ -6,6 +6,7 @@ import {
 import { ALL_TAGS, ThreadTagConfig } from '@/model/dto/thread.dto';
 import { cn } from '@/lib/utils';
 import React from 'react';
+import { useTranslation } from '@/i18n';
 
 type ThreadTagValueProps = {
   className?: string;
@@ -18,6 +19,7 @@ export const TagsFilterMobile = ({
   onClick,
   selectedTags,
 }: ThreadTagValueProps) => {
+  const t = useTranslation();
   return (
     <Carousel
       orientation={'horizontal'}
@@ -38,7 +40,7 @@ export const TagsFilterMobile = ({
                   : 'bg-surface text-foreground-tertiary lg:hover:border-hover lg:hover:bg-surface-variant lg:active:scale-95'
               )}
             >
-              {config.label}
+              {t.tags[tag as keyof typeof t.tags]}
             </CarouselItem>
           );
         })}

@@ -7,6 +7,7 @@ import { Circle, CircleCheck } from 'lucide-react';
 import { usePollVote } from '@/hooks/query/thread/use-poll-vote';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useParams } from 'next/navigation';
+import { useTranslation } from '@/i18n';
 
 interface PollDisplayProps {
   thread: ThreadInfoDTO;
@@ -33,6 +34,7 @@ const PollOptionBar = ({
   const percentage =
     totalVotes > 0 ? Math.round((option.voteCount / totalVotes) * 100) : 0;
   const { mutate, isPending } = usePollVote();
+  const t = useTranslation();
 
   const handleVote = () => {
     if (!thread.poll || isPending) return;
@@ -86,7 +88,7 @@ const PollOptionBar = ({
                   : 'text-text-secondary'
               )}
             >
-              {option.voteCount} {option.voteCount === 1 ? 'ხმა' : 'ხმა'}
+              {option.voteCount} {t.thread.vote}
             </span>
           </div>
         </div>
@@ -96,6 +98,7 @@ const PollOptionBar = ({
 };
 
 export const PollDisplay = ({ thread, className }: PollDisplayProps) => {
+  const t = useTranslation();
   const { user } = useAuth();
   const { apartmentId } = useParams<{ apartmentId: string }>();
   const poll = thread.poll;
@@ -121,7 +124,7 @@ export const PollDisplay = ({ thread, className }: PollDisplayProps) => {
         />
       ))}
       <div className="text-urbancare-base text-text-secondary text-center pt-1">
-        სულ: {totalVotes} ხმა
+        {t.thread.totalVotes.replace('{count}', String(totalVotes))}
       </div>
     </div>
   );

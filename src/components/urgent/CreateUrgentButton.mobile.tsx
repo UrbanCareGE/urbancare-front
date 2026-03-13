@@ -15,8 +15,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { useCreateUrgent } from '@/hooks/query/urgent/use-create-urgent';
 import { UrgentItemDTO } from '@/model/dto/urgent.dto';
 import { PlusIcon } from 'lucide-react';
+import { useTranslation } from '@/i18n';
 
 const CreateUrgentButtonMobile = () => {
+  const t = useTranslation();
   const [text, setText] = useState<string>('');
   const [open, setOpen] = useState(false);
 
@@ -46,12 +48,12 @@ const CreateUrgentButtonMobile = () => {
       <DrawerContent className={'bg-surface border-border'}>
         <DrawerHeader>
           <DrawerTitle className={'text-md'}>
-            დააფიქსირეთ სასწრაფო შეტყობინება
+            {t.urgent.createUrgent}
           </DrawerTitle>
         </DrawerHeader>
         <div className={'px-4'}>
           <Textarea
-            placeholder={'შეიყვანეთ ტექსტი'}
+            placeholder={t.urgent.enterText}
             value={text}
             onChange={(e) => {
               setText(e.target.value);
@@ -67,12 +69,12 @@ const CreateUrgentButtonMobile = () => {
               'bg-primary text-primary-foreground disabled:bg-disabled disabled:text-disabled-foreground'
             }
           >
-            {isPending ? 'იგზავნება...' : 'გაგზავნა'}
+            {isPending ? t.common.sending : t.common.send}
           </Button>
 
           {isError && (
             <p className="text-error-foreground text-urbancare-base">
-              შეცდომა: {error?.message}
+              {t.common.error}: {error?.message}
             </p>
           )}
 
@@ -81,7 +83,7 @@ const CreateUrgentButtonMobile = () => {
               variant="outline"
               className={'bg-error-container/30 text-error border-none'}
             >
-              გაუქმება
+              {t.common.cancel}
             </Button>
           </DrawerClose>
         </DrawerFooter>

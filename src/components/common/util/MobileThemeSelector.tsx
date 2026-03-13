@@ -3,11 +3,12 @@
 import { Monitor, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/i18n';
 
-const themeOptions = [
-  { id: 'light',  icon: Sun,     label: 'ნათელი',   desc: 'ღია და სუფთა'       },
-  { id: 'dark',   icon: Moon,    label: 'მუქი',      desc: 'თვალებისთვის საამო' },
-  { id: 'system', icon: Monitor, label: 'სისტემა',   desc: 'სისტემური'          },
+const getThemeOptions = (t: ReturnType<typeof useTranslation>) => [
+  { id: 'light',  icon: Sun,     label: t.theme.light,  desc: t.theme.lightDescription  },
+  { id: 'dark',   icon: Moon,    label: t.theme.dark,   desc: t.theme.darkDescription   },
+  { id: 'system', icon: Monitor, label: t.theme.system, desc: t.theme.systemDescription },
 ];
 
 const iconStyles: Record<string, { active: string; base: string; icon: string }> = {
@@ -22,6 +23,8 @@ interface MobileThemeSelectorProps {
 
 export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorProps) => {
   const { theme, setTheme } = useTheme();
+  const t = useTranslation();
+  const themeOptions = getThemeOptions(t);
 
   /* ── Vertical layout (desktop dropdown) ──────────────────────── */
   if (vertical) {

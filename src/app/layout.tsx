@@ -5,6 +5,7 @@ import ReactQueryProvider from '@/components/provider/ReactQueryProvider';
 import MyThemeProvider from '@/components/provider/MyThemeProvider';
 import ResponsiveLayoutServer from '@/components/common/layouts/ResponsiveLayoutServer';
 import AuthProvider from '@/components/provider/AuthProvider';
+import { LanguageProvider } from '@/i18n';
 import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
@@ -23,17 +24,19 @@ export interface Basic {
 
 export default function RootLayout({ children }: Children) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ka" suppressHydrationWarning>
       <body
         className="h-dvh flex flex-col antialiased bg-background text-foreground overflow-hidden"
         suppressHydrationWarning
       >
         <ReactQueryProvider>
           <MyThemeProvider>
-            <AuthProvider>
-              <ResponsiveLayoutServer>{children}</ResponsiveLayoutServer>
-              <Toaster position="bottom-right" richColors />
-            </AuthProvider>
+            <LanguageProvider>
+              <AuthProvider>
+                <ResponsiveLayoutServer>{children}</ResponsiveLayoutServer>
+                <Toaster position="bottom-right" richColors />
+              </AuthProvider>
+            </LanguageProvider>
           </MyThemeProvider>
         </ReactQueryProvider>
       </body>

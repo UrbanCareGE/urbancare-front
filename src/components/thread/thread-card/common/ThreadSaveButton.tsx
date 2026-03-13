@@ -3,9 +3,11 @@
 import { Bookmark } from 'lucide-react';
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/i18n';
 
 export const ThreadSaveButton = () => {
   const [saved, setSaved] = useState(false);
+  const t = useTranslation();
 
   return (
     <button
@@ -26,7 +28,7 @@ export const ThreadSaveButton = () => {
         />
       </div>
       <span className={cn('font-medium', saved ? 'text-primary' : 'text-text-primary')}>
-        {saved ? 'შენახული' : 'შენახვა'}
+        {saved ? t.thread.saved : t.thread.save}
       </span>
     </button>
   );

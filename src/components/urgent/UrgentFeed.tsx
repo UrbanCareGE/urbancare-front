@@ -14,11 +14,14 @@ import {
   ActionButtonProps,
   UrgentCardStatus,
 } from '@/components/urgent/data/urgent-data';
+import { useTranslation } from '@/i18n';
+import { TranslationKeys } from '@/i18n';
 
 export const mapUrgentItemToCardProps = (
   item: OptimisticData<UrgentItemDTO>,
   onResolve: (id: string) => void,
-  resolvingId: string | null
+  resolvingId: string | null,
+  t: TranslationKeys
 ): UrgentCardProps => {
   const status: UrgentCardStatus = item.resolved ? 'resolved' : 'urgent';
   const initials =
@@ -26,12 +29,12 @@ export const mapUrgentItemToCardProps = (
   const isResolving = resolvingId === item.id;
 
   const actions: ActionButtonProps[] = item.resolved
-    ? [{ icon: '❤️', label: 'მადლობა', variant: 'success' }]
+    ? [{ icon: '❤️', label: t.urgent.thankYou, variant: 'success' }]
     : [
         {
           icon: '✓',
-          label: 'შესრულებულია',
-          pendingLabel: '...იგზავნება',
+          label: t.urgent.completed,
+          pendingLabel: t.urgent.sendingPending,
           variant: 'primary',
           onClick: () => onResolve(item.id),
           isPending: isResolving,
@@ -41,19 +44,19 @@ export const mapUrgentItemToCardProps = (
   return {
     status,
     icon: item.resolved ? '✓' : '🆘',
-    label: item.resolved ? 'შესრულებულია' : 'SOS',
+    label: item.resolved ? t.urgent.completed : t.urgent.sos,
     title: `${item.userInfo.name} ${item.userInfo.surname}`,
     message: item.content,
     meta: [{ icon: '⏱️', text: formatTime(item.createdAt.toString()) }],
     responders: [{ initials, color: 'primary' as const }],
-    responderText: item.resolved ? 'დაეხმარა' : 'მოითხოვა დახმარება',
+    responderText: item.resolved ? t.urgent.helped : t.urgent.requestedHelp,
     actions,
     issuerId: item.userInfo.id,
     isPending: item._isPending,
   };
 };
 
-const UrgentEmptyState = () => (
+const UrgentEmptyState = ({ t }: { t: TranslationKeys }) => (
   <div className="flex flex-col items-center justify-center px-5 py-10 gap-5">
     <div className="relative flex items-center justify-center">
       <div className="absolute w-20 h-20 rounded-urbancare-full bg-success/15 animate-pulse" />
@@ -65,10 +68,10 @@ const UrgentEmptyState = () => (
 
     <div className="flex flex-col items-center gap-1 text-center">
       <p className="font-semibold text-urbancare-base text-foreground-primary">
-        ყველაფერი კარგადაა
+        {t.urgent.everythingFine}
       </p>
       <p className="text-urbancare-sm text-foreground-secondary leading-relaxed">
-        სასწრაფო შეტყობინება არ არის
+        {t.urgent.noUrgentNotifications}
       </p>
     </div>
 
@@ -81,6 +84,7 @@ const UrgentEmptyState = () => (
 );
 
 const UrgentFeed = () => {
+  const t = useTranslation();
   const { apartmentId } = useParams<{ apartmentId: string }>();
   const { data, isLoading, isError } = useFetchUrgent();
   const {
@@ -113,7 +117,7 @@ const UrgentFeed = () => {
           Error loading urgent items
         </div>
       )}
-      {items && items.length === 0 && <UrgentEmptyState />}
+      {items && items.length === 0 && <UrgentEmptyState t={t} />}
       {items &&
         items.length > 0 &&
         items.map((item) => (
@@ -122,7 +126,8 @@ const UrgentFeed = () => {
             {...mapUrgentItemToCardProps(
               item,
               handleResolve,
-              isResolving ? (resolvingId?.id ?? null) : null
+              isResolving ? (resolvingId?.id ?? null) : null,
+              t
             )}
           />
         ))}

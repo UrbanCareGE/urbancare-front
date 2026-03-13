@@ -4,10 +4,12 @@ import { useTheme } from 'next-themes';
 import { Moon, Sun } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { useEffect, useState } from 'react';
+import { useTranslation } from '@/i18n';
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const t = useTranslation();
 
   useEffect(() => {
     setMounted(true);
@@ -28,7 +30,7 @@ export default function ThemeToggle() {
       </div>
       <div className={'mr-auto'}>
         <p className="font-medium text-text-primary">
-          {isDark ? 'მუქი' : 'ნათელი'}
+          {isDark ? t.theme.dark : t.theme.light}
         </p>
       </div>
       <Switch

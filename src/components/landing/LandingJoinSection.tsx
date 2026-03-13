@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ArrowRight, Hash } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/i18n';
 
 interface LandingJoinSectionProps {
   onJoin?: (code: string) => void;
@@ -12,6 +13,7 @@ interface LandingJoinSectionProps {
 export function LandingJoinSection({ onJoin }: LandingJoinSectionProps) {
   const [code, setCode] = useState('');
   const [focused, setFocused] = useState(false);
+  const t = useTranslation();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,15 +33,15 @@ export function LandingJoinSection({ onJoin }: LandingJoinSectionProps) {
         {/* Badge */}
         <span className="inline-flex items-center gap-2 px-4 py-2 rounded-urbancare-full bg-primary/10 text-primary text-urbancare-base font-medium mb-6">
           <Hash className="w-3.5 h-3.5" />
-          კოდით შესვლა
+          {t.landing.joinWithCode}
         </span>
 
         {/* Title */}
         <h2 className="text-urbancare-7xl md:text-urbancare-8xl font-bold text-text-primary mb-4">
-          შეუერთდი კორპუსს
+          {t.landing.joinBuilding}
         </h2>
         <p className="text-text-secondary text-urbancare-2xl mb-12 max-w-lg mx-auto leading-relaxed">
-          მიიღე კოდი ადმინისტრატორისგან და დაუყოვნებლივ შეუერთდი შენს კორპუსს
+          {t.landing.getCodeFromAdmin}
         </p>
 
         {/* Join form */}
@@ -94,12 +96,12 @@ export function LandingJoinSection({ onJoin }: LandingJoinSectionProps) {
               'disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none disabled:translate-y-0'
             )}
           >
-            შეუერთდი
+            {t.landing.join}
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
 
           <p className="text-urbancare-sm text-text-tertiary">
-            კოდი გამოგიგზავნა შენი კორპუსის ადმინისტრატორმა
+            {t.landing.codeFromAdmin}
           </p>
         </form>
       </div>

@@ -16,6 +16,7 @@ import {
   urgentStatusConfig,
 } from '@/components/urgent/data/urgent-data';
 import { useAuth } from '@/components/provider/AuthProvider';
+import { useTranslation } from '@/i18n';
 
 const PulseDot = ({
   color,
@@ -190,6 +191,7 @@ const UrgentCardFooter = ({
   issuerId,
 }: UrgentCardFooterProps) => {
   const { user } = useAuth();
+  const t = useTranslation();
   const buttonVariants = {
     primary: 'bg-primary text-white lg:hover:bg-primary/90',
     secondary: 'bg-primary text-white lg:hover:bg-primary/90',
@@ -218,7 +220,7 @@ const UrgentCardFooter = ({
               {action.isPending ? (
                 <>
                   <Loader className="animate-spin w-4 h-4" />
-                  იგზავნება
+                  {t.urgent.sending}
                 </>
               ) : (
                 <>

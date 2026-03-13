@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from '@/i18n';
 
 interface ThreadTagLimitDialogProps {
   open: boolean;
@@ -18,18 +19,19 @@ export const ThreadTagLimitDialog = ({
   open,
   onOpenChange,
 }: ThreadTagLimitDialogProps) => {
+  const t = useTranslation();
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-[calc(100%-2rem)] max-w-md rounded-urbancare-3xl border-border">
         <DialogHeader>
-          <DialogTitle>თეგების ლიმიტი</DialogTitle>
+          <DialogTitle>{t.threadForm.tagsLimit}</DialogTitle>
           <DialogDescription>
-            თითოეულ პოსტზე შესაძლებელია მაქსიმუმ 3 თეგის მითითება.
+            {t.threadForm.maxTagsPerPost}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <Button variant="default" onClick={() => onOpenChange(false)}>
-            გასაგებია
+            {t.common.understood}
           </Button>
         </DialogFooter>
       </DialogContent>

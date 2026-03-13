@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { ArrowDownNarrowWide, SlidersHorizontal } from 'lucide-react';
 import { useThreadDrawer } from '@/components/thread/thread-form/CreateThreadSheet';
+import { useTranslation } from '@/i18n';
 
 export type StartThreadFormProps = {
   className?: string;
@@ -16,6 +17,7 @@ export type StartThreadFormProps = {
 export function CreateThreadButton({ className }: StartThreadFormProps) {
   const { user } = useAuth();
   const threadDrawer = useThreadDrawer();
+  const t = useTranslation();
 
   return (
     <div className={cn('flex gap-2 px-1 items-center', className)}>
@@ -33,7 +35,7 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
           className="flex items-center rounded-urbancare-full px-4 py-2 h-10 bg-surface-container transition-colors mr-auto text-urbancare-base text-muted-foreground lg:hover:bg-surface-hover lg:cursor-pointer"
           onClick={threadDrawer.openDrawer}
         >
-          რისი გაზიარება გსურთ?
+          {t.thread.whatToShare}
         </div>
       </div>
       <SlidersHorizontal className={'text-icon'}></SlidersHorizontal>

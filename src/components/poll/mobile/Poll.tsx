@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { BarChart2, Check, Plus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from '@/i18n';
 
 /**
  * Props interface for the Poll component
@@ -98,6 +99,7 @@ export const Poll = ({
   onPollModeToggle,
   isDisabled = false,
 }: PollProps) => {
+  const t = useTranslation();
   // Local UI state
   const [isAddingOption, setIsAddingOption] = useState(false);
   const [currentOption, setCurrentOption] = useState('');
@@ -166,7 +168,7 @@ export const Poll = ({
         <div className="flex items-center gap-2">
           <BarChart2 className="w-4 h-4 text-foreground-disabled" />
           <span className="text-urbancare-base font-medium text-foreground-secondary">
-            გამოკითხვა
+            {t.poll.poll}
           </span>
         </div>
         <Button
@@ -177,7 +179,7 @@ export const Poll = ({
           disabled={isDisabled}
           className="h-8"
         >
-          {isPollMode ? 'გამორთვა' : 'დამატება'}
+          {isPollMode ? t.poll.disable : t.common.add}
         </Button>
       </div>
 
@@ -230,7 +232,7 @@ export const Poll = ({
                 value={currentOption}
                 onChange={(e) => setCurrentOption(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="ვარიანტის ტექსტი..."
+                placeholder={t.poll.optionPlaceholder}
                 className="flex-1 px-3 py-2 text-urbancare-base border border-border rounded-urbancare-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                 autoFocus
               />
@@ -259,7 +261,7 @@ export const Poll = ({
               className="flex items-center gap-2 w-full p-2 text-urbancare-base text-foreground-primary lg:hover:text-foreground-secondary lg:hover:bg-surface-container lg:active:scale-[0.98] bg-surface rounded-urbancare-md border border-dashed border-border transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Plus size={16} />
-              ვარიანტის დამატება
+              {t.poll.addOption}
             </button>
           )}
         </div>

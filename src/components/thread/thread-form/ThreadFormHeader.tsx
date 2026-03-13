@@ -7,18 +7,20 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { X } from 'lucide-react';
+import { useTranslation } from '@/i18n';
 
 export const ThreadFormHeader = () => {
+  const t = useTranslation();
   return (
     <SheetHeader className="px-3 py-3">
       <SheetDescription className="sr-only">
-        ახალი პოსტის შექმნის ფორმა
+        {t.thread.newPostForm}
       </SheetDescription>
       <div className="flex items-center gap-2">
         <div className="w-8" />
         <div className="mr-auto ml-auto">
           <SheetTitle className="text-urbancare-2xl font-semibold text-foreground-primary">
-            ახალი პოსტი
+            {t.thread.newPost}
           </SheetTitle>
         </div>
         <SheetClose asChild>

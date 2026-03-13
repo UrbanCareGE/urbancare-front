@@ -12,9 +12,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { UserAvatar } from '@/components/common/avatar/UserAvatar';
+import { useTranslation } from '@/i18n';
 
 export function LandingHeader() {
   const { isAuthenticated, user, logOut } = useAuth();
+  const t = useTranslation();
 
   return (
     <header className="relative z-10 px-4 py-4 md:px-8">
@@ -50,7 +52,7 @@ export function LandingHeader() {
                       className="flex items-center gap-2 cursor-pointer"
                     >
                       <Home className="w-4 h-4" />
-                      კორპუსში გადასვლა
+                      {t.neighborhood.switchBuilding}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
@@ -61,7 +63,7 @@ export function LandingHeader() {
                 className="text-error focus:text-error cursor-pointer"
               >
                 <LogOut className="w-4 h-4 mr-2" />
-                გასვლა
+                {t.auth.signOut}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -73,12 +75,12 @@ export function LandingHeader() {
                 size="sm"
                 className="text-text-secondary lg:hover:text-primary"
               >
-                შესვლა
+                {t.auth.signIn}
               </Button>
             </Link>
             <Link href="/auth/register">
               <Button size="sm" className="rounded-urbancare-xl bg-gradient-primary">
-                რეგისტრაცია
+                {t.auth.register}
               </Button>
             </Link>
           </div>

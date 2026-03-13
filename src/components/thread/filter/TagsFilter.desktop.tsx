@@ -1,6 +1,7 @@
 import { ALL_TAGS, ThreadTagConfig } from '@/model/dto/thread.dto';
 import { cn } from '@/lib/utils';
 import React from 'react';
+import { useTranslation } from '@/i18n';
 
 type TagsFilterDesktopProps = {
   className?: string;
@@ -15,6 +16,7 @@ export const TagsFilterDesktop = ({
   onClear,
   selectedTags,
 }: TagsFilterDesktopProps) => {
+  const t = useTranslation();
   return (
     <div className={cn('hidden lg:flex flex-wrap gap-2', className)}>
       {ALL_TAGS.map((tag) => {
@@ -32,7 +34,7 @@ export const TagsFilterDesktop = ({
                 : 'bg-surface text-foreground-tertiary lg:hover:bg-surface-variant lg:hover:text-foreground-secondary',
             )}
           >
-            {config.label}
+            {t.tags[tag as keyof typeof t.tags]}
           </button>
         );
       })}
@@ -42,7 +44,7 @@ export const TagsFilterDesktop = ({
           onClick={onClear}
           className="py-1 px-3 rounded-urbancare-full text-urbancare-base font-medium text-foreground-tertiary lg:hover:text-error lg:hover:bg-error/10 transition-all lg:active:scale-95"
         >
-          გასუფთავება
+          {t.common.clear}
         </button>
       )}
     </div>

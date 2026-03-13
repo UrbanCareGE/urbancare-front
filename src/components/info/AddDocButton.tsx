@@ -23,23 +23,25 @@ import {
 } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import {
-  addDocSchema,
+  useDocFormSchema,
   type AddDocFormValues,
 } from '@/hooks/query/use-doc-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/i18n';
 import { FileService } from '@/service/file-service';
 import { InfoService } from '@/service/info-service';
 import { useParams } from 'next/navigation';
 
 const AddDocButton = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const t = useTranslation();
   return (
     <Sheet open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <SheetTrigger asChild className={'mx-4 bg-blue-500'}>
-        <Button className={'m-4'}>ახალი დოკუმენტის ატვირთვა</Button>
+        <Button className={'m-4'}>{t.info.uploadNewDocument}</Button>
       </SheetTrigger>
       <SheetContent
         side={'bottom'}
@@ -50,9 +52,9 @@ const AddDocButton = () => {
             'space-y-0 h-12 border-b relative flex items-center justify-center'
           }
         >
-          <SheetTitle>დამატების ფორმა</SheetTitle>
+          <SheetTitle>{t.info.addForm}</SheetTitle>
           <SheetDescription className={'sr-only'}>
-            დოკუმენტის დამატების შესაყვანი ფორმა
+            {t.info.addDocFormDescription}
           </SheetDescription>
           <SheetClose className={'absolute right-3'}>
             <X className={'w-6 h-6 m-0 font-bold'} />
@@ -70,6 +72,8 @@ interface AddDocFormBodyProps {
 
 const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
   const { apartmentId } = useParams<{ apartmentId: string }>();
+  const t = useTranslation();
+  const addDocSchema = useDocFormSchema();
   const [uploadedFiles, setUploadedFiles] = useState<
     { id: string; name: string }[]
   >([]);
@@ -154,7 +158,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                 <div className="flex items-center justify-between mb-2">
                   <FormLabel className="text-urbancare-base font-medium text-text-primary flex items-center gap-2">
                     <FileText className="w-4 h-4 text-icon" />
-                    აღწერა <span className="text-red-500">*</span>
+                    {t.info.description} <span className="text-red-500">*</span>
                   </FormLabel>
                   <span
                     className={cn(
@@ -171,7 +175,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                 </div>
                 <FormControl>
                   <Input
-                    placeholder="დოკუმენტის სათაური..."
+                    placeholder={t.info.documentTitlePlaceholder}
                     maxLength={100}
                     className="bg-surface"
                     {...field}
@@ -189,7 +193,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-urbancare-base font-medium text-text-primary mb-2 block">
-                  დოკუმენტის ტიპი
+                  {t.info.documentType}
                 </FormLabel>
                 <FormControl>
                   <div className="flex rounded-urbancare-lg p-1 bg-surface">
@@ -204,7 +208,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                       )}
                     >
                       <FileText className="w-4 h-4" />
-                      ტექსტი
+                      {t.info.text}
                     </button>
                     <button
                       type="button"
@@ -217,7 +221,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                       )}
                     >
                       <Paperclip className="w-4 h-4" />
-                      ფაილი
+                      {t.info.file}
                     </button>
                   </div>
                 </FormControl>
@@ -236,7 +240,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                   <div className="flex items-center justify-between mb-2">
                     <FormLabel className="text-urbancare-base font-medium text-text-primary flex items-center gap-2">
                       <FileText className="w-4 h-4 text-icon" />
-                      ტექსტი <span className="text-red-500">*</span>
+                      {t.info.text} <span className="text-red-500">*</span>
                     </FormLabel>
                     <span
                       className={cn(
@@ -253,7 +257,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                   </div>
                   <FormControl>
                     <Textarea
-                      placeholder="დოკუმენტის ტექსტი..."
+                      placeholder={t.info.documentTextPlaceholder}
                       className="min-h-40 resize-none bg-surface"
                       maxLength={5000}
                       {...field}
@@ -275,10 +279,10 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                   <div className="flex items-center justify-between mb-2">
                     <FormLabel className="text-urbancare-base font-medium text-text-primary flex items-center gap-2">
                       <Paperclip className="w-4 h-4 text-icon" />
-                      ფაილები <span className="text-red-500">*</span>
+                      {t.info.files} <span className="text-red-500">*</span>
                     </FormLabel>
                     <span className="text-urbancare-sm text-text-secondary">
-                      {uploadedFiles.length}/10 ფაილი
+                      {uploadedFiles.length}/10 {t.info.fileCount}
                     </span>
                   </div>
 
@@ -304,7 +308,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                       </div>
                       <div className="text-center">
                         <p className="text-urbancare-base font-medium text-text-primary">
-                          {isUploading ? 'იტვირთება...' : 'ფაილის ატვირთვა'}
+                          {isUploading ? t.common.loading : t.info.uploadFile}
                         </p>
                         <p className="text-urbancare-sm text-text-secondary mt-0.5">
                           PDF, DOC, XLS, TXT
@@ -358,7 +362,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
           >
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4" />
-              დოკუმენტის დამატება
+              {t.info.addDocument}
             </div>
           </Button>
         </SheetFooter>

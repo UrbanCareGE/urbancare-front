@@ -1,37 +1,44 @@
 import { z } from 'zod';
+import { useTranslation } from '@/i18n';
 
-const addDocSchema = z
-  .object({
-    title: z.string().min(2, 'სათაური უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს'),
-    type: z.enum(['TEXT', 'PDF']),
-    fileIds: z.array(z.string()),
-    text: z.string().optional(),
-  })
-  .refine(
-    (data) => {
-      if (data.type === 'TEXT') {
-        return data.text && data.text.trim().length >= 10;
+function useDocFormSchema() {
+  const t = useTranslation();
+
+  const addDocSchema = z
+    .object({
+      title: z.string().min(2, t.docForm.titleMinLength),
+      type: z.enum(['TEXT', 'PDF']),
+      fileIds: z.array(z.string()),
+      text: z.string().optional(),
+    })
+    .refine(
+      (data) => {
+        if (data.type === 'TEXT') {
+          return data.text && data.text.trim().length >= 10;
+        }
+        return true;
+      },
+      {
+        message: t.docForm.textMinLength,
+        path: ['text'],
       }
-      return true;
-    },
-    {
-      message: 'ტექსტი უნდა შეიცავდეს მინიმუმ 10 სიმბოლოს',
-      path: ['text'],
-    }
-  )
-  .refine(
-    (data) => {
-      if (data.type === 'PDF') {
-        return data.fileIds.length > 0;
+    )
+    .refine(
+      (data) => {
+        if (data.type === 'PDF') {
+          return data.fileIds.length > 0;
+        }
+        return true;
+      },
+      {
+        message: t.docForm.uploadAtLeastOneFile,
+        path: ['fileIds'],
       }
-      return true;
-    },
-    {
-      message: 'გთხოვთ ატვირთოთ მინიმუმ ერთი ფაილი',
-      path: ['fileIds'],
-    }
-  );
+    );
 
-type AddDocFormValues = z.infer<typeof addDocSchema>;
+  return addDocSchema;
+}
 
-export { addDocSchema, type AddDocFormValues };
+type AddDocFormValues = z.infer<ReturnType<typeof useDocFormSchema>>;
+
+export { useDocFormSchema, type AddDocFormValues };

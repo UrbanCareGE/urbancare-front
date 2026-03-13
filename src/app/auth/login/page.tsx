@@ -7,21 +7,7 @@ import { LoginFooter } from '@/components/auth/login/LoginFooter';
 import DynamicPanel from '@/components/home/dynamic-panel/DynamicPanel';
 import { UrbanCareIcon } from '@/components/common/logo/AppLogo';
 import { Building2, MessageCircle, Vote } from 'lucide-react';
-
-const features = [
-  {
-    icon: <Building2 className="w-5 h-5" />,
-    label: 'სახლის ციფრული მართვა',
-  },
-  {
-    icon: <MessageCircle className="w-5 h-5" />,
-    label: 'მეზობლებთან კომუნიკაცია',
-  },
-  {
-    icon: <Vote className="w-5 h-5" />,
-    label: 'კენჭისყრა და განხილვები',
-  },
-];
+import { useTranslation } from '@/i18n';
 
 const BuildingIllustration = () => (
   <svg
@@ -527,16 +513,33 @@ const BuildingIllustration = () => (
 );
 
 export default function LoginPage() {
+  const t = useTranslation();
+
+  const features = [
+    {
+      icon: <Building2 className="w-5 h-5" />,
+      label: t.authPages.digitalManagement,
+    },
+    {
+      icon: <MessageCircle className="w-5 h-5" />,
+      label: t.authPages.neighborCommunication,
+    },
+    {
+      icon: <Vote className="w-5 h-5" />,
+      label: t.authPages.votingDiscussions,
+    },
+  ];
+
   return (
     <div className="relative min-h-screen bg-[rgb(var(--color-background))]">
-      {/* ── Mobile background blobs ── */}
+      {/* -- Mobile background blobs -- */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden lg:hidden">
         <div className="absolute -top-24 -right-24 w-72 h-72 bg-primary-light rounded-urbancare-full blur-[80px] opacity-40 animate-blob" />
         <div className="absolute bottom-[20%] -left-20 w-64 h-64 bg-gradient-secondary-purple rounded-urbancare-full blur-[80px] opacity-40 animate-blob animation-delay-2000" />
         <div className="absolute -bottom-12 right-[10%] w-52 h-52 bg-primary-hover rounded-urbancare-full blur-[80px] opacity-40 animate-blob animation-delay-4000" />
       </div>
 
-      {/* ── DESKTOP: two-column layout ── */}
+      {/* -- DESKTOP: two-column layout -- */}
       <div className="hidden lg:flex lg:h-screen lg:overflow-hidden">
         {/* LEFT HERO PANEL */}
         <div className="relative flex flex-col w-[56%] overflow-hidden bg-gradient-primary">
@@ -567,13 +570,13 @@ export default function LoginPage() {
             {/* Headline + features */}
             <div className="flex-1 flex flex-col justify-center py-10">
               <p className="text-white/60 text-urbancare-base font-semibold uppercase tracking-widest mb-3">
-                კეთილი იყოს შენი დაბრუნება
+                {t.authPages.welcomeBack}
               </p>
               <h1 className="text-urbancare-8xl xl:text-urbancare-9xl font-bold text-white leading-tight mb-4">
-                მოგვიახლოვდი
+                {t.authPages.comeCloser}
               </h1>
               <p className="text-white/65 text-urbancare-xl leading-relaxed mb-10 max-w-[380px]">
-                გახდი შენი სახლის საზოგადოების ნაწილი — ყველაფერი ერთ ადგილას.
+                {t.authPages.beCommunityPart}
               </p>
 
               <div className="flex flex-col gap-3">
@@ -605,7 +608,7 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* ── MOBILE: single-column layout ── */}
+      {/* -- MOBILE: single-column layout -- */}
       <DynamicPanel className="lg:hidden relative z-10 min-h-screen px-6 py-6 max-w-md mx-auto">
         <DynamicPanel.Header>
           <LoginHeader />

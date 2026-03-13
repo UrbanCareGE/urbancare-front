@@ -13,10 +13,11 @@ import {
 } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
-import { createThreadSchema } from '@/components/thread/data/create-thread-schema';
+import { CreateThreadSchemaType } from '@/components/thread/data/create-thread-schema';
+import { useTranslation } from '@/i18n';
 
 interface ThreadBodyFieldProps {
-  control: Control<z.infer<typeof createThreadSchema>>;
+  control: Control<z.infer<CreateThreadSchemaType>>;
   isPending: boolean;
   bodyLength: number;
 }
@@ -26,6 +27,7 @@ export const ThreadBodyField = ({
   isPending,
   bodyLength,
 }: ThreadBodyFieldProps) => {
+  const t = useTranslation();
   return (
     <FormField
       control={control}
@@ -35,7 +37,7 @@ export const ThreadBodyField = ({
           <div className="flex items-center justify-between mb-2">
             <FormLabel className="text-urbancare-base font-medium text-foreground-secondary flex items-center gap-2">
               <FileText className="w-4 h-4 text-foreground-disabled" />
-              ტექსტი <span className="text-error">*</span>
+              {t.threadForm.textLabel} <span className="text-error">*</span>
             </FormLabel>
             <span
               className={cn(
@@ -52,7 +54,7 @@ export const ThreadBodyField = ({
           </div>
           <FormControl>
             <Textarea
-              placeholder="რას გააზიარებთ? გაგვიზიარეთ თქვენი აზრები, გამოცდილება ან შეკითხვა..."
+              placeholder={t.threadForm.bodyPlaceholder}
               disabled={isPending}
               className="min-h-40 resize-none text-urbancare-xl border bg-surface focus:border-primary focus:ring-primary/20 transition-all"
               maxLength={2000}

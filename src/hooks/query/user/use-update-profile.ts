@@ -3,8 +3,10 @@ import { ProfileService } from '@/service/profile-service';
 import { UpdateProfileDTO } from '@/model/dto/auth.dto';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { toast } from 'sonner';
+import { useTranslation } from '@/i18n';
 
 export function useUpdateProfile() {
+  const t = useTranslation();
   const { updateUser } = useAuth();
 
   return useMutation({
@@ -24,7 +26,7 @@ export function useUpdateProfile() {
     //   toast.success('პროფილი წარმატებით განახლდა');
     // },
     onError: () => {
-      toast.error('პროფილის განახლება ვერ მოხერხდა');
+      toast.error(t.profile.profileUpdateFailed);
     },
   });
 }

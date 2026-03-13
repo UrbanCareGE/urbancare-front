@@ -2,10 +2,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AddCarDTO, CarDTO } from '@/model/dto/auth.dto';
 import { ProfileService } from '@/service/profile-service';
 import { toast } from 'sonner';
+import { useTranslation } from '@/i18n';
 
 const CARS_QUERY_KEY = ['profile-cars', 'list'] as const;
 
 export function useAddCar() {
+  const t = useTranslation();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -20,7 +22,7 @@ export function useAddCar() {
       );
 
       if (isDuplicate) {
-        throw new Error('ეს მანქანა უკვე დამატებულია');
+        throw new Error(t.cars.carAlreadyAdded);
       }
 
       queryClient.setQueryData<CarDTO[]>(CARS_QUERY_KEY, (old) => [
@@ -43,7 +45,7 @@ export function useAddCar() {
       if (context?.previousCars) {
         queryClient.setQueryData(CARS_QUERY_KEY, context.previousCars);
       }
-      toast.error(error.message || 'მანქანის დამატება ვერ მოხერხდა');
+      toast.error(error.message || t.cars.carAddFailed);
     },
   });
 }

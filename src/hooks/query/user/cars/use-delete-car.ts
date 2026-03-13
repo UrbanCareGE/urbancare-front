@@ -2,8 +2,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ProfileService } from '@/service/profile-service';
 import { CarDTO } from '@/model/dto/auth.dto';
 import { toast } from 'sonner';
+import { useTranslation } from '@/i18n';
 
 export function useDeleteCar() {
+  const t = useTranslation();
   const queryClient = useQueryClient();
   const CARS_QUERY_KEY = ['profile-cars', 'list'];
 
@@ -25,7 +27,7 @@ export function useDeleteCar() {
       if (context?.previousCars) {
         queryClient.setQueryData(CARS_QUERY_KEY, context.previousCars);
       }
-      toast.error('მანქანის წაშლა ვერ მოხერხდა');
+      toast.error(t.cars.carDeleteFailed);
     },
   });
 }

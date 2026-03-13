@@ -7,11 +7,12 @@ import { useInfiniteThreads } from '@/hooks/query/thread/use-fetch-threads';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { TagsFilterSchema } from '@/components/thread/data/thread-filter-schema';
+import { createTagsFilterSchema } from '@/components/thread/data/thread-filter-schema';
 import { TagsFilterMobile } from '@/components/thread/filter/TagsFilter.mobile';
 import { TagsFilterDesktop } from '@/components/thread/filter/TagsFilter.desktop';
 import { CreateThreadFormContainer } from '@/components/thread/thread-form/CreateThreadForm';
 import { Thread } from '@/components/thread/thread-card/Thread';
+import { useTranslation } from '@/i18n';
 
 export interface ThreadFeedProps {
   defaultTags?: string[];
@@ -19,7 +20,10 @@ export interface ThreadFeedProps {
 
 export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
   const { user } = useAuth();
+  const t = useTranslation();
   const apartmentId = user.selectedApartmentId!;
+
+  const TagsFilterSchema = useMemo(() => createTagsFilterSchema(t), [t]);
 
   const form = useForm<z.infer<typeof TagsFilterSchema>>({
     resolver: zodResolver(TagsFilterSchema),
@@ -157,7 +161,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
 
       {!hasNextPage && data?.pages && data.pages.length > 0 && (
         <div className="text-center py-8 text-text-tertiary text-urbancare-sm">
-          ყველა პოსტი ნანახია
+          {t.thread.allPostsViewed}
         </div>
       )}
     </div>

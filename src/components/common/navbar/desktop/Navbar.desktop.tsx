@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion } from 'motion/react';
+import { useTranslation } from '@/i18n';
 
 type NavItem = {
   href: string;
@@ -19,18 +20,20 @@ type NavItem = {
   isAbsolute?: boolean;
 };
 
-const NAV_ITEMS: NavItem[] = [
-  { href: 'post', label: 'პოსტები', icon: HouseIcon },
-  { href: 'urgent', label: 'სასწრაფო', icon: ShieldAlert },
-  { href: 'chat', label: 'მთავარი', icon: SendIcon },
-  { href: '/welcome', label: 'სიახლეები', icon: Newspaper, isAbsolute: true },
-  { href: 'profile', label: 'პროფილი', icon: CircleUser },
-];
-
 export const HeaderNavIsland = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { apartmentId } = useParams<{ apartmentId: string }>();
+  const t = useTranslation();
+
+  const NAV_ITEMS: NavItem[] = [
+    { href: 'post', label: t.nav.posts, icon: HouseIcon },
+    { href: 'urgent', label: t.nav.urgent, icon: ShieldAlert },
+    { href: 'chat', label: t.nav.main, icon: SendIcon },
+    { href: '/welcome', label: t.nav.news, icon: Newspaper, isAbsolute: true },
+    { href: 'profile', label: t.nav.profile, icon: CircleUser },
+  ];
+
   const [, startTransition] = useTransition();
   const [optimisticIndex, setOptimisticIndex] = useState<number | null>(null);
 

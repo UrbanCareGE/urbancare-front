@@ -3,8 +3,10 @@ import { ProfileService } from '@/service/profile-service';
 import { UpdateProfileImageDTO } from '@/model/dto/auth.dto';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { toast } from 'sonner';
+import { useTranslation } from '@/i18n';
 
 export function useUpdateProfileImage() {
+  const t = useTranslation();
   const { updateUser } = useAuth();
 
   return useMutation({
@@ -16,10 +18,10 @@ export function useUpdateProfileImage() {
       });
     },
     onSuccess: (data) => {
-      toast.success('პროფილის ფოტო წარმატებით განახლდა');
+      toast.success(t.profile.profilePhotoUpdated);
     },
     onError: () => {
-      toast.error('პროფილის ფოტოს განახლება ვერ მოხერხდა');
+      toast.error(t.profile.profilePhotoFailed);
     },
   });
 }

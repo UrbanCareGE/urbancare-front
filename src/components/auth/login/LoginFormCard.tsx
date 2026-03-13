@@ -6,7 +6,7 @@ import { FormInput } from '@/components/common/input/FormInput';
 import { Button } from '@/components/ui/button';
 import { KeyRound, Loader2, UserIcon } from 'lucide-react';
 import { LoginDTO } from '@/model/dto/auth.dto';
-import LoginFormSchema from '@/components/auth/login/data/login-form-schema';
+import { createLoginFormSchema } from '@/components/auth/login/data/login-form-schema';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -14,6 +14,7 @@ import { z } from 'zod';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import { OauthForm } from '@/components/auth/oauith/OauthForm';
+import { useTranslation } from '@/i18n';
 
 const Separator = () => {
   return (
@@ -29,6 +30,8 @@ const Separator = () => {
 
 export function LoginFormCard() {
   const { logIn, isLoggingIn } = useAuth();
+  const t = useTranslation();
+  const LoginFormSchema = createLoginFormSchema(t);
 
   const handleOAuthLogin = (provider: string) => {
     // Handle OAuth login
@@ -55,10 +58,10 @@ export function LoginFormCard() {
     <Card className={'border-border-light rounded-urbancare-4xl animate-slide-up'}>
       <CardContent className="p-8">
         <h1 className="text-urbancare-5xl font-bold text-center text-primary mb-2">
-          მოგესალმებით
+          {t.auth.welcome}
         </h1>
         <p className="text-center text-secondary text-urbancare-xl mb-7">
-          გაიარე ავტორიზაცია
+          {t.auth.authorize}
         </p>
 
         {/* OAuth Buttons */}
@@ -78,7 +81,7 @@ export function LoginFormCard() {
                 <FormItem>
                   <FormControl>
                     <FormInput
-                      placeholder="მომხმარებელი"
+                      placeholder={t.auth.username}
                       disabled={isLoggingIn}
                       icon={<UserIcon className="text-icon" />}
                       className="h-[52px] rounded-urbancare-xl border border-border bg-surface text-urbancare-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
@@ -97,7 +100,7 @@ export function LoginFormCard() {
                 <FormItem>
                   <FormControl>
                     <FormInput
-                      placeholder="პაროლი"
+                      placeholder={t.auth.password}
                       icon={<KeyRound className="text-icon" />}
                       type="password"
                       isPasswordType
@@ -116,7 +119,7 @@ export function LoginFormCard() {
                 href="/auth/recover-password"
                 className="text-urbancare-md font-semibold text-primary lg:hover:text-primary-dark transition-colors"
               >
-                დაგავიწყდა პაროლი?
+                {t.auth.forgotPassword}
               </Link>
             </div>
 
@@ -130,22 +133,22 @@ export function LoginFormCard() {
               {isLoggingIn ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                  დაელოდეთ
+                  {t.common.wait}
                 </>
               ) : (
-                'ავტორიზაცია'
+                t.auth.authorization
               )}
             </Button>
           </form>
         </Form>
         <div className={'text-center py-6 animate-slide-up'}>
           <p className="text-text-secondary text-urbancare-base">
-            არ გაქვთ ანგარიში?{' '}
+            {t.auth.noAccount}{' '}
             <Link
               href="/auth/register"
               className="text-primary font-semibold lg:hover:text-primary-dark transition-colors"
             >
-              შექმნა
+              {t.auth.create}
             </Link>
           </p>
         </div>

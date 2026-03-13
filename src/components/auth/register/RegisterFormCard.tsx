@@ -16,7 +16,7 @@ import { Label } from '@/components/ui/label';
 import { FormInput } from '@/components/common/input/FormInput';
 import { OTPInput } from '@/components/auth/register/OTPInput';
 import { RegisterDTO } from '@/model/dto/auth.dto';
-import { registerSchema } from '@/components/auth/register/data/register-form-schema';
+import { createRegisterSchema } from '@/components/auth/register/data/register-form-schema';
 import { useRegister } from '@/hooks/query/auth/use-register';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -24,6 +24,7 @@ import { z } from 'zod';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 import { OauthForm } from '@/components/auth/oauith/OauthForm';
+import { useTranslation } from '@/i18n';
 
 const Separator = () => {
   return (
@@ -39,6 +40,8 @@ const Separator = () => {
 
 export function RegisterFormCard() {
   const { mutate, isPending } = useRegister();
+  const t = useTranslation();
+  const registerSchema = createRegisterSchema(t);
 
   const handleOAuthLogin = (provider: string) => {
     // Handle OAuth registration
@@ -76,10 +79,10 @@ export function RegisterFormCard() {
     >
       <CardContent className="p-8">
         <h1 className="text-urbancare-5xl font-bold text-center text-primary mb-2">
-          შექმენი ანგარიში
+          {t.auth.createAccount}
         </h1>
         <p className="text-center text-secondary text-urbancare-xl mb-7">
-          შეუერთდი UrbanCare-ს
+          {t.auth.joinUrbanCare}
         </p>
 
         {/* OAuth Buttons */}
@@ -98,7 +101,7 @@ export function RegisterFormCard() {
                 <FormItem>
                   <FormControl>
                     <FormInput
-                      placeholder="სახელი"
+                      placeholder={t.auth.name}
                       disabled={isPending}
                       icon={<UserIcon className="text-icon" />}
                       className="h-[52px] rounded-urbancare-xl border-[1.5px] border-border-medium bg-surface text-urbancare-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
@@ -115,7 +118,7 @@ export function RegisterFormCard() {
                 <FormItem>
                   <FormControl>
                     <FormInput
-                      placeholder="გვარი"
+                      placeholder={t.auth.surname}
                       disabled={isPending}
                       icon={<UserIcon className="text-icon" />}
                       className="h-[52px] rounded-urbancare-xl border-[1.5px] border-border-medium bg-surface text-urbancare-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
@@ -133,7 +136,7 @@ export function RegisterFormCard() {
                 <FormItem>
                   <FormControl>
                     <FormInput
-                      placeholder="ტელეფონი"
+                      placeholder={t.auth.phone}
                       disabled={isPending}
                       icon={<PhoneIcon className="text-icon" />}
                       className="h-[52px] rounded-urbancare-xl border-[1.5px] border-border-medium bg-surface text-urbancare-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
@@ -152,7 +155,7 @@ export function RegisterFormCard() {
                 <FormItem>
                   <FormControl>
                     <FormInput
-                      placeholder="პაროლი"
+                      placeholder={t.auth.password}
                       icon={<KeyRound className="text-icon" />}
                       type="password"
                       isPasswordType
@@ -173,7 +176,7 @@ export function RegisterFormCard() {
                 <FormItem>
                   <FormControl>
                     <FormInput
-                      placeholder="გაიმეორეთ პაროლი"
+                      placeholder={t.auth.repeatPassword}
                       icon={<RotateCcw className="text-icon" />}
                       type="password"
                       isPasswordType
@@ -194,7 +197,7 @@ export function RegisterFormCard() {
                 <FormItem>
                   <FormControl>
                     <OTPInput
-                      placeholder="ერთჯერადი კოდი"
+                      placeholder={t.auth.otpCode}
                       type="text"
                       icon={<BadgeCheck className="text-icon" />}
                       disabled={isPending}
@@ -219,14 +222,7 @@ export function RegisterFormCard() {
                         disabled={isPending}
                       />
                       <Label className="text-urbancare-md cursor-pointer text-text-secondary">
-                        ვეთანხმები{' '}
-                        <Link
-                          href="/terms"
-                          className="font-semibold text-primary lg:hover:text-primary-dark transition-colors"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          წესებსა და პირობებს
-                        </Link>
+                        {t.auth.agreeTerms}
                       </Label>
                     </div>
                   </FormControl>
@@ -244,10 +240,10 @@ export function RegisterFormCard() {
               {isPending ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                  დაელოდეთ
+                  {t.common.wait}
                 </>
               ) : (
-                'რეგისტრაცია'
+                t.auth.register
               )}
             </Button>
           </form>
@@ -255,12 +251,12 @@ export function RegisterFormCard() {
 
         <div className={'text-center py-6 animate-slide-up'}>
           <p className="text-text-secondary text-urbancare-base">
-            უკვე გაქვთ ანგარიში?{' '}
+            {t.auth.alreadyHaveAccount}{' '}
             <Link
               href="/auth/login"
               className="text-primary font-semibold lg:hover:text-primary-dark transition-colors"
             >
-              შესვლა
+              {t.auth.signIn}
             </Link>
           </p>
         </div>

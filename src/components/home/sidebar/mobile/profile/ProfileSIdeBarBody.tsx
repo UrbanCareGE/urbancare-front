@@ -10,34 +10,35 @@ import { NavItem } from '@/components/home/sidebar/mobile/navigation/NavigationA
 import { SheetClose } from '@/components/ui/sheet';
 import LanguageSelector from '@/components/common/util/LanguageSelector';
 import { MobileThemeSelector } from '@/components/common/util/MobileThemeSelector';
+import { useTranslation } from '@/i18n';
 
-export const profileItems: NavItem[] = [
+export const getProfileItems = (t: ReturnType<typeof useTranslation>): NavItem[] => [
   {
     href: '/profile',
-    label: 'პარამეტრები',
+    label: t.sidebar.settings,
     icon: <SettingsIcon className={'text-primary'} />,
   },
   {
     href: '/privacy',
-    label: 'კონფიდენციალურობა',
+    label: t.sidebar.privacy,
     icon: <HandshakeIcon className={'text-primary'} />,
   },
 ];
 
-export const supportItems: NavItem[] = [
+export const getSupportItems = (t: ReturnType<typeof useTranslation>): NavItem[] => [
   {
     href: '/about',
-    label: 'ჩვენ შესახებ',
+    label: t.sidebar.aboutUs,
     icon: <HandshakeIcon className={'text-primary'} />,
   },
   {
     href: '/support',
-    label: 'დახმარება',
+    label: t.sidebar.help,
     icon: <HeadsetIcon className={'text-primary'} />,
   },
   {
     href: '/terms',
-    label: 'წესები და პირობები',
+    label: t.sidebar.termsAndConditions,
     icon: <HandshakeIcon className={'text-primary'} />,
   },
 ];
@@ -47,12 +48,16 @@ const GradientDivider = () => (
 );
 
 export const ProfileSideBarBody = () => {
+  const t = useTranslation();
+  const profileItems = getProfileItems(t);
+  const supportItems = getSupportItems(t);
+
   return (
     <div className="w-full flex flex-col overflow-scroll">
 
       <ProfileSideBarGroup className="px-4">
         <ProfileSideBarGroup.Header
-          title="ფონი"
+          title={t.sidebar.theme}
           dotClassName="bg-amber-400 shadow-amber-400/50"
         />
         <ProfileSideBarGroup.Content>
@@ -64,7 +69,7 @@ export const ProfileSideBarBody = () => {
 
       <ProfileSideBarGroup className="px-4">
         <ProfileSideBarGroup.Header
-          title="ენა"
+          title={t.sidebar.language}
           dotClassName="bg-primary shadow-primary/50"
         />
         <ProfileSideBarGroup.Content>
@@ -76,7 +81,7 @@ export const ProfileSideBarBody = () => {
 
       <ProfileSideBarGroup className="px-4">
         <ProfileSideBarGroup.Header
-          title="ანგარიში"
+          title={t.sidebar.account}
           dotClassName="bg-tertiary shadow-tertiary/50"
         />
         <ProfileSideBarGroup.Content>
@@ -96,7 +101,7 @@ export const ProfileSideBarBody = () => {
 
       <ProfileSideBarGroup className="px-4">
         <ProfileSideBarGroup.Header
-          title="ტექნიკური მხარდაჭერა"
+          title={t.sidebar.technicalSupport}
           dotClassName="bg-success shadow-success/50"
         />
         <ProfileSideBarGroup.Content>

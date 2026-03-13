@@ -3,6 +3,7 @@
 import React from 'react';
 import { ThreadTagConfig, ThreadTagValue } from '@/model/dto/thread.dto';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/i18n';
 
 interface ThreadTagsProps {
   tags?: string[] | null;
@@ -14,11 +15,13 @@ interface TagBadgeProps {
 }
 
 const TagBadge = ({ tag }: TagBadgeProps) => {
+  const t = useTranslation();
   const config = ThreadTagConfig[tag as ThreadTagValue] || {
     bg: 'bg-surface-container',
     text: 'text-text-secondary',
-    label: tag,
   };
+
+  const label = t.tags[tag as keyof typeof t.tags] || tag;
 
   return (
     <span
@@ -28,7 +31,7 @@ const TagBadge = ({ tag }: TagBadgeProps) => {
         config.text
       )}
     >
-      {config.label}
+      {label}
     </span>
   );
 };

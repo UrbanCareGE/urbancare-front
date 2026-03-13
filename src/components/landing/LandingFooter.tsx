@@ -1,6 +1,11 @@
+'use client';
+
 import { Building2 } from 'lucide-react';
+import { useTranslation } from '@/i18n';
 
 export function LandingFooter() {
+  const t = useTranslation();
+
   return (
     <footer className="relative z-10 px-4 py-8 border-t border-border-light bg-surface/50">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
@@ -11,7 +16,7 @@ export function LandingFooter() {
           <span className="font-semibold text-text-primary">UrbanCare</span>
         </div>
         <p className="text-urbancare-base text-text-secondary">
-          &copy; {new Date().getFullYear()} UrbanCare. ყველა უფლება დაცულია.
+          {t.landing.copyright.replace('{year}', String(new Date().getFullYear()))}
         </p>
       </div>
     </footer>

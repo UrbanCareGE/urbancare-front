@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Bell,
   FileText,
@@ -8,6 +10,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/i18n';
 
 interface FeatureCardProps {
   icon: React.ReactNode;
@@ -46,50 +49,48 @@ function FeatureCard({
   );
 }
 
-const FEATURES: FeatureCardProps[] = [
-  {
-    icon: <MessageCircle className="w-6 h-6" />,
-    title: 'დისკუსიები',
-    description:
-      'გამოაქვეყნე პოსტები, გაუზიარე იდეები და მონაწილეობა მიიღე მეზობლებთან დისკუსიებში',
-    delay: 0,
-  },
-  {
-    icon: <Vote className="w-6 h-6" />,
-    title: 'გამოკითხვები',
-    description:
-      'შექმენი გამოკითხვები მნიშვნელოვან საკითხებზე და მიიღე საერთო გადაწყვეტილებები',
-    delay: 100,
-  },
-  {
-    icon: <Bell className="w-6 h-6" />,
-    title: 'გადაუდებელი შეტყობინებები',
-    description:
-      'სწრაფად გააფრთხილე მეზობლები გადაუდებელი სიტუაციებისა და მნიშვნელოვანი სიახლეების შესახებ',
-    delay: 200,
-  },
-  {
-    icon: <FileText className="w-6 h-6" />,
-    title: 'დოკუმენტები',
-    description: 'შეინახე და გააზიარე მნიშვნელოვანი დოკუმენტები ერთ ადგილას',
-    delay: 300,
-  },
-  {
-    icon: <Users className="w-6 h-6" />,
-    title: 'ჩატი',
-    description: 'პირდაპირი კომუნიკაცია მეზობლებთან რეალურ დროში',
-    delay: 400,
-  },
-  {
-    icon: <Shield className="w-6 h-6" />,
-    title: 'უსაფრთხოება',
-    description:
-      'თქვენი მონაცემები დაცულია და ხელმისაწვდომია მხოლოდ თქვენი კორპუსისთვის',
-    delay: 500,
-  },
-];
-
 export function LandingFeatures() {
+  const t = useTranslation();
+
+  const features: FeatureCardProps[] = [
+    {
+      icon: <MessageCircle className="w-6 h-6" />,
+      title: t.landing.discussions,
+      description: t.landing.discussionsDesc,
+      delay: 0,
+    },
+    {
+      icon: <Vote className="w-6 h-6" />,
+      title: t.landing.polls,
+      description: t.landing.pollsDesc,
+      delay: 100,
+    },
+    {
+      icon: <Bell className="w-6 h-6" />,
+      title: t.landing.urgentNotifications,
+      description: t.landing.urgentNotificationsDesc,
+      delay: 200,
+    },
+    {
+      icon: <FileText className="w-6 h-6" />,
+      title: t.landing.documents,
+      description: t.landing.documentsDesc,
+      delay: 300,
+    },
+    {
+      icon: <Users className="w-6 h-6" />,
+      title: t.landing.chatTitle,
+      description: t.landing.chatDesc,
+      delay: 400,
+    },
+    {
+      icon: <Shield className="w-6 h-6" />,
+      title: t.landing.security,
+      description: t.landing.securityDesc,
+      delay: 500,
+    },
+  ];
+
   return (
     <section
       id="features"
@@ -98,18 +99,18 @@ export function LandingFeatures() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 rounded-urbancare-full bg-tertiary/10 text-tertiary text-urbancare-base font-medium mb-4">
-            ფუნქციები
+            {t.landing.features}
           </span>
           <h2 className="text-urbancare-7xl md:text-urbancare-8xl font-bold text-text-primary mb-4">
-            ყველაფერი რაც გჭირდება
+            {t.landing.everythingYouNeed}
           </h2>
           <p className="text-text-secondary max-w-xl mx-auto">
-            მრავალფუნქციური პლატფორმა შენი კორპუსის ეფექტური მართვისთვის
+            {t.landing.multiFunctionalPlatform}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {FEATURES.map((feature) => (
+          {features.map((feature) => (
             <FeatureCard key={feature.title} {...feature} />
           ))}
         </div>

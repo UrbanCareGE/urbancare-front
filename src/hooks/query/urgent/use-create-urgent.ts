@@ -4,8 +4,10 @@ import { CreateUrgentItemDTO, UrgentItemDTO } from '@/model/dto/urgent.dto';
 import { toast } from 'sonner';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { OptimisticData } from '@/model/dto/common.dto';
+import { useTranslation } from '@/i18n';
 
 export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
+  const t = useTranslation();
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
@@ -67,7 +69,7 @@ export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
       if (context?.previousItems) {
         queryClient.setQueryData(context.queryKey, context.previousItems);
       }
-      toast.error('შეცდომა შეტყობინების გაგზავნისას');
+      toast.error(t.urgent.errorSending);
     },
   });
 
