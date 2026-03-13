@@ -1,8 +1,6 @@
 'use client';
 
-import { Leapfrog } from 'ldrs/react';
-import { cn, formatTime } from '@/lib/utils';
-import { Basic } from '@/app/layout';
+import { formatTime } from '@/lib/utils';
 
 import 'ldrs/react/Leapfrog.css';
 import { ShieldCheck } from 'lucide-react';
@@ -12,7 +10,6 @@ import { useResolveUrgent } from '@/hooks/query/urgent/use-resolve-urgent';
 import { useParams } from 'next/navigation';
 import { OptimisticData } from '@/model/dto/common.dto';
 import { UrgentItemDTO } from '@/model/dto/urgent.dto';
-import { useAuth } from '@/components/provider/AuthProvider';
 import {
   ActionButtonProps,
   UrgentCardStatus,
@@ -84,7 +81,6 @@ const UrgentEmptyState = () => (
 );
 
 const UrgentFeed = () => {
-  const user = useAuth();
   const { apartmentId } = useParams<{ apartmentId: string }>();
   const { data, isLoading, isError } = useFetchUrgent();
   const {
@@ -110,16 +106,14 @@ const UrgentFeed = () => {
 
   return (
     <ul className="flex flex-col gap-3 py-3 px-4 overflow-y-scroll">
-      {isLoading && <ListLoader />}
-
+      {/*TODO urgentebis skeletoni*/}
+      {isLoading && <div></div>}
       {isError && (
         <div className="flex items-center justify-center p-4 text-red-500">
           Error loading urgent items
         </div>
       )}
-
       {items && items.length === 0 && <UrgentEmptyState />}
-
       {items &&
         items.length > 0 &&
         items.map((item) => (
@@ -133,19 +127,6 @@ const UrgentFeed = () => {
           />
         ))}
     </ul>
-  );
-};
-
-const ListLoader = ({ className }: Basic) => {
-  return (
-    <div
-      className={cn(
-        'z-60 flex w-full h-14 justify-center items-center fixed top-[70%]',
-        className
-      )}
-    >
-      <Leapfrog size="40" speed="1.75" color="#02c2c5" />
-    </div>
   );
 };
 

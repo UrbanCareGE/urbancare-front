@@ -30,7 +30,7 @@ const ChatIsland = () => (
   <DesktopIsland
     title="ჩატი"
     icon={<UserIcon className="w-4 h-4 text-error" />}
-    className={'h-full'}
+    className={'mt-auto h-full'}
   >
     <div className="overflow-y-hidden h-full scrollbar-hide">
       <Chat />
@@ -70,12 +70,11 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
   const pathName = usePathname();
   const paths = pathName.split('/');
 
-  const showUrgent = useMemo(() => paths[paths.length - 1] !== 'urgent', [paths]);
-  const showChat = useMemo(
-    () => paths[paths.length - 1] !== 'chat',
+  const showUrgent = useMemo(
+    () => paths[paths.length - 1] !== 'urgent',
     [paths]
   );
-
+  const showChat = useMemo(() => paths[paths.length - 1] !== 'chat', [paths]);
 
   return (
     <ChatProvider>
