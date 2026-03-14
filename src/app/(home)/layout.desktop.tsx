@@ -6,7 +6,7 @@ import { HomeIcon, NavigationIcon, ShieldAlert, UserIcon } from 'lucide-react';
 import NavigationArea from '@/components/home/sidebar/mobile/navigation/NavigationArea';
 import { NeighborhoodSelect } from '@/components/home/NeighborhoodSelect';
 import { Chat } from '@/components/chat/Chat';
-import UrgentFeed from '@/components/urgent/UrgentFeed';
+import { UrgentFeedCompactContainer, UrgentFeedContainer } from '@/components/urgent/UrgentFeed';
 import { HomeColumnPanel } from '@/components/home/HomeColumnPanel';
 import { AppLogo } from '@/components/common/logo/AppLogo';
 import { HeaderNavIsland } from '@/components/common/navbar/desktop/Navbar.desktop';
@@ -21,11 +21,11 @@ const UrgentIsland = () => {
   return (
     <DesktopIsland
       title={t.nav.urgent}
-      icon={<ShieldAlert className="w-4 h-4 text-error" />}
+      icon={<ShieldAlert className="w-4 h-4 text-error"/>}
+      className={'flex-1'}
+      bodyClassName={"overflow-y-scroll"}
     >
-      <div className="overflow-y-scroll scrollbar-hide">
-        <UrgentFeed />
-      </div>
+     <UrgentFeedCompactContainer/>
     </DesktopIsland>
   );
 };
@@ -36,7 +36,7 @@ const ChatIsland = () => {
     <DesktopIsland
       title={t.nav.chat}
       icon={<UserIcon className="w-4 h-4 text-error" />}
-      className={'mt-auto h-full'}
+      className={'mt-auto h-full flex-[2]'}
     >
       <div className="overflow-y-hidden h-full scrollbar-hide">
         <Chat />
@@ -85,14 +85,14 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
 
   const showUrgent = useMemo(
     () => paths[paths.length - 1] !== 'urgent',
-    [paths]
+    [paths],
   );
   const showChat = useMemo(() => paths[paths.length - 1] !== 'chat', [paths]);
 
   return (
     <ChatProvider>
       <div className="fixed inset-0 bg-background overflow-hidden">
-        <div className="h-dvh max-w-[1512px] mx-auto p-3 flex justify-center gap-10">
+        <div className="h-dvh max-w-[1512px] mx-auto p-3 flex justify-center gap-8">
           <HomeColumnPanel className="flex-1 max-w-[456px] flex-shrink-1">
             <HomeColumnPanel.Header>
               <AppLogo />
@@ -117,16 +117,14 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
             </HomeColumnPanel.Body>
           </HomeColumnPanel>
 
-          <HomeColumnPanel className="flex-1 max-w-[456px] flex-shrink-1">
+          <HomeColumnPanel className="flex-1 max-w-[512px] flex-shrink-1">
             <HomeColumnPanel.Header>
               <ProfileIslandDesktop />
             </HomeColumnPanel.Header>
-            <HomeColumnPanel.Body>
+            <HomeColumnPanel.Body className={'flex-1 flex flex-col gap-4'}>
               {showUrgent && <UrgentIsland />}
-            </HomeColumnPanel.Body>
-            <HomeColumnPanel.Footer className="flex-1 h-full">
               {showChat && <ChatIsland />}
-            </HomeColumnPanel.Footer>
+            </HomeColumnPanel.Body>
           </HomeColumnPanel>
         </div>
       </div>

@@ -7,6 +7,7 @@ type IslandProps = {
   icon?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
+  bodyClassName?: string;
 };
 
 export const DesktopIsland = ({
@@ -14,6 +15,8 @@ export const DesktopIsland = ({
   icon,
   children,
   className,
+  bodyClassName,
+
 }: IslandProps) => (
   <Card
     className={cn(
@@ -25,6 +28,6 @@ export const DesktopIsland = ({
       {icon}
       <h3 className="font-semibold text-urbancare-base text-foreground-primary">{title}</h3>
     </div>
-    <div className="flex-1 overflow-hidden">{children}</div>
+    <div className={cn("flex-1", bodyClassName)}>{children}</div>
   </Card>
 );
