@@ -40,13 +40,14 @@ const HomeColumnPanelHeader = ({
   );
 };
 
-const HomeColumnPanelBody = React.forwardRef<HTMLDivElement, HomeColumnPanelBodyProps>(
-  ({ className, children }, ref) => (
-    <div ref={ref} className={cn('w-full min-h-0', className)}>
-      {children}
-    </div>
-  )
-);
+const HomeColumnPanelBody = React.forwardRef<
+  HTMLDivElement,
+  HomeColumnPanelBodyProps
+>(({ className, children }, ref) => (
+  <div ref={ref} className={cn('w-full min-h-0', className)}>
+    {children}
+  </div>
+));
 HomeColumnPanelBody.displayName = 'HomeColumnPanelBody';
 
 const HomeColumnPanelFooter = ({

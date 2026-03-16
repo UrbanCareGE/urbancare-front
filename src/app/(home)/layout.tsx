@@ -9,6 +9,8 @@ import { MobileLayout } from '@/app/(home)/layout.mobile';
 import { LayoutDesktop } from '@/app/(home)/layout.desktop';
 import { HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { dehydrate } from '@tanstack/query-core';
+import { TabletLayout } from '@/app/(home)/tablet-layout';
+
 export default async function HomeLayout({ children }: Children) {
   const qc = new QueryClient();
 
@@ -19,7 +21,7 @@ export default async function HomeLayout({ children }: Children) {
       </MobileAdapter>
 
       <TabletAdapter>
-        <LayoutDesktop>{children}</LayoutDesktop>
+        <TabletLayout>{children}</TabletLayout>
       </TabletAdapter>
 
       <DesktopAdapter>

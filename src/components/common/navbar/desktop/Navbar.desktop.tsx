@@ -78,10 +78,11 @@ export const HeaderNavIsland = () => {
             key={item.href}
             onClick={() => handleNavigation(index, href)}
             className={cn(
-              'relative flex items-center gap-2 px-3 py-2 rounded-urbancare-xl text-urbancare-base font-medium transition-colors duration-200',
+              'relative flex items-center gap-2 px-3 py-2 rounded-urbancare-xl font-medium transition-colors duration-200',
               active
                 ? 'text-primary'
                 : 'text-foreground-secondary lg:hover:text-foreground-primary lg:hover:bg-surface-variant/60 lg:active:scale-95',
+              'text-urbancare-base xl:text-urbancare-lg',
             )}
           >
             {active && (

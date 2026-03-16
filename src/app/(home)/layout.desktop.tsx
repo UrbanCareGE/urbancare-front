@@ -6,7 +6,7 @@ import { HomeIcon, NavigationIcon, ShieldAlert, UserIcon } from 'lucide-react';
 import NavigationArea from '@/components/home/sidebar/mobile/navigation/NavigationArea';
 import { NeighborhoodSelect } from '@/components/home/NeighborhoodSelect';
 import { Chat } from '@/components/chat/Chat';
-import { UrgentFeedCompactContainer, UrgentFeedContainer } from '@/components/urgent/UrgentFeed';
+import { UrgentFeedCompactContainer } from '@/components/urgent/UrgentFeed';
 import { HomeColumnPanel } from '@/components/home/HomeColumnPanel';
 import { AppLogo } from '@/components/common/logo/AppLogo';
 import { HeaderNavIsland } from '@/components/common/navbar/desktop/Navbar.desktop';
@@ -21,11 +21,11 @@ const UrgentIsland = () => {
   return (
     <DesktopIsland
       title={t.nav.urgent}
-      icon={<ShieldAlert className="w-4 h-4 text-error"/>}
+      icon={<ShieldAlert className="w-4 h-4 text-error" />}
       className={'flex-1'}
-      bodyClassName={"overflow-y-scroll"}
+      bodyClassName={'overflow-y-scroll'}
     >
-     <UrgentFeedCompactContainer/>
+      <UrgentFeedCompactContainer />
     </DesktopIsland>
   );
 };
@@ -66,9 +66,10 @@ const NavigationIsland = () => {
     <DesktopIsland
       title={t.nav.navigation}
       icon={<NavigationIcon className="w-4 h-4 text-error" />}
-      className={'h-full'}
+      className={''}
+      bodyClassName={'overflow-y-scroll'}
     >
-      <div className="overflow-y-auto h-full scrollbar-hide">
+      <div className="h-full scrollbar-hide overflow-y-scroll">
         <NavigationArea
           inSheet={false}
           className="w-full flex flex-col gap-1 p-2"
@@ -85,7 +86,7 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
 
   const showUrgent = useMemo(
     () => paths[paths.length - 1] !== 'urgent',
-    [paths],
+    [paths]
   );
   const showChat = useMemo(() => paths[paths.length - 1] !== 'chat', [paths]);
 
@@ -93,7 +94,7 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
     <ChatProvider>
       <div className="fixed inset-0 bg-background overflow-hidden">
         <div className="h-dvh max-w-[1512px] mx-auto p-3 flex justify-center gap-8">
-          <HomeColumnPanel className="flex-1 max-w-[456px] flex-shrink-1">
+          <HomeColumnPanel className="flex-1 max-w-[412px] flex-shrink-1">
             <HomeColumnPanel.Header>
               <AppLogo />
             </HomeColumnPanel.Header>
@@ -117,7 +118,7 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
             </HomeColumnPanel.Body>
           </HomeColumnPanel>
 
-          <HomeColumnPanel className="flex-1 max-w-[512px] flex-shrink-1">
+          <HomeColumnPanel className="flex-1 max-w-[412px] flex-shrink-1">
             <HomeColumnPanel.Header>
               <ProfileIslandDesktop />
             </HomeColumnPanel.Header>

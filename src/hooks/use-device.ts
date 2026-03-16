@@ -2,101 +2,100 @@
 
 import { useEffect, useState } from 'react';
 
-export type DeviceType =
-  | 'mobile'
-  | 'tablet'
-  | 'laptop'
-  | 'desktop'
-  | 'largeDesktop';
+export type DeviceType = 'mobile' | 'tablet' | 'desktop';
 
 export interface DeviceInfo {
   type: DeviceType;
   isMobile: boolean;
   isTablet: boolean;
-  isLaptop: boolean;
   isDesktop: boolean;
-  isLargeDesktop: boolean;
   width: number;
   height: number;
+  isPortrait: boolean;
+  isLandscape: boolean;
+  isTouchDevice: boolean;
 }
 
-// Matches Tailwind config
 const BREAKPOINTS = {
-  sm: 640, // large phones
-  md: 768, // tablets
-  lg: 1024, // laptops
-  xl: 1280, // desktops
-  '2xl': 1536, // large desktops
+  // Mobile: 0 - 767px (phones in portrait/landscape)
+  mobile: 768,
+  // Tablet: 768px - 1023px (tablets, iPad portrait is 768px, landscape ~1024px)
+  tablet: 1024,
+  // Desktop: 1024px+ (laptops, desktops, large tablets in landscape)
 } as const;
 
 function getDeviceType(width: number): DeviceType {
-  if (width < BREAKPOINTS.sm) return 'mobile';
-  if (width < BREAKPOINTS.md) return 'tablet';
-  if (width < BREAKPOINTS.lg) return 'laptop';
-  if (width < BREAKPOINTS.xl) return 'desktop';
-  return 'largeDesktop';
+  if (width < BREAKPOINTS.mobile) return 'mobile';
+  if (width < BREAKPOINTS.tablet) return 'tablet';
+  return 'desktop';
 }
+
+function checkTouchDevice(): boolean {
+  if (typeof window === 'undefined') return false;
+  return (
+    'ontouchstart' in window ||
+    navigator.maxTouchPoints > 0 ||
+    // @ts-expect-error - msMaxTouchPoints exists on older IE/Edge
+    navigator.msMaxTouchPoints > 0
+  );
+}
+
+function createDeviceInfo(width: number, height: number): DeviceInfo {
+  const type = getDeviceType(width);
+
+  return {
+    type,
+    isMobile: type === 'mobile',
+    isTablet: type === 'tablet',
+    isDesktop: type === 'desktop',
+    width,
+    height,
+    isPortrait: height > width,
+    isLandscape: width >= height,
+    isTouchDevice: checkTouchDevice(),
+  };
+}
+
+const DEFAULT_DEVICE_INFO: DeviceInfo = {
+  type: 'desktop',
+  isMobile: false,
+  isTablet: false,
+  isDesktop: true,
+  width: 0,
+  height: 0,
+  isPortrait: false,
+  isLandscape: true,
+  isTouchDevice: false,
+};
 
 export function useDevice(): DeviceInfo {
   const [deviceInfo, setDeviceInfo] = useState<DeviceInfo>(() => {
     if (typeof window === 'undefined') {
-      return {
-        type: 'desktop',
-        isMobile: false,
-        isTablet: false,
-        isLaptop: false,
-        isDesktop: true,
-        isLargeDesktop: false,
-        width: 0,
-        height: 0,
-      };
+      return DEFAULT_DEVICE_INFO;
     }
-
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    const type = getDeviceType(width);
-
-    return {
-      type,
-      isMobile: type === 'mobile',
-      isTablet: type === 'tablet',
-      isLaptop: type === 'laptop',
-      isDesktop: type === 'desktop',
-      isLargeDesktop: type === 'largeDesktop',
-      width,
-      height,
-    };
+    return createDeviceInfo(window.innerWidth, window.innerHeight);
   });
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    let rafId: number;
 
     function handleResize() {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        const type = getDeviceType(width);
-
-        setDeviceInfo({
-          type,
-          isMobile: type === 'mobile',
-          isTablet: type === 'tablet',
-          isLaptop: type === 'laptop',
-          isDesktop: type === 'desktop',
-          isLargeDesktop: type === 'largeDesktop',
-          width,
-          height,
-        });
-      }, 100);
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        setDeviceInfo(createDeviceInfo(window.innerWidth, window.innerHeight));
+      });
     }
 
-    window.addEventListener('resize', handleResize);
+    // Initial check
     handleResize();
 
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
+
     return () => {
-      clearTimeout(timeoutId);
+      cancelAnimationFrame(rafId);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
     };
   }, []);
 
