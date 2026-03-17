@@ -141,17 +141,6 @@ export function LoginFormCard() {
             </Button>
           </form>
         </Form>
-        <div className={'text-center py-6 animate-slide-up'}>
-          <p className="text-text-secondary text-urbancare-base">
-            {t.auth.noAccount}{' '}
-            <Link
-              href="/auth/register"
-              className="text-primary font-semibold lg:hover:text-primary-dark transition-colors"
-            >
-              {t.auth.create}
-            </Link>
-          </p>
-        </div>
       </CardContent>
     </Card>
   );
