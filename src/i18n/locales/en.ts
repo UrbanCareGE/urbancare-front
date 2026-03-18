@@ -69,6 +69,15 @@ const en: TranslationKeys = {
     newAccount: 'New Account',
     joinUs: 'Join Us',
     freeRegistration: 'Free Registration',
+    loginWithOtp: 'SMS Code',
+    loginWithPassword: 'Password',
+    enterOtpCode: 'Enter code',
+    otpSent: 'Code sent',
+    sendCode: 'Send Code',
+    resendCode: 'Resend',
+    otpDescription: 'We\'ll send an SMS code to your phone',
+    passwordDescription: 'Enter your password',
+    verifyAndSignIn: 'Verify & Sign In',
   },
 
   authValidation: {

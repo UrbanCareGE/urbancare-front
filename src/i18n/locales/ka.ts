@@ -69,6 +69,15 @@ const ka: TranslationKeys = {
     newAccount: 'ახალი ანგარიში',
     joinUs: 'შეუერთდი ჩვენ',
     freeRegistration: 'უფასო რეგისტრაცია',
+    loginWithOtp: 'SMS კოდით',
+    loginWithPassword: 'პაროლით',
+    enterOtpCode: 'შეიყვანეთ კოდი',
+    otpSent: 'კოდი გაიგზავნა',
+    sendCode: 'კოდის გაგზავნა',
+    resendCode: 'ხელახლა გაგზავნა',
+    otpDescription: 'SMS კოდი გაიგზავნება თქვენს ტელეფონზე',
+    passwordDescription: 'შეიყვანეთ თქვენი პაროლი',
+    verifyAndSignIn: 'დადასტურება',
   },
 
   authValidation: {

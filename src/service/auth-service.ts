@@ -1,5 +1,12 @@
 import { api, ApiResponse } from '@/lib/api-client';
-import { ChatDTO, LoginDTO, RegisterDTO, UserDTO } from '@/model/dto/auth.dto';
+import {
+  ChatDTO,
+  GenerateOtpDTO,
+  LoginDTO,
+  LoginWithOtpDTO,
+  RegisterDTO,
+  UserDTO,
+} from '@/model/dto/auth.dto';
 
 export const AuthService = {
   login: async (loginReq: LoginDTO): Promise<UserDTO> => {
@@ -13,6 +20,24 @@ export const AuthService = {
     return await api.post<UserDTO, LoginDTO>('/auth/login', loginReq, {
       server: true,
     });
+  },
+  loginWithOtp: async (loginReq: LoginWithOtpDTO): Promise<UserDTO> => {
+    const { data } = await api.post<UserDTO, LoginWithOtpDTO>(
+      '/api/next/auth/login-otp',
+      loginReq
+    );
+    return data;
+  },
+  nextLoginWithOtp: async (
+    loginReq: LoginWithOtpDTO
+  ): Promise<ApiResponse<UserDTO>> => {
+    return await api.post<UserDTO, LoginWithOtpDTO>(
+      '/auth/otp/verify',
+      loginReq,
+      {
+        server: true,
+      }
+    );
   },
   register: async (registerDTO: RegisterDTO): Promise<string> => {
     const { data } = await api.post<{ token?: string }, RegisterDTO>(
@@ -32,17 +57,13 @@ export const AuthService = {
     );
     return data;
   },
-  generateOtp: async (phone: string): Promise<void> => {
-    await api.post<string>('/api/next/auth/otp', undefined, {
-      params: { phone },
-    });
+  generateOtp: async (generateOtpDTO: GenerateOtpDTO): Promise<void> => {
+    await api.post<GenerateOtpDTO>('/api/next/auth/otp', generateOtpDTO);
   },
-  nextGenerateOtp: async (phone: string): Promise<string> => {
-    const { data } = await api.post<string>('/public/otp/generate', undefined, {
-      params: { phone },
+  nextGenerateOtp: async (generateOtpDTO: GenerateOtpDTO): Promise<void> => {
+    await api.post<GenerateOtpDTO>('/auth/otp/send', generateOtpDTO, {
       server: true,
     });
-    return data;
   },
   getUserInfo: async (): Promise<UserDTO> => {
     const { data } = await api.get<UserDTO>('/api/user/me');

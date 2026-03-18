@@ -13,6 +13,12 @@ export interface LoginDTO {
   password: string;
 }
 
+export interface LoginWithOtpDTO {
+  prefix: string;
+  phone: string;
+  otp: string;
+}
+
 export interface ChatDTO {
   id: string;
 }
@@ -56,4 +62,9 @@ export interface CarDTO {
 
 export interface AddCarDTO {
   licensePlate: string;
+}
+
+export interface GenerateOtpDTO {
+  prefix: string;
+  phone: string;
 }

@@ -10,7 +10,7 @@ import {
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 import { AuthService } from '@/service/auth-service';
-import { LoginDTO, UserDTO } from '@/model/dto/auth.dto';
+import { LoginDTO, LoginWithOtpDTO, UserDTO } from '@/model/dto/auth.dto';
 import { PulsingLoader } from '@/components/common/loader/GlobalLoader';
 import { RouteConfig } from '@/proxy';
 import { ErrorResponse } from '@/model/dto/common.dto';
@@ -19,8 +19,8 @@ import { ApartmentDTO } from '@/model/dto/apartment.dto';
 export interface UserModel {
   id: string;
   phone: string;
-  name: string;
-  surname: string;
+  name?: string;
+  surname?: string;
   profileImageId?: string;
   joinedApartments: ApartmentDTO[];
   selectedApartment?: ApartmentDTO;
@@ -36,6 +36,7 @@ export interface AuthContextType {
   refetchUser: () => Promise<void>;
   selectApartment: (apartment: string) => void;
   logIn: (credentials: LoginDTO) => void;
+  logInWithOtp: (credentials: LoginWithOtpDTO) => void;
   logOut: () => void;
   isLoggingIn: boolean;
   isLoggingOut: boolean;
@@ -156,6 +157,32 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     },
   });
 
+  const otpLoginMutation = useMutation<UserDTO, ErrorResponse, LoginWithOtpDTO>(
+    {
+      mutationFn: AuthService.loginWithOtp,
+      onSuccess: async (user) => {
+        const { joinedApartments, selectedApartmentId, ...dto } = user;
+        queryClient.setQueryData(['user'], {
+          ...dto,
+          joinedApartments,
+          selectedApartmentId,
+          selectedApartment: getApartmentWithId(
+            joinedApartments,
+            selectedApartmentId
+          ),
+        } as UserModel);
+        if (user?.joinedApartments?.length) {
+          window.location.href = `/apartment/${user.joinedApartments[0].id}`;
+        } else {
+          window.location.href = '/welcome';
+        }
+      },
+      onError: (error) => {
+        console.error(error);
+      },
+    }
+  );
+
   const logoutMutation = useMutation<void, ErrorResponse>({
     mutationFn: AuthService.logout,
     onSuccess: () => {
@@ -208,11 +235,15 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     refetchUser,
     selectApartment,
     logIn: loginMutation.mutate,
+    logInWithOtp: otpLoginMutation.mutate,
     logOut: logoutMutation.mutate,
-    isLoggingIn: loginMutation.isPending,
+    isLoggingIn: loginMutation.isPending || otpLoginMutation.isPending,
     isLoggingOut: logoutMutation.isPending,
-    loginError: loginMutation.error,
-    resetLoginError: loginMutation.reset,
+    loginError: loginMutation.error || otpLoginMutation.error,
+    resetLoginError: () => {
+      loginMutation.reset();
+      otpLoginMutation.reset();
+    },
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -26,26 +26,10 @@ import Link from 'next/link';
 import { OauthForm } from '@/components/auth/oauith/OauthForm';
 import { useTranslation } from '@/i18n';
 
-const Separator = () => {
-  return (
-    <div className="flex items-center gap-4 my-4">
-      <div className="flex-1 h-px bg-text-muted" />
-      <span className="text-text-muted text-urbancare-sm font-medium uppercase tracking-wide">
-        or
-      </span>
-      <div className="flex-1 h-px bg-text-muted" />
-    </div>
-  );
-};
-
 export function RegisterFormCard() {
   const { mutate, isPending } = useRegister();
   const t = useTranslation();
   const registerSchema = createRegisterSchema(t);
-
-  const handleOAuthLogin = (provider: string) => {
-    // Handle OAuth registration
-  };
 
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),

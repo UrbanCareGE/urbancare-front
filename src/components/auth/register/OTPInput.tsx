@@ -25,7 +25,6 @@ const OTPInput = React.forwardRef<
   const { error: formError, formMessageId } = useFormField();
   const message = formError ? String(formError?.message ?? '') : '';
   const [tooltipOpen, setTooltipOpen] = React.useState(false);
-  const { mutate, isPending, error, handleGetOtp } = useOtp();
   const t = useTranslation();
 
   return (
@@ -35,8 +34,7 @@ const OTPInput = React.forwardRef<
           <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none">
             <div
               className={cn(
-                'w-5 h-5 flex items-center justify-center text-muted-foreground',
-                { '[&_svg]:text-error': error }
+                'w-5 h-5 flex items-center justify-center text-muted-foreground'
               )}
             >
               {icon}
@@ -97,8 +95,6 @@ const OTPInput = React.forwardRef<
       </div>
       <Button
         type="button"
-        onClick={handleGetOtp}
-        disabled={isPending}
         className="h-[52px] bg-gradient-primary text-white rounded-urbancare-2xl text-urbancare-lg font-semibold px-4 shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] lg:hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] lg:hover:-translate-y-0.5 lg:active:translate-y-0 transition-all duration-200"
       >
         {t.auth.receiveOtp}

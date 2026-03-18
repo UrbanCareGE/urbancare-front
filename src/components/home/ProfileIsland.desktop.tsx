@@ -19,7 +19,6 @@ import {
 } from '@/components/ui/popover';
 import { ActiveUserAvatar } from '@/components/common/avatar/ActiveUserAvatar';
 import { MobileThemeSelector } from '@/components/common/util/MobileThemeSelector';
-import LanguageSelector from '@/components/common/util/LanguageSelector';
 import { LogoutButton } from '@/components/auth/LogoutButton';
 import { useTranslation } from '@/i18n';
 
@@ -43,7 +42,7 @@ export const ProfileIslandDesktop = () => {
           'bg-surface border border-border',
           'hover:bg-surface-hover hover:border-border-hover',
           'text-icon hover:text-text-primary',
-          'transition-all duration-200 shadow-sm active:scale-95',
+          'transition-all duration-200 shadow-sm active:scale-95'
         )}
       >
         <Bell className="w-4 h-4" />
@@ -54,7 +53,7 @@ export const ProfileIslandDesktop = () => {
           'bg-surface border border-border',
           'hover:bg-surface-hover hover:border-border-hover',
           'text-icon hover:text-text-primary',
-          'transition-all duration-200 shadow-sm active:scale-95',
+          'transition-all duration-200 shadow-sm active:scale-95'
         )}
       >
         <PlusIcon className="w-4 h-4" />
@@ -65,7 +64,7 @@ export const ProfileIslandDesktop = () => {
           'bg-surface border border-border',
           'hover:bg-surface-hover hover:border-border-hover',
           'text-icon hover:text-text-primary',
-          'transition-all duration-200 shadow-sm active:scale-95',
+          'transition-all duration-200 shadow-sm active:scale-95'
         )}
       >
         <DoorClosed className="w-4 h-4" />
@@ -79,7 +78,7 @@ export const ProfileIslandDesktop = () => {
               'bg-surface border border-transparent',
               'hover:bg-surface-hover hover:border-border',
               'shadow-sm shadow-shadow/5',
-              'transition-all duration-200',
+              'transition-all duration-200'
             )}
           >
             <ActiveUserAvatar />
@@ -101,7 +100,7 @@ export const ProfileIslandDesktop = () => {
                       'text-urbancare-xs leading-tight truncate',
                       isManager
                         ? 'font-semibold text-tertiary'
-                        : 'text-text-secondary',
+                        : 'text-text-secondary'
                     )}
                   >
                     {apartmentName}
@@ -116,15 +115,14 @@ export const ProfileIslandDesktop = () => {
                 className={cn(
                   'flex-shrink-0 inline-flex px-2 py-0.5 rounded-urbancare-full',
                   'text-urbancare-2xs font-bold tracking-wide',
-                  'bg-tertiary-container text-tertiary-container-foreground',
+                  'bg-tertiary-container text-tertiary-container-foreground'
                 )}
               >
                 ADM
               </span>
             )}
 
-            <ChevronDown
-              className="w-3.5 h-3.5 flex-shrink-0 text-icon transition-transform duration-200 [[data-state=open]_&]:rotate-180" />
+            <ChevronDown className="w-3.5 h-3.5 flex-shrink-0 text-icon transition-transform duration-200 [[data-state=open]_&]:rotate-180" />
           </div>
         </PopoverTrigger>
 
@@ -134,7 +132,7 @@ export const ProfileIslandDesktop = () => {
           className={cn(
             'w-[var(--radix-popover-trigger-width)] p-0 overflow-hidden',
             'bg-surface border border-border',
-            'rounded-urbancare-3xl shadow-xl shadow-shadow/10',
+            'rounded-urbancare-3xl shadow-xl shadow-shadow/10'
           )}
         >
           <div className="p-3 space-y-3">
@@ -151,7 +149,7 @@ export const ProfileIslandDesktop = () => {
 
             {/* Gradient divider */}
             <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mx-1" />
-            <LogoutButton/>
+            <LogoutButton />
           </div>
         </PopoverContent>
       </Popover>

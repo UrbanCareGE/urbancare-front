@@ -65,6 +65,15 @@ export interface TranslationKeys {
     newAccount: string;
     joinUs: string;
     freeRegistration: string;
+    loginWithOtp: string;
+    loginWithPassword: string;
+    enterOtpCode: string;
+    otpSent: string;
+    sendCode: string;
+    resendCode: string;
+    otpDescription: string;
+    passwordDescription: string;
+    verifyAndSignIn: string;
   };
   authValidation: {
     nameMinLength: string;

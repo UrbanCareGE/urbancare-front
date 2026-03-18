@@ -7,14 +7,18 @@ type UserAvatarProps = {
   profileImageId?: string;
   firstName: string;
   surname: string;
+  phone: string;
 };
 
 export const UserAvatar = ({
   firstName,
   surname,
+  phone,
   profileImageId,
 }: UserAvatarProps) => {
-  const initials = `${firstName[0]}${surname[0]}`.toUpperCase();
+  let initials: string = phone;
+  if (firstName && surname && profileImageId)
+    initials = `${firstName[0]}${surname[0]}`.toUpperCase();
 
   return (
     <div className="relative inline-block outline-none">
