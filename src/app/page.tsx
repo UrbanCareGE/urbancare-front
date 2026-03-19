@@ -15,7 +15,7 @@ export default function RootPage() {
     if (isAuthenticated && user?.joinedApartments?.length) {
       router.replace(`/apartment/${user.selectedApartmentId!}`);
     } else {
-      router.replace(`/welcome`);
+      router.replace(`/landing`);
     }
   }, [user, isLoading, isAuthenticated, router]);
 

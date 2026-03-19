@@ -3,9 +3,9 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 export const RouteConfig = {
-  publicAndAuth: ['/welcome'],
+  publicAndAuth: ['/landing'],
   public: [
-    '/welcome',
+    '/landing',
     '/auth/login',
     '/auth/register',
     '/auth/recover-password',

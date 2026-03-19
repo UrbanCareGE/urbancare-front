@@ -18,7 +18,7 @@ const NAV_ITEMS: NavItem[] = [
   { path: 'post', icon: HouseIcon, label: 'Posts' },
   { path: 'urgent', icon: ShieldAlert, label: 'Urgent' },
   { path: 'chat', icon: SendIcon, label: 'Chat' },
-  { path: '/welcome', icon: Newspaper, label: 'welcome', isAbsolute: true },
+  { path: '/landing', icon: Newspaper, label: 'welcome', isAbsolute: true },
   { path: 'profile', icon: CircleUser, label: 'Profile' },
 ];
 

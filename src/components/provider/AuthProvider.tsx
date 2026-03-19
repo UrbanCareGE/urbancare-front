@@ -149,7 +149,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       if (user?.joinedApartments?.length) {
         window.location.href = `/apartment/${user.joinedApartments[0].id}`;
       } else {
-        window.location.href = '/welcome';
+        window.location.href = '/landing';
       }
     },
     onError: (error) => {
@@ -174,7 +174,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         if (user?.joinedApartments?.length) {
           window.location.href = `/apartment/${user.joinedApartments[0].id}`;
         } else {
-          window.location.href = '/welcome';
+          window.location.href = '/landing';
         }
       },
       onError: (error) => {
@@ -218,7 +218,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
   // useEffect(() => {
   //   if (!isPublic && !user?.joinedApartments?.length) {
-  //     window.location.href = '/welcome';
+  //     window.location.href = '/landing';
   //   }
   // }, [user, isPublic, pathname]);
 

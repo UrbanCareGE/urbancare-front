@@ -43,7 +43,7 @@ export default function MobileLayout({
       </div>
 
       {/* Form content */}
-      <main className="flex-1 flex justify-center items-start px-4 pb-6">
+      <main className="flex-1 flex justify-center items-start px-4 pt-2 pb-6">
         {children}
       </main>
     </div>

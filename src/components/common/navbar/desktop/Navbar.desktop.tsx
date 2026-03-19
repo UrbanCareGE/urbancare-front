@@ -30,7 +30,7 @@ export const HeaderNavIsland = () => {
     { href: 'post', label: t.nav.posts, icon: HouseIcon },
     { href: 'urgent', label: t.nav.urgent, icon: ShieldAlert },
     { href: 'chat', label: t.nav.main, icon: SendIcon },
-    { href: '/welcome', label: t.nav.news, icon: Newspaper, isAbsolute: true },
+    { href: '/landing', label: t.nav.news, icon: Newspaper, isAbsolute: true },
     { href: 'profile', label: t.nav.profile, icon: CircleUser },
   ];
 
