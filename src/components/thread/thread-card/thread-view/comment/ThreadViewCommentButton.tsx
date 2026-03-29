@@ -51,10 +51,7 @@ export const ThreadViewCommentButton = ({
 
   return (
     <div
-      className={cn(
-        'flex items-center px-3 py-2.5 gap-2.5 w-full',
-        className
-      )}
+      className={cn('flex items-center px-3 py-2.5 gap-2.5 w-full', className)}
     >
       <UserAvatar
         profileImageId={user?.profileImageId}

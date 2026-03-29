@@ -31,7 +31,7 @@ export const TagsFilterDesktop = ({
               'py-1 px-3 rounded-urbancare-full text-urbancare-base font-medium transition-all lg:hover:scale-[1.03] lg:active:scale-95',
               isSelected
                 ? [config.bg, config.text]
-                : 'bg-surface text-foreground-tertiary lg:hover:bg-surface-variant lg:hover:text-foreground-secondary',
+                : 'bg-surface text-foreground-tertiary lg:hover:bg-surface-variant lg:hover:text-foreground-secondary'
             )}
           >
             {t.tags[tag as keyof typeof t.tags]}

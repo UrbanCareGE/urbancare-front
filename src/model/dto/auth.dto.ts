@@ -8,14 +8,18 @@ export interface RegisterDTO {
   otp: string;
 }
 
+export interface PhoneNumberDTO {
+  prefix: string;
+  number: string;
+}
+
 export interface LoginDTO {
-  phone: string;
+  phone: PhoneNumberDTO;
   password: string;
 }
 
 export interface LoginWithOtpDTO {
-  prefix: string;
-  phone: string;
+  phone: PhoneNumberDTO;
   otp: string;
 }
 
@@ -25,7 +29,7 @@ export interface ChatDTO {
 
 export interface UserDTO {
   id: string;
-  phone: string;
+  phone: PhoneNumberDTO;
   name: string;
   surname: string;
   email: string;
@@ -65,6 +69,5 @@ export interface AddCarDTO {
 }
 
 export interface GenerateOtpDTO {
-  prefix: string;
-  phone: string;
+  phone: PhoneNumberDTO;
 }

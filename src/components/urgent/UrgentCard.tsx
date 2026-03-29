@@ -19,21 +19,25 @@ import { useAuth } from '@/components/provider/AuthProvider';
 import { useTranslation } from '@/i18n';
 
 const PulseDot = ({
-                    color,
-                    className,
-                  }: {
+  color,
+  className,
+}: {
   color: string;
   className?: string;
 }) => (
   <span
-    className={cn('w-2 h-2 rounded-urbancare-full animate-pulse', color, className)}
+    className={cn(
+      'w-2 h-2 rounded-urbancare-full animate-pulse',
+      color,
+      className
+    )}
   />
 );
 
 const StatusBadge = ({
-                       status,
-                       label,
-                     }: {
+  status,
+  label,
+}: {
   status: UrgentCardStatus;
   label?: string;
 }) => {
@@ -45,7 +49,7 @@ const StatusBadge = ({
       className={cn(
         'gap-1.5 border-0 px-3 py-1.5 text-urbancare-sm font-semibold uppercase tracking-wide',
         config.badgeBg,
-        config.badgeText,
+        config.badgeText
       )}
     >
       {config.showPulse && <PulseDot color={config.pulseColor} />}
@@ -70,13 +74,13 @@ const AvatarStack = ({ responders }: { responders: ResponderProps[] }) => (
         className={cn(
           'w-7 h-7 border-2 border-border text-urbancare-sm font-semibold text-white',
           urgentResponderColors[responder.color],
-          index > 0 && '-ml-2',
+          index > 0 && '-ml-2'
         )}
       >
         <AvatarFallback
           className={cn(
             'text-urbancare-sm font-semibold text-white',
-            urgentResponderColors[responder.color],
+            urgentResponderColors[responder.color]
           )}
         >
           {responder.initials}
@@ -88,14 +92,16 @@ const AvatarStack = ({ responders }: { responders: ResponderProps[] }) => (
 
 const ResolvedBanner = ({ message }: { message: string }) => (
   <div className="flex items-center gap-2 p-3 bg-success/10 rounded-urbancare-lg mt-3">
-    <span className="text-urbancare-base text-success font-medium">{message}</span>
+    <span className="text-urbancare-base text-success font-medium">
+      {message}
+    </span>
   </div>
 );
 
 const UrgentCardIcon = ({
-                          icon,
-                          status,
-                        }: {
+  icon,
+  status,
+}: {
   icon: string;
   status: UrgentCardStatus;
 }) => {
@@ -105,7 +111,7 @@ const UrgentCardIcon = ({
     <div
       className={cn(
         'w-9 h-9 rounded-urbancare-xl flex items-center justify-center text-urbancare-2xl',
-        config.iconBg,
+        config.iconBg
       )}
     >
       {icon}
@@ -122,12 +128,12 @@ type UrgentCardHeaderProps = {
 };
 
 const UrgentCardHeader = ({
-                            status,
-                            icon,
-                            label,
-                            title,
-                            badgeLabel,
-                          }: UrgentCardHeaderProps) => {
+  status,
+  icon,
+  label,
+  title,
+  badgeLabel,
+}: UrgentCardHeaderProps) => {
   const config = urgentStatusConfig[status];
 
   return (
@@ -138,7 +144,7 @@ const UrgentCardHeader = ({
           <div
             className={cn(
               'text-urbancare-sm font-semibold uppercase tracking-wide',
-              config.labelColor,
+              config.labelColor
             )}
           >
             {label}
@@ -160,10 +166,10 @@ type UrgentCardContentProps = {
 };
 
 const UrgentCardContent = ({
-                             message,
-                             meta,
-                             resolvedMessage,
-                           }: UrgentCardContentProps) => (
+  message,
+  meta,
+  resolvedMessage,
+}: UrgentCardContentProps) => (
   <div className="mb-4">
     <p className="text-urbancare-base text-text-secondary mb-3 leading-relaxed">
       {message}
@@ -185,11 +191,11 @@ type UrgentCardFooterProps = {
 };
 
 const UrgentCardFooter = ({
-                            responders,
-                            responderText,
-                            actions,
-                            issuerId,
-                          }: UrgentCardFooterProps) => {
+  responders,
+  responderText,
+  actions,
+  issuerId,
+}: UrgentCardFooterProps) => {
   const { user } = useAuth();
   const t = useTranslation();
   const buttonVariants = {
@@ -202,7 +208,9 @@ const UrgentCardFooter = ({
     <div className="flex items-center justify-between pt-4 border-t border-border">
       <div className="flex items-center gap-2">
         <AvatarStack responders={responders} />
-        <span className="text-urbancare-sm text-text-secondary">{responderText}</span>
+        <span className="text-urbancare-sm text-text-secondary">
+          {responderText}
+        </span>
       </div>
       <div className="flex gap-2">
         {user.id === issuerId &&
@@ -214,7 +222,7 @@ const UrgentCardFooter = ({
               disabled={action.isPending}
               className={cn(
                 'h-9 px-4 rounded-urbancare-lg text-urbancare-base font-medium',
-                buttonVariants[action.variant],
+                buttonVariants[action.variant]
               )}
             >
               {action.isPending ? (
@@ -252,20 +260,20 @@ export type UrgentCardProps = {
 };
 
 export const UrgentCard = ({
-                             status,
-                             icon,
-                             label,
-                             title,
-                             message,
-                             meta,
-                             responders,
-                             responderText,
-                             actions,
-                             resolvedMessage,
-                             isPending,
-                             issuerId,
-                             className,
-                           }: UrgentCardProps) => {
+  status,
+  icon,
+  label,
+  title,
+  message,
+  meta,
+  responders,
+  responderText,
+  actions,
+  resolvedMessage,
+  isPending,
+  issuerId,
+  className,
+}: UrgentCardProps) => {
   const config = urgentStatusConfig[status];
   return (
     <Card
@@ -274,7 +282,7 @@ export const UrgentCard = ({
         config.borderColor,
         status === 'resolved' && 'opacity-85',
         isPending && 'opacity-80 pointer-events-none',
-        className,
+        className
       )}
     >
       {/* Urgent pulse line at top */}
@@ -306,14 +314,17 @@ export const UrgentCard = ({
 };
 
 export const UrgentCardCompact = ({
-                                    status,
-                                    icon,
-                                    label,
-                                    title,
-                                    isPending,
-                                    className,
-                                    onClick,
-                                  }: Pick<UrgentCardProps, 'status' | 'icon' | 'label' | 'title' | 'isPending' | 'className'> & {
+  status,
+  icon,
+  label,
+  title,
+  isPending,
+  className,
+  onClick,
+}: Pick<
+  UrgentCardProps,
+  'status' | 'icon' | 'label' | 'title' | 'isPending' | 'className'
+> & {
   onClick?: () => void;
 }) => {
   const config = urgentStatusConfig[status];
@@ -327,7 +338,7 @@ export const UrgentCardCompact = ({
         status === 'resolved' && 'opacity-85',
         isPending && 'opacity-80 pointer-events-none',
         onClick && 'cursor-pointer lg:hover:shadow-md',
-        className,
+        className
       )}
     >
       {status === 'urgent' && (
@@ -337,7 +348,7 @@ export const UrgentCardCompact = ({
       <div
         className={cn(
           'w-7 h-7 shrink-0 rounded-urbancare-lg flex items-center justify-center text-urbancare-lg',
-          config.iconBg,
+          config.iconBg
         )}
       >
         {icon}
@@ -347,7 +358,7 @@ export const UrgentCardCompact = ({
         <div
           className={cn(
             'text-urbancare-xs font-semibold uppercase tracking-wide leading-none mb-0.5',
-            config.labelColor,
+            config.labelColor
           )}
         >
           {label}

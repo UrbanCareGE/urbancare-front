@@ -27,12 +27,12 @@ interface ThreadImagePreviewProps {
 }
 
 function MediaGridThumb({
-                          item,
-                          isDimmedWithCount,
-                          remainingCount,
-                          className,
-                          onClick,
-                        }: {
+  item,
+  isDimmedWithCount,
+  remainingCount,
+  className,
+  onClick,
+}: {
   item: MediaItem;
   isDimmedWithCount?: boolean;
   remainingCount?: number;
@@ -43,14 +43,12 @@ function MediaGridThumb({
   const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
-
     const resetContent = () => {
       setImageLoaded(false);
       setVideoLoaded(false);
     };
 
     resetContent();
-
   }, [item.url]);
 
   const isImage = item.type.startsWith('image');
@@ -60,7 +58,7 @@ function MediaGridThumb({
     <div
       className={cn(
         'relative overflow-hidden cursor-pointer bg-black/5',
-        className,
+        className
       )}
       onClick={onClick}
     >
@@ -74,7 +72,7 @@ function MediaGridThumb({
             className={cn(
               'object-cover transition-opacity',
               isDimmedWithCount && 'brightness-50 blur-xs',
-              imageLoaded ? 'opacity-100' : 'opacity-0',
+              imageLoaded ? 'opacity-100' : 'opacity-0'
             )}
             onLoad={() => setImageLoaded(true)}
           />
@@ -93,7 +91,7 @@ function MediaGridThumb({
             className={cn(
               'absolute inset-0 w-full h-full object-cover transition-opacity',
               videoLoaded ? 'opacity-100' : 'opacity-0',
-              isDimmedWithCount && 'brightness-50 blur-xs',
+              isDimmedWithCount && 'brightness-50 blur-xs'
             )}
           />
           {!isDimmedWithCount && (
@@ -105,7 +103,6 @@ function MediaGridThumb({
           )}
         </>
       )}
-
 
       {isDimmedWithCount && remainingCount && remainingCount > 0 && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -119,9 +116,9 @@ function MediaGridThumb({
 }
 
 function CarouselMedia({
-                         item,
-                         isActive,
-                       }: {
+  item,
+  isActive,
+}: {
   item: MediaItem;
   isActive: boolean;
 }) {
@@ -144,7 +141,7 @@ function CarouselMedia({
           alt=""
           className={cn(
             'object-contain transition-opacity',
-            imageLoaded ? 'opacity-100' : 'opacity-0',
+            imageLoaded ? 'opacity-100' : 'opacity-0'
           )}
           onLoad={() => setImageLoaded(true)}
         />
@@ -167,9 +164,9 @@ function CarouselMedia({
 }
 
 export const ThreadImagePreview = ({
-                                     className,
-                                     mediaItems,
-                                   }: ThreadImagePreviewProps) => {
+  className,
+  mediaItems,
+}: ThreadImagePreviewProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
@@ -278,7 +275,10 @@ export const ThreadImagePreview = ({
                     key={item.url}
                     className="flex items-center justify-center"
                   >
-                    <CarouselMedia item={item} isActive={current - 1 === index} />
+                    <CarouselMedia
+                      item={item}
+                      isActive={current - 1 === index}
+                    />
                   </CarouselItem>
                 ))}
               </CarouselContent>
@@ -292,8 +292,7 @@ export const ThreadImagePreview = ({
           </div>
 
           {count > 1 && (
-            <div
-              className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/50 px-3 py-1 rounded-urbancare-full text-urbancare-base">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/50 px-3 py-1 rounded-urbancare-full text-urbancare-base">
               {current} / {count}
             </div>
           )}

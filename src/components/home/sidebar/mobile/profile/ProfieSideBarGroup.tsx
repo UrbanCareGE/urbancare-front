@@ -26,7 +26,12 @@ export const ProfileSideBarGroupHeader = ({
   return (
     <div className={cn('flex items-center gap-1.5 mb-2', className)}>
       {dotClassName && (
-        <div className={cn('w-1.5 h-1.5 rounded-urbancare-full shadow-sm', dotClassName)} />
+        <div
+          className={cn(
+            'w-1.5 h-1.5 rounded-urbancare-full shadow-sm',
+            dotClassName
+          )}
+        />
       )}
       <h3 className="text-urbancare-2xs font-bold text-text-secondary uppercase tracking-widest">
         {title}
@@ -40,9 +45,7 @@ export const ProfileSideBarGroupContent = ({
   children,
 }: ProfileSideBarGroupContentProps) => {
   return (
-    <div className={cn('flex flex-col gap-0.5', className)}>
-      {children}
-    </div>
+    <div className={cn('flex flex-col gap-0.5', className)}>{children}</div>
   );
 };
 
@@ -50,12 +53,10 @@ export const ProfileSideBarGroupRoot = ({
   className,
   children,
 }: ProfileSideBarGroupProps) => {
-  return (
-    <div className={cn('flex flex-col py-3', className)}>{children}</div>
-  );
+  return <div className={cn('flex flex-col py-3', className)}>{children}</div>;
 };
 
 export const ProfileSideBarGroup = Object.assign(ProfileSideBarGroupRoot, {
-  Header:  ProfileSideBarGroupHeader,
+  Header: ProfileSideBarGroupHeader,
   Content: ProfileSideBarGroupContent,
 });

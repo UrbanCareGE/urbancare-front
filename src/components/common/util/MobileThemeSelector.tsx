@@ -6,22 +6,54 @@ import { cn } from '@/lib/utils';
 import { useTranslation } from '@/i18n';
 
 const getThemeOptions = (t: ReturnType<typeof useTranslation>) => [
-  { id: 'light',  icon: Sun,     label: t.theme.light,  desc: t.theme.lightDescription  },
-  { id: 'dark',   icon: Moon,    label: t.theme.dark,   desc: t.theme.darkDescription   },
-  { id: 'system', icon: Monitor, label: t.theme.system, desc: t.theme.systemDescription },
+  {
+    id: 'light',
+    icon: Sun,
+    label: t.theme.light,
+    desc: t.theme.lightDescription,
+  },
+  {
+    id: 'dark',
+    icon: Moon,
+    label: t.theme.dark,
+    desc: t.theme.darkDescription,
+  },
+  {
+    id: 'system',
+    icon: Monitor,
+    label: t.theme.system,
+    desc: t.theme.systemDescription,
+  },
 ];
 
-const iconStyles: Record<string, { active: string; base: string; icon: string }> = {
-  light:  { active: 'bg-amber-100 dark:bg-amber-900/30', base: 'bg-surface-container', icon: 'text-amber-500' },
-  dark:   { active: 'bg-primary-container',              base: 'bg-surface-container', icon: 'text-primary'   },
-  system: { active: 'bg-tertiary-container/50',          base: 'bg-surface-container', icon: 'text-tertiary'  },
+const iconStyles: Record<
+  string,
+  { active: string; base: string; icon: string }
+> = {
+  light: {
+    active: 'bg-amber-100 dark:bg-amber-900/30',
+    base: 'bg-surface-container',
+    icon: 'text-amber-500',
+  },
+  dark: {
+    active: 'bg-primary-container',
+    base: 'bg-surface-container',
+    icon: 'text-primary',
+  },
+  system: {
+    active: 'bg-tertiary-container/50',
+    base: 'bg-surface-container',
+    icon: 'text-tertiary',
+  },
 };
 
 interface MobileThemeSelectorProps {
   vertical?: boolean;
 }
 
-export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorProps) => {
+export const MobileThemeSelector = ({
+  vertical = false,
+}: MobileThemeSelectorProps) => {
   const { theme, setTheme } = useTheme();
   const t = useTranslation();
   const themeOptions = getThemeOptions(t);
@@ -114,10 +146,20 @@ export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorPro
             )}
           >
             {/* Icon bubble */}
-            <div className={cn('w-10 h-10 rounded-urbancare-xl flex items-center justify-center transition-all duration-200', isActive ? s.active : s.base)}>
+            <div
+              className={cn(
+                'w-10 h-10 rounded-urbancare-xl flex items-center justify-center transition-all duration-200',
+                isActive ? s.active : s.base
+              )}
+            >
               <Icon className={cn('w-5 h-5', s.icon)} />
             </div>
-            <span className={cn('text-urbancare-sm font-semibold text-center', isActive ? 'text-primary' : 'text-text-primary')}>
+            <span
+              className={cn(
+                'text-urbancare-sm font-semibold text-center',
+                isActive ? 'text-primary' : 'text-text-primary'
+              )}
+            >
               {label}
             </span>
           </button>

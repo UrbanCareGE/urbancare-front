@@ -1,6 +1,12 @@
 'use client';
 
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import type { TranslationKeys } from './types';
 import ka from './locales/ka';
 import en from './locales/en';
@@ -19,7 +25,9 @@ interface LanguageContextValue {
   t: TranslationKeys;
 }
 
-const LanguageContext = createContext<LanguageContextValue | undefined>(undefined);
+const LanguageContext = createContext<LanguageContextValue | undefined>(
+  undefined
+);
 
 function getCookie(name: string): string | undefined {
   if (typeof document === 'undefined') return undefined;
@@ -57,12 +65,17 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     t: translations[locale],
   };
 
-  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+  return (
+    <LanguageContext.Provider value={value}>
+      {children}
+    </LanguageContext.Provider>
+  );
 }
 
 export function useLanguage() {
   const context = useContext(LanguageContext);
-  if (!context) throw new Error('useLanguage must be used within LanguageProvider');
+  if (!context)
+    throw new Error('useLanguage must be used within LanguageProvider');
   return context;
 }
 

@@ -38,7 +38,10 @@ export type NavGroup = {
 };
 
 // Grouped navigation — exported for reuse
-export const getNavigationGroups = (apartmentId: string, t: ReturnType<typeof useTranslation>): NavGroup[] => [
+export const getNavigationGroups = (
+  apartmentId: string,
+  t: ReturnType<typeof useTranslation>
+): NavGroup[] => [
   {
     // No label for top-level quick-access items
     items: [
@@ -130,8 +133,10 @@ export const getNavigationGroups = (apartmentId: string, t: ReturnType<typeof us
 ];
 
 // Backward-compat flat list
-export const getNavigationItems = (apartmentId: string, t: ReturnType<typeof useTranslation>) =>
-  getNavigationGroups(apartmentId, t).flatMap((g) => g.items);
+export const getNavigationItems = (
+  apartmentId: string,
+  t: ReturnType<typeof useTranslation>
+) => getNavigationGroups(apartmentId, t).flatMap((g) => g.items);
 
 type NavigationAreaProps = {
   inSheet?: boolean;

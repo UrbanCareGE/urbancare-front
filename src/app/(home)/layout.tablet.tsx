@@ -9,7 +9,7 @@ import { NavbarMobile } from '@/components/common/navbar/mobile/Navbar.mobile';
 import useIsVirtualKeyboardOpen from '@/hooks/use-mobile-keyboard';
 import { ChatProvider } from '@/components/provider/ChatProvider';
 
-export const LayoutMobile = ({ children }: Children) => {
+export const LayoutTablet = ({ children }: Children) => {
   const path = usePathname();
   const isKeyboardOpen = useIsVirtualKeyboardOpen();
   const isChatPage = path.match(/\/chat$/);

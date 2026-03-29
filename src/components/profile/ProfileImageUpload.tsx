@@ -19,7 +19,7 @@ export function ProfileImageUpload() {
     useUploadFile();
   const { mutateAsync: updateProfileImageMutation, isPending: isUpdating } =
     useUpdateProfileImage();
-  const initials = `${user.name[0]}${user.surname[0]}`.toUpperCase();
+  const initials = `${user.name?.[0]}${user.surname?.[0]}`.toUpperCase();
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = e.target.files?.[0];
@@ -53,7 +53,7 @@ export function ProfileImageUpload() {
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="relative">
-        <Avatar className="w-24 h-24 sm:w-32 sm:h-32 rounded-urbancare-full bg-primary">
+        <Avatar className="w-24 h-24 sm:w-32 sm:h-32 rounded-urbancare-full bg-primary ring ring-4 ring-foreground-secondary">
           <Image
             src={getClientFileUrl(user.profileImageId)}
             alt="Profile"
@@ -88,7 +88,9 @@ export function ProfileImageUpload() {
         <p className="text-urbancare-2xl sm:text-urbancare-3xl font-semibold">
           {user.name} {user.surname}
         </p>
-        <p className="text-urbancare-base text-muted-foreground">{user.phone}</p>
+        <p className="text-urbancare-base text-muted-foreground">
+          {user.phone.number}
+        </p>
       </div>
     </div>
   );

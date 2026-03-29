@@ -25,7 +25,9 @@ export const UserAvatarInfo = ({
         <span className="text-urbancare-base font-semibold text-primary">
           {firstName} {lastName}
         </span>
-        <span className="text-urbancare-sm text-primary font-semibold">@{username}</span>
+        <span className="text-urbancare-sm text-primary font-semibold">
+          @{username}
+        </span>
       </div>
     </div>
   );

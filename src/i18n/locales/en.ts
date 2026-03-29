@@ -75,7 +75,7 @@ const en: TranslationKeys = {
     otpSent: 'Code sent',
     sendCode: 'Send Code',
     resendCode: 'Resend',
-    otpDescription: 'We\'ll send an SMS code to your phone',
+    otpDescription: "We'll send an SMS code to your phone",
     passwordDescription: 'Enter your password',
     verifyAndSignIn: 'Verify & Sign In',
   },

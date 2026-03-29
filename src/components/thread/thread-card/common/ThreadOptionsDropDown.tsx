@@ -19,14 +19,15 @@ export const ThreadOptionsDropDown = () => {
   const { thread } = useThread();
   const { user } = useAuth();
 
-  const canModify = useMemo(() => thread.userInfo?.id === user?.id, [user, thread]);
+  const canModify = useMemo(
+    () => thread.userInfo?.id === user?.id,
+    [user, thread]
+  );
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Ellipsis
-          className="shrink-0 text-icon lg:hover:text-text-secondary transition-colors cursor-pointer lg:active:scale-90"
-        />
+        <Ellipsis className="shrink-0 text-icon lg:hover:text-text-secondary transition-colors cursor-pointer lg:active:scale-90" />
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className="w-72 bg-surface-variant border-border p-1.5"

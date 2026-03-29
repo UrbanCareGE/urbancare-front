@@ -43,7 +43,9 @@ export default function ThreadPage() {
             )}
           >
             <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
-            <span className="text-urbancare-base font-medium">{t.common.goBack}</span>
+            <span className="text-urbancare-base font-medium">
+              {t.common.goBack}
+            </span>
           </button>
 
           <ThreadCard thread={data} className="px-3">

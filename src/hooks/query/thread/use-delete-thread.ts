@@ -1,4 +1,8 @@
-import { InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  InfiniteData,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { ThreadService } from '@/service/thread-service';
 import { PagingRespDTO } from '@/model/dto/common.dto';
 
@@ -7,9 +11,9 @@ export function useDeleteThread() {
 
   return useMutation({
     mutationFn: ({
-                   apartmentId,
-                   threadId,
-                 }: {
+      apartmentId,
+      threadId,
+    }: {
       apartmentId: string;
       threadId: string;
     }) => ThreadService.delete(apartmentId, threadId),
@@ -19,7 +23,9 @@ export function useDeleteThread() {
 
       await queryClient.cancelQueries({ queryKey: listKeyPrefix });
 
-      const previousLists = queryClient.getQueriesData<InfiniteData<PagingRespDTO<string>>>({
+      const previousLists = queryClient.getQueriesData<
+        InfiniteData<PagingRespDTO<string>>
+      >({
         queryKey: listKeyPrefix,
       });
 
@@ -34,7 +40,7 @@ export function useDeleteThread() {
               content: page.content.filter((id) => id !== threadId),
             })),
           };
-        },
+        }
       );
 
       queryClient.removeQueries({ queryKey: detailKey });
@@ -46,7 +52,6 @@ export function useDeleteThread() {
         queryClient.setQueryData(queryKey, data);
       });
     },
-    onSuccess: () => {
-    },
+    onSuccess: () => {},
   });
 }

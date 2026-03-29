@@ -25,7 +25,9 @@ export function LandingHeader() {
           <div className="w-10 h-10 rounded-urbancare-xl bg-gradient-primary flex items-center justify-center">
             <Building2 className="w-6 h-6 text-white" />
           </div>
-          <span className="text-urbancare-3xl font-bold text-text-primary">UrbanCare</span>
+          <span className="text-urbancare-3xl font-bold text-text-primary">
+            UrbanCare
+          </span>
         </div>
 
         {isAuthenticated ? (
@@ -79,7 +81,10 @@ export function LandingHeader() {
               </Button>
             </Link>
             <Link href="/auth/register">
-              <Button size="sm" className="rounded-urbancare-xl bg-gradient-primary">
+              <Button
+                size="sm"
+                className="rounded-urbancare-xl bg-gradient-primary"
+              >
                 {t.auth.register}
               </Button>
             </Link>

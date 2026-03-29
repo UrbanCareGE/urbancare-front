@@ -3,7 +3,12 @@
 import { cn } from '@/lib/utils';
 import { useLanguage, type Locale } from '@/i18n';
 
-const languages: { code: Locale; name: string; native: string; flag: string }[] = [
+const languages: {
+  code: Locale;
+  name: string;
+  native: string;
+  flag: string;
+}[] = [
   { code: 'ka', name: 'Georgian', native: 'ქართული', flag: '🇬🇪' },
   { code: 'en', name: 'English', native: 'English', flag: '🇬🇧' },
 ];
@@ -12,7 +17,9 @@ interface LanguageSelectorProps {
   compact?: boolean;
 }
 
-export default function LanguageSelector({ compact = false }: LanguageSelectorProps) {
+export default function LanguageSelector({
+  compact = false,
+}: LanguageSelectorProps) {
   const { locale, setLocale } = useLanguage();
 
   const flagSize = compact
@@ -39,7 +46,7 @@ export default function LanguageSelector({ compact = false }: LanguageSelectorPr
               rowPad,
               isSelected
                 ? 'bg-primary-container border-primary/30 shadow-sm'
-                : 'bg-background border-transparent hover:bg-surface-hover hover:border-border',
+                : 'bg-background border-transparent hover:bg-surface-hover hover:border-border'
             )}
           >
             {/* Flag bubble */}
@@ -47,7 +54,7 @@ export default function LanguageSelector({ compact = false }: LanguageSelectorPr
               className={cn(
                 'flex-shrink-0 flex items-center justify-center bg-surface-container leading-none select-none transition-all duration-200',
                 flagSize,
-                isSelected && 'bg-primary-container/50',
+                isSelected && 'bg-primary-container/50'
               )}
             >
               {lang.flag}
@@ -59,7 +66,7 @@ export default function LanguageSelector({ compact = false }: LanguageSelectorPr
                 className={cn(
                   'font-semibold leading-tight',
                   nameSize,
-                  isSelected ? 'text-primary' : 'text-text-primary',
+                  isSelected ? 'text-primary' : 'text-text-primary'
                 )}
               >
                 {lang.name}
@@ -68,7 +75,7 @@ export default function LanguageSelector({ compact = false }: LanguageSelectorPr
                 className={cn(
                   'leading-tight mt-0.5',
                   nativeSize,
-                  isSelected ? 'text-primary/60' : 'text-text-secondary',
+                  isSelected ? 'text-primary/60' : 'text-text-secondary'
                 )}
               >
                 {lang.native}
@@ -82,7 +89,7 @@ export default function LanguageSelector({ compact = false }: LanguageSelectorPr
                 checkSize,
                 isSelected
                   ? 'bg-primary scale-100 opacity-100'
-                  : 'bg-surface-container scale-75 opacity-0',
+                  : 'bg-surface-container scale-75 opacity-0'
               )}
             >
               <svg
@@ -92,7 +99,11 @@ export default function LanguageSelector({ compact = false }: LanguageSelectorPr
                 viewBox="0 0 24 24"
                 strokeWidth={3.5}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
             </div>
           </button>

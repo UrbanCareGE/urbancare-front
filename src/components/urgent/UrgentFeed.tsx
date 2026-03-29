@@ -4,12 +4,19 @@ import { formatTime } from '@/lib/utils';
 import 'ldrs/react/Leapfrog.css';
 import { ShieldCheck } from 'lucide-react';
 import { useFetchUrgent } from '@/hooks/query/urgent/use-fetch-urgent';
-import { UrgentCard, UrgentCardCompact, UrgentCardProps } from '@/components/urgent/UrgentCard';
+import {
+  UrgentCard,
+  UrgentCardCompact,
+  UrgentCardProps,
+} from '@/components/urgent/UrgentCard';
 import { useResolveUrgent } from '@/hooks/query/urgent/use-resolve-urgent';
 import { useParams } from 'next/navigation';
 import { OptimisticData } from '@/model/dto/common.dto';
 import { UrgentItemDTO } from '@/model/dto/urgent.dto';
-import { ActionButtonProps, UrgentCardStatus } from '@/components/urgent/urgent-data';
+import {
+  ActionButtonProps,
+  UrgentCardStatus,
+} from '@/components/urgent/urgent-data';
 import { TranslationKeys, useTranslation } from '@/i18n';
 import { useMemo } from 'react';
 
@@ -17,7 +24,7 @@ export const mapUrgentItemToCardProps = (
   item: OptimisticData<UrgentItemDTO>,
   onResolve: (id: string) => void,
   resolvingId: string | null,
-  t: TranslationKeys,
+  t: TranslationKeys
 ): UrgentCardProps => {
   const status: UrgentCardStatus = item.resolved ? 'resolved' : 'urgent';
   const initials =
@@ -27,15 +34,15 @@ export const mapUrgentItemToCardProps = (
   const actions: ActionButtonProps[] = item.resolved
     ? [{ icon: '❤️', label: t.urgent.thankYou, variant: 'success' }]
     : [
-      {
-        icon: '✓',
-        label: t.urgent.completed,
-        pendingLabel: t.urgent.sendingPending,
-        variant: 'primary',
-        onClick: () => onResolve(item.id),
-        isPending: isResolving,
-      },
-    ];
+        {
+          icon: '✓',
+          label: t.urgent.completed,
+          pendingLabel: t.urgent.sendingPending,
+          variant: 'primary',
+          onClick: () => onResolve(item.id),
+          isPending: isResolving,
+        },
+      ];
 
   return {
     status,
@@ -57,8 +64,7 @@ const UrgentEmptyState = ({ t }: { t: TranslationKeys }) => (
     <div className="relative flex items-center justify-center">
       <div className="absolute w-20 h-20 rounded-urbancare-full bg-success/15 animate-pulse" />
       <div className="absolute w-14 h-14 rounded-urbancare-full bg-success/20" />
-      <div
-        className="relative w-12 h-12 rounded-urbancare-full bg-success-container flex items-center justify-center shadow-sm">
+      <div className="relative w-12 h-12 rounded-urbancare-full bg-success-container flex items-center justify-center shadow-sm">
         <ShieldCheck className="w-6 h-6 text-success" strokeWidth={2} />
       </div>
     </div>
@@ -90,14 +96,26 @@ export const UrgentFeedContainer = () => {
     isPending: isResolving,
   } = useResolveUrgent();
 
-  const items = useMemo(() => data as OptimisticData<UrgentItemDTO>[] | undefined, [data]);
+  const items = useMemo(
+    () => data as OptimisticData<UrgentItemDTO>[] | undefined,
+    [data]
+  );
 
   const handleResolve = (id: string) => {
     resolveUrgent({ apartmentId, id });
   };
 
-  return <UrgentFeedView isLoading={isLoading} isError={isError} isResolving={isResolving} resolvingId={resolvingId?.id}
-                         items={items} t={t} handleResolve={handleResolve} />;
+  return (
+    <UrgentFeedView
+      isLoading={isLoading}
+      isError={isError}
+      isResolving={isResolving}
+      resolvingId={resolvingId?.id}
+      items={items}
+      t={t}
+      handleResolve={handleResolve}
+    />
+  );
 };
 
 interface UrgentFeedViewProps {
@@ -111,47 +129,63 @@ interface UrgentFeedViewProps {
 }
 
 const UrgentFeedView = ({
-                          isLoading,
-                          isError,
-                          isResolving,
-                          resolvingId,
-                          items,
-                          t,
-                          handleResolve,
-                        }: UrgentFeedViewProps) => {
-  return (<ul className="flex flex-col gap-3 py-3 px-4 overflow-y-scroll">
-    {/*TODO urgentebis skeletoni*/}
-    {isLoading && <div></div>}
-    {isError && (
-      <div className="flex items-center justify-center p-4 text-red-500">
-        Error loading urgent items
-      </div>
-    )}
-    {items && items.length === 0 && <UrgentEmptyState t={t} />}
-    {items &&
-      items.length > 0 &&
-      items.map((item) => (
-        <UrgentCard
-          key={item.id}
-          {...mapUrgentItemToCardProps(
-            item,
-            handleResolve,
-            isResolving ? (resolvingId ?? null) : null,
-            t,
-          )}
-        />
-      ))}
-  </ul>);
+  isLoading,
+  isError,
+  isResolving,
+  resolvingId,
+  items,
+  t,
+  handleResolve,
+}: UrgentFeedViewProps) => {
+  return (
+    <ul className="flex flex-col gap-3 py-3 px-4 overflow-y-scroll">
+      {/*TODO urgentebis skeletoni*/}
+      {isLoading && <div></div>}
+      {isError && (
+        <div className="flex items-center justify-center p-4 text-red-500">
+          Error loading urgent items
+        </div>
+      )}
+      {items && items.length === 0 && <UrgentEmptyState t={t} />}
+      {items &&
+        items.length > 0 &&
+        items.map((item) => (
+          <UrgentCard
+            key={item.id}
+            {...mapUrgentItemToCardProps(
+              item,
+              handleResolve,
+              isResolving ? (resolvingId ?? null) : null,
+              t
+            )}
+          />
+        ))}
+    </ul>
+  );
 };
 
-export const UrgentFeedCompactContainer = ({ onItemClick }: { onItemClick?: (id: string) => void }) => {
+export const UrgentFeedCompactContainer = ({
+  onItemClick,
+}: {
+  onItemClick?: (id: string) => void;
+}) => {
   const t = useTranslation();
   const { data, isLoading, isError } = useFetchUrgent();
 
-  const items = useMemo(() => data as OptimisticData<UrgentItemDTO>[] | undefined, [data]);
+  const items = useMemo(
+    () => data as OptimisticData<UrgentItemDTO>[] | undefined,
+    [data]
+  );
 
-  return <UrgentFeedCompactView isLoading={isLoading} isError={isError} items={items} t={t}
-                                onItemClick={onItemClick} />;
+  return (
+    <UrgentFeedCompactView
+      isLoading={isLoading}
+      isError={isError}
+      items={items}
+      t={t}
+      onItemClick={onItemClick}
+    />
+  );
 };
 
 interface UrgentFeedCompactViewProps {
@@ -163,12 +197,12 @@ interface UrgentFeedCompactViewProps {
 }
 
 const UrgentFeedCompactView = ({
-                                 isLoading,
-                                 isError,
-                                 items,
-                                 t,
-                                 onItemClick,
-                               }: UrgentFeedCompactViewProps) => {
+  isLoading,
+  isError,
+  items,
+  t,
+  onItemClick,
+}: UrgentFeedCompactViewProps) => {
   return (
     <ul className="flex flex-col gap-2 p-2">
       {isLoading && <div></div>}
@@ -181,7 +215,9 @@ const UrgentFeedCompactView = ({
       {items &&
         items.length > 0 &&
         items.map((item) => {
-          const status: UrgentCardStatus = item.resolved ? 'resolved' : 'urgent';
+          const status: UrgentCardStatus = item.resolved
+            ? 'resolved'
+            : 'urgent';
           return (
             <UrgentCardCompact
               key={item.id}

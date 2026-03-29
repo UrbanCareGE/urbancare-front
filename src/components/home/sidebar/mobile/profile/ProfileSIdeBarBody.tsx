@@ -1,18 +1,16 @@
 import { ProfileSideBarGroup } from '@/components/home/sidebar/mobile/profile/ProfieSideBarGroup';
 import React from 'react';
 import { NavigationLink } from '@/components/home/sidebar/mobile/navigation/NavigationLink';
-import {
-  HandshakeIcon,
-  HeadsetIcon,
-  SettingsIcon,
-} from 'lucide-react';
+import { HandshakeIcon, HeadsetIcon, SettingsIcon } from 'lucide-react';
 import { NavItem } from '@/components/home/sidebar/mobile/navigation/NavigationArea';
 import { SheetClose } from '@/components/ui/sheet';
 import LanguageSelector from '@/components/common/util/LanguageSelector';
 import { MobileThemeSelector } from '@/components/common/util/MobileThemeSelector';
 import { useTranslation } from '@/i18n';
 
-export const getProfileItems = (t: ReturnType<typeof useTranslation>): NavItem[] => [
+export const getProfileItems = (
+  t: ReturnType<typeof useTranslation>
+): NavItem[] => [
   {
     href: '/profile',
     label: t.sidebar.settings,
@@ -25,7 +23,9 @@ export const getProfileItems = (t: ReturnType<typeof useTranslation>): NavItem[]
   },
 ];
 
-export const getSupportItems = (t: ReturnType<typeof useTranslation>): NavItem[] => [
+export const getSupportItems = (
+  t: ReturnType<typeof useTranslation>
+): NavItem[] => [
   {
     href: '/about',
     label: t.sidebar.aboutUs,
@@ -54,7 +54,6 @@ export const ProfileSideBarBody = () => {
 
   return (
     <div className="w-full flex flex-col overflow-scroll">
-
       <ProfileSideBarGroup className="px-4">
         <ProfileSideBarGroup.Header
           title={t.sidebar.theme}
@@ -116,7 +115,6 @@ export const ProfileSideBarBody = () => {
           ))}
         </ProfileSideBarGroup.Content>
       </ProfileSideBarGroup>
-
     </div>
   );
 };
