@@ -192,9 +192,7 @@ const PersonalCarsForm = () => {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>{t.cars.deleteCar}</DialogTitle>
-            <DialogDescription>
-              {t.cars.confirmDeleteCar}
-            </DialogDescription>
+            <DialogDescription>{t.cars.confirmDeleteCar}</DialogDescription>
           </DialogHeader>
           <DialogFooter className="flex gap-2 sm:gap-0">
             <Button variant="outline" onClick={handleCancelDelete}>
@@ -228,7 +226,10 @@ const Chip = ({
 }: ChipProps) => {
   return (
     <Badge
-      className={cn('text-urbancare-2xl flex items-center gap-1.5 pr-1.5', className)}
+      className={cn(
+        'text-urbancare-2xl flex items-center gap-1.5 pr-1.5',
+        className
+      )}
       {...props}
     >
       {children}

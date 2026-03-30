@@ -12,7 +12,6 @@ export const RouteConfig = {
   ],
 
   protected: ['/apartment/*'],
-
   authOnly: ['/auth/login', '/auth/register'],
 };
 
@@ -62,7 +61,9 @@ export async function proxy(request: NextRequest) {
 
   const apartmentRoot = pathname.match(/^\/apartment\/([^/]+)\/?$/);
   if (apartmentRoot) {
-    return NextResponse.redirect(new URL(`/apartment/${apartmentRoot[1]}/chat`, request.url));
+    return NextResponse.redirect(
+      new URL(`/apartment/${apartmentRoot[1]}/chat`, request.url)
+    );
   }
 
   return NextResponse.next();

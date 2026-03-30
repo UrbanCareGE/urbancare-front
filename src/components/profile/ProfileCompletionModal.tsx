@@ -4,14 +4,14 @@ import React, { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { FormInput } from '@/components/common/input/FormInput';
 import { Button } from '@/components/ui/button';
-import { User, Loader2 } from 'lucide-react';
+import { Loader2, User } from 'lucide-react';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useUpdateProfile } from '@/hooks/query/user/use-update-profile';
 import { useForm } from 'react-hook-form';
@@ -25,9 +25,7 @@ export function ProfileCompletionModal() {
   const { mutateAsync, isPending } = useUpdateProfile();
 
   const profileSchema = z.object({
-    name: z
-      .string()
-      .min(2, { message: t.profileValidation.nameMinLength }),
+    name: z.string().min(2, { message: t.profileValidation.nameMinLength }),
     surname: z
       .string()
       .min(2, { message: t.profileValidation.surnameMinLength }),

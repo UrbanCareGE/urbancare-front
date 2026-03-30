@@ -239,7 +239,10 @@ function SearchModal({
         {showResults && (
           <div className="px-6 py-3 border-t border-border-light flex-shrink-0">
             <p className="text-urbancare-sm text-text-tertiary">
-              {t.landing.buildingsFound.replace('{count}', String(allApartments.length))}
+              {t.landing.buildingsFound.replace(
+                '{count}',
+                String(allApartments.length)
+              )}
             </p>
           </div>
         )}
@@ -263,7 +266,10 @@ export function LandingHero() {
         </div>
 
         <h1 className="text-urbancare-8xl md:text-urbancare-9xl lg:text-urbancare-10xl font-bold text-text-primary mb-6 leading-tight animate-slide-up">
-          {t.landing.manageYourBuilding} <span className="bg-gradient-primary-text">{t.landing.buildingHighlight}</span>
+          {t.landing.manageYourBuilding}{' '}
+          <span className="bg-gradient-primary-text">
+            {t.landing.buildingHighlight}
+          </span>
           <br className="hidden md:block" />
           {t.landing.simply}
         </h1>

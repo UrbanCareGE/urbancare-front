@@ -47,7 +47,10 @@ export const ThreadFileUpload = ({
               {t.threadForm.mediaFiles}
             </FormLabel>
             <span className="text-urbancare-sm text-foreground-tertiary">
-              {t.threadForm.filesCount.replace('{count}', String(fileEntries.length))}
+              {t.threadForm.filesCount.replace(
+                '{count}',
+                String(fileEntries.length)
+              )}
             </span>
           </div>
 

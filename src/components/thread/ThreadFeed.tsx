@@ -95,7 +95,9 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       <div className="w-full max-w-md">
         <div className="max-w-2xl mx-auto px-4 pt-24">
           <div className="bg-error-background border border-error/30 rounded-urbancare-xl p-4 text-center">
-            <p className="text-error text-urbancare-base">Failed to load threads</p>
+            <p className="text-error text-urbancare-base">
+              Failed to load threads
+            </p>
           </div>
         </div>
       </div>

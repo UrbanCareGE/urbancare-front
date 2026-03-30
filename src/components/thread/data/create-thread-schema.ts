@@ -11,8 +11,16 @@ export const ACCEPTED_IMAGE_TYPES = [
   'image/gif',
   'image/avif',
 ];
-export const ACCEPTED_VIDEO_TYPES = ['video/mp4', 'video/webm', 'video/quicktime', 'video/ogg'];
-export const ACCEPTED_FILE_TYPES = [...ACCEPTED_IMAGE_TYPES, ...ACCEPTED_VIDEO_TYPES];
+export const ACCEPTED_VIDEO_TYPES = [
+  'video/mp4',
+  'video/webm',
+  'video/quicktime',
+  'video/ogg',
+];
+export const ACCEPTED_FILE_TYPES = [
+  ...ACCEPTED_IMAGE_TYPES,
+  ...ACCEPTED_VIDEO_TYPES,
+];
 
 const createFileEntrySchema = (t: TranslationKeys) =>
   z.object({

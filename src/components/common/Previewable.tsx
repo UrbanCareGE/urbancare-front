@@ -65,7 +65,9 @@ const PreviewableView = ({ className, children }: PreviewableViewProps) => {
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && closeView()}>
-      <SheetDescription className={'sr-only'}>{t.thread.comment}</SheetDescription>
+      <SheetDescription className={'sr-only'}>
+        {t.thread.comment}
+      </SheetDescription>
       <SheetTitle className={'sr-only'}>{t.thread.comment}</SheetTitle>
       <SheetContent
         side={'right'}
@@ -100,7 +102,9 @@ const PreviewableHeader = ({ className, children }: PreviewableHeaderProps) => {
       {children}
       <SheetClose asChild>
         <div
-          className={'bg-surface-container/60 rounded-urbancare-panel my-1 p-1 ml-auto'}
+          className={
+            'bg-surface-container/60 rounded-urbancare-panel my-1 p-1 ml-auto'
+          }
         >
           <X className={'h-7 w-7 text-foreground-secondary'}></X>
         </div>

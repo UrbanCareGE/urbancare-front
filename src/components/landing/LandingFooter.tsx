@@ -16,7 +16,10 @@ export function LandingFooter() {
           <span className="font-semibold text-text-primary">UrbanCare</span>
         </div>
         <p className="text-urbancare-base text-text-secondary">
-          {t.landing.copyright.replace('{year}', String(new Date().getFullYear()))}
+          {t.landing.copyright.replace(
+            '{year}',
+            String(new Date().getFullYear())
+          )}
         </p>
       </div>
     </footer>

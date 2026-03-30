@@ -32,7 +32,7 @@ export const AuthService = {
     loginReq: LoginWithOtpDTO
   ): Promise<ApiResponse<UserDTO>> => {
     return await api.post<UserDTO, LoginWithOtpDTO>(
-      '/auth/otp/verify',
+      '/auth/otp/login',
       loginReq,
       {
         server: true,
@@ -58,10 +58,10 @@ export const AuthService = {
     return data;
   },
   generateOtp: async (generateOtpDTO: GenerateOtpDTO): Promise<void> => {
-    await api.post<GenerateOtpDTO>('/api/next/auth/otp', generateOtpDTO);
+    await api.post<void, GenerateOtpDTO>('/api/next/auth/otp', generateOtpDTO);
   },
   nextGenerateOtp: async (generateOtpDTO: GenerateOtpDTO): Promise<void> => {
-    await api.post<GenerateOtpDTO>('/auth/otp/send', generateOtpDTO, {
+    await api.post<void, GenerateOtpDTO>('/auth/otp/send', generateOtpDTO, {
       server: true,
     });
   },

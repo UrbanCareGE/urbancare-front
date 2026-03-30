@@ -9,7 +9,9 @@ export const NavSideBarHeader = () => {
     <div className="w-full flex justify-between items-center">
       <AppLogo />
       <SheetPrimitive.Close asChild>
-        <div className={'bg-surface-container/60 rounded-urbancare-panel my-1 p-1'}>
+        <div
+          className={'bg-surface-container/60 rounded-urbancare-panel my-1 p-1'}
+        >
           <X className={'h-7 w-7 text-foreground-secondary'}></X>
         </div>
       </SheetPrimitive.Close>

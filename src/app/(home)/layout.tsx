@@ -1,15 +1,17 @@
 import React from 'react';
 import {
   DesktopAdapter,
+  LargeDesktopAdapter,
   MobileAdapter,
   TabletAdapter,
 } from '@/components/common/layouts/ResponsiveSwitch';
 import { Children } from '@/app/layout';
-import { MobileLayout } from '@/app/(home)/layout.mobile';
-import { LayoutDesktop } from '@/app/(home)/layout.desktop';
+import { LayoutMobile } from '@/app/(home)/layout.mobile';
+import { LayoutLargeDesktop } from '@/app/(home)/layout.large-desktop';
 import { HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { dehydrate } from '@tanstack/query-core';
-import { TabletLayout } from '@/app/(home)/tablet-layout';
+import { LayoutTablet } from '@/app/(home)/layout.tablet';
+import { LayoutDesktop } from '@/app/(home)/layout.desktop';
 
 export default async function HomeLayout({ children }: Children) {
   const qc = new QueryClient();
@@ -17,16 +19,20 @@ export default async function HomeLayout({ children }: Children) {
   return (
     <HydrationBoundary state={dehydrate(qc)}>
       <MobileAdapter>
-        <MobileLayout>{children}</MobileLayout>
+        <LayoutMobile>{children}</LayoutMobile>
       </MobileAdapter>
 
       <TabletAdapter>
-        <TabletLayout>{children}</TabletLayout>
+        <LayoutTablet>{children}</LayoutTablet>
       </TabletAdapter>
 
       <DesktopAdapter>
         <LayoutDesktop>{children}</LayoutDesktop>
       </DesktopAdapter>
+
+      <LargeDesktopAdapter>
+        <LayoutLargeDesktop>{children}</LayoutLargeDesktop>
+      </LargeDesktopAdapter>
     </HydrationBoundary>
   );
 }

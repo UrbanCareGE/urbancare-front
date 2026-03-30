@@ -202,27 +202,27 @@ const EmptyState = ({ onAddLocation }: { onAddLocation?: () => void }) => (
 const SectionHeader = ({ isOpen }: { isOpen: boolean }) => {
   const t = useTranslation();
   return (
-  <div className="flex items-center justify-between px-4 py-3">
-    <span className="text-urbancare-base font-semibold text-muted-foreground">
-      {t.neighborhood.selectedLocation}
-    </span>
-    <CollapsibleTrigger asChild>
-      <Button
-        variant="ghost"
-        size="sm"
-        className="h-auto py-1 px-2 text-urbancare-sm font-semibold text-primary lg:hover:text-primary/80 lg:hover:bg-primary/5 lg:active:scale-95"
-      >
-        {isOpen ? t.common.close : t.common.change}
-        <ChevronDown
-          className={cn(
-            'w-3.5 h-3.5 ml-1 transition-transform duration-200',
-            isOpen && 'rotate-180'
-          )}
-        />
-      </Button>
-    </CollapsibleTrigger>
-  </div>
-);
+    <div className="flex items-center justify-between px-4 py-3">
+      <span className="text-urbancare-base font-semibold text-muted-foreground">
+        {t.neighborhood.selectedLocation}
+      </span>
+      <CollapsibleTrigger asChild>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-auto py-1 px-2 text-urbancare-sm font-semibold text-primary lg:hover:text-primary/80 lg:hover:bg-primary/5 lg:active:scale-95"
+        >
+          {isOpen ? t.common.close : t.common.change}
+          <ChevronDown
+            className={cn(
+              'w-3.5 h-3.5 ml-1 transition-transform duration-200',
+              isOpen && 'rotate-180'
+            )}
+          />
+        </Button>
+      </CollapsibleTrigger>
+    </div>
+  );
 };
 
 export const NeighborhoodSelect = () => {

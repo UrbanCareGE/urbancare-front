@@ -39,7 +39,9 @@ function HowItWorksVisual() {
               <Building2 className="w-5 h-5 text-success" />
             </div>
             <div>
-              <div className="font-medium text-text-primary">{t.landing.myBuilding}</div>
+              <div className="font-medium text-text-primary">
+                {t.landing.myBuilding}
+              </div>
               <div className="text-urbancare-base text-text-secondary">
                 {t.landing.activeNeighbors.replace('{count}', '12')}
               </div>
@@ -47,12 +49,20 @@ function HowItWorksVisual() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="p-4 rounded-urbancare-xl bg-surface-secondary">
-              <div className="text-urbancare-5xl font-bold text-primary mb-1">24</div>
-              <div className="text-urbancare-base text-text-secondary">{t.landing.post}</div>
+              <div className="text-urbancare-5xl font-bold text-primary mb-1">
+                24
+              </div>
+              <div className="text-urbancare-base text-text-secondary">
+                {t.landing.post}
+              </div>
             </div>
             <div className="p-4 rounded-urbancare-xl bg-surface-secondary">
-              <div className="text-urbancare-5xl font-bold text-tertiary mb-1">8</div>
-              <div className="text-urbancare-base text-text-secondary">{t.landing.newPoll}</div>
+              <div className="text-urbancare-5xl font-bold text-tertiary mb-1">
+                8
+              </div>
+              <div className="text-urbancare-base text-text-secondary">
+                {t.landing.newPoll}
+              </div>
             </div>
           </div>
           <div className="p-4 rounded-urbancare-xl bg-primary/5 border border-primary/10">

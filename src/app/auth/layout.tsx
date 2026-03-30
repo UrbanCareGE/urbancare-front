@@ -1,15 +1,16 @@
 import React from 'react';
 import {
-  DesktopAdapter,
-  MobileAdapter, TabletAdapter,
+  LargeDesktopAdapter,
+  MobileAdapter,
+  TabletAdapter,
 } from '@/components/common/layouts/ResponsiveSwitch';
 import MobileLayout from '@/app/auth/mobile-layout';
 import DesktopLayout from '@/app/auth/desktop-layout';
 import TabletLayout from '@/app/auth/tablet-layout';
 
 export default function HomeLayout({
-                                     children,
-                                   }: {
+  children,
+}: {
   children: React.ReactNode;
 }) {
   return (
@@ -20,9 +21,9 @@ export default function HomeLayout({
       <TabletAdapter>
         <TabletLayout>{children}</TabletLayout>
       </TabletAdapter>
-      <DesktopAdapter>
+      <LargeDesktopAdapter>
         <DesktopLayout>{children}</DesktopLayout>
-      </DesktopAdapter>
+      </LargeDesktopAdapter>
     </>
   );
 }

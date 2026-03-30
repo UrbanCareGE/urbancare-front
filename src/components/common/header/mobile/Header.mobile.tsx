@@ -54,7 +54,7 @@ export const HeaderMobile = () => {
           <MobileSideBar.Body>
             <ProfileSideBarBody />
           </MobileSideBar.Body>
-          <MobileSideBar.Footer className={"py-3"}>
+          <MobileSideBar.Footer className={'py-3'}>
             <LogoutButton />
           </MobileSideBar.Footer>
         </MobileSideBar.Content>

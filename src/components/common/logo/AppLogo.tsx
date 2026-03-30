@@ -32,7 +32,10 @@ type UrbanCareTextIconProps = {
 export const UrbanCareTextIcon = ({ className }: UrbanCareTextIconProps) => {
   return (
     <span
-      className={cn('text-urbancare-5xl font-bold bg-gradient-primary-text', className)}
+      className={cn(
+        'text-urbancare-5xl font-bold bg-gradient-primary-text',
+        className
+      )}
     >
       UrbanCare
     </span>

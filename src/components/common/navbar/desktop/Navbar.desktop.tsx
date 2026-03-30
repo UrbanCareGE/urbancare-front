@@ -82,7 +82,7 @@ export const HeaderNavIsland = () => {
               active
                 ? 'text-primary'
                 : 'text-foreground-secondary lg:hover:text-foreground-primary lg:hover:bg-surface-variant/60 lg:active:scale-95',
-              'text-urbancare-base xl:text-urbancare-lg',
+              'text-urbancare-base xl:text-urbancare-lg'
             )}
           >
             {active && (
@@ -95,7 +95,7 @@ export const HeaderNavIsland = () => {
             <item.icon
               className={cn(
                 'relative z-10 w-4 h-4',
-                active ? 'text-primary' : '',
+                active ? 'text-primary' : ''
               )}
             />
             <span className="relative z-10">{item.label}</span>

@@ -65,7 +65,9 @@ export function SpinnerLoader() {
           <div className="w-10 h-10 border-4 border-primary-container rounded-urbancare-full" />
           <div className="absolute top-0 left-0 w-10 h-10 border-4 border-transparent border-t-primary rounded-urbancare-full animate-spin" />
         </div>
-        <p className="text-text-secondary text-urbancare-base font-medium">Loading...</p>
+        <p className="text-text-secondary text-urbancare-base font-medium">
+          Loading...
+        </p>
       </div>
     </div>
   );

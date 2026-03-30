@@ -1,6 +1,9 @@
 import React from 'react';
 import { getClientFileUrl } from '@/lib/api-client';
-import { MediaItem, ThreadImagePreview } from '@/components/thread/thread-card/image-preview/ThreadImagePreview';
+import {
+  MediaItem,
+  ThreadImagePreview,
+} from '@/components/thread/thread-card/image-preview/ThreadImagePreview';
 import PollDisplay from '@/components/thread/thread-card/poll/PollDisplay';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
 

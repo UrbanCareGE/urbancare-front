@@ -27,7 +27,12 @@ export const ThreadSaveButton = () => {
           )}
         />
       </div>
-      <span className={cn('font-medium', saved ? 'text-primary' : 'text-text-primary')}>
+      <span
+        className={cn(
+          'font-medium',
+          saved ? 'text-primary' : 'text-text-primary'
+        )}
+      >
         {saved ? t.thread.saved : t.thread.save}
       </span>
     </button>

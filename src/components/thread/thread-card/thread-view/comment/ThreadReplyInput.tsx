@@ -99,7 +99,9 @@ export const ReplyInput = ({
 
         {/* Hint */}
         <div className="flex items-center gap-1 mt-1 px-1">
-          <span className="text-urbancare-xs text-text-tertiary">Enter to send ·</span>
+          <span className="text-urbancare-xs text-text-tertiary">
+            Enter to send ·
+          </span>
           <button
             onClick={onCancel}
             className="text-urbancare-xs font-semibold text-text-secondary transition-colors lg:hover:text-primary"

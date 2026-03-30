@@ -19,9 +19,7 @@ export function ChangePasswordForm() {
     .object({
       oldPassword: z.string().min(6, t.profileValidation.passwordMinLength),
       newPassword: z.string().min(6, t.profileValidation.passwordMinLength),
-      confirmPassword: z
-        .string()
-        .min(6, t.profileValidation.passwordMinLength),
+      confirmPassword: z.string().min(6, t.profileValidation.passwordMinLength),
     })
     .refine((data) => data.newPassword === data.confirmPassword, {
       message: t.profileValidation.passwordsDontMatch,
@@ -53,7 +51,9 @@ export function ChangePasswordForm() {
 
   return (
     <div className="w-full space-y-3">
-      <h3 className="text-urbancare-2xl font-semibold">{t.profile.changePassword}</h3>
+      <h3 className="text-urbancare-2xl font-semibold">
+        {t.profile.changePassword}
+      </h3>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           <FormField

@@ -25,9 +25,7 @@ export const ThreadTagLimitDialog = ({
       <DialogContent className="w-[calc(100%-2rem)] max-w-md rounded-urbancare-3xl border-border">
         <DialogHeader>
           <DialogTitle>{t.threadForm.tagsLimit}</DialogTitle>
-          <DialogDescription>
-            {t.threadForm.maxTagsPerPost}
-          </DialogDescription>
+          <DialogDescription>{t.threadForm.maxTagsPerPost}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <Button variant="default" onClick={() => onOpenChange(false)}>

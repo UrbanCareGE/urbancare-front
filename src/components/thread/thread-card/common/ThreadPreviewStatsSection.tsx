@@ -7,11 +7,17 @@ export const ThreadPreviewStatsSection = () => {
   const t = useTranslation();
   return (
     <div className="w-full px-4 py-3 flex items-center justify-start text-urbancare-base text-text-secondary border-y border-border">
-      <span className="">{thread.voteDiff} {t.thread.likes}</span>
+      <span className="">
+        {thread.voteDiff} {t.thread.likes}
+      </span>
       <span className="mx-2">·</span>
-      <span>{thread.commentCount} {t.thread.comment}</span>
+      <span>
+        {thread.commentCount} {t.thread.comment}
+      </span>
       <span className="mx-2">·</span>
-      <span>{15} {t.common.share}</span>
+      <span>
+        {15} {t.common.share}
+      </span>
     </div>
   );
 };

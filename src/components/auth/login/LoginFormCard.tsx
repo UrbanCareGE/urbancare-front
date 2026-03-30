@@ -100,7 +100,10 @@ export function LoginFormCard() {
 
   const onPasswordSubmit = (values: z.infer<typeof PasswordSchema>) => {
     const loginReq: LoginDTO = {
-      phone: values.phone.phone,
+      phone: {
+        prefix: values.phone.prefix,
+        number: values.phone.phone,
+      },
       password: values.password,
     };
     logIn(loginReq);
@@ -108,8 +111,10 @@ export function LoginFormCard() {
 
   const onOtpSubmit = (values: z.infer<typeof OtpSchema>) => {
     const loginReq: LoginWithOtpDTO = {
-      prefix: values.phone.prefix,
-      phone: values.phone.phone,
+      phone: {
+        prefix: values.phone.prefix,
+        number: values.phone.phone,
+      },
       otp: values.otp,
     };
     logInWithOtp(loginReq);
@@ -129,7 +134,12 @@ export function LoginFormCard() {
     }
 
     setOtpCooldown(true);
-    await mutateAsync(phone as GenerateOtpDTO);
+    await mutateAsync({
+      phone: {
+        prefix: phone.prefix,
+        number: phone.phone,
+      },
+    } as GenerateOtpDTO);
   };
 
   const handleCooldownComplete = useCallback(() => {

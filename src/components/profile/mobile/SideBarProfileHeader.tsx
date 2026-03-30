@@ -45,14 +45,14 @@ export const SideBarProfileHeader = () => {
           />
           <AvatarFallback>{initials}</AvatarFallback>
         </Avatar>
-        <span className="absolute bottom-0 right-0 block w-4 h-4 rounded-urbancare-full border-2 border-white bg-green-400" />
+        <span className="absolute bottom-0 right-0 block w-4 h-4 rounded-urbancare-full border-2 border-white bg-success" />
       </div>
       <div className="flex flex-col mr-auto">
         <p className="font-semibold text-urbancare-3xl text-foreground-primary">
           {user?.name} {user?.surname}
         </p>
         <span className="text-urbancare-xl text-foreground-secondary inline">
-          @{user?.phone}
+          @{user?.phone.number}
         </span>
       </div>
     </div>

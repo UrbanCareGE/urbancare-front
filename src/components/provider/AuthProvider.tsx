@@ -6,19 +6,26 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useRef,
 } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 import { AuthService } from '@/service/auth-service';
-import { LoginDTO, LoginWithOtpDTO, UserDTO } from '@/model/dto/auth.dto';
+import {
+  LoginDTO,
+  LoginWithOtpDTO,
+  PhoneNumberDTO,
+  UserDTO,
+} from '@/model/dto/auth.dto';
 import { PulsingLoader } from '@/components/common/loader/GlobalLoader';
 import { RouteConfig } from '@/proxy';
 import { ErrorResponse } from '@/model/dto/common.dto';
 import { ApartmentDTO } from '@/model/dto/apartment.dto';
+import { ProfileCompletionModal } from '@/components/profile/ProfileCompletionModal';
 
 export interface UserModel {
   id: string;
-  phone: string;
+  phone: PhoneNumberDTO;
   name?: string;
   surname?: string;
   profileImageId?: string;
@@ -146,8 +153,11 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
           selectedApartmentId
         ),
       } as UserModel);
-      if (user?.joinedApartments?.length) {
-        window.location.href = `/apartment/${user.joinedApartments[0].id}`;
+      if (user?.selectedApartmentId) {
+        window.location.href = `/apartment/${user?.selectedApartmentId}`;
+      }
+      if (user?.joinedApartments.length) {
+        window.location.href = `/apartment/${user?.joinedApartments[0]}`;
       } else {
         window.location.href = '/landing';
       }
@@ -171,8 +181,11 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
             selectedApartmentId
           ),
         } as UserModel);
-        if (user?.joinedApartments?.length) {
-          window.location.href = `/apartment/${user.joinedApartments[0].id}`;
+        if (user?.selectedApartmentId) {
+          window.location.href = `/apartment/${user?.selectedApartmentId}`;
+        }
+        if (user?.joinedApartments.length) {
+          window.location.href = `/apartment/${user?.joinedApartments[0]}`;
         } else {
           window.location.href = '/landing';
         }
