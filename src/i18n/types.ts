@@ -295,6 +295,17 @@ export interface TranslationKeys {
     carNotFound: string;
     noCarsAdded: string;
   };
+  join: {
+    residentialBuilding: string;
+  };
+  joinPage: {
+    membersCount: string;
+    youAreInvited: string;
+    joinDescription: string;
+    joining: string;
+    joinNow: string;
+    poweredBy: string;
+  };
   landing: {
     manageYourBuilding: string;
     buildingHighlight: string;

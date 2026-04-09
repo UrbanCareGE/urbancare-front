@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { LoginFormCard } from '@/components/auth/login/LoginFormCard';
+import { LoginCard } from '@/components/auth/login/LoginCard';
 
 export default function LoginPage() {
-  return <LoginFormCard />;
+  return <LoginCard />;
 }

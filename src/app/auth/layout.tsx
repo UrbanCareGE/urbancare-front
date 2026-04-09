@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  DesktopAdapter,
   LargeDesktopAdapter,
   MobileAdapter,
   TabletAdapter,
@@ -21,6 +22,9 @@ export default function HomeLayout({
       <TabletAdapter>
         <TabletLayout>{children}</TabletLayout>
       </TabletAdapter>
+      <DesktopAdapter>
+        <DesktopLayout>{children}</DesktopLayout>
+      </DesktopAdapter>
       <LargeDesktopAdapter>
         <DesktopLayout>{children}</DesktopLayout>
       </LargeDesktopAdapter>

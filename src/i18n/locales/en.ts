@@ -323,6 +323,17 @@ const en: TranslationKeys = {
     noCarsAdded: 'No cars have been added',
   },
 
+  join: {
+    residentialBuilding: 'Residential building',
+  },
+  joinPage: {
+    membersCount: '{count} members',
+    youAreInvited: 'You are invited!',
+    joinDescription: 'Join this building\'s community and manage common matters together with your neighbors.',
+    joining: 'Joining...',
+    joinNow: 'Join Now',
+    poweredBy: 'Powered by UrbanCare',
+  },
   landing: {
     manageYourBuilding: 'Manage your',
     buildingHighlight: 'building',

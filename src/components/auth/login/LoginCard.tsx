@@ -32,7 +32,6 @@ function OtpCountdown({ onComplete }: { onComplete: () => void }) {
   const [seconds, setSeconds] = useState(60);
 
   useEffect(() => {
-    console.log('epe mevida');
     if (seconds <= 0) {
       onComplete();
       return;
@@ -49,7 +48,7 @@ function OtpCountdown({ onComplete }: { onComplete: () => void }) {
   );
 }
 
-export function LoginFormCard() {
+export function LoginCard() {
   const { mutateAsync, isPending, isError, isSuccess: otpSent } = useOtp();
   const { logIn, logInWithOtp, isLoggingIn } = useAuth();
   const t = useTranslation();
@@ -147,7 +146,7 @@ export function LoginFormCard() {
   }, []);
 
   return (
-    <Card className="border-border-light rounded-urbancare-4xl animate-slide-up bg-background w-full max-w-[440px]">
+    <Card className="border-border-light rounded-urbancare-4xl animate-slide-up bg-background w-full max-w-[492px]">
       <CardContent className="p-5 sm:p-8">
         {/* Header */}
         <div className="mb-6 sm:mb-8">
@@ -242,13 +241,12 @@ export function LoginFormCard() {
                         <FormItem className="flex-1">
                           <FormControl>
                             <FormInput
-                              placeholder={t.auth.enterOtpCode}
                               type="text"
                               inputMode="numeric"
                               autoComplete="one-time-code"
                               maxLength={6}
                               disabled={isLoggingIn}
-                              className="h-[48px] sm:h-[52px] rounded-urbancare-xl border border-border bg-surface text-urbancare-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200 tracking-[0.3em] text-center font-semibold"
+                              className="h-[48px] sm:h-[52px] rounded-urbancare-xl border border-border bg-surface text-urbancare-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200 text-center font-semibold tracking-[0.3em]"
                               {...field}
                             />
                           </FormControl>

@@ -25,7 +25,8 @@
       "Bash(for f:*)",
       "Bash(do echo:*)",
       "Read(//Users/leogogichaishvili/UrbanCare/urbancare/**)",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(npx shadcn@latest add input-otp 2>&1)"
     ]
   }
 }

@@ -324,6 +324,17 @@ const ka: TranslationKeys = {
     noCarsAdded: 'მანქანები არ არის დამატებული',
   },
 
+  join: {
+    residentialBuilding: 'საცხოვრებელი კორპუსი',
+  },
+  joinPage: {
+    membersCount: '{count} წევრი',
+    youAreInvited: 'თქვენ მოწვეული ხართ!',
+    joinDescription: 'შეუერთდით ამ კორპუსის საზოგადოებას და მართეთ საერთო საკითხები მეზობლებთან ერთად.',
+    joining: 'მიმდინარეობს...',
+    joinNow: 'შეუერთდი',
+    poweredBy: 'UrbanCare-ის მეშვეობით',
+  },
   landing: {
     manageYourBuilding: 'მართე შენი',
     buildingHighlight: 'კორპუსი',

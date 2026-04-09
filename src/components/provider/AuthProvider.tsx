@@ -6,7 +6,6 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useRef,
 } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
@@ -21,7 +20,6 @@ import { PulsingLoader } from '@/components/common/loader/GlobalLoader';
 import { RouteConfig } from '@/proxy';
 import { ErrorResponse } from '@/model/dto/common.dto';
 import { ApartmentDTO } from '@/model/dto/apartment.dto';
-import { ProfileCompletionModal } from '@/components/profile/ProfileCompletionModal';
 
 export interface UserModel {
   id: string;
@@ -181,6 +179,14 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
             selectedApartmentId
           ),
         } as UserModel);
+
+        const searchParams = new URLSearchParams(window.location.search);
+        const code = searchParams.get('code');
+
+        if (code) {
+          window.location.href = `/join/${code}`;
+          return;
+        }
         if (user?.selectedApartmentId) {
           window.location.href = `/apartment/${user?.selectedApartmentId}`;
         }

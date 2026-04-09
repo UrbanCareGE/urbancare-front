@@ -11,7 +11,6 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import {
-  usePhoneInput,
   FlagImage,
   defaultCountries,
   parseCountry,
@@ -37,6 +36,11 @@ type PhoneFormInputProps = {
   className?: string;
 };
 
+const preferredIso2 = ['ge', 'us', 'gb', 'de', 'fr', 'it', 'es', 'tr'];
+
+const parsedCountries = defaultCountries.map((c) => parseCountry(c));
+const defaultGe = parsedCountries.find((c) => c.iso2 === 'ge')!;
+
 const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
   ({ className, value, onChange, disabled, placeholder, ...props }, ref) => {
     const { error, formMessageId } = useFormField();
@@ -44,55 +48,49 @@ const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
     const [tooltipOpen, setTooltipOpen] = React.useState(false);
     const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
-    const {
-      inputValue,
-      country,
-      setCountry,
-      handlePhoneValueChange,
-      inputRef,
-    } = usePhoneInput({
-      defaultCountry: 'ge',
-      countries: defaultCountries,
-      preferredCountries: ['ge', 'us', 'gb', 'de', 'fr', 'it', 'es', 'tr'],
-      forceDialCode: true,
-      onChange: (data) => {
-        const dialCode = `+${data.country.dialCode}`;
-        const localPhone = data.phone.startsWith(dialCode)
-          ? data.phone.slice(dialCode.length)
-          : data.phone;
-        onChange?.({ prefix: dialCode, phone: localPhone });
-      },
-    });
+    const [localPhone, setLocalPhone] = React.useState('');
+    const [selectedCountry, setSelectedCountry] = React.useState(defaultGe);
 
-    // Merge refs
+    // Sync initial value
+    React.useEffect(() => {
+      if (value && typeof value === 'object' && value.phone && !localPhone) {
+        setLocalPhone(value.phone);
+      }
+    }, []);
+
+    const dialCode = `+${selectedCountry.dialCode}`;
+
+    const handleLocalPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const raw = e.target.value.replace(/[^\d]/g, '');
+      setLocalPhone(raw);
+      onChange?.({ prefix: dialCode, phone: raw });
+    };
+
+    const handleCountrySelect = (iso2: string) => {
+      const c = parsedCountries.find((ct) => ct.iso2 === iso2);
+      if (c) {
+        setSelectedCountry(c);
+        const newDialCode = `+${c.dialCode}`;
+        onChange?.({ prefix: newDialCode, phone: localPhone });
+      }
+    };
+
     const mergedRef = React.useCallback(
       (node: HTMLInputElement | null) => {
-        inputRef.current = node;
         if (typeof ref === 'function') ref(node);
         else if (ref) ref.current = node;
       },
-      [ref, inputRef]
+      [ref]
     );
 
-    const countryList = React.useMemo(
-      () =>
-        defaultCountries.map((c) => {
-          const parsed = parseCountry(c);
-          return parsed;
-        }),
+    const preferred = React.useMemo(
+      () => parsedCountries.filter((c) => preferredIso2.includes(c.iso2)),
       []
     );
 
-    const preferredIso2 = ['ge', 'us', 'gb', 'de', 'fr', 'it', 'es', 'tr'];
-
-    const preferred = React.useMemo(
-      () => countryList.filter((c) => preferredIso2.includes(c.iso2)),
-      [countryList]
-    );
-
     const others = React.useMemo(
-      () => countryList.filter((c) => !preferredIso2.includes(c.iso2)),
-      [countryList]
+      () => parsedCountries.filter((c) => !preferredIso2.includes(c.iso2)),
+      []
     );
 
     return (
@@ -121,7 +119,7 @@ const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
                   disabled && 'pointer-events-none'
                 )}
               >
-                <FlagImage iso2={country.iso2} size="24px" />
+                <FlagImage iso2={selectedCountry.iso2} size="24px" />
                 <ChevronDown
                   className={cn(
                     'w-3.5 h-3.5 transition-transform duration-200',
@@ -131,9 +129,8 @@ const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
               </button>
             </PopoverTrigger>
             <PopoverContent
-              className="w-[280px] p-0 max-h-[320px] overflow-hidden"
+              className="w-[284px] p-0 max-h-[320px] overflow-hidden bg-surface-elevated border-border"
               align="start"
-              sideOffset={8}
             >
               <div className="overflow-y-auto max-h-[320px] overscroll-contain">
                 {/* Preferred countries */}
@@ -144,10 +141,10 @@ const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
                     className={cn(
                       'flex items-center gap-3 w-full px-3 py-2.5 text-left transition-colors',
                       'lg:hover:bg-hover active:bg-hover',
-                      country.iso2 === c.iso2 && 'bg-primary-light/20'
+                      selectedCountry.iso2 === c.iso2 && 'bg-primary-light/20'
                     )}
                     onClick={() => {
-                      setCountry(c.iso2);
+                      handleCountrySelect(c.iso2);
                       setDropdownOpen(false);
                     }}
                   >
@@ -172,10 +169,10 @@ const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
                     className={cn(
                       'flex items-center gap-3 w-full px-3 py-2.5 text-left transition-colors',
                       'lg:hover:bg-hover active:bg-hover',
-                      country.iso2 === c.iso2 && 'bg-primary-light/20'
+                      selectedCountry.iso2 === c.iso2 && 'bg-primary-light/20'
                     )}
                     onClick={() => {
-                      setCountry(c.iso2);
+                      handleCountrySelect(c.iso2);
                       setDropdownOpen(false);
                     }}
                   >
@@ -195,18 +192,23 @@ const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
           {/* Separator */}
           <div className="w-px h-6 bg-border shrink-0" />
 
+          {/* Dial code (non-editable) */}
+          <span className="pl-3 text-urbancare-base sm:text-urbancare-xl text-text-muted font-medium select-none shrink-0">
+            {dialCode}
+          </span>
+
           {/* Phone input */}
           <input
             ref={mergedRef}
             type="tel"
             inputMode="tel"
-            value={inputValue}
-            onChange={handlePhoneValueChange}
+            value={localPhone}
+            onChange={handleLocalPhoneChange}
             disabled={disabled}
             placeholder={placeholder}
             aria-describedby={formMessageId}
             className={cn(
-              'flex-1 h-full bg-transparent py-1 pr-10 pl-3',
+              'flex-1 h-full bg-transparent py-1 pr-10 pl-2',
               'text-urbancare-base sm:text-urbancare-xl text-text-primary',
               'placeholder:text-text-placeholder',
               'focus:outline-none',
