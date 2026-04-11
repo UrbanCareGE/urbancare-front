@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { ThreadCommentDTO } from '@/model/dto/thread.dto';
 import { cn, formatTime } from '@/lib/utils';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { UserAvatar } from '@/components/common/avatar/UserAvatar';
+import { UserAvatarView } from '@/components/common/avatar/UserAvatar';
 import { ReplyInput } from '@/components/thread/thread-card/thread-view/comment/ThreadReplyInput';
 import { ThreadCommentReply } from '@/components/thread/thread-card/thread-view/comment/ThreadCommentReply';
 
@@ -35,7 +35,7 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
       {/* Comment row */}
       <div className="flex gap-2.5">
         <div className="flex-shrink-0">
-          <UserAvatar
+          <UserAvatarView
             firstName={userInfo.name}
             surname={userInfo.surname}
             profileImageId={userInfo.profileImageId}

@@ -82,7 +82,7 @@ export const HeaderNavIsland = () => {
               active
                 ? 'text-primary'
                 : 'text-foreground-secondary lg:hover:text-foreground-primary lg:hover:bg-surface-variant/60 lg:active:scale-95',
-              'text-urbancare-base xl:text-urbancare-lg'
+              'lg:text-urbancare-base xl:text-urbancare-lg'
             )}
           >
             {active && (

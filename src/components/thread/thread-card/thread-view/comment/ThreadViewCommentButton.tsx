@@ -4,7 +4,7 @@ import { Send } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { useCreateComment } from '@/hooks/query/thread/use-create-comment';
-import { UserAvatar } from '@/components/common/avatar/UserAvatar';
+import { UserAvatarView } from '@/components/common/avatar/UserAvatar';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { ThreadInfoDTO } from '@/model/dto/thread.dto';
 import { useParams } from 'next/navigation';
@@ -53,7 +53,7 @@ export const ThreadViewCommentButton = ({
     <div
       className={cn('flex items-center px-3 py-2.5 gap-2.5 w-full', className)}
     >
-      <UserAvatar
+      <UserAvatarView
         profileImageId={user?.profileImageId}
         firstName={user?.name}
         surname={user?.surname}

@@ -1,6 +1,5 @@
 import React from 'react';
 import { MobileSideBar } from '@/components/home/sidebar/mobile/MobileSideBar';
-import { ActiveUserAvatar } from '@/components/common/avatar/ActiveUserAvatar';
 import { Menu } from 'lucide-react';
 import { ProfileSideBarHeader } from '@/components/home/sidebar/mobile/profile/ProfileSideBarHeader';
 import { LogoutButton } from '@/components/auth/LogoutButton';
@@ -11,6 +10,10 @@ import { NavSideBarHeader } from '@/components/home/sidebar/mobile/navigation/Na
 import { useMobileScroll } from '@/hooks/use-mobile-scroll';
 import { cn } from '@/lib/utils';
 import { UrbanCareTextIcon } from '@/components/common/logo/AppLogo';
+import {
+  CurrentUserAvatar,
+  UserAvatarView,
+} from '@/components/common/avatar/UserAvatar';
 
 export const HeaderMobile = () => {
   const { isVisible } = useMobileScroll();
@@ -45,7 +48,7 @@ export const HeaderMobile = () => {
       {/*<span className={"ml-3 font-semibold text-urbancare-3xl text-center mr-auto"}>URBANCARE</span>*/}
       <MobileSideBar side={'right'}>
         <MobileSideBar.Trigger>
-          <ActiveUserAvatar />
+          <CurrentUserAvatar />
         </MobileSideBar.Trigger>
         <MobileSideBar.Content>
           <MobileSideBar.Header>

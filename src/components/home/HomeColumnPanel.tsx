@@ -31,7 +31,7 @@ const HomeColumnPanelHeader = ({
   return (
     <div
       className={cn(
-        'flex justify-center items-center h-14 flex-shrink-0',
+        'flex justify-center items-center h-14',
         className
       )}
     >

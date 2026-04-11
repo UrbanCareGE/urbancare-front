@@ -46,7 +46,7 @@ export default function ResponsiveLayout({ children, initialIsMobile }: Props) {
 
       if (width < 768) deviceType = 'mobile';
       else if (width < 1024) deviceType = 'tablet';
-      else if (width < 1280) deviceType = 'desktop';
+      else if (width < 1512) deviceType = 'desktop';
       else deviceType = 'large-desktop';
 
       setDimensions((oldValue) => ({ ...oldValue, width, deviceType }));

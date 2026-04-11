@@ -10,15 +10,11 @@ import PersonalCarsForm from '@/components/profile/PersonalCarsForm';
 
 function Page() {
   return (
-    <DynamicPanel className="bg-background">
-      <DynamicPanel.Separator />
+    <DynamicPanel>
       <DynamicPanel.Body className="space-y-6 py-6">
         <ProfileImageUpload />
-        <DynamicPanel.Separator />
         <PersonalInfoForm />
-        <DynamicPanel.Separator />
         <PersonalCarsForm />
-        <DynamicPanel.Separator />
         <ChangePasswordForm />
       </DynamicPanel.Body>
     </DynamicPanel>

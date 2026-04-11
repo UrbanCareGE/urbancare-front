@@ -7,13 +7,12 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ActiveUserAvatar } from '@/components/common/avatar/ActiveUserAvatar';
 import { LogoutButton } from '@/components/auth/LogoutButton';
 import { useTranslation } from '@/i18n';
+import { CurrentUserAvatar, UserAvatarView } from '@/components/common/avatar/UserAvatar';
 
 const HeaderActionsIsland = () => (
   <div className="flex items-center gap-2 bg-surface border border-border rounded-urbancare-3xl px-3 py-2 shadow-sm shadow-shadow/5 flex-shrink-0">
@@ -47,7 +46,7 @@ export const HeaderUserDropdown = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="outline-none">
-          <ActiveUserAvatar />
+          <CurrentUserAvatar/>
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent

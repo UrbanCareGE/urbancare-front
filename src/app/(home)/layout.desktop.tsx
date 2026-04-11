@@ -9,8 +9,8 @@ import { HomeColumnPanel } from '@/components/home/HomeColumnPanel';
 import { AppLogo } from '@/components/common/logo/AppLogo';
 import { HeaderNavIsland } from '@/components/common/navbar/desktop/Navbar.desktop';
 import { DesktopIsland } from '@/components/home/Island.desktop';
-import { useScrollRestoration } from '@/hooks/use-scroll-restoration';
 import { useTranslation } from '@/i18n';
+import { CurrentUserExpandableLarge } from '@/components/home/CurrentUserExpandableLarge';
 
 const NeighbourSelectIsland = () => {
   const t = useTranslation();
@@ -48,29 +48,28 @@ const NavigationIsland = () => {
 export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
   return (
     <ChatProvider>
-      <div className="fixed inset-0 bg-background overflow-hidden">
-        <div className="h-dvh max-w-[1512px] mx-auto p-3 flex justify-center gap-8">
-          <HomeColumnPanel className="flex-1 max-w-[456px] flex-shrink-1">
-            <HomeColumnPanel.Header>
-              <AppLogo />
-            </HomeColumnPanel.Header>
-            <HomeColumnPanel.Body className="flex-1">
-              <NavigationIsland />
-            </HomeColumnPanel.Body>
-            <HomeColumnPanel.Footer>
-              <NeighbourSelectIsland />
-            </HomeColumnPanel.Footer>
-          </HomeColumnPanel>
+      <div className="h-dvh w-full p-3 flex gap-4 items-center">
+        <HomeColumnPanel className="flex-1 min-w-0 max-w-[352px]">
+          <HomeColumnPanel.Header>
+            <AppLogo />
+          </HomeColumnPanel.Header>
+          <HomeColumnPanel.Body className="flex-1">
+            <NavigationIsland />
+          </HomeColumnPanel.Body>
+          <HomeColumnPanel.Footer>
+            <NeighbourSelectIsland />
+          </HomeColumnPanel.Footer>
+        </HomeColumnPanel>
 
-          <HomeColumnPanel className="flex-[2] min-w-[512px]">
-            <HomeColumnPanel.Header>
-              <HeaderNavIsland />
-            </HomeColumnPanel.Header>
-            <HomeColumnPanel.Body className="flex-1 overflow-y-scroll h-full flex flex-col">
-              {children}
-            </HomeColumnPanel.Body>
-          </HomeColumnPanel>
-        </div>
+        <HomeColumnPanel className="flex-1 min-w-0">
+          <HomeColumnPanel.Header className={'gap-2 ml-auto'}>
+            <HeaderNavIsland />
+            <CurrentUserExpandableLarge />
+          </HomeColumnPanel.Header>
+          <HomeColumnPanel.Body className="flex-1 overflow-y-scroll h-full flex flex-col">
+            {children}
+          </HomeColumnPanel.Body>
+        </HomeColumnPanel>
       </div>
     </ChatProvider>
   );

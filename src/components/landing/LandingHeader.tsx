@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Building2, ChevronDown, LogOut, Home } from 'lucide-react';
+import { Building2, ChevronDown, Home, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/components/provider/AuthProvider';
-import { UserAvatar } from '@/components/common/avatar/UserAvatar';
+import { CurrentUserAvatar, UserAvatarView } from '@/components/common/avatar/UserAvatar';
 import { useTranslation } from '@/i18n';
 
 export function LandingHeader() {
@@ -34,11 +34,7 @@ export function LandingHeader() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button className="flex items-center gap-2 rounded-urbancare-xl px-3 py-2 lg:hover:bg-surface-secondary transition-colors outline-none cursor-pointer">
-                <UserAvatar
-                  firstName={user.name}
-                  surname={user.surname}
-                  profileImageId={user.profileImageId}
-                />
+                <CurrentUserAvatar/>
                 <span className="hidden sm:block text-urbancare-base font-medium text-text-primary">
                   {user.name} {user.surname}
                 </span>
