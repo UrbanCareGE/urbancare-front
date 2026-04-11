@@ -96,8 +96,8 @@ export const LayoutLargeDesktop = ({
 
   return (
     <ChatProvider>
-      <div className="h-dvh max-w-[1512px] mx-auto p-3 flex justify-center gap-8">
-        <HomeColumnPanel className="flex-1 max-w-[412px] flex-shrink-1 min-w-0">
+      <div className="h-dvh mx-auto p-3 max-w-[1920px] w-full flex justify-center gap-8">
+        <HomeColumnPanel className="flex-1 max-w-[412px] min-w-0">
           <HomeColumnPanel.Header>
             <AppLogo />
           </HomeColumnPanel.Header>
@@ -115,13 +115,13 @@ export const LayoutLargeDesktop = ({
           </HomeColumnPanel.Header>
           <HomeColumnPanel.Body
             ref={feedScrollRef}
-            className="flex-1 overflow-y-scroll overflow-x-hidden h-full flex flex-col scrollbar-hide"
+            className="overflow-y-scroll h-full flex flex-col scrollbar-hide"
           >
             {children}
           </HomeColumnPanel.Body>
         </HomeColumnPanel>
 
-        <HomeColumnPanel className="flex-1 max-w-[556px] flex-shrink-1 min-w-0">
+        <HomeColumnPanel className="flex-1 max-w-[612px] min-w-0">
           <HomeColumnPanel.Header>
             <ProfileIslandDesktop />
           </HomeColumnPanel.Header>

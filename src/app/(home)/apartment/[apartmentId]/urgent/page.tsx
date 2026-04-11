@@ -6,7 +6,7 @@ import CreateUrgentButtonMobile from '@/components/urgent/CreateUrgentButton.mob
 
 const Page = () => {
   return (
-    <div className={'flex flex-col'}>
+    <div className={'flex flex-col w-full'}>
       <UrgentFeedContainer />
       <CreateUrgentButtonMobile />
     </div>

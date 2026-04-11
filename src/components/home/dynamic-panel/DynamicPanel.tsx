@@ -23,7 +23,9 @@ interface DynamicPanelFooterProps {
 }
 
 const DynamicPanelRoot = ({ className, children }: DynamicPanelRootProps) => {
-  return <div className={cn('flex flex-col', className)}>{children}</div>;
+  return (
+    <div className={cn('flex flex-col w-full', className)}>{children}</div>
+  );
 };
 
 const DynamicPanelHeader = ({

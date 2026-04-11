@@ -28,7 +28,7 @@ export const mapUrgentItemToCardProps = (
 ): UrgentCardProps => {
   const status: UrgentCardStatus = item.resolved ? 'resolved' : 'urgent';
   const initials =
-    `${item.userInfo.name[0] ?? ''}${item.userInfo.surname[0] ?? ''}`.toUpperCase();
+    `${item.userInfo.name?.[0] ?? ''}${item.userInfo.surname?.[0] ?? ''}`.toUpperCase();
   const isResolving = resolvingId === item.id;
 
   const actions: ActionButtonProps[] = item.resolved

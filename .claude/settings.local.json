@@ -31,7 +31,13 @@
       "Read(//Users/leogogichaishvili/.claude/**)",
       "Bash(ls -la \"/Users/leogogichaishvili/UrbanCare/urbancare/src/app/\\(home\\)/apartment/[apartmentId]/\")",
       "Bash(ls -la \"/Users/leogogichaishvili/UrbanCare/urbancare/src/app/\\(home\\)/apartment/[apartmentId]/post/\")",
-      "Bash(ls -la \"/Users/leogogichaishvili/UrbanCare/urbancare/src/app/\\(home\\)/\")"
+      "Bash(ls -la \"/Users/leogogichaishvili/UrbanCare/urbancare/src/app/\\(home\\)/\")",
+      "Bash(ls src/app/\\\\\\(home\\\\\\)/apartment/\\\\[apartmentId\\\\]/)",
+      "Bash(ls src/app/\\\\\\(home\\\\\\)/apartment/\\\\[apartmentId\\\\]/post/)",
+      "Bash(ls src/app/\\\\\\(home\\\\\\)/apartment/\\\\[apartmentId\\\\]/urgent/)",
+      "Bash(ls src/app/\\\\\\(home\\\\\\)/)",
+      "Bash(ls src/app/\\\\\\(home\\\\\\)/apartment/\\\\[apartmentId\\\\]/profile/)",
+      "Bash(ls src/app/\\\\\\(home\\\\\\)/apartment/\\\\[apartmentId\\\\]/documents/ src/app/\\\\\\(home\\\\\\)/apartment/\\\\[apartmentId\\\\]/finances/)"
     ]
   }
 }
