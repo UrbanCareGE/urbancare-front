@@ -51,7 +51,7 @@ export function ProfileImageUpload() {
   const isLoading = isUploading || isUpdating;
 
   return (
-    <section className="relative overflow-hidden rounded-urbancare-xl border-none bg-surface shadow-sm shadow-shadow/5">
+    <section className="relative overflow-hidden rounded-urbancare-3xl border-none bg-surface shadow-sm shadow-shadow/5">
       {/* decorative gradient backdrop */}
       <div
         aria-hidden

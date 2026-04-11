@@ -14,10 +14,6 @@ export const ThreadPreviewStatsSection = () => {
       <span>
         {thread.commentCount} {t.thread.comment}
       </span>
-      <span className="mx-2">·</span>
-      <span>
-        {15} {t.common.share}
-      </span>
     </div>
   );
 };

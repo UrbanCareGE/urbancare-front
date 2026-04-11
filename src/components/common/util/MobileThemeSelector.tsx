@@ -31,9 +31,9 @@ const iconStyles: Record<
   { active: string; base: string; icon: string }
 > = {
   light: {
-    active: 'bg-amber-100 dark:bg-amber-900/30',
+    active: 'bg-warning-container',
     base: 'bg-surface-container',
-    icon: 'text-amber-500',
+    icon: 'text-warning',
   },
   dark: {
     active: 'bg-primary-container',

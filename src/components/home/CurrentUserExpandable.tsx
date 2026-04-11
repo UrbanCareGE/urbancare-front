@@ -91,7 +91,7 @@ export const CurrentUserExpandable = () => {
           {/* Theme section */}
           <div>
             <div className="flex items-center gap-1.5 mb-2 px-1">
-              <div className="w-1.5 h-1.5 rounded-urbancare-full bg-amber-400 shadow-sm shadow-amber-400/50" />
+              <div className="w-1.5 h-1.5 rounded-urbancare-full bg-warning shadow-sm shadow-warning/50" />
               <p className="text-urbancare-2xs font-bold text-text-secondary uppercase tracking-widest">
                 {t.sidebar.theme}
               </p>

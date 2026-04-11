@@ -10,7 +10,7 @@ import PersonalCarsForm from '@/components/profile/PersonalCarsForm';
 function Page() {
   return (
     <DynamicPanel>
-      <DynamicPanel.Body>
+      <DynamicPanel.Body className={"lg:px-0"}>
         <div className="w-full space-y-5 flex flex-col justify-center pt-4 lg:pt-0">
           <ProfileImageUpload />
           <PersonalInfoForm />

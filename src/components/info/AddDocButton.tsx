@@ -40,7 +40,7 @@ const AddDocButton = () => {
   const t = useTranslation();
   return (
     <Sheet open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
-      <SheetTrigger asChild className={'mx-4 bg-blue-500'}>
+      <SheetTrigger asChild className={'mx-4'}>
         <Button className={'m-4'}>{t.info.uploadNewDocument}</Button>
       </SheetTrigger>
       <SheetContent
@@ -158,15 +158,15 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                 <div className="flex items-center justify-between mb-2">
                   <FormLabel className="text-urbancare-base font-medium text-text-primary flex items-center gap-2">
                     <FileText className="w-4 h-4 text-icon" />
-                    {t.info.description} <span className="text-red-500">*</span>
+                    {t.info.description} <span className="text-error">*</span>
                   </FormLabel>
                   <span
                     className={cn(
-                      'text-urbancare-sm font-medium transition-colors',
+                      'text-urbancare-sm font-medium transition-colors duration-200',
                       titleLength > 90
-                        ? 'text-red-600'
+                        ? 'text-error'
                         : titleLength > 70
-                          ? 'text-amber-600'
+                          ? 'text-warning'
                           : 'text-icon'
                     )}
                   >
@@ -240,15 +240,15 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                   <div className="flex items-center justify-between mb-2">
                     <FormLabel className="text-urbancare-base font-medium text-text-primary flex items-center gap-2">
                       <FileText className="w-4 h-4 text-icon" />
-                      {t.info.text} <span className="text-red-500">*</span>
+                      {t.info.text} <span className="text-error">*</span>
                     </FormLabel>
                     <span
                       className={cn(
-                        'text-urbancare-sm font-medium transition-colors',
+                        'text-urbancare-sm font-medium transition-colors duration-200',
                         textLength > 4500
-                          ? 'text-red-600'
+                          ? 'text-error'
                           : textLength > 4000
-                            ? 'text-amber-600'
+                            ? 'text-warning'
                             : 'text-icon'
                       )}
                     >
@@ -279,7 +279,7 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
                   <div className="flex items-center justify-between mb-2">
                     <FormLabel className="text-urbancare-base font-medium text-text-primary flex items-center gap-2">
                       <Paperclip className="w-4 h-4 text-icon" />
-                      {t.info.files} <span className="text-red-500">*</span>
+                      {t.info.files} <span className="text-error">*</span>
                     </FormLabel>
                     <span className="text-urbancare-sm text-text-secondary">
                       {uploadedFiles.length}/10 {t.info.fileCount}

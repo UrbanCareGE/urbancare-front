@@ -142,7 +142,7 @@ const UrgentFeedView = ({
       {/*TODO urgentebis skeletoni*/}
       {isLoading && <div></div>}
       {isError && (
-        <div className="flex items-center justify-center p-4 text-red-500">
+        <div className="flex items-center justify-center p-4 text-error">
           Error loading urgent items
         </div>
       )}

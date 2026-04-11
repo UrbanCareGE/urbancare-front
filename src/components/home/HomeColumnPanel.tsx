@@ -18,7 +18,12 @@ interface HomeColumnPanelBodyProps {
 
 const HomeColumnPanelRoot = ({ className, children }: HomeColumnPanelProps) => {
   return (
-    <div className={cn('flex flex-col h-full bg-background gap-5', className)}>
+    <div
+      className={cn(
+        'flex flex-col h-full bg-background gap-5 min-w-0',
+        className
+      )}
+    >
       {children}
     </div>
   );
@@ -44,7 +49,7 @@ const HomeColumnPanelBody = React.forwardRef<
   HTMLDivElement,
   HomeColumnPanelBodyProps
 >(({ className, children }, ref) => (
-  <div ref={ref} className={cn('w-full min-h-0', className)}>
+  <div ref={ref} className={cn('w-full min-h-0 min-w-0', className)}>
     {children}
   </div>
 ));

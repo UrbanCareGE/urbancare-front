@@ -35,7 +35,7 @@ const ChatIsland = () => {
   return (
     <DesktopIsland
       title={t.nav.chat}
-      icon={<UserIcon className="w-4 h-4 text-error" />}
+      icon={<UserIcon className="w-4 h-4 text-tertiary" />}
       className={'mt-auto h-full flex-[2]'}
     >
       <div className="overflow-y-hidden w-full h-full scrollbar-hide">
@@ -50,7 +50,7 @@ const NeighbourSelectIsland = () => {
   return (
     <DesktopIsland
       title={t.nav.neighborhoods}
-      icon={<HomeIcon className="w-4 h-4 text-error" />}
+      icon={<HomeIcon className="w-4 h-4 text-primary" />}
       className={'h-full'}
     >
       <div className="overflow-y-auto h-full scrollbar-hide">
@@ -65,7 +65,7 @@ const NavigationIsland = () => {
   return (
     <DesktopIsland
       title={t.nav.navigation}
-      icon={<NavigationIcon className="w-4 h-4 text-error" />}
+      icon={<NavigationIcon className="w-4 h-4 text-primary" />}
       className={''}
       bodyClassName={'overflow-y-scroll'}
     >
@@ -115,7 +115,7 @@ export const LayoutLargeDesktop = ({
           </HomeColumnPanel.Header>
           <HomeColumnPanel.Body
             ref={feedScrollRef}
-            className="flex-1 overflow-y-scroll h-full flex flex-col scrollbar-hide"
+            className="flex-1 overflow-y-scroll overflow-x-hidden h-full flex flex-col scrollbar-hide"
           >
             {children}
           </HomeColumnPanel.Body>

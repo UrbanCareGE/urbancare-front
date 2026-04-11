@@ -31,7 +31,7 @@ export const ThreadViewHeader = ({ className }: ThreadCardHeaderProps) => {
       <Avatar className="cursor-pointer w-10 h-10 rounded-urbancare-full shrink-0 ring-2 ring-border">
         <Image
           src={getClientFileUrl(userInfo?.profileImageId)}
-          alt="@shadcn"
+          alt={userInfo ? `${userInfo.name} ${userInfo.surname}` : 'User avatar'}
           fill
           className="object-cover"
         />
@@ -43,7 +43,7 @@ export const ThreadViewHeader = ({ className }: ThreadCardHeaderProps) => {
         )}
       </Avatar>
       <div className={'flex flex-col min-w-0 flex-1'}>
-        <div className="flex items-center justfiy-begin gap-2 min-w-0">
+        <div className="flex items-center justify-start gap-2 min-w-0">
           <h3 className="font-semibold text-text-primary text-urbancare-base truncate">
             {userInfo && userInfo.name} {userInfo && userInfo.surname}
           </h3>

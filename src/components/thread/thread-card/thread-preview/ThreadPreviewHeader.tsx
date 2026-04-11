@@ -23,7 +23,7 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
       <Avatar className="cursor-pointer w-11 h-11 lg:w-12 lg:h-12  rounded-urbancare-full shrink-0 ring-2 ring-border">
         <Image
           src={getClientFileUrl(userInfo?.profileImageId)}
-          alt="@shadcn"
+          alt={userInfo ? `${userInfo.name} ${userInfo.surname}` : 'User avatar'}
           fill
           className="object-cover"
         />
@@ -40,7 +40,7 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
           router.push(`thread/${thread.id}`);
         }}
       >
-        <div className="flex items-center justify-begin gap-2 min-w-0">
+        <div className="flex items-center justify-start gap-2 min-w-0">
           <h3 className="font-semibold text-text-primary text-urbancare-base truncate">
             {userInfo && userInfo.name} {userInfo && userInfo.surname}
           </h3>

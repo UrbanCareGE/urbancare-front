@@ -106,7 +106,7 @@ const FormInput = React.forwardRef<
           <TooltipContent
             side="top"
             sideOffset={8}
-            className="max-w-xs bg-[var(--color-grey-800)] text-white text-urbancare-base text-center p-2"
+            className="max-w-xs bg-surface-elevated border border-border text-text-primary text-urbancare-base text-center p-2 shadow-md"
           >
             {message}
           </TooltipContent>

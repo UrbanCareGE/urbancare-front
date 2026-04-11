@@ -17,7 +17,7 @@ const NeighbourSelectIsland = () => {
   return (
     <DesktopIsland
       title={t.nav.neighborhoods}
-      icon={<HomeIcon className="w-4 h-4 text-error" />}
+      icon={<HomeIcon className="w-4 h-4 text-primary" />}
       className={'h-full'}
     >
       <div className="overflow-y-auto h-full scrollbar-hide">
@@ -32,7 +32,7 @@ const NavigationIsland = () => {
   return (
     <DesktopIsland
       title={t.nav.navigation}
-      icon={<NavigationIcon className="w-4 h-4 text-error" />}
+      icon={<NavigationIcon className="w-4 h-4 text-primary" />}
       className={'h-full'}
     >
       <div className="overflow-y-auto h-full scrollbar-hide">

@@ -41,10 +41,12 @@ export function PersonalInfoForm() {
   };
 
   return (
-    <section className="w-full rounded-urbancare-xl overflow-hidden border-none bg-surface shadow-sm shadow-shadow/5">
-      <header className="px-4 py-3 bg-surface-variant flex items-center gap-2">
-        <User className="w-5 h-5 text-foreground-primary" />
-        <h3 className="font-semibold text-urbancare-base text-foreground-primary leading-tight-georgian">
+    <section className="w-full rounded-urbancare-3xl overflow-hidden border-none bg-surface shadow-sm shadow-shadow/5">
+      <header className="px-4 py-3 bg-surface-variant border-b border-border flex items-center gap-2">
+        <div className="w-10 h-10 rounded-urbancare-xl bg-primary-container text-primary-container-foreground flex items-center justify-center">
+          <User className="w-5 h-5" />
+        </div>
+        <h3 className="font-semibold text-urbancare-base text-text-primary leading-tight-georgian">
           {t.profile.personalInfo}
         </h3>
       </header>
