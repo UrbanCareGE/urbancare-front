@@ -3,7 +3,7 @@
 import { motion } from 'motion/react';
 import { Bell, DoorClosed, PlusIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { CurrentUserExpandableLarge } from '@/components/home/CurrentUserExpandableLarge';
+import { CurrentUserExpandable } from '@/components/home/CurrentUserExpandable';
 
 export const ProfileIslandDesktop = () => {
   return (
@@ -47,7 +47,7 @@ export const ProfileIslandDesktop = () => {
         <DoorClosed className="w-4 h-4" />
       </button>
 
-      <CurrentUserExpandableLarge />
+      <CurrentUserExpandable />
     </motion.div>
   );
 };

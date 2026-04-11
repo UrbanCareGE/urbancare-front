@@ -10,7 +10,7 @@ import { AppLogo } from '@/components/common/logo/AppLogo';
 import { HeaderNavIsland } from '@/components/common/navbar/desktop/Navbar.desktop';
 import { DesktopIsland } from '@/components/home/Island.desktop';
 import { useTranslation } from '@/i18n';
-import { CurrentUserExpandableLarge } from '@/components/home/CurrentUserExpandableLarge';
+import { CurrentUserExpandable } from '@/components/home/CurrentUserExpandable';
 
 const NeighbourSelectIsland = () => {
   const t = useTranslation();
@@ -62,9 +62,17 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
         </HomeColumnPanel>
 
         <HomeColumnPanel className="flex-1 min-w-0">
-          <HomeColumnPanel.Header className={'gap-2 ml-auto'}>
-            <HeaderNavIsland />
-            <CurrentUserExpandableLarge />
+          <HomeColumnPanel.Header className={'gap-2'}>
+            <div className="w-full grid grid-cols-[auto_1fr_auto] gap-x-3">
+              <div className={""}></div>
+              <div className={'flex justify-center items-center'}>
+                <HeaderNavIsland />
+              </div>
+
+              <div className={"flex justify-center items-center"}>
+                <CurrentUserExpandable />
+              </div>
+            </div>
           </HomeColumnPanel.Header>
           <HomeColumnPanel.Body className="flex-1 overflow-y-scroll h-full flex flex-col">
             {children}

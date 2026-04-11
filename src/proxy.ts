@@ -12,7 +12,7 @@ export const RouteConfig = {
   ],
 
   protected: ['/apartment/*'],
-  authOnly: ['/auth/login', '/auth/register'],
+  noauth: ['/auth/login', '/auth/register'],
 };
 
 function matchesRoute(pathname: string, routes: string[]): boolean {
@@ -41,7 +41,7 @@ export async function proxy(request: NextRequest) {
 
   const authToken = request.cookies.get('auth-token')?.value;
 
-  if (matchesRoute(pathname, RouteConfig.authOnly)) {
+  if (matchesRoute(pathname, RouteConfig.noauth)) {
     if (authToken) {
       return NextResponse.redirect(new URL('/', request.url));
     }

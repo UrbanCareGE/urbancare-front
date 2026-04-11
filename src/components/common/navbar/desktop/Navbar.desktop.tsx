@@ -68,7 +68,7 @@ export const HeaderNavIsland = () => {
   };
 
   return (
-    <nav className="flex items-center gap-1 bg-surface rounded-urbancare-3xl px-3 shadow-sm shadow-shadow/5 h-14 transition-all">
+    <nav className="flex justify-center items-center gap-1 bg-surface rounded-urbancare-3xl px-3 shadow-sm shadow-shadow/5 h-14 transition-all">
       {NAV_ITEMS.map((item, index) => {
         const href = getHref(item);
         const active = index === activeIndex;
@@ -98,7 +98,7 @@ export const HeaderNavIsland = () => {
                 active ? 'text-primary' : ''
               )}
             />
-            <span className="relative z-10">{item.label}</span>
+            <span className="relative z-10 ">{item.label}</span>
           </button>
         );
       })}

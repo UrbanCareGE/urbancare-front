@@ -14,7 +14,7 @@ import { LogoutButton } from '@/components/auth/LogoutButton';
 import { useTranslation } from '@/i18n';
 import { CurrentUserAvatar } from '@/components/common/avatar/UserAvatar';
 
-export const CurrentUserExpandableLarge = () => {
+export const CurrentUserExpandable = () => {
   const { user, isManager } = useAuth();
   const t = useTranslation();
 
@@ -36,7 +36,7 @@ export const CurrentUserExpandableLarge = () => {
           <CurrentUserAvatar />
 
           {/* Name + apartment */}
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 lg:hidden xl:block">
             <p className="text-urbancare-base font-semibold leading-tight text-text-primary truncate">
               {displayName}
             </p>
@@ -74,7 +74,7 @@ export const CurrentUserExpandableLarge = () => {
             </span>
           )}
 
-          <ChevronDown className="w-3.5 h-3.5 flex-shrink-0 text-icon transition-transform duration-200 [[data-state=open]_&]:rotate-180" />
+          <ChevronDown className="w-3.5 h-3.5 flex-shrink-0 text-icon transition-transform duration-200 [[data-state=open]_&]:rotate-180 lg:hidden xl:inline" />
         </div>
       </PopoverTrigger>
 
@@ -82,7 +82,7 @@ export const CurrentUserExpandableLarge = () => {
         align="end"
         sideOffset={6}
         className={cn(
-          'w-[var(--radix-popover-trigger-width)] p-0 overflow-hidden',
+          'w-[var(--radix-popover-trigger-width)] min-w-[250px] p-0 overflow-hidden',
           'bg-surface border border-border',
           'rounded-urbancare-3xl shadow-xl shadow-shadow/10'
         )}

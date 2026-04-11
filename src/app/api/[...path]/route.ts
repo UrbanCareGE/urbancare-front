@@ -1,5 +1,3 @@
-// app/api/proxy/[...path]/route.ts
-
 import { cookies } from 'next/headers';
 
 const JAVA_API_URL =

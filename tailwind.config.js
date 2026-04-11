@@ -35,7 +35,7 @@ module.exports = {
       screens: {
         sm: '640px', // large phones
         md: '768px', // tablets
-        lg: '1024px', // laptops
+        lg: '1080px', // laptops
         xl: '1512px', // desktops
         '2xl': '1536px', // large desktops
         '4xl': '1920px', // ultrawide
