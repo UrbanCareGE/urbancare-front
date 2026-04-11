@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { Camera, Loader2 } from 'lucide-react';
+import { Camera, Loader2, Phone } from 'lucide-react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { getClientFileUrl } from '@/lib/api-client';
 import { useAuth } from '@/components/provider/AuthProvider';
@@ -51,47 +51,58 @@ export function ProfileImageUpload() {
   const isLoading = isUploading || isUpdating;
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <div className="relative">
-        <Avatar className="w-24 h-24 sm:w-32 sm:h-32 rounded-urbancare-full bg-primary ring ring-4 ring-foreground-secondary">
-          <Image
-            src={getClientFileUrl(user.profileImageId)}
-            alt="Profile"
-            fill
-            className="object-cover"
+    <section className="relative overflow-hidden rounded-urbancare-xl border-none bg-surface shadow-sm shadow-shadow/5">
+      {/* decorative gradient backdrop */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-primary-container/60 via-primary-container/20 to-transparent"
+      />
+
+      <div className="relative flex flex-col items-center gap-4 px-6 py-8">
+        <div className="relative">
+          <Avatar className="w-28 h-28 sm:w-32 sm:h-32 rounded-urbancare-full bg-primary ring-4 ring-surface shadow-xl shadow-primary/20">
+            <Image
+              src={getClientFileUrl(user.profileImageId)}
+              alt="Profile"
+              fill
+              className="object-cover"
+            />
+            <AvatarFallback className="text-urbancare-5xl sm:text-urbancare-7xl text-primary-foreground">
+              {initials}
+            </AvatarFallback>
+          </Avatar>
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            disabled={isLoading}
+            aria-label="Change photo"
+            className="absolute bottom-1 right-1 p-2.5 bg-primary text-primary-foreground rounded-urbancare-full shadow-lg shadow-primary/30 ring-4 ring-surface lg:hover:bg-primary-hover lg:hover:scale-110 lg:active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isLoading ? (
+              <Loader2 className="w-5 h-5 animate-spin" />
+            ) : (
+              <Camera className="w-5 h-5" />
+            )}
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleFileSelect}
+            disabled={isLoading}
           />
-          <AvatarFallback className="text-urbancare-5xl sm:text-urbancare-7xl">
-            {initials}
-          </AvatarFallback>
-        </Avatar>
-        <button
-          onClick={() => fileInputRef.current?.click()}
-          disabled={isLoading}
-          className="absolute bottom-0 right-0 p-2 bg-primary rounded-urbancare-full text-white shadow-lg lg:hover:bg-primary/80 lg:hover:scale-110 lg:active:scale-95 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isLoading ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
-          ) : (
-            <Camera className="w-5 h-5" />
-          )}
-        </button>
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={handleFileSelect}
-          disabled={isLoading}
-        />
+        </div>
+
+        <div className="text-center space-y-1.5">
+          <p className="text-urbancare-3xl sm:text-urbancare-4xl font-semibold leading-tight-georgian text-text-primary">
+            {user.name} {user.surname}
+          </p>
+          <div className="inline-flex items-center gap-1.5 text-urbancare-base text-text-secondary">
+            <Phone className="w-4 h-4" />
+            <span>{user.phone.number}</span>
+          </div>
+        </div>
       </div>
-      <div className="text-center">
-        <p className="text-urbancare-2xl sm:text-urbancare-3xl font-semibold">
-          {user.name} {user.surname}
-        </p>
-        <p className="text-urbancare-base text-muted-foreground">
-          {user.phone.number}
-        </p>
-      </div>
-    </div>
+    </section>
   );
 }

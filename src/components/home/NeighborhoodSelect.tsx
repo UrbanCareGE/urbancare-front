@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Check, ChevronDown, Loader2, MapPin, Plus } from 'lucide-react';
+import { ChevronDown, Loader2, MapPin, Plus } from 'lucide-react';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -202,7 +202,7 @@ const EmptyState = ({ onAddLocation }: { onAddLocation?: () => void }) => (
 const SectionHeader = ({ isOpen }: { isOpen: boolean }) => {
   const t = useTranslation();
   return (
-    <div className="flex items-center justify-between px-4 py-3">
+    <div className="flex items-center justify-between px-3 py-3">
       <span className="text-urbancare-base font-semibold text-muted-foreground">
         {t.neighborhood.selectedLocation}
       </span>
@@ -232,7 +232,6 @@ export const NeighborhoodSelect = () => {
   const pathname = usePathname();
   const { apartmentId } = useParams<{ apartmentId: string }>();
 
-  // Memoized values
   const joinedApartments = user?.joinedApartments ?? [];
 
   const selectedApartment = React.useMemo(
@@ -282,13 +281,17 @@ export const NeighborhoodSelect = () => {
   }
 
   return (
-    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+    <Collapsible
+      open={isOpen}
+      onOpenChange={setIsOpen}
+      className="w-full block"
+    >
       <SectionHeader isOpen={isOpen} />
 
-      <div className="px-3 pb-4">
+      <div className="w-full px-3 pb-4">
         {!isOpen && <CurrentApartmentDisplay apartment={selectedApartment} />}
 
-        <CollapsibleContent className="space-y-2">
+        <CollapsibleContent className="w-full space-y-2">
           {joinedApartments.map((apartment, index) => (
             <ApartmentCard
               key={apartment.id}

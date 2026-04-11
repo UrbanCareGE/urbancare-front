@@ -26,7 +26,12 @@
       "Bash(do echo:*)",
       "Read(//Users/leogogichaishvili/UrbanCare/urbancare/**)",
       "Bash(done)",
-      "Bash(npx shadcn@latest add input-otp 2>&1)"
+      "Bash(npx shadcn@latest add input-otp 2>&1)",
+      "mcp__ide__getDiagnostics",
+      "Read(//Users/leogogichaishvili/.claude/**)",
+      "Bash(ls -la \"/Users/leogogichaishvili/UrbanCare/urbancare/src/app/\\(home\\)/apartment/[apartmentId]/\")",
+      "Bash(ls -la \"/Users/leogogichaishvili/UrbanCare/urbancare/src/app/\\(home\\)/apartment/[apartmentId]/post/\")",
+      "Bash(ls -la \"/Users/leogogichaishvili/UrbanCare/urbancare/src/app/\\(home\\)/\")"
     ]
   }
 }

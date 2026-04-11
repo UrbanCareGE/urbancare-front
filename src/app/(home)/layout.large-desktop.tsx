@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import { ChatProvider } from '@/components/provider/ChatProvider';
 import { HomeIcon, NavigationIcon, ShieldAlert, UserIcon } from 'lucide-react';
 import NavigationArea from '@/components/home/sidebar/mobile/navigation/NavigationArea';
 import { NeighborhoodSelect } from '@/components/home/NeighborhoodSelect';
@@ -15,6 +14,7 @@ import { ProfileIslandDesktop } from '@/components/home/ProfileIsland.desktop';
 import { useScrollRestoration } from '@/hooks/use-scroll-restoration';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/i18n';
+import { ChatProvider } from '@/components/provider/ChatProvider';
 
 const UrgentIsland = () => {
   const t = useTranslation();
@@ -38,7 +38,7 @@ const ChatIsland = () => {
       icon={<UserIcon className="w-4 h-4 text-error" />}
       className={'mt-auto h-full flex-[2]'}
     >
-      <div className="overflow-y-hidden h-full scrollbar-hide">
+      <div className="overflow-y-hidden w-full h-full scrollbar-hide">
         <Chat />
       </div>
     </DesktopIsland>
@@ -96,42 +96,40 @@ export const LayoutLargeDesktop = ({
 
   return (
     <ChatProvider>
-      <div className="fixed inset-0 bg-background overflow-hidden">
-        <div className="h-dvh max-w-[1512px] mx-auto p-3 flex justify-center gap-8">
-          <HomeColumnPanel className="flex-1 max-w-[412px] flex-shrink-1">
-            <HomeColumnPanel.Header>
-              <AppLogo />
-            </HomeColumnPanel.Header>
-            <HomeColumnPanel.Body className="flex-1">
-              <NavigationIsland />
-            </HomeColumnPanel.Body>
-            <HomeColumnPanel.Footer>
-              <NeighbourSelectIsland />
-            </HomeColumnPanel.Footer>
-          </HomeColumnPanel>
+      <div className="h-dvh max-w-[1512px] mx-auto p-3 flex justify-center gap-8">
+        <HomeColumnPanel className="flex-1 max-w-[412px] flex-shrink-1 min-w-0">
+          <HomeColumnPanel.Header>
+            <AppLogo />
+          </HomeColumnPanel.Header>
+          <HomeColumnPanel.Body className="flex-1">
+            <NavigationIsland />
+          </HomeColumnPanel.Body>
+          <HomeColumnPanel.Footer>
+            <NeighbourSelectIsland />
+          </HomeColumnPanel.Footer>
+        </HomeColumnPanel>
 
-          <HomeColumnPanel className="flex-[2] min-w-[512px]">
-            <HomeColumnPanel.Header>
-              <HeaderNavIsland />
-            </HomeColumnPanel.Header>
-            <HomeColumnPanel.Body
-              ref={feedScrollRef}
-              className="flex-1 overflow-y-scroll h-full flex flex-col"
-            >
-              {children}
-            </HomeColumnPanel.Body>
-          </HomeColumnPanel>
+        <HomeColumnPanel className="flex-[2] min-w-0">
+          <HomeColumnPanel.Header>
+            <HeaderNavIsland />
+          </HomeColumnPanel.Header>
+          <HomeColumnPanel.Body
+            ref={feedScrollRef}
+            className="flex-1 overflow-y-scroll h-full flex flex-col scrollbar-hide"
+          >
+            {children}
+          </HomeColumnPanel.Body>
+        </HomeColumnPanel>
 
-          <HomeColumnPanel className="flex-1 max-w-[412px] flex-shrink-1">
-            <HomeColumnPanel.Header>
-              <ProfileIslandDesktop />
-            </HomeColumnPanel.Header>
-            <HomeColumnPanel.Body className={'flex-1 flex flex-col gap-4'}>
-              {showUrgent && <UrgentIsland />}
-              {showChat && <ChatIsland />}
-            </HomeColumnPanel.Body>
-          </HomeColumnPanel>
-        </div>
+        <HomeColumnPanel className="flex-1 max-w-[556px] flex-shrink-1 min-w-0">
+          <HomeColumnPanel.Header>
+            <ProfileIslandDesktop />
+          </HomeColumnPanel.Header>
+          <HomeColumnPanel.Body className={'flex-1 flex flex-col gap-4'}>
+            {showUrgent && <UrgentIsland />}
+            {showChat && <ChatIsland />}
+          </HomeColumnPanel.Body>
+        </HomeColumnPanel>
       </div>
     </ChatProvider>
   );

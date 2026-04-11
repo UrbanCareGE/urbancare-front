@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { z } from 'zod';
+import { Car, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useFetchCar } from '@/hooks/query/user/cars/use-fetch-car';
 import { useAddCar } from '@/hooks/query/user/cars/use-add-car';
@@ -79,51 +80,63 @@ const PersonalCarsForm = () => {
   };
 
   return (
-    <div className="w-full space-y-3">
-      <h3 className="text-urbancare-2xl text-text-primary font-semibold flex items-center">
-        {t.cars.carNumbers}
+    <section className="w-full rounded-urbancare-xl overflow-hidden border-none bg-surface shadow-sm shadow-shadow/5">
+      <header className="px-4 py-3 bg-surface-variant flex items-center gap-2">
+        <Car className="w-5 h-5 text-foreground-primary" />
+        <h3 className="font-semibold text-urbancare-base text-foreground-primary leading-tight-georgian">
+          {t.cars.carNumbers}
+        </h3>
         <CarInfoTooltip />
         <Button
           onClick={handleStartEditing}
           disabled={isEditing || isAdding}
+          size="sm"
           className={cn(
-            'ml-auto bg-primary text-urbancare-lg transition-all lg:hover:bg-primary/80 lg:hover:scale-105 lg:active:scale-95',
+            'ml-auto rounded-urbancare-full text-urbancare-sm transition-all lg:hover:scale-105',
             (isEditing || isAdding) && 'opacity-50 cursor-not-allowed'
           )}
         >
+          <Plus className="w-4 h-4" />
           დამატება
         </Button>
-      </h3>
+      </header>
 
-      {isEditing && (
-        <AddCarInput
-          value={licensePlate}
-          onChange={handleInputChange}
-          onConfirm={handleAddCar}
-          onCancel={handleCancel}
-        />
-      )}
+      <div className="p-4 sm:p-5 space-y-4">
+        {isEditing && (
+          <AddCarInput
+            value={licensePlate}
+            onChange={handleInputChange}
+            onConfirm={handleAddCar}
+            onCancel={handleCancel}
+          />
+        )}
 
-      {isCarFetching ? (
-        <p className="text-urbancare-xl text-center text-text-secondary">
-          {t.common.loading}
-        </p>
-      ) : cars.length === 0 && !isEditing ? (
-        <p className="text-urbancare-xl text-center text-text-primary">
-          {t.cars.noCarsAdded}
-        </p>
-      ) : (
-        <div className="flex flex-wrap gap-3">
-          {cars.map((car) => (
-            <CarPlateItem
-              key={car.id}
-              car={car}
-              onDelete={handleDeleteClick}
-              disabled={isDeleting}
-            />
-          ))}
-        </div>
-      )}
+        {isCarFetching ? (
+          <p className="text-urbancare-base text-center text-text-secondary py-4">
+            {t.common.loading}
+          </p>
+        ) : cars.length === 0 && !isEditing ? (
+          <div className="flex flex-col items-center justify-center gap-2 py-6 rounded-urbancare-xl border border-dashed border-border bg-surface-variant">
+            <div className="flex items-center justify-center w-10 h-10 rounded-urbancare-full bg-tertiary-container/60 text-tertiary-container-foreground [&_svg]:w-5 [&_svg]:h-5">
+              <Car />
+            </div>
+            <p className="text-urbancare-base text-text-secondary">
+              {t.cars.noCarsAdded}
+            </p>
+          </div>
+        ) : (
+          <div className="flex flex-wrap gap-3">
+            {cars.map((car) => (
+              <CarPlateItem
+                key={car.id}
+                car={car}
+                onDelete={handleDeleteClick}
+                disabled={isDeleting}
+              />
+            ))}
+          </div>
+        )}
+      </div>
 
       <DeleteCarDialog
         open={deleteDialogOpen}
@@ -132,7 +145,7 @@ const PersonalCarsForm = () => {
         onCancel={handleCancelDelete}
         isDeleting={isDeleting}
       />
-    </div>
+    </section>
   );
 };
 

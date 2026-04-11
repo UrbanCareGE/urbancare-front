@@ -24,7 +24,7 @@ const AddCarInput = ({
         value={value}
         onChange={onChange}
         placeholder={t.cars.examplePlaceholder}
-        className="flex-1"
+        className="flex-1 h-12 bg-surface-variant border-border text-urbancare-base"
         autoFocus
       />
       <button

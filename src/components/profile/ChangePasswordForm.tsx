@@ -7,7 +7,7 @@ import * as z from 'zod';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { FormInput } from '@/components/common/input/FormInput';
 import { Button } from '@/components/ui/button';
-import { KeyRound, Lock } from 'lucide-react';
+import { KeyRound, Lock, ShieldCheck } from 'lucide-react';
 import { useChangePassword } from '@/hooks/query/user/use-change-password';
 import { useTranslation } from '@/i18n';
 
@@ -50,75 +50,83 @@ export function ChangePasswordForm() {
   };
 
   return (
-    <div className="w-full space-y-3">
-      <h3 className="text-urbancare-2xl font-semibold">
-        {t.profile.changePassword}
-      </h3>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-          <FormField
-            control={form.control}
-            name="oldPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <FormInput
-                    placeholder={t.profile.oldPassword}
-                    type="password"
-                    icon={<Lock />}
-                    isPasswordType={true}
-                    disabled={isPending}
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="newPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <FormInput
-                    placeholder={t.profile.newPassword}
-                    type="password"
-                    icon={<KeyRound />}
-                    isPasswordType={true}
-                    disabled={isPending}
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <FormInput
-                    placeholder={t.profile.repeatPassword}
-                    type="password"
-                    icon={<KeyRound />}
-                    isPasswordType={true}
-                    disabled={isPending}
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <Button
-            type="submit"
-            className="w-full h-12 bg-primary text-text-primary rounded-urbancare-4xl disabled:text-disabled-foreground disabled:bg-disabled"
-            disabled={isPending || !form.formState.isValid}
-          >
-            {isPending ? t.common.inProgress : t.profile.changePassword}
-          </Button>
-        </form>
-      </Form>
-    </div>
+    <section className="w-full rounded-urbancare-xl overflow-hidden border-none bg-surface shadow-sm shadow-shadow/5">
+      <header className="px-4 py-3 bg-surface-variant flex items-center gap-2">
+        <ShieldCheck className="w-5 h-5 text-foreground-primary" />
+        <h3 className="font-semibold text-urbancare-base text-foreground-primary leading-tight-georgian">
+          {t.profile.changePassword}
+        </h3>
+      </header>
+      <div className="p-4 sm:p-5">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+            <FormField
+              control={form.control}
+              name="oldPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <FormInput
+                      placeholder={t.profile.oldPassword}
+                      type="password"
+                      icon={<Lock />}
+                      isPasswordType={true}
+                      disabled={isPending}
+                      className="bg-surface-variant border-border hover:border-border-hover focus-visible:border-border-focus"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="newPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <FormInput
+                      placeholder={t.profile.newPassword}
+                      type="password"
+                      icon={<KeyRound />}
+                      isPasswordType={true}
+                      disabled={isPending}
+                      className="bg-surface-variant border-border hover:border-border-hover focus-visible:border-border-focus"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <FormInput
+                      placeholder={t.profile.repeatPassword}
+                      type="password"
+                      icon={<KeyRound />}
+                      isPasswordType={true}
+                      disabled={isPending}
+                      className="bg-surface-variant border-border hover:border-border-hover focus-visible:border-border-focus"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <Button
+              type="submit"
+              className="w-full h-12 rounded-urbancare-4xl disabled:bg-disabled disabled:text-disabled-foreground"
+              disabled={isPending || !form.formState.isValid}
+            >
+              {isPending ? t.common.inProgress : t.profile.changePassword}
+            </Button>
+          </form>
+        </Form>
+      </div>
+    </section>
   );
 }
