@@ -4,7 +4,7 @@ import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { FormInput } from '@/components/common/input/FormInput';
 import { PhoneFormInput } from '@/components/common/input/PhoneFormInput';
 import { Button } from '@/components/ui/button';
-import { KeyRound, Loader2 } from 'lucide-react';
+import { KeyRound, Loader2, Smartphone } from 'lucide-react';
 import { useTranslation } from '@/i18n';
 import { UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
@@ -18,7 +18,11 @@ interface PasswordLoginFormProps {
   isLoggingIn: boolean;
 }
 
-export function PasswordLoginForm({ form, onSubmit, isLoggingIn }: PasswordLoginFormProps) {
+export function PasswordLoginForm({
+  form,
+  onSubmit,
+  isLoggingIn,
+}: PasswordLoginFormProps) {
   const t = useTranslation();
 
   return (
@@ -67,15 +71,9 @@ export function PasswordLoginForm({ form, onSubmit, isLoggingIn }: PasswordLogin
           )}
         />
 
-        {/* Forgot Password */}
-        <div className="flex justify-end pt-0.5">
-          <a
-            href="/auth/recover-password"
-            className="text-urbancare-sm sm:text-urbancare-md font-semibold text-primary lg:hover:text-primary-dark active:text-primary-dark transition-colors"
-          >
-            {t.auth.forgotPassword}
-          </a>
-        </div>
+        <p className="text-urbancare-sm text-text-muted text-center pt-0.5">
+          {t.auth.passwordDescription}
+        </p>
 
         {/* Submit */}
         <Button
