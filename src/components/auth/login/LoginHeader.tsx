@@ -1,23 +1,18 @@
 'use client';
 
-import React from 'react';
-import {
-  AppLogo,
-  UrbanCareIcon,
-  UrbanCareTextIcon,
-} from '@/components/common/logo/AppLogo';
+import { useTranslation } from '@/i18n';
 
-type LoginHeaderProps = {
-  className?: string;
-};
+export function LoginHeader() {
+  const t = useTranslation();
 
-export const LoginHeader: React.FC<LoginHeaderProps> = () => {
   return (
-    <header className={'text-center py-6 animate-slide-down'}>
-      <div className="inline-flex flex-col items-center gap-2">
-        <UrbanCareIcon />
-        <UrbanCareTextIcon />
-      </div>
-    </header>
+    <div className="mb-6 sm:mb-8">
+      <h1 className="text-urbancare-4xl sm:text-urbancare-5xl font-bold text-center text-primary mb-1.5 sm:mb-2">
+        {t.auth.welcome}
+      </h1>
+      <p className="text-center text-secondary text-urbancare-lg sm:text-urbancare-xl">
+        {t.auth.authorize}
+      </p>
+    </div>
   );
-};
+}
