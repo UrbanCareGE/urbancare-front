@@ -183,6 +183,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         const searchParams = new URLSearchParams(window.location.search);
         const code = searchParams.get('code');
 
+        debugger;
         if (code) {
           window.location.href = `/join/${code}`;
           return;

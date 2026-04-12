@@ -19,7 +19,7 @@ export function LoginModeSwitcher({
   const t = useTranslation();
 
   return (
-    <div className="relative flex bg-surface-elevated rounded-urbancare-2xl p-1 mb-6 sm:mb-7 border border-border">
+    <div className="relative flex bg-surface rounded-urbancare-2xl p-1 mb-6 sm:mb-7 border border-border">
       <motion.div
         className="absolute top-1 bottom-1 rounded-urbancare-xl bg-gradient-primary shadow-[0_2px_8px_rgba(var(--color-primary)/0.25)]"
         layout
