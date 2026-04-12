@@ -145,7 +145,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
 
 const ThreadsFeedLoadingSkeleton = () => {
   return (
-    <div className="2xl:max-w-5xl space-y-4 mx-auto">
+    <div className="space-y-4 mx-auto">
       {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
         <div
           key={i}

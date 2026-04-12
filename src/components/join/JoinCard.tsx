@@ -67,7 +67,9 @@ export function JoinCard({
         {membersCount !== undefined && (
           <div className="flex items-center gap-1.5 text-text-secondary text-urbancare-base mb-5">
             <Users className="w-4 h-4" />
-            <span>{t.joinPage.membersCount.replace('{count}', String(membersCount))}</span>
+            <span>
+              {t.joinPage.membersCount.replace('{count}', String(membersCount))}
+            </span>
           </div>
         )}
 
@@ -91,7 +93,7 @@ export function JoinCard({
             'shadow-[0_4px_20px_rgba(var(--color-primary)/0.35)]',
             'active:scale-[0.98]',
             'transition-all duration-300',
-            'disabled:opacity-60 disabled:cursor-not-allowed disabled:shadow-none disabled:translate-y-0',
+            'disabled:opacity-60 disabled:cursor-not-allowed disabled:shadow-none disabled:translate-y-0'
           )}
         >
           <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent" />

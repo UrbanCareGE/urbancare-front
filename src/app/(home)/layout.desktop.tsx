@@ -64,12 +64,12 @@ export const LayoutDesktop = ({ children }: { children: React.ReactNode }) => {
         <HomeColumnPanel className="flex-1 min-w-0">
           <HomeColumnPanel.Header className={'gap-2'}>
             <div className="w-full grid grid-cols-[auto_1fr_auto] gap-x-3">
-              <div className={""}></div>
+              <div className={''}></div>
               <div className={'flex justify-center items-center'}>
                 <HeaderNavIsland />
               </div>
 
-              <div className={"flex justify-center items-center"}>
+              <div className={'flex justify-center items-center'}>
                 <CurrentUserExpandable />
               </div>
             </div>

@@ -23,7 +23,9 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
       <Avatar className="cursor-pointer w-11 h-11 lg:w-12 lg:h-12  rounded-urbancare-full shrink-0 ring-2 ring-border">
         <Image
           src={getClientFileUrl(userInfo?.profileImageId)}
-          alt={userInfo ? `${userInfo.name} ${userInfo.surname}` : 'User avatar'}
+          alt={
+            userInfo ? `${userInfo.name} ${userInfo.surname}` : 'User avatar'
+          }
           fill
           className="object-cover"
         />

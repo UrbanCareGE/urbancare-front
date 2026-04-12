@@ -12,7 +12,10 @@ interface LoginModeSwitcherProps {
   onSwitchMode: (mode: LoginMode) => void;
 }
 
-export function LoginModeSwitcher({ mode, onSwitchMode }: LoginModeSwitcherProps) {
+export function LoginModeSwitcher({
+  mode,
+  onSwitchMode,
+}: LoginModeSwitcherProps) {
   const t = useTranslation();
 
   return (

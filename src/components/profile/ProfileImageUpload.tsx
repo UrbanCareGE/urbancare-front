@@ -52,7 +52,6 @@ export function ProfileImageUpload() {
 
   return (
     <section className="relative overflow-hidden rounded-urbancare-3xl border-none bg-surface shadow-sm shadow-shadow/5">
-      {/* decorative gradient backdrop */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-primary-container/60 via-primary-container/20 to-transparent"

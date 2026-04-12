@@ -34,6 +34,7 @@ type PhoneFormInputProps = {
   disabled?: boolean;
   placeholder?: string;
   className?: string;
+  suffix?: React.ReactNode;
 };
 
 const preferredIso2 = ['ge', 'us', 'gb', 'de', 'fr', 'it', 'es', 'tr'];
@@ -42,7 +43,7 @@ const parsedCountries = defaultCountries.map((c) => parseCountry(c));
 const defaultGe = parsedCountries.find((c) => c.iso2 === 'ge')!;
 
 const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
-  ({ className, value, onChange, disabled, placeholder, ...props }, ref) => {
+  ({ className, value, onChange, disabled, placeholder, suffix, ...props }, ref) => {
     const { error, formMessageId } = useFormField();
     const message = error ? String(error?.message ?? '') : '';
     const [tooltipOpen, setTooltipOpen] = React.useState(false);
@@ -208,7 +209,8 @@ const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
             placeholder={placeholder}
             aria-describedby={formMessageId}
             className={cn(
-              'flex-1 h-full bg-transparent py-1 pr-10 pl-2',
+              'w-full h-full bg-transparent py-1 pl-2',
+              suffix ? 'pr-0' : 'pr-10',
               'text-urbancare-base sm:text-urbancare-xl text-text-primary',
               'placeholder:text-text-placeholder',
               'focus:outline-none',
@@ -216,6 +218,13 @@ const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
               disabled && 'cursor-not-allowed'
             )}
           />
+
+          {/* Suffix (e.g. send OTP button) */}
+          {suffix && (
+            <div className="pr-2">
+              {suffix}
+            </div>
+          )}
 
           {/* Error tooltip */}
           <TooltipProvider>

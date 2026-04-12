@@ -73,7 +73,7 @@ const ka: TranslationKeys = {
     loginWithPassword: 'პაროლით',
     enterOtpCode: 'შეიყვანეთ კოდი',
     otpSent: 'კოდი გაიგზავნა',
-    sendCode: 'კოდის გაგზავნა',
+    sendCode: 'კოდი',
     resendCode: 'ხელახლა გაგზავნა',
     otpDescription: 'SMS კოდი გაიგზავნება თქვენს ტელეფონზე',
     passwordDescription: 'შეიყვანეთ თქვენი პაროლი',
@@ -330,7 +330,8 @@ const ka: TranslationKeys = {
   joinPage: {
     membersCount: '{count} წევრი',
     youAreInvited: 'თქვენ მოწვეული ხართ!',
-    joinDescription: 'შეუერთდით ამ კორპუსის საზოგადოებას და მართეთ საერთო საკითხები მეზობლებთან ერთად.',
+    joinDescription:
+      'შეუერთდით ამ კორპუსის საზოგადოებას და მართეთ საერთო საკითხები მეზობლებთან ერთად.',
     joining: 'მიმდინარეობს...',
     joinNow: 'შეუერთდი',
     poweredBy: 'UrbanCare-ის მეშვეობით',

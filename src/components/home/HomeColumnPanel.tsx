@@ -34,12 +34,7 @@ const HomeColumnPanelHeader = ({
   children,
 }: HomeColumnPanelHeaderProps) => {
   return (
-    <div
-      className={cn(
-        'flex justify-center items-center h-14',
-        className
-      )}
-    >
+    <div className={cn('flex justify-center items-center h-14', className)}>
       {children}
     </div>
   );

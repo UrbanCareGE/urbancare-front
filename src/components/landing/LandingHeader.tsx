@@ -11,7 +11,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/components/provider/AuthProvider';
-import { CurrentUserAvatar, UserAvatarView } from '@/components/common/avatar/UserAvatar';
+import {
+  CurrentUserAvatar,
+  UserAvatarView,
+} from '@/components/common/avatar/UserAvatar';
 import { useTranslation } from '@/i18n';
 
 export function LandingHeader() {
@@ -34,7 +37,7 @@ export function LandingHeader() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button className="flex items-center gap-2 rounded-urbancare-xl px-3 py-2 lg:hover:bg-surface-secondary transition-colors outline-none cursor-pointer">
-                <CurrentUserAvatar/>
+                <CurrentUserAvatar />
                 <span className="hidden sm:block text-urbancare-base font-medium text-text-primary">
                   {user.name} {user.surname}
                 </span>

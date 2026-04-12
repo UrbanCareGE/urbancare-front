@@ -73,7 +73,7 @@ const en: TranslationKeys = {
     loginWithPassword: 'Password',
     enterOtpCode: 'Enter code',
     otpSent: 'Code sent',
-    sendCode: 'Send Code',
+    sendCode: 'Code',
     resendCode: 'Resend',
     otpDescription: "We'll send an SMS code to your phone",
     passwordDescription: 'Enter your password',
@@ -329,7 +329,8 @@ const en: TranslationKeys = {
   joinPage: {
     membersCount: '{count} members',
     youAreInvited: 'You are invited!',
-    joinDescription: 'Join this building\'s community and manage common matters together with your neighbors.',
+    joinDescription:
+      "Join this building's community and manage common matters together with your neighbors.",
     joining: 'Joining...',
     joinNow: 'Join Now',
     poweredBy: 'Powered by UrbanCare',
