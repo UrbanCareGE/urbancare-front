@@ -183,16 +183,16 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         const searchParams = new URLSearchParams(window.location.search);
         const code = searchParams.get('code');
 
-        debugger;
         if (code) {
           window.location.href = `/join/${code}`;
           return;
         }
         if (user?.selectedApartmentId) {
-          window.location.href = `/apartment/${user?.selectedApartmentId}`;
+          window.location.href = `/apartment/${user.selectedApartmentId}`;
+          return;
         }
         if (user?.joinedApartments.length) {
-          window.location.href = `/apartment/${user?.joinedApartments[0]}`;
+          window.location.href = `/apartment/${user?.joinedApartments[0].id}`;
         } else {
           window.location.href = '/landing';
         }

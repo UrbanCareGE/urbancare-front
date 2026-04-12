@@ -12,7 +12,7 @@ export default function RootPage() {
   useEffect(() => {
     if (isLoading) return;
 
-    if (isAuthenticated && user?.joinedApartments?.length) {
+    if (isAuthenticated && user?.selectedApartmentId) {
       router.replace(`/apartment/${user.selectedApartmentId!}`);
     } else {
       router.replace(`/landing`);
