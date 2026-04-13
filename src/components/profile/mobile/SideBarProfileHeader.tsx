@@ -6,6 +6,7 @@ import { useAuth } from '@/components/provider/AuthProvider';
 import { Skeleton } from '@/components/ui/skeleton';
 import { getClientFileUrl } from '@/lib/api-client';
 import Image from 'next/image';
+import { ExtractUserInitials } from '@/lib/utils';
 
 function ProfileSideBarViewSkeleton() {
   return (
@@ -27,7 +28,7 @@ function ProfileSideBarViewSkeleton() {
 export const SideBarProfileHeader = () => {
   const { user, isLoading } = useAuth();
   // const initials = `${user?.name[0]}${user?.surname[0]}`.toUpperCase();
-  const initials = 'temp';
+  const initials = ExtractUserInitials(user)
 
   if (isLoading) {
     return <ProfileSideBarViewSkeleton />;

@@ -31,8 +31,8 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
         />
         {userInfo && (
           <AvatarFallback className="text-urbancare-sm font-semibold bg-primary-container text-primary">
-            {userInfo.name[0]}
-            {userInfo.surname[0]}
+            {userInfo.name ? userInfo.name[0] : ''}
+            {userInfo.surname ? userInfo.surname[0] : ''}
           </AvatarFallback>
         )}
       </Avatar>

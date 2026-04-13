@@ -8,7 +8,7 @@ import { useCreateComment } from '@/hooks/query/thread/use-create-comment';
 import { useParams } from 'next/navigation';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
 import { Send } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, ExtractUserInitials } from '@/lib/utils';
 import Image from 'next/image';
 
 type ReplyInputProps = {
@@ -31,7 +31,7 @@ export const ReplyInput = ({
   const [replyText, setReplyText] = useState('');
   const { onSubmit: createReply } = useCreateComment();
 
-  const initials = `${userInfo.name[0]}${userInfo.surname[0]}`.toUpperCase();
+  const initials = ExtractUserInitials(userInfo);
   const hasText = replyText.trim().length > 0;
 
   const handleSubmit = () => {

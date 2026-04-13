@@ -1,5 +1,4 @@
 'use client';
-// components/SheetProfileHeader.tsx
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import React from 'react';
@@ -8,6 +7,7 @@ import { Pencil } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
 import { SheetClose } from '@/components/ui/sheet';
+import { ExtractUserInitials } from '@/lib/utils';
 
 function SheetProfileHeaderSkeleton() {
   return (
@@ -28,7 +28,7 @@ function SheetProfileHeaderSkeleton() {
 
 export default function SheetProfileHeader() {
   const { user, isLoading } = useAuth();
-  const initials = `${user?.name}${user?.surname[0]}`.toUpperCase();
+  const initials = ExtractUserInitials(user);
 
   if (isLoading) {
     return <SheetProfileHeaderSkeleton />;
@@ -49,7 +49,7 @@ export default function SheetProfileHeader() {
           {user?.name} {user?.surname}
         </p>
         <span className="text-urbancare-sm text-text-secondary inline">
-          @{user?.phone}
+          @{user.phone ? user?.phone.prefix + ' ' + user?.phone.number : ''}
         </span>
       </div>
       <SheetClose asChild>

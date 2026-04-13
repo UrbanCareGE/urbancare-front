@@ -4,7 +4,7 @@ import React from 'react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { getClientFileUrl } from '@/lib/api-client';
-import { cn } from '@/lib/utils';
+import { cn, ExtractUserInitials } from '@/lib/utils';
 import Image from 'next/image';
 import { ArrowDownNarrowWide, SlidersHorizontal } from 'lucide-react';
 import { useThreadDrawer } from '@/components/thread/thread-form/CreateThreadSheet';
@@ -18,7 +18,7 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
   const { user } = useAuth();
   const threadDrawer = useThreadDrawer();
   const t = useTranslation();
-  const initials = `${user.name?.[0]}${user.surname?.[0]}`.toUpperCase();
+  const initials = ExtractUserInitials(user)
 
   return (
     <div className={cn('flex gap-2 px-1 items-center', className)}>

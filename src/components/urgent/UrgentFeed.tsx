@@ -1,6 +1,6 @@
 'use client';
 
-import { formatTime } from '@/lib/utils';
+import { ExtractUserInitials, formatTime } from '@/lib/utils';
 import 'ldrs/react/Leapfrog.css';
 import { ShieldCheck } from 'lucide-react';
 import { useFetchUrgent } from '@/hooks/query/urgent/use-fetch-urgent';
@@ -27,8 +27,7 @@ export const mapUrgentItemToCardProps = (
   t: TranslationKeys
 ): UrgentCardProps => {
   const status: UrgentCardStatus = item.resolved ? 'resolved' : 'urgent';
-  const initials =
-    `${item.userInfo.name?.[0] ?? ''}${item.userInfo.surname?.[0] ?? ''}`.toUpperCase();
+  const initials = ExtractUserInitials(item.userInfo);
   const isResolving = resolvingId === item.id;
 
   const actions: ActionButtonProps[] = item.resolved

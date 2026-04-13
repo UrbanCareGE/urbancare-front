@@ -11,7 +11,9 @@ type ThreadCommentReplyProps = {
 
 export const ThreadCommentReply = ({ comment }: ThreadCommentReplyProps) => {
   const { userInfo, createdAt, content } = comment;
-  const initials = `${userInfo.name[0]}${userInfo.surname[0]}`.toUpperCase();
+  let initials = '';
+  if (userInfo.name && userInfo.surname)
+    initials = `${userInfo.name[0]}${userInfo.surname[0]}`.toUpperCase();
 
   return (
     <div className="flex gap-2 py-1">

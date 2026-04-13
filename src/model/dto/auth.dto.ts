@@ -40,8 +40,8 @@ export interface UserDTO {
 
 export interface UserSnapshotDTO {
   id: string;
-  name: string;
-  surname: string;
+  name?: string;
+  surname?: string;
   profileImageId?: string;
 }
 

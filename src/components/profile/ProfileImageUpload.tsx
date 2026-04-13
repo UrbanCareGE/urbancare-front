@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 import Image from 'next/image';
 import { useUploadFile } from '@/hooks/query/file/use-upload-file';
 import { useTranslation } from '@/i18n';
+import { ExtractUserInitials } from '@/lib/utils';
 
 export function ProfileImageUpload() {
   const t = useTranslation();
@@ -19,7 +20,7 @@ export function ProfileImageUpload() {
     useUploadFile();
   const { mutateAsync: updateProfileImageMutation, isPending: isUpdating } =
     useUpdateProfileImage();
-  const initials = `${user.name?.[0]}${user.surname?.[0]}`.toUpperCase();
+  const initials = ExtractUserInitials(user);
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = e.target.files?.[0];

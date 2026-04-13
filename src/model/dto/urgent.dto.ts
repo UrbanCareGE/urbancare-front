@@ -1,3 +1,5 @@
+import { UserSnapshotDTO } from '@/model/dto/auth.dto';
+
 export interface UrgentItemDTO {
   id: string;
   content: string;
@@ -15,11 +17,4 @@ export interface CreateUrgentItemDTO {
 export interface ResolveUrgentItemDTO {
   id: string;
   apartmentId: string;
-}
-
-export interface UserSnapshotDTO {
-  id: string;
-  name?: string;
-  surname?: string;
-  profileImageId?: string;
 }

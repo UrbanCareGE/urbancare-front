@@ -1,21 +1,11 @@
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { getClientFileUrl } from '@/lib/api-client';
-import { Clock, Ellipsis, Settings } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import React from 'react';
-import { cn, formatTime } from '@/lib/utils';
+import { cn, ExtractUserInitials, formatTime } from '@/lib/utils';
 import Image from 'next/image';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
 import ThreadTags from '@/components/thread/thread-card/common/ThreadTags';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { ActiveUserAvatar } from '@/components/common/avatar/ActiveUserAvatar';
-import Link from 'next/link';
-import { LogoutButton } from '@/components/auth/LogoutButton';
 import { ThreadOptionsDropDown } from '@/components/thread/thread-card/common/ThreadOptionsDropDown';
 
 interface ThreadCardHeaderProps {
@@ -39,8 +29,7 @@ export const ThreadViewHeader = ({ className }: ThreadCardHeaderProps) => {
         />
         {userInfo && (
           <AvatarFallback className="text-urbancare-sm font-semibold bg-primary-container text-primary">
-            {userInfo.name[0]}
-            {userInfo.surname[0]}
+            {ExtractUserInitials(userInfo)}
           </AvatarFallback>
         )}
       </Avatar>
