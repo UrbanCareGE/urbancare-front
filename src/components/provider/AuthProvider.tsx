@@ -85,13 +85,13 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const isMixed = isMixedRoute(pathname);
 
   const handleAuthError = useCallback(() => {
-    queryClient.clear();
-    window.location.href = '/auth/login';
+    // queryClient.clear();
   }, [queryClient]);
 
   const {
     data: user,
     isLoading,
+    error,
     isError,
     refetch,
   } = useQuery({

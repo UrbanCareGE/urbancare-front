@@ -11,6 +11,9 @@ import { Toaster } from 'sonner';
 export const metadata: Metadata = {
   title: 'urbancare',
   description: 'urbancare',
+  icons: {
+    icon: '/public/favicon.ico'
+  }
 };
 
 export interface Children {
