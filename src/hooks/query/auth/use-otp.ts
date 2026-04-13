@@ -5,7 +5,7 @@ import { AuthService } from '@/service/auth-service';
 import { ErrorResponse } from '@/model/dto/common.dto';
 import { GenerateOtpDTO } from '@/model/dto/auth.dto';
 
-export function useOtp() {
+export function useGenerateOtp() {
   return useMutation<void, ErrorResponse, GenerateOtpDTO>({
     mutationFn: AuthService.generateOtp,
     onSuccess: (data) => {},

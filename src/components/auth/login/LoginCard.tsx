@@ -7,8 +7,8 @@ import {
   LoginWithOtpDTO,
 } from '@/model/dto/auth.dto';
 import {
-  createOtpLoginSchema,
-  createPasswordLoginSchema,
+  OtpLoginSchema,
+  PasswordLoginSchema,
 } from '@/components/auth/login/data/login-form-schema';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useForm } from 'react-hook-form';
@@ -17,7 +17,7 @@ import { z } from 'zod';
 import { Card, CardContent } from '@/components/ui/card';
 import { useTranslation } from '@/i18n';
 import { AnimatePresence, motion } from 'motion/react';
-import { useOtp } from '@/hooks/query/auth/use-otp';
+import { useGenerateOtp } from '@/hooks/query/auth/use-otp';
 import { LoginHeader } from '@/components/auth/login/LoginHeader';
 import {
   type LoginMode,
@@ -27,14 +27,14 @@ import { OtpLoginForm } from '@/components/auth/login/OtpLoginForm';
 import { PasswordLoginForm } from '@/components/auth/login/PasswordLoginForm';
 
 export function LoginCard() {
-  const { mutateAsync, isPending, isError, isSuccess: otpSent } = useOtp();
+  const { mutateAsync, isPending, isError, isSuccess: otpSent } = useGenerateOtp();
   const { logIn, logInWithOtp, isLoggingIn } = useAuth();
   const t = useTranslation();
   const [mode, setMode] = useState<LoginMode>('otp');
   const [otpCooldown, setOtpCooldown] = useState(false);
 
-  const PasswordSchema = createPasswordLoginSchema(t);
-  const OtpSchema = createOtpLoginSchema(t);
+  const PasswordSchema = PasswordLoginSchema(t);
+  const OtpSchema = OtpLoginSchema(t);
 
   const passwordForm = useForm<z.infer<typeof PasswordSchema>>({
     resolver: zodResolver(PasswordSchema),

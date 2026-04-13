@@ -9,7 +9,7 @@ const phoneSchema = (t: TranslationKeys) =>
     }),
   });
 
-export const createPasswordLoginSchema = (t: TranslationKeys) =>
+export const PasswordLoginSchema = (t: TranslationKeys) =>
   z.object({
     phone: phoneSchema(t),
     password: z
@@ -17,7 +17,7 @@ export const createPasswordLoginSchema = (t: TranslationKeys) =>
       .min(6, { message: t.authValidation.passwordMinLength }),
   });
 
-export const createOtpLoginSchema = (t: TranslationKeys) =>
+export const OtpLoginSchema = (t: TranslationKeys) =>
   z.object({
     phone: phoneSchema(t),
     otp: z.string().min(1, { message: t.authValidation.invalidCode }),

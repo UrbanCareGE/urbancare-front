@@ -8,11 +8,11 @@ import { useTranslation } from '@/i18n';
 import { UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
 import { cn } from '@/lib/utils';
-import { createOtpLoginSchema } from '@/components/auth/login/data/login-form-schema';
+import { OtpLoginSchema } from '@/components/auth/login/data/login-form-schema';
 import { OtpCountdown } from '@/components/auth/login/OtpCountdown';
 import { FormOtpInput } from '@/components/common/input/FormOtpInput';
 
-type OtpFormValues = z.infer<ReturnType<typeof createOtpLoginSchema>>;
+type OtpFormValues = z.infer<ReturnType<typeof OtpLoginSchema>>;
 
 interface OtpLoginFormProps {
   form: UseFormReturn<OtpFormValues>;

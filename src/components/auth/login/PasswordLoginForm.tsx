@@ -8,9 +8,9 @@ import { KeyRound, Loader2, Smartphone } from 'lucide-react';
 import { useTranslation } from '@/i18n';
 import { UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
-import { createPasswordLoginSchema } from '@/components/auth/login/data/login-form-schema';
+import { PasswordLoginSchema } from '@/components/auth/login/data/login-form-schema';
 
-type PasswordFormValues = z.infer<ReturnType<typeof createPasswordLoginSchema>>;
+type PasswordFormValues = z.infer<ReturnType<typeof PasswordLoginSchema>>;
 
 interface PasswordLoginFormProps {
   form: UseFormReturn<PasswordFormValues>;
