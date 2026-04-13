@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 interface OtpCountdownProps {
   onComplete: () => void;
@@ -19,9 +20,9 @@ export function OtpCountdown({ onComplete }: OtpCountdownProps) {
   }, [seconds, onComplete]);
 
   return (
-    <span className="tabular-nums text-foreground-primary text-urbancare-sm">
+    <Button className="h-auto py-1.5 px-3 rounded-urbancare-lg font-medium text-urbancare-base bg-gradient-primary text-white">
       {String(Math.floor(seconds / 60)).padStart(2, '0')}:
       {String(seconds % 60).padStart(2, '0')}
-    </span>
+    </Button>
   );
 }

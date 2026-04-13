@@ -36,6 +36,7 @@ export interface UserDTO {
   profileImageId?: string;
   selectedApartmentId?: string;
   joinedApartments: ApartmentDTO[];
+  hasPassword: boolean;
 }
 
 export interface UserSnapshotDTO {

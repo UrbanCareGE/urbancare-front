@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { UserSnapshotDTO } from '@/model/dto/auth.dto';
 import { UserModel } from '@/components/provider/AuthProvider';
+import { ApartmentDTO } from '@/model/dto/apartment.dto';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -21,7 +22,9 @@ export const formatTime = (date: string): string => {
   return `${Math.floor(diffInHours / 24)}d`;
 };
 
-export const ExtractUserInitials = (user: UserSnapshotDTO | UserModel) : string => {
+export const ExtractUserInitials = (
+  user: UserSnapshotDTO | UserModel
+): string => {
   let initials = '';
   if (user.name) initials = `${user.name[0]}`;
   if (user.surname) initials += `${user.surname[0]}`;
@@ -29,10 +32,31 @@ export const ExtractUserInitials = (user: UserSnapshotDTO | UserModel) : string 
   return initials.toUpperCase();
 };
 
-export const ExctractUserFullName = (user: UserSnapshotDTO | UserModel) : string => {
+export const ExctractUserFullName = (
+  user: UserSnapshotDTO | UserModel
+): string => {
   let fullName = '';
   if (user.name) fullName = `${user.name}`;
   if (user.surname) fullName += `${user.surname}`;
 
   return fullName;
+};
+
+export const getApartmentWithId = (
+  apartments: ApartmentDTO[],
+  apartmentId?: string
+) => {
+  if (!apartments || apartments.length === 0) {
+    return null;
+  }
+  if (apartmentId) {
+    const apartmentIdx = apartments.findIndex(
+      (apartment) => apartment.id === apartmentId
+    );
+    if (apartmentIdx === -1) return apartments[0];
+
+    return apartments[apartmentIdx];
+  }
+
+  return apartments[0];
 };

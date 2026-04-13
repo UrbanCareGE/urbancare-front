@@ -20,6 +20,7 @@ import { PulsingLoader } from '@/components/common/loader/GlobalLoader';
 import { RouteConfig } from '@/proxy';
 import { ErrorResponse } from '@/model/dto/common.dto';
 import { ApartmentDTO } from '@/model/dto/apartment.dto';
+import { getApartmentWithId } from '@/lib/utils';
 
 export interface UserModel {
   id: string;
@@ -30,6 +31,7 @@ export interface UserModel {
   joinedApartments: ApartmentDTO[];
   selectedApartment?: ApartmentDTO;
   selectedApartmentId?: string;
+  hasPassword: boolean;
 }
 
 export interface AuthContextType {
@@ -50,25 +52,6 @@ export interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-const getApartmentWithId = (
-  apartments: ApartmentDTO[],
-  apartmentId?: string
-) => {
-  if (!apartments || apartments.length === 0) {
-    return null;
-  }
-  if (apartmentId) {
-    const apartmentIdx = apartments.findIndex(
-      (apartment) => apartment.id === apartmentId
-    );
-    if (apartmentIdx === -1) return apartments[0];
-
-    return apartments[apartmentIdx];
-  }
-
-  return apartments[0];
-};
 
 const isPublicRoute = (pathname: string) => {
   const normalizedPath =
