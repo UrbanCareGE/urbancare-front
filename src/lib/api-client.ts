@@ -1,4 +1,4 @@
-import type { ErrorResponse } from '@/model/dto/common.dto';
+import { ApiError, type ErrorResponse } from '@/model/dto/common.dto';
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -46,94 +46,88 @@ export async function apiClient<TResponse = unknown, TRequest = unknown>(
   path: string,
   options: ApiCallOptions<TRequest> = {}
 ): Promise<ApiResponse<TResponse>> {
-  try {
-    const { data, params, server, authToken, headers = {} } = options;
-    const isFormData = data instanceof FormData;
+  const { data, params, server, authToken, headers = {} } = options;
+  const isFormData = data instanceof FormData;
 
-    const baseUrl = server ? JAVA_API_URL : NEXT_API_URL;
+  const baseUrl = server ? JAVA_API_URL : NEXT_API_URL;
 
-    const url: string = buildUrl(baseUrl, path, params);
+  const url: string = buildUrl(baseUrl, path, params);
 
-    if (authToken) {
-      headers['Authorization'] = authToken;
-    }
-    const fetchConfig: ApiFetchConfig = {
-      method,
-      headers: {
-        ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
-        'ngrok-skip-browser-warning': 'ababa',
-        ...headers,
-      },
-    };
-
-    if (data && ['POST', 'PUT', 'PATCH'].includes(method)) {
-      fetchConfig.body = isFormData ? data : JSON.stringify(data);
-    }
-
-    const response = await fetch(url, fetchConfig);
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({
-        success: false,
-        error: {
-          key: 'REQUEST_FAILED',
-          message: `Request failed with status ${response.status}`,
-          code: response.status,
-        },
-      }));
-
-      throw errorData as ErrorResponse;
-    }
-
-    let responseData: TResponse;
-
-    if (
-      response.status === 204 ||
-      response.headers.get('content-length') === '0'
-    ) {
-      responseData = {} as TResponse;
-    } else {
-      const contentType = response.headers.get('content-type');
-
-      if (contentType?.includes('application/json')) {
-        const text = await response.text();
-
-        if (!text || text.trim().length === 0) {
-          responseData = {} as TResponse;
-        } else {
-          responseData = JSON.parse(text) as TResponse;
-        }
-      } else {
-        const text = await response.text();
-        responseData = text as TResponse;
-      }
-    }
-
-    // Convert headers to a plain object
-    const responseHeaders: Record<string, string> = {};
-    response.headers.forEach((value, key) => {
-      responseHeaders[key] = value;
-    });
-
-    return {
-      data: responseData,
-      headers: responseHeaders,
-    };
-  } catch (error) {
-    if (error && typeof error === 'object' && 'success' in error) {
-      throw error;
-    }
-
-    throw {
-      success: false,
-      error: {
-        key: 'NETWORK_ERROR',
-        message:
-          error instanceof Error ? error.message : 'An unknown error occurred',
-        code: 500,
-      },
-    } as ErrorResponse;
+  if (authToken) {
+    headers['Authorization'] = authToken;
   }
+  const fetchConfig: ApiFetchConfig = {
+    method,
+    headers: {
+      ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+      'ngrok-skip-browser-warning': 'ababa',
+      ...headers,
+    },
+  };
+
+  if (data && ['POST', 'PUT', 'PATCH'].includes(method)) {
+    fetchConfig.body = isFormData ? data : JSON.stringify(data);
+  }
+
+  const response = await fetch(url, fetchConfig);
+
+  if (!response.ok) {
+    let errorBody: ErrorResponse;
+
+    try {
+      const json = await response.json();
+      errorBody = {
+        key: json.key ?? 'UNKNOWN_ERROR',
+        message:
+          json.message ?? `Request failed with status ${response.status}`,
+        code: json.code ?? response.status,
+        data: json.data,
+      };
+    } catch {
+      errorBody = {
+        key: 'REQUEST_FAILED',
+        message: `Request failed with status ${response.status}`,
+        code: response.status,
+      };
+    }
+
+    throw new ApiError(errorBody, response.status);
+  }
+
+  let responseData: TResponse;
+
+  if (
+    response.status === 204 ||
+    response.headers.get('content-length') === '0'
+  ) {
+    responseData = {} as TResponse;
+  } else {
+    const contentType = response.headers.get('content-type');
+
+    if (contentType?.includes('application/json')) {
+      const text = await response.text();
+
+      if (!text || text.trim().length === 0) {
+        responseData = {} as TResponse;
+      } else {
+        responseData = JSON.parse(text) as TResponse;
+      }
+    } else {
+      const text = await response.text();
+      responseData = text as TResponse;
+    }
+  }
+
+  // Convert headers to a plain object
+  const responseHeaders: Record<string, string> = {};
+  response.headers.forEach((value, key) => {
+    responseHeaders[key] = value;
+  });
+
+  return {
+    data: responseData,
+    headers: responseHeaders,
+  };
 }
 
 export const api = {

@@ -26,6 +26,8 @@ const en: TranslationKeys = {
     add: 'Add',
     learnMore: 'Learn more',
     getStarted: 'Get started',
+    connectionFailed: 'Connection failed',
+    connectionFailedDescription: 'Please check your internet connection and try again',
   },
 
   nav: {

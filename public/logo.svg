@@ -1,0 +1,17 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="120" height="120" rx="28" fill="#2563EB"/>
+    <!-- Pin body -->
+    <path d="M60 18C43 18 30 31 30 46C30 68 60 102 60 102C60 102 90 68 90 46C90 31 77 18 60 18Z" fill="white"
+          fill-opacity="0.18"/>
+    <path d="M60 24C46.2 24 35 34.5 35 47.5C35 64 60 94 60 94C60 94 85 64 85 47.5C85 34.5 73.8 24 60 24Z" fill="white"
+          fill-opacity="0.12"/>
+    <!-- Inner circle -->
+    <circle cx="60" cy="47" r="18" fill="white" fill-opacity="0.15"/>
+    <!-- Three people -->
+    <circle cx="52" cy="43" r="4.5" fill="white"/>
+    <path d="M45.5 55C45.5 50.5 48.5 48 52 48C55.5 48 58.5 50.5 58.5 55" fill="white"/>
+    <circle cx="68" cy="43" r="4.5" fill="white"/>
+    <path d="M61.5 55C61.5 50.5 64.5 48 68 48C71.5 48 74.5 50.5 74.5 55" fill="white"/>
+    <circle cx="60" cy="35" r="4" fill="white" fill-opacity="0.55"/>
+    <path d="M54 45C54 41 56.5 39.5 60 39.5C63.5 39.5 66 41 66 45" fill="white" fill-opacity="0.55"/>
+</svg>

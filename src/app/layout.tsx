@@ -12,8 +12,8 @@ export const metadata: Metadata = {
   title: 'urbancare',
   description: 'urbancare',
   icons: {
-    icon: '/public/favicon.ico'
-  }
+    icon: '/logo.svg',
+  },
 };
 
 export interface Children {

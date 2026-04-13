@@ -26,6 +26,8 @@ const ka: TranslationKeys = {
     add: 'დამატება',
     learnMore: 'გაიგე მეტი',
     getStarted: 'დაწყება',
+    connectionFailed: 'სერვერთან კავშირი ვერ მოხერხდა',
+    connectionFailedDescription: 'გთხოვთ შეამოწმოთ ინტერნეტ კავშირი და სცადოთ თავიდან',
   },
 
   nav: {

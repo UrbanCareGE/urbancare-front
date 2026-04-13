@@ -1,21 +1,29 @@
-import { getBindingIdentifiers } from '@babel/types';
-
-export type ErrorResp = {
+export type ErrorResponse = {
   key: string;
   message: string;
   code: number;
   data?: unknown;
-  stack?: unknown;
 };
+
+export class ApiError extends Error {
+  key: string;
+  code: number;
+  httpStatus: number;
+  data?: unknown;
+
+  constructor(response: ErrorResponse, httpStatus: number) {
+    super(response.message);
+    this.name = 'ApiError';
+    this.key = response.key;
+    this.code = response.code;
+    this.httpStatus = httpStatus;
+    this.data = response.data;
+  }
+}
 
 export type SuccessResponse<T> = {
   success: true;
   data: T;
-};
-
-export type ErrorResponse = {
-  success: false;
-  error: ErrorResp;
 };
 
 export interface PairIdNameWrapperDTO {

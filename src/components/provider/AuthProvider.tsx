@@ -17,8 +17,9 @@ import {
   UserDTO,
 } from '@/model/dto/auth.dto';
 import { PulsingLoader } from '@/components/common/loader/GlobalLoader';
+import { ConnectionError } from '@/components/common/error/ConnectionError';
 import { RouteConfig } from '@/proxy';
-import { ErrorResponse } from '@/model/dto/common.dto';
+import { ApiError, ErrorResponse } from '@/model/dto/common.dto';
 import { ApartmentDTO } from '@/model/dto/apartment.dto';
 import { getApartmentWithId } from '@/lib/utils';
 
@@ -53,6 +54,14 @@ export interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+function isAuthError(error: unknown): boolean {
+  if (error && typeof error === 'object') {
+    const status = (error as ApiError)?.httpStatus;
+    return status == 401 || status === 403;
+  }
+  return false;
+}
+
 const isPublicRoute = (pathname: string) => {
   const normalizedPath =
     pathname.endsWith('/') && pathname !== '/'
@@ -85,7 +94,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const isMixed = isMixedRoute(pathname);
 
   const handleAuthError = useCallback(() => {
-    // queryClient.clear();
+    queryClient.clear();
+    window.location.href = '/auth/login';
   }, [queryClient]);
 
   const {
@@ -110,16 +120,20 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       } as UserModel;
     },
     enabled: !isPublic || isMixed,
-    retry: false,
+    retry: (failureCount, error) => {
+      if (isAuthError(error)) return false;
+      return failureCount < 3;
+    },
+    retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 10000),
     staleTime: 5 * 60 * 1e3,
     gcTime: 10 * 60 * 1e3,
   });
 
   useEffect(() => {
-    if (isError && !isPublic && !isMixed) {
+    if (isError && !isPublic && !isMixed && isAuthError(error)) {
       handleAuthError();
     }
-  }, [isError, isPublic, isMixed, handleAuthError]);
+  }, [isError, error, isPublic, isMixed, handleAuthError]);
 
   const loginMutation = useMutation<UserDTO, ErrorResponse, LoginDTO>({
     mutationFn: AuthService.login,
@@ -219,13 +233,15 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     await refetch();
   };
 
-  // useEffect(() => {
-  //   if (!isPublic && !user?.joinedApartments?.length) {
-  //     window.location.href = '/landing';
-  //   }
-  // }, [user, isPublic, pathname]);
+  if (isLoading && !isPublic) {
+    return <PulsingLoader />;
+  }
 
-  if ((isLoading || isError || !user) && !isPublic) {
+  if (isError && !isPublic && !isAuthError(error)) {
+    return <ConnectionError onRetry={() => refetch()} isRetrying={isLoading} />;
+  }
+
+  if (!user && !isPublic) {
     return <PulsingLoader />;
   }
 

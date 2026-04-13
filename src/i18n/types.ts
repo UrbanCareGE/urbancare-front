@@ -24,6 +24,8 @@ export interface TranslationKeys {
     add: string;
     learnMore: string;
     getStarted: string;
+    connectionFailed: string;
+    connectionFailedDescription: string;
   };
   nav: {
     posts: string;
