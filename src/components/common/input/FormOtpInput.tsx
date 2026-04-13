@@ -2,10 +2,7 @@
 
 import * as React from 'react';
 import { OTPInputContext } from 'input-otp';
-import {
-  InputOTP,
-  InputOTPGroup,
-} from '@/components/ui/input-otp';
+import { InputOTP, InputOTPGroup } from '@/components/ui/input-otp';
 import { useFormField } from '@/components/ui/form';
 import { cn } from '@/lib/utils';
 
@@ -22,19 +19,26 @@ function OtpSlot({ index, hasError }: { index: number; hasError: boolean }) {
         'shadow-sm shadow-shadow/5',
         'transition-all duration-200',
         // Default empty
-        !isActive && !char && !hasError &&
+        !isActive &&
+          !char &&
+          !hasError &&
           'border-input-border text-text-muted',
         // Filled
-        !isActive && char && !hasError &&
+        !isActive &&
+          char &&
+          !hasError &&
           'border-border-strong text-text-primary bg-surface',
         // Active
-        isActive && !hasError &&
+        isActive &&
+          !hasError &&
           'border-input-border-focus ring-2 ring-primary/15 text-text-primary bg-surface z-10',
         // Error (any state)
-        hasError && !isActive &&
+        hasError &&
+          !isActive &&
           'border-input-border-error text-text-primary ring-2 ring-error/10',
-        hasError && isActive &&
-          'border-input-border-error text-text-primary ring-2 ring-error/15 z-10',
+        hasError &&
+          isActive &&
+          'border-input-border-error text-text-primary ring-2 ring-error/15 z-10'
       )}
     >
       {char}
@@ -60,7 +64,7 @@ export const FormOtpInput = React.forwardRef<
 
   return (
     <div className="flex items-center justify-center">
-      <div className="inline-flex items-center gap-2 rounded-urbancare-2xl border border-border bg-surface-container px-4 py-3 shadow-sm shadow-shadow/5">
+      <div className="inline-flex items-center gap-1 lg:gap-2 rounded-urbancare-2xl border border-border bg-surface-container px-1.5 py-1.5 shadow-sm shadow-shadow/5">
         <InputOTP
           ref={ref}
           maxLength={6}

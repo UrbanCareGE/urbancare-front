@@ -116,7 +116,7 @@ export function OtpLoginForm({
         <Button
           type="submit"
           disabled={isLoggingIn}
-          className="w-full h-[48px] sm:h-[52px] rounded-urbancare-4xl bg-gradient-primary shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] lg:hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] lg:hover:-translate-y-0.5 lg:active:translate-y-0 active:scale-[0.98] transition-all duration-200 font-semibold relative overflow-hidden disabled:bg-disabled disabled:text-disabled-foreground"
+          className="w-full h-[48px] sm:h-[52px] rounded-urbancare-4xl bg-gradient-primary shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] lg:hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] active:scale-[0.98] transition-all duration-200 font-semibold relative overflow-hidden disabled:bg-disabled disabled:text-disabled-foreground"
         >
           <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
           {isLoggingIn ? (
