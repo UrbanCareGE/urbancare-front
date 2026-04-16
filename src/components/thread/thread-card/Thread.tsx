@@ -15,17 +15,18 @@ interface ThreadPreviewProps {
 
 function ThreadSkeleton() {
   return (
-    <div className="bg-surface rounded-urbancare-panel border border-border p-4 animate-pulse">
-      <div className="flex gap-3 mb-3">
-        <div className="w-12 h-12 rounded-urbancare-full bg-surface-container"></div>
-        <div className="flex-1">
-          <div className="h-4 bg-surface-container rounded-urbancare-sm w-1/3 mb-2"></div>
-          <div className="h-3 bg-surface-container rounded-urbancare-sm w-1/4"></div>
+    <div className="bg-surface rounded-urbancare-3xl p-4 space-y-4 animate-pulse">
+      <div className="flex gap-3">
+        <div className="w-12 h-12 rounded-urbancare-full bg-surface-container shrink-0"></div>
+        <div className="flex-1 space-y-2 pt-0.5">
+          <div className="h-3.5 bg-surface-container rounded-urbancare-full w-1/3"></div>
+          <div className="h-3 bg-surface-container rounded-urbancare-full w-1/5"></div>
         </div>
       </div>
       <div className="space-y-2">
-        <div className="h-4 bg-surface-container rounded-urbancare-sm w-full"></div>
-        <div className="h-4 bg-surface-container rounded-urbancare-sm w-5/6"></div>
+        <div className="h-4 bg-surface-container rounded-urbancare-full w-3/4"></div>
+        <div className="h-3 bg-surface-container rounded-urbancare-full w-full"></div>
+        <div className="h-3 bg-surface-container rounded-urbancare-full w-5/6"></div>
       </div>
     </div>
   );
@@ -44,14 +45,14 @@ export const Thread = ({ threadId, defaultOpen }: ThreadPreviewProps) => {
   }
 
   return (
-    <ThreadCard thread={data} className={'px-0'}>
-      <ThreadCard.Header className={'px-3'}>
+    <ThreadCard thread={data}>
+      <ThreadCard.Header>
         <ThreadPreviewHeader />
       </ThreadCard.Header>
-      <ThreadCard.Body className={'px-3'}>
+      <ThreadCard.Body>
         <ThreadPreviewContent />
       </ThreadCard.Body>
-      <ThreadCard.Footer className={'flex-col px-0'}>
+      <ThreadCard.Footer className={'pt-3 border-t border-border'}>
         <ThreadPreviewActionSection />
       </ThreadCard.Footer>
     </ThreadCard>

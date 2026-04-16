@@ -46,12 +46,12 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
           <h3 className="font-semibold text-text-primary text-urbancare-base truncate">
             {userInfo && userInfo.name} {userInfo && userInfo.surname}
           </h3>
-          <span className="text-urbancare-sm text-text-tertiary flex items-center gap-1 shrink-0">
-            <Clock className="w-3 h-3" />
+          <span className="text-urbancare-xs text-text-tertiary flex items-center gap-1 shrink-0 leading-none">
+            <Clock className="w-3.5 h-3.5" />
             {formatTime(createdAt.toString())}
           </span>
         </div>
-        <ThreadTags tags={thread.tags} className="mt-1.5" />
+        <ThreadTags tags={thread.tags} className="mt-2" />
       </div>
       <ThreadOptionsDropDown />
     </div>

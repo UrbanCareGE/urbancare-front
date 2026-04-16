@@ -25,7 +25,7 @@ export const LayoutMobile = ({ children }: Children) => {
       >
         <HeaderMobile />
         <div
-          className={cn('flex-1 flex flex-col min-h-0', {
+          className={cn('flex-1 flex flex-col min-h-0 p-3 ', {
             'overflow-y-auto scrollbar-hide': !isChatPage,
           })}
         >

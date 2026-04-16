@@ -18,7 +18,7 @@ export const ThreadViewHeader = ({ className }: ThreadCardHeaderProps) => {
 
   return (
     <div className={cn('flex items-start gap-3 w-full', className)}>
-      <Avatar className="cursor-pointer w-10 h-10 rounded-urbancare-full shrink-0 ring-2 ring-border">
+      <Avatar className="cursor-pointer w-11 h-11 lg:w-12 lg:h-12 rounded-urbancare-full shrink-0 ring-2 ring-border">
         <Image
           src={getClientFileUrl(userInfo?.profileImageId)}
           alt={
@@ -38,12 +38,12 @@ export const ThreadViewHeader = ({ className }: ThreadCardHeaderProps) => {
           <h3 className="font-semibold text-text-primary text-urbancare-base truncate">
             {userInfo && userInfo.name} {userInfo && userInfo.surname}
           </h3>
-          <span className="text-urbancare-sm text-text-tertiary flex items-center gap-1 shrink-0">
-            <Clock className="w-3 h-3" />
+          <span className="text-urbancare-xs text-text-tertiary flex items-center gap-1 shrink-0 leading-none">
+            <Clock className="w-3.5 h-3.5" />
             {formatTime(createdAt.toString())}
           </span>
         </div>
-        <ThreadTags tags={thread.tags} className="mt-1.5" />
+        <ThreadTags tags={thread.tags} className="mt-2" />
       </div>
       <ThreadOptionsDropDown />
     </div>

@@ -62,12 +62,12 @@ export const ReplyInput = ({
 
       <div className="flex-1 min-w-0">
         {/* Input pill matching comment bubble style */}
-        <div className="relative bg-surface-container rounded-urbancare-3xl rounded-tl-urbancare-xs">
+        <div className="relative bg-surface-container rounded-urbancare-3xl">
           <textarea
             value={replyText}
             onChange={(e) => setReplyText(e.target.value)}
             placeholder={placeholder}
-            className="w-full bg-transparent text-urbancare-md text-text-primary placeholder:text-text-tertiary outline-none resize-none px-3.5 py-2.5 pr-11 leading-relaxed"
+            className="w-full bg-transparent text-urbancare-base text-text-primary placeholder:text-text-tertiary outline-none resize-none px-3.5 py-2.5 pr-11 leading-relaxed"
             rows={1}
             style={{ minHeight: '36px', maxHeight: '120px' }}
             onInput={(e) => {
@@ -87,13 +87,13 @@ export const ReplyInput = ({
             onClick={handleSubmit}
             disabled={!hasText}
             className={cn(
-              'absolute right-2 bottom-1.5 w-7 h-7 rounded-urbancare-full flex items-center justify-center transition-all duration-150',
+              'absolute right-2 bottom-1.5 w-8 h-8 rounded-urbancare-full flex items-center justify-center transition-all duration-150',
               hasText
                 ? 'bg-primary text-white lg:hover:bg-primary/90 lg:active:scale-95'
                 : 'text-text-tertiary cursor-not-allowed'
             )}
           >
-            <Send className="w-3.5 h-3.5" />
+            <Send className="w-4 h-4" />
           </button>
         </div>
 

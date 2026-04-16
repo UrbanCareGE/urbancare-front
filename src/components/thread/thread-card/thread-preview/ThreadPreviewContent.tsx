@@ -19,7 +19,7 @@ export const ThreadPreviewContent = ({ className }: ThreadCardContentProps) => {
   return (
     <div className={`flex flex-col gap-3 ${className || ''}`}>
       {thread.title && (
-        <h2 className="text-urbancare-xl font-semibold text-text-primary line-clamp-2 leading-snug tracking-tight">
+        <h2 className="text-urbancare-2xl font-semibold text-text-primary line-clamp-2 leading-snug tracking-tight">
           {thread.title}
         </h2>
       )}

@@ -105,7 +105,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
   }
 
   return (
-    <div className="w-full space-y-4 mx-auto overflow-y-scroll scrollbar-hide">
+    <div className="w-full space-y-4 mx-auto">
       <CreateThreadFormContainer />
 
       <TagsFilterMobile selectedTags={selectedTags} onClick={handleToggleTag} />
@@ -116,7 +116,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       />
 
       {allThreads && (
-        <div className="w-full space-y-4">
+        <div className="w-full space-y-3">
           {allThreads.map(({ threadId }) => (
             <div key={threadId} id={`thread-${threadId}`}>
               <Thread threadId={threadId} defaultOpen={false} />
@@ -149,10 +149,10 @@ const ThreadsFeedLoadingSkeleton = () => {
       {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
         <div
           key={i}
-          className="bg-surface rounded-urbancare-3xl p-3 animate-pulse shadow-sm pb-20"
+          className="bg-surface rounded-urbancare-3xl p-4 space-y-4 animate-pulse"
         >
-          <div className="flex gap-3 mb-4">
-            <div className="w-11 h-11 lg:w-12 lg:h-12 rounded-urbancare-full bg-surface-container shrink-0"></div>
+          <div className="flex gap-3">
+            <div className="w-12 h-12 rounded-urbancare-full bg-surface-container shrink-0"></div>
             <div className="flex-1 space-y-2 pt-0.5">
               <div className="h-3.5 bg-surface-container rounded-urbancare-full w-1/3"></div>
               <div className="h-3 bg-surface-container rounded-urbancare-full w-1/5"></div>

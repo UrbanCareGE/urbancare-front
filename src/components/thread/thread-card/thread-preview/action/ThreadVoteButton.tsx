@@ -8,7 +8,7 @@ import { useParams } from 'next/navigation';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
 import { useTranslation } from '@/i18n';
 
-export const ThreadUpvoteButton = ({ className }: { className?: string }) => {
+export const ThreadVoteButton = ({ className }: { className?: string }) => {
   const { thread } = useThread();
   const { user } = useAuth();
   const t = useTranslation();
@@ -52,40 +52,42 @@ export const ThreadUpvoteButton = ({ className }: { className?: string }) => {
   if (!reactions || !likeOption || !dislikeOption) return null;
 
   return (
-    <div className={cn('flex items-center', className)}>
+    <div className={cn('flex items-center gap-2', className)}>
       <Button
         onClick={handleLike}
         disabled={isPending}
         className={cn(
-          'h-9 px-3 rounded-s-urbancare-full rounded-e-urbancare-none transition-all [&_svg]:size-5 text-primary bg-primary/10 disabled:bg-primary/10 text-urbancare-base lg:hover:bg-primary/20 lg:active:scale-95',
+          'h-9 px-3 rounded-urbancare-full transition-all [&_svg]:size-5 text-urbancare-base bg-primary/10 text-primary disabled:bg-primary/10 lg:hover:bg-primary/20 lg:active:scale-95',
           {
-            'bg-primary disabled:bg-primary text-white lg:hover:bg-primary/90':
+            'bg-primary text-white disabled:bg-primary lg:hover:bg-primary/90':
               isLiked,
           }
         )}
       >
-        <span className={'hidden lg:inline'}>{t.thread.like}</span>
         <ThumbsUp
-          className={cn('w-5 h-5 stroke-primary', { 'stroke-white': isLiked })}
+          className={cn('stroke-primary', { 'stroke-white': isLiked })}
         />
-        {likeCount}
+        {likeCount > 0 && <span className="tabular-nums">{likeCount}</span>}
+        <span className={'hidden lg:inline'}>{t.thread.like}</span>
       </Button>
       <Button
         onClick={handleDislike}
         disabled={isPending}
         className={cn(
-          'h-9 px-3 rounded-s-urbancare-none text-error rounded-e-urbancare-full transition-all [&_svg]:size-5 bg-error/10 text-urbancare-base disabled:bg-error/10 lg:hover:bg-error/20 lg:active:scale-95',
+          'h-9 px-3 rounded-urbancare-full transition-all [&_svg]:size-5 text-urbancare-base bg-error/10 text-error disabled:bg-error/10 lg:hover:bg-error/20 lg:active:scale-95',
           {
             'bg-error text-white disabled:bg-error lg:hover:bg-error/90':
               isDisliked,
           }
         )}
       >
-        <span className={'hidden lg:inline'}>{t.thread.dislike}</span>
         <ThumbsDown
           className={cn('stroke-error', { 'stroke-white': isDisliked })}
         />
-        {dislikeCount}
+        {dislikeCount > 0 && (
+          <span className="tabular-nums">{dislikeCount}</span>
+        )}
+        <span className={'hidden lg:inline'}>{t.thread.dislike}</span>
       </Button>
     </div>
   );

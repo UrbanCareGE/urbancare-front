@@ -48,7 +48,7 @@ const ThreadCardRoot = ({
     <ThreadContext.Provider value={contextValue}>
       <Card
         className={cn(
-          'overflow-hidden rounded-urbancare-3xl border-none bg-surface p-3 space-y-4',
+          'rounded-urbancare-3xl border-none bg-surface p-4 space-y-4',
           'transition-all duration-200 cursor-pointer lg:hover:shadow-md',
           className
         )}
@@ -66,7 +66,7 @@ interface ThreadCardHeaderProps {
 
 const ThreadCardHeader = ({ className, children }: ThreadCardHeaderProps) => {
   return (
-    <div className={cn('flex items-center justify-start w-full', className)}>
+    <div className={cn('flex items-start justify-start w-full', className)}>
       {children}
     </div>
   );

@@ -43,25 +43,25 @@ export default function ThreadPage() {
             )}
           >
             <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
-            <span className="text-urbancare-base font-medium">
+            <span className="text-urbancare-sm font-medium">
               {t.common.goBack}
             </span>
           </button>
 
-          <ThreadCard thread={data} className="px-3">
-            <ThreadCard.Header className="px-3">
+          <ThreadCard thread={data}>
+            <ThreadCard.Header>
               <ThreadViewHeader />
             </ThreadCard.Header>
-            <ThreadCard.Body className="px-3">
+            <ThreadCard.Body>
               <ThreadViewContent />
             </ThreadCard.Body>
-            <ThreadCard.Footer className="flex-col px-0">
+            <ThreadCard.Footer className="pt-3 border-t border-border">
               <ThreadPreviewActionSection />
             </ThreadCard.Footer>
           </ThreadCard>
 
-          <ThreadCard thread={data} className="px-0">
-            <ThreadCard.Header className="border-b border-border px-3 pb-3">
+          <ThreadCard thread={data} className="p-0">
+            <ThreadCard.Header className="px-4 py-3 border-b border-border">
               <ThreadCommentsHeader />
             </ThreadCard.Header>
             <ThreadCard.Body>

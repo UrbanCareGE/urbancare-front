@@ -24,9 +24,9 @@ export const ThreadCommentGrid = ({ className }: ThreadCommentsProps) => {
       />
 
       {thread.comments.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-12 gap-3">
-          <div className="w-12 h-12 rounded-urbancare-full bg-surface-container flex items-center justify-center">
-            <MessageCircle className="w-6 h-6 text-text-tertiary" />
+        <div className="flex flex-col items-center justify-center py-14 gap-4">
+          <div className="w-14 h-14 rounded-urbancare-full bg-surface-variant flex items-center justify-center">
+            <MessageCircle className="w-7 h-7 text-text-tertiary" />
           </div>
           <div className="text-center">
             <p className="text-urbancare-base font-medium text-text-secondary">
@@ -38,7 +38,7 @@ export const ThreadCommentGrid = ({ className }: ThreadCommentsProps) => {
           </div>
         </div>
       ) : (
-        <div className="divide-y divide-border/40">
+        <div className="divide-y divide-border/60">
           {thread.comments.map((comment) => (
             <ThreadComment key={comment.id} comment={comment} />
           ))}

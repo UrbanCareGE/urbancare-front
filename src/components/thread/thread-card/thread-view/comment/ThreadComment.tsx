@@ -31,9 +31,9 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
   };
 
   return (
-    <div className="px-3 py-3">
+    <div className="px-4 py-3">
       {/* Comment row */}
-      <div className="flex gap-2.5">
+      <div className="flex gap-3">
         <div className="flex-shrink-0">
           <UserAvatarView
             firstName={userInfo.name}
@@ -44,17 +44,17 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
 
         <div className="flex-1 min-w-0">
           {/* Content bubble */}
-          <div className="bg-surface-container rounded-urbancare-3xl rounded-tl-urbancare-xs px-3.5 py-2.5 inline-block max-w-full">
-            <p className="font-semibold text-urbancare-md leading-tight text-text-primary">
+          <div className="bg-surface-container rounded-urbancare-3xl rounded-tl-urbancare-xs px-3.5 py-2 inline-block max-w-full space-y-0.5">
+            <p className="font-semibold text-urbancare-sm leading-tight text-text-primary">
               {userInfo.name} {userInfo.surname}
             </p>
-            <p className="text-urbancare-md text-text-primary leading-relaxed whitespace-pre-wrap break-words mt-1">
+            <p className="text-urbancare-base text-text-primary leading-relaxed whitespace-pre-wrap break-words">
               {content}
             </p>
           </div>
 
           {/* Meta / actions */}
-          <div className="flex items-center gap-3 mt-1.5 px-1">
+          <div className="flex items-center gap-4 mt-1 px-1.5">
             <span className="text-urbancare-xs text-text-tertiary">
               {formatTime(createdAt.toString())}
             </span>
@@ -96,7 +96,7 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
 
       {/* Replies — indented with left border connector */}
       {hasReplies && (
-        <div className="mt-2 ml-[19px] pl-4 border-l-2 border-border/50 space-y-1">
+        <div className="mt-2 ml-5 pl-4 border-l-2 border-border/50 space-y-1">
           {visibleReplies.map((reply) => (
             <ThreadCommentReply key={reply.id} comment={reply} />
           ))}

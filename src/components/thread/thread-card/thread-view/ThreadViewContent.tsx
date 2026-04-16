@@ -16,12 +16,12 @@ export const ThreadViewContent = ({ className }: ThreadCardContentProps) => {
   return (
     <div className={`flex flex-col gap-5 overflow-hidden ${className || ''}`}>
       {thread.title && (
-        <h2 className="text-urbancare-xl font-semibold text-text-primary line-clamp-2 leading-snug tracking-tight">
+        <h2 className="text-urbancare-3xl font-semibold text-text-primary line-clamp-2 leading-snug tracking-tight">
           {thread.title}
         </h2>
       )}
 
-      <p className="text-urbancare-xl text-text-secondary leading-relaxed whitespace-pre-wrap">
+      <p className="text-urbancare-lg text-text-primary leading-relaxed whitespace-pre-wrap">
         {thread.content}
       </p>
 
