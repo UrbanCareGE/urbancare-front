@@ -5,7 +5,7 @@ import { ThreadShareButton } from '@/components/thread/thread-card/thread-previe
 
 export const ThreadPreviewActionSection = () => {
   return (
-    <div className={'grid w-full grid-cols-3 gap-20'}>
+    <div className={'flex justify-evenly items-center w-full gap-2'}>
       <ThreadVoteButton />
       <ThreadPreviewCommentButton />
       <ThreadShareButton />
