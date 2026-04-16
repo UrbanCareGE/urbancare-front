@@ -7,7 +7,7 @@ import { getClientFileUrl } from '@/lib/api-client';
 import { cn, ExtractUserInitials } from '@/lib/utils';
 import Image from 'next/image';
 import { ArrowDownNarrowWide, SlidersHorizontal } from 'lucide-react';
-import { useThreadDrawer } from '@/components/thread/thread-form/CreateThreadSheet';
+import { useThreadOverlay } from '@/components/thread/thread-form/CreateThreadOverlay';
 import { useTranslation } from '@/i18n';
 
 export type StartThreadFormProps = {
@@ -16,7 +16,7 @@ export type StartThreadFormProps = {
 
 export function CreateThreadButton({ className }: StartThreadFormProps) {
   const { user } = useAuth();
-  const threadDrawer = useThreadDrawer();
+  const threadDrawer = useThreadOverlay();
   const t = useTranslation();
   const initials = ExtractUserInitials(user)
 

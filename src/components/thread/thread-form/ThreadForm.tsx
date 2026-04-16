@@ -1,6 +1,6 @@
 // Re-exported from CreateThreadSheet — prefer importing from there directly.
 export {
-  CreateThreadSheet as ThreadForm,
-  useThreadDrawer,
-} from '@/components/thread/thread-form/CreateThreadSheet';
-export { CreateThreadSheet as default } from '@/components/thread/thread-form/CreateThreadSheet';
+  CreateThreadOverlay as ThreadForm,
+  useThreadOverlay,
+} from '@/components/thread/thread-form/CreateThreadOverlay';
+export { CreateThreadOverlay as default } from '@/components/thread/thread-form/CreateThreadOverlay';

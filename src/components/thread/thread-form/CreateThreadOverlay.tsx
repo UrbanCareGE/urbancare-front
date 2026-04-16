@@ -1,19 +1,21 @@
 import React, { useContext, useState } from 'react';
 import { Sheet, SheetContent } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
+import { useResponsive } from '@/components/common/layouts/ResponsiveLayout';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 
-interface CreateThreadSheetContextValue {
+interface CreateThreadOverlayContextType {
   isOpen: boolean;
   openDrawer: () => void;
   closeDrawer: () => void;
 }
 
-const CreateThreadSheetContext = React.createContext<
-  CreateThreadSheetContextValue | undefined
+const CreateThreadOverlayContext = React.createContext<
+  CreateThreadOverlayContextType | undefined
 >(undefined);
 
-export const useThreadDrawer = () => {
-  const context = useContext(CreateThreadSheetContext);
+export const useThreadOverlay = () => {
+  const context = useContext(CreateThreadOverlayContext);
   if (context === undefined) {
     throw new Error('useThreadDrawer must be used within a CreateThreadSheet');
   }
@@ -25,11 +27,24 @@ interface CreateThreadSheetContentProps {
   children: React.ReactNode;
 }
 
-export const CreateThreadSheetContent = ({
+export const CreateThreadOverlayContent = ({
   className,
   children,
 }: CreateThreadSheetContentProps) => {
-  const { isOpen, closeDrawer } = useThreadDrawer();
+  const { isOpen, closeDrawer } = useThreadOverlay();
+  const response = useResponsive();
+
+  if (response.isDesktop || response.isLargeDesktop) {
+    return (
+      <Dialog open={isOpen} onOpenChange={(open) => !open && closeDrawer()}>
+        <DialogContent
+          className={cn('border-border overflow-y-auto p-0', 'max-h-[85vh]')}
+        >
+          {children}
+        </DialogContent>
+      </Dialog>
+    );
+  }
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => !open && closeDrawer()}>
@@ -51,11 +66,11 @@ interface CreateThreadSheetTriggerProps {
   children: React.ReactNode;
 }
 
-export const CreateThreadSheetTrigger = ({
+export const CreateThreadOverlayTrigger = ({
   className,
   children,
 }: CreateThreadSheetTriggerProps) => {
-  const { openDrawer } = useThreadDrawer();
+  const { openDrawer } = useThreadOverlay();
 
   return (
     <div
@@ -74,27 +89,27 @@ interface CreateThreadSheetRootProps {
   children: React.ReactNode;
 }
 
-export const CreateThreadSheetRoot = ({
+export const CreateThreadOverlayRoot = ({
   children,
 }: CreateThreadSheetRootProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const value: CreateThreadSheetContextValue = {
+  const value: CreateThreadOverlayContextType = {
     isOpen,
     openDrawer: () => setIsOpen(true),
     closeDrawer: () => setIsOpen(false),
   };
 
   return (
-    <CreateThreadSheetContext.Provider value={value}>
+    <CreateThreadOverlayContext.Provider value={value}>
       {children}
-    </CreateThreadSheetContext.Provider>
+    </CreateThreadOverlayContext.Provider>
   );
 };
 
-export const CreateThreadSheet = Object.assign(CreateThreadSheetRoot, {
-  Content: CreateThreadSheetContent,
-  Trigger: CreateThreadSheetTrigger,
+export const CreateThreadOverlay = Object.assign(CreateThreadOverlayRoot, {
+  Content: CreateThreadOverlayContent,
+  Trigger: CreateThreadOverlayTrigger,
 });
 
-export default CreateThreadSheet;
+export default CreateThreadOverlay;

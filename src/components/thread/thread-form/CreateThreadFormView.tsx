@@ -11,7 +11,7 @@ import {
 } from '@/components/thread/data/create-thread-schema';
 import { useTranslation } from '@/i18n';
 import { Poll } from '@/components/poll/mobile/Poll';
-import CreateThreadSheet from '@/components/thread/thread-form/CreateThreadSheet';
+import CreateThreadOverlay from '@/components/thread/thread-form/CreateThreadOverlay';
 import { CreateThreadButton } from '@/components/thread/thread-form/CreateThreadButton';
 import { ThreadTagSelector } from '@/components/thread/thread-form/ThreadTagSelector';
 import { ThreadFormHeader } from '@/components/thread/thread-form/ThreadFormHeader';
@@ -20,7 +20,7 @@ import { ThreadFileUpload } from '@/components/thread/thread-form/ThreadFileUplo
 import { ThreadFormFooter } from '@/components/thread/thread-form/ThreadFormFooter';
 import { ThreadTagLimitDialog } from '@/components/thread/thread-form/ThreadTagLimitDialog';
 
-interface CreateThreadFormViewProps {
+interface CreateThreadFormViewMobileProps {
   form: UseFormReturn<z.infer<CreateThreadSchemaType>>;
   onSubmit: (values: z.infer<CreateThreadSchemaType>) => void;
   isPending: boolean;
@@ -62,15 +62,15 @@ export const CreateThreadFormView = ({
   onPollOptionsChange,
   onToggleTag,
   onTagLimitDialogChange,
-}: CreateThreadFormViewProps) => {
+}: CreateThreadFormViewMobileProps) => {
   const t = useTranslation();
   return (
-    <CreateThreadSheet>
-      <CreateThreadSheet.Trigger>
+    <CreateThreadOverlay>
+      <CreateThreadOverlay.Trigger>
         <CreateThreadButton />
-      </CreateThreadSheet.Trigger>
+      </CreateThreadOverlay.Trigger>
 
-      <CreateThreadSheet.Content>
+      <CreateThreadOverlay.Content>
         <ThreadFormHeader />
 
         <Form {...form}>
@@ -133,12 +133,12 @@ export const CreateThreadFormView = ({
             />
           </form>
         </Form>
-      </CreateThreadSheet.Content>
+      </CreateThreadOverlay.Content>
 
       <ThreadTagLimitDialog
         open={tagLimitDialogOpen}
         onOpenChange={onTagLimitDialogChange}
       />
-    </CreateThreadSheet>
+    </CreateThreadOverlay>
   );
 };
