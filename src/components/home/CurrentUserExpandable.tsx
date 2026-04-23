@@ -60,20 +60,6 @@ export const CurrentUserExpandable = () => {
               </div>
             )}
           </div>
-
-          {/* Manager badge */}
-          {isManager && (
-            <span
-              className={cn(
-                'flex-shrink-0 inline-flex px-2 py-0.5 rounded-urbancare-full',
-                'text-urbancare-2xs font-bold tracking-wide',
-                'bg-tertiary-container text-tertiary-container-foreground'
-              )}
-            >
-              ADM
-            </span>
-          )}
-
           <ChevronDown className="w-3.5 h-3.5 flex-shrink-0 text-icon transition-transform duration-200 [[data-state=open]_&]:rotate-180 lg:hidden xl:inline" />
         </div>
       </PopoverTrigger>

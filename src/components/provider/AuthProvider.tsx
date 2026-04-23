@@ -10,30 +10,14 @@ import {
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 import { AuthService } from '@/service/auth-service';
-import {
-  LoginDTO,
-  LoginWithOtpDTO,
-  PhoneNumberDTO,
-  UserDTO,
-} from '@/model/dto/auth.dto';
+import { LoginDTO, LoginWithOtpDTO, UserDTO } from '@/model/dto/auth.dto';
 import { PulsingLoader } from '@/components/common/loader/GlobalLoader';
 import { ConnectionError } from '@/components/common/error/ConnectionError';
 import { RouteConfig } from '@/proxy';
-import { ApiError, ErrorResponse } from '@/model/dto/common.dto';
-import { ApartmentDTO } from '@/model/dto/apartment.dto';
+import { ErrorResponse } from '@/model/dto/common.dto';
 import { getApartmentWithId } from '@/lib/utils';
-
-export interface UserModel {
-  id: string;
-  phone: PhoneNumberDTO;
-  name?: string;
-  surname?: string;
-  profileImageId?: string;
-  joinedApartments: ApartmentDTO[];
-  selectedApartment?: ApartmentDTO;
-  selectedApartmentId?: string;
-  hasPassword: boolean;
-}
+import { ApiError } from '@/model/api-error';
+import { UserModel } from '@/model/model/user.model';
 
 export interface AuthContextType {
   user: UserModel;

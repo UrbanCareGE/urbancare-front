@@ -27,7 +27,12 @@ import { OtpLoginForm } from '@/components/auth/login/OtpLoginForm';
 import { PasswordLoginForm } from '@/components/auth/login/PasswordLoginForm';
 
 export function LoginCard() {
-  const { mutateAsync, isPending, isError, isSuccess: otpSent } = useGenerateOtp();
+  const {
+    mutateAsync,
+    isPending,
+    isError,
+    isSuccess: otpSent,
+  } = useGenerateOtp();
   const { logIn, logInWithOtp, isLoggingIn } = useAuth();
   const t = useTranslation();
   const [mode, setMode] = useState<LoginMode>('otp');

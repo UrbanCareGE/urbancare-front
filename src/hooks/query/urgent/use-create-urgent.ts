@@ -3,8 +3,8 @@ import { UrgentService } from '@/service/urgent-service';
 import { CreateUrgentItemDTO, UrgentItemDTO } from '@/model/dto/urgent.dto';
 import { toast } from 'sonner';
 import { useAuth } from '@/components/provider/AuthProvider';
-import { OptimisticData } from '@/model/dto/common.dto';
 import { useTranslation } from '@/i18n';
+import { UrgentModelOptimistic } from '@/model/model/urgent.model';
 
 export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
   const t = useTranslation();
@@ -22,10 +22,10 @@ export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
       await queryClient.cancelQueries({ queryKey });
 
       const previousItems =
-        queryClient.getQueryData<OptimisticData<UrgentItemDTO>[]>(queryKey);
+        queryClient.getQueryData<UrgentModelOptimistic[]>(queryKey);
 
       const tempId = `temp-${Date.now()}`;
-      const optimisticItem: OptimisticData<UrgentItemDTO> = {
+      const optimisticItem: UrgentModelOptimistic = {
         id: tempId,
         _tempId: tempId,
         _isPending: true,
@@ -41,9 +41,8 @@ export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
         },
       };
 
-      queryClient.setQueryData<OptimisticData<UrgentItemDTO>[]>(
-        queryKey,
-        (prev) => (prev ? [optimisticItem, ...prev] : [optimisticItem])
+      queryClient.setQueryData<UrgentModelOptimistic[]>(queryKey, (prev) =>
+        prev ? [optimisticItem, ...prev] : [optimisticItem]
       );
 
       return { previousItems, tempId, queryKey };
@@ -52,13 +51,13 @@ export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
     onSuccess: (urgentItemDTO, variables, context) => {
       if (!context) return;
 
-      queryClient.setQueryData<OptimisticData<UrgentItemDTO>[]>(
+      queryClient.setQueryData<UrgentModelOptimistic[]>(
         context.queryKey,
         (prev) =>
           prev?.map((item) =>
             item._tempId === context.tempId
               ? { ...urgentItemDTO, _isPending: false }
-              : item
+              : { ...item }
           ) ?? [urgentItemDTO]
       );
 
@@ -74,7 +73,8 @@ export function useCreateUrgent(onSuccess?: (urgent: UrgentItemDTO) => void) {
   });
 
   const onSubmit = (content: string) => {
-    mutate({ apartmentId: user.selectedApartmentId!, content: content });
+    if (user.selectedApartmentId)
+      mutate({ apartmentId: user.selectedApartmentId, content: content });
   };
 
   return { onSubmit, isPending, isError, error };

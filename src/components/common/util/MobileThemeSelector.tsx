@@ -1,6 +1,6 @@
 'use client';
 
-import { Monitor, Moon, Sun } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/i18n';
@@ -17,12 +17,6 @@ const getThemeOptions = (t: ReturnType<typeof useTranslation>) => [
     icon: Moon,
     label: t.theme.dark,
     desc: t.theme.darkDescription,
-  },
-  {
-    id: 'system',
-    icon: Monitor,
-    label: t.theme.system,
-    desc: t.theme.systemDescription,
   },
 ];
 

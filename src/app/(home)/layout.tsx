@@ -1,13 +1,11 @@
 import React from 'react';
 import {
   DesktopAdapter,
-  LargeDesktopAdapter,
   MobileAdapter,
   TabletAdapter,
 } from '@/components/common/layouts/ResponsiveSwitch';
 import { Children } from '@/app/layout';
 import { LayoutMobile } from '@/app/(home)/layout.mobile';
-import { LayoutLargeDesktop } from '@/app/(home)/layout.large-desktop';
 import { HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { dehydrate } from '@tanstack/query-core';
 import { LayoutTablet } from '@/app/(home)/layout.tablet';
@@ -29,10 +27,6 @@ export default async function HomeLayout({ children }: Children) {
       <DesktopAdapter>
         <LayoutDesktop>{children}</LayoutDesktop>
       </DesktopAdapter>
-
-      <LargeDesktopAdapter>
-        <LayoutLargeDesktop>{children}</LayoutLargeDesktop>
-      </LargeDesktopAdapter>
     </HydrationBoundary>
   );
 }

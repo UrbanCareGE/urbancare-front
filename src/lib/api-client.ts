@@ -1,5 +1,5 @@
-import { ApiError, type ErrorResponse } from '@/model/dto/common.dto';
-
+import { ErrorResponse } from '@/model/dto/common.dto';
+import { ApiError } from '@/model/api-error';
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 export interface ApiResponse<TData = unknown> {
