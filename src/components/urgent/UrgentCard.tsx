@@ -278,7 +278,7 @@ export const UrgentCard = ({
   return (
     <Card
       className={cn(
-        'relative p-5 border-l-4 overflow-hidden border-border transition-all lg:hover:shadow-lg',
+        'relative p-5 border-l-4 overflow-hidden border-border transition-all duration-200 lg:hover:shadow-lg',
         config.borderColor,
         status === 'resolved' && 'opacity-85',
         isPending && 'opacity-80 pointer-events-none',
@@ -333,7 +333,7 @@ export const UrgentCardCompact = ({
     <Card
       onClick={onClick}
       className={cn(
-        'relative flex items-center gap-3 px-3.5 py-2.5 border-l-4 overflow-hidden border-border transition-all',
+        'relative flex items-center gap-3 px-3.5 py-2.5 border-l-4 overflow-hidden border-border transition-all duration-200',
         config.borderColor,
         status === 'resolved' && 'opacity-85',
         isPending && 'opacity-80 pointer-events-none',

@@ -62,7 +62,7 @@ const PollOptionBar = ({
           onClick={handleVote}
           disabled={isPending}
           className={cn(
-            'transition-colors lg:hover:scale-110 lg:active:scale-90',
+            'transition-all duration-200 lg:hover:scale-110 lg:active:scale-90',
             isPending && 'opacity-50'
           )}
         >

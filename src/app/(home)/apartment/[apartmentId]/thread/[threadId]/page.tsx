@@ -8,6 +8,7 @@ import ThreadCard from '@/components/thread/thread-card/ThreadCard';
 import { ThreadViewContent } from '@/components/thread/thread-card/thread-view/ThreadViewContent';
 import { ThreadViewHeader } from '@/components/thread/thread-card/thread-view/ThreadViewHeader';
 import { ThreadPreviewActionSection } from '@/components/thread/thread-card/thread-preview/ThreadPreviewActionSection';
+import { ThreadPreviewStatsSection } from '@/components/thread/thread-card/common/ThreadPreviewStatsSection';
 import { ThreadCommentsHeader } from '@/components/thread/thread-card/thread-view/comment/ThreadCommentsHeader';
 import { ThreadCommentGrid } from '@/components/thread/thread-card/thread-view/comment/ThreadCommentGrid';
 import { ThreadViewCommentButton } from '@/components/thread/thread-card/thread-view/comment/ThreadViewCommentButton';
@@ -31,37 +32,53 @@ export default function ThreadPage() {
     <div className="flex-1 flex flex-col overflow-hidden lg:flex-none lg:block">
       {/* Scrollable area: full-height scroll on mobile, natural flow on desktop */}
       <div className="flex-1 overflow-y-auto scrollbar-hide lg:overflow-visible">
-        <div className="flex flex-col gap-5 p-3 lg:p-0">
+        <div className="flex flex-col gap-4 p-3 lg:p-0 lg:gap-5 lg:py-4">
           <button
             onClick={() => router.back()}
             className={cn(
               'group flex items-center gap-2 self-start',
-              'px-2 py-1.5 rounded-urbancare-lg',
-              'text-text-secondary hover:text-text-primary',
-              'hover:bg-surface-container',
+              'pl-2 pr-3.5 py-1.5 rounded-urbancare-full',
+              'bg-surface-container/70 text-text-secondary border border-border/60',
+              'lg:hover:text-text-primary lg:hover:bg-surface-container lg:hover:border-border',
               'transition-all duration-200 active:scale-95'
             )}
           >
             <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
-            <span className="text-urbancare-sm font-medium">
+            <span className="text-urbancare-sm font-medium leading-none">
               {t.common.goBack}
             </span>
           </button>
 
-          <ThreadCard thread={data}>
+          <ThreadCard
+            thread={data}
+            className={cn(
+              'shadow-sm shadow-shadow/5 ring-1 ring-border/50',
+              'lg:hover:ring-border/70',
+              'transition-all duration-200'
+            )}
+          >
             <ThreadCard.Header>
               <ThreadViewHeader />
             </ThreadCard.Header>
             <ThreadCard.Body>
               <ThreadViewContent />
             </ThreadCard.Body>
-            <ThreadCard.Footer className="pt-3 border-t border-border">
-              <ThreadPreviewActionSection />
+            <ThreadCard.Footer className="p-0 -mx-4 flex-col gap-0">
+              <ThreadPreviewStatsSection />
+              <div className="w-full px-2 py-1">
+                <ThreadPreviewActionSection />
+              </div>
             </ThreadCard.Footer>
           </ThreadCard>
 
-          <ThreadCard thread={data} className="p-0">
-            <ThreadCard.Header className="px-4 py-3 border-b border-border">
+          <ThreadCard
+            thread={data}
+            className={cn(
+              'p-0 overflow-hidden',
+              'shadow-sm shadow-shadow/5 ring-1 ring-border/50'
+            )}
+          >
+            <ThreadCard.Header className="px-5 py-3.5 border-b border-border bg-surface-container/30">
               <ThreadCommentsHeader />
             </ThreadCard.Header>
             <ThreadCard.Body>

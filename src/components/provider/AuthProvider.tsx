@@ -204,6 +204,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         ),
       } as UserModel;
     });
+
+    queryClient.removeQueries({
+      predicate: (query) => query.queryKey[0] !== 'user',
+    });
   };
 
   const updateUser = (data: Partial<UserModel>) => {

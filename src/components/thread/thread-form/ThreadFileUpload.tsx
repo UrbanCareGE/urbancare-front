@@ -113,9 +113,9 @@ export const ThreadFileUpload = ({
                         return (
                           <div
                             key={index}
-                            className="flex-shrink-0 relative group"
+                            className="flex-shrink-0 relative group w-20 h-20"
                           >
-                            <div className="w-20 h-20 rounded-urbancare-lg overflow-hidden bg-surface border-2 shadow-sm lg:hover:shadow-md transition-all duration-300 lg:hover:scale-105 lg:hover:border-primary/50 relative">
+                            <div className="absolute inset-0 rounded-urbancare-lg overflow-hidden bg-surface border-2 shadow-sm lg:hover:shadow-md transition-all duration-300 lg:group-hover:scale-105 lg:hover:border-primary/50">
                               {file.file.type.startsWith('image/') ? (
                                 <img
                                   src={file.previewUrl}
@@ -127,14 +127,6 @@ export const ThreadFileUpload = ({
                                   <Video className="w-8 h-8 text-foreground-tertiary" />
                                 </div>
                               )}
-
-                              <button
-                                type="button"
-                                onClick={() => onRemoveFile(index)}
-                                className="absolute -top-2 -right-2 p-1.5 bg-error text-error-foreground rounded-urbancare-full opacity-0 lg:group-hover:opacity-100 transition-all duration-200 lg:hover:bg-error/80 lg:hover:scale-110 shadow-lg z-20"
-                              >
-                                <X className="w-3 h-3" />
-                              </button>
 
                               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 lg:group-hover:opacity-100 transition-opacity">
                                 <div className="absolute bottom-1 left-1 right-1">
@@ -149,6 +141,14 @@ export const ThreadFileUpload = ({
                                 {index + 1}
                               </div>
                             </div>
+
+                            <button
+                              type="button"
+                              onClick={() => onRemoveFile(index)}
+                              className="absolute -top-2 -right-2 p-1.5 bg-error text-error-foreground rounded-urbancare-full opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-200 lg:hover:bg-error/80 lg:hover:scale-110 shadow-lg z-20"
+                            >
+                              <X className="w-3 h-3" />
+                            </button>
                           </div>
                         );
                       })}

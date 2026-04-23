@@ -14,13 +14,13 @@ const sizeConfig = {
     letters: 'tracking-[1px] px-1.5',
   },
   md: {
-    plate: 'h-9 text-sm rounded-[4px] px-1',
+    plate: 'h-9 text-urbancare-sm rounded-[4px] px-1',
     flag: 'w-6 text-[6px] rounded-l-[4px] gap-0.5',
     flagIcon: 'text-[10px]',
     letters: 'tracking-[2px] px-2',
   },
   lg: {
-    plate: 'h-11 text-base rounded-[5px] px-1.5',
+    plate: 'h-11 text-urbancare-base rounded-[5px] px-1.5',
     flag: 'w-7 text-[7px] rounded-l-[5px] gap-0.5',
     flagIcon: 'text-[12px]',
     letters: 'tracking-[3px] px-2.5',

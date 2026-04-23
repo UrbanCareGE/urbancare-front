@@ -18,7 +18,13 @@ export const ThreadViewHeader = ({ className }: ThreadCardHeaderProps) => {
 
   return (
     <div className={cn('flex items-start gap-3 w-full', className)}>
-      <Avatar className="cursor-pointer w-11 h-11 lg:w-12 lg:h-12 rounded-urbancare-full shrink-0 ring-2 ring-border">
+      <Avatar
+        className={cn(
+          'cursor-pointer w-11 h-11 lg:w-12 lg:h-12 rounded-urbancare-full shrink-0',
+          'ring-2 ring-border lg:hover:ring-border-hover',
+          'transition-all duration-200 lg:hover:scale-105'
+        )}
+      >
         <Image
           src={getClientFileUrl(userInfo?.profileImageId)}
           alt={
@@ -33,18 +39,20 @@ export const ThreadViewHeader = ({ className }: ThreadCardHeaderProps) => {
           </AvatarFallback>
         )}
       </Avatar>
-      <div className={'flex flex-col min-w-0 flex-1'}>
-        <div className="flex items-center justify-start gap-2 min-w-0">
-          <h3 className="font-semibold text-text-primary text-urbancare-base truncate">
-            {userInfo && userInfo.name} {userInfo && userInfo.surname}
-          </h3>
-          <span className="text-urbancare-xs text-text-tertiary flex items-center gap-1 shrink-0 leading-none">
-            <Clock className="w-3.5 h-3.5" />
-            {formatTime(createdAt.toString())}
-          </span>
-        </div>
-        <ThreadTags tags={thread.tags} className="mt-2" />
+
+      <div className="flex flex-col min-w-0 flex-1 gap-1">
+        <h3 className="font-bold text-text-primary text-urbancare-lg leading-tight-georgian truncate">
+          {userInfo && userInfo.name} {userInfo && userInfo.surname}
+        </h3>
+
+        <span className="text-urbancare-xs text-text-tertiary flex items-center gap-1 leading-none">
+          <Clock className="w-3 h-3 shrink-0" />
+          {formatTime(createdAt.toString())}
+        </span>
+
+        <ThreadTags tags={thread.tags} className="mt-1" />
       </div>
+
       <ThreadOptionsDropDown />
     </div>
   );

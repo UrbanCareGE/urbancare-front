@@ -35,7 +35,7 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
       </Avatar>
       <div className="flex-1">
         <div
-          className="flex items-center rounded-urbancare-full px-4 py-2 h-10 text-sm lg:text-base bg-surface-container transition-colors mr-auto text-urbancare-base text-muted-foreground lg:hover:bg-surface-hover lg:cursor-pointer"
+          className="flex items-center rounded-urbancare-full px-4 py-2 h-10 bg-surface-container transition-colors duration-200 mr-auto text-urbancare-base text-muted-foreground lg:hover:bg-surface-hover lg:cursor-pointer"
           onClick={threadDrawer.openDrawer}
         >
           {t.thread.whatToShare}

@@ -60,22 +60,22 @@ const FormInput = React.forwardRef<
       {!error && isPasswordType && type == 'password' && (
         <div
           className={
-            'absolute right-3 top-1/2 transform -translate-y-1/2 hover:cursor-pointer'
+            'absolute right-3 top-1/2 transform -translate-y-1/2 hover:cursor-pointer transition-opacity duration-200'
           }
           onClick={() => setShowPassword(!showPassword)}
         >
-          <EyeIcon className={'w-5 h-5 sm:w-6 sm:h-6'} />
+          <EyeIcon className={'w-5 h-5 sm:w-6 sm:h-6 text-icon'} />
         </div>
       )}
 
       {!error && isPasswordType && type == 'text' && (
         <div
           className={
-            'absolute right-3 top-1/2 transform -translate-y-1/2 hover:cursor-pointer'
+            'absolute right-3 top-1/2 transform -translate-y-1/2 hover:cursor-pointer transition-opacity duration-200'
           }
           onClick={() => setShowPassword(!showPassword)}
         >
-          <EyeOff className={'w-5 h-5 sm:w-6 sm:h-6'} />
+          <EyeOff className={'w-5 h-5 sm:w-6 sm:h-6 text-icon'} />
         </div>
       )}
 
@@ -94,7 +94,7 @@ const FormInput = React.forwardRef<
           >
             <div
               className={cn(
-                'absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 flex items-center justify-center',
+                'absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 flex items-center justify-center transition-opacity duration-200',
                 !message
                   ? 'opacity-0 pointer-events-none'
                   : 'opacity-100 cursor-pointer'

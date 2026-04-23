@@ -36,7 +36,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
   const inViewOptions = useMemo(
     () => ({
       threshold: 0.1,
-      rootMargin: '256px',
+      rootMargin: '512px',
     }),
     []
   );
@@ -132,7 +132,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
           <ThreadsFeedLoadingSkeleton />
         </div>
       )}
-      {hasNextPage && !isFetchingNextPage && <div ref={ref} className="h-20" />}
+      {hasNextPage && !isFetchingNextPage && <div ref={ref} className="h-20 bg" />}
 
       {!hasNextPage && data?.pages && data.pages.length > 0 && (
         <div className="text-center py-8 text-text-tertiary text-urbancare-sm">

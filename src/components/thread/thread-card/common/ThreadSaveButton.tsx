@@ -16,13 +16,13 @@ export const ThreadSaveButton = () => {
     >
       <div
         className={cn(
-          'w-8 h-8 rounded-urbancare-lg flex items-center justify-center shrink-0 transition-colors',
+          'w-8 h-8 rounded-urbancare-lg flex items-center justify-center shrink-0 transition-colors duration-150',
           saved ? 'bg-primary/10' : 'bg-surface-container'
         )}
       >
         <Bookmark
           className={cn(
-            'w-4 h-4 transition-colors',
+            'w-4 h-4 transition-colors duration-150',
             saved ? 'fill-primary text-primary' : 'text-icon'
           )}
         />

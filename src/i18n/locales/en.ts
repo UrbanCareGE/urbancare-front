@@ -134,6 +134,12 @@ const en: TranslationKeys = {
     newPostForm: 'New post form',
     newPost: 'New post',
     whatToShare: 'What would you like to share?',
+    editPost: 'Edit post',
+    editPostDescription: 'Update the content of your post',
+    saveChanges: 'Save changes',
+    updatingPost: 'Updating...',
+    postUpdated: 'Post updated',
+    noChanges: 'No changes made',
   },
 
   threadForm: {
@@ -152,6 +158,8 @@ const en: TranslationKeys = {
     textLabel: 'Text',
     bodyPlaceholder:
       'What would you like to share? Share your thoughts, experiences or questions...',
+    currentMedia: 'Current media',
+    addMoreMedia: 'Add more media',
   },
 
   threadValidation: {

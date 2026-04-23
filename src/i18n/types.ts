@@ -125,6 +125,12 @@ export interface TranslationKeys {
     newPostForm: string;
     newPost: string;
     whatToShare: string;
+    editPost: string;
+    editPostDescription: string;
+    saveChanges: string;
+    updatingPost: string;
+    postUpdated: string;
+    noChanges: string;
   };
   threadForm: {
     mediaFiles: string;
@@ -140,6 +146,8 @@ export interface TranslationKeys {
     selectTags: string;
     textLabel: string;
     bodyPlaceholder: string;
+    currentMedia: string;
+    addMoreMedia: string;
   };
   threadValidation: {
     fileSizeExceeded: string;

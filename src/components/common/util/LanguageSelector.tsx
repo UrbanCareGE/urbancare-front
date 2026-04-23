@@ -3,109 +3,128 @@
 import { cn } from '@/lib/utils';
 import { useLanguage, type Locale } from '@/i18n';
 
-const languages: {
+const GeorgianFlag = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 900 600" className={className} aria-hidden="true">
+    <rect width="900" height="600" fill="#fff" />
+    <rect x="380" width="140" height="600" fill="#FF0000" />
+    <rect y="230" width="900" height="140" fill="#FF0000" />
+    {/* Top-left cross */}
+    <g transform="translate(190,140)">
+      <rect x="-15" y="-60" width="30" height="120" fill="#FF0000" />
+      <rect x="-60" y="-15" width="120" height="30" fill="#FF0000" />
+    </g>
+    {/* Top-right cross */}
+    <g transform="translate(710,140)">
+      <rect x="-15" y="-60" width="30" height="120" fill="#FF0000" />
+      <rect x="-60" y="-15" width="120" height="30" fill="#FF0000" />
+    </g>
+    {/* Bottom-left cross */}
+    <g transform="translate(190,460)">
+      <rect x="-15" y="-60" width="30" height="120" fill="#FF0000" />
+      <rect x="-60" y="-15" width="120" height="30" fill="#FF0000" />
+    </g>
+    {/* Bottom-right cross */}
+    <g transform="translate(710,460)">
+      <rect x="-15" y="-60" width="30" height="120" fill="#FF0000" />
+      <rect x="-60" y="-15" width="120" height="30" fill="#FF0000" />
+    </g>
+  </svg>
+);
+
+const UKFlag = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 60 30" className={className} aria-hidden="true">
+    <clipPath id="uk-clip"><rect width="60" height="30" /></clipPath>
+    <g clipPath="url(#uk-clip)">
+      <rect width="60" height="30" fill="#012169" />
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6" />
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" strokeWidth="4" clipPath="url(#uk-diag)" />
+      <clipPath id="uk-diag">
+        <path d="M30,0 L60,0 L60,15 Z M30,30 L0,30 L0,15 Z M0,0 L0,10 L20,15 Z M60,30 L60,20 L40,15 Z" />
+      </clipPath>
+      <path d="M30,0 V30 M0,15 H60" stroke="#fff" strokeWidth="10" />
+      <path d="M30,0 V30 M0,15 H60" stroke="#C8102E" strokeWidth="6" />
+    </g>
+  </svg>
+);
+
+interface LanguageOption {
   code: Locale;
   name: string;
   native: string;
-  flag: string;
-}[] = [
-  { code: 'ka', name: 'Georgian', native: 'ქართული', flag: '🇬🇪' },
-  { code: 'en', name: 'English', native: 'English', flag: '🇬🇧' },
-];
-
-interface LanguageSelectorProps {
-  compact?: boolean;
+  Flag: React.FC<{ className?: string }>;
 }
 
-export default function LanguageSelector({
-  compact = false,
-}: LanguageSelectorProps) {
+const languages: LanguageOption[] = [
+  { code: 'ka', name: 'Georgian', native: 'ქართული', Flag: GeorgianFlag },
+  { code: 'en', name: 'English', native: 'English', Flag: UKFlag },
+];
+
+export default function LanguageSelector() {
   const { locale, setLocale } = useLanguage();
 
-  const flagSize = compact
-    ? 'w-8 h-8 rounded-urbancare-lg text-urbancare-2xl'
-    : 'w-10 h-10 rounded-urbancare-xl text-urbancare-5xl';
-  const rowPad = compact
-    ? 'gap-2.5 px-2.5 py-2 rounded-urbancare-xl'
-    : 'gap-3 px-3 py-2.5 rounded-urbancare-3xl';
-  const nameSize = compact ? 'text-urbancare-base' : 'text-urbancare-base';
-  const nativeSize = compact ? 'text-urbancare-2xs' : 'text-urbancare-sm';
-  const checkSize = compact ? 'w-5 h-5' : 'w-5 h-5';
-
   return (
-    <div className="flex flex-col gap-1 w-full">
-      {languages.map((lang) => {
-        const isSelected = locale === lang.code;
+    <div className="flex flex-col w-full gap-0.5">
+      {languages.map(({ code, name, native, Flag }) => {
+        const isActive = locale === code;
         return (
           <button
-            key={lang.code}
+            key={code}
             type="button"
-            onClick={() => setLocale(lang.code)}
+            onClick={() => setLocale(code)}
             className={cn(
-              'group w-full flex items-center border transition-all duration-200 text-left',
-              rowPad,
-              isSelected
-                ? 'bg-primary-container border-primary/30 shadow-sm'
-                : 'bg-background border-transparent hover:bg-surface-hover hover:border-border'
+              'group relative w-full flex items-center gap-2.5 pl-3 pr-2.5 py-2 rounded-urbancare-lg transition-all duration-200 text-left overflow-hidden',
+              isActive
+                ? 'bg-primary-container'
+                : 'bg-transparent hover:bg-surface-container'
             )}
           >
-            {/* Flag bubble */}
+            {/* Left accent bar */}
+            <span
+              className={cn(
+                'absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-4 rounded-urbancare-full bg-primary transition-all duration-200',
+                isActive ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-50'
+              )}
+            />
+
+            {/* Flag */}
             <div
               className={cn(
-                'flex-shrink-0 flex items-center justify-center bg-surface-container leading-none select-none transition-all duration-200',
-                flagSize,
-                isSelected && 'bg-primary-container/50'
+                'w-7 h-7 rounded-urbancare-md flex items-center justify-center flex-shrink-0 overflow-hidden transition-all duration-200 ring-1',
+                isActive
+                  ? 'ring-primary/30'
+                  : 'ring-border group-hover:ring-border-hover'
               )}
             >
-              {lang.flag}
+              <Flag className="w-full h-full object-cover" />
             </div>
 
             {/* Name + native */}
             <div className="flex-1 min-w-0">
               <p
                 className={cn(
-                  'font-semibold leading-tight',
-                  nameSize,
-                  isSelected ? 'text-primary' : 'text-text-primary'
+                  'text-urbancare-base font-medium leading-tight',
+                  isActive ? 'text-primary' : 'text-text-secondary group-hover:text-text-primary'
                 )}
               >
-                {lang.name}
+                {native}
               </p>
               <p
                 className={cn(
-                  'leading-tight mt-0.5',
-                  nativeSize,
-                  isSelected ? 'text-primary/60' : 'text-text-secondary'
+                  'text-urbancare-2xs leading-tight mt-0.5',
+                  isActive ? 'text-primary/60' : 'text-text-muted'
                 )}
               >
-                {lang.native}
+                {name}
               </p>
             </div>
 
-            {/* Active checkmark */}
-            <div
+            {/* Active dot indicator */}
+            <span
               className={cn(
-                'rounded-urbancare-full flex-shrink-0 flex items-center justify-center transition-all duration-200',
-                checkSize,
-                isSelected
-                  ? 'bg-primary scale-100 opacity-100'
-                  : 'bg-surface-container scale-75 opacity-0'
+                'w-1.5 h-1.5 rounded-urbancare-full bg-primary flex-shrink-0 transition-all duration-200',
+                isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
               )}
-            >
-              <svg
-                className="w-2.5 h-2.5 text-primary-foreground"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                strokeWidth={3.5}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-            </div>
+            />
           </button>
         );
       })}

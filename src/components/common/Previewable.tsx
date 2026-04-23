@@ -103,7 +103,7 @@ const PreviewableHeader = ({ className, children }: PreviewableHeaderProps) => {
       <SheetClose asChild>
         <div
           className={
-            'bg-surface-container/60 rounded-urbancare-panel my-1 p-1 ml-auto'
+            'bg-surface-container/60 rounded-urbancare-panel my-1 p-1 ml-auto cursor-pointer lg:hover:bg-surface-container transition-colors duration-150'
           }
         >
           <X className={'h-7 w-7 text-foreground-secondary'}></X>

@@ -135,6 +135,12 @@ const ka: TranslationKeys = {
     newPostForm: 'ახალი პოსტის შექმნის ფორმა',
     newPost: 'ახალი პოსტი',
     whatToShare: 'რისი გაზიარება გსურთ?',
+    editPost: 'პოსტის რედაქტირება',
+    editPostDescription: 'შეცვალეთ თქვენი პოსტის შინაარსი',
+    saveChanges: 'ცვლილებების შენახვა',
+    updatingPost: 'მიმდინარეობს განახლება...',
+    postUpdated: 'პოსტი განახლდა',
+    noChanges: 'ცვლილებები არ განხორციელებულა',
   },
 
   threadForm: {
@@ -153,6 +159,8 @@ const ka: TranslationKeys = {
     textLabel: 'ტექსტი',
     bodyPlaceholder:
       'რას გააზიარებთ? გაუზიარეთ თქვენი აზრები, გამოცდილება ან შეკითხვა...',
+    currentMedia: 'არსებული მედია',
+    addMoreMedia: 'დაამატეთ კიდევ მედია',
   },
 
   threadValidation: {
