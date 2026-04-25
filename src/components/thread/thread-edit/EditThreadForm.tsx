@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
 import { useEditThreadOverlay } from '@/components/thread/thread-edit/EditThreadOverlay';
+import { useEditThread } from '@/hooks/query/thread/use-edit-thread';
 import { FileService } from '@/service/file-service';
 import { getClientFileUrl } from '@/lib/api-client';
 import {
@@ -28,10 +29,7 @@ export const EditThreadForm = () => {
   const [fileUploading, setFileUploading] = useState(false);
   const [tagLimitDialogOpen, setTagLimitDialogOpen] = useState(false);
 
-  // Placeholder local state for request lifecycle until API is wired up.
-  const [isPending, setIsPending] = useState(false);
-  const [isError] = useState(false);
-  const [error] = useState<Error | null>(null);
+  const { mutate, isPending, isError, error } = useEditThread();
 
   const schema = useMemo(() => editThreadSchema(t), [t]);
 
@@ -154,30 +152,35 @@ export const EditThreadForm = () => {
     }
   };
 
-  const onSubmit = async (values: z.infer<typeof schema>) => {
+  const onSubmit = (values: z.infer<typeof schema>) => {
     if (!user.selectedApartmentId) return;
 
-    // Final payload shape for the future API mutation.
-    const payload = {
-      apartmentId: user.selectedApartmentId,
-      threadId: thread.id,
-      title: values.title,
-      content: values.body,
-      imageIds: [
-        ...(values.existingImages?.map((img) => img.fileId) ?? []),
-        ...(values.files?.map((f) => f.fileId).filter((id): id is string => !!id) ?? []),
-      ],
-      tags: values.tags ?? [],
-    };
+    const imageIds = [
+      ...(values.existingImages?.map((img) => img.fileId) ?? []),
+      ...(values.files
+        ?.map((f) => f.fileId)
+        .filter((id): id is string => !!id) ?? []),
+    ];
 
-    // TODO: wire up useUpdateThread mutation here.
-    setIsPending(true);
-    await new Promise((r) => setTimeout(r, 400));
-    setIsPending(false);
-
-    console.log('Update thread payload:', payload);
-    toast.success(t.thread.postUpdated);
-    close();
+    mutate(
+      {
+        apartmentId: user.selectedApartmentId,
+        threadId: thread.id,
+        title: values.title,
+        content: values.body,
+        imageIds,
+        tags: values.tags ?? [],
+      },
+      {
+        onSuccess: () => {
+          toast.success(t.thread.postUpdated);
+          close();
+        },
+        onError: () => {
+          toast.error(t.common.error);
+        },
+      }
+    );
   };
 
   useEffect(() => {

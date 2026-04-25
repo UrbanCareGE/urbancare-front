@@ -7,6 +7,7 @@ import {
   ThreadInfoDTO,
   ThreadVoteDTO,
   ThreadVoteRespDTO,
+  UpdateThreadDTO,
 } from '@/model/dto/thread.dto';
 import { PagingDTO, PagingRespDTO } from '@/model/dto/common.dto';
 
@@ -18,6 +19,17 @@ export const ThreadService = {
     const { data } = await api.post<ThreadInfoDTO, CreateThreadDTO>(
       `/api/apartment/${apartmentId}/thread`,
       addThreadDto
+    );
+    return data;
+  },
+  edit: async (
+    apartmentId: string,
+    threadId: string,
+    updateThreadDto: UpdateThreadDTO
+  ): Promise<ThreadInfoDTO> => {
+    const { data } = await api.post<ThreadInfoDTO, UpdateThreadDTO>(
+      `/api/apartment/${apartmentId}/thread/${threadId}`,
+      updateThreadDto
     );
     return data;
   },

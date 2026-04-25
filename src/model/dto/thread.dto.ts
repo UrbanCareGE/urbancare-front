@@ -14,6 +14,13 @@ export interface CreateThreadDTO {
   poll?: string[];
 }
 
+export interface UpdateThreadDTO {
+  title: string;
+  content: string;
+  imageIds: string[];
+  tags?: string[];
+}
+
 export interface CreateThreadCommentDTO {
   content: string;
   replyToId?: string;
