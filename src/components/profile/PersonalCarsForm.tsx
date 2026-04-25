@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { z } from 'zod';
-import { Car, Plus } from 'lucide-react';
+import { Car } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useFetchCar } from '@/hooks/query/user/cars/use-fetch-car';
 import { useAddCar } from '@/hooks/query/user/cars/use-add-car';
@@ -98,7 +98,6 @@ const PersonalCarsForm = () => {
             (isEditing || isAdding) && 'opacity-50 cursor-not-allowed'
           )}
         >
-          <Plus className="w-4 h-4" />
           დამატება
         </Button>
       </header>

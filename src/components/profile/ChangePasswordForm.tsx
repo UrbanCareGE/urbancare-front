@@ -1,18 +1,21 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { FormInput } from '@/components/common/input/FormInput';
 import { Button } from '@/components/ui/button';
-import { KeyRound, Lock, ShieldCheck } from 'lucide-react';
+import { ChevronRight, KeyRound, Lock, ShieldCheck } from 'lucide-react';
 import { useChangePassword } from '@/hooks/query/user/use-change-password';
 import { useTranslation } from '@/i18n';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import { cn } from '@/lib/utils';
 
 export function ChangePasswordForm() {
   const t = useTranslation();
+  const [open, setOpen] = useState(false);
   const { mutateAsync, isPending } = useChangePassword();
 
   const changePasswordSchema = z
@@ -44,91 +47,125 @@ export function ChangePasswordForm() {
         newPassword: data.newPassword,
       });
       form.reset();
+      setOpen(false);
     } catch (error) {
       console.error('Change password error:', error);
     }
   };
 
+  const handleOpenChange = (next: boolean) => {
+    if (!next) form.reset();
+    setOpen(next);
+  };
+
   return (
-    <section className="w-full rounded-urbancare-3xl overflow-hidden border-none bg-surface shadow-sm shadow-shadow/5">
-      <header className="px-4 py-3 bg-surface-variant border-b border-border flex items-center gap-2">
-        <div className="w-10 h-10 rounded-urbancare-xl bg-success-container text-success-container-foreground flex items-center justify-center">
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className={cn(
+          'w-full rounded-urbancare-3xl overflow-hidden bg-surface-variant',
+          'flex items-center gap-2 px-4 py-3 text-left',
+          'shadow-sm shadow-shadow/5',
+          'transition-colors duration-200 cursor-pointer',
+          'lg:hover:bg-surface-hover'
+        )}
+      >
+        <div className="w-10 h-10 rounded-urbancare-xl bg-success-container text-success-container-foreground flex items-center justify-center shrink-0">
           <ShieldCheck className="w-5 h-5" />
         </div>
-        <h3 className="font-semibold text-urbancare-base text-text-primary leading-tight-georgian">
+        <h3 className="flex-1 font-semibold text-urbancare-base text-text-primary leading-tight-georgian truncate">
           {t.profile.changePassword}
         </h3>
-      </header>
-      <div className="p-4 sm:p-5">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-            <FormField
-              control={form.control}
-              name="oldPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <FormInput
-                      placeholder={t.profile.oldPassword}
-                      type="password"
-                      icon={<Lock />}
-                      isPasswordType={true}
-                      disabled={isPending}
-                      className="bg-surface-variant border-border hover:border-border-hover focus-visible:border-border-focus"
-                      {...field}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="newPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <FormInput
-                      placeholder={t.profile.newPassword}
-                      type="password"
-                      icon={<KeyRound />}
-                      isPasswordType={true}
-                      disabled={isPending}
-                      className="bg-surface-variant border-border hover:border-border-hover focus-visible:border-border-focus"
-                      {...field}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <FormInput
-                      placeholder={t.profile.repeatPassword}
-                      type="password"
-                      icon={<KeyRound />}
-                      isPasswordType={true}
-                      disabled={isPending}
-                      className="bg-surface-variant border-border hover:border-border-hover focus-visible:border-border-focus"
-                      {...field}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <Button
-              type="submit"
-              className="w-full h-12 rounded-urbancare-4xl disabled:bg-disabled disabled:text-disabled-foreground"
-              disabled={isPending || !form.formState.isValid}
-            >
-              {isPending ? t.common.inProgress : t.profile.changePassword}
-            </Button>
-          </form>
-        </Form>
-      </div>
-    </section>
+        <ChevronRight className="w-5 h-5 text-text-tertiary shrink-0" />
+      </button>
+
+      <Dialog open={open} onOpenChange={handleOpenChange}>
+        <DialogContent className="border-border bg-surface max-w-lg p-0 overflow-hidden gap-0">
+          <DialogTitle></DialogTitle>
+          <div className="px-4 py-3 bg-surface-variant border-b border-border flex items-center gap-2">
+            <div className="w-10 h-10 rounded-urbancare-xl bg-success-container text-success-container-foreground flex items-center justify-center shrink-0">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <h3 className="font-semibold text-urbancare-base text-text-primary leading-tight-georgian">
+              {t.profile.changePassword}
+            </h3>
+          </div>
+          <div className="p-4 sm:p-5">
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-3"
+              >
+                <FormField
+                  control={form.control}
+                  name="oldPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <FormInput
+                          placeholder={t.profile.oldPassword}
+                          type="password"
+                          icon={<Lock />}
+                          isPasswordType={true}
+                          disabled={isPending}
+                          className="bg-surface-variant border-border hover:border-border-hover focus-visible:border-border-focus"
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="newPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <FormInput
+                          placeholder={t.profile.newPassword}
+                          type="password"
+                          icon={<KeyRound />}
+                          isPasswordType={true}
+                          disabled={isPending}
+                          className="bg-surface-variant border-border hover:border-border-hover focus-visible:border-border-focus"
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <FormInput
+                          placeholder={t.profile.repeatPassword}
+                          type="password"
+                          icon={<KeyRound />}
+                          isPasswordType={true}
+                          disabled={isPending}
+                          className="bg-surface-variant border-border hover:border-border-hover focus-visible:border-border-focus"
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <Button
+                  type="submit"
+                  className="w-full h-12 rounded-urbancare-4xl disabled:bg-disabled disabled:text-disabled-foreground"
+                  disabled={isPending || !form.formState.isValid}
+                >
+                  {isPending ? t.common.inProgress : t.profile.changePassword}
+                </Button>
+              </form>
+            </Form>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }

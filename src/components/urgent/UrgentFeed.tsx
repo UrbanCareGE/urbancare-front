@@ -1,6 +1,6 @@
 'use client';
 
-import { ExtractUserInitials, formatTime } from '@/lib/utils';
+import { formatTime } from '@/lib/utils';
 import 'ldrs/react/Leapfrog.css';
 import { ShieldCheck } from 'lucide-react';
 import { useFetchUrgent } from '@/hooks/query/urgent/use-fetch-urgent';
@@ -13,47 +13,24 @@ import { useResolveUrgent } from '@/hooks/query/urgent/use-resolve-urgent';
 import { useParams } from 'next/navigation';
 import { OptimisticData } from '@/model/dto/common.dto';
 import { UrgentItemDTO } from '@/model/dto/urgent.dto';
-import {
-  ActionButtonProps,
-  UrgentCardStatus,
-} from '@/components/urgent/urgent-data';
+import { UrgentCardStatus } from '@/components/urgent/urgent-data';
 import { TranslationKeys, useTranslation } from '@/i18n';
 import { useMemo } from 'react';
 
 export const mapUrgentItemToCardProps = (
   item: OptimisticData<UrgentItemDTO>,
   onResolve: (id: string) => void,
-  resolvingId: string | null,
-  t: TranslationKeys
+  resolvingId: string | null
 ): UrgentCardProps => {
   const status: UrgentCardStatus = item.resolved ? 'resolved' : 'urgent';
-  const initials = ExtractUserInitials(item.userInfo);
-  const isResolving = resolvingId === item.id;
-
-  const actions: ActionButtonProps[] = item.resolved
-    ? [{ icon: '❤️', label: t.urgent.thankYou, variant: 'success' }]
-    : [
-        {
-          icon: '✓',
-          label: t.urgent.completed,
-          pendingLabel: t.urgent.sendingPending,
-          variant: 'primary',
-          onClick: () => onResolve(item.id),
-          isPending: isResolving,
-        },
-      ];
 
   return {
     status,
-    icon: item.resolved ? '✓' : '🆘',
-    label: item.resolved ? t.urgent.completed : t.urgent.sos,
-    title: `${item.userInfo.name} ${item.userInfo.surname}`,
+    user: item.userInfo,
     message: item.content,
-    meta: [{ icon: '⏱️', text: formatTime(item.createdAt.toString()) }],
-    responders: [{ initials, color: 'primary' as const }],
-    responderText: item.resolved ? t.urgent.helped : t.urgent.requestedHelp,
-    actions,
-    issuerId: item.userInfo.id,
+    timeText: formatTime(item.createdAt.toString()),
+    onResolve: () => onResolve(item.id),
+    isResolving: resolvingId === item.id,
     isPending: item._isPending,
   };
 };
@@ -138,7 +115,6 @@ const UrgentFeedView = ({
 }: UrgentFeedViewProps) => {
   return (
     <ul className="flex flex-col gap-3 py-3 px-4 overflow-y-scroll">
-      {/*TODO urgentebis skeletoni*/}
       {isLoading && <div></div>}
       {isError && (
         <div className="flex items-center justify-center p-4 text-error">
@@ -154,8 +130,7 @@ const UrgentFeedView = ({
             {...mapUrgentItemToCardProps(
               item,
               handleResolve,
-              isResolving ? (resolvingId ?? null) : null,
-              t
+              isResolving ? (resolvingId ?? null) : null
             )}
           />
         ))}
@@ -221,9 +196,8 @@ const UrgentFeedCompactView = ({
             <UrgentCardCompact
               key={item.id}
               status={status}
-              icon={item.resolved ? '✓' : '🆘'}
-              label={item.resolved ? t.urgent.completed : t.urgent.sos}
-              title={`${item.userInfo.name} ${item.userInfo.surname}`}
+              user={item.userInfo}
+              timeText={formatTime(item.createdAt.toString())}
               isPending={item._isPending}
               onClick={onItemClick ? () => onItemClick(item.id) : undefined}
             />

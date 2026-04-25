@@ -95,7 +95,7 @@ export const NavigationLink = forwardRef<
     <NavigationLinkInner
       ref={ref}
       navigationItem={navigationItem}
-      className={cn('text-urbancare-2xl', className)}
+      className={cn('text-urbancare-xl', className)}
       isActive={isActive}
       {...props}
     />

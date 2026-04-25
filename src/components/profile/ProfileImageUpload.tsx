@@ -55,8 +55,81 @@ export function ProfileImageUpload() {
     <section className="relative overflow-hidden rounded-urbancare-3xl border-none bg-surface shadow-sm shadow-shadow/5">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-primary-container/60 via-primary-container/20 to-transparent"
-      />
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        <div className="absolute inset-x-0 top-0 h-2/3 bg-gradient-to-b from-primary-container/45 via-primary-container/10 to-transparent" />
+
+        <div className="absolute -top-16 -right-16 w-64 h-64 rounded-urbancare-full bg-primary/15 blur-3xl" />
+        <div className="absolute top-1/4 -left-20 w-56 h-56 rounded-urbancare-full bg-primary-container/45 blur-3xl" />
+        <div className="absolute -bottom-12 right-1/4 w-48 h-48 rounded-urbancare-full bg-tertiary/15 blur-3xl" />
+
+        <svg
+          viewBox="0 0 400 300"
+          preserveAspectRatio="xMidYMid slice"
+          className="absolute inset-0 w-full h-full"
+          fill="none"
+        >
+          <circle
+            cx="60"
+            cy="220"
+            r="55"
+            fill="rgb(var(--color-primary) / 0.06)"
+          />
+          <circle
+            cx="60"
+            cy="220"
+            r="32"
+            fill="rgb(var(--color-primary) / 0.08)"
+          />
+
+          <path
+            d="M -20 70 Q 100 30 220 60 T 420 50"
+            stroke="rgb(var(--color-primary) / 0.18)"
+            strokeWidth="1.4"
+          />
+          <path
+            d="M -20 250 Q 100 220 220 245 T 420 235"
+            stroke="rgb(var(--color-primary) / 0.15)"
+            strokeWidth="1.4"
+          />
+
+          <g
+            stroke="rgb(var(--color-primary) / 0.20)"
+            fill="none"
+            strokeWidth="1"
+          >
+            <circle cx="350" cy="240" r="34" />
+            <circle cx="350" cy="240" r="48" strokeDasharray="2 4" />
+          </g>
+
+          <g fill="rgb(var(--color-primary) / 0.30)">
+            <circle cx="60" cy="40" r="1.8" />
+            <circle cx="130" cy="65" r="1.3" />
+            <circle cx="220" cy="35" r="1.5" />
+            <circle cx="320" cy="55" r="1.8" />
+            <circle cx="380" cy="100" r="1.4" />
+            <circle cx="40" cy="120" r="1.3" />
+            <circle cx="170" cy="280" r="1.6" />
+            <circle cx="280" cy="270" r="1.5" />
+            <circle cx="200" cy="100" r="1.2" />
+          </g>
+
+          <g
+            stroke="rgb(var(--color-primary) / 0.32)"
+            strokeWidth="1"
+            strokeLinecap="round"
+          >
+            <line x1="100" y1="40" x2="106" y2="40" />
+            <line x1="103" y1="37" x2="103" y2="43" />
+
+            <line x1="350" y1="120" x2="356" y2="120" />
+            <line x1="353" y1="117" x2="353" y2="123" />
+
+            <line x1="80" y1="270" x2="86" y2="270" />
+            <line x1="83" y1="267" x2="83" y2="273" />
+          </g>
+        </svg>
+      </div>
 
       <div className="relative flex flex-col items-center gap-4 px-6 py-8">
         <div className="relative">

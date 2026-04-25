@@ -14,8 +14,8 @@ function Page() {
         <div className="w-full space-y-5 flex flex-col justify-center pt-4 lg:pt-0">
           <ProfileImageUpload />
           <PersonalInfoForm />
-          <PersonalCarsForm />
           <ChangePasswordForm />
+          <PersonalCarsForm />
         </div>
       </DynamicPanel.Body>
     </DynamicPanel>

@@ -1,374 +1,229 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { Loader } from 'lucide-react';
+import { CheckCircle2, Clock, Loader } from 'lucide-react';
+import { cn, ExtractUserInitials } from '@/lib/utils';
+import { getClientFileUrl } from '@/lib/api-client';
+import { UserSnapshotDTO } from '@/model/dto/auth.dto';
 import {
-  ActionButtonProps,
-  MetaItemProps,
-  ResponderProps,
   UrgentCardStatus,
-  urgentResponderColors,
   urgentStatusConfig,
 } from '@/components/urgent/urgent-data';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useTranslation } from '@/i18n';
 
-const PulseDot = ({
-  color,
-  className,
-}: {
-  color: string;
-  className?: string;
-}) => (
-  <span
-    className={cn(
-      'w-2 h-2 rounded-urbancare-full animate-pulse',
-      color,
-      className
-    )}
-  />
-);
-
-const StatusBadge = ({
-  status,
-  label,
-}: {
-  status: UrgentCardStatus;
-  label?: string;
-}) => {
-  const config = urgentStatusConfig[status];
-
+const StatusDot = ({ status }: { status: UrgentCardStatus }) => {
+  if (status === 'resolved') {
+    return <CheckCircle2 className="w-3.5 h-3.5 text-success" strokeWidth={3} />;
+  }
   return (
-    <Badge
-      variant="outline"
-      className={cn(
-        'gap-1.5 border-0 px-3 py-1.5 text-urbancare-sm font-semibold uppercase tracking-wide',
-        config.badgeBg,
-        config.badgeText
-      )}
-    >
-      {config.showPulse && <PulseDot color={config.pulseColor} />}
-      {status === 'resolved' && '✓ '}
-      {label || config.badgeLabel}
-    </Badge>
+    <span className="relative inline-flex w-2 h-2">
+      <span className="absolute inset-0 rounded-urbancare-full bg-error opacity-60 animate-ping" />
+      <span className="relative inline-flex w-2 h-2 rounded-urbancare-full bg-error" />
+    </span>
   );
 };
 
-const MetaItem = ({ icon, text }: MetaItemProps) => (
-  <div className="flex items-center gap-1.5 text-urbancare-base text-text-tertiary">
-    <span className="text-urbancare-base">{icon}</span>
-    <span>{text}</span>
-  </div>
-);
-
-const AvatarStack = ({ responders }: { responders: ResponderProps[] }) => (
-  <div className="flex">
-    {responders.map((responder, index) => (
-      <Avatar
-        key={index}
-        className={cn(
-          'w-7 h-7 border-2 border-border text-urbancare-sm font-semibold text-white',
-          urgentResponderColors[responder.color],
-          index > 0 && '-ml-2'
-        )}
-      >
-        <AvatarFallback
-          className={cn(
-            'text-urbancare-sm font-semibold text-white',
-            urgentResponderColors[responder.color]
-          )}
-        >
-          {responder.initials}
-        </AvatarFallback>
-      </Avatar>
-    ))}
-  </div>
-);
-
-const ResolvedBanner = ({ message }: { message: string }) => (
-  <div className="flex items-center gap-2 p-3 bg-success/10 rounded-urbancare-lg mt-3">
-    <span className="text-urbancare-base text-success font-medium">
-      {message}
-    </span>
-  </div>
-);
-
-const UrgentCardIcon = ({
-  icon,
+const StatusBand = ({
   status,
+  timeText,
 }: {
-  icon: string;
   status: UrgentCardStatus;
+  timeText: string;
 }) => {
   const config = urgentStatusConfig[status];
+  const t = useTranslation();
+  const label = status === 'urgent' ? t.urgent.sos : t.urgent.completed;
 
   return (
     <div
       className={cn(
-        'w-9 h-9 rounded-urbancare-xl flex items-center justify-center text-urbancare-2xl',
-        config.iconBg
+        'flex items-center justify-between px-4 py-2.5 border-b',
+        config.bandBg,
+        config.bandBorder
       )}
     >
-      {icon}
-    </div>
-  );
-};
-
-type UrgentCardHeaderProps = {
-  status: UrgentCardStatus;
-  icon: string;
-  label: string;
-  title: string;
-  badgeLabel?: string;
-};
-
-const UrgentCardHeader = ({
-  status,
-  icon,
-  label,
-  title,
-  badgeLabel,
-}: UrgentCardHeaderProps) => {
-  const config = urgentStatusConfig[status];
-
-  return (
-    <div className="flex items-start justify-between mb-3">
-      <div className="flex items-center gap-2">
-        <UrgentCardIcon icon={icon} status={status} />
-        <div>
-          <div
-            className={cn(
-              'text-urbancare-sm font-semibold uppercase tracking-wide',
-              config.labelColor
-            )}
-          >
-            {label}
-          </div>
-          <div className="text-urbancare-xl font-semibold text-text-primary">
-            {title}
-          </div>
-        </div>
-      </div>
-      <StatusBadge status={status} label={badgeLabel} />
-    </div>
-  );
-};
-
-type UrgentCardContentProps = {
-  message: string;
-  meta: MetaItemProps[];
-  resolvedMessage?: string;
-};
-
-const UrgentCardContent = ({
-  message,
-  meta,
-  resolvedMessage,
-}: UrgentCardContentProps) => (
-  <div className="mb-4">
-    <p className="text-urbancare-base text-text-secondary mb-3 leading-relaxed">
-      {message}
-    </p>
-    <div className="flex flex-wrap gap-4">
-      {meta.map((item, index) => (
-        <MetaItem key={index} icon={item.icon} text={item.text} />
-      ))}
-    </div>
-    {resolvedMessage && <ResolvedBanner message={resolvedMessage} />}
-  </div>
-);
-
-type UrgentCardFooterProps = {
-  responders: ResponderProps[];
-  responderText: string;
-  actions: ActionButtonProps[];
-  issuerId: string;
-};
-
-const UrgentCardFooter = ({
-  responders,
-  responderText,
-  actions,
-  issuerId,
-}: UrgentCardFooterProps) => {
-  const { user } = useAuth();
-  const t = useTranslation();
-  const buttonVariants = {
-    primary: 'bg-primary text-white lg:hover:bg-primary/90',
-    secondary: 'bg-primary text-white lg:hover:bg-primary/90',
-    success: 'bg-success text-white lg:hover:bg-success/90',
-  };
-
-  return (
-    <div className="flex items-center justify-between pt-4 border-t border-border">
-      <div className="flex items-center gap-2">
-        <AvatarStack responders={responders} />
-        <span className="text-urbancare-sm text-text-secondary">
-          {responderText}
+      <div className={cn('flex items-center gap-2', config.bandText)}>
+        <StatusDot status={status} />
+        <span className="text-urbancare-xs font-bold uppercase tracking-[0.12em]">
+          {label}
         </span>
       </div>
-      <div className="flex gap-2">
-        {user.id === issuerId &&
-          actions.map((action, index) => (
-            <Button
-              key={index}
-              variant="reaction"
-              onClick={action.onClick}
-              disabled={action.isPending}
-              className={cn(
-                'h-9 px-4 rounded-urbancare-lg text-urbancare-base font-medium',
-                buttonVariants[action.variant]
-              )}
-            >
-              {action.isPending ? (
-                <>
-                  <Loader className="animate-spin w-4 h-4" />
-                  {t.urgent.sending}
-                </>
-              ) : (
-                <>
-                  {action.icon && <span>{action.icon}</span>}
-                  {action.label}
-                </>
-              )}
-            </Button>
-          ))}
+      <div
+        className={cn(
+          'flex items-center gap-1 text-urbancare-xs font-medium tracking-wide',
+          config.bandText
+        )}
+      >
+        <Clock className="w-3 h-3" />
+        {timeText}
       </div>
+    </div>
+  );
+};
+
+const UserAvatarLine = ({
+  user,
+  size = 'md',
+}: {
+  user: UserSnapshotDTO;
+  size?: 'sm' | 'md';
+}) => {
+  const initials = ExtractUserInitials(user);
+  return (
+    <div className="flex items-center gap-2.5 min-w-0">
+      <Avatar
+        className={cn(
+          'rounded-urbancare-full ring-2 ring-border shrink-0',
+          size === 'md' ? 'w-8 h-8' : 'w-6 h-6'
+        )}
+      >
+        <Image
+          src={getClientFileUrl(user.profileImageId)}
+          alt={`${user.name ?? ''} ${user.surname ?? ''}`}
+          fill
+          className="object-cover"
+        />
+        <AvatarFallback className="text-urbancare-xs font-semibold bg-primary-container text-primary">
+          {initials}
+        </AvatarFallback>
+      </Avatar>
+      <span
+        className={cn(
+          'font-semibold text-text-primary truncate',
+          size === 'md' ? 'text-urbancare-sm' : 'text-urbancare-xs'
+        )}
+      >
+        {user.name} {user.surname}
+      </span>
     </div>
   );
 };
 
 export type UrgentCardProps = {
   status: UrgentCardStatus;
-  icon: string;
-  label: string;
-  title: string;
+  user: UserSnapshotDTO;
   message: string;
-  meta: MetaItemProps[];
-  responders: ResponderProps[];
-  responderText: string;
-  actions: ActionButtonProps[];
-  resolvedMessage?: string;
-  issuerId: string;
+  timeText: string;
+  onResolve?: () => void;
+  isResolving?: boolean;
   isPending?: boolean;
   className?: string;
 };
 
 export const UrgentCard = ({
   status,
-  icon,
-  label,
-  title,
+  user,
   message,
-  meta,
-  responders,
-  responderText,
-  actions,
-  resolvedMessage,
+  timeText,
+  onResolve,
+  isResolving,
   isPending,
-  issuerId,
   className,
 }: UrgentCardProps) => {
+  const { user: currentUser } = useAuth();
+  const t = useTranslation();
   const config = urgentStatusConfig[status];
+  const canResolve =
+    status !== 'resolved' &&
+    currentUser.id === user.id &&
+    Boolean(onResolve);
+
   return (
     <Card
       className={cn(
-        'relative p-5 border-l-4 overflow-hidden border-border transition-all duration-200 lg:hover:shadow-lg',
-        config.borderColor,
-        status === 'resolved' && 'opacity-85',
+        'overflow-hidden rounded-urbancare-3xl border-none bg-surface',
+        'transition-all duration-200 lg:hover:shadow-md',
+        status === 'resolved' && 'opacity-90',
         isPending && 'opacity-80 pointer-events-none',
         className
       )}
     >
-      {/* Urgent pulse line at top */}
-      {status === 'urgent' && (
-        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-error to-transparent animate-pulse" />
-      )}
+      <StatusBand status={status} timeText={timeText} />
 
-      <UrgentCardHeader
-        status={status}
-        icon={icon}
-        label={label}
-        title={title}
-      />
+      <div className="px-4 py-4 space-y-3.5">
+        <p
+          className={cn(
+            'my-1.5 pl-3 border-l-2 text-urbancare-base text-text-primary font-medium leading-relaxed',
+            'whitespace-pre-wrap break-words',
+            config.accent
+          )}
+        >
+          {message}
+        </p>
 
-      <UrgentCardContent
-        message={message}
-        meta={meta}
-        resolvedMessage={resolvedMessage}
-      />
-
-      <UrgentCardFooter
-        responders={responders}
-        responderText={responderText}
-        actions={actions}
-        issuerId={issuerId}
-      />
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          <UserAvatarLine user={user} />
+          {canResolve && (
+            <Button
+              onClick={onResolve}
+              disabled={isResolving}
+              className={cn(
+                'h-9 px-4 rounded-urbancare-full gap-1.5',
+                'text-urbancare-xs font-bold uppercase tracking-[0.08em]',
+                'bg-success/10 text-success border border-success/20',
+                'lg:hover:bg-success/15 lg:hover:border-success/35',
+                'transition-colors duration-200',
+                'disabled:opacity-60 disabled:pointer-events-none'
+              )}
+            >
+              {isResolving ? (
+                <>
+                  <Loader className="animate-spin w-3.5 h-3.5" strokeWidth={2.5} />
+                  {t.urgent.sending}
+                </>
+              ) : (
+                <>
+                  <CheckCircle2 className="w-3.5 h-3.5" strokeWidth={3} />
+                  {t.urgent.completed}
+                </>
+              )}
+            </Button>
+          )}
+        </div>
+      </div>
     </Card>
   );
 };
 
+export type UrgentCardCompactProps = {
+  status: UrgentCardStatus;
+  user: UserSnapshotDTO;
+  timeText: string;
+  isPending?: boolean;
+  className?: string;
+  onClick?: () => void;
+};
+
 export const UrgentCardCompact = ({
   status,
-  icon,
-  label,
-  title,
+  user,
+  timeText,
   isPending,
   className,
   onClick,
-}: Pick<
-  UrgentCardProps,
-  'status' | 'icon' | 'label' | 'title' | 'isPending' | 'className'
-> & {
-  onClick?: () => void;
-}) => {
-  const config = urgentStatusConfig[status];
-
+}: UrgentCardCompactProps) => {
   return (
     <Card
       onClick={onClick}
       className={cn(
-        'relative flex items-center gap-3 px-3.5 py-2.5 border-l-4 overflow-hidden border-border transition-all duration-200',
-        config.borderColor,
-        status === 'resolved' && 'opacity-85',
+        'flex items-center gap-3 rounded-urbancare-2xl border-none bg-surface px-3 py-2.5',
+        'transition-all duration-200',
+        status === 'resolved' && 'opacity-90',
         isPending && 'opacity-80 pointer-events-none',
         onClick && 'cursor-pointer lg:hover:shadow-md',
         className
       )}
     >
-      {status === 'urgent' && (
-        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-error to-transparent animate-pulse" />
-      )}
-
-      <div
-        className={cn(
-          'w-7 h-7 shrink-0 rounded-urbancare-lg flex items-center justify-center text-urbancare-lg',
-          config.iconBg
-        )}
-      >
-        {icon}
-      </div>
-
-      <div className="flex-1 min-w-0">
-        <div
-          className={cn(
-            'text-urbancare-xs font-semibold uppercase tracking-wide leading-none mb-0.5',
-            config.labelColor
-          )}
-        >
-          {label}
-        </div>
-        <div className="text-urbancare-base font-semibold text-text-primary truncate">
-          {title}
-        </div>
-      </div>
-
-      <StatusBadge status={status} />
+      <StatusDot status={status} />
+      <UserAvatarLine user={user} size="sm" />
+      <span className="ml-auto text-urbancare-xs text-text-tertiary shrink-0">
+        {timeText}
+      </span>
     </Card>
   );
 };

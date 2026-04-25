@@ -103,7 +103,7 @@ export const NavigationLinkAccordion = ({
     isParentActive
       ? 'bg-primary-container/50 text-primary'
       : 'text-foreground-primary lg:hover:bg-surface-variant',
-    inSheet ? 'py-1.5 text-urbancare-3xl' : 'py-1 text-urbancare-2xl'
+    inSheet ? 'py-1.5 text-urbancare-3xl' : 'py-1 text-urbancare-xl'
   );
 
   // ── Navigable: Link navigates, chevron action toggles accordion ──
