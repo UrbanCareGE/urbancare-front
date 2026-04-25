@@ -27,7 +27,7 @@ export const ThreadService = {
     threadId: string,
     updateThreadDto: UpdateThreadDTO
   ): Promise<ThreadInfoDTO> => {
-    const { data } = await api.post<ThreadInfoDTO, UpdateThreadDTO>(
+    const { data } = await api.put<ThreadInfoDTO, UpdateThreadDTO>(
       `/api/apartment/${apartmentId}/thread/${threadId}`,
       updateThreadDto
     );

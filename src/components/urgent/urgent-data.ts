@@ -1,7 +1,4 @@
 // Types
-import { OptimisticData } from '@/model/dto/common.dto';
-import { UrgentItemDTO } from '@/model/dto/urgent.dto';
-import { formatTime } from '@/lib/utils';
 
 export type UrgentCardStatus = 'urgent' | 'in-progress' | 'resolved';
 
