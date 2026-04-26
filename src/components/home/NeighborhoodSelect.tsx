@@ -12,7 +12,6 @@ import {
 } from '@/components/ui/collapsible';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Badge } from '@/components/ui/badge';
 import { useTranslation } from '@/i18n';
 
 interface Apartment {
@@ -25,7 +24,6 @@ interface Apartment {
 interface ApartmentCardProps {
   apartment: Apartment;
   isSelected: boolean;
-  isDefault?: boolean;
   onClick: () => void;
 }
 
@@ -62,26 +60,14 @@ const ApartmentImage = ({
 const ApartmentInfo = ({
   name,
   address,
-  isDefault,
 }: {
   name: string;
   address?: string;
-  isDefault?: boolean;
 }) => (
   <div className="flex flex-col items-start min-w-0 flex-1 gap-0.5">
-    <div className="flex items-center gap-2">
-      <span className="font-semibold text-urbancare-base text-foreground truncate">
-        {name}
-      </span>
-      {isDefault && (
-        <Badge
-          variant="secondary"
-          className="text-urbancare-2xs px-1.5 py-0 h-4 font-semibold uppercase"
-        >
-          Default
-        </Badge>
-      )}
-    </div>
+    <span className="font-semibold text-urbancare-base text-foreground truncate">
+      {name}
+    </span>
     <span className="text-urbancare-sm text-muted-foreground flex items-center gap-1 truncate w-full">
       <MapPin className="w-3 h-3 flex-shrink-0" />
       <span className="truncate">{address ?? name}</span>
@@ -99,7 +85,6 @@ const ActiveIndicator = () => (
 const ApartmentCard = ({
   apartment,
   isSelected,
-  isDefault,
   onClick,
 }: ApartmentCardProps) => (
   <button
@@ -118,11 +103,7 @@ const ApartmentCard = ({
       alt={apartment.name}
       isSelected={isSelected}
     />
-    <ApartmentInfo
-      name={apartment.name}
-      address={apartment.address}
-      isDefault={isDefault}
-    />
+    <ApartmentInfo name={apartment.name} address={apartment.address} />
   </button>
 );
 
@@ -292,12 +273,11 @@ export const NeighborhoodSelect = () => {
         {!isOpen && <CurrentApartmentDisplay apartment={selectedApartment} />}
 
         <CollapsibleContent className="w-full space-y-2">
-          {joinedApartments.map((apartment, index) => (
+          {joinedApartments.map((apartment) => (
             <ApartmentCard
               key={apartment.id}
               apartment={apartment}
               isSelected={apartment.id === selectedApartment.id}
-              isDefault={index === 0}
               onClick={() => handleApartmentChange(apartment.id)}
             />
           ))}
