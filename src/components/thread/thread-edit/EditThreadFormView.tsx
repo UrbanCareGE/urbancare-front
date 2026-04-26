@@ -106,16 +106,16 @@ export const EditThreadFormView = ({
             />
 
             {isError && (
-              <div className="rounded-urbancare-lg bg-error-background border border-error p-4">
+              <div className="urbancare-rounded-lg bg-error-background border border-error p-4">
                 <div className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-urbancare-full bg-error-container flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-5 h-5 urbancare-rounded-full bg-error-container flex items-center justify-center flex-shrink-0 mt-0.5">
                     <X className="w-3 h-3 text-error" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-urbancare-base font-medium text-error">
+                    <p className="urbancare-text-base font-medium text-error">
                       {t.common.error}
                     </p>
-                    <p className="text-urbancare-sm text-error mt-1">
+                    <p className="urbancare-text-sm text-error mt-1">
                       {error?.message || t.common.tryAgain}
                     </p>
                   </div>

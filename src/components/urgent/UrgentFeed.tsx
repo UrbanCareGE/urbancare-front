@@ -38,26 +38,26 @@ export const mapUrgentItemToCardProps = (
 const UrgentEmptyState = ({ t }: { t: TranslationKeys }) => (
   <div className="flex flex-col items-center justify-center px-5 py-10 gap-5">
     <div className="relative flex items-center justify-center">
-      <div className="absolute w-20 h-20 rounded-urbancare-full bg-success/15 animate-pulse" />
-      <div className="absolute w-14 h-14 rounded-urbancare-full bg-success/20" />
-      <div className="relative w-12 h-12 rounded-urbancare-full bg-success-container flex items-center justify-center shadow-sm">
+      <div className="absolute w-20 h-20 urbancare-rounded-full bg-success/15 animate-pulse" />
+      <div className="absolute w-14 h-14 urbancare-rounded-full bg-success/20" />
+      <div className="relative w-12 h-12 urbancare-rounded-full bg-success-container flex items-center justify-center shadow-sm">
         <ShieldCheck className="w-6 h-6 text-success" strokeWidth={2} />
       </div>
     </div>
 
     <div className="flex flex-col items-center gap-1 text-center">
-      <p className="font-semibold text-urbancare-base text-foreground-primary">
+      <p className="font-semibold urbancare-text-base text-foreground-primary">
         {t.urgent.everythingFine}
       </p>
-      <p className="text-urbancare-sm text-foreground-secondary leading-relaxed">
+      <p className="urbancare-text-sm text-foreground-secondary leading-relaxed">
         {t.urgent.noUrgentNotifications}
       </p>
     </div>
 
     <div className="flex items-center gap-1.5">
-      <span className="w-1 h-1 rounded-urbancare-full bg-success/30" />
-      <span className="w-1.5 h-1.5 rounded-urbancare-full bg-success/50" />
-      <span className="w-1 h-1 rounded-urbancare-full bg-success/30" />
+      <span className="w-1 h-1 urbancare-rounded-full bg-success/30" />
+      <span className="w-1.5 h-1.5 urbancare-rounded-full bg-success/50" />
+      <span className="w-1 h-1 urbancare-rounded-full bg-success/30" />
     </div>
   </div>
 );
@@ -181,7 +181,7 @@ const UrgentFeedCompactView = ({
     <ul className="flex flex-col gap-2 p-2">
       {isLoading && <div></div>}
       {isError && (
-        <div className="flex items-center justify-center p-3 text-urbancare-sm text-error">
+        <div className="flex items-center justify-center p-3 urbancare-text-sm text-error">
           Error loading urgent items
         </div>
       )}

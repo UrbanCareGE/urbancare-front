@@ -5,14 +5,14 @@ import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 
 const buttonGroupVariants = cva(
-  "flex w-fit items-stretch has-[>[data-slot=action-group]]:gap-2 [&>*]:focus-visible:relative [&>*]:focus-visible:z-10 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-urbancare-md [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
+  "flex w-fit items-stretch has-[>[data-slot=action-group]]:gap-2 [&>*]:focus-visible:relative [&>*]:focus-visible:z-10 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:urbancare-rounded-r-md [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1",
   {
     variants: {
       orientation: {
         horizontal:
-          '[&>*:not(:first-child)]:rounded-l-urbancare-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-urbancare-none',
+          '[&>*:not(:first-child)]:urbancare-rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:urbancare-rounded-r-none',
         vertical:
-          'flex-col [&>*:not(:first-child)]:rounded-t-urbancare-none [&>*:not(:first-child)]:border-t-0 [&>*:not(:last-child)]:rounded-b-urbancare-none',
+          'flex-col [&>*:not(:first-child)]:urbancare-rounded-t-none [&>*:not(:first-child)]:border-t-0 [&>*:not(:last-child)]:urbancare-rounded-b-none',
       },
     },
     defaultVariants: {
@@ -49,7 +49,7 @@ function ButtonGroupText({
   return (
     <Comp
       className={cn(
-        "bg-muted shadow-xs flex items-center gap-2 rounded-urbancare-md border px-4 text-urbancare-base font-medium [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none",
+        "bg-muted shadow-xs flex items-center gap-2 urbancare-rounded-md border px-4 urbancare-text-base font-medium [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none",
         className
       )}
       {...props}

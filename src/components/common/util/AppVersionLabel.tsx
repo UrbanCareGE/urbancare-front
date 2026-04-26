@@ -2,7 +2,7 @@
 export const AppVersionLabel = () => {
   return (
     <p
-      className={'text-text-secondary w-full text-center text-urbancare-sm p-1'}
+      className={'text-text-secondary w-full text-center urbancare-text-sm p-1'}
     >
       Version 2.4.1 • © 2025
     </p>

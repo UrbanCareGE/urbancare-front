@@ -38,11 +38,11 @@ export const CreateUrgentButtonDesktop = () => {
         <div
           className={cn(
             'flex items-center gap-3 px-4 py-3',
-            'bg-surface rounded-urbancare-panel border border-border',
+            'bg-surface urbancare-rounded-panel border border-border',
             'shadow-sm shadow-shadow/5'
           )}
         >
-          <div className="flex items-center justify-center w-9 h-9 shrink-0 rounded-urbancare-xl bg-error/10 text-error">
+          <div className="flex items-center justify-center w-9 h-9 shrink-0 urbancare-rounded-xl bg-error/10 text-error">
             <Siren className="w-4 h-4" />
           </div>
 
@@ -50,9 +50,9 @@ export const CreateUrgentButtonDesktop = () => {
             type="button"
             onClick={() => setOpen(true)}
             className={cn(
-              'flex-1 flex items-center h-9 px-4 rounded-urbancare-full',
+              'flex-1 flex items-center h-9 px-4 urbancare-rounded-full',
               'bg-surface-container border border-transparent',
-              'text-urbancare-base text-text-tertiary text-left',
+              'urbancare-text-base text-text-tertiary text-left',
               'transition-colors duration-200',
               'lg:hover:bg-surface-hover lg:hover:border-error/20',
               'cursor-pointer'
@@ -66,8 +66,8 @@ export const CreateUrgentButtonDesktop = () => {
       <Dialog open={open} onOpenChange={(o) => !o && setOpen(false)}>
         <DialogContent className="border-border bg-surface max-w-lg p-0">
           <DialogHeader className="px-6 pt-6 pb-0">
-            <DialogTitle className="text-urbancare-2xl font-semibold leading-tight-georgian text-text-primary flex items-center gap-2">
-              <span className="flex items-center justify-center w-7 h-7 rounded-urbancare-lg bg-error/10 text-error">
+            <DialogTitle className="urbancare-text-2xl font-semibold leading-tight-georgian text-text-primary flex items-center gap-2">
+              <span className="flex items-center justify-center w-7 h-7 urbancare-rounded-lg bg-error/10 text-error">
                 <Siren className="w-4 h-4" />
               </span>
               {t.urgent.createUrgent}
@@ -82,14 +82,14 @@ export const CreateUrgentButtonDesktop = () => {
               disabled={isPending}
               className={cn(
                 'min-h-28 resize-none',
-                'bg-surface-container rounded-urbancare-lg border border-border',
+                'bg-surface-container urbancare-rounded-lg border border-border',
                 'focus-visible:ring-error/40 focus-visible:border-error/40',
-                'placeholder:text-text-muted text-text-primary text-urbancare-base'
+                'placeholder:text-text-muted text-text-primary urbancare-text-base'
               )}
             />
 
             {isError && (
-              <p className="mt-2 text-urbancare-sm text-error">
+              <p className="mt-2 urbancare-text-sm text-error">
                 {t.common.error}: {error?.message}
               </p>
             )}
@@ -100,7 +100,7 @@ export const CreateUrgentButtonDesktop = () => {
               variant="outline"
               onClick={() => setOpen(false)}
               disabled={isPending}
-              className="flex-1 rounded-urbancare-panel border-border text-text-secondary"
+              className="flex-1 urbancare-rounded-panel border-border text-text-secondary"
             >
               {t.common.cancel}
             </Button>
@@ -108,7 +108,7 @@ export const CreateUrgentButtonDesktop = () => {
               onClick={handleSend}
               disabled={isPending || !text.trim()}
               className={cn(
-                'flex-1 rounded-urbancare-panel',
+                'flex-1 urbancare-rounded-panel',
                 'bg-error text-white lg:hover:bg-error-hover',
                 'disabled:bg-disabled disabled:text-disabled-foreground'
               )}

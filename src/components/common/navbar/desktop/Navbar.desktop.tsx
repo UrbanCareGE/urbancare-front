@@ -68,7 +68,7 @@ export const HeaderNavIsland = () => {
   };
 
   return (
-    <nav className="flex justify-center items-center gap-1 bg-surface rounded-urbancare-3xl px-3 shadow-sm shadow-shadow/5 h-14 transition-all">
+    <nav className="flex justify-center items-center gap-1 bg-surface urbancare-rounded-3xl px-3 shadow-sm shadow-shadow/5 h-14 transition-all">
       {NAV_ITEMS.map((item, index) => {
         const href = getHref(item);
         const active = index === activeIndex;
@@ -78,27 +78,25 @@ export const HeaderNavIsland = () => {
             key={item.href}
             onClick={() => handleNavigation(index, href)}
             className={cn(
-              'relative flex items-center gap-2 px-3 py-2 rounded-urbancare-xl font-medium transition-colors duration-200',
-              active
-                ? 'text-primary'
-                : 'text-foreground-secondary lg:hover:text-foreground-primary lg:hover:bg-surface-variant/60 lg:active:scale-95',
-              'text-urbancare-base'
+              'relative flex items-center gap-2 px-3 py-2 urbancare-rounded-xl font-medium transition-colors duration-200 text-foreground-primary',
+              !active && 'lg:hover:bg-surface-variant/60 lg:active:scale-95',
+              'urbancare-text-base'
             )}
           >
             {active && (
               <motion.div
                 layoutId="desktop-nav-indicator"
-                className="absolute inset-0 bg-surface-variant rounded-urbancare-xl"
+                className="absolute inset-0 bg-surface-variant urbancare-rounded-xl"
                 transition={{ type: 'spring', stiffness: 400, damping: 30 }}
               />
             )}
             <item.icon
               className={cn(
                 'relative z-10 w-4 h-4',
-                active ? 'text-primary' : ''
+                active && 'text-primary'
               )}
             />
-            <span className="relative z-10 ">{item.label}</span>
+            <span className="relative z-10">{item.label}</span>
           </button>
         );
       })}

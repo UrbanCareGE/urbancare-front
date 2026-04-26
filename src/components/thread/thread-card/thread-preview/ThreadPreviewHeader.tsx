@@ -20,7 +20,7 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
 
   return (
     <div className={cn('flex items-start gap-3 w-full', className)}>
-      <Avatar className="cursor-pointer w-11 h-11 lg:w-12 lg:h-12  rounded-urbancare-full shrink-0 ring-2 ring-border">
+      <Avatar className="cursor-pointer w-11 h-11 lg:w-12 lg:h-12  urbancare-rounded-full shrink-0 ring-2 ring-border">
         <Image
           src={getClientFileUrl(userInfo?.profileImageId)}
           alt={
@@ -30,7 +30,7 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
           className="object-cover"
         />
         {userInfo && (
-          <AvatarFallback className="text-urbancare-sm font-semibold bg-primary-container text-primary">
+          <AvatarFallback className="urbancare-text-sm font-semibold bg-primary-container text-primary">
             {userInfo.name ? userInfo.name[0] : ''}
             {userInfo.surname ? userInfo.surname[0] : ''}
           </AvatarFallback>
@@ -43,10 +43,10 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
         }}
       >
         <div className="flex items-center justify-start gap-2 min-w-0">
-          <h3 className="font-semibold text-text-primary text-urbancare-base truncate">
+          <h3 className="font-semibold text-text-primary urbancare-text-base truncate">
             {userInfo && userInfo.name} {userInfo && userInfo.surname}
           </h3>
-          <span className="text-urbancare-xs text-text-tertiary flex items-center gap-1 shrink-0 leading-none">
+          <span className="urbancare-text-xs text-text-tertiary flex items-center gap-1 shrink-0 leading-none">
             <Clock className="w-3.5 h-3.5" />
             {formatTime(createdAt.toString())}
           </span>

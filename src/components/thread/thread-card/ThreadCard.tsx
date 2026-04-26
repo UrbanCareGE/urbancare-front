@@ -48,7 +48,7 @@ const ThreadCardRoot = ({
     <ThreadContext.Provider value={contextValue}>
       <Card
         className={cn(
-          'rounded-urbancare-3xl border-none bg-surface p-4 space-y-4',
+          'urbancare-rounded-3xl border-none bg-surface p-4 space-y-4',
           'transition-all duration-200 cursor-pointer lg:hover:shadow-md',
           className
         )}

@@ -28,12 +28,12 @@ export const ProfileSideBarGroupHeader = ({
       {dotClassName && (
         <div
           className={cn(
-            'w-1.5 h-1.5 rounded-urbancare-full shadow-sm',
+            'w-1.5 h-1.5 urbancare-rounded-full shadow-sm',
             dotClassName
           )}
         />
       )}
-      <h3 className="text-urbancare-2xs font-bold text-text-secondary uppercase tracking-widest">
+      <h3 className="urbancare-text-2xs font-bold text-text-secondary uppercase tracking-widest">
         {title}
       </h3>
     </div>

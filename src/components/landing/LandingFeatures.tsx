@@ -28,20 +28,20 @@ function FeatureCard({
   return (
     <Card
       className={cn(
-        'border-border-light bg-surface/80 backdrop-blur-sm rounded-urbancare-3xl',
+        'border-border-light bg-surface/80 backdrop-blur-sm urbancare-rounded-3xl',
         'lg:hover:shadow-lg lg:hover:-translate-y-1 transition-all duration-300',
         'animate-slide-up'
       )}
       style={{ animationDelay: `${delay}ms` }}
     >
       <CardContent className="p-6">
-        <div className="w-12 h-12 rounded-urbancare-xl bg-primary/10 flex items-center justify-center mb-4">
+        <div className="w-12 h-12 urbancare-rounded-xl bg-primary/10 flex items-center justify-center mb-4">
           <div className="text-primary">{icon}</div>
         </div>
-        <h3 className="text-urbancare-2xl font-semibold text-text-primary mb-2">
+        <h3 className="urbancare-text-2xl font-semibold text-text-primary mb-2">
           {title}
         </h3>
-        <p className="text-urbancare-base text-text-secondary leading-relaxed">
+        <p className="urbancare-text-base text-text-secondary leading-relaxed">
           {description}
         </p>
       </CardContent>
@@ -98,10 +98,10 @@ export function LandingFeatures() {
     >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <span className="inline-block px-4 py-2 rounded-urbancare-full bg-tertiary/10 text-tertiary text-urbancare-base font-medium mb-4">
+          <span className="inline-block px-4 py-2 urbancare-rounded-full bg-tertiary/10 text-tertiary urbancare-text-base font-medium mb-4">
             {t.landing.features}
           </span>
-          <h2 className="text-urbancare-7xl md:text-urbancare-8xl font-bold text-text-primary mb-4">
+          <h2 className="urbancare-text-7xl md:urbancare-text-8xl font-bold text-text-primary mb-4">
             {t.landing.everythingYouNeed}
           </h2>
           <p className="text-text-secondary max-w-xl mx-auto">

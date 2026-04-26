@@ -32,7 +32,7 @@ export default function JoinPage({ params }: JoinPageProps) {
       <div className="fixed top-0 left-0 right-0 z-20 flex items-center justify-center pt-6 sm:pt-8">
         <Link href="/landing" className="flex items-center gap-2.5 group">
           <UrbanCareIcon className="w-9 h-9 sm:w-10 sm:h-10 bg-white/15 shadow-none" />
-          <span className="text-urbancare-2xl sm:text-urbancare-3xl font-bold text-white tracking-tight">
+          <span className="urbancare-text-2xl sm:urbancare-text-3xl font-bold text-white tracking-tight">
             UrbanCare
           </span>
         </Link>
@@ -55,7 +55,7 @@ export default function JoinPage({ params }: JoinPageProps) {
 
       {/* Bottom branding */}
       <div className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-center pb-5">
-        <span className="text-urbancare-xs text-white/40 font-medium">
+        <span className="urbancare-text-xs text-white/40 font-medium">
           {/*{t.joinPage.poweredBy}*/}
         </span>
       </div>

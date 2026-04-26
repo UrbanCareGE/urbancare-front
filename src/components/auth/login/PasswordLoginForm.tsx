@@ -43,7 +43,7 @@ export function PasswordLoginForm({
                   disabled={isLoggingIn}
                   value={field.value}
                   onChange={field.onChange}
-                  className="h-[48px] sm:h-[52px] border-border bg-surface text-urbancare-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus-within:border-primary focus-within:ring-4 focus-within:ring-primary-light transition-all duration-200"
+                  className="h-[48px] sm:h-[52px] border-border bg-surface urbancare-text-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus-within:border-primary focus-within:ring-4 focus-within:ring-primary-light transition-all duration-200"
                 />
               </FormControl>
             </FormItem>
@@ -63,7 +63,7 @@ export function PasswordLoginForm({
                   type="password"
                   isPasswordType
                   disabled={isLoggingIn}
-                  className="h-[48px] sm:h-[52px] rounded-urbancare-xl border border-border bg-surface text-urbancare-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
+                  className="h-[48px] sm:h-[52px] urbancare-rounded-xl border border-border bg-surface urbancare-text-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus:border-primary focus:ring-4 focus:ring-primary-light transition-all duration-200"
                   {...field}
                 />
               </FormControl>
@@ -71,7 +71,7 @@ export function PasswordLoginForm({
           )}
         />
 
-        <p className="text-urbancare-sm text-text-muted text-center pt-0.5">
+        <p className="urbancare-text-sm text-text-muted text-center pt-0.5">
           {t.auth.passwordDescription}
         </p>
 
@@ -79,7 +79,7 @@ export function PasswordLoginForm({
         <Button
           type="submit"
           disabled={isLoggingIn}
-          className="w-full h-[48px] sm:h-[52px] rounded-urbancare-2xl bg-gradient-primary shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] lg:hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] active:scale-[0.98] transition-all duration-200 text-text-primary font-semibold relative overflow-hidden"
+          className="w-full h-[48px] sm:h-[52px] urbancare-rounded-2xl bg-gradient-primary shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] lg:hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] active:scale-[0.98] transition-all duration-200 text-text-primary font-semibold relative overflow-hidden"
         >
           <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent" />
           {isLoggingIn ? (

@@ -28,7 +28,7 @@ export const TagsFilterDesktop = ({
             key={tag}
             onClick={() => onClick(tag)}
             className={cn(
-              'py-1 px-3 rounded-urbancare-full text-urbancare-base font-medium transition-all lg:hover:scale-[1.03] lg:active:scale-95',
+              'py-1 px-3 urbancare-rounded-full urbancare-text-base font-medium transition-all lg:hover:scale-[1.03] lg:active:scale-95',
               isSelected
                 ? [config.bg, config.text]
                 : 'bg-surface text-foreground-tertiary lg:hover:bg-surface-variant lg:hover:text-foreground-secondary'
@@ -42,7 +42,7 @@ export const TagsFilterDesktop = ({
       {selectedTags.length > 0 && onClear && (
         <button
           onClick={onClear}
-          className="py-1 px-3 rounded-urbancare-full text-urbancare-base font-medium text-foreground-tertiary lg:hover:text-error lg:hover:bg-error/10 transition-all lg:active:scale-95"
+          className="py-1 px-3 urbancare-rounded-full urbancare-text-base font-medium text-foreground-tertiary lg:hover:text-error lg:hover:bg-error/10 transition-all lg:active:scale-95"
         >
           {t.common.clear}
         </button>

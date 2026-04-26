@@ -46,7 +46,7 @@ export const ReplyInput = ({
 
   return (
     <div className="flex items-start gap-2">
-      <Avatar className="w-8 h-8 rounded-urbancare-full flex-shrink-0 mt-0.5">
+      <Avatar className="w-8 h-8 urbancare-rounded-full flex-shrink-0 mt-0.5">
         {userInfo.profileImageId && (
           <Image
             src={getClientFileUrl(userInfo.profileImageId)}
@@ -55,19 +55,19 @@ export const ReplyInput = ({
             className="object-cover"
           />
         )}
-        <AvatarFallback className="text-urbancare-2xs font-semibold bg-primary-container text-primary">
+        <AvatarFallback className="urbancare-text-2xs font-semibold bg-primary-container text-primary">
           {initials}
         </AvatarFallback>
       </Avatar>
 
       <div className="flex-1 min-w-0">
         {/* Input pill matching comment bubble style */}
-        <div className="relative bg-surface-container rounded-urbancare-3xl">
+        <div className="relative bg-surface-container urbancare-rounded-3xl">
           <textarea
             value={replyText}
             onChange={(e) => setReplyText(e.target.value)}
             placeholder={placeholder}
-            className="w-full bg-transparent text-urbancare-base text-text-primary placeholder:text-text-tertiary outline-none resize-none px-3.5 py-2.5 pr-11 leading-relaxed"
+            className="w-full bg-transparent urbancare-text-base text-text-primary placeholder:text-text-tertiary outline-none resize-none px-3.5 py-2.5 pr-11 leading-relaxed"
             rows={1}
             style={{ minHeight: '36px', maxHeight: '120px' }}
             onInput={(e) => {
@@ -87,7 +87,7 @@ export const ReplyInput = ({
             onClick={handleSubmit}
             disabled={!hasText}
             className={cn(
-              'absolute right-2 bottom-1.5 w-8 h-8 rounded-urbancare-full flex items-center justify-center transition-all duration-150',
+              'absolute right-2 bottom-1.5 w-8 h-8 urbancare-rounded-full flex items-center justify-center transition-all duration-150',
               hasText
                 ? 'bg-primary text-white lg:hover:bg-primary/90 lg:active:scale-95'
                 : 'text-text-tertiary cursor-not-allowed'
@@ -99,12 +99,12 @@ export const ReplyInput = ({
 
         {/* Hint */}
         <div className="flex items-center gap-1 mt-1 px-1">
-          <span className="text-urbancare-xs text-text-tertiary">
+          <span className="urbancare-text-xs text-text-tertiary">
             Enter to send ·
           </span>
           <button
             onClick={onCancel}
-            className="text-urbancare-xs font-semibold text-text-secondary transition-colors lg:hover:text-primary"
+            className="urbancare-text-xs font-semibold text-text-secondary transition-colors lg:hover:text-primary"
           >
             Cancel
           </button>

@@ -9,7 +9,7 @@ export const ProfileSideBarHeader = () => {
       <SideBarProfileHeader />
       <SheetPrimitive.Close asChild>
         <div
-          className={'bg-surface-container/60 rounded-urbancare-panel my-1 p-1'}
+          className={'bg-surface-container/60 urbancare-rounded-panel my-1 p-1'}
         >
           <X className={'h-7 w-7 text-foreground-secondary'}></X>
         </div>

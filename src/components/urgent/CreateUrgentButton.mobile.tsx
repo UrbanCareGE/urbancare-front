@@ -39,7 +39,7 @@ const CreateUrgentButtonMobile = () => {
       <DrawerTrigger asChild>
         <div
           className={
-            'fixed bottom-20 right-4 p-3 rounded-urbancare-full aspect-square bg-primary'
+            'fixed bottom-20 right-4 p-3 urbancare-rounded-full aspect-square bg-primary'
           }
         >
           <PlusIcon className={'w-8 h-8 text-white'} />
@@ -73,7 +73,7 @@ const CreateUrgentButtonMobile = () => {
           </Button>
 
           {isError && (
-            <p className="text-error-foreground text-urbancare-base">
+            <p className="text-error-foreground urbancare-text-base">
               {t.common.error}: {error?.message}
             </p>
           )}

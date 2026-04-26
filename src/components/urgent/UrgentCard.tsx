@@ -20,8 +20,8 @@ const StatusDot = ({ status }: { status: UrgentCardStatus }) => {
   const color = status === 'resolved' ? 'bg-success' : 'bg-error';
   return (
     <span className="relative inline-flex w-2 h-2">
-      <span className={cn('absolute inset-0 rounded-urbancare-full opacity-60 animate-ping', color)} />
-      <span className={cn('relative inline-flex w-2 h-2 rounded-urbancare-full', color)} />
+      <span className={cn('absolute inset-0 urbancare-rounded-full opacity-60 animate-ping', color)} />
+      <span className={cn('relative inline-flex w-2 h-2 urbancare-rounded-full', color)} />
     </span>
   );
 };
@@ -47,13 +47,13 @@ const StatusBand = ({
     >
       <div className={cn('flex items-center gap-2', config.bandText)}>
         <StatusDot status={status} />
-        <span className="text-urbancare-xs font-bold uppercase tracking-[0.12em]">
+        <span className="urbancare-text-xs font-bold uppercase tracking-[0.12em]">
           {label}
         </span>
       </div>
       <div
         className={cn(
-          'flex items-center gap-1 text-urbancare-xs font-medium tracking-wide',
+          'flex items-center gap-1 urbancare-text-xs font-medium tracking-wide',
           config.bandText
         )}
       >
@@ -76,7 +76,7 @@ const UserAvatarLine = ({
     <div className="flex items-center gap-2.5 min-w-0">
       <Avatar
         className={cn(
-          'rounded-urbancare-full ring-2 ring-border shrink-0',
+          'urbancare-rounded-full ring-2 ring-border shrink-0',
           size === 'md' ? 'w-8 h-8' : 'w-6 h-6'
         )}
       >
@@ -86,14 +86,14 @@ const UserAvatarLine = ({
           fill
           className="object-cover"
         />
-        <AvatarFallback className="text-urbancare-xs font-semibold bg-primary-container text-primary">
+        <AvatarFallback className="urbancare-text-xs font-semibold bg-primary-container text-primary">
           {initials}
         </AvatarFallback>
       </Avatar>
       <span
         className={cn(
           'font-semibold text-text-primary truncate',
-          size === 'md' ? 'text-urbancare-sm' : 'text-urbancare-xs'
+          size === 'md' ? 'urbancare-text-sm' : 'urbancare-text-xs'
         )}
       >
         {user.name} {user.surname}
@@ -134,7 +134,7 @@ export const UrgentCard = ({
   return (
     <Card
       className={cn(
-        'overflow-hidden rounded-urbancare-3xl border-none bg-surface',
+        'overflow-hidden border-none bg-surface',
         'transition-all duration-200 lg:hover:shadow-md',
         status === 'resolved' && 'opacity-90',
         isPending && 'opacity-80 pointer-events-none',
@@ -146,7 +146,7 @@ export const UrgentCard = ({
       <div className="px-4 py-4 space-y-3.5">
         <p
           className={cn(
-            'my-1.5 pl-3 border-l-2 text-urbancare-base text-text-primary font-medium leading-relaxed',
+            'my-1.5 pl-3 border-l-2 urbancare-text-base text-text-primary font-medium leading-relaxed',
             'whitespace-pre-wrap break-words',
             config.accent
           )}
@@ -161,8 +161,8 @@ export const UrgentCard = ({
               onClick={onResolve}
               disabled={isResolving}
               className={cn(
-                'h-9 px-4 rounded-urbancare-full gap-1.5',
-                'text-urbancare-xs font-bold uppercase tracking-[0.08em]',
+                'h-9 px-4 urbancare-rounded-full gap-1.5',
+                'urbancare-text-xs font-bold uppercase tracking-[0.08em]',
                 'bg-success/10 text-success border border-success/20',
                 'lg:hover:bg-success/15 lg:hover:border-success/35',
                 'transition-colors duration-200',
@@ -211,7 +211,7 @@ export const UrgentCardCompact = ({
     <Card
       onClick={onClick}
       className={cn(
-        'flex items-center gap-3 rounded-urbancare-2xl border-none bg-surface px-3 py-2.5',
+        'flex items-center gap-3 urbancare-rounded-2xl border-none bg-surface px-3 py-2.5',
         'transition-all duration-200',
         status === 'resolved' && 'opacity-90',
         isPending && 'opacity-80 pointer-events-none',
@@ -221,14 +221,14 @@ export const UrgentCardCompact = ({
     >
       <StatusDot status={status} />
       <div className="flex flex-col min-w-0 flex-1 gap-0.5">
-        <p className="text-urbancare-sm font-semibold text-text-primary truncate">
+        <p className="urbancare-text-sm font-semibold text-text-primary truncate">
           {content}
         </p>
-        <span className="text-urbancare-xs text-text-tertiary truncate">
+        <span className="urbancare-text-xs text-text-tertiary truncate">
           {user.name} {user.surname}
         </span>
       </div>
-      <span className="ml-auto text-urbancare-xs text-text-tertiary shrink-0 self-start">
+      <span className="ml-auto urbancare-text-xs text-text-tertiary shrink-0 self-start">
         {timeText}
       </span>
     </Card>

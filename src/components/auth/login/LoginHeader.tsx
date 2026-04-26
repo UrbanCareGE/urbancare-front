@@ -7,10 +7,10 @@ export function LoginHeader() {
 
   return (
     <div className="mb-6 sm:mb-8">
-      <h1 className="text-urbancare-4xl sm:text-urbancare-5xl font-bold text-center text-primary mb-1.5 sm:mb-2">
+      <h1 className="urbancare-text-4xl sm:urbancare-text-5xl font-bold text-center text-primary mb-1.5 sm:mb-2">
         {t.auth.welcome}
       </h1>
-      <p className="text-center text-secondary text-urbancare-lg sm:text-urbancare-xl">
+      <p className="text-center text-secondary urbancare-text-lg sm:urbancare-text-xl">
         {t.auth.authorize}
       </p>
     </div>

@@ -16,7 +16,7 @@ export const UrbanCareIcon = ({
   return (
     <div
       className={cn(
-        'relative w-14 h-14 rounded-urbancare-panel bg-gradient-primary flex items-center justify-center shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] overflow-hidden',
+        'relative w-14 h-14 urbancare-rounded-panel bg-gradient-primary flex items-center justify-center shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] overflow-hidden',
         className
       )}
     >
@@ -33,7 +33,7 @@ export const UrbanCareTextIcon = ({ className }: UrbanCareTextIconProps) => {
   return (
     <span
       className={cn(
-        'text-urbancare-5xl font-bold bg-gradient-primary-text',
+        'urbancare-text-5xl font-bold bg-gradient-primary-text',
         className
       )}
     >

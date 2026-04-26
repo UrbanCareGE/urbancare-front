@@ -31,14 +31,14 @@ export default function ThreadPage() {
             onClick={() => router.back()}
             className={cn(
               'group flex items-center gap-2 self-start',
-              'pl-2 pr-3.5 py-1.5 rounded-urbancare-full',
+              'pl-2 pr-3.5 py-1.5 urbancare-rounded-full',
               'bg-surface-container/70 text-text-secondary border border-border/60',
               'lg:hover:text-text-primary lg:hover:bg-surface-container lg:hover:border-border',
               'transition-all duration-200 active:scale-95'
             )}
           >
             <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
-            <span className="text-urbancare-sm font-medium leading-none">
+            <span className="urbancare-text-sm font-medium leading-none">
               {t.common.goBack}
             </span>
           </button>

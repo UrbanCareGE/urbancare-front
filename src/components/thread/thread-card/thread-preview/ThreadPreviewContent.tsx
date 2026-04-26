@@ -26,7 +26,7 @@ export const ThreadPreviewContent = ({
       {thread.title && (
         <h2
           className={cn(
-            'text-urbancare-2xl font-semibold text-text-primary leading-snug tracking-tight',
+            'urbancare-text-2xl font-semibold text-text-primary leading-snug tracking-tight',
             !expanded && 'line-clamp-2'
           )}
         >
@@ -36,7 +36,7 @@ export const ThreadPreviewContent = ({
 
       <p
         className={cn(
-          'text-urbancare-base text-text-secondary leading-relaxed whitespace-pre-wrap',
+          'urbancare-text-base text-text-secondary leading-relaxed whitespace-pre-wrap',
           !expanded && 'line-clamp-3'
         )}
       >

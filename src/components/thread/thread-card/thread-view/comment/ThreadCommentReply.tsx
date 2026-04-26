@@ -19,7 +19,7 @@ export const ThreadCommentReply = ({ comment }: ThreadCommentReplyProps) => {
     <div className="flex gap-2.5 py-1.5">
       {/* Small avatar */}
       <div className="flex-shrink-0">
-        <Avatar className="w-8 h-8 rounded-urbancare-full">
+        <Avatar className="w-8 h-8 urbancare-rounded-full">
           {userInfo.profileImageId && (
             <Image
               src={getClientFileUrl(userInfo.profileImageId)}
@@ -28,7 +28,7 @@ export const ThreadCommentReply = ({ comment }: ThreadCommentReplyProps) => {
               className="object-cover"
             />
           )}
-          <AvatarFallback className="text-urbancare-2xs font-semibold bg-primary-container text-primary">
+          <AvatarFallback className="urbancare-text-2xs font-semibold bg-primary-container text-primary">
             {initials}
           </AvatarFallback>
         </Avatar>
@@ -36,15 +36,15 @@ export const ThreadCommentReply = ({ comment }: ThreadCommentReplyProps) => {
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <div className="bg-surface-container rounded-urbancare-3xl rounded-tl-urbancare-xs px-3 py-2 inline-block max-w-full space-y-0.5">
-          <p className="font-semibold text-urbancare-sm leading-tight text-text-primary">
+        <div className="bg-surface-container urbancare-rounded-3xl urbancare-rounded-tl-xs px-3 py-2 inline-block max-w-full space-y-0.5">
+          <p className="font-semibold urbancare-text-sm leading-tight text-text-primary">
             {userInfo.name} {userInfo.surname}
           </p>
-          <p className="text-urbancare-base text-text-primary leading-relaxed whitespace-pre-wrap break-words">
+          <p className="urbancare-text-base text-text-primary leading-relaxed whitespace-pre-wrap break-words">
             {content}
           </p>
         </div>
-        <p className="text-urbancare-xs text-text-tertiary mt-1 px-1.5">
+        <p className="urbancare-text-xs text-text-tertiary mt-1 px-1.5">
           {formatTime(createdAt.toString())}
         </p>
       </div>

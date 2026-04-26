@@ -14,8 +14,8 @@ function OtpSlot({ index, hasError }: { index: number; hasError: boolean }) {
     <div
       className={cn(
         'relative flex h-12 w-11 items-center justify-center bg-surface',
-        'text-urbancare-xl font-semibold font-poppins',
-        'rounded-urbancare-xl border',
+        'urbancare-text-xl font-semibold font-poppins',
+        'urbancare-rounded-xl border',
         'shadow-sm shadow-shadow/5',
         'transition-all duration-200',
         // Default empty
@@ -64,7 +64,7 @@ export const FormOtpInput = React.forwardRef<
 
   return (
     <div className="flex items-center justify-center">
-      <div className="inline-flex items-center gap-1 lg:gap-2 rounded-urbancare-2xl border border-border bg-surface-container px-1.5 py-1.5 shadow-sm shadow-shadow/5">
+      <div className="inline-flex items-center gap-1 lg:gap-2 urbancare-rounded-2xl border border-border bg-surface-container px-1.5 py-1.5 shadow-sm shadow-shadow/5">
         <InputOTP
           ref={ref}
           maxLength={6}

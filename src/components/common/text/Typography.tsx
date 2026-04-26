@@ -13,7 +13,7 @@ export const TypographyH1: React.FC<TypographyProps> = ({
   return (
     <h1
       className={cn(
-        'scroll-m-20 text-center text-urbancare-10xl font-semi tracking-tight text-balance',
+        'scroll-m-20 text-center urbancare-text-10xl font-semi tracking-tight text-balance',
         className
       )}
     >
@@ -29,7 +29,7 @@ export const TypographyH2: React.FC<TypographyProps> = ({
   return (
     <h2
       className={cn(
-        'text-urbancare-8xl font-semibold tracking-tight',
+        'urbancare-text-8xl font-semibold tracking-tight',
         className
       )}
     >
@@ -45,7 +45,7 @@ export const TypographyH3: React.FC<TypographyProps> = ({
   return (
     <h3
       className={cn(
-        'scroll-m-20 text-urbancare-7xl font-semibold tracking-tight',
+        'scroll-m-20 urbancare-text-7xl font-semibold tracking-tight',
         className
       )}
     >
@@ -61,7 +61,7 @@ export const TypographyH4: React.FC<TypographyProps> = ({
   return (
     <h4
       className={cn(
-        'scroll-m-20 text-urbancare-3xl font-semibold tracking-tight',
+        'scroll-m-20 urbancare-text-3xl font-semibold tracking-tight',
         className
       )}
     >
@@ -97,7 +97,7 @@ export const TypographyLead: React.FC<TypographyProps> = ({
   className,
 }) => {
   return (
-    <p className={cn('text-muted-foreground text-urbancare-3xl', className)}>
+    <p className={cn('text-muted-foreground urbancare-text-3xl', className)}>
       {children}
     </p>
   );
@@ -108,7 +108,7 @@ export const TypographyLarge: React.FC<TypographyProps> = ({
   className,
 }) => {
   return (
-    <div className={cn('text-urbancare-2xl font-semibold', className)}>
+    <div className={cn('urbancare-text-2xl font-semibold', className)}>
       {children}
     </div>
   );
@@ -120,7 +120,7 @@ export const TypographySmall: React.FC<TypographyProps> = ({
 }) => {
   return (
     <small
-      className={cn('text-urbancare-base leading-none font-medium', className)}
+      className={cn('urbancare-text-base leading-none font-medium', className)}
     >
       {children}
     </small>
@@ -132,7 +132,7 @@ export const TypographyMuted: React.FC<TypographyProps> = ({
   className,
 }) => {
   return (
-    <p className={cn('text-muted-foreground text-urbancare-base', className)}>
+    <p className={cn('text-muted-foreground urbancare-text-base', className)}>
       {children}
     </p>
   );

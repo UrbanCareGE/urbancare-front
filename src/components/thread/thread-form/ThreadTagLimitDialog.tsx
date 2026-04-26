@@ -22,7 +22,7 @@ export const ThreadTagLimitDialog = ({
   const t = useTranslation();
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[calc(100%-2rem)] max-w-md rounded-urbancare-3xl border-border">
+      <DialogContent className="w-[calc(100%-2rem)] max-w-md urbancare-rounded-3xl border-border">
         <DialogHeader>
           <DialogTitle>{t.threadForm.tagsLimit}</DialogTitle>
           <DialogDescription>{t.threadForm.maxTagsPerPost}</DialogDescription>

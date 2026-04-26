@@ -15,7 +15,7 @@ export const ProfileIslandDesktop = () => {
     >
       <button
         className={cn(
-          'relative w-10 h-10 rounded-urbancare-xl flex items-center justify-center flex-shrink-0',
+          'relative w-10 h-10 urbancare-rounded-xl flex items-center justify-center flex-shrink-0',
           'bg-surface border border-border',
           'hover:bg-surface-hover hover:border-border-hover',
           'text-icon hover:text-text-primary',
@@ -26,7 +26,7 @@ export const ProfileIslandDesktop = () => {
       </button>
       <button
         className={cn(
-          'relative w-10 h-10 rounded-urbancare-xl flex items-center justify-center flex-shrink-0',
+          'relative w-10 h-10 urbancare-rounded-xl flex items-center justify-center flex-shrink-0',
           'bg-surface border border-border',
           'hover:bg-surface-hover hover:border-border-hover',
           'text-icon hover:text-text-primary',
@@ -37,7 +37,7 @@ export const ProfileIslandDesktop = () => {
       </button>
       <button
         className={cn(
-          'relative w-10 h-10 rounded-urbancare-xl flex items-center justify-center flex-shrink-0',
+          'relative w-10 h-10 urbancare-rounded-xl flex items-center justify-center flex-shrink-0',
           'bg-surface border border-border',
           'hover:bg-surface-hover hover:border-border-hover',
           'text-icon hover:text-text-primary',

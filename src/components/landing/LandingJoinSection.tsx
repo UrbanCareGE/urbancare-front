@@ -25,22 +25,22 @@ export function LandingJoinSection({ onJoin }: LandingJoinSectionProps) {
     <section className="relative z-10 px-4 py-20 md:py-32 overflow-hidden">
       {/* Subtle section background glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/8 rounded-urbancare-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] bg-tertiary/6 rounded-urbancare-full blur-2xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/8 urbancare-rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] bg-tertiary/6 urbancare-rounded-full blur-2xl" />
       </div>
 
       <div className="relative max-w-3xl mx-auto text-center">
         {/* Badge */}
-        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-urbancare-full bg-primary/10 text-primary text-urbancare-base font-medium mb-6">
+        <span className="inline-flex items-center gap-2 px-4 py-2 urbancare-rounded-full bg-primary/10 text-primary urbancare-text-base font-medium mb-6">
           <Hash className="w-3.5 h-3.5" />
           {t.landing.joinWithCode}
         </span>
 
         {/* Title */}
-        <h2 className="text-urbancare-7xl md:text-urbancare-8xl font-bold text-text-primary mb-4">
+        <h2 className="urbancare-text-7xl md:urbancare-text-8xl font-bold text-text-primary mb-4">
           {t.landing.joinBuilding}
         </h2>
-        <p className="text-text-secondary text-urbancare-2xl mb-12 max-w-lg mx-auto leading-relaxed">
+        <p className="text-text-secondary urbancare-text-2xl mb-12 max-w-lg mx-auto leading-relaxed">
           {t.landing.getCodeFromAdmin}
         </p>
 
@@ -52,7 +52,7 @@ export function LandingJoinSection({ onJoin }: LandingJoinSectionProps) {
           {/* Large code input */}
           <div
             className={cn(
-              'relative w-full rounded-urbancare-3xl transition-all duration-300',
+              'relative w-full urbancare-rounded-3xl transition-all duration-300',
               'bg-surface/80 backdrop-blur-sm',
               'border-2',
               focused
@@ -72,10 +72,10 @@ export function LandingJoinSection({ onJoin }: LandingJoinSectionProps) {
               spellCheck={false}
               className={cn(
                 'w-full bg-transparent text-center',
-                'text-urbancare-7xl md:text-urbancare-8xl font-bold tracking-[0.25em]',
+                'urbancare-text-7xl md:urbancare-text-8xl font-bold tracking-[0.25em]',
                 'text-text-primary placeholder:text-text-tertiary/50',
                 'h-20 md:h-24 px-6',
-                'rounded-urbancare-3xl outline-none',
+                'urbancare-rounded-3xl outline-none',
                 'transition-colors duration-200'
               )}
             />
@@ -87,7 +87,7 @@ export function LandingJoinSection({ onJoin }: LandingJoinSectionProps) {
             size="lg"
             disabled={!code.trim()}
             className={cn(
-              'h-14 px-10 rounded-urbancare-3xl text-urbancare-2xl font-semibold',
+              'h-14 px-10 urbancare-rounded-3xl urbancare-text-2xl font-semibold',
               'bg-gradient-primary',
               'shadow-[0_4px_20px_rgba(var(--color-primary)/0.35)]',
               'lg:hover:shadow-[0_6px_28px_rgba(var(--color-primary)/0.5)]',
@@ -100,7 +100,7 @@ export function LandingJoinSection({ onJoin }: LandingJoinSectionProps) {
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
 
-          <p className="text-urbancare-sm text-text-tertiary">
+          <p className="urbancare-text-sm text-text-tertiary">
             {t.landing.codeFromAdmin}
           </p>
         </form>

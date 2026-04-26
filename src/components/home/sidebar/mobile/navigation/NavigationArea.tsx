@@ -159,7 +159,7 @@ const NavigationArea = ({ inSheet = true, className }: NavigationAreaProps) => {
 
           {/* Section label */}
           {group.label && (
-            <p className="px-3 mb-0 text-urbancare-sm font-semibold uppercase tracking-widest text-text-tertiary">
+            <p className="px-3 mb-0 urbancare-text-sm font-semibold uppercase tracking-widest text-text-tertiary">
               {group.label}
             </p>
           )}

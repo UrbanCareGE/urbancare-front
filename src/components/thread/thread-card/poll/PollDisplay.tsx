@@ -48,7 +48,7 @@ const PollOptionBar = ({
 
   return (
     <div className="space-y-1">
-      <div className="flex justify-between items-center text-urbancare-base">
+      <div className="flex justify-between items-center urbancare-text-base">
         <span className={cn('text-text-primary', isHighest && 'font-semibold')}>
           {option.content}
         </span>
@@ -72,17 +72,17 @@ const PollOptionBar = ({
             <Circle className="w-5 h-5 text-tertiary" />
           )}
         </button>
-        <div className="relative flex-1 ml-3 h-8 bg-surface-container rounded-urbancare-lg overflow-hidden">
+        <div className="relative flex-1 ml-3 h-8 bg-surface-container urbancare-rounded-lg overflow-hidden">
           <div
             className={cn(
-              'absolute inset-y-0 bg-tertiary left-0 rounded-urbancare-lg transition-all duration-500 ease-out'
+              'absolute inset-y-0 bg-tertiary left-0 urbancare-rounded-lg transition-all duration-500 ease-out'
             )}
             style={{ width: `${percentage}%` }}
           />
           <div className="absolute inset-0 flex items-center px-3">
             <span
               className={cn(
-                'text-urbancare-base',
+                'urbancare-text-base',
                 percentage > 50
                   ? 'text-tertiary-foreground'
                   : 'text-text-secondary'
@@ -123,7 +123,7 @@ export const PollDisplay = ({ thread, className }: PollDisplayProps) => {
           isVotedByUser={option.voters.some((voter) => voter.id === userId)}
         />
       ))}
-      <div className="text-urbancare-base text-text-secondary text-center pt-1">
+      <div className="urbancare-text-base text-text-secondary text-center pt-1">
         {t.thread.totalVotes.replace('{count}', String(totalVotes))}
       </div>
     </div>

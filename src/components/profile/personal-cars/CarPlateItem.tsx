@@ -15,7 +15,7 @@ const CarPlateItem = ({ car, onDelete, disabled }: CarPlateItemProps) => {
       <button
         onClick={() => onDelete(car)}
         disabled={disabled}
-        className="absolute -top-1.5 -right-1.5 w-5 h-5 flex items-center justify-center bg-error rounded-urbancare-full opacity-0 group-hover:opacity-100 transition-opacity lg:active:scale-90 disabled:opacity-50"
+        className="absolute -top-1.5 -right-1.5 w-5 h-5 flex items-center justify-center bg-error urbancare-rounded-full opacity-0 group-hover:opacity-100 transition-opacity lg:active:scale-90 disabled:opacity-50"
       >
         <X size={12} className="text-white" />
       </button>

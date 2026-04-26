@@ -112,7 +112,7 @@ export function LoginCard() {
   }, []);
 
   return (
-    <Card className="border-border-light rounded-urbancare-4xl animate-slide-up bg-background w-full max-w-[492px]">
+    <Card className="border-border-light urbancare-rounded-4xl animate-slide-up bg-background w-full max-w-[492px]">
       <CardContent className="p-5 sm:p-8">
         <LoginHeader />
 

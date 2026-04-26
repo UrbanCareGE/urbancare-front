@@ -146,7 +146,7 @@ const MobileSideBarFooterComponent = ({
   return (
     <div
       className={cn(
-        'h-auto w-full px-3 py-1 border-t bg-background border-border rounded-b-urbancare-md',
+        'h-auto w-full px-3 py-1 border-t bg-background border-border urbancare-rounded-b-md',
         className
       )}
     >

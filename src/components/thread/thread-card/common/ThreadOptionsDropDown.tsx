@@ -35,7 +35,7 @@ export const ThreadOptionsDropDown = () => {
         <DropdownMenuTrigger asChild>
           <button
             className={cn(
-              'w-8 h-8 rounded-urbancare-full flex items-center justify-center shrink-0',
+              'w-8 h-8 urbancare-rounded-full flex items-center justify-center shrink-0',
               'text-icon transition-all duration-150',
               'lg:hover:bg-surface-container lg:hover:text-text-secondary',
               'active:scale-90'

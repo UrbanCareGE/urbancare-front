@@ -29,7 +29,7 @@ const NavRowContent = ({
     {navigationItem.icon && (
       <div
         className={cn(
-          'w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-urbancare-lg transition-colors duration-150',
+          'w-8 h-8 flex-shrink-0 flex items-center justify-center urbancare-rounded-lg transition-colors duration-150',
           isActive
             ? 'bg-primary-container text-primary-container-foreground'
             : cn('text-primary-container-foreground', navigationItem.className)
@@ -99,11 +99,9 @@ export const NavigationLinkAccordion = ({
   const [isOpen, setIsOpen] = useState(hasActiveChild);
 
   const rowBase = cn(
-    'group relative flex items-center gap-2.5 rounded-urbancare-panel px-2 transition-all duration-150',
-    isParentActive
-      ? 'bg-primary-container/50 text-primary'
-      : 'text-foreground-primary lg:hover:bg-surface-variant',
-    inSheet ? 'py-1.5 text-urbancare-3xl' : 'py-1 text-urbancare-xl'
+    'group relative flex items-center gap-2.5 urbancare-rounded-panel px-2 transition-all duration-150 text-foreground-primary',
+    isParentActive ? 'bg-primary-container/50' : 'lg:hover:bg-surface-variant',
+    inSheet ? 'py-1.5 urbancare-text-3xl' : 'py-1 urbancare-text-xl'
   );
 
   // ── Navigable: Link navigates, chevron action toggles accordion ──
@@ -113,7 +111,7 @@ export const NavigationLinkAccordion = ({
         <div className={rowBase}>
           {/* Left accent bar */}
           {isParentActive && (
-            <span className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-urbancare-full bg-primary pointer-events-none" />
+            <span className="absolute left-0 top-2 bottom-2 w-[3px] urbancare-rounded-r-full bg-primary pointer-events-none" />
           )}
 
           {/* Navigating link wraps icon + label */}
@@ -145,7 +143,7 @@ export const NavigationLinkAccordion = ({
           <button
             type="button"
             onClick={() => setIsOpen((prev) => !prev)}
-            className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-urbancare-md lg:hover:bg-surface-container transition-colors ml-auto"
+            className="flex-shrink-0 w-6 h-6 flex items-center justify-center urbancare-rounded-md lg:hover:bg-surface-container transition-colors ml-auto"
             aria-label={isOpen ? 'Collapse' : 'Expand'}
             aria-expanded={isOpen}
           >
@@ -181,7 +179,7 @@ export const NavigationLinkAccordion = ({
       >
         {/* Left accent bar */}
         {isParentActive && (
-          <span className="absolute left-0 top-2 bottom-2 w-[3px] rounded-r-urbancare-full bg-primary" />
+          <span className="absolute left-0 top-2 bottom-2 w-[3px] urbancare-rounded-r-full bg-primary" />
         )}
 
         <NavRowContent

@@ -50,27 +50,27 @@ bg-success/error/warning/info  (+ -container, -container-foreground, -background
 
 ### Radii
 ```
-rounded-urbancare-sm   (4px)
-rounded-urbancare-md   (6px)  — inputs, small buttons
-rounded-urbancare-lg   (8px)
-rounded-urbancare-xl   (12px) — chips, small cards
-rounded-urbancare-2xl  (14px)
-rounded-urbancare-3xl  (16px) — section cards
-rounded-urbancare-4xl  (24px) — prominent buttons
-rounded-urbancare-full (9999px)
+urbancare-rounded-sm   (4px)
+urbancare-rounded-md   (6px)  — inputs, small buttons
+urbancare-rounded-lg   (8px)
+urbancare-rounded-xl   (12px) — chips, small cards
+urbancare-rounded-2xl  (14px)
+urbancare-rounded-3xl  (16px) — section cards
+urbancare-rounded-4xl  (24px) — prominent buttons
+urbancare-rounded-full (9999px)
 ```
 
 ### Typography
 ```
-text-urbancare-xs    (11px)
-text-urbancare-sm    (12px)
-text-urbancare-base  (14px) — body
-text-urbancare-lg    (15px)
-text-urbancare-xl    (16px)
-text-urbancare-2xl   (18px) — section titles
-text-urbancare-3xl   (20px)
-text-urbancare-4xl   (22px)
-text-urbancare-5xl   (24px) — hero names
+urbancare-text-xs    (11px)
+urbancare-text-sm    (12px)
+urbancare-text-base  (14px) — body
+urbancare-text-lg    (15px)
+urbancare-text-xl    (16px)
+urbancare-text-2xl   (18px) — section titles
+urbancare-text-3xl   (20px)
+urbancare-text-4xl   (22px)
+urbancare-text-5xl   (24px) — hero names
 ```
 
 ### Fonts
@@ -83,12 +83,12 @@ font-poppins / font-roboto — latin-only surfaces
 
 ### Section Card (used on profile, info, settings pages)
 ```tsx
-<section className="rounded-urbancare-3xl border border-border bg-surface-container shadow-sm shadow-shadow/5 p-5 sm:p-6 space-y-5">
+<section className="urbancare-rounded-3xl border border-border bg-surface-container shadow-sm shadow-shadow/5 p-5 sm:p-6 space-y-5">
   <header className="flex items-center gap-3">
-    <div className="flex items-center justify-center w-10 h-10 rounded-urbancare-xl bg-primary-container text-primary-container-foreground [&_svg]:w-5 [&_svg]:h-5">
+    <div className="flex items-center justify-center w-10 h-10 urbancare-rounded-xl bg-primary-container text-primary-container-foreground [&_svg]:w-5 [&_svg]:h-5">
       <Icon />
     </div>
-    <h3 className="text-urbancare-2xl font-semibold leading-tight-georgian text-text-primary">
+    <h3 className="urbancare-text-2xl font-semibold leading-tight-georgian text-text-primary">
       {title}
     </h3>
   </header>
@@ -101,7 +101,7 @@ Vary the icon tile color per section for visual rhythm: `primary-container`, `te
 ### Buttons
 - Prefer the `<Button>` component from `@/components/ui/button` with its variants (`default`, `secondary`, `outline`, `ghost`, `link`).
 - The default variant already applies `bg-primary text-white`. **Never re-specify** `bg-primary text-text-primary` — that bug renders dark text on blue in light mode.
-- For pill CTAs: `className="rounded-urbancare-4xl h-12"`.
+- For pill CTAs: `className="urbancare-rounded-4xl h-12"`.
 - For disabled states, override with tokens: `disabled:bg-disabled disabled:text-disabled-foreground`.
 
 ### Compound components
@@ -112,18 +112,18 @@ With a React context + `useCard()` hook if children need shared state.
 
 ### Avatar hero
 ```tsx
-<Avatar className="w-28 h-28 sm:w-32 sm:h-32 rounded-urbancare-full ring-4 ring-surface-container shadow-xl shadow-primary/20" />
+<Avatar className="w-28 h-28 sm:w-32 sm:h-32 urbancare-rounded-full ring-4 ring-surface-container shadow-xl shadow-primary/20" />
 ```
 Camera/edit overlay button should have a matching `ring-4 ring-surface-container` so it reads as embedded.
 
 ### Empty states
 Dashed border placeholder with icon, never a bare `<p>`:
 ```tsx
-<div className="flex flex-col items-center justify-center gap-2 py-6 rounded-urbancare-2xl border border-dashed border-border bg-surface">
-  <div className="flex items-center justify-center w-10 h-10 rounded-urbancare-full bg-tertiary-container/50 text-tertiary-container-foreground">
+<div className="flex flex-col items-center justify-center gap-2 py-6 urbancare-rounded-2xl border border-dashed border-border bg-surface">
+  <div className="flex items-center justify-center w-10 h-10 urbancare-rounded-full bg-tertiary-container/50 text-tertiary-container-foreground">
     <Icon className="w-5 h-5" />
   </div>
-  <p className="text-urbancare-base text-text-secondary">{message}</p>
+  <p className="urbancare-text-base text-text-secondary">{message}</p>
 </div>
 ```
 
@@ -143,14 +143,14 @@ Dashed border placeholder with icon, never a bare `<p>`:
 - Breakpoints: `sm 640` · `md 768` · `lg 1080` · `xl 1512` · `4xl 1920`
 - Max-width helpers: `max-sm`, `max-md`, `max-lg`, `max-xl`
 - Hook: `useDevice() → { isMobile, isTablet, isDesktop }`
-- Mobile first. Use `hidden md:flex`, `flex-col md:flex-row`, `text-urbancare-base md:text-urbancare-lg`.
+- Mobile first. Use `hidden md:flex`, `flex-col md:flex-row`, `urbancare-text-base md:urbancare-text-lg`.
 - For per-device layouts prefer `ResponsiveLayout` wrapper, not inline conditions.
 
 ## Anti-Patterns (Never Do)
 
 - `bg-gray-*`, `text-gray-*`, raw hex, `rgb()` inline
 - `bg-primary text-text-primary` on the submit button (it's a dark-on-blue bug)
-- `rounded-lg` on cards — use `rounded-urbancare-3xl`
+- `rounded-lg` on cards — use `urbancare-rounded-3xl`
 - `<Button>` nested inside `<h3>` — extract into a `<header>` wrapper
 - `transition-all` with no duration
 - Multiple stacked `backdrop-blur` layers (GPU expensive)
@@ -162,8 +162,8 @@ Dashed border placeholder with icon, never a bare `<p>`:
 ## Quality Checklist — run through this before reporting done
 
 - [ ] Every color is a token — zero `gray-*` / hex / arbitrary `rgb()`
-- [ ] Border radii use `rounded-urbancare-*`
-- [ ] Typography uses `text-urbancare-*` sizes
+- [ ] Border radii use `urbancare-rounded-*`
+- [ ] Typography uses `urbancare-text-*` sizes
 - [ ] Hover + focus + disabled states exist on every interactive element
 - [ ] Dark mode implicitly handled (you used semantic tokens, so it should be)
 - [ ] No layout shift on hover (scale transforms only)

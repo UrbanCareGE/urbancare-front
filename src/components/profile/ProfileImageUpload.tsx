@@ -52,16 +52,16 @@ export function ProfileImageUpload() {
   const isLoading = isUploading || isUpdating;
 
   return (
-    <section className="relative overflow-hidden rounded-urbancare-3xl border-none bg-surface shadow-sm shadow-shadow/5">
+    <section className="relative overflow-hidden urbancare-rounded-3xl border-none bg-surface shadow-sm shadow-shadow/5">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 overflow-hidden"
       >
         <div className="absolute inset-x-0 top-0 h-2/3 bg-gradient-to-b from-primary-container/45 via-primary-container/10 to-transparent" />
 
-        <div className="absolute -top-16 -right-16 w-64 h-64 rounded-urbancare-full bg-primary/15 blur-3xl" />
-        <div className="absolute top-1/4 -left-20 w-56 h-56 rounded-urbancare-full bg-primary-container/45 blur-3xl" />
-        <div className="absolute -bottom-12 right-1/4 w-48 h-48 rounded-urbancare-full bg-tertiary/15 blur-3xl" />
+        <div className="absolute -top-16 -right-16 w-64 h-64 urbancare-rounded-full bg-primary/15 blur-3xl" />
+        <div className="absolute top-1/4 -left-20 w-56 h-56 urbancare-rounded-full bg-primary-container/45 blur-3xl" />
+        <div className="absolute -bottom-12 right-1/4 w-48 h-48 urbancare-rounded-full bg-tertiary/15 blur-3xl" />
 
         <svg
           viewBox="0 0 400 300"
@@ -133,14 +133,14 @@ export function ProfileImageUpload() {
 
       <div className="relative flex flex-col items-center gap-4 px-6 py-8">
         <div className="relative">
-          <Avatar className="w-28 h-28 sm:w-32 sm:h-32 rounded-urbancare-full bg-primary ring-4 ring-surface shadow-xl shadow-primary/20">
+          <Avatar className="w-28 h-28 sm:w-32 sm:h-32 urbancare-rounded-full bg-primary ring-4 ring-surface shadow-xl shadow-primary/20">
             <Image
               src={getClientFileUrl(user.profileImageId)}
               alt="Profile"
               fill
               className="object-cover"
             />
-            <AvatarFallback className="text-urbancare-5xl sm:text-urbancare-7xl text-primary-foreground">
+            <AvatarFallback className="urbancare-text-5xl sm:urbancare-text-7xl text-primary-foreground">
               {initials}
             </AvatarFallback>
           </Avatar>
@@ -148,7 +148,7 @@ export function ProfileImageUpload() {
             onClick={() => fileInputRef.current?.click()}
             disabled={isLoading}
             aria-label="Change photo"
-            className="absolute bottom-1 right-1 p-2.5 bg-primary text-primary-foreground rounded-urbancare-full shadow-lg shadow-primary/30 ring-4 ring-surface lg:hover:bg-primary-hover lg:hover:scale-110 lg:active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute bottom-1 right-1 p-2.5 bg-primary text-primary-foreground urbancare-rounded-full shadow-lg shadow-primary/30 ring-4 ring-surface lg:hover:bg-primary-hover lg:hover:scale-110 lg:active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <Loader2 className="w-5 h-5 animate-spin" />
@@ -167,10 +167,10 @@ export function ProfileImageUpload() {
         </div>
 
         <div className="text-center space-y-1.5">
-          <p className="text-urbancare-3xl sm:text-urbancare-4xl font-semibold leading-tight-georgian text-text-primary">
+          <p className="urbancare-text-3xl sm:urbancare-text-4xl font-semibold leading-tight-georgian text-text-primary">
             {user.name} {user.surname}
           </p>
-          <div className="inline-flex items-center gap-1.5 text-urbancare-base text-text-secondary">
+          <div className="inline-flex items-center gap-1.5 urbancare-text-base text-text-secondary">
             <Phone className="w-4 h-4" />
             <span>{user.phone.number}</span>
           </div>

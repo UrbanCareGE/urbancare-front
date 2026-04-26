@@ -3,8 +3,89 @@
 
 const plugin = require('tailwindcss/plugin');
 
-const shorthands = plugin(function ({ addUtilities }) {
+// ──────────────────────────────────────────────────────────────────────────────
+// Custom design tokens — emitted as `urbancare-*-*` utilities so they live
+// outside Tailwind's `text-*` / `rounded-*` groups (and don't collide with
+// `text-{color}` etc. when merged via tailwind-merge).
+// ──────────────────────────────────────────────────────────────────────────────
+
+const URBANCARE_TEXT_SIZES = {
+  'urbancare-text-2xs': ['10px', { lineHeight: '14px' }],
+  'urbancare-text-xs': ['11px', { lineHeight: '16px' }],
+  'urbancare-text-sm': ['12px', { lineHeight: '16px' }],
+  'urbancare-text-md': ['13px', { lineHeight: '18px' }],
+  'urbancare-text-base': ['14px', { lineHeight: '20px' }],
+  'urbancare-text-lg': ['15px', { lineHeight: '22px' }],
+  'urbancare-text-xl': ['16px', { lineHeight: '24px' }],
+  'urbancare-text-2xl': ['18px', { lineHeight: '28px' }],
+  'urbancare-text-3xl': ['20px', { lineHeight: '28px' }],
+  'urbancare-text-4xl': ['22px', { lineHeight: '28px' }],
+  'urbancare-text-5xl': ['24px', { lineHeight: '32px' }],
+  'urbancare-text-6xl': ['26px', { lineHeight: '32px' }],
+  'urbancare-text-7xl': ['30px', { lineHeight: '36px' }],
+  'urbancare-text-8xl': ['36px', { lineHeight: '40px' }],
+  'urbancare-text-9xl': ['48px', { lineHeight: '1' }],
+  'urbancare-text-10xl': ['64px', { lineHeight: '1' }],
+};
+
+const URBANCARE_ROUNDED_SIZES = {
+  'urbancare-rounded-none': '0px',
+  'urbancare-rounded-xs': '2px',
+  'urbancare-rounded-sm': '4px',
+  'urbancare-rounded-md': '6px',
+  'urbancare-rounded-lg': '8px',
+  'urbancare-rounded-xl': '12px',
+  'urbancare-rounded-2xl': '14px',
+  'urbancare-rounded-3xl': '16px',
+  'urbancare-rounded-4xl': '24px',
+  'urbancare-rounded-full': '9999px',
+  'urbancare-rounded-panel': 'var(--panel-radius)',
+};
+
+// Directional radius helpers: { suffix → list of CSS properties }
+const ROUNDED_SIDES = {
+  '': [
+    'border-top-left-radius',
+    'border-top-right-radius',
+    'border-bottom-right-radius',
+    'border-bottom-left-radius',
+  ],
+  't': ['border-top-left-radius', 'border-top-right-radius'],
+  'b': ['border-bottom-left-radius', 'border-bottom-right-radius'],
+  'l': ['border-top-left-radius', 'border-bottom-left-radius'],
+  'r': ['border-top-right-radius', 'border-bottom-right-radius'],
+  'tl': ['border-top-left-radius'],
+  'tr': ['border-top-right-radius'],
+  'bl': ['border-bottom-left-radius'],
+  'br': ['border-bottom-right-radius'],
+};
+
+const urbancareUtilities = plugin(function ({ addUtilities }) {
+  const textUtilities = Object.fromEntries(
+    Object.entries(URBANCARE_TEXT_SIZES).map(([key, [size, { lineHeight }]]) => [
+      `.${key}`,
+      { 'font-size': size, 'line-height': lineHeight },
+    ])
+  );
+
+  // Generates `.urbancare-rounded-{size}` and `.urbancare-rounded-{side}-{size}`
+  // for every side (t, b, l, r, tl, tr, bl, br).
+  const roundedUtilities = {};
+  for (const [fullKey, value] of Object.entries(URBANCARE_ROUNDED_SIZES)) {
+    const size = fullKey.replace('urbancare-rounded-', '');
+    for (const [side, props] of Object.entries(ROUNDED_SIDES)) {
+      const className = side
+        ? `.urbancare-rounded-${side}-${size}`
+        : `.urbancare-rounded-${size}`;
+      roundedUtilities[className] = Object.fromEntries(
+        props.map((prop) => [prop, value])
+      );
+    }
+  }
+
   addUtilities({
+    ...textUtilities,
+    ...roundedUtilities,
     '.global-centered': {
       position: 'fixed',
       left: '50%',
@@ -16,64 +97,28 @@ const shorthands = plugin(function ({ addUtilities }) {
   });
 });
 
-/** @type {import('tailwindcss').Config} */
+// ──────────────────────────────────────────────────────────────────────────────
+// Tailwind config
+// ──────────────────────────────────────────────────────────────────────────────
+
 module.exports = {
   darkMode: ['class'],
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-    './src/**/*.{js,ts,jsx,tsx,html}',
-    './src/app/**/*.{js,ts,jsx,tsx}',
-    './src/components/**/*.{js,ts,jsx,tsx}',
-  ],
-  prefix: '',
+  content: ['./src/**/*.{js,ts,jsx,tsx,html}'],
   theme: {
     extend: {
       screens: {
-        sm: '640px', // large phones
-        md: '768px', // tablets
-        lg: '1080px', // laptops
-        xl: '1512px', // desktops
-        '2xl': '1536px', // large desktops
-        '4xl': '1920px', // ultrawide
-
-        // Max-width - "this size and DOWN"
-        'max-sm': { max: '639px' }, // only mobile
-        'max-md': { max: '767px' }, // mobile + small tablets
-        'max-lg': { max: '1023px' }, // below laptop
-        'max-xl': { max: '1279px' }, // below desktop
+        sm: '640px',
+        md: '768px',
+        lg: '1080px',
+        xl: '1512px',
+        '2xl': '1536px',
+        '4xl': '1920px',
+        'max-sm': { max: '639px' },
+        'max-md': { max: '767px' },
+        'max-lg': { max: '1023px' },
+        'max-xl': { max: '1279px' },
       },
       colors: {
-        /*
-         * COLOR USAGE QUICK REFERENCE:
-         * ────────────────────────────────────────────────────────────────
-         * bg-primary          → Primary buttons, main CTAs
-         * bg-primary-container → Soft primary backgrounds (badges, chips)
-         * text-primary        → Primary action text (usually white)
-         *
-         * bg-secondary        → Secondary/cancel buttons
-         * bg-secondary-container → Soft grey backgrounds
-         *
-         * bg-tertiary         → Purple accent buttons, special features
-         * bg-tertiary-container → Soft purple backgrounds for badges/tags
-         * text-tertiary       → Purple accent text
-         *
-         * bg-surface          → Card backgrounds
-         * bg-surface-elevated → Modal/dropdown backgrounds
-         * bg-surface-variant  → Sidebar, secondary panels
-         *
-         * text-text-primary   → Main body text
-         * text-text-secondary → Subtitles, less important text
-         * text-text-tertiary  → Hints, placeholders
-         *
-         * bg-success/error/warning/info → State feedback colors
-         * ────────────────────────────────────────────────────────────────
-         */
-        // PRIMARY (Blue) - Main actions, links, CTAs
-        // Use: bg-primary, text-primary-foreground, hover:bg-primary-hover
         primary: {
           DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
           dark: 'rgb(var(--color-primary-dark) / <alpha-value>)',
@@ -87,8 +132,6 @@ module.exports = {
               'rgb(var(--color-primary-container-foreground) / <alpha-value>)',
           },
         },
-        // SECONDARY (Grey) - Cancel buttons, less important actions
-        // Use: bg-secondary, text-secondary-foreground, hover:bg-secondary-hover
         secondary: {
           DEFAULT: 'rgb(var(--color-secondary) / <alpha-value>)',
           hover: 'rgb(var(--color-secondary-hover) / <alpha-value>)',
@@ -100,8 +143,6 @@ module.exports = {
               'rgb(var(--color-secondary-container-foreground) / <alpha-value>)',
           },
         },
-        // TERTIARY (Purple) - Accent, badges, tags, special features
-        // Use: bg-tertiary, text-tertiary, bg-tertiary-container
         tertiary: {
           DEFAULT: 'rgb(var(--color-tertiary) / <alpha-value>)',
           dark: 'rgb(var(--color-tertiary-dark) / <alpha-value>)',
@@ -120,8 +161,6 @@ module.exports = {
           hover: 'rgb(var(--color-accent-hover) / <alpha-value>)',
           foreground: 'rgb(var(--color-accent-foreground) / <alpha-value>)',
         },
-        // SURFACE - Card/panel backgrounds
-        // surface: cards | elevated: modals/dropdowns | variant: sidebars
         surface: {
           DEFAULT: 'rgb(var(--color-surface) / <alpha-value>)',
           elevated: 'rgb(var(--color-surface-elevated) / <alpha-value>)',
@@ -132,14 +171,11 @@ module.exports = {
           secondary: 'rgb(var(--color-surface-secondary) / <alpha-value>)',
           hover: 'rgb(var(--color-surface-hover) / <alpha-value>)',
         },
-        // BACKGROUND - Page/app background
         background: {
           DEFAULT: 'rgb(var(--color-background) / <alpha-value>)',
           secondary: 'rgb(var(--color-background-secondary) / <alpha-value>)',
           hover: 'rgb(var(--color-background-hover) / <alpha-value>)',
         },
-        // TEXT COLORS
-        // primary: main text | secondary: subtitles | tertiary: hints
         foreground: {
           primary: 'rgb(var(--color-text-primary) / <alpha-value>)',
           secondary: 'rgb(var(--color-text-secondary) / <alpha-value>)',
@@ -162,8 +198,6 @@ module.exports = {
           focus: 'rgb(var(--color-border-focus) / <alpha-value>)',
           error: 'rgb(var(--color-border-error) / <alpha-value>)',
         },
-        // STATE COLORS - Feedback & status indicators
-        // success: completed actions, confirmations
         success: {
           DEFAULT: 'rgb(var(--color-success) / <alpha-value>)',
           hover: 'rgb(var(--color-success-hover) / <alpha-value>)',
@@ -175,7 +209,6 @@ module.exports = {
               'rgb(var(--color-success-container-foreground) / <alpha-value>)',
           },
         },
-        // error: errors, deletions, destructive actions
         error: {
           DEFAULT: 'rgb(var(--color-error) / <alpha-value>)',
           hover: 'rgb(var(--color-error-hover) / <alpha-value>)',
@@ -187,7 +220,6 @@ module.exports = {
               'rgb(var(--color-error-container-foreground) / <alpha-value>)',
           },
         },
-        // warning: caution, pending, requires attention
         warning: {
           DEFAULT: 'rgb(var(--color-warning) / <alpha-value>)',
           hover: 'rgb(var(--color-warning-hover) / <alpha-value>)',
@@ -199,7 +231,6 @@ module.exports = {
               'rgb(var(--color-warning-container-foreground) / <alpha-value>)',
           },
         },
-        // info: tips, help, informational messages
         info: {
           DEFAULT: 'rgb(var(--color-info) / <alpha-value>)',
           hover: 'rgb(var(--color-info-hover) / <alpha-value>)',
@@ -256,146 +287,84 @@ module.exports = {
           5: 'var(--chart-5)',
         },
       },
-      borderRadius: {
-        'urbancare-none': '0px',
-        'urbancare-xs': '2px',
-        'urbancare-sm': '4px',
-        'urbancare-md': '6px',
-        'urbancare-lg': '8px',
-        'urbancare-xl': '12px',
-        'urbancare-2xl': '14px',
-        'urbancare-3xl': '16px',
-        'urbancare-4xl': '24px',
-        'urbancare-full': '9999px',
-        'urbancare-panel': 'var(--panel-radius)',
+      fontFamily: {
+        sans: [
+          'FiraGO',
+          'Noto Sans Georgian',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'sans-serif',
+        ],
+        georgian: ['FiraGO', 'Noto Sans Georgian', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
+        roboto: ['var(--font-roboto)', 'sans-serif'],
+      },
+      lineHeight: {
+        'tight-georgian': '1.2',
+        'normal-georgian': '1.3',
+        'relaxed-georgian': '1.4',
       },
       keyframes: {
         'slide-in-from-right': {
-          '0%': {
-            transform: 'translateX(100%)',
-          },
-          '100%': {
-            transform: 'translateX(0)',
-          },
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0)' },
         },
         'caret-blink': {
-          '0%,70%,100%': {
-            opacity: '1',
-          },
-          '20%,50%': {
-            opacity: '0',
-          },
+          '0%,70%,100%': { opacity: '1' },
+          '20%,50%': { opacity: '0' },
         },
         'accordion-down': {
-          from: {
-            height: '0',
-          },
-          to: {
-            height: 'var(--radix-accordion-content-height)',
-          },
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
         },
         'accordion-up': {
-          from: {
-            height: 'var(--radix-accordion-content-height)',
-          },
-          to: {
-            height: '0',
-          },
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
         },
         slideUp: {
-          '0%': {
-            transform: 'translateY(20px)',
-            opacity: 0,
-          },
-          '100%': {
-            transform: 'translateY(0)',
-            opacity: 1,
-          },
+          '0%': { transform: 'translateY(20px)', opacity: 0 },
+          '100%': { transform: 'translateY(0)', opacity: 1 },
         },
         panelSlideUp: {
-          '0%': {
-            transform: 'translateY(10%)',
-            opacity: 1,
-          },
-          '100%': {
-            transform: 'translateY(0)',
-            opacity: 1,
-          },
+          '0%': { transform: 'translateY(10%)', opacity: 1 },
+          '100%': { transform: 'translateY(0)', opacity: 1 },
         },
         slideDown: {
-          '0%': {
-            transform: 'translateY(0)',
-            opacity: 0,
-          },
-          '100%': {
-            transform: 'translateY(100%)',
-            opacity: 1,
-          },
+          '0%': { transform: 'translateY(0)', opacity: 0 },
+          '100%': { transform: 'translateY(100%)', opacity: 1 },
         },
         fadeOut: {
-          '0%': {
-            opacity: 1,
-          },
-          '100%': {
-            opacity: 0,
-          },
+          '0%': { opacity: 1 },
+          '100%': { opacity: 0 },
         },
         float: {
-          '0%, 100%': {
-            transform: 'translateY(0)',
-          },
-          '50%': {
-            transform: 'translateY(-3px)',
-          },
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-3px)' },
         },
         marquee: {
-          '0%': {
-            transform: 'translateX(0%)',
-          },
-          '100%': {
-            transform: 'translateX(-50%)',
-          },
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
         shine: {
-          '0%': {
-            backgroundPosition: '100%',
-          },
-          '100%': {
-            backgroundPosition: '-100%',
-          },
+          '0%': { backgroundPosition: '100%' },
+          '100%': { backgroundPosition: '-100%' },
         },
         shimmer: {
-          from: {
-            backgroundPosition: '0 0',
-          },
-          to: {
-            backgroundPosition: '-200% 0',
-          },
+          from: { backgroundPosition: '0 0' },
+          to: { backgroundPosition: '-200% 0' },
         },
         'star-movement-bottom': {
-          '0%': {
-            transform: 'translate(0%, 0%)',
-            opacity: '1',
-          },
-          '100%': {
-            transform: 'translate(-100%, 0%)',
-            opacity: '0',
-          },
+          '0%': { transform: 'translate(0%, 0%)', opacity: '1' },
+          '100%': { transform: 'translate(-100%, 0%)', opacity: '0' },
         },
         'star-movement-top': {
-          '0%': {
-            transform: 'translate(0%, 0%)',
-            opacity: '1',
-          },
-          '100%': {
-            transform: 'translate(100%, 0%)',
-            opacity: '0',
-          },
+          '0%': { transform: 'translate(0%, 0%)', opacity: '1' },
+          '100%': { transform: 'translate(100%, 0%)', opacity: '0' },
         },
         scroll: {
-          to: {
-            transform: 'translate(calc(-50% - 0.5rem))',
-          },
+          to: { transform: 'translate(calc(-50% - 0.5rem))' },
         },
       },
       animation: {
@@ -419,45 +388,7 @@ module.exports = {
         scroll:
           'scroll var(--animation-duration, 60s) var(--animation-direction, forwards) linear infinite',
       },
-      fontFamily: {
-        sans: [
-          'FiraGO',
-          'Noto Sans Georgian',
-          '-apple-system',
-          'BlinkMacSystemFont',
-          'Segoe UI',
-          'Roboto',
-          'sans-serif',
-        ],
-        georgian: ['FiraGO', 'Noto Sans Georgian', 'sans-serif'],
-        poppins: ['Poppins', 'sans-serif'],
-        roboto: ['var(--font-roboto)', 'sans-serif'],
-      },
-      lineHeight: {
-        'tight-georgian': '1.2',
-        'normal-georgian': '1.3',
-        'relaxed-georgian': '1.4',
-      },
-      fontSize: {
-        'urbancare-2xs': ['10px', { lineHeight: '14px' }],
-        'urbancare-xs': ['11px', { lineHeight: '16px' }],
-        'urbancare-sm': ['12px', { lineHeight: '16px' }],
-        'urbancare-md': ['13px', { lineHeight: '18px' }],
-        'urbancare-base': ['14px', { lineHeight: '20px' }],
-        'urbancare-lg': ['15px', { lineHeight: '22px' }],
-        'urbancare-xl': ['16px', { lineHeight: '24px' }],
-        'urbancare-2xl': ['18px', { lineHeight: '28px' }],
-        'urbancare-3xl': ['20px', { lineHeight: '28px' }],
-        'urbancare-4xl': ['22px', { lineHeight: '28px' }],
-        'urbancare-5xl': ['24px', { lineHeight: '32px' }],
-        'urbancare-6xl': ['26px', { lineHeight: '32px' }],
-        'urbancare-7xl': ['30px', { lineHeight: '36px' }],
-        'urbancare-8xl': ['36px', { lineHeight: '40px' }],
-        'urbancare-9xl': ['48px', { lineHeight: '1' }],
-        'urbancare-10xl': ['64px', { lineHeight: '1' }],
-      },
-      iconSize: {},
     },
   },
-  plugins: [require('tailwindcss-animate'), shorthands],
+  plugins: [require('tailwindcss-animate'), urbancareUtilities],
 };

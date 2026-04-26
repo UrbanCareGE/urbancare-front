@@ -13,7 +13,7 @@ function ProfileSideBarViewSkeleton() {
     <div className="flex flex-1 items-center gap-3 w-full">
       {/* Avatar skeleton */}
       <div className="relative inline-block">
-        <Skeleton className="h-16 w-16 rounded-urbancare-full" />
+        <Skeleton className="h-16 w-16 urbancare-rounded-full" />
       </div>
 
       {/* Text content skeleton */}
@@ -46,13 +46,13 @@ export const SideBarProfileHeader = () => {
           />
           <AvatarFallback>{initials}</AvatarFallback>
         </Avatar>
-        <span className="absolute bottom-0 right-0 block w-4 h-4 rounded-urbancare-full border-2 border-white bg-success" />
+        <span className="absolute bottom-0 right-0 block w-4 h-4 urbancare-rounded-full border-2 border-white bg-success" />
       </div>
       <div className="flex flex-col mr-auto">
-        <p className="font-semibold text-urbancare-3xl text-foreground-primary">
+        <p className="font-semibold urbancare-text-3xl text-foreground-primary">
           {user?.name} {user?.surname}
         </p>
-        <span className="text-urbancare-xl text-foreground-secondary inline">
+        <span className="urbancare-text-xl text-foreground-secondary inline">
           @{user?.phone.number}
         </span>
       </div>

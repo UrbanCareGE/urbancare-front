@@ -31,7 +31,7 @@ export default function TabletLayout({
         <div className="relative z-10 flex flex-col items-center pt-12 pb-2 px-8">
           <div className="flex items-center gap-3 mb-1">
             <UrbanCareIcon className="w-11 h-11 bg-white/15 shadow-none" />
-            <span className="text-urbancare-4xl font-bold text-white tracking-tight">
+            <span className="urbancare-text-4xl font-bold text-white tracking-tight">
               UrbanCare
             </span>
           </div>

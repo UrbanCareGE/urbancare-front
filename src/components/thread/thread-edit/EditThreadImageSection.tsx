@@ -39,11 +39,11 @@ export const EditThreadImageSection = ({
   return (
     <FormItem>
       <div className="flex items-center justify-between mb-3">
-        <FormLabel className="text-urbancare-base font-medium text-foreground-secondary flex items-center gap-2">
+        <FormLabel className="urbancare-text-base font-medium text-foreground-secondary flex items-center gap-2">
           <ImageIconLucid className="w-4 h-4 text-foreground-disabled" />
           {t.threadForm.mediaFiles}
         </FormLabel>
-        <span className="text-urbancare-sm text-foreground-tertiary tabular-nums">
+        <span className="urbancare-text-sm text-foreground-tertiary tabular-nums">
           {t.threadForm.filesCount.replace('{count}', String(totalImages))}
         </span>
       </div>
@@ -66,16 +66,16 @@ export const EditThreadImageSection = ({
           className="w-full h-auto border-2 border-dashed border-border lg:hover:border-primary lg:hover:bg-primary/5 transition-all group disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <div className="flex flex-col items-center gap-2">
-            <div className="w-10 h-10 rounded-urbancare-full bg-surface-container lg:group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+            <div className="w-10 h-10 urbancare-rounded-full bg-surface-container lg:group-hover:bg-primary/10 flex items-center justify-center transition-colors">
               <Upload className="w-5 h-5 text-foreground-tertiary lg:group-hover:text-primary transition-colors" />
             </div>
             <div className="text-center">
-              <p className="text-urbancare-base font-medium text-foreground-secondary">
+              <p className="urbancare-text-base font-medium text-foreground-secondary">
                 {hasAny
                   ? t.threadForm.addMoreMedia
                   : t.threadForm.uploadPhotoVideo}
               </p>
-              <p className="text-urbancare-sm text-foreground-tertiary mt-0.5">
+              <p className="urbancare-text-sm text-foreground-tertiary mt-0.5">
                 {t.threadForm.maxFilesHint}
               </p>
             </div>
@@ -85,11 +85,11 @@ export const EditThreadImageSection = ({
         {hasAny && (
           <div className="space-y-2">
             <div className="flex items-center justify-between px-1">
-              <p className="text-urbancare-sm font-medium text-foreground-tertiary">
+              <p className="urbancare-text-sm font-medium text-foreground-tertiary">
                 {t.threadForm.uploadedFiles}
               </p>
               {totalImages > 3 && (
-                <p className="text-urbancare-sm text-foreground-disabled">
+                <p className="urbancare-text-sm text-foreground-disabled">
                   {t.threadForm.scrollHint}
                 </p>
               )}
@@ -100,15 +100,15 @@ export const EditThreadImageSection = ({
                 <>
                   <div
                     aria-hidden
-                    className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-surface to-transparent z-10 pointer-events-none rounded-l-urbancare-xl"
+                    className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-surface to-transparent z-10 pointer-events-none urbancare-rounded-l-xl"
                   />
                   <div
                     aria-hidden
-                    className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-surface to-transparent z-10 pointer-events-none rounded-r-urbancare-xl"
+                    className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-surface to-transparent z-10 pointer-events-none urbancare-rounded-r-xl"
                   />
                 </>
               )}
-              <div className="overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide bg-surface-variant rounded-urbancare-xl p-3">
+              <div className="overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide bg-surface-variant urbancare-rounded-xl p-3">
                 <div className="flex gap-3">
                   {existingImages.map((img, index) => {
                     const isVideo = img.contentType?.startsWith('video');
@@ -146,7 +146,7 @@ export const EditThreadImageSection = ({
         )}
       </div>
 
-      <FormMessage className="text-urbancare-sm" />
+      <FormMessage className="urbancare-text-sm" />
     </FormItem>
   );
 };
@@ -172,7 +172,7 @@ const MediaThumb = ({
     <div className="flex-shrink-0 relative group w-20 h-20">
       <div
         className={cn(
-          'absolute inset-0 rounded-urbancare-lg overflow-hidden bg-surface border-2 border-border shadow-sm transition-all duration-300',
+          'absolute inset-0 urbancare-rounded-lg overflow-hidden bg-surface border-2 border-border shadow-sm transition-all duration-300',
           'lg:hover:shadow-md lg:group-hover:scale-105 lg:hover:border-primary/50'
         )}
       >
@@ -190,21 +190,21 @@ const MediaThumb = ({
 
         {isUploading && (
           <div className="absolute inset-0 bg-black/50 flex items-center justify-center backdrop-blur-sm">
-            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-urbancare-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-white border-t-transparent urbancare-rounded-full animate-spin" />
           </div>
         )}
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 lg:group-hover:opacity-100 transition-opacity">
           {sizeLabel && (
             <div className="absolute bottom-1 left-1 right-1">
-              <p className="text-urbancare-sm font-medium text-primary-foreground truncate">
+              <p className="urbancare-text-sm font-medium text-primary-foreground truncate">
                 {sizeLabel}
               </p>
             </div>
           )}
         </div>
 
-        <div className="absolute top-1 left-1 w-5 h-5 bg-primary text-primary-foreground text-urbancare-sm rounded-urbancare-full flex items-center justify-center font-semibold shadow-sm">
+        <div className="absolute top-1 left-1 w-5 h-5 bg-primary text-primary-foreground urbancare-text-sm urbancare-rounded-full flex items-center justify-center font-semibold shadow-sm">
           {index}
         </div>
       </div>
@@ -213,7 +213,7 @@ const MediaThumb = ({
         type="button"
         onClick={onRemove}
         className={cn(
-          'absolute -top-2 -right-2 p-1.5 bg-error text-error-foreground rounded-urbancare-full',
+          'absolute -top-2 -right-2 p-1.5 bg-error text-error-foreground urbancare-rounded-full',
           'opacity-100 lg:opacity-0 lg:group-hover:opacity-100',
           'transition-all duration-200 lg:hover:bg-error/80 lg:hover:scale-110 shadow-lg z-20'
         )}

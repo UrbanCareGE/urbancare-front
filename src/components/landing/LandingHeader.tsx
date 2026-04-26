@@ -25,10 +25,10 @@ export function LandingHeader() {
     <header className="relative z-10 px-4 py-4 md:px-8">
       <nav className="max-w-6xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-urbancare-xl bg-gradient-primary flex items-center justify-center">
+          <div className="w-10 h-10 urbancare-rounded-xl bg-gradient-primary flex items-center justify-center">
             <Building2 className="w-6 h-6 text-white" />
           </div>
-          <span className="text-urbancare-3xl font-bold text-text-primary">
+          <span className="urbancare-text-3xl font-bold text-text-primary">
             UrbanCare
           </span>
         </div>
@@ -36,9 +36,9 @@ export function LandingHeader() {
         {isAuthenticated ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="flex items-center gap-2 rounded-urbancare-xl px-3 py-2 lg:hover:bg-surface-secondary transition-colors outline-none cursor-pointer">
+              <button className="flex items-center gap-2 urbancare-rounded-xl px-3 py-2 lg:hover:bg-surface-secondary transition-colors outline-none cursor-pointer">
                 <CurrentUserAvatar />
-                <span className="hidden sm:block text-urbancare-base font-medium text-text-primary">
+                <span className="hidden sm:block urbancare-text-base font-medium text-text-primary">
                   {user.name} {user.surname}
                 </span>
                 <ChevronDown className="w-4 h-4 text-text-secondary" />
@@ -82,7 +82,7 @@ export function LandingHeader() {
             <Link href="/auth/register">
               <Button
                 size="sm"
-                className="rounded-urbancare-xl bg-gradient-primary"
+                className="urbancare-rounded-xl bg-gradient-primary"
               >
                 {t.auth.register}
               </Button>

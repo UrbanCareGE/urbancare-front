@@ -98,7 +98,7 @@ const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
       <div className="relative w-full">
         <div
           className={cn(
-            'flex items-center w-full rounded-urbancare-xl border bg-input transition-colors',
+            'flex items-center w-full urbancare-rounded-xl border bg-input transition-colors',
             error
               ? 'ring-2 ring-error'
               : 'focus-within:ring-2 focus-within:ring-primary',
@@ -150,10 +150,10 @@ const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
                     }}
                   >
                     <FlagImage iso2={c.iso2} size="20px" />
-                    <span className="text-urbancare-base text-text-primary truncate flex-1">
+                    <span className="urbancare-text-base text-text-primary truncate flex-1">
                       {c.name}
                     </span>
-                    <span className="text-urbancare-sm text-text-muted shrink-0">
+                    <span className="urbancare-text-sm text-text-muted shrink-0">
                       +{c.dialCode}
                     </span>
                   </button>
@@ -178,10 +178,10 @@ const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
                     }}
                   >
                     <FlagImage iso2={c.iso2} size="20px" />
-                    <span className="text-urbancare-base text-text-primary truncate flex-1">
+                    <span className="urbancare-text-base text-text-primary truncate flex-1">
                       {c.name}
                     </span>
-                    <span className="text-urbancare-sm text-text-muted shrink-0">
+                    <span className="urbancare-text-sm text-text-muted shrink-0">
                       +{c.dialCode}
                     </span>
                   </button>
@@ -194,7 +194,7 @@ const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
           <div className="w-px h-6 bg-border shrink-0" />
 
           {/* Dial code (non-editable) */}
-          <span className="pl-3 text-urbancare-base sm:text-urbancare-xl text-text-muted font-medium select-none shrink-0">
+          <span className="pl-3 urbancare-text-base sm:urbancare-text-xl text-text-muted font-medium select-none shrink-0">
             {dialCode}
           </span>
 
@@ -211,7 +211,7 @@ const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
             className={cn(
               'w-full h-full bg-transparent py-1 pl-2',
               suffix ? 'pr-0' : 'pr-10',
-              'text-urbancare-base sm:text-urbancare-xl text-text-primary',
+              'urbancare-text-base sm:urbancare-text-xl text-text-primary',
               'placeholder:text-text-placeholder',
               'focus:outline-none',
               'caret-black',
@@ -254,7 +254,7 @@ const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
               <TooltipContent
                 side="top"
                 sideOffset={8}
-                className="max-w-xs bg-[var(--color-grey-800)] text-white text-urbancare-base text-center p-2"
+                className="max-w-xs bg-[var(--color-grey-800)] text-white urbancare-text-base text-center p-2"
               >
                 {message}
               </TooltipContent>

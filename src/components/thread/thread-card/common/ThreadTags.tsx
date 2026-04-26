@@ -26,7 +26,7 @@ const TagBadge = ({ tag }: TagBadgeProps) => {
   return (
     <span
       className={cn(
-        'inline-flex items-center px-2.5 h-6 rounded-urbancare-full text-urbancare-xs font-semibold whitespace-nowrap',
+        'inline-flex items-center px-2.5 h-6 urbancare-rounded-full urbancare-text-xs font-semibold whitespace-nowrap',
         config.bg,
         config.text
       )}

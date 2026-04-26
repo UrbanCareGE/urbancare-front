@@ -96,7 +96,7 @@ function MediaGridThumb({
           />
           {!isDimmedWithCount && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/20 pointer-events-none">
-              <div className="bg-black/60 rounded-urbancare-full p-3">
+              <div className="bg-black/60 urbancare-rounded-full p-3">
                 <Play className="w-7 h-7 text-white fill-white" />
               </div>
             </div>
@@ -106,7 +106,7 @@ function MediaGridThumb({
 
       {isDimmedWithCount && remainingCount && remainingCount > 0 && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <span className="text-white text-urbancare-7xl font-semibold">
+          <span className="text-white urbancare-text-7xl font-semibold">
             +{remainingCount}
           </span>
         </div>
@@ -157,7 +157,7 @@ function CarouselMedia({
         controls
         playsInline
         preload="metadata"
-        className="max-h-[80vh] max-w-full w-full object-contain rounded-urbancare-lg"
+        className="max-h-[80vh] max-w-full w-full object-contain urbancare-rounded-lg"
       />
     </div>
   );
@@ -207,7 +207,7 @@ export const ThreadImagePreview = ({
         <div className={cn('relative w-full h-96', className)}>
           <MediaGridThumb
             item={mediaItems[0]}
-            className="absolute inset-0 rounded-urbancare-4xl"
+            className="absolute inset-0 urbancare-rounded-4xl"
             onClick={() => openCarousel(0)}
           />
         </div>
@@ -220,7 +220,7 @@ export const ThreadImagePreview = ({
             <MediaGridThumb
               key={item.url}
               item={item}
-              className="flex-1 rounded-urbancare-lg"
+              className="flex-1 urbancare-rounded-lg"
               onClick={() => openCarousel(index)}
             />
           ))}
@@ -232,18 +232,18 @@ export const ThreadImagePreview = ({
         <div className={cn('flex gap-1 h-96', className)}>
           <MediaGridThumb
             item={displayItems[0]}
-            className="flex-1 rounded-l-urbancare-lg"
+            className="flex-1 urbancare-rounded-l-lg"
             onClick={() => openCarousel(0)}
           />
           <div className="flex flex-col flex-1 gap-1">
             <MediaGridThumb
               item={displayItems[1]}
-              className="flex-1 rounded-tr-urbancare-lg"
+              className="flex-1 urbancare-rounded-tr-lg"
               onClick={() => openCarousel(1)}
             />
             <MediaGridThumb
               item={displayItems[2]}
-              className="flex-1 rounded-br-urbancare-lg"
+              className="flex-1 urbancare-rounded-br-lg"
               isDimmedWithCount={remainingCount > 0}
               remainingCount={remainingCount}
               onClick={() => openCarousel(2)}
@@ -259,7 +259,7 @@ export const ThreadImagePreview = ({
           <button
             onClick={() => setIsOpen(false)}
             aria-label="Close preview"
-            className="absolute top-4 right-4 z-50 p-2 rounded-urbancare-full bg-black/50 text-white transition-all lg:hover:bg-black/70 active:scale-95"
+            className="absolute top-4 right-4 z-50 p-2 urbancare-rounded-full bg-black/50 text-white transition-all lg:hover:bg-black/70 active:scale-95"
           >
             <X className="w-6 h-6" />
           </button>
@@ -293,7 +293,7 @@ export const ThreadImagePreview = ({
           </div>
 
           {count > 1 && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/50 px-3 py-1 rounded-urbancare-full text-urbancare-base">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/50 px-3 py-1 urbancare-rounded-full urbancare-text-base">
               {current} / {count}
             </div>
           )}

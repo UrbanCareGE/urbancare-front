@@ -66,20 +66,20 @@ export default function DesktopLayout({
             {/* Logo */}
             <div className="flex items-center gap-3">
               <UrbanCareIcon className="w-11 h-11 bg-white/15 shadow-none" />
-              <span className="text-urbancare-4xl font-bold text-white tracking-tight">
+              <span className="urbancare-text-4xl font-bold text-white tracking-tight">
                 UrbanCare
               </span>
             </div>
 
             {/* Headline + features */}
             <div className="flex-1 flex flex-col justify-center py-10">
-              <p className="text-white/50 text-urbancare-sm font-bold uppercase tracking-[0.2em] mb-4">
+              <p className="text-white/50 urbancare-text-sm font-bold uppercase tracking-[0.2em] mb-4">
                 {t.authPages.welcomeBack}
               </p>
-              <h1 className="text-urbancare-8xl xl:text-urbancare-9xl font-bold text-white leading-[1.05] mb-5">
+              <h1 className="urbancare-text-8xl xl:urbancare-text-9xl font-bold text-white leading-[1.05] mb-5">
                 {t.authPages.comeCloser}
               </h1>
-              <p className="text-white/60 text-urbancare-xl leading-relaxed mb-12 max-w-[400px]">
+              <p className="text-white/60 urbancare-text-xl leading-relaxed mb-12 max-w-[400px]">
                 {t.authPages.beCommunityPart}
               </p>
 
@@ -87,10 +87,10 @@ export default function DesktopLayout({
               <div className="flex flex-col gap-2.5">
                 {features.map((f, i) => (
                   <div key={i} className="flex items-center gap-3.5">
-                    <div className="w-9 h-9 rounded-urbancare-lg bg-white/10 flex items-center justify-center text-white shrink-0">
+                    <div className="w-9 h-9 urbancare-rounded-lg bg-white/10 flex items-center justify-center text-white shrink-0">
                       {f.icon}
                     </div>
-                    <span className="text-white/75 text-urbancare-base font-medium">
+                    <span className="text-white/75 urbancare-text-base font-medium">
                       {f.label}
                     </span>
                   </div>

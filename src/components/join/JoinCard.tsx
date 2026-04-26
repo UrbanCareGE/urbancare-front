@@ -34,10 +34,10 @@ export function JoinCard({
   }
 
   return (
-    <Card className="w-full max-w-[420px] border-border rounded-urbancare-4xl bg-surface shadow-2xl shadow-black/20 animate-slide-up">
+    <Card className="w-full max-w-[420px] border-border urbancare-rounded-4xl bg-surface shadow-2xl shadow-black/20 animate-slide-up">
       <CardContent className="p-6 sm:p-8 flex flex-col items-center">
         {/* Apartment Image */}
-        <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-urbancare-3xl overflow-hidden ring-4 ring-primary/20 shadow-lg mb-5">
+        <div className="relative w-24 h-24 sm:w-28 sm:h-28 urbancare-rounded-3xl overflow-hidden ring-4 ring-primary/20 shadow-lg mb-5">
           {apartmentImageId ? (
             <Image
               src={getClientFileUrl(apartmentImageId)}
@@ -53,19 +53,19 @@ export function JoinCard({
         </div>
 
         {/* Badge */}
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-urbancare-full bg-primary/10 text-primary text-urbancare-sm font-medium mb-4">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 urbancare-rounded-full bg-primary/10 text-primary urbancare-text-sm font-medium mb-4">
           <Building2 className="w-3.5 h-3.5" />
           {t.join.residentialBuilding}
         </span>
 
         {/* Apartment Name */}
-        <h1 className="text-urbancare-5xl sm:text-urbancare-6xl font-bold text-text-primary text-center mb-1.5">
+        <h1 className="urbancare-text-5xl sm:urbancare-text-6xl font-bold text-text-primary text-center mb-1.5">
           {apartmentName}
         </h1>
 
         {/* Members count */}
         {membersCount !== undefined && (
-          <div className="flex items-center gap-1.5 text-text-secondary text-urbancare-base mb-5">
+          <div className="flex items-center gap-1.5 text-text-secondary urbancare-text-base mb-5">
             <Users className="w-4 h-4" />
             <span>
               {t.joinPage.membersCount.replace('{count}', String(membersCount))}
@@ -74,11 +74,11 @@ export function JoinCard({
         )}
 
         {/* Invitation text */}
-        <div className="w-full bg-surface-secondary rounded-urbancare-2xl p-4 mb-6">
-          <p className="text-urbancare-xl font-semibold text-primary text-center mb-1">
+        <div className="w-full bg-surface-secondary urbancare-rounded-2xl p-4 mb-6">
+          <p className="urbancare-text-xl font-semibold text-primary text-center mb-1">
             {t.joinPage.youAreInvited}
           </p>
-          <p className="text-urbancare-sm text-text-secondary text-center leading-relaxed">
+          <p className="urbancare-text-sm text-text-secondary text-center leading-relaxed">
             {t.joinPage.joinDescription}
           </p>
         </div>
@@ -88,7 +88,7 @@ export function JoinCard({
           onClick={onJoin}
           disabled={isJoining}
           className={cn(
-            'w-full h-14 rounded-urbancare-3xl text-urbancare-2xl font-semibold',
+            'w-full h-14 urbancare-rounded-3xl urbancare-text-2xl font-semibold',
             'bg-gradient-primary',
             'shadow-[0_4px_20px_rgba(var(--color-primary)/0.35)]',
             'active:scale-[0.98]',
@@ -103,7 +103,7 @@ export function JoinCard({
         </Button>
 
         {/* Invite code display */}
-        <p className="text-urbancare-xs text-text-tertiary mt-4 font-mono tracking-wider">
+        <p className="urbancare-text-xs text-text-tertiary mt-4 font-mono tracking-wider">
           {code}
         </p>
       </CardContent>
@@ -113,14 +113,14 @@ export function JoinCard({
 
 function JoinCardSkeleton() {
   return (
-    <Card className="w-full max-w-[420px] border-border rounded-urbancare-4xl bg-surface shadow-2xl shadow-black/20 animate-slide-up">
+    <Card className="w-full max-w-[420px] border-border urbancare-rounded-4xl bg-surface shadow-2xl shadow-black/20 animate-slide-up">
       <CardContent className="p-6 sm:p-8 flex flex-col items-center">
-        <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-urbancare-3xl bg-surface-container animate-pulse mb-5" />
-        <div className="h-5 w-32 rounded-urbancare-full bg-surface-container animate-pulse mb-4" />
-        <div className="h-7 w-48 rounded-urbancare-lg bg-surface-container animate-pulse mb-1.5" />
-        <div className="h-4 w-24 rounded-urbancare-md bg-surface-container animate-pulse mb-5" />
-        <div className="w-full h-24 rounded-urbancare-2xl bg-surface-container animate-pulse mb-6" />
-        <div className="w-full h-14 rounded-urbancare-3xl bg-surface-container animate-pulse" />
+        <div className="w-24 h-24 sm:w-28 sm:h-28 urbancare-rounded-3xl bg-surface-container animate-pulse mb-5" />
+        <div className="h-5 w-32 urbancare-rounded-full bg-surface-container animate-pulse mb-4" />
+        <div className="h-7 w-48 urbancare-rounded-lg bg-surface-container animate-pulse mb-1.5" />
+        <div className="h-4 w-24 urbancare-rounded-md bg-surface-container animate-pulse mb-5" />
+        <div className="w-full h-24 urbancare-rounded-2xl bg-surface-container animate-pulse mb-6" />
+        <div className="w-full h-14 urbancare-rounded-3xl bg-surface-container animate-pulse" />
       </CardContent>
     </Card>
   );

@@ -27,7 +27,7 @@ export const HeaderNavigationButton: React.FC<NavigationButtonProps> = ({
       title={title}
       variant={'ghost'}
       className={cn(
-        'select-none text-urbancare-3xl font-bold h-10 p-3 rounded-urbancare-panel transition-colors duration-300 ease-in-out bg-primary [&>svg]:stroke-white',
+        'select-none urbancare-text-3xl font-bold h-10 p-3 urbancare-rounded-panel transition-colors duration-300 ease-in-out bg-primary [&>svg]:stroke-white',
         className
       )}
       onClick={() => {

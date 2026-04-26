@@ -64,17 +64,17 @@ export function ChangePasswordForm() {
         type="button"
         onClick={() => setOpen(true)}
         className={cn(
-          'w-full rounded-urbancare-3xl overflow-hidden bg-surface-variant',
+          'w-full urbancare-rounded-3xl overflow-hidden bg-surface-variant',
           'flex items-center gap-2 px-4 py-3 text-left',
           'shadow-sm shadow-shadow/5',
           'transition-colors duration-200 cursor-pointer',
           'lg:hover:bg-surface-hover'
         )}
       >
-        <div className="w-10 h-10 rounded-urbancare-xl bg-success-container text-success-container-foreground flex items-center justify-center shrink-0">
+        <div className="w-10 h-10 urbancare-rounded-xl bg-success-container text-success-container-foreground flex items-center justify-center shrink-0">
           <ShieldCheck className="w-5 h-5" />
         </div>
-        <h3 className="flex-1 font-semibold text-urbancare-base text-text-primary leading-tight-georgian truncate">
+        <h3 className="flex-1 font-semibold urbancare-text-base text-text-primary leading-tight-georgian truncate">
           {t.profile.changePassword}
         </h3>
         <ChevronRight className="w-5 h-5 text-text-tertiary shrink-0" />
@@ -84,10 +84,10 @@ export function ChangePasswordForm() {
         <DialogContent className="border-border bg-surface max-w-lg p-0 overflow-hidden gap-0">
           <DialogTitle></DialogTitle>
           <div className="px-4 py-3 bg-surface-variant border-b border-border flex items-center gap-2">
-            <div className="w-10 h-10 rounded-urbancare-xl bg-success-container text-success-container-foreground flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 urbancare-rounded-xl bg-success-container text-success-container-foreground flex items-center justify-center shrink-0">
               <ShieldCheck className="w-5 h-5" />
             </div>
-            <h3 className="font-semibold text-urbancare-base text-text-primary leading-tight-georgian">
+            <h3 className="font-semibold urbancare-text-base text-text-primary leading-tight-georgian">
               {t.profile.changePassword}
             </h3>
           </div>
@@ -156,7 +156,7 @@ export function ChangePasswordForm() {
                 />
                 <Button
                   type="submit"
-                  className="w-full h-12 rounded-urbancare-4xl disabled:bg-disabled disabled:text-disabled-foreground"
+                  className="w-full h-12 urbancare-rounded-4xl disabled:bg-disabled disabled:text-disabled-foreground"
                   disabled={isPending || !form.formState.isValid}
                 >
                   {isPending ? t.common.inProgress : t.profile.changePassword}

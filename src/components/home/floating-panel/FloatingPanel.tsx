@@ -40,7 +40,7 @@ const FloatingPanelBody = ({ className, children }: FloatingPanelBodyProps) => {
   return (
     <div
       className={cn(
-        'w-full flex-1 animate-panel-slide-up overflow-scroll bg-background px-4 py-1 rounded-t-urbancare-4xl',
+        'w-full flex-1 animate-panel-slide-up overflow-scroll bg-background px-4 py-1 urbancare-rounded-t-4xl',
         className
       )}
     >

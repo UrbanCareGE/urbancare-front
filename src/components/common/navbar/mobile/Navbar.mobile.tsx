@@ -81,11 +81,11 @@ export const NavbarMobile = ({ className }: Basic) => {
         className
       )}
     >
-      <nav className="relative w-full h-full flex justify-evenly items-center rounded-urbancare-full">
+      <nav className="relative w-full h-full flex justify-evenly items-center urbancare-rounded-full">
         {/* Animated background indicator */}
         <div
           className={cn(
-            'absolute w-14 h-11 bg-primary transition-all duration-300 ease-out rounded-urbancare-xl',
+            'absolute w-14 h-11 bg-primary transition-all duration-300 ease-out urbancare-rounded-xl',
             { hidden: activeIndex < 0 }
           )}
           style={{

@@ -8,7 +8,7 @@ function Skeleton({
   return (
     <div
       className={cn(
-        'animate-pulse rounded-urbancare-md bg-surface-container',
+        'animate-pulse urbancare-rounded-md bg-surface-container',
         className
       )}
       {...props}

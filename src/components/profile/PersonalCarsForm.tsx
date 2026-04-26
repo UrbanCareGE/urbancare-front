@@ -80,12 +80,12 @@ const PersonalCarsForm = () => {
   };
 
   return (
-    <section className="w-full rounded-urbancare-3xl overflow-hidden border-none bg-surface shadow-sm shadow-shadow/5">
+    <section className="w-full urbancare-rounded-3xl overflow-hidden border-none bg-surface shadow-sm shadow-shadow/5">
       <header className="px-4 py-3 bg-surface-variant border-b border-border flex items-center gap-2">
-        <div className="w-10 h-10 rounded-urbancare-xl bg-tertiary-container text-tertiary-container-foreground flex items-center justify-center">
+        <div className="w-10 h-10 urbancare-rounded-xl bg-tertiary-container text-tertiary-container-foreground flex items-center justify-center">
           <Car className="w-5 h-5" />
         </div>
-        <h3 className="font-semibold text-urbancare-base text-text-primary leading-tight-georgian">
+        <h3 className="font-semibold urbancare-text-base text-text-primary leading-tight-georgian">
           {t.cars.carNumbers}
         </h3>
         <CarInfoTooltip />
@@ -94,7 +94,7 @@ const PersonalCarsForm = () => {
           disabled={isEditing || isAdding}
           size="sm"
           className={cn(
-            'ml-auto rounded-urbancare-full text-urbancare-sm transition-all lg:hover:scale-105',
+            'ml-auto urbancare-rounded-full urbancare-text-sm transition-all lg:hover:scale-105',
             (isEditing || isAdding) && 'opacity-50 cursor-not-allowed'
           )}
         >
@@ -113,15 +113,15 @@ const PersonalCarsForm = () => {
         )}
 
         {isCarFetching ? (
-          <p className="text-urbancare-base text-center text-text-secondary py-4">
+          <p className="urbancare-text-base text-center text-text-secondary py-4">
             {t.common.loading}
           </p>
         ) : cars.length === 0 && !isEditing ? (
-          <div className="flex flex-col items-center justify-center gap-2 py-6 rounded-urbancare-xl border border-dashed border-border bg-surface-variant">
-            <div className="flex items-center justify-center w-10 h-10 rounded-urbancare-full bg-tertiary-container/60 text-tertiary-container-foreground [&_svg]:w-5 [&_svg]:h-5">
+          <div className="flex flex-col items-center justify-center gap-2 py-6 urbancare-rounded-xl border border-dashed border-border bg-surface-variant">
+            <div className="flex items-center justify-center w-10 h-10 urbancare-rounded-full bg-tertiary-container/60 text-tertiary-container-foreground [&_svg]:w-5 [&_svg]:h-5">
               <Car />
             </div>
-            <p className="text-urbancare-base text-text-secondary">
+            <p className="urbancare-text-base text-text-secondary">
               {t.cars.noCarsAdded}
             </p>
           </div>

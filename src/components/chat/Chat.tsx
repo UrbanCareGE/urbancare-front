@@ -11,7 +11,7 @@ export const Chat = () => {
   const { theme } = useTheme();
 
   if (isFetchingChat) {
-    return <Skeleton className="w-full rounded-urbancare-md flex-1 min-h-0" />;
+    return <Skeleton className="w-full urbancare-rounded-md flex-1 min-h-0" />;
   }
 
   if (!data) {
@@ -22,7 +22,7 @@ export const Chat = () => {
 
   return (
     // overflow-hidden + negative top clips the TalkJS free-tier "Test Mode" banner area
-    <div className="relative flex-1 min-h-0 h-full overflow-hidden rounded-urbancare-xl">
+    <div className="relative flex-1 min-h-0 h-full overflow-hidden urbancare-rounded-xl">
       <Chatbox
         conversationId={data[0].id}
         className="absolute left-0 right-0"
@@ -34,7 +34,7 @@ export const Chat = () => {
         theme={chatTheme}
         showChatHeader={false}
         loadingComponent={
-          <Skeleton className="h-full w-full rounded-urbancare-md flex-1 scrollbar-hide overflow-y-scroll" />
+          <Skeleton className="h-full w-full urbancare-rounded-md flex-1 scrollbar-hide overflow-y-scroll" />
         }
       />
     </div>

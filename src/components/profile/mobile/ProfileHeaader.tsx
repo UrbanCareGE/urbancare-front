@@ -14,7 +14,7 @@ function SheetProfileHeaderSkeleton() {
     <div className="flex items-center gap-3 p-2 w-full">
       {/* Avatar skeleton */}
       <div className="relative inline-block">
-        <Skeleton className="h-12 w-12 rounded-urbancare-full" />
+        <Skeleton className="h-12 w-12 urbancare-rounded-full" />
       </div>
 
       {/* Text content skeleton */}
@@ -42,13 +42,13 @@ export default function SheetProfileHeader() {
           <AvatarImage src={''} alt={`${user?.name} ${user?.surname}`} />
           <AvatarFallback>{initials}</AvatarFallback>
         </Avatar>
-        <span className="absolute bottom-0 right-0 block w-3 h-3 rounded-urbancare-full border-2 border-surface bg-success" />
+        <span className="absolute bottom-0 right-0 block w-3 h-3 urbancare-rounded-full border-2 border-surface bg-success" />
       </div>
       <div className="flex flex-col mr-auto">
-        <p className="font-semibold text-urbancare-xl text-text-primary">
+        <p className="font-semibold urbancare-text-xl text-text-primary">
           {user?.name} {user?.surname}
         </p>
-        <span className="text-urbancare-sm text-text-secondary inline">
+        <span className="urbancare-text-sm text-text-secondary inline">
           @{user.phone ? user?.phone.prefix + ' ' + user?.phone.number : ''}
         </span>
       </div>

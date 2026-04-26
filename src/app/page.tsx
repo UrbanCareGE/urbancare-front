@@ -22,14 +22,14 @@ export default function RootPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-dvh bg-background">
-        <div className="animate-spin h-8 w-8 border-4 bg-border-primary border-t-transparent rounded-urbancare-full" />
+        <div className="animate-spin h-8 w-8 border-4 bg-border-primary border-t-transparent urbancare-rounded-full" />
       </div>
     );
   }
 
   return (
     <div className="flex items-center justify-center h-dvh bg-background">
-      <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-urbancare-full" />
+      <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent urbancare-rounded-full" />
     </div>
   );
 }

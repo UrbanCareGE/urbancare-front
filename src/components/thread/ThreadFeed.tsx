@@ -94,8 +94,8 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     return (
       <div className="w-full max-w-md">
         <div className="max-w-2xl mx-auto px-4 pt-24">
-          <div className="bg-error-background border border-error/30 rounded-urbancare-xl p-4 text-center">
-            <p className="text-error text-urbancare-base">
+          <div className="bg-error-background border border-error/30 urbancare-rounded-xl p-4 text-center">
+            <p className="text-error urbancare-text-base">
               Failed to load threads
             </p>
           </div>
@@ -135,7 +135,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       {hasNextPage && !isFetchingNextPage && <div ref={ref} className="h-20 bg" />}
 
       {!hasNextPage && data?.pages && data.pages.length > 0 && (
-        <div className="text-center py-8 text-text-tertiary text-urbancare-sm">
+        <div className="text-center py-8 text-text-tertiary urbancare-text-sm">
           {t.thread.allPostsViewed}
         </div>
       )}
@@ -149,19 +149,19 @@ const ThreadsFeedLoadingSkeleton = () => {
       {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
         <div
           key={i}
-          className="bg-surface rounded-urbancare-3xl p-4 space-y-4 animate-pulse"
+          className="bg-surface urbancare-rounded-3xl p-4 space-y-4 animate-pulse"
         >
           <div className="flex gap-3">
-            <div className="w-12 h-12 rounded-urbancare-full bg-surface-container shrink-0"></div>
+            <div className="w-12 h-12 urbancare-rounded-full bg-surface-container shrink-0"></div>
             <div className="flex-1 space-y-2 pt-0.5">
-              <div className="h-3.5 bg-surface-container rounded-urbancare-full w-1/3"></div>
-              <div className="h-3 bg-surface-container rounded-urbancare-full w-1/5"></div>
+              <div className="h-3.5 bg-surface-container urbancare-rounded-full w-1/3"></div>
+              <div className="h-3 bg-surface-container urbancare-rounded-full w-1/5"></div>
             </div>
           </div>
           <div className="space-y-2">
-            <div className="h-4 bg-surface-container rounded-urbancare-full w-3/4"></div>
-            <div className="h-3 bg-surface-container rounded-urbancare-full w-full"></div>
-            <div className="h-3 bg-surface-container rounded-urbancare-full w-5/6"></div>
+            <div className="h-4 bg-surface-container urbancare-rounded-full w-3/4"></div>
+            <div className="h-3 bg-surface-container urbancare-rounded-full w-full"></div>
+            <div className="h-3 bg-surface-container urbancare-rounded-full w-5/6"></div>
           </div>
         </div>
       ))}

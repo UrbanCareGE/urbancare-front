@@ -1,11 +1,40 @@
 import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { extendTailwindMerge } from 'tailwind-merge';
 import { UserSnapshotDTO } from '@/model/dto/auth.dto';
 import { UserModel } from '@/components/provider/AuthProvider';
 import { ApartmentDTO } from '@/model/dto/apartment.dto';
 
+const URBANCARE_TEXT_SIZES = [
+  '2xs', 'xs', 'sm', 'md', 'base', 'lg', 'xl',
+  '2xl', '3xl', '4xl', '5xl', '6xl', '7xl', '8xl', '9xl', '10xl',
+];
+const URBANCARE_ROUNDED_SIZES = [
+  'none', 'xs', 'sm', 'md', 'lg', 'xl',
+  '2xl', '3xl', '4xl', 'full', 'panel',
+];
+const ROUNDED_SIDES = ['t', 'b', 'l', 'r', 'tl', 'tr', 'bl', 'br'];
+
+const customTwMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      'font-size': [
+        { 'urbancare-text': URBANCARE_TEXT_SIZES },
+      ],
+      'rounded': [
+        { 'urbancare-rounded': URBANCARE_ROUNDED_SIZES },
+      ],
+      ...Object.fromEntries(
+        ROUNDED_SIDES.map((side) => [
+          `rounded-${side}`,
+          [{ [`urbancare-rounded-${side}`]: URBANCARE_ROUNDED_SIZES }],
+        ])
+      ),
+    },
+  },
+});
+
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return customTwMerge(clsx(inputs));
 }
 
 export const formatTime = (date: string): string => {

@@ -41,7 +41,7 @@ export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorPro
               type="button"
               onClick={() => setTheme(id)}
               className={cn(
-                'group relative w-full flex items-center gap-2.5 pl-3 pr-2.5 py-2 rounded-urbancare-lg transition-all duration-200 text-left overflow-hidden',
+                'group relative w-full flex items-center gap-2.5 pl-3 pr-2.5 py-2 urbancare-rounded-lg transition-all duration-200 text-left overflow-hidden',
                 isActive
                   ? 'bg-primary-container'
                   : 'bg-transparent hover:bg-surface-container'
@@ -50,7 +50,7 @@ export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorPro
               {/* Left accent bar */}
               <span
                 className={cn(
-                  'absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-4 rounded-urbancare-full transition-all duration-200',
+                  'absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-4 urbancare-rounded-full transition-all duration-200',
                   isActive ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-50',
                   isLight ? 'bg-warning' : 'bg-primary'
                 )}
@@ -59,7 +59,7 @@ export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorPro
               {/* Icon */}
               <div
                 className={cn(
-                  'w-7 h-7 rounded-urbancare-md flex items-center justify-center flex-shrink-0 transition-all duration-200',
+                  'w-7 h-7 urbancare-rounded-md flex items-center justify-center flex-shrink-0 transition-all duration-200',
                   isActive
                     ? isLight
                       ? 'bg-warning-container text-warning'
@@ -73,7 +73,7 @@ export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorPro
               {/* Label */}
               <span
                 className={cn(
-                  'text-urbancare-base font-medium leading-tight flex-1 min-w-0',
+                  'urbancare-text-base font-medium leading-tight flex-1 min-w-0',
                   isActive
                     ? isLight
                       ? 'text-warning'
@@ -87,7 +87,7 @@ export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorPro
               {/* Active dot indicator */}
               <span
                 className={cn(
-                  'w-1.5 h-1.5 rounded-urbancare-full flex-shrink-0 transition-all duration-200',
+                  'w-1.5 h-1.5 urbancare-rounded-full flex-shrink-0 transition-all duration-200',
                   isActive
                     ? isLight
                       ? 'bg-warning opacity-100 scale-100'
@@ -111,13 +111,13 @@ export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorPro
     <div
       role="group"
       aria-label={t.sidebar.theme}
-      className="relative flex w-full h-12 rounded-urbancare-full bg-surface-container p-1 gap-0"
+      className="relative flex w-full h-12 urbancare-rounded-full bg-surface-container p-1 gap-0"
     >
       {/* Sliding thumb — positioned with CSS left % trick */}
       <span
         aria-hidden="true"
         className={cn(
-          'absolute top-1 bottom-1 w-[calc(50%-4px)] rounded-urbancare-full transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]',
+          'absolute top-1 bottom-1 w-[calc(50%-4px)] urbancare-rounded-full transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]',
           'bg-surface shadow-sm shadow-shadow/10',
           theme === 'dark' ? 'left-[calc(50%+2px)]' : 'left-1'
         )}
@@ -132,7 +132,7 @@ export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorPro
             type="button"
             onClick={() => setTheme(id)}
             className={cn(
-              'relative z-10 flex-1 flex items-center justify-center gap-1.5 rounded-urbancare-full transition-all duration-200',
+              'relative z-10 flex-1 flex items-center justify-center gap-1.5 urbancare-rounded-full transition-all duration-200',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-focus'
             )}
           >
@@ -148,7 +148,7 @@ export const MobileThemeSelector = ({ vertical = false }: MobileThemeSelectorPro
             />
             <span
               className={cn(
-                'text-urbancare-sm font-semibold leading-tight transition-all duration-200',
+                'urbancare-text-sm font-semibold leading-tight transition-all duration-200',
                 isActive ? 'text-text-primary' : 'text-text-muted'
               )}
             >

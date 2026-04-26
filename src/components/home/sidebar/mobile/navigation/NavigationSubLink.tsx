@@ -26,7 +26,7 @@ const NavigationSubLinkInner = ({
   <Link
     href={fullHref}
     className={cn(
-      'group flex items-center gap-2.5 px-2 py-1 rounded-urbancare-md transition-all duration-150',
+      'group flex items-center gap-2.5 px-2 py-1 urbancare-rounded-md transition-all duration-150',
       isActive
         ? 'bg-primary-container/40 text-primary'
         : 'text-foreground-secondary lg:hover:bg-surface-variant lg:hover:text-foreground-primary'
@@ -35,7 +35,7 @@ const NavigationSubLinkInner = ({
     {/* Dot indicator */}
     <span
       className={cn(
-        'w-1.5 h-1.5 rounded-urbancare-full flex-shrink-0 transition-all duration-150',
+        'w-1.5 h-1.5 urbancare-rounded-full flex-shrink-0 transition-all duration-150',
         isActive
           ? 'bg-primary scale-125'
           : 'bg-border-strong lg:group-hover:bg-primary/50'
@@ -61,7 +61,7 @@ export const NavigationSubLink = ({
   const pathname = usePathname();
   const fullHref = `${parentHref}/${child.href}`;
   const isActive = pathname === fullHref || pathname.startsWith(`${fullHref}/`);
-  const textSize = inSheet ? 'text-urbancare-xl' : 'text-urbancare-md';
+  const textSize = inSheet ? 'urbancare-text-xl' : 'urbancare-text-md';
 
   if (inSheet) {
     return (

@@ -27,11 +27,11 @@ export const EditThreadFormFooter = ({
         <Button
           type="submit"
           disabled={isPending || !bodyLength || fileUploading || !isDirty}
-          className="w-full h-12 text-urbancare-xl font-semibold bg-gradient-to-r from-primary to-primary/90 lg:hover:from-primary/90 lg:hover:to-primary lg:hover:-translate-y-0.5 lg:active:translate-y-0 shadow-lg shadow-primary/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full h-12 urbancare-text-xl font-semibold bg-gradient-to-r from-primary to-primary/90 lg:hover:from-primary/90 lg:hover:to-primary lg:hover:-translate-y-0.5 lg:active:translate-y-0 shadow-lg shadow-primary/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isPending ? (
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-urbancare-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-white border-t-transparent urbancare-rounded-full animate-spin" />
               {t.thread.updatingPost}
             </div>
           ) : (
@@ -41,7 +41,7 @@ export const EditThreadFormFooter = ({
             </div>
           )}
         </Button>
-        <p className="text-urbancare-sm text-center text-foreground-tertiary">
+        <p className="urbancare-text-sm text-center text-foreground-tertiary">
           {t.thread.communityRules}
         </p>
       </div>

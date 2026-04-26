@@ -35,7 +35,7 @@ export const ThreadTagSelector = ({
     <div className="space-y-3">
       <div className="flex items-center gap-2">
         <Tag className="w-4 h-4 text-foreground-disabled" />
-        <span className="text-urbancare-base font-medium text-foreground-secondary">
+        <span className="urbancare-text-base font-medium text-foreground-secondary">
           {t.threadForm.makePostSpecific}
         </span>
         {isMobile ? (
@@ -70,7 +70,7 @@ export const ThreadTagSelector = ({
                 type="button"
                 onClick={() => onToggleTag(tag)}
                 className={cn(
-                  'px-3 py-1 rounded-urbancare-full text-urbancare-base font-medium bg-surface text-foreground-tertiary transition-all',
+                  'px-3 py-1 urbancare-rounded-full urbancare-text-base font-medium bg-surface text-foreground-tertiary transition-all',
                   'lg:hover:border-hover lg:hover:bg-surface-variant lg:active:scale-95',
                   isTagSelected ? config.bg : undefined,
                   isTagSelected ? config.text : undefined,

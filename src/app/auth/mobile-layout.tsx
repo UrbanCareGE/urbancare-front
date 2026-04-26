@@ -28,7 +28,7 @@ export default function MobileLayout({
         <div className="relative z-10 flex flex-col items-center pt-10 pb-2 px-6">
           <div className="flex items-center gap-2.5 mb-1">
             <UrbanCareIcon className="w-10 h-10 bg-white/15 shadow-none" />
-            <span className="text-urbancare-3xl font-bold text-white tracking-tight">
+            <span className="urbancare-text-3xl font-bold text-white tracking-tight">
               UrbanCare
             </span>
           </div>

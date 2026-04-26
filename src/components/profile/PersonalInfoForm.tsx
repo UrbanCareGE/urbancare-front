@@ -42,20 +42,20 @@ export function PersonalInfoForm() {
   };
 
   return (
-    <section className="w-full rounded-urbancare-3xl overflow-hidden border-none bg-surface shadow-sm shadow-shadow/5">
+    <section className="w-full urbancare-rounded-3xl overflow-hidden border-none bg-surface shadow-sm shadow-shadow/5">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <header className="px-4 py-3 bg-surface-variant border-b border-border flex items-center gap-2">
-            <div className="w-10 h-10 rounded-urbancare-xl bg-primary-container text-primary-container-foreground flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 urbancare-rounded-xl bg-primary-container text-primary-container-foreground flex items-center justify-center shrink-0">
               <User className="w-5 h-5" />
             </div>
-            <h3 className="flex-1 font-semibold text-urbancare-base text-text-primary leading-tight-georgian truncate">
+            <h3 className="flex-1 font-semibold urbancare-text-base text-text-primary leading-tight-georgian truncate">
               {t.profile.personalInfo}
             </h3>
             <Button
               type="submit"
               size="sm"
-              className="h-9 px-4 rounded-urbancare-full text-urbancare-sm font-medium disabled:bg-disabled disabled:text-disabled-foreground shrink-0"
+              className="h-9 px-4 urbancare-rounded-full urbancare-text-sm font-medium disabled:bg-disabled disabled:text-disabled-foreground shrink-0"
               disabled={isPending || !form.formState.isDirty}
             >
               {isPending ? t.common.inProgress : t.common.save}

@@ -45,7 +45,7 @@ export const HeaderMobile = () => {
         </MobileSideBar.Content>
       </MobileSideBar>
       <UrbanCareTextIcon className={'ml-3 mr-auto'} />
-      {/*<span className={"ml-3 font-semibold text-urbancare-3xl text-center mr-auto"}>URBANCARE</span>*/}
+      {/*<span className={"ml-3 font-semibold urbancare-text-3xl text-center mr-auto"}>URBANCARE</span>*/}
       <MobileSideBar side={'right'}>
         <MobileSideBar.Trigger>
           <CurrentUserAvatar />

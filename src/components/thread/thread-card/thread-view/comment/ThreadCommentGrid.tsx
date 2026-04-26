@@ -27,7 +27,7 @@ export const ThreadCommentGrid = ({ className }: ThreadCommentsProps) => {
         <div className="flex flex-col items-center justify-center py-16 gap-4">
           <div
             className={cn(
-              'w-16 h-16 rounded-urbancare-full',
+              'w-16 h-16 urbancare-rounded-full',
               'bg-tertiary-container/50 flex items-center justify-center',
               'animate-float'
             )}
@@ -35,10 +35,10 @@ export const ThreadCommentGrid = ({ className }: ThreadCommentsProps) => {
             <MessageCircle className="w-8 h-8 text-tertiary-container-foreground" />
           </div>
           <div className="text-center space-y-1">
-            <p className="text-urbancare-base font-semibold text-text-secondary">
+            <p className="urbancare-text-base font-semibold text-text-secondary">
               {t.thread.noCommentsYet}
             </p>
-            <p className="text-urbancare-sm text-text-tertiary">
+            <p className="urbancare-text-sm text-text-tertiary">
               {t.thread.beFirstToComment}
             </p>
           </div>

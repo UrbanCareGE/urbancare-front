@@ -20,7 +20,7 @@ export function OtpCountdown({ onComplete }: OtpCountdownProps) {
   }, [seconds, onComplete]);
 
   return (
-    <div className="h-auto w-11 rounded-urbancare-lg font-medium text-urbancare-base bg-gradient-primary text-white">
+    <div className="h-auto w-11 urbancare-rounded-lg font-medium urbancare-text-base bg-gradient-primary text-white">
       {String(Math.floor(seconds / 60)).padStart(2, '0')}:
       {String(seconds % 60).padStart(2, '0')}
     </div>
