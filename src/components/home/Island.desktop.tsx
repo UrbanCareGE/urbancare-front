@@ -1,5 +1,7 @@
 import { cn } from '@/lib/utils';
 import React from 'react';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 
 type IslandProps = {
@@ -8,6 +10,7 @@ type IslandProps = {
   children: React.ReactNode;
   className?: string;
   bodyClassName?: string;
+  href?: string;
 };
 
 export const DesktopIsland = ({
@@ -16,6 +19,7 @@ export const DesktopIsland = ({
   children,
   className,
   bodyClassName,
+  href,
 }: IslandProps) => (
   <Card
     className={cn(
@@ -28,6 +32,15 @@ export const DesktopIsland = ({
       <h3 className="font-semibold text-urbancare-base text-foreground-primary">
         {title}
       </h3>
+      {href && (
+        <Link
+          href={href}
+          aria-label={`Open ${title}`}
+          className="ml-auto inline-flex items-center justify-center w-7 h-7 rounded-urbancare-full text-foreground-secondary hover:text-foreground-primary hover:bg-surface transition-colors"
+        >
+          <ArrowRight className="w-4 h-4" strokeWidth={2.75} />
+        </Link>
+      )}
     </div>
     <div className={cn('flex-1', bodyClassName)}>{children}</div>
   </Card>

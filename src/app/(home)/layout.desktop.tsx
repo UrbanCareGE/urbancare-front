@@ -12,18 +12,20 @@ import { HeaderNavIsland } from '@/components/common/navbar/desktop/Navbar.deskt
 import { DesktopIsland } from '@/components/home/Island.desktop';
 import { ProfileIslandDesktop } from '@/components/home/ProfileIsland.desktop';
 import { useScrollRestoration } from '@/hooks/use-scroll-restoration';
-import { usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { useTranslation } from '@/i18n';
 import { ChatProvider } from '@/components/provider/ChatProvider';
 
 const UrgentIsland = () => {
   const t = useTranslation();
+  const { apartmentId } = useParams<{ apartmentId: string }>();
   return (
     <DesktopIsland
       title={t.nav.urgent}
       icon={<ShieldAlert className="w-4 h-4 text-error" />}
       className={'flex-1'}
       bodyClassName={'overflow-y-scroll'}
+      href={apartmentId ? `/apartment/${apartmentId}/urgent` : undefined}
     >
       <UrgentFeedCompactContainer />
     </DesktopIsland>
@@ -32,11 +34,13 @@ const UrgentIsland = () => {
 
 const ChatIsland = () => {
   const t = useTranslation();
+  const { apartmentId } = useParams<{ apartmentId: string }>();
   return (
     <DesktopIsland
       title={t.nav.chat}
       icon={<UserIcon className="w-4 h-4 text-tertiary" />}
       className={'mt-auto h-full flex-[2]'}
+      href={apartmentId ? `/apartment/${apartmentId}/chat` : undefined}
     >
       <div className="overflow-y-hidden w-full h-full scrollbar-hide">
         <Chat />
