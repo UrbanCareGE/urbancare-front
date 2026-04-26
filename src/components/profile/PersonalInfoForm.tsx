@@ -55,7 +55,7 @@ export function PersonalInfoForm() {
             <Button
               type="submit"
               size="sm"
-              className="h-9 px-4 urbancare-rounded-full urbancare-text-sm font-medium disabled:bg-disabled disabled:text-disabled-foreground shrink-0"
+              className="h-9 px-4 urbancare-rounded-lg urbancare-text-sm font-medium disabled:bg-disabled disabled:text-disabled-foreground shrink-0"
               disabled={isPending || !form.formState.isDirty}
             >
               {isPending ? t.common.inProgress : t.common.save}

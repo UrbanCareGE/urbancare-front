@@ -94,7 +94,7 @@ const PersonalCarsForm = () => {
           disabled={isEditing || isAdding}
           size="sm"
           className={cn(
-            'ml-auto urbancare-rounded-full urbancare-text-sm transition-all lg:hover:scale-105',
+            'ml-auto urbancare-rounded-lg urbancare-text-sm transition-all lg:hover:scale-105',
             (isEditing || isAdding) && 'opacity-50 cursor-not-allowed'
           )}
         >
