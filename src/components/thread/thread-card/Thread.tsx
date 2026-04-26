@@ -10,7 +10,9 @@ import { ThreadPreviewActionSection } from '@/components/thread/thread-card/thre
 
 interface ThreadPreviewProps {
   threadId: string;
-  defaultOpen: boolean;
+  defaultOpen?: boolean;
+  expanded?: boolean;
+  className?: string;
 }
 
 function ThreadSkeleton() {
@@ -32,7 +34,7 @@ function ThreadSkeleton() {
   );
 }
 
-export const Thread = ({ threadId, defaultOpen }: ThreadPreviewProps) => {
+export const Thread = ({ threadId, expanded, className }: ThreadPreviewProps) => {
   const { apartmentId } = useParams<{ apartmentId: string }>();
   const { data, isPending, error } = useThreadDetails(apartmentId, threadId);
 
@@ -45,12 +47,12 @@ export const Thread = ({ threadId, defaultOpen }: ThreadPreviewProps) => {
   }
 
   return (
-    <ThreadCard thread={data}>
+    <ThreadCard thread={data} className={className}>
       <ThreadCard.Header>
         <ThreadPreviewHeader />
       </ThreadCard.Header>
       <ThreadCard.Body>
-        <ThreadPreviewContent />
+        <ThreadPreviewContent expanded={expanded} />
       </ThreadCard.Body>
       <ThreadCard.Footer className={'pt-3 border-t border-border'}>
         <ThreadPreviewActionSection />

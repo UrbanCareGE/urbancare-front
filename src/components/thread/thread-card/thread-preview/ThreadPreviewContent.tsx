@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { cn } from '@/lib/utils';
 import { getClientFileUrl } from '@/lib/api-client';
 import {
   MediaItem,
@@ -11,22 +12,33 @@ import { useThread } from '@/components/thread/thread-card/ThreadCard';
 
 interface ThreadCardContentProps {
   className?: string;
+  expanded?: boolean;
 }
 
-export const ThreadPreviewContent = ({ className }: ThreadCardContentProps) => {
+export const ThreadPreviewContent = ({
+  className,
+  expanded,
+}: ThreadCardContentProps) => {
   const { thread } = useThread();
 
   return (
-    <div className={`flex flex-col gap-3 ${className || ''}`}>
+    <div className={cn('flex flex-col gap-3', className)}>
       {thread.title && (
-        <h2 className="text-urbancare-2xl font-semibold text-text-primary line-clamp-2 leading-snug tracking-tight">
+        <h2
+          className={cn(
+            'text-urbancare-2xl font-semibold text-text-primary leading-snug tracking-tight',
+            !expanded && 'line-clamp-2'
+          )}
+        >
           {thread.title}
         </h2>
       )}
 
       <p
-        className="text-urbancare-base text-text-secondary leading-relaxed whitespace-pre-wrap line-clamp-3"
-        // onClick={openView}
+        className={cn(
+          'text-urbancare-base text-text-secondary leading-relaxed whitespace-pre-wrap',
+          !expanded && 'line-clamp-3'
+        )}
       >
         {thread.content}
       </p>
