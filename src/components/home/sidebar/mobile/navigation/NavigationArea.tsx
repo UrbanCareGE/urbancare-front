@@ -66,7 +66,7 @@ export const getNavigationGroups = (
         href: `/apartment/${apartmentId}/post/services`,
         label: t.sidebar.services,
         icon: <PocketKnifeIcon className="w-4 h-4" />,
-        className: 'bg-secondary-container text-secondary-container-foreground',
+        className: 'bg-primary-container text-primary-container-foreground',
         navigable: true,
         children: [
           { href: 'learn', label: t.sidebar.education },
