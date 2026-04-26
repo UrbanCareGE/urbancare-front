@@ -17,13 +17,11 @@ import { useAuth } from '@/components/provider/AuthProvider';
 import { useTranslation } from '@/i18n';
 
 const StatusDot = ({ status }: { status: UrgentCardStatus }) => {
-  if (status === 'resolved') {
-    return <CheckCircle2 className="w-3.5 h-3.5 text-success" strokeWidth={3} />;
-  }
+  const color = status === 'resolved' ? 'bg-success' : 'bg-error';
   return (
     <span className="relative inline-flex w-2 h-2">
-      <span className="absolute inset-0 rounded-urbancare-full bg-error opacity-60 animate-ping" />
-      <span className="relative inline-flex w-2 h-2 rounded-urbancare-full bg-error" />
+      <span className={cn('absolute inset-0 rounded-urbancare-full opacity-60 animate-ping', color)} />
+      <span className={cn('relative inline-flex w-2 h-2 rounded-urbancare-full', color)} />
     </span>
   );
 };
@@ -193,6 +191,7 @@ export const UrgentCard = ({
 export type UrgentCardCompactProps = {
   status: UrgentCardStatus;
   user: UserSnapshotDTO;
+  content: string;
   timeText: string;
   isPending?: boolean;
   className?: string;
@@ -202,6 +201,7 @@ export type UrgentCardCompactProps = {
 export const UrgentCardCompact = ({
   status,
   user,
+  content,
   timeText,
   isPending,
   className,
@@ -220,8 +220,15 @@ export const UrgentCardCompact = ({
       )}
     >
       <StatusDot status={status} />
-      <UserAvatarLine user={user} size="sm" />
-      <span className="ml-auto text-urbancare-xs text-text-tertiary shrink-0">
+      <div className="flex flex-col min-w-0 flex-1 gap-0.5">
+        <p className="text-urbancare-sm font-semibold text-text-primary truncate">
+          {content}
+        </p>
+        <span className="text-urbancare-xs text-text-tertiary truncate">
+          {user.name} {user.surname}
+        </span>
+      </div>
+      <span className="ml-auto text-urbancare-xs text-text-tertiary shrink-0 self-start">
         {timeText}
       </span>
     </Card>

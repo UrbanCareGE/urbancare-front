@@ -303,6 +303,11 @@ const ka: TranslationKeys = {
     english: 'English',
   },
 
+  role: {
+    manager: 'მენეჯერი',
+    member: 'წევრი',
+  },
+
   neighborhood: {
     selectedLocation: 'არჩეული ლოკაცია',
     switchBuilding: 'კორპუსში გადასვლა',

@@ -302,6 +302,11 @@ const en: TranslationKeys = {
     english: 'English',
   },
 
+  role: {
+    manager: 'Manager',
+    member: 'Member',
+  },
+
   neighborhood: {
     selectedLocation: 'Selected location',
     switchBuilding: 'Switch building',

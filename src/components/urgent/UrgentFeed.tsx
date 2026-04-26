@@ -197,6 +197,7 @@ const UrgentFeedCompactView = ({
               key={item.id}
               status={status}
               user={item.userInfo}
+              content={item.content}
               timeText={formatTime(item.createdAt.toString())}
               isPending={item._isPending}
               onClick={onItemClick ? () => onItemClick(item.id) : undefined}

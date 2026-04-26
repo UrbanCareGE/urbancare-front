@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { Building2, ChevronDown, ShieldCheck } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { cn } from '@/lib/utils';
 import {
@@ -19,7 +19,7 @@ export const CurrentUserExpandable = () => {
   const t = useTranslation();
 
   const displayName = useMemo(() => `${user.name} ${user.surname}`, [user]);
-  const apartmentName = user.selectedApartment?.name;
+  const roleLabel = isManager ? t.role.manager : t.role.member;
 
   return (
     <Popover>
@@ -35,30 +35,18 @@ export const CurrentUserExpandable = () => {
         >
           <CurrentUserAvatar />
 
-          {/* Name + apartment */}
           <div className="flex-1 min-w-0 lg:hidden xl:block">
             <p className="text-urbancare-base font-semibold leading-tight text-text-primary truncate">
               {displayName}
             </p>
-            {apartmentName && (
-              <div className="flex items-center gap-1 mt-0.5">
-                {isManager ? (
-                  <ShieldCheck className="w-3 h-3 flex-shrink-0 text-tertiary" />
-                ) : (
-                  <Building2 className="w-3 h-3 flex-shrink-0 text-icon" />
-                )}
-                <span
-                  className={cn(
-                    'text-urbancare-xs leading-tight truncate',
-                    isManager
-                      ? 'font-semibold text-tertiary'
-                      : 'text-text-secondary'
-                  )}
-                >
-                  {apartmentName}
-                </span>
-              </div>
-            )}
+            <p
+              className={cn(
+                'text-[12px] leading-[14px] tracking-tight truncate text-text-tertiary',
+                isManager && 'text-tertiary'
+              )}
+            >
+              {roleLabel}
+            </p>
           </div>
           <ChevronDown className="w-3.5 h-3.5 flex-shrink-0 text-icon transition-transform duration-200 [[data-state=open]_&]:rotate-180 lg:hidden xl:inline" />
         </div>
