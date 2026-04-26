@@ -188,8 +188,8 @@ const en: TranslationKeys = {
   },
 
   urgent: {
+    resolved: 'Resolved',
     thankYou: 'Thank you',
-    completed: 'Completed',
     sendingPending: '...Sending',
     sos: 'SOS',
     helped: 'Helped',

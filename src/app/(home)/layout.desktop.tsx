@@ -24,7 +24,7 @@ const UrgentIsland = () => {
       title={t.nav.urgent}
       icon={<ShieldAlert className="w-4 h-4 text-error" />}
       className={'flex-1'}
-      bodyClassName={'overflow-y-scroll'}
+      bodyClassName={'overflow-y-scroll overflow-x-hidden overscroll-x-none'}
       href={apartmentId ? `/apartment/${apartmentId}/urgent` : undefined}
     >
       <UrgentFeedCompactContainer />
@@ -57,7 +57,7 @@ const NeighbourSelectIsland = () => {
       icon={<HomeIcon className="w-4 h-4 text-primary" />}
       className={'h-full'}
     >
-      <div className="overflow-y-auto h-full scrollbar-hide">
+      <div className="overflow-y-auto overflow-x-hidden overscroll-x-none h-full scrollbar-hide">
         <NeighborhoodSelect />
       </div>
     </DesktopIsland>
@@ -71,9 +71,9 @@ const NavigationIsland = () => {
       title={t.nav.navigation}
       icon={<NavigationIcon className="w-4 h-4 text-primary" />}
       className={''}
-      bodyClassName={'overflow-y-scroll'}
+      bodyClassName={'overflow-y-scroll overflow-x-hidden overscroll-x-none'}
     >
-      <div className="h-full scrollbar-hide overflow-y-scroll">
+      <div className="h-full scrollbar-hide overflow-y-scroll overflow-x-hidden overscroll-x-none">
         <NavigationArea
           inSheet={false}
           className="w-full flex flex-col gap-1 p-2"
@@ -119,7 +119,7 @@ export const LayoutDesktop = ({
           </HomeColumnPanel.Header>
           <HomeColumnPanel.Body
             ref={feedScrollRef}
-            className="overflow-y-scroll h-full flex flex-col scrollbar-hide"
+            className="overflow-y-scroll overflow-x-hidden overscroll-x-none h-full flex flex-col scrollbar-hide"
           >
             {children}
           </HomeColumnPanel.Body>

@@ -23,7 +23,7 @@ export const ThreadPreviewCommentButton = ({
   return (
     <Button
       className={cn(
-        'h-9 px-3 urbancare-rounded-full bg-tertiary/10 transition-all [&_svg]:size-5 text-tertiary lg:hover:bg-tertiary/20 lg:active:scale-95',
+        'h-9 px-3 urbancare-rounded-lg bg-tertiary/10 transition-all [&_svg]:size-5 text-tertiary lg:hover:bg-tertiary/20 lg:active:scale-95',
         className
       )}
       onClick={() => {

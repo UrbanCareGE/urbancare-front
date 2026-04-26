@@ -173,8 +173,8 @@ export interface TranslationKeys {
     MAINTENANCE: string;
   };
   urgent: {
+    resolved: string;
     thankYou: string;
-    completed: string;
     sendingPending: string;
     sos: string;
     helped: string;
@@ -369,5 +369,9 @@ export interface TranslationKeys {
     findOrCreateBuilding: string;
     startCommunication: string;
     connectWithNeighbors: string;
+  };
+  role: {
+    manager: string;
+    member: string;
   };
 }

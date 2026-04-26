@@ -35,7 +35,7 @@ const StatusBand = ({
 }) => {
   const config = urgentStatusConfig[status];
   const t = useTranslation();
-  const label = status === 'urgent' ? t.urgent.sos : t.urgent.completed;
+  const label = status === 'urgent' ? t.urgent.sos : t.urgent.resolved;
 
   return (
     <div
@@ -161,10 +161,10 @@ export const UrgentCard = ({
               onClick={onResolve}
               disabled={isResolving}
               className={cn(
-                'h-9 px-4 urbancare-rounded-full gap-1.5',
+                'h-9 px-4 urbancare-rounded-lg gap-1.5',
                 'urbancare-text-xs font-bold uppercase tracking-[0.08em]',
-                'bg-success/10 text-success border border-success/20',
-                'lg:hover:bg-success/15 lg:hover:border-success/35',
+                'bg-error/10 text-error border border-error/20',
+                'lg:hover:bg-error/15 lg:hover:border-error/35',
                 'transition-colors duration-200',
                 'disabled:opacity-60 disabled:pointer-events-none'
               )}
@@ -177,7 +177,7 @@ export const UrgentCard = ({
               ) : (
                 <>
                   <CheckCircle2 className="w-3.5 h-3.5" strokeWidth={3} />
-                  {t.urgent.completed}
+                  {t.urgent.resolved}
                 </>
               )}
             </Button>

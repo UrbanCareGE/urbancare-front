@@ -189,8 +189,8 @@ const ka: TranslationKeys = {
   },
 
   urgent: {
+    resolved: 'შესრულდა',
     thankYou: 'მადლობა',
-    completed: 'შესრულებულია',
     sendingPending: '...იგზავნება',
     sos: 'SOS',
     helped: 'დაეხმარა',

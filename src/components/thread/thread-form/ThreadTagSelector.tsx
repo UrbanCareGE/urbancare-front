@@ -70,7 +70,7 @@ export const ThreadTagSelector = ({
                 type="button"
                 onClick={() => onToggleTag(tag)}
                 className={cn(
-                  'px-3 py-1 urbancare-rounded-full urbancare-text-base font-medium bg-surface text-foreground-tertiary transition-all',
+                  'px-3 py-1 urbancare-rounded-lg urbancare-text-base font-medium bg-surface text-foreground-tertiary transition-all',
                   'lg:hover:border-hover lg:hover:bg-surface-variant lg:active:scale-95',
                   isTagSelected ? config.bg : undefined,
                   isTagSelected ? config.text : undefined,

@@ -44,7 +44,7 @@ export const ThreadCommentGrid = ({ className }: ThreadCommentsProps) => {
           </div>
         </div>
       ) : (
-        <div className="divide-y divide-border/60">
+        <div>
           {thread.comments.map((comment) => (
             <ThreadComment key={comment.id} comment={comment} />
           ))}

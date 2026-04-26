@@ -57,7 +57,7 @@ export const ThreadVoteButton = ({ className }: { className?: string }) => {
         onClick={handleLike}
         disabled={isPending}
         className={cn(
-          'h-9 px-3 urbancare-rounded-full transition-all [&_svg]:size-5 urbancare-text-base bg-primary/10 text-primary disabled:bg-primary/10 lg:hover:bg-primary/20 lg:active:scale-95',
+          'h-9 px-3 urbancare-rounded-lg transition-all [&_svg]:size-5 urbancare-text-base bg-primary/10 text-primary disabled:bg-primary/10 lg:hover:bg-primary/20 lg:active:scale-95',
           {
             'bg-primary text-white disabled:bg-primary lg:hover:bg-primary/90':
               isLiked,
@@ -74,7 +74,7 @@ export const ThreadVoteButton = ({ className }: { className?: string }) => {
         onClick={handleDislike}
         disabled={isPending}
         className={cn(
-          'h-9 px-3 urbancare-rounded-full transition-all [&_svg]:size-5 urbancare-text-base bg-error/10 text-error disabled:bg-error/10 lg:hover:bg-error/20 lg:active:scale-95',
+          'h-9 px-3 urbancare-rounded-lg transition-all [&_svg]:size-5 urbancare-text-base bg-error/10 text-error disabled:bg-error/10 lg:hover:bg-error/20 lg:active:scale-95',
           {
             'bg-error text-white disabled:bg-error lg:hover:bg-error/90':
               isDisliked,

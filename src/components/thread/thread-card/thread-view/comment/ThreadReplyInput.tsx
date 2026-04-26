@@ -7,9 +7,9 @@ import { UserSnapshotDTO } from '@/model/dto/auth.dto';
 import { useCreateComment } from '@/hooks/query/thread/use-create-comment';
 import { useParams } from 'next/navigation';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
-import { Send } from 'lucide-react';
-import { cn, ExtractUserInitials } from '@/lib/utils';
+import { ExtractUserInitials } from '@/lib/utils';
 import Image from 'next/image';
+import { CommentComposerInput } from '@/components/thread/thread-card/thread-view/comment/CommentComposerInput';
 
 type ReplyInputProps = {
   commentId: string;
@@ -32,7 +32,6 @@ export const ReplyInput = ({
   const { onSubmit: createReply } = useCreateComment();
 
   const initials = ExtractUserInitials(userInfo);
-  const hasText = replyText.trim().length > 0;
 
   const handleSubmit = () => {
     if (!apartmentId || !replyText.trim()) return;
@@ -61,43 +60,14 @@ export const ReplyInput = ({
       </Avatar>
 
       <div className="flex-1 min-w-0">
-        {/* Input pill matching comment bubble style */}
-        <div className="relative bg-surface-container urbancare-rounded-3xl">
-          <textarea
-            value={replyText}
-            onChange={(e) => setReplyText(e.target.value)}
-            placeholder={placeholder}
-            className="w-full bg-transparent urbancare-text-base text-text-primary placeholder:text-text-tertiary outline-none resize-none px-3.5 py-2.5 pr-11 leading-relaxed"
-            rows={1}
-            style={{ minHeight: '36px', maxHeight: '120px' }}
-            onInput={(e) => {
-              const t = e.target as HTMLTextAreaElement;
-              t.style.height = 'auto';
-              t.style.height = t.scrollHeight + 'px';
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                handleSubmit();
-              }
-            }}
-            autoFocus
-          />
-          <button
-            onClick={handleSubmit}
-            disabled={!hasText}
-            className={cn(
-              'absolute right-2 bottom-1.5 w-8 h-8 urbancare-rounded-full flex items-center justify-center transition-all duration-150',
-              hasText
-                ? 'bg-primary text-white lg:hover:bg-primary/90 lg:active:scale-95'
-                : 'text-text-tertiary cursor-not-allowed'
-            )}
-          >
-            <Send className="w-4 h-4" />
-          </button>
-        </div>
+        <CommentComposerInput
+          value={replyText}
+          onChange={setReplyText}
+          onSubmit={handleSubmit}
+          placeholder={placeholder}
+          autoFocus
+        />
 
-        {/* Hint */}
         <div className="flex items-center gap-1 mt-1 px-1">
           <span className="urbancare-text-xs text-text-tertiary">
             Enter to send ·
