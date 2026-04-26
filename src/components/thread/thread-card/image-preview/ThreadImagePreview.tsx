@@ -12,7 +12,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
-import { Play } from 'lucide-react';
+import { Play, X } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ACCEPTED_IMAGE_TYPES } from '@/components/thread/data/create-thread-schema';
 
@@ -256,12 +256,13 @@ export const ThreadImagePreview = ({
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTitle className="sr-only">Media Preview</DialogTitle>
         <DialogContent className="max-w-full h-full w-full p-0 bg-black/95 border-none">
-          {/*<button*/}
-          {/*  onClick={() => setIsOpen(false)}*/}
-          {/*  className="absolute top-4 right-4 z-50 p-2 rounded-urbancare-full bg-black/50 text-white lg:hover:bg-black/70 lg:active:scale-95"*/}
-          {/*>*/}
-          {/*  <X className="w-6 h-6" />*/}
-          {/*</button>*/}
+          <button
+            onClick={() => setIsOpen(false)}
+            aria-label="Close preview"
+            className="absolute top-4 right-4 z-50 p-2 rounded-urbancare-full bg-black/50 text-white transition-all lg:hover:bg-black/70 active:scale-95"
+          >
+            <X className="w-6 h-6" />
+          </button>
 
           <div className="flex items-center justify-center h-full w-full px-12">
             <Carousel
