@@ -7,49 +7,64 @@ import * as z from 'zod';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { FormInput } from '@/components/common/input/FormInput';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, KeyRound, Lock, ShieldCheck } from 'lucide-react';
-import { useChangePassword } from '@/hooks/query/user/use-change-password';
+import { ChevronRight, KeyRound, ShieldCheck } from 'lucide-react';
+import { useSetPassword } from '@/hooks/query/user/use-set-password';
+import { useGenerateOtp } from '@/hooks/query/auth/use-otp';
+import { useAuth } from '@/components/provider/AuthProvider';
 import { useTranslation } from '@/i18n';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+import { toast } from 'sonner';
 
 export function ChangePasswordForm() {
   const t = useTranslation();
   const [open, setOpen] = useState(false);
-  const { mutateAsync, isPending } = useChangePassword();
+  const { user } = useAuth();
+  const { mutateAsync: setPassword, isPending: isSettingPassword } =
+    useSetPassword();
+  const { mutateAsync: sendOtp, isPending: isSendingOtp } = useGenerateOtp();
 
-  const changePasswordSchema = z
+  const setPasswordSchema = z
     .object({
-      oldPassword: z.string().min(6, t.profileValidation.passwordMinLength),
-      newPassword: z.string().min(6, t.profileValidation.passwordMinLength),
-      confirmPassword: z.string().min(6, t.profileValidation.passwordMinLength),
+      otp: z.string().min(1, t.authValidation.invalidCode),
+      newPassword: z.string().min(8, t.profileValidation.passwordMinLength),
+      confirmPassword: z
+        .string()
+        .min(8, t.profileValidation.passwordMinLength),
     })
     .refine((data) => data.newPassword === data.confirmPassword, {
       message: t.profileValidation.passwordsDontMatch,
       path: ['confirmPassword'],
     });
 
-  type ChangePasswordFormData = z.infer<typeof changePasswordSchema>;
+  type SetPasswordFormData = z.infer<typeof setPasswordSchema>;
 
-  const form = useForm<ChangePasswordFormData>({
-    resolver: zodResolver(changePasswordSchema),
+  const form = useForm<SetPasswordFormData>({
+    resolver: zodResolver(setPasswordSchema),
     defaultValues: {
-      oldPassword: '',
+      otp: '',
       newPassword: '',
       confirmPassword: '',
     },
   });
 
-  const onSubmit = async (data: ChangePasswordFormData) => {
+  const handleSendOtp = async () => {
+    if (!user?.phone) return;
     try {
-      await mutateAsync({
-        oldPassword: data.oldPassword,
-        newPassword: data.newPassword,
-      });
+      await sendOtp({ phone: user.phone });
+      toast.success(t.auth.otpSent);
+    } catch {
+      toast.error(t.common.error);
+    }
+  };
+
+  const onSubmit = async (data: SetPasswordFormData) => {
+    try {
+      await setPassword({ otp: data.otp, newPassword: data.newPassword });
       form.reset();
       setOpen(false);
     } catch (error) {
-      console.error('Change password error:', error);
+      console.error('Set password error:', error);
     }
   };
 
@@ -57,6 +72,8 @@ export function ChangePasswordForm() {
     if (!next) form.reset();
     setOpen(next);
   };
+
+  const isPending = isSettingPassword;
 
   return (
     <>
@@ -97,25 +114,36 @@ export function ChangePasswordForm() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-3"
               >
-                <FormField
-                  control={form.control}
-                  name="oldPassword"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <FormInput
-                          placeholder={t.profile.oldPassword}
-                          type="password"
-                          icon={<Lock />}
-                          isPasswordType={true}
-                          disabled={isPending}
-                          className="bg-surface-variant border-border hover:border-border-hover focus-visible:border-border-focus"
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
+                <div className="flex items-start gap-2">
+                  <FormField
+                    control={form.control}
+                    name="otp"
+                    render={({ field }) => (
+                      <FormItem className="flex-1">
+                        <FormControl>
+                          <FormInput
+                            placeholder={t.auth.otpCode}
+                            type="text"
+                            inputMode="numeric"
+                            disabled={isPending}
+                            className="bg-surface-variant border-border hover:border-border-hover focus-visible:border-border-focus"
+                            {...field}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    type="button"
+                    onClick={handleSendOtp}
+                    disabled={isSendingOtp || !user?.phone}
+                    variant="outline"
+                    className="h-10 px-4 urbancare-rounded-lg shrink-0"
+                  >
+                    {isSendingOtp ? t.common.sending : t.auth.sendCode}
+                  </Button>
+                </div>
+
                 <FormField
                   control={form.control}
                   name="newPassword"
@@ -156,7 +184,7 @@ export function ChangePasswordForm() {
                 />
                 <Button
                   type="submit"
-                  className="w-full h-12 urbancare-rounded-4xl disabled:bg-disabled disabled:text-disabled-foreground"
+                  className="w-full h-12 urbancare-rounded-lg disabled:bg-disabled disabled:text-disabled-foreground"
                   disabled={isPending || !form.formState.isValid}
                 >
                   {isPending ? t.common.inProgress : t.profile.changePassword}

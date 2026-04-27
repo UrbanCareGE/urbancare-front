@@ -60,6 +60,11 @@ export interface ChangePasswordDTO {
   newPassword: string;
 }
 
+export interface SetPasswordDTO {
+  newPassword: string;
+  otp: string;
+}
+
 export interface CarDTO {
   id: string;
   licensePlate: string;
