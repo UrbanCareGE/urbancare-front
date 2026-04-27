@@ -5,7 +5,6 @@ import { useCreateComment } from '@/hooks/query/thread/use-create-comment';
 import { UserAvatarView } from '@/components/common/avatar/UserAvatar';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { ThreadInfoDTO } from '@/model/dto/thread.dto';
-import { useParams } from 'next/navigation';
 import { useSearchParams } from 'next/dist/client/components/navigation';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/i18n';
@@ -23,7 +22,7 @@ export const ThreadViewCommentButton = ({
   const [commentText, setCommentText] = useState('');
   const { user } = useAuth();
   const t = useTranslation();
-  const { apartmentId } = useParams<{ apartmentId: string }>();
+  const apartmentId = user?.selectedApartmentId;
   const commentRef = useRef<HTMLTextAreaElement | null>(null);
   const searchParams = useSearchParams();
   const shouldFocusComment = searchParams.get('comment') === 'true';

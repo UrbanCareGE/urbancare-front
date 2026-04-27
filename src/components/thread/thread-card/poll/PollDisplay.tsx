@@ -6,7 +6,6 @@ import { cn } from '@/lib/utils';
 import { Circle, CircleCheck } from 'lucide-react';
 import { usePollVote } from '@/hooks/query/thread/use-poll-vote';
 import { useAuth } from '@/components/provider/AuthProvider';
-import { useParams } from 'next/navigation';
 import { useTranslation } from '@/i18n';
 
 interface PollDisplayProps {
@@ -100,7 +99,7 @@ const PollOptionBar = ({
 export const PollDisplay = ({ thread, className }: PollDisplayProps) => {
   const t = useTranslation();
   const { user } = useAuth();
-  const { apartmentId } = useParams<{ apartmentId: string }>();
+  const apartmentId = user?.selectedApartmentId;
   const poll = thread.poll;
 
   const userId = user?.id;

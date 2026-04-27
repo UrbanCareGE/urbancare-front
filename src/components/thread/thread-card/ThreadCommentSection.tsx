@@ -1,12 +1,12 @@
 'use client';
 
 import React from 'react';
-import { useParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import ThreadCard from '@/components/thread/thread-card/ThreadCard';
 import { ThreadCommentsHeader } from '@/components/thread/thread-card/thread-view/comment/ThreadCommentsHeader';
 import { ThreadCommentGrid } from '@/components/thread/thread-card/thread-view/comment/ThreadCommentGrid';
 import { useThreadDetails } from '@/hooks/query/thread/use-thread-details';
+import { useAuth } from '@/components/provider/AuthProvider';
 
 interface ThreadCommentSectionProps {
   threadId: string;
@@ -17,7 +17,8 @@ export const ThreadCommentSection = ({
   threadId,
   className,
 }: ThreadCommentSectionProps) => {
-  const { apartmentId } = useParams<{ apartmentId: string }>();
+  const { user } = useAuth();
+  const apartmentId = user?.selectedApartmentId;
   const { data, isPending, error } = useThreadDetails(apartmentId, threadId);
 
   if (isPending || error || !data) return null;

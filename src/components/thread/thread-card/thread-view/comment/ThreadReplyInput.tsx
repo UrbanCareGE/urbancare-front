@@ -5,8 +5,8 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { getClientFileUrl } from '@/lib/api-client';
 import { UserSnapshotDTO } from '@/model/dto/auth.dto';
 import { useCreateComment } from '@/hooks/query/thread/use-create-comment';
-import { useParams } from 'next/navigation';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
+import { useAuth } from '@/components/provider/AuthProvider';
 import { ExtractUserInitials } from '@/lib/utils';
 import Image from 'next/image';
 import { CommentComposerInput } from '@/components/thread/thread-card/thread-view/comment/CommentComposerInput';
@@ -27,7 +27,8 @@ export const ReplyInput = ({
   placeholder = 'Add a reply...',
 }: ReplyInputProps) => {
   const { thread } = useThread();
-  const { apartmentId } = useParams<{ apartmentId: string }>();
+  const { user } = useAuth();
+  const apartmentId = user?.selectedApartmentId;
   const [replyText, setReplyText] = useState('');
   const { onSubmit: createReply } = useCreateComment();
 

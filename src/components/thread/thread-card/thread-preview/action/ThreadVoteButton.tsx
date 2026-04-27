@@ -4,7 +4,6 @@ import { ThumbsDown, ThumbsUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useReactionVote } from '@/hooks/query/thread/use-reaction-vote';
 import { useAuth } from '@/components/provider/AuthProvider';
-import { useParams } from 'next/navigation';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
 import { useTranslation } from '@/i18n';
 
@@ -12,7 +11,7 @@ export const ThreadVoteButton = ({ className }: { className?: string }) => {
   const { thread } = useThread();
   const { user } = useAuth();
   const t = useTranslation();
-  const { apartmentId } = useParams<{ apartmentId: string }>();
+  const apartmentId = user?.selectedApartmentId;
   const { mutate, isPending } = useReactionVote();
 
   const reactions = thread.reactions;

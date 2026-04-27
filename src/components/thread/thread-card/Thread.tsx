@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useThreadDetails } from '@/hooks/query/thread/use-thread-details';
-import { useParams } from 'next/navigation';
+import { useAuth } from '@/components/provider/AuthProvider';
 import ThreadCard from '@/components/thread/thread-card/ThreadCard';
 import { ThreadPreviewHeader } from '@/components/thread/thread-card/thread-preview/ThreadPreviewHeader';
 import { ThreadPreviewContent } from '@/components/thread/thread-card/thread-preview/ThreadPreviewContent';
@@ -35,7 +35,8 @@ function ThreadSkeleton() {
 }
 
 export const Thread = ({ threadId, expanded, className }: ThreadPreviewProps) => {
-  const { apartmentId } = useParams<{ apartmentId: string }>();
+  const { user } = useAuth();
+  const apartmentId = user?.selectedApartmentId;
   const { data, isPending, error } = useThreadDetails(apartmentId, threadId);
 
   if (isPending && !data) {
