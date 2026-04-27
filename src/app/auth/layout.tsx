@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   DesktopAdapter,
-  LargeDesktopAdapter,
   MobileAdapter,
   TabletAdapter,
 } from '@/components/common/layouts/ResponsiveSwitch';
@@ -25,9 +24,6 @@ export default function HomeLayout({
       <DesktopAdapter>
         <DesktopLayout>{children}</DesktopLayout>
       </DesktopAdapter>
-      <LargeDesktopAdapter>
-        <DesktopLayout>{children}</DesktopLayout>
-      </LargeDesktopAdapter>
     </>
   );
 }
