@@ -46,7 +46,8 @@ const FormInput = React.forwardRef<
         aria-describedby={formMessageId}
         className={cn(
           'flex h-12 sm:h-12 w-full urbancare-rounded-md border border-input-border bg-input py-1 urbancare-text-base sm:urbancare-text-xl shadow-md transition-colors file:border-0 file:bg-transparent file:urbancare-text-base file:font-medium file:text-foreground placeholder:text-text-placeholder focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 caret-black',
-          { 'pl-10 pr-10': icon, 'pl-3 pr-10': !icon },
+          { 'pl-10': icon, 'pl-3': !icon },
+          isPasswordType && error ? 'pr-16' : 'pr-10',
           {
             'ring-2 ring-error placeholder:text-error focus:placeholder:text-text-placeholder':
               error,
@@ -57,26 +58,22 @@ const FormInput = React.forwardRef<
         {...props}
       />
 
-      {!error && isPasswordType && type == 'password' && (
-        <div
-          className={
-            'absolute right-3 top-1/2 transform -translate-y-1/2 hover:cursor-pointer transition-opacity duration-200'
-          }
+      {isPasswordType && (
+        <button
+          type="button"
+          className={cn(
+            'absolute top-1/2 -translate-y-1/2 hover:cursor-pointer transition-opacity duration-200',
+            error ? 'right-10' : 'right-3'
+          )}
           onClick={() => setShowPassword(!showPassword)}
+          aria-label={showPassword ? 'Hide password' : 'Show password'}
         >
-          <EyeIcon className={'w-5 h-5 sm:w-6 sm:h-6 text-icon'} />
-        </div>
-      )}
-
-      {!error && isPasswordType && type == 'text' && (
-        <div
-          className={
-            'absolute right-3 top-1/2 transform -translate-y-1/2 hover:cursor-pointer transition-opacity duration-200'
-          }
-          onClick={() => setShowPassword(!showPassword)}
-        >
-          <EyeOff className={'w-5 h-5 sm:w-6 sm:h-6 text-icon'} />
-        </div>
+          {type === 'text' ? (
+            <EyeOff className="w-5 h-5 sm:w-6 sm:h-6 text-icon" />
+          ) : (
+            <EyeIcon className="w-5 h-5 sm:w-6 sm:h-6 text-icon" />
+          )}
+        </button>
       )}
 
       <TooltipProvider>
