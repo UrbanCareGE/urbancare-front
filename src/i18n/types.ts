@@ -32,6 +32,7 @@ export interface TranslationKeys {
     urgent: string;
     main: string;
     news: string;
+    access: string;
     profile: string;
     chat: string;
     neighborhoods: string;
@@ -276,6 +277,10 @@ export interface TranslationKeys {
   language: {
     georgian: string;
     english: string;
+  };
+  access: {
+    workInProgressTitle: string;
+    workInProgressMessage: string;
   };
   neighborhood: {
     selectedLocation: string;

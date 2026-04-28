@@ -4,8 +4,8 @@ import { useParams, usePathname, useRouter } from 'next/navigation';
 import React, { useState, useTransition } from 'react';
 import {
   CircleUser,
+  DoorOpen,
   HouseIcon,
-  Newspaper,
   SendIcon,
   ShieldAlert,
 } from 'lucide-react';
@@ -30,7 +30,7 @@ export const HeaderNavIsland = () => {
     { href: 'post', label: t.nav.posts, icon: HouseIcon },
     { href: 'urgent', label: t.nav.urgent, icon: ShieldAlert },
     { href: 'chat', label: t.nav.main, icon: SendIcon },
-    { href: '/landing', label: t.nav.news, icon: Newspaper, isAbsolute: true },
+    { href: 'access', label: t.nav.access, icon: DoorOpen },
     { href: 'profile', label: t.nav.profile, icon: CircleUser },
   ];
 

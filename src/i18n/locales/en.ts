@@ -35,6 +35,7 @@ const en: TranslationKeys = {
     urgent: 'Urgent',
     main: 'Main',
     news: 'News',
+    access: 'Access',
     profile: 'Profile',
     chat: 'Chat',
     neighborhoods: 'Neighborhoods',
@@ -300,6 +301,12 @@ const en: TranslationKeys = {
   language: {
     georgian: 'ქართული',
     english: 'English',
+  },
+
+  access: {
+    workInProgressTitle: 'Work in progress',
+    workInProgressMessage:
+      'Remote access for doors, parking gates and barriers is coming soon — stay tuned.',
   },
 
   role: {

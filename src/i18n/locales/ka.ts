@@ -35,6 +35,7 @@ const ka: TranslationKeys = {
     urgent: 'სასწრაფო',
     main: 'მთავარი',
     news: 'სიახლეები',
+    access: 'წვდომა',
     profile: 'პროფილი',
     chat: 'ჩატი',
     neighborhoods: 'სამეზობლოები',
@@ -301,6 +302,12 @@ const ka: TranslationKeys = {
   language: {
     georgian: 'ქართული',
     english: 'English',
+  },
+
+  access: {
+    workInProgressTitle: 'მიმდინარეობს მუშაობა',
+    workInProgressMessage:
+      'კარების, პარკინგის ჭიშკრებისა და ბარიერების დისტანციური გახსნა მალე დაემატება — დაგვემეგობრე.',
   },
 
   role: {
