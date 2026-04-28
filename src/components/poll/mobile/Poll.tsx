@@ -1,97 +1,21 @@
 'use client';
 
-import React, { useState } from 'react';
-import { BarChart2, Check, Plus, X } from 'lucide-react';
+import React from 'react';
+import { Plus, Vote, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { useTranslation } from '@/i18n';
 
-/**
- * Props interface for the Poll component
- */
 interface PollProps {
-  /** Current poll options from form */
   pollOptions: string[];
-  /** Callback to update poll options */
   onPollOptionsChange: (options: string[]) => void;
-  /** Whether the poll mode is enabled */
   isPollMode: boolean;
-  /** Callback to toggle poll mode */
   onPollModeToggle: () => void;
-  /** Optional: Whether the form is being submitted */
   isDisabled?: boolean;
 }
 
-/**
- * Props interface for the EditableOption component
- */
-interface EditableOptionProps {
-  initialValue: string;
-  onSave: (value: string) => void;
-  onCancel: () => void;
-}
+const MAX_OPTIONS = 10;
 
-/**
- * EditableOption - Internal component for editing poll options
- */
-const EditableOption = ({
-  initialValue,
-  onSave,
-  onCancel,
-}: EditableOptionProps) => {
-  const [value, setValue] = useState(initialValue);
-
-  const handleSave = () => {
-    if (value.trim()) {
-      onSave(value);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      handleSave();
-    } else if (e.key === 'Escape') {
-      onCancel();
-    }
-  };
-
-  return (
-    <div className="flex items-center gap-2">
-      <input
-        type="text"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={handleKeyDown}
-        className="flex-1 px-3 py-2 urbancare-text-base border border-border urbancare-rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-        autoFocus
-      />
-      <button
-        type="button"
-        onClick={handleSave}
-        className="w-8 h-8 flex justify-center items-center bg-success lg:hover:bg-success/90 lg:active:scale-95 urbancare-rounded-full transition-all duration-150"
-        aria-label="Save option"
-      >
-        <Check size={18} className="text-success-foreground" />
-      </button>
-      <button
-        type="button"
-        onClick={onCancel}
-        className="w-8 h-8 flex justify-center items-center bg-error lg:hover:bg-error/90 lg:active:scale-95 urbancare-rounded-full transition-all duration-150"
-        aria-label="Cancel editing"
-      >
-        <X size={18} className="text-error-foreground" />
-      </button>
-    </div>
-  );
-};
-
-/**
- * Poll Component - Manages poll creation UI and logic
- *
- * This component handles:
- * - Toggling poll mode on/off
- * - Adding, editing, and removing poll options
- * - Managing "allow others to add" setting
- */
 export const Poll = ({
   pollOptions,
   onPollOptionsChange,
@@ -100,172 +24,128 @@ export const Poll = ({
   isDisabled = false,
 }: PollProps) => {
   const t = useTranslation();
-  // Local UI state
-  const [isAddingOption, setIsAddingOption] = useState(false);
-  const [currentOption, setCurrentOption] = useState('');
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
-  /**
-   * Adds a new poll option
-   */
-  const handleAddPollOption = () => {
-    if (!currentOption.trim()) return;
-
-    onPollOptionsChange([...pollOptions, currentOption.trim()]);
-    setCurrentOption('');
-    setIsAddingOption(false);
+  const updateOption = (index: number, value: string) => {
+    const next = [...pollOptions];
+    next[index] = value;
+    onPollOptionsChange(next);
   };
 
-  /**
-   * Removes a poll option at the specified index
-   */
-  const handleRemovePollOption = (index: number) => {
+  const removeOption = (index: number) => {
     onPollOptionsChange(pollOptions.filter((_, i) => i !== index));
   };
 
-  /**
-   * Cancels adding a new option
-   */
-  const handleCancelAddOption = () => {
-    setCurrentOption('');
-    setIsAddingOption(false);
+  const addOption = () => {
+    if (pollOptions.length >= MAX_OPTIONS) return;
+    onPollOptionsChange([...pollOptions, '']);
   };
 
-  /**
-   * Saves an edited option
-   */
-  const handleSaveEdit = (index: number, value: string) => {
-    if (!value.trim()) return;
-
-    const newOptions = [...pollOptions];
-    newOptions[index] = value.trim();
-    onPollOptionsChange(newOptions);
-    setEditingIndex(null);
-  };
-
-  /**
-   * Cancels editing an option
-   */
-  const handleCancelEdit = () => {
-    setEditingIndex(null);
-  };
-
-  /**
-   * Handles keyboard shortcuts for adding options
-   */
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      handleAddPollOption();
-    } else if (e.key === 'Escape') {
-      handleCancelAddOption();
-    }
-  };
+  if (!isPollMode) {
+    return (
+      <button
+        type="button"
+        onClick={onPollModeToggle}
+        disabled={isDisabled}
+        className={cn(
+          'group flex items-center gap-2.5 w-full px-3.5 py-2.5',
+          'urbancare-rounded-xl border border-dashed border-border',
+          'bg-transparent text-text-secondary',
+          'transition-colors duration-150',
+          'lg:hover:border-text-tertiary/50 lg:hover:bg-surface-container/30 lg:hover:text-text-primary',
+          'disabled:opacity-50 disabled:cursor-not-allowed'
+        )}
+      >
+        <Vote className="w-4 h-4" strokeWidth={2.25} />
+        <span className="urbancare-text-sm font-medium">{t.poll.poll}</span>
+      </button>
+    );
+  }
 
   return (
-    <div className="space-y-3 bg-background">
-      {/* Poll Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <BarChart2 className="w-4 h-4 text-foreground-disabled" />
-          <span className="urbancare-text-base font-medium text-foreground-secondary">
-            {t.poll.poll}
-          </span>
+    <div className="urbancare-rounded-2xl border border-border bg-surface-container/40 overflow-hidden">
+      {/* Header */}
+      <div className="flex items-center gap-2 px-3 py-2 border-b border-border/60 bg-surface-variant/40">
+        <div className="w-7 h-7 urbancare-rounded-lg bg-surface-container text-text-secondary flex items-center justify-center shrink-0">
+          <Vote className="w-4 h-4" strokeWidth={2.25} />
         </div>
+        <h4 className="flex-1 urbancare-text-sm font-semibold text-text-primary">
+          {t.poll.poll}
+        </h4>
         <Button
           type="button"
-          variant={isPollMode ? 'default' : 'mobile-outline'}
+          variant="ghost"
           size="sm"
           onClick={onPollModeToggle}
           disabled={isDisabled}
-          className="h-8"
+          className="h-7 px-2 urbancare-text-xs font-semibold text-text-tertiary lg:hover:text-error lg:hover:bg-error/5"
         >
-          {isPollMode ? t.poll.disable : t.common.add}
+          {t.poll.disable}
         </Button>
       </div>
 
-      {/* Poll Content */}
-      {isPollMode && (
-        <div className="space-y-3 p-4 bg-surface-variant urbancare-rounded-lg border border-border">
-          {/* Existing options */}
-          {pollOptions.length > 0 && (
-            <div className="space-y-2">
-              {pollOptions.map((option, index) =>
-                editingIndex === index ? (
-                  <EditableOption
-                    key={index}
-                    initialValue={option}
-                    onSave={(value) => handleSaveEdit(index, value)}
-                    onCancel={handleCancelEdit}
-                  />
-                ) : (
-                  <div
-                    key={index}
-                    onClick={() => !isDisabled && setEditingIndex(index)}
-                    className="flex items-center justify-between p-2 bg-surface urbancare-rounded-md border border-border cursor-pointer lg:hover:border-primary/50 transition-colors duration-150"
-                  >
-                    <span className="urbancare-text-base text-foreground-secondary">
-                      {index + 1}) {option}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleRemovePollOption(index);
-                      }}
-                      disabled={isDisabled}
-                      className="p-1 lg:hover:bg-surface-container lg:active:scale-90 urbancare-rounded-sm transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
-                      aria-label={`Remove option ${index + 1}`}
-                    >
-                      <X className="w-4 h-4 text-foreground-tertiary" />
-                    </button>
-                  </div>
-                )
+      {/* Body */}
+      <div className="flex flex-col gap-1.5 p-2.5">
+        {pollOptions.map((option, index) => (
+          <div
+            key={index}
+            className={cn(
+              'group flex items-center gap-2 urbancare-rounded-lg bg-surface',
+              'border border-border focus-within:border-text-tertiary/40',
+              'transition-colors duration-150'
+            )}
+          >
+            <span className="pl-3 urbancare-text-sm text-text-tertiary tabular-nums shrink-0">
+              {index + 1}
+            </span>
+            <input
+              type="text"
+              value={option}
+              onChange={(e) => updateOption(index, e.target.value)}
+              placeholder={t.poll.optionPlaceholder}
+              disabled={isDisabled}
+              className={cn(
+                'flex-1 min-w-0 py-2 urbancare-text-base text-text-primary',
+                'bg-transparent border-none outline-none',
+                'placeholder:text-text-tertiary',
+                'disabled:opacity-50'
               )}
-            </div>
-          )}
-
-          {/* Add option input */}
-          {isAddingOption ? (
-            <div className="flex items-center gap-2">
-              <input
-                type="text"
-                value={currentOption}
-                onChange={(e) => setCurrentOption(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder={t.poll.optionPlaceholder}
-                className="flex-1 px-3 py-2 urbancare-text-base border border-border urbancare-rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                autoFocus
-              />
-              <button
-                type="button"
-                onClick={handleAddPollOption}
-                className="w-8 h-8 flex justify-center items-center bg-success lg:hover:bg-success/90 lg:active:scale-95 urbancare-rounded-full transition-all duration-150"
-                aria-label="Add option"
-              >
-                <Check size={18} className="text-success-foreground" />
-              </button>
-              <button
-                type="button"
-                onClick={handleCancelAddOption}
-                className="w-8 h-8 flex justify-center items-center bg-error lg:hover:bg-error/90 lg:active:scale-95 urbancare-rounded-full transition-all duration-150"
-                aria-label="Cancel adding option"
-              >
-                <X size={18} className="text-error-foreground" />
-              </button>
-            </div>
-          ) : (
+            />
             <button
               type="button"
-              onClick={() => setIsAddingOption(true)}
+              onClick={() => removeOption(index)}
               disabled={isDisabled}
-              className="flex items-center gap-2 w-full p-2 urbancare-text-base text-foreground-primary lg:hover:text-foreground-secondary lg:hover:bg-surface-container lg:active:scale-[0.98] bg-surface urbancare-rounded-md border border-dashed border-border transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Remove option"
+              className={cn(
+                'shrink-0 mr-1 w-7 h-7 urbancare-rounded-md flex items-center justify-center',
+                'text-text-tertiary lg:hover:text-error lg:hover:bg-error/10',
+                'transition-colors duration-150',
+                'disabled:opacity-50 disabled:cursor-not-allowed'
+              )}
             >
-              <Plus size={16} />
-              {t.poll.addOption}
+              <X className="w-4 h-4" />
             </button>
-          )}
-        </div>
-      )}
+          </div>
+        ))}
+
+        {pollOptions.length < MAX_OPTIONS && (
+          <button
+            type="button"
+            onClick={addOption}
+            disabled={isDisabled}
+            className={cn(
+              'flex items-center justify-center gap-2 w-full px-3 py-2',
+              'urbancare-rounded-lg border border-dashed border-border',
+              'urbancare-text-sm font-medium text-text-secondary',
+              'transition-colors duration-150',
+              'lg:hover:border-text-tertiary/40 lg:hover:bg-surface-container/40 lg:hover:text-text-primary',
+              'disabled:opacity-50 disabled:cursor-not-allowed'
+            )}
+          >
+            <Plus className="w-4 h-4" />
+            {t.poll.addOption}
+          </button>
+        )}
+      </div>
     </div>
   );
 };
