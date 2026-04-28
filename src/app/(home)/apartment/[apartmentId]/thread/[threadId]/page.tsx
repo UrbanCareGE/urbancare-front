@@ -26,7 +26,7 @@ export default function ThreadPage() {
   return (
     <div className="flex-1 flex flex-col overflow-hidden lg:flex-none lg:block">
       <div className="flex-1 overflow-y-auto scrollbar-hide lg:overflow-visible">
-        <div className="flex flex-col gap-4 p-3 lg:p-0 lg:gap-5 lg:py-4">
+        <div className="flex flex-col gap-4 p-3 lg:p-0 lg:gap-5">
           <button
             onClick={() => router.back()}
             className={cn(

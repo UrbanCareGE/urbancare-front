@@ -3,7 +3,7 @@
 import React from 'react';
 import { PollOptionDTO, ThreadInfoDTO } from '@/model/dto/thread.dto';
 import { cn } from '@/lib/utils';
-import { Circle, CircleCheck } from 'lucide-react';
+import { Check, Vote } from 'lucide-react';
 import { usePollVote } from '@/hooks/query/thread/use-poll-vote';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useTranslation } from '@/i18n';
@@ -13,27 +13,28 @@ interface PollDisplayProps {
   className?: string;
 }
 
-interface PollOptionBarProps {
+interface PollOptionRowProps {
   thread: ThreadInfoDTO;
   option: PollOptionDTO;
   totalVotes: number;
-  isHighest: boolean;
+  isLeading: boolean;
   isVotedByUser: boolean;
+  hasUserVoted: boolean;
   apartmentId: string;
 }
 
-const PollOptionBar = ({
+const PollOptionRow = ({
   thread,
   option,
   totalVotes,
-  isHighest,
+  isLeading,
   isVotedByUser,
+  hasUserVoted,
   apartmentId,
-}: PollOptionBarProps) => {
+}: PollOptionRowProps) => {
   const percentage =
     totalVotes > 0 ? Math.round((option.voteCount / totalVotes) * 100) : 0;
   const { mutate, isPending } = usePollVote();
-  const t = useTranslation();
 
   const handleVote = () => {
     if (!thread.poll || isPending) return;
@@ -46,53 +47,61 @@ const PollOptionBar = ({
   };
 
   return (
-    <div className="space-y-1">
-      <div className="flex justify-between items-center urbancare-text-base">
-        <span className={cn('text-text-primary', isHighest && 'font-semibold')}>
-          {option.content}
-        </span>
-        <span className={cn('text-text-primary', isHighest && 'font-semibold')}>
-          {percentage}%
-        </span>
-      </div>
-      <div className="flex items-center">
-        <button
-          type="button"
-          onClick={handleVote}
-          disabled={isPending}
-          className={cn(
-            'transition-all duration-200 lg:hover:scale-110 lg:active:scale-90',
-            isPending && 'opacity-50'
-          )}
-        >
-          {isVotedByUser ? (
-            <CircleCheck className="w-5 h-5 text-tertiary" />
-          ) : (
-            <Circle className="w-5 h-5 text-tertiary" />
-          )}
-        </button>
-        <div className="relative flex-1 ml-3 h-8 bg-surface-container urbancare-rounded-lg overflow-hidden">
-          <div
+    <button
+      type="button"
+      onClick={handleVote}
+      disabled={isPending}
+      className={cn(
+        'group relative w-full overflow-hidden urbancare-rounded-lg',
+        'transition-all duration-200 px-3 py-2 text-left',
+        'bg-surface lg:hover:bg-surface-hover',
+        isVotedByUser && 'ring-1 ring-text-tertiary/40',
+        isPending && 'opacity-60 cursor-progress',
+        !isPending && 'lg:active:scale-[0.99]'
+      )}
+    >
+      <div
+        aria-hidden
+        className="absolute inset-y-0 left-0 transition-all duration-500 ease-out bg-surface-container"
+        style={{ width: hasUserVoted ? `${percentage}%` : '0%' }}
+      />
+
+      <div className="relative flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 min-w-0">
+          <span
             className={cn(
-              'absolute inset-y-0 bg-tertiary left-0 urbancare-rounded-lg transition-all duration-500 ease-out'
+              'shrink-0 w-4 h-4 urbancare-rounded-full flex items-center justify-center transition-all',
+              isVotedByUser
+                ? 'bg-text-secondary text-surface'
+                : 'border-2 border-border'
             )}
-            style={{ width: `${percentage}%` }}
-          />
-          <div className="absolute inset-0 flex items-center px-3">
-            <span
-              className={cn(
-                'urbancare-text-base',
-                percentage > 50
-                  ? 'text-tertiary-foreground'
-                  : 'text-text-secondary'
-              )}
-            >
-              {option.voteCount} {t.thread.vote}
-            </span>
-          </div>
+          >
+            {isVotedByUser && <Check className="w-3 h-3" strokeWidth={3} />}
+          </span>
+          <span
+            className={cn(
+              'urbancare-text-base truncate',
+              isVotedByUser || isLeading
+                ? 'font-semibold text-text-primary'
+                : 'text-text-secondary'
+            )}
+          >
+            {option.content}
+          </span>
         </div>
+
+        {hasUserVoted && (
+          <span
+            className={cn(
+              'shrink-0 urbancare-text-sm font-bold tabular-nums',
+              isVotedByUser ? 'text-text-primary' : 'text-text-tertiary'
+            )}
+          >
+            {percentage}%
+          </span>
+        )}
       </div>
-    </div>
+    </button>
   );
 };
 
@@ -108,22 +117,42 @@ export const PollDisplay = ({ thread, className }: PollDisplayProps) => {
 
   const totalVotes = poll.items.reduce((sum, opt) => sum + opt.voteCount, 0);
   const highestVotes = Math.max(...poll.items.map((opt) => opt.voteCount), 0);
+  const hasUserVoted = poll.items.some((opt) =>
+    opt.voters.some((voter) => voter.id === userId)
+  );
 
   return (
-    <div className={cn('space-y-3 py-2', className)}>
-      {poll.items.map((option) => (
-        <PollOptionBar
-          key={option.id}
-          thread={thread}
-          option={option}
-          apartmentId={apartmentId}
-          totalVotes={totalVotes}
-          isHighest={option.voteCount === highestVotes && highestVotes > 0}
-          isVotedByUser={option.voters.some((voter) => voter.id === userId)}
-        />
-      ))}
-      <div className="urbancare-text-base text-text-secondary text-center pt-1">
-        {t.thread.totalVotes.replace('{count}', String(totalVotes))}
+    <div
+      className={cn(
+        'urbancare-rounded-2xl border border-border bg-surface-container/40 overflow-hidden',
+        className
+      )}
+    >
+      <div className="flex items-center gap-2 px-3 py-2 border-b border-border/60 bg-surface-variant/40">
+        <div className="w-7 h-7 urbancare-rounded-lg bg-surface-container text-text-secondary flex items-center justify-center shrink-0">
+          <Vote className="w-4 h-4" strokeWidth={2.25} />
+        </div>
+        <h4 className="flex-1 urbancare-text-sm font-semibold text-text-primary">
+          {t.tags.POLL}
+        </h4>
+        <span className="urbancare-text-xs text-text-tertiary tabular-nums">
+          {t.thread.totalVotes.replace('{count}', String(totalVotes))}
+        </span>
+      </div>
+
+      <div className="flex flex-col gap-1.5 p-2.5">
+        {poll.items.map((option) => (
+          <PollOptionRow
+            key={option.id}
+            thread={thread}
+            option={option}
+            apartmentId={apartmentId}
+            totalVotes={totalVotes}
+            isLeading={option.voteCount === highestVotes && highestVotes > 0}
+            isVotedByUser={option.voters.some((voter) => voter.id === userId)}
+            hasUserVoted={hasUserVoted}
+          />
+        ))}
       </div>
     </div>
   );
