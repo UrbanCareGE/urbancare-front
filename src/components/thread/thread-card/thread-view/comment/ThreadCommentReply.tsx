@@ -4,6 +4,7 @@ import { ThreadCommentDTO } from '@/model/dto/thread.dto';
 import { formatTime } from '@/lib/utils';
 import React from 'react';
 import Image from 'next/image';
+import { CommentVoteButton } from '@/components/thread/thread-card/thread-view/comment/CommentVoteButton';
 
 type ThreadCommentReplyProps = {
   comment: ThreadCommentDTO;
@@ -44,9 +45,12 @@ export const ThreadCommentReply = ({ comment }: ThreadCommentReplyProps) => {
             {content}
           </p>
         </div>
-        <p className="urbancare-text-xs text-text-tertiary mt-1 px-1.5">
-          {formatTime(createdAt.toString())}
-        </p>
+        <div className="flex items-center gap-3 mt-1 px-1.5">
+          <span className="urbancare-text-xs text-text-tertiary">
+            {formatTime(createdAt.toString())}
+          </span>
+          <CommentVoteButton comment={comment} />
+        </div>
       </div>
     </div>
   );

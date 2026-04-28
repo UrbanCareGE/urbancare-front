@@ -43,22 +43,20 @@ export function useCreateComment() {
           surname: user.surname,
           profileImageId: user.profileImageId,
         },
-        selfVote: 0,
-        voteDiff: 0,
       };
 
       queryClient.setQueryData(
         ['threads', 'detail', threadId],
         (old: ThreadInfoDTO) => {
           if (commentDto.replyToId) {
-            const parentComment = old.comments.find(
-              (c) => c.id === commentDto.replyToId
-            );
-            parentComment?.replies?.push(newComment);
-
+            const replyToId = commentDto.replyToId;
             return {
               ...old,
-              comments: [...(old.comments || [])],
+              comments: (old.comments || []).map((c) =>
+                c.id === replyToId
+                  ? { ...c, replies: [...(c.replies || []), newComment] }
+                  : c
+              ),
               commentCount: (old.commentCount || 0) + 1,
             };
           }
@@ -80,20 +78,20 @@ export function useCreateComment() {
         if (!old) return old;
 
         if (newComment.replyToId) {
-          const parentComment = old.comments.find(
-            (c) => c.id === newComment.replyToId
-          );
-          if (parentComment) {
-            parentComment.replies =
-              parentComment.replies?.filter(
-                (comment) => comment.id !== tempId
-              ) || [];
-            parentComment.replies.push(newComment);
-          }
-
+          const replyToId = newComment.replyToId;
           return {
             ...old,
-            comments: [...(old.comments || [])],
+            comments: (old.comments || []).map((c) =>
+              c.id === replyToId
+                ? {
+                    ...c,
+                    replies: [
+                      ...(c.replies || []).filter((r) => r.id !== tempId),
+                      newComment,
+                    ],
+                  }
+                : c
+            ),
           };
         }
 

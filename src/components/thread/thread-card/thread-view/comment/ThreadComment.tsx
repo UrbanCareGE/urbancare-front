@@ -8,6 +8,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import { UserAvatarView } from '@/components/common/avatar/UserAvatar';
 import { ReplyInput } from '@/components/thread/thread-card/thread-view/comment/ThreadReplyInput';
 import { ThreadCommentReply } from '@/components/thread/thread-card/thread-view/comment/ThreadCommentReply';
+import { CommentVoteButton } from '@/components/thread/thread-card/thread-view/comment/CommentVoteButton';
 
 const INITIAL_REPLIES = 3;
 
@@ -58,6 +59,7 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
             <span className="urbancare-text-xs text-text-tertiary">
               {formatTime(createdAt.toString())}
             </span>
+            <CommentVoteButton comment={comment} />
             <button
               onClick={() => setIsReplying(!isReplying)}
               className={cn(

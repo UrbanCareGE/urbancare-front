@@ -29,12 +29,11 @@ export interface CreateThreadCommentDTO {
 export interface ThreadCommentDTO {
   id: string;
   content: string;
-  voteDiff: number;
-  selfVote: number;
   createdAt: Date;
   userInfo: UserSnapshotDTO;
   replies?: ThreadCommentDTO[];
   replyToId?: string;
+  reactions?: PollDTO;
 }
 
 export const ThreadTagType = {
