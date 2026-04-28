@@ -229,15 +229,9 @@ export const NeighborhoodSelect = () => {
       if (!apt) return;
 
       selectApartment(apt.id);
-
-      const newPath = pathname.replace(
-        `/apartment/${apartmentId}`,
-        `/apartment/${newApartmentId}`
-      );
-      router.push(newPath);
       setIsOpen(false);
     },
-    [joinedApartments, selectApartment, pathname, apartmentId, router]
+    [joinedApartments, selectApartment]
   );
 
   const handleAddLocation = React.useCallback(() => {

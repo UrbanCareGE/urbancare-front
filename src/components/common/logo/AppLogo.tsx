@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { AiFillHome } from 'react-icons/ai';
 
@@ -44,9 +45,12 @@ export const UrbanCareTextIcon = ({ className }: UrbanCareTextIconProps) => {
 
 export const AppLogo = () => {
   return (
-    <div className="h-12 flex justify-start items-center mr-auto gap-3">
+    <Link
+      href="/landing"
+      className="h-12 flex justify-start items-center mr-auto gap-3 transition-opacity lg:hover:opacity-80"
+    >
       <UrbanCareIcon className={'w-10 h-10'} />
       <UrbanCareTextIcon />
-    </div>
+    </Link>
   );
 };

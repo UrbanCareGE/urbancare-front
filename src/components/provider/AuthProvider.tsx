@@ -8,7 +8,7 @@ import {
   useEffect,
 } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { AuthService } from '@/service/auth-service';
 import { LoginDTO, LoginWithOtpDTO, UserDTO } from '@/model/dto/auth.dto';
 import { PulsingLoader } from '@/components/common/loader/GlobalLoader';
@@ -73,13 +73,14 @@ const isMixedRoute = (pathname: string) => {
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const queryClient = useQueryClient();
   const pathname = usePathname();
+  const router = useRouter();
 
   const isPublic = isPublicRoute(pathname);
   const isMixed = isMixedRoute(pathname);
 
   const handleAuthError = useCallback(() => {
     queryClient.clear();
-    window.location.href = '/auth/login';
+    window.location.href = '/landing';
   }, [queryClient]);
 
   const {
@@ -133,10 +134,11 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         ),
       } as UserModel);
       if (user?.selectedApartmentId) {
-        window.location.href = `/apartment/${user?.selectedApartmentId}`;
+        window.location.href = `/apartment/${user.selectedApartmentId}`;
+        return;
       }
-      if (user?.joinedApartments.length) {
-        window.location.href = `/apartment/${user?.joinedApartments[0]}`;
+      if (user?.joinedApartments?.length) {
+        window.location.href = `/apartment/${user.joinedApartments[0].id}`;
       } else {
         window.location.href = '/landing';
       }
@@ -208,6 +210,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     queryClient.removeQueries({
       predicate: (query) => query.queryKey[0] !== 'user',
     });
+
+    router.push(`/apartment/${apartmentId}`);
   };
 
   const updateUser = (data: Partial<UserModel>) => {
