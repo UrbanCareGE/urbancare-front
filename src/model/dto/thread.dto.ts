@@ -64,8 +64,8 @@ export const ThreadTagConfig: Record<
     label: 'განცხადება',
   },
   [ThreadTagType.QUESTION]: {
-    bg: 'bg-secondary/20',
-    text: 'text-secondary',
+    bg: 'bg-tertiary/20',
+    text: 'text-tertiary',
     label: 'კითხვა',
   },
   [ThreadTagType.DISCUSSION]: {
@@ -84,8 +84,8 @@ export const ThreadTagConfig: Record<
     label: 'შემოთავაზება',
   },
   [ThreadTagType.EVENT]: {
-    bg: 'bg-secondary/20',
-    text: 'text-secondary',
+    bg: 'bg-info/20',
+    text: 'text-info',
     label: 'ღონისძიება',
   },
   [ThreadTagType.URGENT]: {

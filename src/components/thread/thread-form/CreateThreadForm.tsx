@@ -136,27 +136,39 @@ export const CreateThreadFormContainer = () => {
     }
   };
 
-  const onSubmit = async (values: z.infer<typeof schema>) => {
+  const onSubmit = async (
+    values: z.infer<typeof schema>,
+    options?: { onSuccess?: () => void }
+  ) => {
     if (!user.selectedApartmentId!) {
       console.error('No apartment selected');
       return;
     }
 
-    mutate({
-      apartmentId: user.selectedApartmentId!,
-      title: values.title,
-      content: values.body,
-      imageIds: values.files?.map((f) => f.fileId!) ?? [],
-      tags: values.tags,
-      poll:
-        values.pollOptions != null && values.pollOptions.length > 0
-          ? values.pollOptions
-          : undefined,
-    });
-
-    toast.success(t.thread.postAdded);
-
-    form.reset();
+    mutate(
+      {
+        apartmentId: user.selectedApartmentId!,
+        title: values.title,
+        content: values.body,
+        imageIds: values.files?.map((f) => f.fileId!) ?? [],
+        tags: values.tags,
+        poll:
+          values.pollOptions != null && values.pollOptions.length > 0
+            ? values.pollOptions
+            : undefined,
+      },
+      {
+        onSuccess: () => {
+          toast.success(t.thread.postAdded);
+          form.reset();
+          setIsPollMode(false);
+          options?.onSuccess?.();
+        },
+        onError: () => {
+          toast.error(t.common.error);
+        },
+      }
+    );
   };
 
   return (

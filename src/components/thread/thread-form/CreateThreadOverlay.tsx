@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { Sheet, SheetContent } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import { useResponsive } from '@/components/common/layouts/ResponsiveLayout';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import { useTranslation } from '@/i18n';
 
 interface CreateThreadOverlayContextType {
   isOpen: boolean;
@@ -33,13 +34,18 @@ export const CreateThreadOverlayContent = ({
 }: CreateThreadSheetContentProps) => {
   const { isOpen, closeDrawer } = useThreadOverlay();
   const response = useResponsive();
+  const t = useTranslation();
 
   if (response.isDesktop || response.isLargeDesktop) {
     return (
       <Dialog open={isOpen} onOpenChange={(open) => !open && closeDrawer()}>
         <DialogContent
-          className={cn('border-border overflow-y-auto p-0', 'max-h-[85vh]')}
+          className={cn(
+            'border-border bg-surface p-0 max-h-[85vh] flex flex-col overflow-hidden gap-0',
+            className
+          )}
         >
+          <DialogTitle className="sr-only">{t.thread.newPost}</DialogTitle>
           {children}
         </DialogContent>
       </Dialog>
@@ -51,10 +57,11 @@ export const CreateThreadOverlayContent = ({
       <SheetContent
         side="bottom"
         className={cn(
-          'flex flex-col h-full w-full bg-surface overflow-y-scroll',
+          'flex flex-col h-full w-full bg-surface overflow-hidden p-0 gap-0',
           className
         )}
       >
+        <SheetTitle className="sr-only">{t.thread.newPost}</SheetTitle>
         {children}
       </SheetContent>
     </Sheet>

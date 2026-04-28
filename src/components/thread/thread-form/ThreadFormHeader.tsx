@@ -1,38 +1,33 @@
+'use client';
+
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import {
-  SheetClose,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from '@/components/ui/sheet';
 import { X } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { useThreadOverlay } from '@/components/thread/thread-form/CreateThreadOverlay';
 import { useTranslation } from '@/i18n';
 
 export const ThreadFormHeader = () => {
   const t = useTranslation();
+  const { closeDrawer } = useThreadOverlay();
+
   return (
-    <SheetHeader className="px-3 py-3">
-      <SheetDescription className="sr-only">
-        {t.thread.newPostForm}
-      </SheetDescription>
-      <div className="flex items-center gap-2">
-        <div className="w-8" />
-        <div className="mr-auto ml-auto">
-          <SheetTitle className="urbancare-text-2xl font-semibold text-foreground-primary">
-            {t.thread.newPost}
-          </SheetTitle>
-        </div>
-        <SheetClose asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-8 w-8 text-icon [&_svg]:size-7"
-          >
-            <X />
-          </Button>
-        </SheetClose>
-      </div>
-    </SheetHeader>
+    <header className="shrink-0 px-4 py-3 flex items-center gap-3">
+      <h2 className="flex-1 urbancare-text-xl font-semibold text-text-primary leading-tight-georgian truncate">
+        {t.thread.newPost}
+      </h2>
+      <button
+        type="button"
+        onClick={closeDrawer}
+        aria-label={t.common.close}
+        className={cn(
+          'shrink-0 w-9 h-9 urbancare-rounded-lg',
+          'flex items-center justify-center',
+          'text-text-secondary lg:hover:text-text-primary lg:hover:bg-surface-hover',
+          'transition-colors duration-150'
+        )}
+      >
+        <X className="w-5 h-5" />
+      </button>
+    </header>
   );
 };

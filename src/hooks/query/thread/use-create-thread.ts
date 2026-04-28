@@ -125,7 +125,7 @@ export function useCreateThread() {
     onError: (error, dto, context) => {
       const tempId = context?.tempId;
 
-      const queryListKey = ['threads', 'list', user.selectedApartmentId!];
+      const queryListKey = ['threads', 'list', user.selectedApartmentId!, null];
 
       queryClient.setQueryData<InfiniteData<PagingRespDTO<string>>>(
         queryListKey,
