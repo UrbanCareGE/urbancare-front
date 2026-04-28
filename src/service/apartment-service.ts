@@ -8,7 +8,7 @@ export const ApartmentService = {
     size: number
   ): Promise<ApartmentPagingDTO> => {
     const { data } = await api.get<ApartmentPagingDTO>(
-      '/api/apartment/search',
+      '/api/apartments/search',
       {
         params: {
           name,
