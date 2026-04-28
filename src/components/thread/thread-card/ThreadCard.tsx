@@ -9,6 +9,7 @@ import { ThreadInfoDTO } from '@/model/dto/thread.dto';
 interface ThreadContextValue {
   thread: ThreadInfoDTO;
   setThread: React.Dispatch<React.SetStateAction<ThreadInfoDTO>>;
+  expanded: boolean;
 }
 
 const ThreadContext = React.createContext<ThreadContextValue | undefined>(
@@ -27,12 +28,14 @@ interface ThreadCardRootProps {
   className?: string;
   children: React.ReactNode;
   thread: ThreadInfoDTO;
+  expanded?: boolean;
 }
 
 const ThreadCardRoot = ({
   thread,
   children,
   className,
+  expanded = false,
 }: ThreadCardRootProps) => {
   const [threadState, setThreadState] = useState<ThreadInfoDTO>(thread);
 
@@ -41,8 +44,8 @@ const ThreadCardRoot = ({
   }, [thread]);
 
   const contextValue = useMemo(
-    () => ({ thread: threadState, setThread: setThreadState }),
-    [threadState]
+    () => ({ thread: threadState, setThread: setThreadState, expanded }),
+    [threadState, expanded]
   );
   return (
     <ThreadContext.Provider value={contextValue}>

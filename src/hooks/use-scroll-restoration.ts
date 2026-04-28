@@ -28,6 +28,10 @@ export function useScrollRestoration<T extends HTMLElement = HTMLDivElement>() {
     const frame = requestAnimationFrame(() => {
       if (!ref.current) return;
       ref.current.scrollTop = saved !== null ? parseInt(saved, 10) : 0;
+      // Defeat any rogue html/body scroll left behind by autofocus or
+      // browser scroll-into-view from the previous route
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
     });
 
     return () => cancelAnimationFrame(frame);

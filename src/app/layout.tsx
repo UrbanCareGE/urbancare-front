@@ -27,7 +27,7 @@ export interface Basic {
 
 export default function RootLayout({ children }: Children) {
   return (
-    <html lang="ka" suppressHydrationWarning>
+    <html lang="ka" className="h-dvh overflow-hidden" suppressHydrationWarning>
       <body
         className="h-dvh flex flex-col antialiased bg-background text-foreground overflow-hidden"
         suppressHydrationWarning

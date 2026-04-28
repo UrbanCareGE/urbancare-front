@@ -211,7 +211,7 @@ export const UrgentCardCompact = ({
     <Card
       onClick={onClick}
       className={cn(
-        'flex items-center gap-3 urbancare-rounded-2xl border-none bg-surface px-3 py-2.5',
+        'flex items-center gap-3 urbancare-rounded-2xl border-none bg-surface-variant px-3 py-2.5',
         'transition-all duration-200',
         status === 'resolved' && 'opacity-90',
         isPending && 'opacity-80 pointer-events-none',

@@ -100,7 +100,7 @@ export const LayoutDesktop = ({
 
   return (
     <ChatProvider>
-      <div className="h-dvh mx-auto p-3 max-w-[1920px] w-full flex justify-center gap-8">
+      <div className="h-dvh mx-auto p-3 max-w-[1920px] w-full flex justify-center gap-8 overflow-hidden">
         <HomeColumnPanel className="flex-1 max-w-[412px] min-w-0">
           <HomeColumnPanel.Header>
             <AppLogo />
@@ -119,7 +119,7 @@ export const LayoutDesktop = ({
           </HomeColumnPanel.Header>
           <HomeColumnPanel.Body
             ref={feedScrollRef}
-            className="overflow-y-scroll overflow-x-hidden overscroll-x-none h-full flex flex-col scrollbar-hide"
+            className="overflow-y-scroll overflow-x-hidden overscroll-x-none flex-1 min-h-0 flex flex-col scrollbar-hide"
           >
             {children}
           </HomeColumnPanel.Body>

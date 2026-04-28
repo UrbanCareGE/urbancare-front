@@ -94,7 +94,6 @@ export function useCreateComment() {
           return {
             ...old,
             comments: [...(old.comments || [])],
-            commentCount: (old.commentCount || 0) + 1,
           };
         }
 
@@ -104,7 +103,6 @@ export function useCreateComment() {
             ...(old.comments.filter((comment) => comment.id !== tempId) || []),
             newComment,
           ],
-          commentCount: (old.commentCount || 0) + 1,
         };
       });
 
@@ -123,7 +121,7 @@ export function useCreateComment() {
         return {
           ...old,
           comments: old.comments.filter((comment) => comment.id !== tempId),
-          commentCount: (old.commentCount || 0) + 1,
+          commentCount: Math.max((old.commentCount || 0) - 1, 0),
         };
       });
     },

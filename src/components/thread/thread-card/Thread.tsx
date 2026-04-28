@@ -48,7 +48,7 @@ export const Thread = ({ threadId, expanded, className }: ThreadPreviewProps) =>
   }
 
   return (
-    <ThreadCard thread={data} className={className}>
+    <ThreadCard thread={data} expanded={expanded} className={className}>
       <ThreadCard.Header>
         <ThreadPreviewHeader />
       </ThreadCard.Header>

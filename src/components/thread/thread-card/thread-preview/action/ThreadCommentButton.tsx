@@ -16,7 +16,7 @@ export const ThreadPreviewCommentButton = ({
   className,
 }: ThreadCommentButtonProps) => {
   const router = useRouter();
-  const { thread } = useThread();
+  const { thread, expanded } = useThread();
   const t = useTranslation();
   const commentCount = thread.commentCount ?? thread.comments?.length ?? 0;
 
@@ -27,6 +27,7 @@ export const ThreadPreviewCommentButton = ({
         className
       )}
       onClick={() => {
+        if (expanded) return;
         router.push(`thread/${thread.id}?comment=true`);
       }}
     >
