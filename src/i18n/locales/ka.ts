@@ -319,6 +319,13 @@ const ka: TranslationKeys = {
     member: 'წევრი',
   },
 
+  notFound: {
+    title: 'გვერდი ვერ მოიძებნა',
+    description:
+      'თქვენ მიერ მოთხოვნილი გვერდი არ არსებობს ან გადატანილია.',
+    backToHome: 'მთავარზე დაბრუნება',
+  },
+
   neighborhood: {
     selectedLocation: 'არჩეული ლოკაცია',
     switchBuilding: 'კორპუსში გადასვლა',

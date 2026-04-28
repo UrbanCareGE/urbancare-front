@@ -318,6 +318,13 @@ const en: TranslationKeys = {
     member: 'Member',
   },
 
+  notFound: {
+    title: 'Page not found',
+    description:
+      "The page you're looking for doesn't exist or has been moved.",
+    backToHome: 'Back to home',
+  },
+
   neighborhood: {
     selectedLocation: 'Selected location',
     switchBuilding: 'Switch building',

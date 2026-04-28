@@ -383,4 +383,9 @@ export interface TranslationKeys {
     manager: string;
     member: string;
   };
+  notFound: {
+    title: string;
+    description: string;
+    backToHome: string;
+  };
 }

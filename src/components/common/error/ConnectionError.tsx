@@ -1,11 +1,11 @@
 'use client';
 
-import { WifiOff, RefreshCw } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { RefreshCw, WifiOff } from 'lucide-react';
 import {
   UrbanCareIcon,
   UrbanCareTextIcon,
 } from '@/components/common/logo/AppLogo';
+import { cn } from '@/lib/utils';
 import { useTranslation } from '@/i18n';
 
 interface ConnectionErrorProps {
@@ -17,34 +17,56 @@ export function ConnectionError({ onRetry, isRetrying }: ConnectionErrorProps) {
   const t = useTranslation();
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
-      <div className="flex flex-col items-center gap-6 px-6 text-center max-w-sm">
-        <div className="relative">
-          <UrbanCareIcon className="opacity-30" />
-          <div className="absolute -bottom-1 -right-1 w-7 h-7 urbancare-rounded-full bg-error/10 flex items-center justify-center">
-            <WifiOff className="w-4 h-4 text-error" />
-          </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background px-6 py-12">
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute -top-32 -right-24 w-80 h-80 bg-error/10 urbancare-rounded-full blur-[100px]" />
+        <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-primary/10 urbancare-rounded-full blur-[100px]" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-md">
+        <div className="flex items-center justify-center gap-2 mb-8">
+          <UrbanCareIcon className="w-9 h-9" iconClassName="w-5 h-5" />
+          <UrbanCareTextIcon className="urbancare-text-2xl" />
         </div>
 
-        <div className="flex flex-col items-center gap-2">
-          <UrbanCareTextIcon />
-          <h2 className="urbancare-text-lg font-semibold leading-tight-georgian text-text-primary">
+        <div
+          className={cn(
+            'urbancare-rounded-3xl bg-surface border border-border',
+            'shadow-sm shadow-shadow/5',
+            'px-6 sm:px-8 py-8 text-center'
+          )}
+        >
+          <div className="mx-auto w-16 h-16 urbancare-rounded-2xl bg-error/10 text-error flex items-center justify-center mb-5">
+            <WifiOff className="w-7 h-7" strokeWidth={2} />
+          </div>
+
+          <h2 className="urbancare-text-3xl font-bold text-text-primary leading-tight-georgian mb-2">
             {t.common.connectionFailed}
           </h2>
-          <p className="urbancare-text-sm leading-relaxed-georgian text-text-muted">
+          <p className="urbancare-text-base text-text-secondary leading-relaxed mb-6">
             {t.common.connectionFailedDescription}
           </p>
-        </div>
 
-        <Button
-          onClick={onRetry}
-          disabled={isRetrying}
-          className="h-11 px-8 urbancare-rounded-4xl bg-gradient-primary shadow-lg shadow-primary/30 lg:hover:shadow-xl lg:hover:shadow-primary/40 lg:hover:-translate-y-0.5 active:scale-[0.98] transition duration-200 font-semibold relative overflow-hidden disabled:bg-disabled disabled:text-disabled-foreground"
-        >
-          <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
-          <RefreshCw className={`w-4 h-4 mr-2 ${isRetrying ? 'animate-spin' : ''}`} />
-          {t.common.tryAgain}
-        </Button>
+          <button
+            type="button"
+            onClick={onRetry}
+            disabled={isRetrying}
+            className={cn(
+              'inline-flex items-center justify-center gap-2 w-full h-12 px-5',
+              'urbancare-rounded-lg bg-primary text-white',
+              'urbancare-text-base font-semibold',
+              'shadow-sm shadow-primary/20 transition-all',
+              'lg:hover:bg-primary-hover lg:active:scale-[0.99]',
+              'disabled:opacity-60 disabled:cursor-not-allowed'
+            )}
+          >
+            <RefreshCw
+              className={cn('w-4 h-4', isRetrying && 'animate-spin')}
+              strokeWidth={2.5}
+            />
+            {isRetrying ? t.common.inProgress : t.common.tryAgain}
+          </button>
+        </div>
       </div>
     </div>
   );
