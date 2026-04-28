@@ -2,10 +2,10 @@
 
 import {
   CircleUser,
+  DoorOpen,
   HouseIcon,
   LucideIcon,
-  Newspaper,
-  SendIcon,
+  MessageCircle,
   ShieldAlert,
 } from 'lucide-react';
 import { useParams, usePathname, useRouter } from 'next/navigation';
@@ -13,6 +13,7 @@ import { useState, useTransition } from 'react';
 import { Basic } from '@/app/layout';
 import { cn } from '@/lib/utils';
 import { useMobileScroll } from '@/hooks/use-mobile-scroll';
+import { useTranslation } from '@/i18n';
 
 interface NavItem {
   path: string;
@@ -21,14 +22,6 @@ interface NavItem {
   isAbsolute?: boolean;
 }
 
-const NAV_ITEMS: NavItem[] = [
-  { path: 'post', icon: HouseIcon, label: 'Posts' },
-  { path: 'urgent', icon: ShieldAlert, label: 'Urgent' },
-  { path: 'chat', icon: SendIcon, label: 'Chat' },
-  { path: '/landing', icon: Newspaper, label: 'welcome', isAbsolute: true },
-  { path: 'profile', icon: CircleUser, label: 'Profile' },
-];
-
 export const NavbarMobile = ({ className }: Basic) => {
   const pathname = usePathname();
   const router = useRouter();
@@ -36,6 +29,15 @@ export const NavbarMobile = ({ className }: Basic) => {
   const [isPending, startTransition] = useTransition();
   const [optimisticIndex, setOptimisticIndex] = useState<number | null>(null);
   const { isVisible } = useMobileScroll();
+  const t = useTranslation();
+
+  const NAV_ITEMS: NavItem[] = [
+    { path: 'post', icon: HouseIcon, label: t.nav.posts },
+    { path: 'urgent', icon: ShieldAlert, label: t.nav.urgent },
+    { path: 'chat', icon: MessageCircle, label: t.nav.chat },
+    { path: 'access', icon: DoorOpen, label: t.nav.access },
+    { path: 'profile', icon: CircleUser, label: t.nav.profile },
+  ];
 
   const getHref = (item: NavItem) => {
     if (item.isAbsolute) return item.path;

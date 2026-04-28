@@ -6,7 +6,7 @@ import {
   CircleUser,
   DoorOpen,
   HouseIcon,
-  SendIcon,
+  MessageCircle,
   ShieldAlert,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -29,7 +29,7 @@ export const HeaderNavIsland = () => {
   const NAV_ITEMS: NavItem[] = [
     { href: 'post', label: t.nav.posts, icon: HouseIcon },
     { href: 'urgent', label: t.nav.urgent, icon: ShieldAlert },
-    { href: 'chat', label: t.nav.main, icon: SendIcon },
+    { href: 'chat', label: t.nav.chat, icon: MessageCircle },
     { href: 'access', label: t.nav.access, icon: DoorOpen },
     { href: 'profile', label: t.nav.profile, icon: CircleUser },
   ];
