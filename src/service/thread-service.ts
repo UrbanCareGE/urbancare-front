@@ -94,4 +94,13 @@ export const ThreadService = {
     );
     return data;
   },
+  deleteComment: async (
+    apartmentId: string,
+    threadId: string,
+    commentId: string
+  ): Promise<void> => {
+    await api.delete(
+      `/api/apartment/${apartmentId}/thread/${threadId}/comment/${commentId}`
+    );
+  },
 };

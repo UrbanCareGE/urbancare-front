@@ -9,6 +9,7 @@ import { UserAvatarView } from '@/components/common/avatar/UserAvatar';
 import { ReplyInput } from '@/components/thread/thread-card/thread-view/comment/ThreadReplyInput';
 import { ThreadCommentReply } from '@/components/thread/thread-card/thread-view/comment/ThreadCommentReply';
 import { CommentVoteButton } from '@/components/thread/thread-card/thread-view/comment/CommentVoteButton';
+import { CommentOptionsDropdown } from '@/components/thread/thread-card/thread-view/comment/CommentOptionsDropdown';
 
 const INITIAL_REPLIES = 3;
 
@@ -45,13 +46,16 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
 
         <div className="flex-1 min-w-0">
           {/* Content bubble */}
-          <div className="bg-surface-container urbancare-rounded-3xl urbancare-rounded-tl-xs px-3.5 py-2 inline-block max-w-full space-y-0.5">
-            <p className="font-semibold urbancare-text-sm leading-tight text-text-primary">
-              {userInfo.name} {userInfo.surname}
-            </p>
-            <p className="urbancare-text-base text-text-primary leading-relaxed whitespace-pre-wrap break-words">
-              {content}
-            </p>
+          <div className="flex items-center gap-1">
+            <div className="bg-surface-container urbancare-rounded-3xl urbancare-rounded-tl-xs px-3.5 py-2 inline-block max-w-full space-y-0.5">
+              <p className="font-semibold urbancare-text-sm leading-tight text-text-primary">
+                {userInfo.name} {userInfo.surname}
+              </p>
+              <p className="urbancare-text-base text-text-primary leading-relaxed whitespace-pre-wrap break-words">
+                {content}
+              </p>
+            </div>
+            <CommentOptionsDropdown comment={comment} />
           </div>
 
           {/* Meta / actions */}
