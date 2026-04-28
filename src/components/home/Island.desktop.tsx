@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { Expand } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 
 type IslandProps = {
@@ -11,6 +11,7 @@ type IslandProps = {
   className?: string;
   bodyClassName?: string;
   href?: string;
+  headerExtra?: React.ReactNode;
 };
 
 export const DesktopIsland = ({
@@ -20,6 +21,7 @@ export const DesktopIsland = ({
   className,
   bodyClassName,
   href,
+  headerExtra,
 }: IslandProps) => (
   <Card
     className={cn(
@@ -32,14 +34,19 @@ export const DesktopIsland = ({
       <h3 className="font-semibold urbancare-text-base text-foreground-primary">
         {title}
       </h3>
-      {href && (
-        <Link
-          href={href}
-          aria-label={`Open ${title}`}
-          className="ml-auto inline-flex items-center justify-center w-7 h-7 urbancare-rounded-full text-foreground-secondary hover:text-foreground-primary hover:bg-surface transition-colors"
-        >
-          <ArrowRight className="w-4 h-4" strokeWidth={2.75} />
-        </Link>
+      {(headerExtra || href) && (
+        <div className="ml-auto flex items-center gap-1">
+          {headerExtra}
+          {href && (
+            <Link
+              href={href}
+              aria-label={`Open ${title}`}
+              className="inline-flex items-center justify-center w-7 h-7 urbancare-rounded-full text-foreground-secondary hover:text-foreground-primary hover:bg-surface transition-colors"
+            >
+              <Expand className="w-4 h-4" strokeWidth={2.75} />
+            </Link>
+          )}
+        </div>
       )}
     </div>
     <div className={cn('flex-1', bodyClassName)}>{children}</div>

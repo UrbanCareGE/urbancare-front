@@ -141,6 +141,10 @@ const en: TranslationKeys = {
     updatingPost: 'Updating...',
     postUpdated: 'Post updated',
     noChanges: 'No changes made',
+    discardDraftTitle: 'Discard draft?',
+    discardDraftConfirm: 'Unsaved changes will be lost.',
+    discardDraft: 'Discard',
+    keepEditing: 'Keep editing',
   },
 
   threadForm: {

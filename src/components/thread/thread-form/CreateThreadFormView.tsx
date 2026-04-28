@@ -45,6 +45,7 @@ interface CreateThreadFormViewMobileProps {
   onPollOptionsChange: (options: string[]) => void;
   onToggleTag: (tag: string) => void;
   onTagLimitDialogChange: (open: boolean) => void;
+  onCloseRequest: () => boolean | Promise<boolean>;
 }
 
 export const CreateThreadFormView = ({
@@ -67,10 +68,11 @@ export const CreateThreadFormView = ({
   onPollOptionsChange,
   onToggleTag,
   onTagLimitDialogChange,
+  onCloseRequest,
 }: CreateThreadFormViewMobileProps) => {
   const t = useTranslation();
   return (
-    <CreateThreadOverlay>
+    <CreateThreadOverlay onCloseRequest={onCloseRequest}>
       <CreateThreadOverlay.Trigger>
         <CreateThreadButton />
       </CreateThreadOverlay.Trigger>

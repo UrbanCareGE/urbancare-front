@@ -146,15 +146,17 @@ export function ChangePasswordForm() {
           </div>
 
           {/* Step indicator */}
-          <div className="flex items-center gap-2 px-5 pt-4">
-            <StepDot active label="1" />
-            <div
-              className={cn(
-                'h-0.5 flex-1 urbancare-rounded-full transition-colors duration-300',
-                step === 2 ? 'bg-primary' : 'bg-border'
-              )}
-            />
-            <StepDot active={step === 2} label="2" />
+          <div className="px-5 pt-4 flex justify-center">
+            <div className="flex items-center gap-2 w-full max-w-52">
+              <StepDot active label="1" />
+              <div
+                className={cn(
+                  'h-0.5 flex-1 urbancare-rounded-full transition-colors duration-300',
+                  step === 2 ? 'bg-primary' : 'bg-border'
+                )}
+              />
+              <StepDot active={step === 2} label="2" />
+            </div>
           </div>
 
           <div className="px-5 pt-4 pb-5 overflow-hidden">

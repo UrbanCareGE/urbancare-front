@@ -132,6 +132,10 @@ export interface TranslationKeys {
     updatingPost: string;
     postUpdated: string;
     noChanges: string;
+    discardDraftTitle: string;
+    discardDraftConfirm: string;
+    discardDraft: string;
+    keepEditing: string;
   };
   threadForm: {
     mediaFiles: string;

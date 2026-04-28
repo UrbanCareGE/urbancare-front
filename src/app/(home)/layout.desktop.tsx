@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import { HomeIcon, NavigationIcon, ShieldAlert, UserIcon } from 'lucide-react';
+import { HomeIcon, NavigationIcon, Pencil, ShieldAlert, UserIcon } from 'lucide-react';
+import { CreateUrgentDialog } from '@/components/urgent/CreateUrgentDialog';
 import NavigationArea from '@/components/home/sidebar/mobile/navigation/NavigationArea';
 import { NeighborhoodSelect } from '@/components/home/NeighborhoodSelect';
 import { Chat } from '@/components/chat/Chat';
@@ -26,6 +27,17 @@ const UrgentIsland = () => {
       className={'flex-1'}
       bodyClassName={'overflow-y-scroll overflow-x-hidden overscroll-x-none'}
       href={apartmentId ? `/apartment/${apartmentId}/urgent` : undefined}
+      headerExtra={
+        <CreateUrgentDialog>
+          <button
+            type="button"
+            aria-label={t.urgent.createUrgent}
+            className="inline-flex items-center justify-center w-7 h-7 urbancare-rounded-full text-foreground-secondary hover:text-foreground-primary hover:bg-surface transition-colors"
+          >
+            <Pencil className="w-4 h-4" strokeWidth={2.5} />
+          </button>
+        </CreateUrgentDialog>
+      }
     >
       <UrgentFeedCompactContainer />
     </DesktopIsland>

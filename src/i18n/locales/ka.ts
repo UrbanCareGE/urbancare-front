@@ -142,6 +142,10 @@ const ka: TranslationKeys = {
     updatingPost: 'მიმდინარეობს განახლება...',
     postUpdated: 'პოსტი განახლდა',
     noChanges: 'ცვლილებები არ განხორციელებულა',
+    discardDraftTitle: 'პოსტის გაუქმება?',
+    discardDraftConfirm: 'შენახვის გარეშე ცვლილებები დაიკარგება.',
+    discardDraft: 'გაუქმება',
+    keepEditing: 'რედაქტირების გაგრძელება',
   },
 
   threadForm: {

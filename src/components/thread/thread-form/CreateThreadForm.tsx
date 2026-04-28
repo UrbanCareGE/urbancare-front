@@ -12,6 +12,7 @@ import {
   FileEntry,
 } from '@/components/thread/data/create-thread-schema';
 import { CreateThreadFormView } from '@/components/thread/thread-form/CreateThreadFormView';
+import { DiscardDraftDialog } from '@/components/thread/thread-form/DiscardDraftDialog';
 import { toast } from 'sonner';
 import { useTranslation } from '@/i18n';
 
@@ -56,6 +57,7 @@ export const CreateThreadFormContainer = () => {
 
     form.setValue('files', [...currentFiles, ...newEntries], {
       shouldValidate: true,
+      shouldDirty: true,
     });
 
     if (fileInputRef.current) {
@@ -85,7 +87,7 @@ export const CreateThreadFormContainer = () => {
       }
       return f;
     });
-    form.setValue('files', updated, { shouldValidate: true });
+    form.setValue('files', updated, { shouldValidate: true, shouldDirty: true });
 
     setFileUploading(false);
   };
@@ -101,7 +103,7 @@ export const CreateThreadFormContainer = () => {
     form.setValue(
       'files',
       currentFiles.filter((_, i) => i !== index),
-      { shouldValidate: true }
+      { shouldValidate: true, shouldDirty: true }
     );
   };
 
@@ -114,25 +116,72 @@ export const CreateThreadFormContainer = () => {
     };
   }, [form]);
 
+  const isDirty = form.formState.isDirty;
+  React.useEffect(() => {
+    if (!isDirty) return;
+    const handler = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = '';
+    };
+    window.addEventListener('beforeunload', handler);
+    return () => window.removeEventListener('beforeunload', handler);
+  }, [isDirty]);
+
+  const [discardOpen, setDiscardOpen] = useState(false);
+  const discardResolverRef = useRef<((allow: boolean) => void) | null>(null);
+
+  const handleCloseRequest = (): boolean | Promise<boolean> => {
+    if (!form.formState.isDirty) return true;
+    return new Promise<boolean>((resolve) => {
+      discardResolverRef.current = resolve;
+      setDiscardOpen(true);
+    });
+  };
+
+  const handleDiscardOpenChange = (next: boolean) => {
+    setDiscardOpen(next);
+    if (!next && discardResolverRef.current) {
+      discardResolverRef.current(false);
+      discardResolverRef.current = null;
+    }
+  };
+
+  const handleConfirmDiscard = () => {
+    const files = form.getValues('files') || [];
+    files.forEach((f) => {
+      if (f.previewUrl) URL.revokeObjectURL(f.previewUrl);
+    });
+    form.reset();
+    setIsPollMode(false);
+    if (discardResolverRef.current) {
+      discardResolverRef.current(true);
+      discardResolverRef.current = null;
+    }
+  };
+
   const handleTogglePollMode = () => {
-    if (isPollMode) form.setValue('pollOptions', []);
+    if (isPollMode) form.setValue('pollOptions', [], { shouldDirty: true });
     setIsPollMode(!isPollMode);
   };
 
   const handlePollOptionsChange = (options: string[]) => {
-    form.setValue('pollOptions', options, { shouldValidate: true });
+    form.setValue('pollOptions', options, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
   };
 
   const handleToggleTag = (tag: string) => {
     if (selectedTags.includes(tag)) {
       form.setValue(
         'tags',
-        selectedTags.filter((t) => t !== tag)
+        selectedTags.filter((t) => t !== tag),
+        { shouldDirty: true }
       );
     } else if (selectedTags.length >= 3) {
       setTagLimitDialogOpen(true);
     } else {
-      form.setValue('tags', [...selectedTags, tag]);
+      form.setValue('tags', [...selectedTags, tag], { shouldDirty: true });
     }
   };
 
@@ -172,6 +221,7 @@ export const CreateThreadFormContainer = () => {
   };
 
   return (
+    <>
     <CreateThreadFormView
       form={form}
       onSubmit={onSubmit}
@@ -192,6 +242,13 @@ export const CreateThreadFormContainer = () => {
       onPollOptionsChange={handlePollOptionsChange}
       onToggleTag={handleToggleTag}
       onTagLimitDialogChange={setTagLimitDialogOpen}
+      onCloseRequest={handleCloseRequest}
     />
+    <DiscardDraftDialog
+      open={discardOpen}
+      onOpenChange={handleDiscardOpenChange}
+      onDiscard={handleConfirmDiscard}
+    />
+    </>
   );
 };
