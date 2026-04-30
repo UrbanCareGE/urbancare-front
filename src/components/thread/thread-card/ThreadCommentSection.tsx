@@ -26,6 +26,7 @@ export const ThreadCommentSection = ({
   return (
     <ThreadCard
       thread={data}
+      expanded
       className={cn(
         'p-0 overflow-hidden shadow-sm shadow-shadow/5 ring-1 ring-border/50',
         className

@@ -6,12 +6,19 @@ export enum VoteType {
   DOWNVOTE = 'DOWNVOTE',
 }
 
+export interface MentionDTO {
+  userId: string;
+  fromIndex: number;
+  toIndex: number;
+}
+
 export interface CreateThreadDTO {
   title: string;
   content: string;
   imageIds: string[];
   tags?: string[];
   poll?: string[];
+  mentions?: MentionDTO[];
 }
 
 export interface UpdateThreadDTO {
@@ -19,11 +26,13 @@ export interface UpdateThreadDTO {
   content: string;
   imageIds: string[];
   tags?: string[];
+  mentions?: MentionDTO[];
 }
 
 export interface CreateThreadCommentDTO {
   content: string;
   replyToId?: string;
+  mentions?: MentionDTO[];
 }
 
 export interface ThreadCommentDTO {
@@ -34,6 +43,7 @@ export interface ThreadCommentDTO {
   replies?: ThreadCommentDTO[];
   replyToId?: string;
   reactions?: PollDTO;
+  mentions?: MentionDTO[];
 }
 
 export const ThreadTagType = {
@@ -123,6 +133,7 @@ export interface ThreadInfoDTO {
   poll?: PollDTO;
   tags?: string[];
   reactions?: PollDTO;
+  mentions?: MentionDTO[];
 }
 
 export interface ThreadVoteDTO {

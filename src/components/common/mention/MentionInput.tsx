@@ -1,8 +1,7 @@
 'use client';
 
-import React from 'react';
-import { Send } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import React, { useMemo, useState } from 'react';
+import { Textarea } from '@/components/ui/textarea';
 import {
   filterMembersForMention,
   MentionPickerList,
@@ -10,36 +9,40 @@ import {
 import { useMentionInput } from '@/hooks/use-mention-input';
 import { useApartmentMembers } from '@/hooks/query/apartment/use-apartment-members';
 import { useAuth } from '@/components/provider/AuthProvider';
+import { ApartmentMemberDTO } from '@/model/dto/apartment.dto';
 import { MentionDTO } from '@/model/dto/thread.dto';
+import { cn } from '@/lib/utils';
 
-type CommentComposerInputProps = {
+type SharedTextareaProps = Omit<
+  React.ComponentProps<'textarea'>,
+  'value' | 'onChange' | 'ref'
+>;
+
+interface MentionInputProps extends SharedTextareaProps {
   value: string;
-  onChange: (value: string) => void;
+  onChange: (next: string) => void;
   mentions: MentionDTO[];
   onMentionsChange: (next: MentionDTO[]) => void;
-  onSubmit: () => void;
-  placeholder?: string;
-  autoFocus?: boolean;
   className?: string;
-};
+  textareaClassName?: string;
+}
 
-export const CommentComposerInput = ({
+export const MentionInput = ({
   value,
   onChange,
   mentions,
   onMentionsChange,
-  onSubmit,
-  placeholder,
-  autoFocus,
   className,
-}: CommentComposerInputProps) => {
-  const hasText = value.trim().length > 0;
+  textareaClassName,
+  onKeyDown,
+  ...textareaProps
+}: MentionInputProps) => {
   const { user } = useAuth();
   const apartmentId = user?.selectedApartmentId;
   const { data: members = [] } = useApartmentMembers(apartmentId);
 
   const {
-    inputRef: mentionRef,
+    inputRef,
     handleChange,
     handleSelectionChange,
     picker,
@@ -47,18 +50,21 @@ export const CommentComposerInput = ({
     cancel,
   } = useMentionInput({ value, onChange, mentions, onMentionsChange });
 
-  const candidates = picker.active
-    ? filterMembersForMention(members, picker.query)
-    : [];
-  const showPicker = picker.active && candidates.length > 0;
-  const [activeIndex, setActiveIndex] = React.useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const candidates = useMemo<ApartmentMemberDTO[]>(() => {
+    if (!picker.active) return [];
+    return filterMembersForMention(members, picker.query);
+  }, [members, picker]);
 
   const sessionKey = `${picker.active}:${candidates.length}`;
-  const [prevSessionKey, setPrevSessionKey] = React.useState(sessionKey);
+  const [prevSessionKey, setPrevSessionKey] = useState(sessionKey);
   if (prevSessionKey !== sessionKey) {
     setPrevSessionKey(sessionKey);
     setActiveIndex(0);
   }
+
+  const showPicker = picker.active && candidates.length > 0;
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (showPicker) {
@@ -83,66 +89,30 @@ export const CommentComposerInput = ({
         return;
       }
     }
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault();
-      if (hasText) onSubmit();
-    }
+    onKeyDown?.(event);
   };
 
   return (
-    <div
-      className={cn(
-        'relative bg-surface-container urbancare-rounded-xl',
-        className
-      )}
-    >
-      <textarea
-        ref={mentionRef}
+    <div className={cn('relative', className)}>
+      <Textarea
+        {...textareaProps}
+        ref={inputRef}
         value={value}
         onChange={handleChange}
         onSelect={handleSelectionChange}
         onKeyUp={handleSelectionChange}
         onClick={handleSelectionChange}
         onBlur={cancel}
-        placeholder={placeholder}
-        rows={1}
-        autoFocus={autoFocus}
-        className="block w-full bg-transparent urbancare-text-base text-text-primary placeholder:text-text-tertiary outline-none resize-none px-3.5 pr-11"
-        style={{
-          minHeight: '40px',
-          maxHeight: '120px',
-          lineHeight: '20px',
-          paddingTop: '10px',
-          paddingBottom: '10px',
-        }}
-        onInput={(e) => {
-          const t = e.target as HTMLTextAreaElement;
-          t.style.height = 'auto';
-          t.style.height = t.scrollHeight + 'px';
-        }}
         onKeyDown={handleKeyDown}
+        className={textareaClassName}
       />
-      <button
-        onClick={onSubmit}
-        disabled={!hasText}
-        aria-label={placeholder}
-        className={cn(
-          'absolute right-1.5 top-1/2 -translate-y-1/2 h-8 w-8 urbancare-rounded-lg',
-          'flex items-center justify-center transition-all duration-150',
-          hasText
-            ? 'bg-primary text-primary-foreground shadow-sm shadow-primary/30 lg:hover:bg-primary-hover lg:active:scale-90'
-            : 'bg-transparent text-text-tertiary cursor-not-allowed'
-        )}
-      >
-        <Send className="w-4 h-4" strokeWidth={2.5} />
-      </button>
       {showPicker && (
         <MentionPickerList
           members={candidates}
           query={picker.query}
           activeIndex={activeIndex}
-          anchorRef={mentionRef}
-          placement="above"
+          anchorRef={inputRef}
+          placement="below"
           onHover={setActiveIndex}
           onSelect={selectMember}
         />

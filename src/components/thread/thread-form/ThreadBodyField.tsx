@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Control } from 'react-hook-form';
+import { UseFormReturn, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 import { FileText } from 'lucide-react';
 import {
@@ -11,26 +11,29 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
+import { MentionInput } from '@/components/common/mention/MentionInput';
 import { cn } from '@/lib/utils';
 import { CreateThreadSchemaType } from '@/components/thread/data/create-thread-schema';
+import { MentionDTO } from '@/model/dto/thread.dto';
 import { useTranslation } from '@/i18n';
 
 interface ThreadBodyFieldProps {
-  control: Control<z.infer<CreateThreadSchemaType>>;
+  form: UseFormReturn<z.infer<CreateThreadSchemaType>>;
   isPending: boolean;
   bodyLength: number;
 }
 
 export const ThreadBodyField = ({
-  control,
+  form,
   isPending,
   bodyLength,
 }: ThreadBodyFieldProps) => {
   const t = useTranslation();
+  const mentions = useWatch({ control: form.control, name: 'mentions' });
+
   return (
     <FormField
-      control={control}
+      control={form.control}
       name="body"
       render={({ field }) => (
         <FormItem>
@@ -53,12 +56,17 @@ export const ThreadBodyField = ({
             </span>
           </div>
           <FormControl>
-            <Textarea
+            <MentionInput
               placeholder={t.threadForm.bodyPlaceholder}
               disabled={isPending}
-              className="min-h-40 resize-none urbancare-text-xl border bg-surface focus:border-primary focus:ring-primary/20 transition-all"
               maxLength={2000}
-              {...field}
+              value={field.value}
+              onChange={(next) => field.onChange(next)}
+              mentions={(mentions ?? []) as MentionDTO[]}
+              onMentionsChange={(next) =>
+                form.setValue('mentions', next, { shouldDirty: true })
+              }
+              textareaClassName="min-h-40 resize-none urbancare-text-xl border bg-surface focus:border-primary focus:ring-primary/20 transition-all"
             />
           </FormControl>
           <FormMessage className="urbancare-text-sm" />

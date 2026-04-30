@@ -10,6 +10,7 @@ import { useAuth } from '@/components/provider/AuthProvider';
 import { ExtractUserInitials } from '@/lib/utils';
 import Image from 'next/image';
 import { CommentComposerInput } from '@/components/thread/thread-card/thread-view/comment/CommentComposerInput';
+import { MentionDTO } from '@/model/dto/thread.dto';
 
 type ReplyInputProps = {
   commentId: string;
@@ -30,6 +31,7 @@ export const ReplyInput = ({
   const { user } = useAuth();
   const apartmentId = user?.selectedApartmentId;
   const [replyText, setReplyText] = useState('');
+  const [replyMentions, setReplyMentions] = useState<MentionDTO[]>([]);
   const { onSubmit: createReply } = useCreateComment();
 
   const initials = ExtractUserInitials(userInfo);
@@ -39,9 +41,11 @@ export const ReplyInput = ({
     createReply(apartmentId, thread.id, {
       content: replyText,
       replyToId: commentId,
+      mentions: replyMentions,
     });
     onSubmit(replyText.trim());
     setReplyText('');
+    setReplyMentions([]);
   };
 
   return (
@@ -64,6 +68,8 @@ export const ReplyInput = ({
         <CommentComposerInput
           value={replyText}
           onChange={setReplyText}
+          mentions={replyMentions}
+          onMentionsChange={setReplyMentions}
           onSubmit={handleSubmit}
           placeholder={placeholder}
           autoFocus
