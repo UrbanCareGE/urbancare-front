@@ -21,7 +21,7 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
   const initials = ExtractUserInitials(user)
 
   return (
-    <div className={cn('flex gap-2 px-1 items-center', className)}>
+    <div className={cn('flex flex-1 gap-2 px-1 items-center', className)}>
       <Avatar className="cursor-pointer w-10 h-10 urbancare-rounded-full ring-2 ring-border bg-primary">
         <Image
           src={getClientFileUrl(user?.profileImageId)}
@@ -41,8 +41,6 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
           {t.thread.whatToShare}
         </div>
       </div>
-      <SlidersHorizontal className={'text-icon'}></SlidersHorizontal>
-      <ArrowDownNarrowWide className={'text-icon'}></ArrowDownNarrowWide>
     </div>
   );
 }

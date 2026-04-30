@@ -3,11 +3,11 @@
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
-import { X } from 'lucide-react';
+import { ArrowDownNarrowWide, X } from 'lucide-react';
 import { Form } from '@/components/ui/form';
 import {
-  FileEntry,
   CreateThreadSchemaType,
+  FileEntry,
 } from '@/components/thread/data/create-thread-schema';
 import { useTranslation } from '@/i18n';
 import { Poll } from '@/components/poll/mobile/Poll';
@@ -21,6 +21,8 @@ import { ThreadBodyField } from '@/components/thread/thread-form/ThreadBodyField
 import { ThreadFileUpload } from '@/components/thread/thread-form/ThreadFileUpload';
 import { ThreadFormFooter } from '@/components/thread/thread-form/ThreadFormFooter';
 import { ThreadTagLimitDialog } from '@/components/thread/thread-form/ThreadTagLimitDialog';
+import { ThreadSortDropDown } from '@/components/thread/thread-filter/ThreadSortDropDown';
+import { ThreadFilterModal } from '@/components/thread/thread-filter/ThreadFilterModal';
 
 interface CreateThreadFormViewMobileProps {
   form: UseFormReturn<z.infer<CreateThreadSchemaType>>;
@@ -73,9 +75,11 @@ export const CreateThreadFormView = ({
   const t = useTranslation();
   return (
     <CreateThreadOverlay onCloseRequest={onCloseRequest}>
-      <CreateThreadOverlay.Trigger>
+      <div className={'w-full flex items-center gap-1'}>
         <CreateThreadButton />
-      </CreateThreadOverlay.Trigger>
+        <ThreadFilterModal />
+        <ThreadSortDropDown />
+      </div>
 
       <CreateThreadOverlay.Content>
         <ThreadFormHeader />

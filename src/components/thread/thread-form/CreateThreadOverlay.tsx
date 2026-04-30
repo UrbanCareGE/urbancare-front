@@ -36,7 +36,7 @@ export const CreateThreadOverlayContent = ({
   const response = useResponsive();
   const t = useTranslation();
 
-  if (response.isDesktop || response.isLargeDesktop) {
+  if (response.isDesktop) {
     return (
       <Dialog open={isOpen} onOpenChange={(open) => !open && closeDrawer()}>
         <DialogContent
