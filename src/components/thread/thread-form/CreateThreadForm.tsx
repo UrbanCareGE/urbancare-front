@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useAuth } from '@/components/provider/AuthProvider';
@@ -34,13 +34,22 @@ export const CreateThreadFormContainer = () => {
       files: [],
       tags: [],
       pollOptions: [],
+      mentions: [],
     },
   });
 
-  const bodyLength = form.watch('body')?.length || 0;
-  const fileEntries = form.watch('files') || [];
-  const selectedTags = form.watch('tags') || [];
-  const pollOptions = form.watch('pollOptions') || [];
+  const body = useWatch({ control: form.control, name: 'body' });
+  const watchedFiles = useWatch({ control: form.control, name: 'files' });
+  const watchedTags = useWatch({ control: form.control, name: 'tags' });
+  const watchedPollOptions = useWatch({
+    control: form.control,
+    name: 'pollOptions',
+  });
+
+  const bodyLength = body?.length || 0;
+  const fileEntries = watchedFiles || [];
+  const selectedTags = watchedTags || [];
+  const pollOptions = watchedPollOptions || [];
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || []);
@@ -129,8 +138,13 @@ export const CreateThreadFormContainer = () => {
 
   const [discardOpen, setDiscardOpen] = useState(false);
   const discardResolverRef = useRef<((allow: boolean) => void) | null>(null);
+  const skipGuardRef = useRef(false);
 
   const handleCloseRequest = (): boolean | Promise<boolean> => {
+    if (skipGuardRef.current) {
+      skipGuardRef.current = false;
+      return true;
+    }
     if (!form.formState.isDirty) return true;
     return new Promise<boolean>((resolve) => {
       discardResolverRef.current = resolve;
@@ -205,12 +219,14 @@ export const CreateThreadFormContainer = () => {
           values.pollOptions != null && values.pollOptions.length > 0
             ? values.pollOptions
             : undefined,
+        mentions: values.mentions ?? [],
       },
       {
         onSuccess: () => {
           toast.success(t.thread.postAdded);
           form.reset();
           setIsPollMode(false);
+          skipGuardRef.current = true;
           options?.onSuccess?.();
         },
         onError: () => {

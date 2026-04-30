@@ -43,6 +43,12 @@ export type FileEntry = {
   previewUrl: string;
 };
 
+const mentionSchema = z.object({
+  userId: z.string(),
+  fromIndex: z.number().int().min(0),
+  toIndex: z.number().int().min(1),
+});
+
 export const createThreadSchema = (t: TranslationKeys) =>
   z.object({
     title: z
@@ -62,6 +68,7 @@ export const createThreadSchema = (t: TranslationKeys) =>
       .default([])
       .optional(),
     pollOptions: z.array(z.string()).default([]).optional(),
+    mentions: z.array(mentionSchema).max(20).default([]),
   });
 
 export type CreateThreadSchemaType = ReturnType<typeof createThreadSchema>;

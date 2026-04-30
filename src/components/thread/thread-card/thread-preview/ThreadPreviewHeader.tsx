@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { getClientFileUrl } from '@/lib/api-client';
-import { Clock, Ellipsis } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import React from 'react';
 import { cn, formatTime } from '@/lib/utils';
 import Image from 'next/image';
@@ -15,12 +15,17 @@ interface ThreadCardHeaderProps {
 
 export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
   const router = useRouter();
-  const { thread } = useThread();
+  const { thread, expanded } = useThread();
   const { userInfo, createdAt } = thread;
 
   return (
     <div className={cn('flex items-start gap-3 w-full', className)}>
-      <Avatar className="cursor-pointer w-11 h-11 lg:w-12 lg:h-12  urbancare-rounded-full shrink-0 ring-2 ring-border">
+      <Avatar
+        className={cn(
+          'w-11 h-11 lg:w-12 lg:h-12 urbancare-rounded-full shrink-0 ring-2 ring-border',
+          !expanded && 'cursor-pointer'
+        )}
+      >
         <Image
           src={getClientFileUrl(userInfo?.profileImageId)}
           alt={
@@ -37,8 +42,12 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
         )}
       </Avatar>
       <div
-        className={'flex flex-col min-w-0 flex-1'}
+        className={cn(
+          'flex flex-col min-w-0 flex-1',
+          !expanded && 'cursor-pointer'
+        )}
         onClick={() => {
+          if (expanded) return;
           router.push(`thread/${thread.id}`);
         }}
       >

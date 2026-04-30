@@ -52,7 +52,8 @@ const ThreadCardRoot = ({
       <Card
         className={cn(
           'urbancare-rounded-3xl border-none bg-surface p-4 space-y-4',
-          'transition-all duration-200 cursor-pointer lg:hover:shadow-md',
+          'transition-all duration-200',
+          !expanded && 'cursor-pointer lg:hover:shadow-md',
           className
         )}
       >

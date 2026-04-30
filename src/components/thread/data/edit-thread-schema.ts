@@ -52,6 +52,16 @@ export const editThreadSchema = (t: TranslationKeys) =>
       .max(3, { message: t.threadValidation.maxTags })
       .default([])
       .optional(),
+    mentions: z
+      .array(
+        z.object({
+          userId: z.string(),
+          fromIndex: z.number().int().min(0),
+          toIndex: z.number().int().min(1),
+        })
+      )
+      .max(20)
+      .default([]),
   });
 
 export type EditThreadSchemaType = ReturnType<typeof editThreadSchema>;

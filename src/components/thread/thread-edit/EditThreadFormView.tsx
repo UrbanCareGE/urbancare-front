@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Control, UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
 import { X } from 'lucide-react';
 import { Form } from '@/components/ui/form';
@@ -66,10 +66,7 @@ export const EditThreadFormView = ({
 }: EditThreadFormViewProps) => {
   const t = useTranslation();
 
-  // The shared ThreadBodyField is typed against the create schema — both schemas
-  // share the `body` field, so a structural cast keeps a single source of truth
-  // for the styling without duplicating the component.
-  const bodyControl = form.control as unknown as Control<
+  const bodyForm = form as unknown as UseFormReturn<
     z.infer<CreateThreadSchemaType>
   >;
 
@@ -84,7 +81,7 @@ export const EditThreadFormView = ({
         >
           <div className="px-6 py-6 space-y-3">
             <ThreadBodyField
-              control={bodyControl}
+              form={bodyForm}
               isPending={isPending}
               bodyLength={bodyLength}
             />

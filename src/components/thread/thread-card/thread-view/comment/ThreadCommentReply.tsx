@@ -6,6 +6,7 @@ import React from 'react';
 import Image from 'next/image';
 import { CommentVoteButton } from '@/components/thread/thread-card/thread-view/comment/CommentVoteButton';
 import { CommentOptionsDropdown } from '@/components/thread/thread-card/thread-view/comment/CommentOptionsDropdown';
+import { MentionedText } from '@/components/common/mention/MentionedText';
 
 type ThreadCommentReplyProps = {
   comment: ThreadCommentDTO;
@@ -44,7 +45,7 @@ export const ThreadCommentReply = ({ comment }: ThreadCommentReplyProps) => {
               {userInfo.name} {userInfo.surname}
             </p>
             <p className="urbancare-text-base text-text-primary leading-relaxed whitespace-pre-wrap break-words">
-              {content}
+              <MentionedText content={content} mentions={comment.mentions} />
             </p>
           </div>
           <CommentOptionsDropdown comment={comment} />

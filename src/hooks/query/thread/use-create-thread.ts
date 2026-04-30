@@ -8,7 +8,7 @@ import {
 import { ThreadService } from '@/service/thread-service';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { OptimisticData, PagingRespDTO } from '@/model/dto/common.dto';
-import { ThreadInfoDTO } from '@/model/dto/thread.dto';
+import { MentionDTO, ThreadInfoDTO } from '@/model/dto/thread.dto';
 
 export function useCreateThread() {
   const queryClient = useQueryClient();
@@ -22,6 +22,7 @@ export function useCreateThread() {
       imageIds,
       tags,
       poll,
+      mentions,
     }: {
       apartmentId: string;
       title: string;
@@ -29,6 +30,7 @@ export function useCreateThread() {
       imageIds: string[];
       tags?: string[];
       poll?: string[];
+      mentions?: MentionDTO[];
     }) => {
       return await ThreadService.add(apartmentId, {
         title,
@@ -36,9 +38,10 @@ export function useCreateThread() {
         imageIds,
         poll,
         tags,
+        mentions,
       });
     },
-    onMutate: async ({ apartmentId, title, content, imageIds }) => {
+    onMutate: async ({ title, content, mentions }) => {
       const id = 'temp-' + Date.now();
       const queryListKey = ['threads', 'list', user.selectedApartmentId!, null];
       const queryDetailKey = ['threads', 'detail', id];
@@ -72,6 +75,7 @@ export function useCreateThread() {
         images: [],
         selfVote: 0,
         voteDiff: 0,
+        mentions,
         _isPending: true,
         _tempId: id,
         userInfo: {

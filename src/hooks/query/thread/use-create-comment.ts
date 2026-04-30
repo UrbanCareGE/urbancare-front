@@ -43,6 +43,7 @@ export function useCreateComment() {
           surname: user.surname,
           profileImageId: user.profileImageId,
         },
+        mentions: commentDto.mentions ?? [],
       };
 
       queryClient.setQueryData(

@@ -10,6 +10,7 @@ import { ReplyInput } from '@/components/thread/thread-card/thread-view/comment/
 import { ThreadCommentReply } from '@/components/thread/thread-card/thread-view/comment/ThreadCommentReply';
 import { CommentVoteButton } from '@/components/thread/thread-card/thread-view/comment/CommentVoteButton';
 import { CommentOptionsDropdown } from '@/components/thread/thread-card/thread-view/comment/CommentOptionsDropdown';
+import { MentionedText } from '@/components/common/mention/MentionedText';
 
 const INITIAL_REPLIES = 3;
 
@@ -52,7 +53,7 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
                 {userInfo.name} {userInfo.surname}
               </p>
               <p className="urbancare-text-base text-text-primary leading-relaxed whitespace-pre-wrap break-words">
-                {content}
+                <MentionedText content={content} mentions={comment.mentions} />
               </p>
             </div>
             <CommentOptionsDropdown comment={comment} />

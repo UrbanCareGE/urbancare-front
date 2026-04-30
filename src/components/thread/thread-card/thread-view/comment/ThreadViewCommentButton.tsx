@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useCreateComment } from '@/hooks/query/thread/use-create-comment';
 import { UserAvatarView } from '@/components/common/avatar/UserAvatar';
 import { useAuth } from '@/components/provider/AuthProvider';
-import { ThreadInfoDTO } from '@/model/dto/thread.dto';
+import { MentionDTO, ThreadInfoDTO } from '@/model/dto/thread.dto';
 import { useSearchParams } from 'next/dist/client/components/navigation';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/i18n';
@@ -20,18 +20,12 @@ export const ThreadViewCommentButton = ({
   className,
 }: ThreadViewCommentButtonProps) => {
   const [commentText, setCommentText] = useState('');
+  const [commentMentions, setCommentMentions] = useState<MentionDTO[]>([]);
   const { user } = useAuth();
   const t = useTranslation();
   const apartmentId = user?.selectedApartmentId;
-  const commentRef = useRef<HTMLTextAreaElement | null>(null);
   const searchParams = useSearchParams();
   const shouldFocusComment = searchParams.get('comment') === 'true';
-
-  useEffect(() => {
-    if (shouldFocusComment && commentRef.current) {
-      commentRef.current.focus();
-    }
-  }, [shouldFocusComment]);
 
   const { onSubmit } = useCreateComment();
 
@@ -39,8 +33,12 @@ export const ThreadViewCommentButton = ({
     if (!apartmentId) return;
     if (commentText.trim()) {
       setCommentText('');
+      setCommentMentions([]);
     }
-    onSubmit(apartmentId, thread.id, { content: commentText });
+    onSubmit(apartmentId, thread.id, {
+      content: commentText,
+      mentions: commentMentions,
+    });
   };
 
   if (!user) {
@@ -59,9 +57,11 @@ export const ThreadViewCommentButton = ({
       <CommentComposerInput
         value={commentText}
         onChange={setCommentText}
+        mentions={commentMentions}
+        onMentionsChange={setCommentMentions}
         onSubmit={handleAddComment}
         placeholder={t.thread.writeComment}
-        inputRef={commentRef}
+        autoFocus={shouldFocusComment}
         className="flex-1"
       />
     </div>

@@ -88,7 +88,7 @@ export const CreateThreadFormView = ({
           <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-3 sm:p-4 space-y-3 scrollbar-hide overscroll-x-none touch-pan-y">
             <FormSection>
               <ThreadBodyField
-                control={form.control}
+                form={form}
                 isPending={isPending}
                 bodyLength={bodyLength}
               />

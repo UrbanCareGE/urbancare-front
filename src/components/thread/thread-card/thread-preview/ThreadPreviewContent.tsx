@@ -9,6 +9,7 @@ import {
 } from '@/components/thread/thread-card/image-preview/ThreadImagePreview';
 import PollDisplay from '@/components/thread/thread-card/poll/PollDisplay';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
+import { MentionedText } from '@/components/common/mention/MentionedText';
 
 interface ThreadCardContentProps {
   className?: string;
@@ -40,7 +41,10 @@ export const ThreadPreviewContent = ({
           !expanded && 'line-clamp-3'
         )}
       >
-        {thread.content}
+        <MentionedText
+          content={thread.content}
+          mentions={thread.mentions}
+        />
       </p>
 
       {thread.images && (
