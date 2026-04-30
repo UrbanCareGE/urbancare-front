@@ -1,5 +1,8 @@
 import { api } from '@/lib/api-client';
-import { ApartmentPagingDTO } from '@/model/dto/apartment.dto';
+import {
+  ApartmentMemberDTO,
+  ApartmentPagingDTO,
+} from '@/model/dto/apartment.dto';
 
 export const ApartmentService = {
   getAll: async (
@@ -16,6 +19,13 @@ export const ApartmentService = {
           size,
         },
       }
+    );
+
+    return data;
+  },
+  getMembers: async (apartmentId: string): Promise<ApartmentMemberDTO[]> => {
+    const { data } = await api.get<ApartmentMemberDTO[]>(
+      `/api/apartment/${apartmentId}/members`
     );
 
     return data;

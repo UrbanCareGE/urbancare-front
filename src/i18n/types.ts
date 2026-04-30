@@ -241,6 +241,7 @@ export interface TranslationKeys {
   };
   sidebar: {
     community: string;
+    members: string;
     services: string;
     education: string;
     fitness: string;

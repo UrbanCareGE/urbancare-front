@@ -263,6 +263,7 @@ const en: TranslationKeys = {
 
   sidebar: {
     community: 'Community',
+    members: 'Members',
     services: 'Services',
     education: 'Education',
     fitness: 'Fitness',

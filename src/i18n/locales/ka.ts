@@ -264,6 +264,7 @@ const ka: TranslationKeys = {
 
   sidebar: {
     community: 'კომუნიტი',
+    members: 'წევრები',
     services: 'სერვისები',
     education: 'განათლება',
     fitness: 'ფიტნესი',

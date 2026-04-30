@@ -11,6 +11,7 @@ import {
   PocketKnifeIcon,
   ScrollTextIcon,
   ShieldAlertIcon,
+  UsersIcon,
 } from 'lucide-react';
 import React from 'react';
 import { NavigationLinkAccordion } from '@/components/home/sidebar/mobile/navigation/NavigationLinkAccordion';
@@ -62,6 +63,12 @@ export const getNavigationGroups = (
   {
     label: t.sidebar.community,
     items: [
+      {
+        href: `/apartment/${apartmentId}/users`,
+        label: t.sidebar.members,
+        icon: <UsersIcon className="w-4 h-4" />,
+        className: 'bg-primary-container text-primary-container-foreground',
+      },
       {
         href: `/apartment/${apartmentId}/post/services`,
         label: t.sidebar.services,
