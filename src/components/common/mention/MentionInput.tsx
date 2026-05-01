@@ -128,7 +128,7 @@ export const MentionInput = ({
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
           'disabled:cursor-not-allowed disabled:opacity-50',
           textareaClassName,
-          '[-webkit-text-fill-color:transparent]'
+          '[&:not(:placeholder-shown)]:[-webkit-text-fill-color:transparent]'
         )}
       />
       <div

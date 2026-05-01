@@ -130,7 +130,8 @@ export const CommentComposerInput = ({
         autoFocus={autoFocus}
         className={cn(
           COMMENT_TEXT_CLASS,
-          'placeholder:text-text-tertiary outline-none [-webkit-text-fill-color:transparent]'
+          'placeholder:text-text-tertiary outline-none',
+          '[&:not(:placeholder-shown)]:[-webkit-text-fill-color:transparent]'
         )}
         style={{
           ...COMMENT_TEXT_STYLES,

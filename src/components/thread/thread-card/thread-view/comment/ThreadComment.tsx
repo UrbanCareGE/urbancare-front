@@ -93,7 +93,7 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
                   userInfo={userInfo}
                   onSubmit={handleReplySubmit}
                   onCancel={() => setIsReplying(false)}
-                  placeholder={`Reply to ${userInfo.name}...`}
+                  placeholder={`Reply to ${[userInfo.name, userInfo.surname].filter(Boolean).join(' ')}...`}
                 />
               </motion.div>
             )}
