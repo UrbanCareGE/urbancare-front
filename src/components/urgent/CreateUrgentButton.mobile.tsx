@@ -37,13 +37,13 @@ const CreateUrgentButtonMobile = () => {
   return (
     <Drawer open={open} onOpenChange={setOpen} shouldScaleBackground={false}>
       <DrawerTrigger asChild>
-        <div
-          className={
-            'fixed bottom-20 right-4 p-3 urbancare-rounded-full aspect-square bg-primary'
-          }
+        <button
+          type="button"
+          aria-label={t.urgent.createUrgent}
+          className="fixed bottom-20 right-4 p-3 urbancare-rounded-full aspect-square bg-primary text-white shadow-lg shadow-primary/30 transition-all duration-150 lg:hover:bg-primary-hover active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
-          <PlusIcon className={'w-8 h-8 text-white'} />
-        </div>
+          <PlusIcon className="w-8 h-8" />
+        </button>
       </DrawerTrigger>
       <DrawerContent className={'bg-surface border-border'}>
         <DrawerHeader>

@@ -6,7 +6,6 @@ import { useAuth } from '@/components/provider/AuthProvider';
 import { getClientFileUrl } from '@/lib/api-client';
 import { cn, ExtractUserInitials } from '@/lib/utils';
 import Image from 'next/image';
-import { ArrowDownNarrowWide, SlidersHorizontal } from 'lucide-react';
 import { useThreadOverlay } from '@/components/thread/thread-form/CreateThreadOverlay';
 import { useTranslation } from '@/i18n';
 
@@ -35,7 +34,7 @@ export function CreateThreadButton({ className }: StartThreadFormProps) {
       </Avatar>
       <div className="flex-1">
         <div
-          className="flex items-center urbancare-rounded-full px-4 py-2 h-10 bg-surface-container transition-colors duration-200 mr-auto urbancare-text-base text-muted-foreground lg:hover:bg-surface-hover lg:cursor-pointer"
+          className="flex items-center urbancare-rounded-full px-4 py-2 h-10 bg-surface-container transition-colors duration-200 mr-auto urbancare-text-base text-text-tertiary select-none cursor-pointer lg:hover:bg-surface-hover"
           onClick={threadDrawer.openDrawer}
         >
           {t.thread.whatToShare}
