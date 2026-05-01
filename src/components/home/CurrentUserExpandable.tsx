@@ -10,6 +10,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { MobileThemeSelector } from '@/components/common/util/MobileThemeSelector';
+import LanguageSelector from '@/components/common/util/LanguageSelector';
 import { LogoutButton } from '@/components/auth/LogoutButton';
 import { useTranslation } from '@/i18n';
 import { CurrentUserAvatar } from '@/components/common/avatar/UserAvatar';
@@ -71,6 +72,20 @@ export const CurrentUserExpandable = () => {
               </p>
             </div>
             <MobileThemeSelector vertical />
+          </div>
+
+          {/* Gradient divider */}
+          <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mx-1" />
+
+          {/* Language section */}
+          <div>
+            <div className="flex items-center gap-1.5 mb-2 px-1">
+              <div className="w-1.5 h-1.5 urbancare-rounded-full bg-primary shadow-sm shadow-primary/50" />
+              <p className="urbancare-text-2xs font-bold text-text-secondary uppercase tracking-widest">
+                {t.sidebar.language}
+              </p>
+            </div>
+            <LanguageSelector />
           </div>
 
           {/* Gradient divider */}
