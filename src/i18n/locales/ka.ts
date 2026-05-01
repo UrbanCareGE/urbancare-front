@@ -111,6 +111,14 @@ const ka: TranslationKeys = {
       'UrbanCare-ის საზოგადოებას უკვე ათასობით საცხოვრებელი ერთიანდება.',
   },
 
+  notification: {
+    title: 'შეტყობინებები',
+    empty: 'შეტყობინებები არ არის',
+    markAllRead: 'ყველას მონიშვნა წაკითხულად',
+    someone: 'ვინმემ',
+    mentionedYouThread: 'მოგიხსენია პოსტში',
+    mentionedYouComment: 'მოგიხსენია კომენტარში',
+  },
   thread: {
     allPostsViewed: 'ყველა პოსტი ნანახია',
     noCommentsYet: 'კომენტარები ჯერ არ არის',
@@ -132,6 +140,7 @@ const ka: TranslationKeys = {
     totalVotes: 'სულ: {count} ხმა',
     postAdded: 'პოსტი დამატებულია',
     creatingPost: 'პოსტის შექმნა...',
+    savingPost: 'შენახვა...',
     communityRules: 'დარწმუნდით, რომ პოსტი არ არღვევს საზოგადოების წესებს',
     newPostForm: 'ახალი პოსტის შექმნის ფორმა',
     newPost: 'ახალი პოსტი',

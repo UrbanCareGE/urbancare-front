@@ -3,7 +3,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ThreadService } from '@/service/thread-service';
 import { OptimisticData } from '@/model/dto/common.dto';
-import { ThreadInfoDTO } from '@/model/dto/thread.dto';
+import { MentionDTO, ThreadInfoDTO } from '@/model/dto/thread.dto';
 import { FileDTO } from '@/model/dto/file.dto';
 
 export function useEditThread() {
@@ -17,6 +17,7 @@ export function useEditThread() {
       content,
       imageIds,
       tags,
+      mentions,
     }: {
       apartmentId: string;
       threadId: string;
@@ -24,15 +25,17 @@ export function useEditThread() {
       content: string;
       imageIds: string[];
       tags?: string[];
+      mentions?: MentionDTO[];
     }) => {
       return await ThreadService.edit(apartmentId, threadId, {
         title,
         content,
         imageIds,
         tags,
+        mentions,
       });
     },
-    onMutate: async ({ threadId, title, content, imageIds, tags }) => {
+    onMutate: async ({ threadId, title, content, imageIds, tags, mentions }) => {
       const queryDetailKey = ['threads', 'detail', threadId];
 
       await queryClient.cancelQueries({ queryKey: queryDetailKey });
@@ -58,6 +61,7 @@ export function useEditThread() {
         title,
         content,
         tags: tags ?? [],
+        mentions: mentions ?? [],
         images: optimisticImages,
         _isPending: true,
       };

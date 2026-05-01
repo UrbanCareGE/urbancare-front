@@ -1,8 +1,9 @@
 import React from 'react';
 import { HeaderNavIsland } from '@/components/common/navbar/desktop/Navbar.desktop';
 import Link from 'next/link';
-import { Bell, Settings } from 'lucide-react';
+import { Settings } from 'lucide-react';
 import { useAuth } from '@/components/provider/AuthProvider';
+import { NotificationDropdown } from '@/components/common/notification/NotificationDropdown';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,9 +20,7 @@ import {
 
 const HeaderActionsIsland = () => (
   <div className="flex items-center gap-2 bg-surface border border-border urbancare-rounded-3xl px-3 py-2 shadow-sm shadow-shadow/5 flex-shrink-0">
-    <button className="w-8 h-8 urbancare-rounded-xl flex items-center justify-center lg:hover:bg-surface-variant transition-colors duration-200 text-foreground-secondary lg:hover:text-foreground-primary lg:active:scale-95">
-      <Bell className="w-4 h-4" />
-    </button>
+    <NotificationDropdown />
     <HeaderUserDropdown />
   </div>
 );

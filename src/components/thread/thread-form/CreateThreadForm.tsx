@@ -1,45 +1,80 @@
 'use client';
 
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useCreateThread } from '@/hooks/query/thread/use-create-thread';
+import { useEditThread } from '@/hooks/query/thread/use-edit-thread';
 import { FileService } from '@/service/file-service';
+import { getClientFileUrl } from '@/lib/api-client';
 import {
   createThreadSchema,
+  ExistingImage,
   FileEntry,
 } from '@/components/thread/data/create-thread-schema';
 import { CreateThreadFormView } from '@/components/thread/thread-form/CreateThreadFormView';
+import { CreateThreadOverlayRoot } from '@/components/thread/thread-form/CreateThreadOverlay';
 import { DiscardDraftDialog } from '@/components/thread/thread-form/DiscardDraftDialog';
+import { ThreadInfoDTO } from '@/model/dto/thread.dto';
 import { toast } from 'sonner';
 import { useTranslation } from '@/i18n';
 
-export const CreateThreadFormContainer = () => {
+interface ThreadFormContainerProps {
+  editingThread?: ThreadInfoDTO;
+  children?: React.ReactNode;
+}
+
+export const CreateThreadFormContainer = ({
+  editingThread,
+  children,
+}: ThreadFormContainerProps = {}) => {
   const { user } = useAuth();
   const t = useTranslation();
-  const { mutate, isPending, isError, error } = useCreateThread();
+  const isEdit = !!editingThread;
+
+  const createThread = useCreateThread();
+  const editThread = useEditThread();
+  const mutation = isEdit ? editThread : createThread;
+  const isPending = mutation.isPending;
+  const isError = mutation.isError;
+  const error = mutation.error as Error | null;
+
   const [fileUploading, setFileUploading] = useState(false);
   const [tagLimitDialogOpen, setTagLimitDialogOpen] = useState(false);
   const [isPollMode, setIsPollMode] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const initialExistingImages: ExistingImage[] = useMemo(() => {
+    if (!editingThread?.images) return [];
+    return editingThread.images.map((img) => ({
+      fileId: img.id,
+      previewUrl: getClientFileUrl(img.id),
+      contentType: img.contentType ?? 'image/*',
+    }));
+  }, [editingThread?.images]);
+
   const schema = useMemo(() => createThreadSchema(t), [t]);
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      title: '',
-      body: '',
+      title: editingThread?.title ?? '',
+      body: editingThread?.content ?? '',
       files: [],
-      tags: [],
+      existingImages: initialExistingImages,
+      tags: editingThread?.tags ?? [],
       pollOptions: [],
-      mentions: [],
+      mentions: editingThread?.mentions ?? [],
     },
   });
 
   const body = useWatch({ control: form.control, name: 'body' });
   const watchedFiles = useWatch({ control: form.control, name: 'files' });
+  const watchedExistingImages = useWatch({
+    control: form.control,
+    name: 'existingImages',
+  });
   const watchedTags = useWatch({ control: form.control, name: 'tags' });
   const watchedPollOptions = useWatch({
     control: form.control,
@@ -48,8 +83,10 @@ export const CreateThreadFormContainer = () => {
 
   const bodyLength = body?.length || 0;
   const fileEntries = watchedFiles || [];
+  const existingImages = watchedExistingImages || [];
   const selectedTags = watchedTags || [];
   const pollOptions = watchedPollOptions || [];
+  const totalImages = fileEntries.length + existingImages.length;
 
   const handleAddFiles = async (selectedFiles: File[]) => {
     const accepted = selectedFiles.filter(
@@ -58,7 +95,9 @@ export const CreateThreadFormContainer = () => {
     if (accepted.length === 0) return;
 
     const currentFiles = form.getValues('files') || [];
-    const filesToAdd = accepted.slice(0, 10 - currentFiles.length);
+    const currentExisting = form.getValues('existingImages') || [];
+    const remaining = 5 - (currentFiles.length + currentExisting.length);
+    const filesToAdd = accepted.slice(0, Math.max(0, remaining));
     if (filesToAdd.length === 0) return;
 
     const newEntries: FileEntry[] = filesToAdd.map((file) => ({
@@ -91,11 +130,7 @@ export const CreateThreadFormContainer = () => {
         (r) => r.status === 'fulfilled' && r.value.index === i
       );
       if (success && success.status === 'fulfilled') {
-        return {
-          ...f,
-          fileId: success.value.fileId,
-          status: 'success' as const,
-        };
+        return { ...f, fileId: success.value.fileId };
       }
       return f;
     });
@@ -107,11 +142,7 @@ export const CreateThreadFormContainer = () => {
   const handleRemoveFile = (index: number) => {
     const currentFiles = form.getValues('files') || [];
     const fileToRemove = currentFiles[index];
-
-    if (fileToRemove?.previewUrl) {
-      URL.revokeObjectURL(fileToRemove.previewUrl);
-    }
-
+    if (fileToRemove?.previewUrl) URL.revokeObjectURL(fileToRemove.previewUrl);
     form.setValue(
       'files',
       currentFiles.filter((_, i) => i !== index),
@@ -119,7 +150,16 @@ export const CreateThreadFormContainer = () => {
     );
   };
 
-  React.useEffect(() => {
+  const handleRemoveExistingImage = (fileId: string) => {
+    const current = form.getValues('existingImages') || [];
+    form.setValue(
+      'existingImages',
+      current.filter((img) => img.fileId !== fileId),
+      { shouldValidate: true, shouldDirty: true }
+    );
+  };
+
+  useEffect(() => {
     return () => {
       const files = form.getValues('files') || [];
       files.forEach((file) => {
@@ -129,7 +169,7 @@ export const CreateThreadFormContainer = () => {
   }, [form]);
 
   const isDirty = form.formState.isDirty;
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isDirty) return;
     const handler = (e: BeforeUnloadEvent) => {
       e.preventDefault();
@@ -168,7 +208,15 @@ export const CreateThreadFormContainer = () => {
     files.forEach((f) => {
       if (f.previewUrl) URL.revokeObjectURL(f.previewUrl);
     });
-    form.reset();
+    form.reset({
+      title: editingThread?.title ?? '',
+      body: editingThread?.content ?? '',
+      files: [],
+      existingImages: initialExistingImages,
+      tags: editingThread?.tags ?? [],
+      pollOptions: [],
+      mentions: editingThread?.mentions ?? [],
+    });
     setIsPollMode(false);
     if (discardResolverRef.current) {
       discardResolverRef.current(true);
@@ -192,7 +240,7 @@ export const CreateThreadFormContainer = () => {
     if (selectedTags.includes(tag)) {
       form.setValue(
         'tags',
-        selectedTags.filter((t) => t !== tag),
+        selectedTags.filter((tg) => tg !== tag),
         { shouldDirty: true }
       );
     } else if (selectedTags.length >= 3) {
@@ -206,68 +254,106 @@ export const CreateThreadFormContainer = () => {
     values: z.infer<typeof schema>,
     options?: { onSuccess?: () => void }
   ) => {
-    if (!user.selectedApartmentId!) {
+    if (!user.selectedApartmentId) {
       console.error('No apartment selected');
       return;
     }
 
-    mutate(
-      {
-        apartmentId: user.selectedApartmentId!,
-        title: values.title,
-        content: values.body,
-        imageIds: values.files?.map((f) => f.fileId!) ?? [],
-        tags: values.tags,
-        poll:
-          values.pollOptions != null && values.pollOptions.length > 0
-            ? values.pollOptions
-            : undefined,
-        mentions: values.mentions ?? [],
-      },
-      {
-        onSuccess: () => {
-          toast.success(t.thread.postAdded);
-          form.reset();
-          setIsPollMode(false);
-          skipGuardRef.current = true;
-          options?.onSuccess?.();
+    const newImageIds = values.files
+      ?.map((f) => f.fileId)
+      .filter((id): id is string => !!id) ?? [];
+    const existingImageIds =
+      values.existingImages?.map((img) => img.fileId) ?? [];
+    const imageIds = isEdit
+      ? [...existingImageIds, ...newImageIds]
+      : newImageIds;
+
+    const handleSuccess = () => {
+      toast.success(isEdit ? t.thread.postUpdated : t.thread.postAdded);
+      form.reset({
+        title: editingThread?.title ?? '',
+        body: editingThread?.content ?? '',
+        files: [],
+        existingImages: isEdit ? values.existingImages : initialExistingImages,
+        tags: editingThread?.tags ?? [],
+        pollOptions: [],
+        mentions: editingThread?.mentions ?? [],
+      });
+      setIsPollMode(false);
+      skipGuardRef.current = true;
+      options?.onSuccess?.();
+    };
+
+    const handleError = () => {
+      toast.error(t.common.error);
+    };
+
+    if (isEdit && editingThread) {
+      editThread.mutate(
+        {
+          apartmentId: user.selectedApartmentId,
+          threadId: editingThread.id,
+          title: values.title,
+          content: values.body,
+          imageIds,
+          tags: values.tags,
+          mentions: values.mentions ?? [],
         },
-        onError: () => {
-          toast.error(t.common.error);
+        { onSuccess: handleSuccess, onError: handleError }
+      );
+    } else {
+      createThread.mutate(
+        {
+          apartmentId: user.selectedApartmentId,
+          title: values.title,
+          content: values.body,
+          imageIds,
+          tags: values.tags,
+          poll:
+            values.pollOptions != null && values.pollOptions.length > 0
+              ? values.pollOptions
+              : undefined,
+          mentions: values.mentions ?? [],
         },
-      }
-    );
+        { onSuccess: handleSuccess, onError: handleError }
+      );
+    }
   };
 
   return (
-    <>
-    <CreateThreadFormView
-      form={form}
-      onSubmit={onSubmit}
-      isPending={isPending}
-      isError={isError}
-      error={error as Error | null}
-      fileUploading={fileUploading}
-      isPollMode={isPollMode}
-      tagLimitDialogOpen={tagLimitDialogOpen}
-      bodyLength={bodyLength}
-      fileEntries={fileEntries}
-      selectedTags={selectedTags}
-      pollOptions={pollOptions}
-      fileInputRef={fileInputRef}
-      onAddFiles={handleAddFiles}
-      onRemoveFile={handleRemoveFile}
-      onTogglePollMode={handleTogglePollMode}
-      onPollOptionsChange={handlePollOptionsChange}
-      onToggleTag={handleToggleTag}
-      onTagLimitDialogChange={setTagLimitDialogOpen}
-      onCloseRequest={handleCloseRequest}
-    />
-    <DiscardDraftDialog
-      open={discardOpen}
-      onOpenChange={handleDiscardOpenChange}
-      onDiscard={handleConfirmDiscard}
-    />
-    </>
+    <CreateThreadOverlayRoot onCloseRequest={handleCloseRequest}>
+      {children}
+      <CreateThreadFormView
+        mode={isEdit ? 'edit' : 'create'}
+        form={form}
+        onSubmit={onSubmit}
+        isPending={isPending}
+        isDirty={isDirty}
+        isError={isError}
+        error={error}
+        fileUploading={fileUploading}
+        isPollMode={isPollMode}
+        tagLimitDialogOpen={tagLimitDialogOpen}
+        bodyLength={bodyLength}
+        fileEntries={fileEntries}
+        existingImages={existingImages}
+        totalImages={totalImages}
+        selectedTags={selectedTags}
+        pollOptions={pollOptions}
+        fileInputRef={fileInputRef}
+        onAddFiles={handleAddFiles}
+        onRemoveFile={handleRemoveFile}
+        onRemoveExistingImage={handleRemoveExistingImage}
+        onTogglePollMode={handleTogglePollMode}
+        onPollOptionsChange={handlePollOptionsChange}
+        onToggleTag={handleToggleTag}
+        onTagLimitDialogChange={setTagLimitDialogOpen}
+      />
+      <DiscardDraftDialog
+        open={discardOpen}
+        onOpenChange={handleDiscardOpenChange}
+        onDiscard={handleConfirmDiscard}
+      />
+    </CreateThreadOverlayRoot>
   );
 };

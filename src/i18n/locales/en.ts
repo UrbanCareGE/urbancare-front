@@ -110,6 +110,14 @@ const en: TranslationKeys = {
       'Thousands of residences have already joined the UrbanCare community.',
   },
 
+  notification: {
+    title: 'Notifications',
+    empty: 'No notifications yet',
+    markAllRead: 'Mark all as read',
+    someone: 'Someone',
+    mentionedYouThread: 'mentioned you in a post',
+    mentionedYouComment: 'mentioned you in a comment',
+  },
   thread: {
     allPostsViewed: 'All posts viewed',
     noCommentsYet: 'No comments yet',
@@ -131,6 +139,7 @@ const en: TranslationKeys = {
     totalVotes: 'Total: {count} votes',
     postAdded: 'Post added',
     creatingPost: 'Creating post...',
+    savingPost: 'Saving...',
     communityRules: 'Make sure the post does not violate community rules',
     newPostForm: 'New post form',
     newPost: 'New post',

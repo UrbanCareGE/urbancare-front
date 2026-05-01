@@ -13,8 +13,9 @@ import {
 } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import {
-  FileEntry,
   CreateThreadSchemaType,
+  ExistingImage,
+  FileEntry,
 } from '@/components/thread/data/create-thread-schema';
 import { useTranslation } from '@/i18n';
 import { cn } from '@/lib/utils';
@@ -22,24 +23,31 @@ import { cn } from '@/lib/utils';
 interface ThreadFileUploadProps {
   control: Control<z.infer<CreateThreadSchemaType>>;
   fileEntries: FileEntry[];
+  existingImages?: ExistingImage[];
+  totalImages?: number;
   isPending: boolean;
   fileInputRef: React.RefObject<HTMLInputElement | null>;
   onAddFiles: (files: File[]) => void;
   onRemoveFile: (index: number) => void;
+  onRemoveExistingImage?: (fileId: string) => void;
 }
 
 export const ThreadFileUpload = ({
   control,
   fileEntries,
+  existingImages = [],
+  totalImages,
   isPending,
   fileInputRef,
   onAddFiles,
   onRemoveFile,
+  onRemoveExistingImage,
 }: ThreadFileUploadProps) => {
   const t = useTranslation();
   const [isDraggingOver, setIsDraggingOver] = useState(false);
   const dragDepthRef = React.useRef(0);
-  const isFull = fileEntries.length >= 5 || isPending;
+  const combinedCount = totalImages ?? fileEntries.length + existingImages.length;
+  const isFull = combinedCount >= 5 || isPending;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onAddFiles(Array.from(e.target.files ?? []));
@@ -86,7 +94,7 @@ export const ThreadFileUpload = ({
             <span className="urbancare-text-sm text-foreground-tertiary">
               {t.threadForm.filesCount.replace(
                 '{count}',
-                String(fileEntries.length)
+                String(combinedCount)
               )}
             </span>
           </div>
@@ -147,13 +155,13 @@ export const ThreadFileUpload = ({
               </div>
             </Button>
 
-            {fileEntries.length > 0 && (
+            {(existingImages.length > 0 || fileEntries.length > 0) && (
               <div className="space-y-2">
                 <div className="flex items-center justify-between px-1">
                   <p className="urbancare-text-sm font-medium text-foreground-tertiary">
                     {t.threadForm.uploadedFiles}
                   </p>
-                  {fileEntries.length > 3 && (
+                  {combinedCount > 3 && (
                     <p className="urbancare-text-sm text-foreground-disabled">
                       {t.threadForm.scrollHint}
                     </p>
@@ -161,7 +169,7 @@ export const ThreadFileUpload = ({
                 </div>
 
                 <div className="relative">
-                  {fileEntries.length > 3 && (
+                  {combinedCount > 3 && (
                     <>
                       <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-surface to-transparent z-10 pointer-events-none urbancare-rounded-l-xl" />
                       <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-surface to-transparent z-10 pointer-events-none urbancare-rounded-r-xl" />
@@ -169,18 +177,55 @@ export const ThreadFileUpload = ({
                   )}
                   <div className="overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide bg-surface-variant urbancare-rounded-xl p-3">
                     <div className="flex gap-3">
+                      {existingImages.map((img, index) => (
+                        <div
+                          key={img.fileId}
+                          className="flex-shrink-0 relative group w-20 h-20"
+                        >
+                          <div className="absolute inset-0 urbancare-rounded-lg overflow-hidden bg-surface border-2 shadow-sm lg:hover:shadow-md transition-all duration-300 lg:group-hover:scale-105 lg:hover:border-primary/50">
+                            {img.contentType.startsWith('image/') ? (
+                              <Image
+                                src={img.previewUrl}
+                                alt={`Existing ${index + 1}`}
+                                fill
+                                unoptimized
+                                sizes="80px"
+                                className="object-cover"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface-container to-surface-container-high">
+                                <Video className="w-8 h-8 text-foreground-tertiary" />
+                              </div>
+                            )}
+                            <div className="absolute top-1 left-1 w-5 h-5 bg-primary text-primary-foreground urbancare-text-sm urbancare-rounded-full flex items-center justify-center font-semibold shadow-sm">
+                              {index + 1}
+                            </div>
+                          </div>
+                          {onRemoveExistingImage && (
+                            <button
+                              type="button"
+                              onClick={() => onRemoveExistingImage(img.fileId)}
+                              className="absolute -top-2 -right-2 p-1.5 bg-error text-error-foreground urbancare-rounded-full opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-200 lg:hover:bg-error/80 lg:hover:scale-110 shadow-lg z-20"
+                            >
+                              <X className="w-3 h-3" />
+                            </button>
+                          )}
+                        </div>
+                      ))}
+
                       {fileEntries.map((file, index) => {
                         if (!file || !file.previewUrl) return null;
+                        const numbering = existingImages.length + index + 1;
                         return (
                           <div
-                            key={index}
+                            key={`new-${index}`}
                             className="flex-shrink-0 relative group w-20 h-20"
                           >
                             <div className="absolute inset-0 urbancare-rounded-lg overflow-hidden bg-surface border-2 shadow-sm lg:hover:shadow-md transition-all duration-300 lg:group-hover:scale-105 lg:hover:border-primary/50">
                               {file.file.type.startsWith('image/') ? (
                                 <Image
                                   src={file.previewUrl}
-                                  alt={`Preview ${index + 1}`}
+                                  alt={`Preview ${numbering}`}
                                   fill
                                   unoptimized
                                   sizes="80px"
@@ -202,7 +247,7 @@ export const ThreadFileUpload = ({
                               </div>
 
                               <div className="absolute top-1 left-1 w-5 h-5 bg-primary text-primary-foreground urbancare-text-sm urbancare-rounded-full flex items-center justify-center font-semibold shadow-sm">
-                                {index + 1}
+                                {numbering}
                               </div>
                             </div>
 

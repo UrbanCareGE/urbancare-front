@@ -26,7 +26,7 @@ export interface AuthContextType {
   isManager?: boolean;
   updateUser: (data: Partial<UserModel>) => void;
   refetchUser: () => Promise<void>;
-  selectApartment: (apartment: string) => void;
+  selectApartment: (apartment: string, redirectTo?: string) => void;
   logIn: (credentials: LoginDTO) => void;
   logInWithOtp: (credentials: LoginWithOtpDTO) => void;
   logOut: () => void;
@@ -194,7 +194,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     },
   });
 
-  const selectApartment = (apartmentId: string) => {
+  const selectApartment = (apartmentId: string, redirectTo?: string) => {
     queryClient.setQueryData(['user'], (old: UserModel | null) => {
       if (!old) return null;
       return {
@@ -211,7 +211,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       predicate: (query) => query.queryKey[0] !== 'user',
     });
 
-    router.push(`/apartment/${apartmentId}`);
+    router.push(redirectTo ?? `/apartment/${apartmentId}`);
   };
 
   const updateUser = (data: Partial<UserModel>) => {

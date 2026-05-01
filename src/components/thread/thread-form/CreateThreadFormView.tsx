@@ -7,11 +7,13 @@ import { X } from 'lucide-react';
 import { Form } from '@/components/ui/form';
 import {
   CreateThreadSchemaType,
+  ExistingImage,
   FileEntry,
 } from '@/components/thread/data/create-thread-schema';
 import { useTranslation } from '@/i18n';
 import { Poll } from '@/components/poll/mobile/Poll';
-import CreateThreadOverlay, {
+import {
+  CreateThreadOverlayContent,
   useThreadOverlay,
 } from '@/components/thread/thread-form/CreateThreadOverlay';
 import { CreateThreadButton } from '@/components/thread/thread-form/CreateThreadButton';
@@ -24,13 +26,17 @@ import { ThreadTagLimitDialog } from '@/components/thread/thread-form/ThreadTagL
 import { ThreadSortDropDown } from '@/components/thread/thread-filter/ThreadSortDropDown';
 import { ThreadFilterModal } from '@/components/thread/thread-filter/ThreadFilterModal';
 
-interface CreateThreadFormViewMobileProps {
+export type ThreadFormMode = 'create' | 'edit';
+
+interface CreateThreadFormViewProps {
+  mode: ThreadFormMode;
   form: UseFormReturn<z.infer<CreateThreadSchemaType>>;
   onSubmit: (
     values: z.infer<CreateThreadSchemaType>,
     options?: { onSuccess?: () => void }
   ) => void;
   isPending: boolean;
+  isDirty: boolean;
   isError: boolean;
   error: Error | null;
   fileUploading: boolean;
@@ -38,22 +44,26 @@ interface CreateThreadFormViewMobileProps {
   tagLimitDialogOpen: boolean;
   bodyLength: number;
   fileEntries: FileEntry[];
+  existingImages: ExistingImage[];
+  totalImages: number;
   selectedTags: string[];
   pollOptions: string[];
   fileInputRef: React.RefObject<HTMLInputElement | null>;
   onAddFiles: (files: File[]) => void;
   onRemoveFile: (index: number) => void;
+  onRemoveExistingImage: (fileId: string) => void;
   onTogglePollMode: () => void;
   onPollOptionsChange: (options: string[]) => void;
   onToggleTag: (tag: string) => void;
   onTagLimitDialogChange: (open: boolean) => void;
-  onCloseRequest: () => boolean | Promise<boolean>;
 }
 
 export const CreateThreadFormView = ({
+  mode,
   form,
   onSubmit,
   isPending,
+  isDirty,
   isError,
   error,
   fileUploading,
@@ -61,28 +71,34 @@ export const CreateThreadFormView = ({
   tagLimitDialogOpen,
   bodyLength,
   fileEntries,
+  existingImages,
+  totalImages,
   selectedTags,
   pollOptions,
   fileInputRef,
   onAddFiles,
   onRemoveFile,
+  onRemoveExistingImage,
   onTogglePollMode,
   onPollOptionsChange,
   onToggleTag,
   onTagLimitDialogChange,
-  onCloseRequest,
-}: CreateThreadFormViewMobileProps) => {
+}: CreateThreadFormViewProps) => {
   const t = useTranslation();
-  return (
-    <CreateThreadOverlay onCloseRequest={onCloseRequest}>
-      <div className={'w-full flex items-center gap-1'}>
-        <CreateThreadButton />
-        <ThreadFilterModal />
-        <ThreadSortDropDown />
-      </div>
+  const isEdit = mode === 'edit';
 
-      <CreateThreadOverlay.Content>
-        <ThreadFormHeader />
+  return (
+    <>
+      {!isEdit && (
+        <div className={'w-full flex items-center gap-1'}>
+          <CreateThreadButton />
+          <ThreadFilterModal />
+          <ThreadSortDropDown />
+        </div>
+      )}
+
+      <CreateThreadOverlayContent>
+        <ThreadFormHeader mode={mode} />
 
         <FormBody form={form} onSubmit={onSubmit}>
           <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-3 sm:p-4 space-y-3 scrollbar-hide overscroll-x-none touch-pan-y">
@@ -105,20 +121,25 @@ export const CreateThreadFormView = ({
               <ThreadFileUpload
                 control={form.control}
                 fileEntries={fileEntries}
+                existingImages={existingImages}
+                totalImages={totalImages}
                 isPending={isPending}
                 fileInputRef={fileInputRef}
                 onAddFiles={onAddFiles}
                 onRemoveFile={onRemoveFile}
+                onRemoveExistingImage={onRemoveExistingImage}
               />
             </FormSection>
 
-            <Poll
-              pollOptions={pollOptions}
-              onPollOptionsChange={onPollOptionsChange}
-              isPollMode={isPollMode}
-              onPollModeToggle={onTogglePollMode}
-              isDisabled={isPending}
-            />
+            {!isEdit && (
+              <Poll
+                pollOptions={pollOptions}
+                onPollOptionsChange={onPollOptionsChange}
+                isPollMode={isPollMode}
+                onPollModeToggle={onTogglePollMode}
+                isDisabled={isPending}
+              />
+            )}
 
             {isError && (
               <div className="urbancare-rounded-2xl bg-error-background border border-error p-4">
@@ -140,18 +161,20 @@ export const CreateThreadFormView = ({
           </div>
 
           <ThreadFormFooter
+            mode={mode}
             isPending={isPending}
+            isDirty={isDirty}
             bodyLength={bodyLength}
             fileUploading={fileUploading}
           />
         </FormBody>
-      </CreateThreadOverlay.Content>
+      </CreateThreadOverlayContent>
 
       <ThreadTagLimitDialog
         open={tagLimitDialogOpen}
         onOpenChange={onTagLimitDialogChange}
       />
-    </CreateThreadOverlay>
+    </>
   );
 };
 

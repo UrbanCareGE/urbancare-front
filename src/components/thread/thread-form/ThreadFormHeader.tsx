@@ -4,16 +4,21 @@ import React from 'react';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useThreadOverlay } from '@/components/thread/thread-form/CreateThreadOverlay';
+import { ThreadFormMode } from '@/components/thread/thread-form/CreateThreadFormView';
 import { useTranslation } from '@/i18n';
 
-export const ThreadFormHeader = () => {
+interface ThreadFormHeaderProps {
+  mode?: ThreadFormMode;
+}
+
+export const ThreadFormHeader = ({ mode = 'create' }: ThreadFormHeaderProps) => {
   const t = useTranslation();
   const { closeDrawer } = useThreadOverlay();
 
   return (
     <header className="shrink-0 px-4 py-3 flex items-center gap-3">
       <h2 className="flex-1 urbancare-text-xl font-semibold text-text-primary leading-tight-georgian truncate">
-        {t.thread.newPost}
+        {mode === 'edit' ? t.thread.editPost : t.thread.newPost}
       </h2>
       <button
         type="button"

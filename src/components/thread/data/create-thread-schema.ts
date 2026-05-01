@@ -49,6 +49,18 @@ const mentionSchema = z.object({
   toIndex: z.number().int().min(1),
 });
 
+export type ExistingImage = {
+  fileId: string;
+  previewUrl: string;
+  contentType: string;
+};
+
+const existingImageSchema = z.object({
+  fileId: z.string(),
+  previewUrl: z.string(),
+  contentType: z.string(),
+});
+
 export const createThreadSchema = (t: TranslationKeys) =>
   z.object({
     title: z
@@ -62,6 +74,7 @@ export const createThreadSchema = (t: TranslationKeys) =>
     files: z
       .array(createFileEntrySchema(t))
       .max(MAX_FILES, t.threadValidation.maxFilesUpload),
+    existingImages: z.array(existingImageSchema).default([]),
     tags: z
       .array(z.string())
       .max(3, { message: t.threadValidation.maxTags })

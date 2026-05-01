@@ -57,22 +57,19 @@ export const CommentOptionsDropdown = ({
         align="end"
         sideOffset={6}
       >
-        <DropdownMenuItem asChild>
-          <button
-            type="button"
-            onClick={handleDelete}
-            disabled={isPending}
-            className="flex w-full items-center gap-2.5 px-2 py-1 urbancare-text-base urbancare-rounded-lg lg:hover:bg-error/5 transition-colors duration-150 disabled:opacity-50"
-          >
-            <div className="w-7 h-7 urbancare-rounded-lg bg-error-container flex items-center justify-center shrink-0">
-              {isPending ? (
-                <Spinner className="w-4 h-4 text-error" />
-              ) : (
-                <Trash2 className="w-4 h-4 text-error" />
-              )}
-            </div>
-            <span className="font-medium text-error">{t.common.delete}</span>
-          </button>
+        <DropdownMenuItem
+          onSelect={handleDelete}
+          disabled={isPending}
+          className="flex items-center gap-2.5 px-2 py-1 urbancare-text-base urbancare-rounded-lg lg:hover:bg-error/5 transition-colors duration-150 disabled:opacity-50 cursor-pointer"
+        >
+          <div className="w-7 h-7 urbancare-rounded-lg bg-error-container flex items-center justify-center shrink-0">
+            {isPending ? (
+              <Spinner className="w-4 h-4 text-error" />
+            ) : (
+              <Trash2 className="w-4 h-4 text-error" />
+            )}
+          </div>
+          <span className="font-medium text-error">{t.common.delete}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

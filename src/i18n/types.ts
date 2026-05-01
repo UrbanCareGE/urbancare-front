@@ -101,6 +101,14 @@ export interface TranslationKeys {
     quickSmsRegistration: string;
     thousandsJoined: string;
   };
+  notification: {
+    title: string;
+    empty: string;
+    markAllRead: string;
+    someone: string;
+    mentionedYouThread: string;
+    mentionedYouComment: string;
+  };
   thread: {
     allPostsViewed: string;
     noCommentsYet: string;
@@ -122,6 +130,7 @@ export interface TranslationKeys {
     totalVotes: string;
     postAdded: string;
     creatingPost: string;
+    savingPost: string;
     communityRules: string;
     newPostForm: string;
     newPost: string;
