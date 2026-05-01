@@ -3,7 +3,7 @@
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
-import { ArrowDownNarrowWide, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { Form } from '@/components/ui/form';
 import {
   CreateThreadSchemaType,
@@ -41,7 +41,7 @@ interface CreateThreadFormViewMobileProps {
   selectedTags: string[];
   pollOptions: string[];
   fileInputRef: React.RefObject<HTMLInputElement | null>;
-  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onAddFiles: (files: File[]) => void;
   onRemoveFile: (index: number) => void;
   onTogglePollMode: () => void;
   onPollOptionsChange: (options: string[]) => void;
@@ -64,7 +64,7 @@ export const CreateThreadFormView = ({
   selectedTags,
   pollOptions,
   fileInputRef,
-  onFileChange,
+  onAddFiles,
   onRemoveFile,
   onTogglePollMode,
   onPollOptionsChange,
@@ -107,7 +107,7 @@ export const CreateThreadFormView = ({
                 fileEntries={fileEntries}
                 isPending={isPending}
                 fileInputRef={fileInputRef}
-                onFileChange={onFileChange}
+                onAddFiles={onAddFiles}
                 onRemoveFile={onRemoveFile}
               />
             </FormSection>

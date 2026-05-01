@@ -1,4 +1,4 @@
-import type { TranslationKeys } from '../types';
+import type { TranslationKeys } from '@/i18n/types';
 
 const en: TranslationKeys = {
   common: {
@@ -152,6 +152,7 @@ const en: TranslationKeys = {
     filesCount: '{count}/5 files',
     uploadPhotoVideo: 'Upload photo or video',
     maxFilesHint: 'Max 5 files, 10MB each',
+    dropFilesHere: 'Drop files here',
     uploadedFiles: 'Uploaded files',
     scrollHint: '← Scroll →',
     tagsLimit: 'Tags limit',

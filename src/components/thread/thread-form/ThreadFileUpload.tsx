@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Control } from 'react-hook-form';
 import { z } from 'zod';
+import Image from 'next/image';
 import { Image as ImageIconLucid, Upload, Video, X } from 'lucide-react';
 import {
   FormField,
@@ -16,13 +17,14 @@ import {
   CreateThreadSchemaType,
 } from '@/components/thread/data/create-thread-schema';
 import { useTranslation } from '@/i18n';
+import { cn } from '@/lib/utils';
 
 interface ThreadFileUploadProps {
   control: Control<z.infer<CreateThreadSchemaType>>;
   fileEntries: FileEntry[];
   isPending: boolean;
   fileInputRef: React.RefObject<HTMLInputElement | null>;
-  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onAddFiles: (files: File[]) => void;
   onRemoveFile: (index: number) => void;
 }
 
@@ -31,10 +33,45 @@ export const ThreadFileUpload = ({
   fileEntries,
   isPending,
   fileInputRef,
-  onFileChange,
+  onAddFiles,
   onRemoveFile,
 }: ThreadFileUploadProps) => {
   const t = useTranslation();
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
+  const dragDepthRef = React.useRef(0);
+  const isFull = fileEntries.length >= 5 || isPending;
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onAddFiles(Array.from(e.target.files ?? []));
+  };
+
+  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+    if (isFull) return;
+    e.preventDefault();
+    dragDepthRef.current += 1;
+    setIsDraggingOver(true);
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    if (isFull) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+  };
+
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    if (isFull) return;
+    e.preventDefault();
+    dragDepthRef.current = Math.max(0, dragDepthRef.current - 1);
+    if (dragDepthRef.current === 0) setIsDraggingOver(false);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    dragDepthRef.current = 0;
+    setIsDraggingOver(false);
+    if (isFull) return;
+    onAddFiles(Array.from(e.dataTransfer.files ?? []));
+  };
   return (
     <FormField
       control={control}
@@ -59,25 +96,49 @@ export const ThreadFileUpload = ({
             type="file"
             accept="image/*,video/*"
             multiple
-            onChange={onFileChange}
+            onChange={handleInputChange}
             className="hidden"
           />
 
-          <div className="space-y-3">
+          <div
+            className="space-y-3"
+            onDragEnter={handleDragEnter}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+          >
             <Button
               type="button"
               variant="outline"
               onClick={() => fileInputRef.current?.click()}
-              disabled={fileEntries.length >= 5 || isPending}
-              className="w-full h-auto border-2 border-dashed border-border lg:hover:border-primary lg:hover:bg-primary/5 transition-all group"
+              disabled={isFull}
+              className={cn(
+                'w-full h-auto border-2 border-dashed border-border transition-all group',
+                'lg:hover:border-primary lg:hover:bg-primary/5',
+                isDraggingOver && 'border-primary bg-primary/10'
+              )}
             >
               <div className="flex flex-col items-center gap-2">
-                <div className="w-10 h-10 urbancare-rounded-full bg-surface-container lg:group-hover:bg-primary/10 flex items-center justify-center transition-colors">
-                  <Upload className="w-5 h-5 text-foreground-tertiary lg:group-hover:text-primary transition-colors" />
+                <div
+                  className={cn(
+                    'w-10 h-10 urbancare-rounded-full bg-surface-container flex items-center justify-center transition-colors',
+                    'lg:group-hover:bg-primary/10',
+                    isDraggingOver && 'bg-primary/20'
+                  )}
+                >
+                  <Upload
+                    className={cn(
+                      'w-5 h-5 text-foreground-tertiary transition-colors',
+                      'lg:group-hover:text-primary',
+                      isDraggingOver && 'text-primary'
+                    )}
+                  />
                 </div>
                 <div className="text-center">
                   <p className="urbancare-text-base font-medium text-foreground-secondary">
-                    {t.threadForm.uploadPhotoVideo}
+                    {isDraggingOver
+                      ? t.threadForm.dropFilesHere
+                      : t.threadForm.uploadPhotoVideo}
                   </p>
                   <p className="urbancare-text-sm text-foreground-tertiary mt-0.5">
                     {t.threadForm.maxFilesHint}
@@ -117,10 +178,13 @@ export const ThreadFileUpload = ({
                           >
                             <div className="absolute inset-0 urbancare-rounded-lg overflow-hidden bg-surface border-2 shadow-sm lg:hover:shadow-md transition-all duration-300 lg:group-hover:scale-105 lg:hover:border-primary/50">
                               {file.file.type.startsWith('image/') ? (
-                                <img
+                                <Image
                                   src={file.previewUrl}
                                   alt={`Preview ${index + 1}`}
-                                  className="w-full h-full object-cover"
+                                  fill
+                                  unoptimized
+                                  sizes="80px"
+                                  className="object-cover"
                                 />
                               ) : (
                                 <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface-container to-surface-container-high">

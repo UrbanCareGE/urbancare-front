@@ -1,7 +1,6 @@
 'use client';
 
 import { formatTime } from '@/lib/utils';
-import 'ldrs/react/Leapfrog.css';
 import { ShieldCheck } from 'lucide-react';
 import { useFetchUrgent } from '@/hooks/query/urgent/use-fetch-urgent';
 import {

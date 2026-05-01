@@ -51,12 +51,15 @@ export const CreateThreadFormContainer = () => {
   const selectedTags = watchedTags || [];
   const pollOptions = watchedPollOptions || [];
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = Array.from(e.target.files || []);
-    if (selectedFiles.length === 0) return;
+  const handleAddFiles = async (selectedFiles: File[]) => {
+    const accepted = selectedFiles.filter(
+      (f) => f.type.startsWith('image/') || f.type.startsWith('video/')
+    );
+    if (accepted.length === 0) return;
 
     const currentFiles = form.getValues('files') || [];
-    const filesToAdd = selectedFiles.slice(0, 10 - currentFiles.length);
+    const filesToAdd = accepted.slice(0, 10 - currentFiles.length);
+    if (filesToAdd.length === 0) return;
 
     const newEntries: FileEntry[] = filesToAdd.map((file) => ({
       file,
@@ -252,7 +255,7 @@ export const CreateThreadFormContainer = () => {
       selectedTags={selectedTags}
       pollOptions={pollOptions}
       fileInputRef={fileInputRef}
-      onFileChange={handleFileChange}
+      onAddFiles={handleAddFiles}
       onRemoveFile={handleRemoveFile}
       onTogglePollMode={handleTogglePollMode}
       onPollOptionsChange={handlePollOptionsChange}

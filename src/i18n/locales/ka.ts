@@ -1,4 +1,4 @@
-import type { TranslationKeys } from '../types';
+import type { TranslationKeys } from '@/i18n/types';
 
 const ka: TranslationKeys = {
   common: {
@@ -153,6 +153,7 @@ const ka: TranslationKeys = {
     filesCount: '{count}/5 ფაილი',
     uploadPhotoVideo: 'ფოტოს ან ვიდეოს ატვირთვა',
     maxFilesHint: 'მაქს. 5 ფაილი, თითო 10MB-მდე',
+    dropFilesHere: 'ჩამოაგდე ფაილები აქ',
     uploadedFiles: 'ატვირთული ფაილები',
     scrollHint: '← გადაფურცლეთ →',
     tagsLimit: 'თეგების ლიმიტი',

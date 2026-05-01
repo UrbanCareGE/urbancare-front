@@ -142,6 +142,7 @@ export interface TranslationKeys {
     filesCount: string;
     uploadPhotoVideo: string;
     maxFilesHint: string;
+    dropFilesHere: string;
     uploadedFiles: string;
     scrollHint: string;
     tagsLimit: string;
