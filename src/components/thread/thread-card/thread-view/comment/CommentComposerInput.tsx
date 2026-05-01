@@ -11,6 +11,17 @@ import { useMentionInput } from '@/hooks/use-mention-input';
 import { useApartmentMembers } from '@/hooks/query/apartment/use-apartment-members';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { MentionDTO } from '@/model/dto/thread.dto';
+import { MentionedText } from '@/components/common/mention/MentionedText';
+
+const COMMENT_TEXT_STYLES: React.CSSProperties = {
+  lineHeight: '20px',
+  paddingTop: '10px',
+  paddingBottom: '10px',
+};
+
+const COMMENT_TEXT_CLASS =
+  'block w-full bg-transparent urbancare-text-base resize-none px-3.5 pr-11 ' +
+  'whitespace-pre-wrap break-words';
 
 type CommentComposerInputProps = {
   value: string;
@@ -42,6 +53,7 @@ export const CommentComposerInput = ({
     inputRef: mentionRef,
     handleChange,
     handleSelectionChange,
+    handleMentionDeletion,
     picker,
     selectMember,
     cancel,
@@ -60,7 +72,16 @@ export const CommentComposerInput = ({
     setActiveIndex(0);
   }
 
+  const overlayRef = React.useRef<HTMLDivElement>(null);
+  const syncOverlayScroll = (event: React.UIEvent<HTMLTextAreaElement>) => {
+    if (overlayRef.current) {
+      overlayRef.current.scrollTop = event.currentTarget.scrollTop;
+      overlayRef.current.scrollLeft = event.currentTarget.scrollLeft;
+    }
+  };
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (handleMentionDeletion(event)) return;
     if (showPicker) {
       if (event.key === 'ArrowDown') {
         event.preventDefault();
@@ -107,13 +128,15 @@ export const CommentComposerInput = ({
         placeholder={placeholder}
         rows={1}
         autoFocus={autoFocus}
-        className="block w-full bg-transparent urbancare-text-base text-text-primary placeholder:text-text-tertiary outline-none resize-none px-3.5 pr-11"
+        className={cn(
+          COMMENT_TEXT_CLASS,
+          'placeholder:text-text-tertiary outline-none [-webkit-text-fill-color:transparent]'
+        )}
         style={{
+          ...COMMENT_TEXT_STYLES,
           minHeight: '40px',
           maxHeight: '120px',
-          lineHeight: '20px',
-          paddingTop: '10px',
-          paddingBottom: '10px',
+          caretColor: 'rgb(var(--color-text-primary))',
         }}
         onInput={(e) => {
           const t = e.target as HTMLTextAreaElement;
@@ -121,7 +144,25 @@ export const CommentComposerInput = ({
           t.style.height = t.scrollHeight + 'px';
         }}
         onKeyDown={handleKeyDown}
+        onScroll={syncOverlayScroll}
       />
+      <div
+        ref={overlayRef}
+        aria-hidden
+        className={cn(
+          COMMENT_TEXT_CLASS,
+          'absolute inset-0 pointer-events-none text-text-primary',
+          'overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
+        )}
+        style={COMMENT_TEXT_STYLES}
+      >
+        <MentionedText
+          content={value}
+          mentions={mentions}
+          mentionClassName="text-primary"
+        />
+        {value.endsWith('\n') && '\u200B'}
+      </div>
       <button
         onClick={onSubmit}
         disabled={!hasText}

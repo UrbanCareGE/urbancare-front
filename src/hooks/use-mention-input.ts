@@ -25,6 +25,9 @@ interface UseMentionInputResult {
   inputRef: React.RefObject<HTMLTextAreaElement | null>;
   handleChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   handleSelectionChange: (event: React.SyntheticEvent<HTMLTextAreaElement>) => void;
+  handleMentionDeletion: (
+    event: React.KeyboardEvent<HTMLTextAreaElement>
+  ) => boolean;
   picker:
     | { active: false }
     | { active: true; query: string };
@@ -104,10 +107,43 @@ export function useMentionInput({
 
   const cancel = useCallback(() => setTrigger(null), []);
 
+  const handleMentionDeletion = useCallback(
+    (event: React.KeyboardEvent<HTMLTextAreaElement>): boolean => {
+      if (event.key !== 'Backspace' && event.key !== 'Delete') return false;
+      const input = inputRef.current;
+      if (!input) return false;
+      const start = input.selectionStart ?? 0;
+      const end = input.selectionEnd ?? 0;
+      if (start !== end) return false;
+
+      const probe = event.key === 'Backspace' ? start - 1 : start;
+      const target = mentions.find(
+        (m) => m.fromIndex <= probe && probe < m.toIndex
+      );
+      if (!target) return false;
+
+      event.preventDefault();
+      const nextValue = value.slice(0, target.fromIndex) + value.slice(target.toIndex);
+      onMentionsChange(adjustMentions(value, nextValue, mentions));
+      onChange(nextValue);
+      setTrigger(null);
+
+      requestAnimationFrame(() => {
+        const el = inputRef.current;
+        if (!el) return;
+        el.focus();
+        el.setSelectionRange(target.fromIndex, target.fromIndex);
+      });
+      return true;
+    },
+    [mentions, value, onChange, onMentionsChange]
+  );
+
   return {
     inputRef,
     handleChange,
     handleSelectionChange,
+    handleMentionDeletion,
     picker: trigger ? { active: true, query: trigger.query } : { active: false },
     selectMember,
     cancel,

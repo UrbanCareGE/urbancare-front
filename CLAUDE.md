@@ -26,36 +26,45 @@ src/
 ├── app/                      # Next.js App Router
 │   ├── (home)/              # Grouped home routes
 │   │   └── apartment/[apartmentId]/
-│   │       ├── news/        # Thread feed
+│   │       ├── access/      # Door/parking access (placeholder)
+│   │       ├── chat/        # TalkJS chat
 │   │       ├── documents/   # Apartment docs
 │   │       ├── finances/    # Financial info
-│   │       ├── profile/     # User profile
-│   │       ├── post/        # Create content
 │   │       ├── info/        # Contacts, cars, docs
-│   │       └── urgent/      # Urgent notifications
+│   │       ├── news/        # Thread feed (legacy)
+│   │       ├── post/        # Posts feed (default after switching apartments)
+│   │       ├── profile/     # User profile
+│   │       ├── thread/[threadId]/  # Expanded thread + comments
+│   │       ├── urgent/      # Urgent notifications
+│   │       └── users/       # Apartment members list
 │   ├── auth/                # Login/Register
 │   └── api/                 # API routes + proxy
 ├── components/
 │   ├── ui/                  # shadcn/ui components
-│   ├── common/              # Shared (header, navbar, avatar, etc.)
-│   ├── thread/              # Thread/discussion feature
+│   ├── common/              # Shared (header, navbar, avatar, mention/, error/)
+│   ├── thread/              # Thread/discussion feature (form, edit, view, comments)
 │   ├── poll/                # Poll components
 │   ├── chat/                # TalkJS chat
-│   ├── profile/             # Profile management
-│   ├── urgent/              # Urgent notifications
+│   ├── profile/             # Profile management (incl. ChangePasswordForm)
+│   ├── urgent/              # Urgent (UrgentCard, CreateUrgentDialog, ...)
 │   └── provider/            # Context providers
 ├── hooks/
 │   ├── query/               # React Query hooks by feature
+│   │   ├── apartment/       # useApartmentMembers, useInfiniteApartments
 │   │   ├── auth/            # useLogin, useRegister, useOtp
-│   │   ├── thread/          # useCreateThread, useFetchThreads, usePollVote, useReactionVote
+│   │   ├── thread/          # useCreateThread, useFetchThreads, usePollVote,
+│   │   │                    #   useReactionVote, useCommentReactionVote,
+│   │   │                    #   useCreateComment, useDeleteComment
 │   │   ├── user/            # useUpdateProfile, useCars
 │   │   ├── chat/            # useChat
 │   │   └── urgent/          # useUrgent
+│   ├── use-mention-input.ts # @-mention picker state + edit-tracking
 │   ├── use-device.ts        # Device detection (mobile/tablet/desktop)
 │   ├── use-mobile-keyboard.ts
 │   └── use-mobile-scroll.ts
 ├── lib/
 │   ├── api-client.ts        # HTTP client with typed generics
+│   ├── mentions.ts          # adjustMentions, findMentionTrigger, sliceContentByMentions
 │   └── utils.ts             # cn(), formatTime()
 ├── model/                   # DTOs
 │   ├── auth.dto.ts          # User, Login, Register, Apartment
@@ -111,6 +120,22 @@ export function useThread() {
 import { cn } from '@/lib/utils';
 <div className={cn("base-classes", conditional && "conditional-class", className)} />
 ```
+
+### React Compiler caveats
+
+The codebase ships with React Compiler. Two patterns it complains about:
+
+1. **`form.watch(...)` from `react-hook-form`** — the returned function isn't memo-safe; the affected component is skipped from compilation. **Use `useWatch({ control, name })` instead** for any field you read in render.
+2. **`setState` inside a `useEffect`** purely to react to a prop/state change — replace with the [render-time state-adjustment pattern](https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes):
+   ```ts
+   const sessionKey = `${...}`;
+   const [prevKey, setPrevKey] = useState(sessionKey);
+   if (prevKey !== sessionKey) {
+     setPrevKey(sessionKey);
+     setActiveIndex(0);
+   }
+   ```
+3. **Mutating refs that came in as props** is also flagged. Prefer `forwardRef` or expose only callback refs; for narrow needs (focusing a textarea on `?comment=true`) use `autoFocus` plus the URL-derived boolean instead of an imperative ref.
 
 ## API Client Pattern
 
@@ -266,11 +291,17 @@ FileService.uploadPublicFile(file) → IdWrapperDTO
 // Limits: 10MB max, images + videos only
 ```
 
+### Public file fetch
+Backend exposes `GET /public/file/{id}` and `GET /public/file/{id}/info` (no auth, no apartment scope). Use these for embedding public assets in unauthenticated contexts (e.g. landing pages, share previews). Authenticated reads still go through `/api/file/...`.
+
 ## Domain Knowledge
 
 ### Thread Tags
 - ANNOUNCEMENT, QUESTION, DISCUSSION, ISSUE, SUGGESTION
 - EVENT, URGENT, POLL, INFO, MAINTENANCE
+
+### Thread Card click affordance
+- `ThreadCard` adds `cursor-pointer lg:hover:shadow-md` only when `expanded` is `false` (passed via the `ThreadCard` context). On the expanded thread page (`/apartment/{id}/thread/{threadId}`) and inside `ThreadCommentSection`, `expanded` is true → no hover/cursor affordance, and `ThreadPreviewHeader.onClick` is a no-op so the card body isn't clickable.
 
 ### Polls
 - Embedded in threads via `poll: PollDTO` property
@@ -280,32 +311,43 @@ FileService.uploadPublicFile(file) → IdWrapperDTO
 
 ### Reactions (Like/Dislike)
 Reactions use the same poll system as regular polls:
-- Stored in `reactions: PollDTO` on `ThreadInfoDTO`
+- Both `ThreadInfoDTO` and `ThreadCommentDTO` carry `reactions?: PollDTO`
 - Option index 0 = Like, Option index 1 = Dislike
 - Extensible: more reaction types can be added as poll options
-- Uses `useReactionVote` hook (similar pattern to `usePollVote`)
-- API: Same `pollVote` endpoint with reactions poll ID
+- API: Same `pollVote` endpoint (`/api/apartment/{aptId}/poll/{pollId}/vote`) with the relevant reactions poll ID
+- Hooks:
+  - `useReactionVote` — vote on thread reactions
+  - `useCommentReactionVote` — vote on a comment's reactions, walks the nested comment tree to do an immutable optimistic update
 
 ```typescript
-// Reading reactions
+// Reading reactions on a thread or a comment (same shape)
 const likeOption = thread.reactions?.items?.[0];
 const dislikeOption = thread.reactions?.items?.[1];
 const isLiked = likeOption?.voters?.some(v => v.id === userId);
 const likeCount = likeOption?.voteCount ?? 0;
-
-// Voting
-useReactionVote().mutate({
-    apartmentId,
-    reactionId: thread.reactions.id,
-    optionId: likeOption.id,  // or dislikeOption.id
-    threadId: thread.id
-});
 ```
+
+### User Mentions
+- `@`-mentions in thread/comment content. Stored as `mentions?: MentionDTO[]` on `ThreadInfoDTO`, `ThreadCommentDTO`, and the `Create*`/`Update*` request DTOs.
+- `MentionDTO = { userId, fromIndex, toIndex }` — points at a span inside `content`. Frontend highlights that span; backend validates ranges + apartment membership.
+- Pure helpers in `src/lib/mentions.ts`: `adjustMentions(oldText, newText, mentions)` re-aligns mentions when the underlying text changes; `findMentionTrigger` detects an active `@…` token at the cursor; `sliceContentByMentions` produces alternating text/mention segments.
+- Composer: `useMentionInput` (controlled value + mentions + picker state) is wrapped by `MentionInput` (create-thread body) and inlined in `CommentComposerInput`. Both layer a transparent textarea over a styled mirror div so mention spans are highlighted while the user is typing.
+- Picker: `MentionPickerList` renders via `createPortal(..., document.body)` — anchored to the textarea via `getBoundingClientRect()` so it escapes any overflow-hidden ancestor; data comes from `useApartmentMembers`.
+- Display: `MentionedText` renders content with mention ranges as styled spans on threads (`ThreadPreviewContent`) and comments.
 
 ### Apartments
 - Users can belong to multiple apartments
 - `selectedApartment` in user context
 - All content scoped to apartment
+- `selectApartment(id)` from `useAuth()`: clears apartment-scoped query cache and `router.push('/apartment/{id}')` (proxy redirects → `/chat`). It is the **single source of truth for apartment switching** — call sites must not also push their own URLs (would clobber the clean root).
+- Members fetched via `useApartmentMembers(apartmentId)` (full list, no paging) → `GET /api/apartment/{id}/members`. Used by the mention picker and the `/apartment/{id}/users` page.
+
+### Forms with persistent drafts (create-thread popup)
+- The form lives in `CreateThreadFormContainer`. Composer uses RHF; **values like body/files/tags/pollOptions/mentions are read with `useWatch` (not `form.watch`)** so React Compiler can track subscriptions properly.
+- Three guards keep drafts safe:
+  1. `beforeunload` listener — fires while `formState.isDirty`, blocks accidental refresh.
+  2. `onCloseRequest` callback on `CreateThreadOverlay` — runs on click-outside / Escape / X. If dirty it shows `DiscardDraftDialog` and resolves with the user's choice.
+  3. `skipGuardRef` flag — set right before `closeDrawer()` is called from the post-success path so a successful submit never trips the discard dialog (RHF's `formState.isDirty` is read by the guard but proxy-state updates can lag the synchronous `form.reset()` call).
 
 ### Roles & Admin Access
 Each apartment membership has a role: `'MEMBER' | 'ADMIN'`

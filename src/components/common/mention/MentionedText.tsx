@@ -36,9 +36,8 @@ export const MentionedText = ({
                 : undefined
             }
             className={cn(
-              'font-semibold text-primary',
-              onMentionClick && 'cursor-pointer lg:hover:underline',
-              mentionClassName
+              mentionClassName ?? 'font-semibold text-primary',
+              onMentionClick && 'cursor-pointer lg:hover:underline'
             )}
           >
             {segment.text}
