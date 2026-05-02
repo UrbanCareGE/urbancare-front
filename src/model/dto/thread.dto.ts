@@ -6,6 +6,8 @@ export enum VoteType {
   DOWNVOTE = 'DOWNVOTE',
 }
 
+export type CommentSortOption = 'LATEST' | 'POPULAR';
+
 export interface MentionDTO {
   userId: string;
   fromIndex: number;

@@ -114,6 +114,9 @@ export interface TranslationKeys {
     noCommentsYet: string;
     beFirstToComment: string;
     comments: string;
+    sortComments: string;
+    commentSortLatestLabel: string;
+    commentSortPopularLabel: string;
     writeComment: string;
     shareFailed: string;
     linkCopied: string;
