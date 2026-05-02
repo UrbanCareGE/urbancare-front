@@ -401,6 +401,9 @@ export interface TranslationKeys {
     manager: string;
     member: string;
   };
+  user: {
+    memberSince: string;
+  };
   notFound: {
     title: string;
     description: string;

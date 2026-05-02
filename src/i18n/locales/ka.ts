@@ -336,6 +336,9 @@ const ka: TranslationKeys = {
     manager: 'მენეჯერი',
     member: 'წევრი',
   },
+  user: {
+    memberSince: 'წევრია',
+  },
 
   notFound: {
     title: 'გვერდი ვერ მოიძებნა',

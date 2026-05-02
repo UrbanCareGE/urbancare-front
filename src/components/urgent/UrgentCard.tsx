@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useParams, useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -71,9 +72,21 @@ const UserAvatarLine = ({
   user: UserSnapshotDTO;
   size?: 'sm' | 'md';
 }) => {
+  const router = useRouter();
+  const params = useParams<{ apartmentId: string }>();
   const initials = ExtractUserInitials(user);
+
+  const goToUser = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!user?.id || !params?.apartmentId) return;
+    router.push(`/apartment/${params.apartmentId}/user/${user.id}`);
+  };
+
   return (
-    <div className="flex items-center gap-2.5 min-w-0">
+    <div
+      onClick={goToUser}
+      className="flex items-center gap-2.5 min-w-0 cursor-pointer"
+    >
       <Avatar
         className={cn(
           'urbancare-rounded-full ring-2 ring-border shrink-0',
@@ -92,7 +105,7 @@ const UserAvatarLine = ({
       </Avatar>
       <span
         className={cn(
-          'font-semibold text-text-primary truncate',
+          'font-semibold text-text-primary truncate lg:hover:underline',
           size === 'md' ? 'urbancare-text-sm' : 'urbancare-text-xs'
         )}
       >
@@ -207,6 +220,14 @@ export const UrgentCardCompact = ({
   className,
   onClick,
 }: UrgentCardCompactProps) => {
+  const router = useRouter();
+  const params = useParams<{ apartmentId: string }>();
+  const goToUser = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!user?.id || !params?.apartmentId) return;
+    router.push(`/apartment/${params.apartmentId}/user/${user.id}`);
+  };
+
   return (
     <Card
       onClick={onClick}
@@ -224,7 +245,10 @@ export const UrgentCardCompact = ({
         <p className="urbancare-text-sm font-semibold text-text-primary truncate">
           {content}
         </p>
-        <span className="urbancare-text-xs text-text-tertiary truncate">
+        <span
+          onClick={goToUser}
+          className="urbancare-text-xs text-text-tertiary truncate cursor-pointer lg:hover:underline lg:hover:text-text-primary"
+        >
           {user.name} {user.surname}
         </span>
       </div>

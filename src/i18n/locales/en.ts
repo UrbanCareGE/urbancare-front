@@ -335,6 +335,9 @@ const en: TranslationKeys = {
     manager: 'Manager',
     member: 'Member',
   },
+  user: {
+    memberSince: 'Member since',
+  },
 
   notFound: {
     title: 'Page not found',

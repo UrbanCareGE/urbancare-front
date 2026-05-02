@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useParams, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { getClientFileUrl } from '@/lib/api-client';
 import {
@@ -21,6 +22,13 @@ export const ThreadPreviewContent = ({
   expanded,
 }: ThreadCardContentProps) => {
   const { thread } = useThread();
+  const router = useRouter();
+  const params = useParams<{ apartmentId: string }>();
+
+  const goToMention = (mentionUserId: string) => {
+    if (!params?.apartmentId) return;
+    router.push(`/apartment/${params.apartmentId}/user/${mentionUserId}`);
+  };
 
   return (
     <div className={cn('flex flex-col gap-3', className)}>
@@ -44,6 +52,7 @@ export const ThreadPreviewContent = ({
         <MentionedText
           content={thread.content}
           mentions={thread.mentions}
+          onMentionClick={(m) => goToMention(m.userId)}
         />
       </p>
 

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { ShieldCheck, Users } from 'lucide-react';
 import { useApartmentMembers } from '@/hooks/query/apartment/use-apartment-members';
 import { useAuth } from '@/components/provider/AuthProvider';
@@ -53,31 +54,33 @@ export default function UsersPage() {
         ) : (
           <ul className="divide-y divide-border">
             {data.map((member) => (
-              <li
-                key={member.id}
-                className="flex items-center gap-3 px-4 py-3 transition-colors lg:hover:bg-surface-hover"
-              >
-                <UserAvatarView
-                  firstName={member.userInfo?.name}
-                  surname={member.userInfo?.surname}
-                  profileImageId={member.userInfo?.profileImageId}
-                />
-                <div className="flex-1 min-w-0">
-                  <p className="urbancare-text-base font-semibold text-text-primary truncate leading-tight-georgian">
-                    {member.userInfo?.name} {member.userInfo?.surname}
-                  </p>
-                </div>
-                {member.isManager && (
-                  <span
-                    className={cn(
-                      'inline-flex items-center gap-1 px-2 py-1 urbancare-rounded-lg shrink-0',
-                      'bg-primary/10 text-primary urbancare-text-xs font-bold uppercase tracking-wide'
-                    )}
-                  >
-                    <ShieldCheck className="w-3 h-3" strokeWidth={2.75} />
-                    {t.role.manager}
-                  </span>
-                )}
+              <li key={member.id}>
+                <Link
+                  href={`/apartment/${apartmentId}/user/${member.userId}`}
+                  className="flex items-center gap-3 px-4 py-3 transition-colors lg:hover:bg-surface-hover cursor-pointer"
+                >
+                  <UserAvatarView
+                    firstName={member.userInfo?.name}
+                    surname={member.userInfo?.surname}
+                    profileImageId={member.userInfo?.profileImageId}
+                  />
+                  <div className="flex-1 min-w-0">
+                    <p className="urbancare-text-base font-semibold text-text-primary truncate leading-tight-georgian">
+                      {member.userInfo?.name} {member.userInfo?.surname}
+                    </p>
+                  </div>
+                  {member.isManager && (
+                    <span
+                      className={cn(
+                        'inline-flex items-center gap-1 px-2 py-1 urbancare-rounded-lg shrink-0',
+                        'bg-primary/10 text-primary urbancare-text-xs font-bold uppercase tracking-wide'
+                      )}
+                    >
+                      <ShieldCheck className="w-3 h-3" strokeWidth={2.75} />
+                      {t.role.manager}
+                    </span>
+                  )}
+                </Link>
               </li>
             ))}
           </ul>

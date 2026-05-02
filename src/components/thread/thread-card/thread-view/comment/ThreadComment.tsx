@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
+import { useParams, useRouter } from 'next/navigation';
 import { ThreadCommentDTO } from '@/model/dto/thread.dto';
 import { cn, formatTime } from '@/lib/utils';
 import { ChevronDown, ChevronUp } from 'lucide-react';
@@ -23,10 +24,21 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
   const { userInfo, createdAt, content, replies = [] } = comment;
   const [showAll, setShowAll] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
+  const router = useRouter();
+  const params = useParams<{ apartmentId: string }>();
 
   const hasReplies = replies.length > 0;
   const visibleReplies = showAll ? replies : replies.slice(0, INITIAL_REPLIES);
   const hiddenCount = replies.length - INITIAL_REPLIES;
+
+  const goToUser = () => {
+    if (!userInfo?.id || !params?.apartmentId) return;
+    router.push(`/apartment/${params.apartmentId}/user/${userInfo.id}`);
+  };
+  const goToMention = (mentionUserId: string) => {
+    if (!params?.apartmentId) return;
+    router.push(`/apartment/${params.apartmentId}/user/${mentionUserId}`);
+  };
 
   const handleReplySubmit = (text: string) => {
     onReply?.(comment.id, text);
@@ -37,7 +49,10 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
     <div className="px-4 py-3">
       {/* Comment row */}
       <div className="flex gap-3">
-        <div className="flex-shrink-0">
+        <div
+          className="flex-shrink-0 cursor-pointer"
+          onClick={goToUser}
+        >
           <UserAvatarView
             firstName={userInfo.name}
             surname={userInfo.surname}
@@ -49,11 +64,18 @@ export const ThreadComment = ({ comment, onReply }: ThreadCommentProps) => {
           {/* Content bubble */}
           <div className="flex items-center gap-1">
             <div className="bg-surface-container urbancare-rounded-3xl urbancare-rounded-tl-xs px-3.5 py-2 inline-block max-w-full space-y-0.5">
-              <p className="font-semibold urbancare-text-sm leading-tight text-text-primary">
+              <p
+                onClick={goToUser}
+                className="font-semibold urbancare-text-sm leading-tight text-text-primary cursor-pointer lg:hover:underline"
+              >
                 {userInfo.name} {userInfo.surname}
               </p>
               <p className="urbancare-text-base text-text-primary leading-relaxed whitespace-pre-wrap break-words">
-                <MentionedText content={content} mentions={comment.mentions} />
+                <MentionedText
+                  content={content}
+                  mentions={comment.mentions}
+                  onMentionClick={(m) => goToMention(m.userId)}
+                />
               </p>
             </div>
             <CommentOptionsDropdown comment={comment} />
