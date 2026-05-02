@@ -65,6 +65,11 @@ export interface SetPasswordDTO {
   otp: string;
 }
 
+export interface ChangePhoneDTO {
+  phone: PhoneNumberDTO;
+  otp: string;
+}
+
 export interface CarDTO {
   id: string;
   licensePlate: string;

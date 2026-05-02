@@ -46,14 +46,13 @@ export const CreateThreadFormContainer = ({
   const [isPollMode, setIsPollMode] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const initialExistingImages: ExistingImage[] = useMemo(() => {
-    if (!editingThread?.images) return [];
-    return editingThread.images.map((img) => ({
-      fileId: img.id,
-      previewUrl: getClientFileUrl(img.id),
-      contentType: img.contentType ?? 'image/*',
-    }));
-  }, [editingThread?.images]);
+  const initialExistingImages: ExistingImage[] = editingThread?.images
+    ? editingThread.images.map((img) => ({
+        fileId: img.id,
+        previewUrl: getClientFileUrl(img.id),
+        contentType: img.contentType ?? 'image/*',
+      }))
+    : [];
 
   const schema = useMemo(() => createThreadSchema(t), [t]);
   const form = useForm<z.infer<typeof schema>>({

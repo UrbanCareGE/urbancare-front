@@ -44,6 +44,15 @@ export const NotificationDropdown = () => {
     if (!n.read) markRead.mutate(n.id);
     setOpen(false);
 
+    // Defend against notifications referencing an apartment the user is no
+    // longer a member of (e.g. they were kicked out between the mention being
+    // created and the click). Without this, selectApartment would push to a
+    // URL the apartment-membership guard immediately bounces back from.
+    const isStillMember = user?.joinedApartments?.some(
+      (a) => a.id === n.apartmentId
+    );
+    if (!isStillMember) return;
+
     const href = buildHref(n.apartmentId, n);
     if (user?.selectedApartmentId !== n.apartmentId) {
       selectApartment(n.apartmentId, href);

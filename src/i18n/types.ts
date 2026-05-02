@@ -210,6 +210,7 @@ export interface TranslationKeys {
     namePlaceholder: string;
     surnamePlaceholder: string;
     changePassword: string;
+    changePhone: string;
     oldPassword: string;
     newPassword: string;
     repeatPassword: string;
@@ -219,6 +220,9 @@ export interface TranslationKeys {
     surnameInput: string;
     passwordChanged: string;
     passwordChangeFailed: string;
+    phoneChanged: string;
+    phoneChangeFailed: string;
+    phoneSameAsCurrent: string;
     profilePhotoUpdated: string;
     profilePhotoFailed: string;
     profileUpdateFailed: string;

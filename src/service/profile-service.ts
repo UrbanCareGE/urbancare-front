@@ -3,6 +3,7 @@ import {
   UpdateProfileDTO,
   UpdateProfileImageDTO,
   ChangePasswordDTO,
+  ChangePhoneDTO,
   SetPasswordDTO,
   UserDTO,
 } from '@/model/dto/auth.dto';
@@ -36,6 +37,14 @@ export const ProfileService = {
   setPassword: async (data: SetPasswordDTO): Promise<SuccessDTO> => {
     const response = await api.put<SuccessDTO, SetPasswordDTO>(
       '/api/user/set-password',
+      data
+    );
+    return response.data;
+  },
+
+  changePhone: async (data: ChangePhoneDTO): Promise<SuccessDTO> => {
+    const response = await api.put<SuccessDTO, ChangePhoneDTO>(
+      '/api/user/change-phone',
       data
     );
     return response.data;

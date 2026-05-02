@@ -5,6 +5,7 @@ import DynamicPanel from '@/components/home/dynamic-panel/DynamicPanel';
 import { ProfileImageUpload } from '@/components/profile/ProfileImageUpload';
 import { PersonalInfoForm } from '@/components/profile/PersonalInfoForm';
 import { ChangePasswordForm } from '@/components/profile/ChangePasswordForm';
+import { ChangePhoneForm } from '@/components/profile/ChangePhoneForm';
 import PersonalCarsForm from '@/components/profile/PersonalCarsForm';
 
 function Page() {
@@ -14,6 +15,7 @@ function Page() {
         <div className="w-full space-y-5 flex flex-col justify-center pt-4 lg:pt-0">
           <ProfileImageUpload />
           <PersonalInfoForm />
+          <ChangePhoneForm />
           <ChangePasswordForm />
           <PersonalCarsForm />
         </div>

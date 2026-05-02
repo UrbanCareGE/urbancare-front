@@ -19,6 +19,6 @@ export function useThreadDetails(apartmentId?: string, threadId?: string) {
     enabled: !!apartmentId && !!threadId,
     staleTime: 10 * 60 * 1e3,
     retry: 2,
-    gcTime: Infinity,
+    gcTime: 30 * 60 * 1e3,
   });
 }

@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from 'clsx';
 import { extendTailwindMerge } from 'tailwind-merge';
 import { UserSnapshotDTO } from '@/model/dto/auth.dto';
-import { UserModel } from '@/components/provider/AuthProvider';
+import { UserModel } from '@/model/model/user.model';
 import { ApartmentDTO } from '@/model/dto/apartment.dto';
 
 const URBANCARE_TEXT_SIZES = [

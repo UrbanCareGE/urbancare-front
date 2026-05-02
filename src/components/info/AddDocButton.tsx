@@ -21,7 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import {
   useDocFormSchema,
   type AddDocFormValues,
@@ -90,9 +90,11 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
     },
   });
 
-  const docType = form.watch('type');
-  const titleLength = form.watch('title')?.length || 0;
-  const textLength = form.watch('text')?.length || 0;
+  const docType = useWatch({ control: form.control, name: 'type' });
+  const titleValue = useWatch({ control: form.control, name: 'title' });
+  const textValue = useWatch({ control: form.control, name: 'text' });
+  const titleLength = titleValue?.length || 0;
+  const textLength = textValue?.length || 0;
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || []);

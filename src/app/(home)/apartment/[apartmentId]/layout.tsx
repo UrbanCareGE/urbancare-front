@@ -1,4 +1,5 @@
 import React from 'react';
+import { ApartmentMembershipGuard } from '@/components/auth/ApartmentMembershipGuard';
 
 interface ApartmentLayoutProps {
   children: React.ReactNode;
@@ -7,6 +8,12 @@ interface ApartmentLayoutProps {
 
 export default async function ApartmentLayout({
   children,
+  params,
 }: ApartmentLayoutProps) {
-  return <>{children}</>;
+  const { apartmentId } = await params;
+  return (
+    <ApartmentMembershipGuard apartmentId={apartmentId}>
+      {children}
+    </ApartmentMembershipGuard>
+  );
 }

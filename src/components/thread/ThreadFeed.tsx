@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useInfiniteThreads } from '@/hooks/query/thread/use-fetch-threads';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { createTagsFilterSchema } from '@/components/thread/data/thread-filter-schema';
@@ -31,7 +31,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       tags: defaultTags,
     },
   });
-  const selectedTags = form.watch('tags');
+  const selectedTags = useWatch({ control: form.control, name: 'tags' });
 
   const inViewOptions = useMemo(
     () => ({
@@ -50,7 +50,6 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     isFetchingNextPage,
     hasNextPage,
     fetchNextPage,
-    refetch,
   } = useInfiniteThreads(
     apartmentId,
     selectedTags.length > 0 ? selectedTags : null
@@ -62,15 +61,14 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  const allThreads = useMemo(() => {
-    if (!data?.pages) return [];
-    return data.pages.flatMap((page) =>
-      page.content.map((threadId) => ({
-        threadId,
-        pageNumber: page.page.number,
-      }))
-    );
-  }, [data?.pages]);
+  const allThreads = data?.pages
+    ? data.pages.flatMap((page) =>
+        page.content.map((threadId) => ({
+          threadId,
+          pageNumber: page.page.number,
+        }))
+      )
+    : [];
 
   const handleToggleTag = useCallback(
     (tag: string) => {

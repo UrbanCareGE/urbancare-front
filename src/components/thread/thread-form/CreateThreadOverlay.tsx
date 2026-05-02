@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import { useResponsive } from '@/components/common/layouts/ResponsiveLayout';
@@ -103,7 +103,9 @@ export const CreateThreadOverlayRoot = ({
 }: CreateThreadSheetRootProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const guardRef = useRef(onCloseRequest);
-  guardRef.current = onCloseRequest;
+  useEffect(() => {
+    guardRef.current = onCloseRequest;
+  }, [onCloseRequest]);
 
   const value: CreateThreadOverlayContextType = {
     isOpen,

@@ -30,7 +30,15 @@ export function ProfileCompletionModal() {
       .string()
       .min(2, { message: t.profileValidation.surnameMinLength }),
   });
-  const [isOpen, setIsOpen] = useState(false);
+  const needsCompletion =
+    isAuthenticated &&
+    !!user &&
+    (!user.name?.trim() || !user.surname?.trim());
+  const [dismissed, setDismissed] = useState(false);
+  const isOpen = needsCompletion && !dismissed;
+  const setIsOpen = (open: boolean) => {
+    if (!open) setDismissed(true);
+  };
 
   const form = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
@@ -41,18 +49,9 @@ export function ProfileCompletionModal() {
   });
 
   useEffect(() => {
-    if (isAuthenticated && user) {
-      const needsCompletion =
-        !user.name ||
-        !user.surname ||
-        user.name.trim() === '' ||
-        user.surname.trim() === '';
-      setIsOpen(needsCompletion);
-
-      if (user.name) form.setValue('name', user.name);
-      if (user.surname) form.setValue('surname', user.surname);
-    }
-  }, [user, isAuthenticated]);
+    if (user?.name) form.setValue('name', user.name);
+    if (user?.surname) form.setValue('surname', user.surname);
+  }, [user?.name, user?.surname, form]);
 
   const onSubmit = async (values: z.infer<typeof profileSchema>) => {
     try {
