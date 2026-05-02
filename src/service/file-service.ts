@@ -10,7 +10,7 @@ export const FileService = {
     formData.append('file', file);
 
     const { data } = await api.post<IdWrapperDTO, FormData>(
-      `api/secure/file/${apartmentId}/upload`,
+      `/api/apartment/${apartmentId}/file/upload`,
       formData
     );
     return data;

@@ -104,7 +104,10 @@ const AddDocFormBody = ({ onDone }: AddDocFormBodyProps) => {
 
     for (const file of selectedFiles) {
       try {
-        const response = await FileService.uploadPublicFile(file);
+        const response = await FileService.uploadProtectedFile(
+          apartmentId,
+          file
+        );
         const fileId = response.id;
 
         const currentFileIds = form.getValues('fileIds') || [];

@@ -116,9 +116,12 @@ export const CreateThreadFormContainer = ({
 
     setFileUploading(true);
 
+    const apartmentId = user?.selectedApartmentId;
     const results = await Promise.allSettled(
       newEntries.map(async (entry, index) => {
-        const result = await FileService.uploadPublicFile(entry.file);
+        const result = apartmentId
+          ? await FileService.uploadProtectedFile(apartmentId, entry.file)
+          : await FileService.uploadPublicFile(entry.file);
         return { index: currentFiles.length + index, fileId: result.id };
       })
     );
