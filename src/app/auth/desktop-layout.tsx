@@ -1,9 +1,15 @@
 'use client';
 
-import React, { useMemo } from 'react';
-import { ChevronDown } from 'lucide-react';
-import { useTranslation } from '@/i18n';
+import React, { useMemo, useState } from 'react';
+import { Check, ChevronDown } from 'lucide-react';
+import { useLanguage, useTranslation, type Locale } from '@/i18n';
 import { UrbanCareIcon } from '@/components/common/logo/AppLogo';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
 
 /* ──────────────────────────────────────────────────────────────────
  * Skyline panorama — full-width city silhouette anchored to the bottom
@@ -168,6 +174,14 @@ export default function DesktopLayout({
   children: React.ReactNode;
 }) {
   const t = useTranslation();
+  const { locale, setLocale } = useLanguage();
+  const [langOpen, setLangOpen] = useState(false);
+
+  const languages: { code: Locale; flag: string; label: string }[] = [
+    { code: 'ka', flag: '🇬🇪', label: 'KA' },
+    { code: 'en', flag: '🇬🇧', label: 'EN' },
+  ];
+  const currentLang = languages.find((l) => l.code === locale) ?? languages[0];
 
   const stats = useMemo(
     () => [
@@ -266,14 +280,54 @@ export default function DesktopLayout({
             <span className="cursor-pointer transition-colors lg:hover:text-white">
               {t.authPages.contactUs}
             </span>
-            <button
-              type="button"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.08] border border-white/[0.14] urbancare-text-xs font-medium text-white transition-colors lg:hover:bg-white/[0.14]"
-            >
-              <span>🇬🇪</span>
-              <span>KA</span>
-              <ChevronDown className="w-3 h-3" />
-            </button>
+            <Popover open={langOpen} onOpenChange={setLangOpen}>
+              <PopoverTrigger asChild>
+                <button
+                  type="button"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.08] border border-white/[0.14] urbancare-text-xs font-medium text-white transition-colors lg:hover:bg-white/[0.14] focus:outline-none"
+                >
+                  <span>{currentLang.flag}</span>
+                  <span>{currentLang.label}</span>
+                  <ChevronDown
+                    className={cn(
+                      'w-3 h-3 transition-transform duration-200',
+                      langOpen && 'rotate-180'
+                    )}
+                  />
+                </button>
+              </PopoverTrigger>
+              <PopoverContent
+                align="end"
+                sideOffset={8}
+                className="dark w-36 p-1 bg-surface-elevated border border-white/[0.06] urbancare-rounded-2xl"
+              >
+                {languages.map((l) => {
+                  const active = l.code === locale;
+                  return (
+                    <button
+                      key={l.code}
+                      type="button"
+                      onClick={() => {
+                        setLocale(l.code);
+                        setLangOpen(false);
+                      }}
+                      className={cn(
+                        'flex items-center gap-2.5 w-full px-3 py-2 urbancare-rounded-xl urbancare-text-sm font-medium transition-colors',
+                        active
+                          ? 'bg-primary/15 text-text-primary'
+                          : 'text-text-secondary lg:hover:bg-white/[0.06] lg:hover:text-text-primary'
+                      )}
+                    >
+                      <span className="text-base leading-none">{l.flag}</span>
+                      <span className="flex-1 text-left">{l.label}</span>
+                      {active && (
+                        <Check className="w-3.5 h-3.5 text-primary" />
+                      )}
+                    </button>
+                  );
+                })}
+              </PopoverContent>
+            </Popover>
           </nav>
         </header>
 
@@ -296,17 +350,16 @@ export default function DesktopLayout({
 
             {/* Massive headline */}
             <h1
-              className="font-bold text-white tracking-tight"
+              className="font-bold text-white tracking-tight whitespace-nowrap"
               style={{
                 fontFamily: "'Fraunces', 'FiraGO', serif",
-                fontSize: 92,
+                fontSize: 72,
                 fontWeight: 500,
-                lineHeight: 0.95,
+                lineHeight: 1,
                 letterSpacing: '-0.035em',
               }}
             >
               {t.authPages.greetingHeadlineFirst}
-              <br />
               {t.authPages.greetingHeadlineSecond}
               <span style={{ color: '#A9C9FF' }}>
                 {t.authPages.greetingHeadlineAccent}

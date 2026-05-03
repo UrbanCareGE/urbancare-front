@@ -125,7 +125,7 @@ const ka: TranslationKeys = {
     escExit: 'გასვლა',
     enterContinue: 'გაგრძელება',
     yourDistrictAwaits: 'შენი უბანი გელოდება',
-    greetingHeadlineFirst: 'მოგე-',
+    greetingHeadlineFirst: 'მოგე',
     greetingHeadlineSecond: 'სალმე',
     greetingHeadlineAccent: 'ბით.',
     verificationSubtitle:

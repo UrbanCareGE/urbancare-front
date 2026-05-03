@@ -124,7 +124,7 @@ const en: TranslationKeys = {
     escExit: 'Exit',
     enterContinue: 'Continue',
     yourDistrictAwaits: 'Your district awaits',
-    greetingHeadlineFirst: 'Wel-',
+    greetingHeadlineFirst: 'Wel',
     greetingHeadlineSecond: 'co',
     greetingHeadlineAccent: 'me.',
     verificationSubtitle:

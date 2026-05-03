@@ -77,12 +77,12 @@ export default function TabletLayout({
         </div>
 
         <h1
-          className="font-bold text-white tracking-tight max-w-md"
+          className="font-bold text-white tracking-tight whitespace-nowrap"
           style={{
             fontFamily: "'Fraunces', 'FiraGO', serif",
-            fontSize: 64,
+            fontSize: 52,
             fontWeight: 500,
-            lineHeight: 0.95,
+            lineHeight: 1,
             letterSpacing: '-0.035em',
           }}
         >

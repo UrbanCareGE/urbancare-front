@@ -81,7 +81,7 @@ export function OtpLoginForm({
           )}
         />
 
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex items-center gap-3 urbancare-rounded-xl">
           <FormField
             control={form.control}
             name="otp"

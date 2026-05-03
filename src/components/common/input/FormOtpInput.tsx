@@ -14,19 +14,19 @@ function OtpSlot({ index, hasError }: { index: number; hasError: boolean }) {
     <div
       className={cn(
         'relative flex items-center justify-center transition-all duration-150',
-        'h-12 w-12 sm:h-[52px] sm:w-[52px]',
+        'h-12 w-12 sm:h-[52px] sm:w-[52px] shrink-0',
         'urbancare-rounded-xl',
         'urbancare-text-5xl font-semibold font-poppins',
-        // Default empty
+        // Default empty — recessed into the elevated container
         !isActive && !char && !hasError && 'bg-background border border-white/[0.06] text-text-tertiary',
-        // Filled
-        !isActive && char && !hasError && 'bg-surface-elevated border border-white/[0.06] text-text-primary',
+        // Filled — raised above container
+        !isActive && char && !hasError && 'bg-surface-container-high border border-white/[0.06] text-text-primary',
         // Active
         isActive && !hasError &&
-          'bg-surface-elevated border-2 border-primary text-text-primary z-10',
+          'bg-surface-container-high border-2 border-primary text-text-primary z-10',
         // Error states
         hasError && !isActive && 'bg-background border border-error/60 text-text-primary',
-        hasError && isActive && 'bg-surface-elevated border-2 border-error text-text-primary z-10'
+        hasError && isActive && 'bg-surface-container-high border-2 border-error text-text-primary z-10'
       )}
       style={
         isActive
@@ -60,21 +60,23 @@ export const FormOtpInput = React.forwardRef<
   const hasError = Boolean(error);
 
   return (
-    <div className="flex items-center justify-center w-full">
-      <InputOTP
-        ref={ref}
-        maxLength={6}
-        value={value as string | undefined}
-        onChange={onChange as ((value: string) => void) | undefined}
-        disabled={disabled}
-        containerClassName="flex items-center gap-2 sm:gap-2.5 has-[:disabled]:opacity-40"
-      >
-        <InputOTPGroup className="flex items-center gap-2 sm:gap-2.5">
-          {Array.from({ length: 6 }, (_, i) => (
-            <OtpSlot key={i} index={i} hasError={hasError} />
-          ))}
-        </InputOTPGroup>
-      </InputOTP>
+    <div className="w-full">
+      <div className="flex w-full bg-surface-elevated border border-white/[0.06] urbancare-rounded-xl p-1 sm:p-1.5">
+        <InputOTP
+          ref={ref}
+          maxLength={6}
+          value={value as string | undefined}
+          onChange={onChange as ((value: string) => void) | undefined}
+          disabled={disabled}
+          containerClassName="flex w-full items-center justify-between has-[:disabled]:opacity-40"
+        >
+          <InputOTPGroup className="flex w-full items-center justify-between">
+            {Array.from({ length: 6 }, (_, i) => (
+              <OtpSlot key={i} index={i} hasError={hasError} />
+            ))}
+          </InputOTPGroup>
+        </InputOTP>
+      </div>
     </div>
   );
 });
