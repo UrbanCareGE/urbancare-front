@@ -108,6 +108,21 @@ const en: TranslationKeys = {
     quickSmsRegistration: 'Quick SMS registration',
     thousandsJoined:
       'Thousands of residences have already joined the UrbanCare community.',
+    activeMembers: 'Active Residents',
+    cities: 'Districts in Tbilisi',
+    satisfactionRate: 'Verified',
+    howItWorks: 'How It Works',
+    districts: 'Districts',
+    contactUs: 'Contact Us',
+    neighborsJoinedThisWeek: 'neighbors joined this week',
+    escExit: 'Exit',
+    enterContinue: 'Continue',
+    yourDistrictAwaits: 'Your district awaits',
+    greetingHeadlineFirst: 'Wel-',
+    greetingHeadlineSecond: 'co',
+    greetingHeadlineAccent: 'me.',
+    verificationSubtitle:
+      "We'll send you a 6-digit code that verifies you as a resident. This single step turns your district into a true community.",
   },
 
   notification: {

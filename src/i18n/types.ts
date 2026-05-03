@@ -100,6 +100,20 @@ export interface TranslationKeys {
     safeProtected: string;
     quickSmsRegistration: string;
     thousandsJoined: string;
+    activeMembers: string;
+    cities: string;
+    satisfactionRate: string;
+    howItWorks: string;
+    districts: string;
+    contactUs: string;
+    neighborsJoinedThisWeek: string;
+    escExit: string;
+    enterContinue: string;
+    yourDistrictAwaits: string;
+    greetingHeadlineFirst: string;
+    greetingHeadlineSecond: string;
+    greetingHeadlineAccent: string;
+    verificationSubtitle: string;
   };
   notification: {
     title: string;

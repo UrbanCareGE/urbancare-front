@@ -109,6 +109,21 @@ const ka: TranslationKeys = {
     quickSmsRegistration: 'სწრაფი რეგისტრაცია SMS-ით',
     thousandsJoined:
       'UrbanCare-ის საზოგადოებას უკვე ათასობით საცხოვრებელი ერთიანდება.',
+    activeMembers: 'აქტიური მცხოვრები',
+    cities: 'უბანი თბილისში',
+    satisfactionRate: 'ვერიფიცირებული',
+    howItWorks: 'როგორ მუშაობს',
+    districts: 'უბნები',
+    contactUs: 'დაგვიკავშირდი',
+    neighborsJoinedThisWeek: 'მეზობელი შემოუერთდა ამ კვირას',
+    escExit: 'გასვლა',
+    enterContinue: 'გაგრძელება',
+    yourDistrictAwaits: 'შენი უბანი გელოდება',
+    greetingHeadlineFirst: 'მოგე-',
+    greetingHeadlineSecond: 'სალმე',
+    greetingHeadlineAccent: 'ბით.',
+    verificationSubtitle:
+      'გამოგიგზავნით 6-ნიშნა კოდს, რომელიც გადაგამოწმებს როგორც მცხოვრებს. სწორედ ეს ერთი ნაბიჯი ხდის თქვენს უბანს ჭეშმარიტ თემად.',
   },
 
   notification: {
