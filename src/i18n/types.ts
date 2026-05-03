@@ -323,6 +323,29 @@ export interface TranslationKeys {
   access: {
     workInProgressTitle: string;
     workInProgressMessage: string;
+    openDoor: string;
+    openingDoor: string;
+    doorOpened: string;
+    doorOpenFailed: string;
+    doorTitle: string;
+    doorDescription: string;
+    openGate: string;
+    gateOpened: string;
+    gateOpenFailed: string;
+    activate: string;
+    elevatorActivated: string;
+    elevatorActivateFailed: string;
+    callElevator: string;
+    elevatorCalledToFloor: string;
+    elevatorCallFailed: string;
+    floor: string;
+    floorMustBeNumber: string;
+    block: string;
+    doors: string;
+    elevators: string;
+    gates: string;
+    noControllers: string;
+    loadFailed: string;
   };
   neighborhood: {
     selectedLocation: string;
