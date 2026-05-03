@@ -6,11 +6,22 @@ export function LoginHeader() {
   const t = useTranslation();
 
   return (
-    <div className="mb-6 sm:mb-8">
-      <h1 className="urbancare-text-4xl sm:urbancare-text-5xl font-bold text-center text-primary mb-1.5 sm:mb-2">
+    <div className="mb-7">
+      <p className="urbancare-text-2xs font-semibold uppercase tracking-[0.16em] text-text-secondary">
         {t.auth.welcome}
+      </p>
+      <h1
+        className="mt-2.5 text-text-primary tracking-tight"
+        style={{
+          fontFamily: "'Fraunces', 'FiraGO', serif",
+          fontSize: 30,
+          fontWeight: 600,
+          letterSpacing: '-0.02em',
+        }}
+      >
+        {t.auth.enterCode}
       </h1>
-      <p className="text-center text-secondary urbancare-text-lg sm:urbancare-text-xl">
+      <p className="mt-2 urbancare-text-md text-text-secondary leading-relaxed">
         {t.auth.authorize}
       </p>
     </div>

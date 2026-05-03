@@ -81,6 +81,12 @@ const ka: TranslationKeys = {
     otpDescription: 'SMS კოდი გაიგზავნება თქვენს ტელეფონზე',
     passwordDescription: 'შეიყვანეთ თქვენი პაროლი',
     verifyAndSignIn: 'დადასტურება',
+    secure: 'დაცული',
+    newHere: 'ახალი ხარ აქ?',
+    createAccountLink: 'შექმენი ანგარიში',
+    enterCode: 'შეიყვანეთ კოდი',
+    sentCodeToNumber: 'გამოვაგზავნეთ 6-ნიშნა SMS კოდი ნომერზე',
+    changeNumber: 'შეცვლა',
   },
 
   authValidation: {

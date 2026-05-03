@@ -77,6 +77,12 @@ export interface TranslationKeys {
     otpDescription: string;
     passwordDescription: string;
     verifyAndSignIn: string;
+    secure: string;
+    newHere: string;
+    createAccountLink: string;
+    enterCode: string;
+    sentCodeToNumber: string;
+    changeNumber: string;
   };
   authValidation: {
     nameMinLength: string;

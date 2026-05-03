@@ -3,7 +3,7 @@
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { PhoneFormInput } from '@/components/common/input/PhoneFormInput';
 import { Button } from '@/components/ui/button';
-import { Loader2, Smartphone } from 'lucide-react';
+import { ArrowRight, Loader2, Smartphone } from 'lucide-react';
 import { useTranslation } from '@/i18n';
 import { UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
@@ -39,9 +39,9 @@ export function OtpLoginForm({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 sm:space-y-5"
+        className="space-y-5"
       >
-        {/* Phone input with embedded send OTP button */}
+        {/* Phone input — dark inset row */}
         <FormField
           control={form.control}
           name="phone"
@@ -53,17 +53,17 @@ export function OtpLoginForm({
                   disabled={isLoggingIn}
                   value={field.value.phone}
                   onChange={field.onChange}
-                  className="h-[48px] sm:h-[52px] border-border bg-surface urbancare-text-lg text-text-primary placeholder:text-text-muted lg:hover:border-border-hover focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10 transition-all duration-200"
+                  className="h-[52px] urbancare-rounded-xl border-white/[0.06] bg-background urbancare-text-base text-text-primary placeholder:text-text-tertiary lg:hover:border-white/[0.12] focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15 transition-all duration-200"
                   suffix={
                     <Button
                       type="button"
                       onClick={onSendOtp}
                       disabled={otpCooldown || isLoggingIn}
                       className={cn(
-                        'h-auto py-1.5 px-3 urbancare-rounded-lg font-medium urbancare-text-xs transition-all duration-200',
+                        'h-auto py-1.5 px-3 urbancare-rounded-lg font-semibold urbancare-text-xs transition-all duration-200',
                         otpSent && !otpCooldown
-                          ? 'bg-surface-variant border border-border text-primary lg:hover:bg-hover'
-                          : 'bg-gradient-primary text-white'
+                          ? 'bg-surface-elevated border border-white/[0.06] text-primary lg:hover:bg-surface-container-high'
+                          : 'bg-primary text-white shadow-[0_8px_20px_-6px_rgba(45,123,255,0.55)] lg:hover:bg-primary-hover'
                       )}
                     >
                       {otpCooldown ? (
@@ -81,7 +81,7 @@ export function OtpLoginForm({
           )}
         />
 
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-3">
           <FormField
             control={form.control}
             name="otp"
@@ -102,7 +102,7 @@ export function OtpLoginForm({
         </div>
 
         {/* Helper text */}
-        <p className="urbancare-text-sm text-text-muted text-center">
+        <p className="urbancare-text-sm text-text-tertiary text-center">
           {otpSent ? (
             <span className="text-success flex items-center justify-center gap-1.5">
               <Smartphone className="w-3.5 h-3.5 shrink-0" />
@@ -112,20 +112,26 @@ export function OtpLoginForm({
             t.auth.otpDescription
           )}
         </p>
+
         {/* Submit button */}
         <Button
           type="submit"
           disabled={isLoggingIn}
-          className="w-full h-[48px] sm:h-[52px] urbancare-rounded-2xl bg-gradient-primary shadow-[0_4px_16px_rgba(var(--color-primary)/0.3)] lg:hover:shadow-[0_6px_24px_rgba(var(--color-primary)/0.4)] active:scale-[0.98] transition-all duration-200 font-semibold relative overflow-hidden disabled:bg-disabled disabled:text-disabled-foreground"
+          className="w-full h-[52px] urbancare-rounded-xl bg-primary text-white font-bold urbancare-text-lg flex items-center justify-center gap-2.5 transition-all duration-200 lg:hover:bg-primary-hover active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed"
+          style={{
+            boxShadow: '0 14px 30px -10px rgba(45,123,255,0.6)',
+          }}
         >
-          <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
           {isLoggingIn ? (
             <>
-              <Loader2 className="w-5 h-5 animate-spin mr-2" />
+              <Loader2 className="w-5 h-5 animate-spin" />
               {t.common.wait}
             </>
           ) : (
-            t.auth.verifyAndSignIn
+            <>
+              {t.auth.verifyAndSignIn}
+              <ArrowRight className="w-4 h-4" />
+            </>
           )}
         </Button>
       </form>

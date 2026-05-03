@@ -214,7 +214,7 @@ const PhoneFormInput = React.forwardRef<HTMLInputElement, PhoneFormInputProps>(
               'urbancare-text-base sm:urbancare-text-xl text-text-primary',
               'placeholder:text-text-placeholder',
               'focus:outline-none',
-              'caret-black',
+              'caret-[rgb(var(--color-text-primary))]',
               disabled && 'cursor-not-allowed'
             )}
           />

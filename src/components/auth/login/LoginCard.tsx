@@ -14,7 +14,6 @@ import { useAuth } from '@/components/provider/AuthProvider';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Card, CardContent } from '@/components/ui/card';
 import { useTranslation } from '@/i18n';
 import { AnimatePresence, motion } from 'motion/react';
 import { useGenerateOtp } from '@/hooks/query/auth/use-otp';
@@ -112,50 +111,65 @@ export function LoginCard() {
   }, []);
 
   return (
-    <Card className="border-border-light urbancare-rounded-4xl animate-slide-up bg-background w-full max-w-[492px]">
-      <CardContent className="p-5 sm:p-8">
-        <LoginHeader />
-
-        <LoginModeSwitcher mode={mode} onSwitchMode={handleSwitchMode} />
-
-        <div className="min-h-[280px] sm:min-h-[300px]">
-          <AnimatePresence mode="wait">
-            {mode === 'otp' ? (
-              <motion.div
-                key="otp"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-              >
-                <OtpLoginForm
-                  form={otpForm}
-                  onSubmit={onOtpSubmit}
-                  isLoggingIn={isLoggingIn}
-                  otpSent={otpSent}
-                  otpCooldown={otpCooldown}
-                  onSendOtp={handleSendOtp}
-                  onCooldownComplete={handleCooldownComplete}
-                />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="password"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-              >
-                <PasswordLoginForm
-                  form={passwordForm}
-                  onSubmit={onPasswordSubmit}
-                  isLoggingIn={isLoggingIn}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
+    <div className="w-full max-w-[420px] animate-slide-up">
+      {/* Dark glass card — matches A3 design */}
+      <div
+        className="relative urbancare-rounded-4xl border border-white/[0.06] bg-surface backdrop-blur-xl"
+        style={{
+          boxShadow:
+            '0 40px 80px -20px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.04)',
+        }}
+      >
+        {/* Secured badge (top-right) */}
+        <div className="absolute top-3.5 right-3.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[rgba(122,241,176,0.12)] border border-[rgba(122,241,176,0.25)] urbancare-text-2xs font-semibold text-[#7AF1B0] uppercase tracking-[0.06em]">
+          <span className="w-1 h-1 rounded-full bg-[#7AF1B0]" />
+          {t.auth.secure}
         </div>
-      </CardContent>
-    </Card>
+
+        <div className="p-5 sm:p-7">
+          <LoginHeader />
+
+          <LoginModeSwitcher mode={mode} onSwitchMode={handleSwitchMode} />
+
+          <div className="min-h-[260px]">
+            <AnimatePresence mode="wait">
+              {mode === 'otp' ? (
+                <motion.div
+                  key="otp"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                >
+                  <OtpLoginForm
+                    form={otpForm}
+                    onSubmit={onOtpSubmit}
+                    isLoggingIn={isLoggingIn}
+                    otpSent={otpSent}
+                    otpCooldown={otpCooldown}
+                    onSendOtp={handleSendOtp}
+                    onCooldownComplete={handleCooldownComplete}
+                  />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="password"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                >
+                  <PasswordLoginForm
+                    form={passwordForm}
+                    onSubmit={onPasswordSubmit}
+                    isLoggingIn={isLoggingIn}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

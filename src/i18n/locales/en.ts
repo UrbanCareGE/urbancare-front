@@ -81,6 +81,12 @@ const en: TranslationKeys = {
     otpDescription: "We'll send an SMS code to your phone",
     passwordDescription: 'Enter your password',
     verifyAndSignIn: 'Verify & Sign In',
+    secure: 'Secure',
+    newHere: 'New here?',
+    createAccountLink: 'Create account',
+    enterCode: 'Enter code',
+    sentCodeToNumber: "We've sent a 6-digit SMS code to",
+    changeNumber: 'Change',
   },
 
   authValidation: {

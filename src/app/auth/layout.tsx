@@ -14,7 +14,7 @@ export default function HomeLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="dark">
       <MobileAdapter>
         <MobileLayout>{children}</MobileLayout>
       </MobileAdapter>
@@ -24,6 +24,6 @@ export default function HomeLayout({
       <DesktopAdapter>
         <DesktopLayout>{children}</DesktopLayout>
       </DesktopAdapter>
-    </>
+    </div>
   );
 }

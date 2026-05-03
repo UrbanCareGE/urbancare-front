@@ -19,14 +19,15 @@ export function LoginModeSwitcher({
   const t = useTranslation();
 
   return (
-    <div className="relative flex bg-surface urbancare-rounded-2xl p-1 mb-6 sm:mb-7 border border-border">
+    <div className="relative flex bg-background urbancare-rounded-2xl p-1 mb-6 border border-white/[0.06]">
       <motion.div
-        className="absolute top-1 bottom-1 urbancare-rounded-xl bg-gradient-primary shadow-[0_2px_8px_rgba(var(--color-primary)/0.25)]"
+        className="absolute top-1 bottom-1 urbancare-rounded-xl bg-primary"
         layout
         transition={{ type: 'spring', stiffness: 400, damping: 30 }}
         style={{
           left: mode === 'otp' ? '4px' : '50%',
           right: mode === 'password' ? '4px' : '50%',
+          boxShadow: '0 8px 20px -6px rgba(45,123,255,0.55)',
         }}
       />
 
@@ -37,7 +38,7 @@ export function LoginModeSwitcher({
           'relative z-10 flex-1 flex items-center justify-center gap-2 py-2.5 urbancare-rounded-xl urbancare-text-base font-semibold transition-colors duration-200',
           mode === 'otp'
             ? 'text-white'
-            : 'text-text-muted lg:hover:text-text-primary'
+            : 'text-text-tertiary lg:hover:text-text-primary'
         )}
       >
         <MessageSquare className="w-4 h-4" />
@@ -51,7 +52,7 @@ export function LoginModeSwitcher({
           'relative z-10 flex-1 flex items-center justify-center gap-2 py-2.5 urbancare-rounded-xl urbancare-text-base font-semibold transition-colors duration-200',
           mode === 'password'
             ? 'text-white'
-            : 'text-text-muted lg:hover:text-text-primary'
+            : 'text-text-tertiary lg:hover:text-text-primary'
         )}
       >
         <KeyRound className="w-4 h-4" />

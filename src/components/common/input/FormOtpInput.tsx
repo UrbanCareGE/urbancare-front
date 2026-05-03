@@ -13,38 +13,35 @@ function OtpSlot({ index, hasError }: { index: number; hasError: boolean }) {
   return (
     <div
       className={cn(
-        'relative flex h-12 w-11 items-center justify-center bg-surface',
-        'urbancare-text-xl font-semibold font-poppins',
-        'urbancare-rounded-xl border',
-        'shadow-sm shadow-shadow/5',
-        'transition-all duration-200',
+        'relative flex items-center justify-center transition-all duration-150',
+        'h-12 w-12 sm:h-[52px] sm:w-[52px]',
+        'urbancare-rounded-xl',
+        'urbancare-text-5xl font-semibold font-poppins',
         // Default empty
-        !isActive &&
-          !char &&
-          !hasError &&
-          'border-input-border text-text-muted',
+        !isActive && !char && !hasError && 'bg-background border border-white/[0.06] text-text-tertiary',
         // Filled
-        !isActive &&
-          char &&
-          !hasError &&
-          'border-border-strong text-text-primary bg-surface',
+        !isActive && char && !hasError && 'bg-surface-elevated border border-white/[0.06] text-text-primary',
         // Active
-        isActive &&
-          !hasError &&
-          'border-input-border-focus ring-2 ring-primary/15 text-text-primary bg-surface z-10',
-        // Error (any state)
-        hasError &&
-          !isActive &&
-          'border-input-border-error text-text-primary ring-2 ring-error/10',
-        hasError &&
-          isActive &&
-          'border-input-border-error text-text-primary ring-2 ring-error/15 z-10'
+        isActive && !hasError &&
+          'bg-surface-elevated border-2 border-primary text-text-primary z-10',
+        // Error states
+        hasError && !isActive && 'bg-background border border-error/60 text-text-primary',
+        hasError && isActive && 'bg-surface-elevated border-2 border-error text-text-primary z-10'
       )}
+      style={
+        isActive
+          ? {
+              boxShadow: hasError
+                ? '0 0 0 4px rgba(248,113,113,0.18)'
+                : '0 0 0 4px rgba(45,136,255,0.18)',
+            }
+          : undefined
+      }
     >
       {char}
       {hasFakeCaret && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="h-5 w-px animate-caret-blink bg-primary duration-1000" />
+          <div className="h-6 w-px animate-caret-blink bg-primary duration-1000" />
         </div>
       )}
     </div>
@@ -63,23 +60,21 @@ export const FormOtpInput = React.forwardRef<
   const hasError = Boolean(error);
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="inline-flex items-center gap-1 lg:gap-2 urbancare-rounded-2xl border border-border bg-surface-container px-1.5 py-1.5 shadow-sm shadow-shadow/5">
-        <InputOTP
-          ref={ref}
-          maxLength={6}
-          value={value as string | undefined}
-          onChange={onChange as ((value: string) => void) | undefined}
-          disabled={disabled}
-          containerClassName="flex items-center gap-2 has-[:disabled]:opacity-40"
-        >
-          <InputOTPGroup className="flex items-center gap-x-2">
-            {Array.from({ length: 6 }, (_, i) => (
-              <OtpSlot key={i} index={i} hasError={hasError} />
-            ))}
-          </InputOTPGroup>
-        </InputOTP>
-      </div>
+    <div className="flex items-center justify-center w-full">
+      <InputOTP
+        ref={ref}
+        maxLength={6}
+        value={value as string | undefined}
+        onChange={onChange as ((value: string) => void) | undefined}
+        disabled={disabled}
+        containerClassName="flex items-center gap-2 sm:gap-2.5 has-[:disabled]:opacity-40"
+      >
+        <InputOTPGroup className="flex items-center gap-2 sm:gap-2.5">
+          {Array.from({ length: 6 }, (_, i) => (
+            <OtpSlot key={i} index={i} hasError={hasError} />
+          ))}
+        </InputOTPGroup>
+      </InputOTP>
     </div>
   );
 });
