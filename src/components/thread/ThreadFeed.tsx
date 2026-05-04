@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useInfiniteThreads } from '@/hooks/query/thread/use-fetch-threads';
@@ -12,6 +12,11 @@ import { TagsFilterMobile } from '@/components/thread/filter/TagsFilter.mobile';
 import { TagsFilterDesktop } from '@/components/thread/filter/TagsFilter.desktop';
 import { CreateThreadFormContainer } from '@/components/thread/thread-form/CreateThreadForm';
 import { Thread } from '@/components/thread/thread-card/Thread';
+import type { ThreadFilters } from '@/components/thread/thread-filter/ThreadFilterModal';
+import {
+  DEFAULT_THREAD_FILTERS,
+  ThreadFiltersProvider,
+} from '@/components/thread/thread-filter/ThreadFiltersContext';
 import { useTranslation } from '@/i18n';
 
 export interface ThreadFeedProps {
@@ -33,6 +38,23 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
   });
   const selectedTags = useWatch({ control: form.control, name: 'tags' });
 
+  const [filters, setFilters] = useState<ThreadFilters>(DEFAULT_THREAD_FILTERS);
+
+  const fetchFilters = useMemo(
+    () => ({
+      dateFrom: filters.timeRange.from || undefined,
+      dateTo: filters.timeRange.to || undefined,
+      hasMedia: filters.hasMedia || undefined,
+      hasPoll: filters.hasPoll || undefined,
+    }),
+    [filters]
+  );
+
+  const filtersContextValue = useMemo(
+    () => ({ filters, setFilters }),
+    [filters]
+  );
+
   const inViewOptions = useMemo(
     () => ({
       threshold: 0.1,
@@ -52,7 +74,8 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     fetchNextPage,
   } = useInfiniteThreads(
     apartmentId,
-    selectedTags.length > 0 ? selectedTags : null
+    selectedTags.length > 0 ? selectedTags : null,
+    fetchFilters
   );
 
   useEffect(() => {
@@ -103,6 +126,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
   }
 
   return (
+    <ThreadFiltersProvider value={filtersContextValue}>
     <div className="w-full space-y-4 mx-auto">
       <CreateThreadFormContainer />
 
@@ -138,6 +162,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
         </div>
       )}
     </div>
+    </ThreadFiltersProvider>
   );
 }
 

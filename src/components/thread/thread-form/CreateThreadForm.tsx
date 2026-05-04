@@ -17,6 +17,10 @@ import {
 import { CreateThreadFormView } from '@/components/thread/thread-form/CreateThreadFormView';
 import { CreateThreadOverlayRoot } from '@/components/thread/thread-form/CreateThreadOverlay';
 import { DiscardDraftDialog } from '@/components/thread/thread-form/DiscardDraftDialog';
+import {
+  DEFAULT_THREAD_FILTERS,
+  useThreadFiltersContext,
+} from '@/components/thread/thread-filter/ThreadFiltersContext';
 import { ThreadInfoDTO } from '@/model/dto/thread.dto';
 import { toast } from 'sonner';
 import { useTranslation } from '@/i18n';
@@ -36,6 +40,7 @@ export const CreateThreadFormContainer = ({
 
   const createThread = useCreateThread();
   const editThread = useEditThread();
+  const filtersCtx = useThreadFiltersContext();
   const mutation = isEdit ? editThread : createThread;
   const isPending = mutation.isPending;
   const isError = mutation.isError;
@@ -283,6 +288,9 @@ export const CreateThreadFormContainer = ({
       });
       setIsPollMode(false);
       skipGuardRef.current = true;
+      if (!isEdit) {
+        filtersCtx?.setFilters(DEFAULT_THREAD_FILTERS);
+      }
       options?.onSuccess?.();
     };
 

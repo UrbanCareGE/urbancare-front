@@ -45,7 +45,13 @@ export const ThreadService = {
   getAll: async (
     apartmentId: string,
     paging: PagingDTO,
-    tags?: string[]
+    tags?: string[],
+    filters?: {
+      dateFrom?: string;
+      dateTo?: string;
+      hasMedia?: boolean;
+      hasPoll?: boolean;
+    }
   ): Promise<PagingRespDTO<ThreadInfoDTO>> => {
     const { data } = await api.get<PagingRespDTO<ThreadInfoDTO>>(
       `/api/apartment/${apartmentId}/thread/list`,
@@ -53,6 +59,10 @@ export const ThreadService = {
         params: {
           ...paging,
           ...(tags && tags.length > 0 && { tags: tags.join(',') }),
+          ...(filters?.dateFrom && { dateFrom: filters.dateFrom }),
+          ...(filters?.dateTo && { dateTo: filters.dateTo }),
+          ...(filters?.hasMedia && { hasMedia: true }),
+          ...(filters?.hasPoll && { hasPoll: true }),
         },
       }
     );

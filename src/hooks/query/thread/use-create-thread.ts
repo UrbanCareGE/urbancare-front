@@ -43,11 +43,11 @@ export function useCreateThread() {
     },
     onMutate: async ({ title, content, mentions }) => {
       const id = 'temp-' + Date.now();
-      const queryListKey = ['threads', 'list', user.selectedApartmentId!, null];
+      const listKeyPrefix = ['threads', 'list', user.selectedApartmentId!];
       const queryDetailKey = ['threads', 'detail', id];
 
-      queryClient.setQueryData<InfiniteData<PagingRespDTO<string>>>(
-        queryListKey,
+      queryClient.setQueriesData<InfiniteData<PagingRespDTO<string>>>(
+        { queryKey: listKeyPrefix },
         (prev) => {
           if (!prev) return prev;
           return {
@@ -96,10 +96,10 @@ export function useCreateThread() {
 
     onSuccess: (threadInfo, dto, context) => {
       const tempId = context?.tempId;
-      const queryListKey = ['threads', 'list', user.selectedApartmentId!, null];
+      const listKeyPrefix = ['threads', 'list', user.selectedApartmentId!];
 
-      queryClient.setQueryData<InfiniteData<PagingRespDTO<string>>>(
-        queryListKey,
+      queryClient.setQueriesData<InfiniteData<PagingRespDTO<string>>>(
+        { queryKey: listKeyPrefix },
         (prev) => {
           if (!prev) return prev;
           return {
@@ -129,10 +129,10 @@ export function useCreateThread() {
     onError: (error, dto, context) => {
       const tempId = context?.tempId;
 
-      const queryListKey = ['threads', 'list', user.selectedApartmentId!, null];
+      const listKeyPrefix = ['threads', 'list', user.selectedApartmentId!];
 
-      queryClient.setQueryData<InfiniteData<PagingRespDTO<string>>>(
-        queryListKey,
+      queryClient.setQueriesData<InfiniteData<PagingRespDTO<string>>>(
+        { queryKey: listKeyPrefix },
         (prev) => {
           if (!prev) return prev;
           return {

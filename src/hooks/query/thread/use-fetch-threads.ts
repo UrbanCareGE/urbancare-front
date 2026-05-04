@@ -3,18 +3,30 @@
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { ThreadService } from '@/service/thread-service';
 
+export interface ThreadFetchFilters {
+  dateFrom?: string;
+  dateTo?: string;
+  hasMedia?: boolean;
+  hasPoll?: boolean;
+}
+
 /*
  *  უსასრულო სქროლისთვის ვინახავთ მხოლოდ id-ებს ქეშში და paging-ინფორმაციას
  *  თითოეულ ინფოს პოსტისთვის შეგვიძლია ცალკე მივწვდეთ და ოპტიმისტური განახლებები ვაკეთოთ მარტივად
  * */
-export function useInfiniteThreads(apartmentId: string, tags: string[] | null) {
+export function useInfiniteThreads(
+  apartmentId: string,
+  tags: string[] | null,
+  filters?: ThreadFetchFilters
+) {
   const queryClient = useQueryClient();
 
   const fetchItems = async ({ pageParam = 0 }) => {
     const data = await ThreadService.getAll(
       apartmentId!,
       { page: pageParam, size: 15 },
-      tags ?? []
+      tags ?? [],
+      filters
     );
 
     data.content.forEach((thread) => {
@@ -28,7 +40,7 @@ export function useInfiniteThreads(apartmentId: string, tags: string[] | null) {
   };
 
   return useInfiniteQuery({
-    queryKey: ['threads', 'list', apartmentId, tags],
+    queryKey: ['threads', 'list', apartmentId, tags, filters],
     queryFn: fetchItems,
     initialPageParam: 0,
     getNextPageParam: (lastPage) =>
