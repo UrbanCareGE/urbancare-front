@@ -16,11 +16,11 @@ export const LogoutButton = () => {
   };
   return (
     <Button
-      className="flex w-full items-center justify-center gap-2 px-4 py-1 bg-error-container text-error urbancare-rounded-panel font-medium urbancare-text-xl lg:hover:bg-error/50 lg:hover:text-error-foreground transition-colors duration-150"
+      className="flex w-full items-center justify-center gap-2 h-11 bg-error-container text-error urbancare-rounded-xl font-semibold urbancare-text-base lg:hover:bg-error/15 transition-colors duration-150"
       onClick={handleLogout}
       disabled={isLoggingOut}
     >
-      <LogOut className="w-5 h-5" />
+      <LogOut className="w-4 h-4" />
       {t.auth.signOut}
       {isLoggingOut && <Spinner />}
     </Button>

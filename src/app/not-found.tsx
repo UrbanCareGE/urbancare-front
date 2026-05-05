@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { ArrowLeft, Home, MapPinOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/i18n';
@@ -9,7 +8,26 @@ import { UrbanCareIcon, UrbanCareTextIcon } from '@/components/common/logo/AppLo
 
 export default function NotFound() {
   const t = useTranslation();
-  const router = useRouter();
+
+  // `router.back()` from a not-found page leaves Next.js's App Router in a
+  // stale state — the previous route's `loading.tsx` Suspense fallback shows
+  // and never resolves. Forcing a full document navigation gives the destination
+  // route a clean Next.js runtime to mount in.
+  const handleGoBack = () => {
+    if (typeof window === 'undefined') return;
+
+    const sameOriginReferrer =
+      document.referrer &&
+      (() => {
+        try {
+          return new URL(document.referrer).origin === window.location.origin;
+        } catch {
+          return false;
+        }
+      })();
+
+    window.location.href = sameOriginReferrer ? document.referrer : '/';
+  };
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-6 py-12">
@@ -64,7 +82,7 @@ export default function NotFound() {
             </Link>
             <button
               type="button"
-              onClick={() => router.back()}
+              onClick={handleGoBack}
               className={cn(
                 'inline-flex items-center justify-center gap-2 w-full h-12 px-5',
                 'urbancare-rounded-lg bg-surface-variant text-text-secondary border border-border',

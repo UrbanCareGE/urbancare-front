@@ -6,13 +6,15 @@ import { NavItem } from '@/components/home/sidebar/mobile/navigation/NavigationA
 import { SheetClose } from '@/components/ui/sheet';
 import LanguageSelector from '@/components/common/util/LanguageSelector';
 import { MobileThemeSelector } from '@/components/common/util/MobileThemeSelector';
+import { useAuth } from '@/components/provider/AuthProvider';
 import { useTranslation } from '@/i18n';
 
 export const getProfileItems = (
-  t: ReturnType<typeof useTranslation>
+  t: ReturnType<typeof useTranslation>,
+  apartmentId: string | undefined
 ): NavItem[] => [
   {
-    href: '/profile',
+    href: apartmentId ? `/apartment/${apartmentId}/profile` : '/',
     label: t.sidebar.settings,
     icon: <SettingsIcon className={'text-primary'} />,
   },
@@ -49,7 +51,8 @@ const GradientDivider = () => (
 
 export const ProfileSideBarBody = () => {
   const t = useTranslation();
-  const profileItems = getProfileItems(t);
+  const { user } = useAuth();
+  const profileItems = getProfileItems(t, user?.selectedApartmentId);
   const supportItems = getSupportItems(t);
 
   return (
