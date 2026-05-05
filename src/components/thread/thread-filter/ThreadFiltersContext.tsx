@@ -13,6 +13,7 @@ const ThreadFiltersContext = createContext<ThreadFiltersContextValue | null>(
 );
 
 export const DEFAULT_THREAD_FILTERS: ThreadFilters = {
+  tags: [],
   timeRange: {},
   scope: 'ALL',
   hasMedia: false,

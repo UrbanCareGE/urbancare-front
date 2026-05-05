@@ -129,6 +129,7 @@ export interface ThreadInfoDTO {
   voteDiff: number;
   commentCount: number;
   selfVote: number;
+  selfSaved: boolean;
   comments: ThreadCommentDTO[];
   createdAt: Date;
   userInfo?: UserSnapshotDTO;

@@ -74,6 +74,7 @@ export function useCreateThread() {
         createdAt: new Date(),
         images: [],
         selfVote: 0,
+        selfSaved: false,
         voteDiff: 0,
         mentions,
         _isPending: true,
@@ -151,6 +152,15 @@ export function useCreateThread() {
       );
 
       queryClient.removeQueries({ queryKey: ['threads', 'detail', tempId] });
+    },
+    onSettled: () => {
+      // Reconcile filter-specific list caches (e.g., SAVED, MINE, with date/tag
+      // filters) where our prefix-wide optimistic prepend may have inserted the
+      // post into a cache it doesn't actually belong in. The active cache's
+      // optimistic state has already been replaced in onSuccess.
+      queryClient.invalidateQueries({
+        queryKey: ['threads', 'list', user.selectedApartmentId!],
+      });
     },
   });
 }

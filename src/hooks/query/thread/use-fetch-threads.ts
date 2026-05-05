@@ -4,10 +4,12 @@ import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { ThreadService } from '@/service/thread-service';
 
 export interface ThreadFetchFilters {
+  tags?: string[];
   dateFrom?: string;
   dateTo?: string;
   hasMedia?: boolean;
   hasPoll?: boolean;
+  scope?: 'ALL' | 'SAVED' | 'MINE';
 }
 
 /*
@@ -16,7 +18,6 @@ export interface ThreadFetchFilters {
  * */
 export function useInfiniteThreads(
   apartmentId: string,
-  tags: string[] | null,
   filters?: ThreadFetchFilters
 ) {
   const queryClient = useQueryClient();
@@ -25,7 +26,6 @@ export function useInfiniteThreads(
     const data = await ThreadService.getAll(
       apartmentId!,
       { page: pageParam, size: 15 },
-      tags ?? [],
       filters
     );
 
@@ -40,7 +40,7 @@ export function useInfiniteThreads(
   };
 
   return useInfiniteQuery({
-    queryKey: ['threads', 'list', apartmentId, tags, filters],
+    queryKey: ['threads', 'list', apartmentId, filters],
     queryFn: fetchItems,
     initialPageParam: 0,
     getNextPageParam: (lastPage) =>

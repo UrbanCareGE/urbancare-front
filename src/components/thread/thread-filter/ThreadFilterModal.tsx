@@ -36,6 +36,7 @@ export interface ThreadTimeRange {
 export type ThreadScope = 'ALL' | 'MINE' | 'SAVED';
 
 export interface ThreadFilters {
+  tags: string[];
   timeRange: ThreadTimeRange;
   scope: ThreadScope;
   hasMedia: boolean;
@@ -43,6 +44,7 @@ export interface ThreadFilters {
 }
 
 const DEFAULT_FILTERS: ThreadFilters = {
+  tags: [],
   timeRange: {},
   scope: 'ALL',
   hasMedia: false,

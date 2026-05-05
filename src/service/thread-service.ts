@@ -45,12 +45,13 @@ export const ThreadService = {
   getAll: async (
     apartmentId: string,
     paging: PagingDTO,
-    tags?: string[],
     filters?: {
+      tags?: string[];
       dateFrom?: string;
       dateTo?: string;
       hasMedia?: boolean;
       hasPoll?: boolean;
+      scope?: 'ALL' | 'SAVED' | 'MINE';
     }
   ): Promise<PagingRespDTO<ThreadInfoDTO>> => {
     const { data } = await api.get<PagingRespDTO<ThreadInfoDTO>>(
@@ -58,11 +59,14 @@ export const ThreadService = {
       {
         params: {
           ...paging,
-          ...(tags && tags.length > 0 && { tags: tags.join(',') }),
+          ...(filters?.tags &&
+            filters.tags.length > 0 && { tags: filters.tags.join(',') }),
           ...(filters?.dateFrom && { dateFrom: filters.dateFrom }),
           ...(filters?.dateTo && { dateTo: filters.dateTo }),
           ...(filters?.hasMedia && { hasMedia: true }),
           ...(filters?.hasPoll && { hasPoll: true }),
+          ...(filters?.scope &&
+            filters.scope !== 'ALL' && { scope: filters.scope }),
         },
       }
     );
@@ -70,6 +74,12 @@ export const ThreadService = {
   },
   delete: async (apartmentId: string, threadId: string): Promise<void> => {
     await api.delete(`/api/apartment/${apartmentId}/thread/${threadId}`);
+  },
+  save: async (apartmentId: string, threadId: string): Promise<void> => {
+    await api.post(`/api/apartment/${apartmentId}/thread/${threadId}/save`);
+  },
+  unsave: async (apartmentId: string, threadId: string): Promise<void> => {
+    await api.delete(`/api/apartment/${apartmentId}/thread/${threadId}/save`);
   },
   vote: async (
     apartmentId: string,

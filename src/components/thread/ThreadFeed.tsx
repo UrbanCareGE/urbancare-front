@@ -4,10 +4,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useInfiniteThreads } from '@/hooks/query/thread/use-fetch-threads';
-import { useForm, useWatch } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { createTagsFilterSchema } from '@/components/thread/data/thread-filter-schema';
 import { TagsFilterMobile } from '@/components/thread/filter/TagsFilter.mobile';
 import { TagsFilterDesktop } from '@/components/thread/filter/TagsFilter.desktop';
 import { CreateThreadFormContainer } from '@/components/thread/thread-form/CreateThreadForm';
@@ -28,24 +24,19 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
   const t = useTranslation();
   const apartmentId = user.selectedApartmentId!;
 
-  const TagsFilterSchema = useMemo(() => createTagsFilterSchema(t), [t]);
-
-  const form = useForm<z.infer<typeof TagsFilterSchema>>({
-    resolver: zodResolver(TagsFilterSchema),
-    defaultValues: {
-      tags: defaultTags,
-    },
-  });
-  const selectedTags = useWatch({ control: form.control, name: 'tags' });
-
-  const [filters, setFilters] = useState<ThreadFilters>(DEFAULT_THREAD_FILTERS);
+  const [filters, setFilters] = useState<ThreadFilters>(() => ({
+    ...DEFAULT_THREAD_FILTERS,
+    tags: defaultTags,
+  }));
 
   const fetchFilters = useMemo(
     () => ({
+      tags: filters.tags.length > 0 ? filters.tags : undefined,
       dateFrom: filters.timeRange.from || undefined,
       dateTo: filters.timeRange.to || undefined,
       hasMedia: filters.hasMedia || undefined,
       hasPoll: filters.hasPoll || undefined,
+      scope: filters.scope === 'ALL' ? undefined : filters.scope,
     }),
     [filters]
   );
@@ -72,11 +63,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     isFetchingNextPage,
     hasNextPage,
     fetchNextPage,
-  } = useInfiniteThreads(
-    apartmentId,
-    selectedTags.length > 0 ? selectedTags : null,
-    fetchFilters
-  );
+  } = useInfiniteThreads(apartmentId, fetchFilters);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -95,21 +82,19 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
 
   const handleToggleTag = useCallback(
     (tag: string) => {
-      if (selectedTags.includes(tag)) {
-        form.setValue(
-          'tags',
-          selectedTags.filter((t) => t !== tag)
-        );
-      } else {
-        form.setValue('tags', [...selectedTags, tag]);
-      }
+      setFilters((prev) => {
+        const nextTags = prev.tags.includes(tag)
+          ? prev.tags.filter((t) => t !== tag)
+          : [...prev.tags, tag];
+        return { ...prev, tags: nextTags };
+      });
     },
-    [selectedTags, form]
+    []
   );
 
   const handleClearTags = useCallback(() => {
-    form.setValue('tags', []);
-  }, [form]);
+    setFilters((prev) => ({ ...prev, tags: [] }));
+  }, []);
 
   if (error) {
     return (
@@ -130,9 +115,9 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     <div className="w-full space-y-4 mx-auto">
       <CreateThreadFormContainer />
 
-      <TagsFilterMobile selectedTags={selectedTags} onClick={handleToggleTag} />
+      <TagsFilterMobile selectedTags={filters.tags} onClick={handleToggleTag} />
       <TagsFilterDesktop
-        selectedTags={selectedTags}
+        selectedTags={filters.tags}
         onClick={handleToggleTag}
         onClear={handleClearTags}
       />

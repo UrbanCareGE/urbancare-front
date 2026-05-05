@@ -16,6 +16,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { useThread } from '@/components/thread/thread-card/ThreadCard';
 import { useAuth } from '@/components/provider/AuthProvider';
 import { useDeleteThread } from '@/hooks/query/thread/use-delete-thread';
+import { useToggleSaveThread } from '@/hooks/query/thread/use-toggle-save-thread';
 import { useThreadOverlay } from '@/components/thread/thread-form/CreateThreadOverlay';
 import { CreateThreadFormContainer } from '@/components/thread/thread-form/CreateThreadForm';
 import { useTranslation } from '@/i18n';
@@ -60,13 +61,23 @@ const InnerDropdown = ({ onEdit }: { onEdit?: () => void }) => {
   const { user } = useAuth();
   const apartmentId = user?.selectedApartmentId;
   const deleteThread = useDeleteThread();
-  const [saved, setSaved] = useState(false);
+  const toggleSave = useToggleSaveThread();
   const [open, setOpen] = useState(false);
+
+  const saved = thread.selfSaved ?? false;
 
   const canModify = useMemo(
     () => thread.userInfo?.id === user?.id,
     [user, thread]
   );
+
+  const handleToggleSave = () => {
+    if (!apartmentId || toggleSave.isPending) return;
+    toggleSave.mutate(
+      { apartmentId, threadId: thread.id, next: !saved },
+      { onError: () => toast.error(t.common.error) }
+    );
+  };
 
   const handleCopyLink = async () => {
     await navigator.clipboard.writeText(window.location.href);
@@ -106,7 +117,7 @@ const InnerDropdown = ({ onEdit }: { onEdit?: () => void }) => {
       >
         <DropdownMenuItem
           className="p-0 cursor-pointer focus:bg-transparent"
-          onSelect={() => setSaved((s) => !s)}
+          onSelect={handleToggleSave}
         >
           <ItemRow
             icon={
