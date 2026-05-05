@@ -17,7 +17,7 @@ export const ThreadCommentsHeader = ({
   const { thread } = useThread();
   const t = useTranslation();
   const { commentCount } = thread;
-  const showSort = !!commentSort && !!onCommentSortChange && commentCount > 1;
+  const showSort = !!commentSort && !!onCommentSortChange;
 
   return (
     <div className="flex items-center gap-2 w-full">

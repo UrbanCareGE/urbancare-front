@@ -9,8 +9,10 @@ import { TagsFilterDesktop } from '@/components/thread/filter/TagsFilter.desktop
 import { CreateThreadFormContainer } from '@/components/thread/thread-form/CreateThreadForm';
 import { Thread } from '@/components/thread/thread-card/Thread';
 import type { ThreadFilters } from '@/components/thread/thread-filter/ThreadFilterModal';
+import type { ThreadSortOption } from '@/components/thread/thread-filter/ThreadSortDropDown';
 import {
   DEFAULT_THREAD_FILTERS,
+  DEFAULT_THREAD_SORT,
   ThreadFiltersProvider,
 } from '@/components/thread/thread-filter/ThreadFiltersContext';
 import { useTranslation } from '@/i18n';
@@ -28,6 +30,7 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
     ...DEFAULT_THREAD_FILTERS,
     tags: defaultTags,
   }));
+  const [sort, setSort] = useState<ThreadSortOption>(DEFAULT_THREAD_SORT);
 
   const fetchFilters = useMemo(
     () => ({
@@ -37,13 +40,14 @@ export default function ThreadFeed({ defaultTags = [] }: ThreadFeedProps) {
       hasMedia: filters.hasMedia || undefined,
       hasPoll: filters.hasPoll || undefined,
       scope: filters.scope === 'ALL' ? undefined : filters.scope,
+      sort: sort === DEFAULT_THREAD_SORT ? undefined : sort,
     }),
-    [filters]
+    [filters, sort]
   );
 
   const filtersContextValue = useMemo(
-    () => ({ filters, setFilters }),
-    [filters]
+    () => ({ filters, setFilters, sort, setSort }),
+    [filters, sort]
   );
 
   const inViewOptions = useMemo(

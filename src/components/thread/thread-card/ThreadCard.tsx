@@ -2,6 +2,7 @@
 'use client';
 
 import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { ThreadInfoDTO } from '@/model/dto/thread.dto';
@@ -37,6 +38,8 @@ const ThreadCardRoot = ({
   className,
   expanded = false,
 }: ThreadCardRootProps) => {
+  const router = useRouter();
+  const params = useParams<{ apartmentId: string }>();
   const [threadState, setThreadState] = useState<ThreadInfoDTO>(thread);
 
   useEffect(() => {
@@ -47,9 +50,20 @@ const ThreadCardRoot = ({
     () => ({ thread: threadState, setThread: setThreadState, expanded }),
     [threadState, expanded]
   );
+
+  // Whole-card navigation. Buttons, anchors, and anything with role="button"
+  // (poll options, mention spans, etc.) bring their own handlers, so skip those.
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (expanded || !params?.apartmentId) return;
+    const target = e.target as HTMLElement;
+    if (target.closest('button, a, [role="button"]')) return;
+    router.push(`/apartment/${params.apartmentId}/thread/${threadState.id}`);
+  };
+
   return (
     <ThreadContext.Provider value={contextValue}>
       <Card
+        onClick={!expanded ? handleCardClick : undefined}
         className={cn(
           'urbancare-rounded-3xl border-none bg-surface p-4 space-y-4',
           'transition-all duration-200',

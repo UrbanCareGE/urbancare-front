@@ -8,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useThreadFiltersContext } from '@/components/thread/thread-filter/ThreadFiltersContext';
 import { cn } from '@/lib/utils';
 
 export type ThreadSortOption = 'POPULAR' | 'NEWEST';
@@ -46,12 +47,18 @@ export const ThreadSortDropDown = ({
   className,
 }: ThreadSortDropDownProps) => {
   const [internalValue, setInternalValue] = useState<ThreadSortOption>('NEWEST');
-  const selected = value ?? internalValue;
+  const ctx = useThreadFiltersContext();
+  // Resolution priority: explicit props → context → internal state.
+  const selected = value ?? ctx?.sort ?? internalValue;
   const isCustom = selected !== 'NEWEST';
 
   const handleSelect = (option: ThreadSortOption) => {
-    if (value === undefined) setInternalValue(option);
-    onChange?.(option);
+    if (value !== undefined || ctx) {
+      onChange?.(option);
+      ctx?.setSort(option);
+    } else {
+      setInternalValue(option);
+    }
   };
 
   return (

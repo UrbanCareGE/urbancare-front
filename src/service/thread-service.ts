@@ -52,6 +52,7 @@ export const ThreadService = {
       hasMedia?: boolean;
       hasPoll?: boolean;
       scope?: 'ALL' | 'SAVED' | 'MINE';
+      sort?: 'NEWEST' | 'POPULAR';
     }
   ): Promise<PagingRespDTO<ThreadInfoDTO>> => {
     const { data } = await api.get<PagingRespDTO<ThreadInfoDTO>>(
@@ -67,6 +68,8 @@ export const ThreadService = {
           ...(filters?.hasPoll && { hasPoll: true }),
           ...(filters?.scope &&
             filters.scope !== 'ALL' && { scope: filters.scope }),
+          ...(filters?.sort &&
+            filters.sort !== 'NEWEST' && { sort: filters.sort }),
         },
       }
     );

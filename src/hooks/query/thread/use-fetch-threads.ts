@@ -10,6 +10,7 @@ export interface ThreadFetchFilters {
   hasMedia?: boolean;
   hasPoll?: boolean;
   scope?: 'ALL' | 'SAVED' | 'MINE';
+  sort?: 'NEWEST' | 'POPULAR';
 }
 
 /*

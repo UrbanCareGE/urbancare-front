@@ -39,28 +39,28 @@ function MediaGridThumb({
   className?: string;
   onClick: () => void;
 }) {
+  // State is fresh per-item via the `key={item.url}` on the parent. The previous
+  // `useEffect(() => setImageLoaded(false), [item.url])` raced against `onLoad`
+  // for cached images: load fired during commit (cache hit), the effect ran after
+  // paint and clobbered the loaded state, so the skeleton stuck forever.
   const [imageLoaded, setImageLoaded] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
-
-  useEffect(() => {
-    const resetContent = () => {
-      setImageLoaded(false);
-      setVideoLoaded(false);
-    };
-
-    resetContent();
-  }, [item.url]);
 
   const isImage = item.type.startsWith('image');
   const isVideo = item.type.startsWith('video');
 
   return (
     <div
+      role="button"
+      tabIndex={0}
       className={cn(
         'relative overflow-hidden cursor-pointer bg-black/5',
         className
       )}
-      onClick={onClick}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
     >
       {isImage && (
         <>
@@ -206,6 +206,7 @@ export const ThreadImagePreview = ({
       {mediaItems.length === 1 && (
         <div className={cn('relative w-full h-96', className)}>
           <MediaGridThumb
+            key={mediaItems[0].url}
             item={mediaItems[0]}
             className="absolute inset-0 urbancare-rounded-4xl"
             onClick={() => openCarousel(0)}
@@ -231,17 +232,20 @@ export const ThreadImagePreview = ({
       {mediaItems.length >= 3 && (
         <div className={cn('flex gap-1 h-96', className)}>
           <MediaGridThumb
+            key={displayItems[0].url}
             item={displayItems[0]}
             className="flex-1 urbancare-rounded-l-lg"
             onClick={() => openCarousel(0)}
           />
           <div className="flex flex-col flex-1 gap-1">
             <MediaGridThumb
+              key={displayItems[1].url}
               item={displayItems[1]}
               className="flex-1 urbancare-rounded-tr-lg"
               onClick={() => openCarousel(1)}
             />
             <MediaGridThumb
+              key={displayItems[2].url}
               item={displayItems[2]}
               className="flex-1 urbancare-rounded-br-lg"
               isDimmedWithCount={remainingCount > 0}

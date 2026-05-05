@@ -16,7 +16,7 @@ interface ThreadCardHeaderProps {
 export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
   const router = useRouter();
   const params = useParams<{ apartmentId: string }>();
-  const { thread, expanded } = useThread();
+  const { thread } = useThread();
   const { userInfo, createdAt } = thread;
 
   const goToUser = (e: React.MouseEvent) => {
@@ -49,16 +49,7 @@ export const ThreadPreviewHeader = ({ className }: ThreadCardHeaderProps) => {
           </AvatarFallback>
         )}
       </Avatar>
-      <div
-        className={cn(
-          'flex flex-col min-w-0 flex-1',
-          !expanded && 'cursor-pointer'
-        )}
-        onClick={() => {
-          if (expanded) return;
-          router.push(`thread/${thread.id}`);
-        }}
-      >
+      <div className="flex flex-col min-w-0 flex-1">
         <div className="flex items-center justify-start gap-2 min-w-0">
           <h3
             onClick={goToUser}
