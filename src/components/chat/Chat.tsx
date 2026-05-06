@@ -4,7 +4,7 @@
 import { Chatbox } from '@talkjs/react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useFetchChat } from '@/hooks/query/chat/use-fetch-chat';
-import { useTheme } from 'next-themes';
+import { useTheme } from '@/components/provider/MyThemeProvider';
 
 export const Chat = () => {
   const { data, isLoading: isFetchingChat } = useFetchChat();

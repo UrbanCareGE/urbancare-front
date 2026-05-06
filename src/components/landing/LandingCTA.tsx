@@ -19,20 +19,11 @@ export function LandingCTA() {
             <p className="text-text-secondary urbancare-text-2xl mb-8 max-w-xl mx-auto">
               {t.landing.joinThousands}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/auth/register">
+            <div className="flex justify-center">
+              <Link href="/auth/login">
                 <Button
                   size="lg"
                   className="w-full sm:w-auto h-14 px-10 urbancare-rounded-3xl bg-gradient-primary shadow-[0_4px_20px_rgba(var(--color-primary)/0.4)] lg:hover:shadow-[0_6px_28px_rgba(var(--color-primary)/0.5)] lg:hover:-translate-y-1 lg:active:translate-y-0 transition-all duration-300 urbancare-text-2xl font-semibold"
-                >
-                  {t.auth.freeRegistration}
-                </Button>
-              </Link>
-              <Link href="/auth/login">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="w-full sm:w-auto h-14 px-10 urbancare-rounded-3xl border-2 border-border lg:hover:border-primary lg:hover:text-primary lg:active:scale-[0.98] transition-all duration-300 urbancare-text-2xl"
                 >
                   {t.auth.signIn}
                 </Button>

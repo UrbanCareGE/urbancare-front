@@ -120,12 +120,12 @@ export function LandingHowItWorks() {
               ))}
             </div>
             <div className="mt-10">
-              <Link href="/auth/register">
+              <Link href="/auth/login">
                 <Button
                   size="lg"
                   className="h-14 px-8 urbancare-rounded-3xl bg-gradient-primary shadow-[0_4px_20px_rgba(var(--color-primary)/0.4)] lg:hover:shadow-[0_6px_28px_rgba(var(--color-primary)/0.5)] lg:hover:-translate-y-1 lg:active:translate-y-0 transition-all duration-300 urbancare-text-2xl font-semibold"
                 >
-                  {t.landing.registrationFree}
+                  {t.auth.signIn}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>

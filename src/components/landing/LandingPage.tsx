@@ -11,7 +11,7 @@ import { LandingFooter } from './LandingFooter';
 
 export function LandingPage() {
   return (
-    <div className="min-h-dvh bg-background overflow-x-hidden">
+    <div className="h-full overflow-y-auto overflow-x-hidden scroll-smooth bg-background">
       <LandingBackground />
       <LandingHeader />
       <LandingHero />

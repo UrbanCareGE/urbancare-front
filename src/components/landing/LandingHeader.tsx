@@ -4,17 +4,14 @@ import Link from 'next/link';
 import { Building2, ChevronDown, Home, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import { useAuth } from '@/components/provider/AuthProvider';
-import {
-  CurrentUserAvatar,
-  UserAvatarView,
-} from '@/components/common/avatar/UserAvatar';
+import { CurrentUserAvatar } from '@/components/common/avatar/UserAvatar';
+import LanguageSelector from '@/components/common/util/LanguageSelector';
+import { cn } from '@/lib/utils';
 import { useTranslation } from '@/i18n';
 
 export function LandingHeader() {
@@ -34,57 +31,86 @@ export function LandingHeader() {
         </div>
 
         {isAuthenticated ? (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="flex items-center gap-2 urbancare-rounded-xl px-3 py-2 lg:hover:bg-surface-secondary transition-colors outline-none cursor-pointer">
+          <Popover>
+            <PopoverTrigger asChild>
+              <button
+                className={cn(
+                  'flex items-center gap-2 px-2 py-1.5 urbancare-rounded-xl cursor-pointer outline-none',
+                  'bg-surface border border-transparent',
+                  'lg:hover:bg-surface-hover lg:hover:border-border',
+                  'shadow-sm shadow-shadow/5 transition-all duration-200'
+                )}
+              >
                 <CurrentUserAvatar />
                 <span className="hidden sm:block urbancare-text-base font-medium text-text-primary">
                   {user.name} {user.surname}
                 </span>
-                <ChevronDown className="w-4 h-4 text-text-secondary" />
+                <ChevronDown className="w-3.5 h-3.5 text-icon transition-transform duration-200 [[data-state=open]_&]:rotate-180" />
               </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-52">
-              {user.selectedApartment && (
-                <>
-                  <DropdownMenuItem asChild>
+            </PopoverTrigger>
+
+            <PopoverContent
+              align="end"
+              sideOffset={6}
+              className={cn(
+                'w-[var(--radix-popover-trigger-width)] min-w-[260px] p-0 overflow-hidden',
+                'bg-surface border border-border',
+                'urbancare-rounded-3xl shadow-xl shadow-shadow/10'
+              )}
+            >
+              <div className="p-3 space-y-3">
+                {user.selectedApartment && (
+                  <>
                     <Link
                       href={`/apartment/${user.selectedApartment.id}`}
-                      className="flex items-center gap-2 cursor-pointer"
+                      className={cn(
+                        'flex items-center gap-3 p-2.5 urbancare-rounded-xl',
+                        'transition-colors duration-150',
+                        'lg:hover:bg-surface-container'
+                      )}
                     >
-                      <Home className="w-4 h-4" />
-                      {t.neighborhood.switchBuilding}
+                      <div className="w-9 h-9 urbancare-rounded-xl bg-primary-container/40 text-primary flex items-center justify-center shrink-0">
+                        <Home className="w-4 h-4" />
+                      </div>
+                      <span className="flex-1 urbancare-text-base font-medium text-text-primary truncate">
+                        {t.neighborhood.switchBuilding}
+                      </span>
                     </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                </>
-              )}
-              <DropdownMenuItem
-                onClick={() => logOut()}
-                className="text-error focus:text-error cursor-pointer"
-              >
-                <LogOut className="w-4 h-4 mr-2" />
-                {t.auth.signOut}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+
+                    <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mx-1" />
+                  </>
+                )}
+
+                <div>
+                  <div className="flex items-center gap-1.5 mb-2 px-1">
+                    <div className="w-1.5 h-1.5 urbancare-rounded-full bg-primary shadow-sm shadow-primary/50" />
+                    <p className="urbancare-text-2xs font-bold text-text-secondary uppercase tracking-widest">
+                      {t.sidebar.language}
+                    </p>
+                  </div>
+                  <LanguageSelector />
+                </div>
+
+                <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mx-1" />
+
+                <Button
+                  onClick={() => logOut()}
+                  className="flex w-full items-center justify-center gap-2 h-11 bg-error-container text-error urbancare-rounded-xl font-semibold urbancare-text-base lg:hover:bg-error/15 transition-colors duration-150"
+                >
+                  <LogOut className="w-4 h-4" />
+                  {t.auth.signOut}
+                </Button>
+              </div>
+            </PopoverContent>
+          </Popover>
         ) : (
           <div className="flex items-center gap-3">
             <Link href="/auth/login">
               <Button
-                variant="ghost"
-                size="sm"
-                className="text-text-secondary lg:hover:text-primary"
-              >
-                {t.auth.signIn}
-              </Button>
-            </Link>
-            <Link href="/auth/register">
-              <Button
                 size="sm"
                 className="urbancare-rounded-xl bg-gradient-primary"
               >
-                {t.auth.register}
+                {t.auth.signIn}
               </Button>
             </Link>
           </div>

@@ -46,8 +46,19 @@ function getStoredLocale(): Locale {
   return DEFAULT_LOCALE;
 }
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(getStoredLocale);
+export function LanguageProvider({
+  children,
+  initialLocale,
+}: {
+  children: React.ReactNode;
+  initialLocale?: Locale;
+}) {
+  // Seed from the server-resolved locale so SSR and the first client render
+  // agree. Falling back to the cookie/default keeps the client-only call sites
+  // working.
+  const [locale, setLocaleState] = useState<Locale>(
+    initialLocale ?? getStoredLocale
+  );
 
   const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);

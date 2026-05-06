@@ -57,39 +57,32 @@ export const CurrentUserExpandable = () => {
         align="end"
         sideOffset={6}
         className={cn(
-          'w-[var(--radix-popover-trigger-width)] min-w-[250px] p-0 overflow-hidden',
+          'w-[var(--radix-popover-trigger-width)] min-w-[280px] p-0 overflow-hidden',
           'bg-surface border border-border',
           'urbancare-rounded-3xl shadow-xl shadow-shadow/10'
         )}
       >
         <div className="p-3 space-y-3">
-          {/* Theme section */}
+          {/* Theme — compact segmented */}
           <div>
-            <div className="flex items-center gap-1.5 mb-2 px-1">
-              <div className="w-1.5 h-1.5 urbancare-rounded-full bg-warning shadow-sm shadow-warning/50" />
-              <p className="urbancare-text-2xs font-bold text-text-secondary uppercase tracking-widest">
-                {t.sidebar.theme}
-              </p>
-            </div>
-            <MobileThemeSelector vertical />
+            <p className="urbancare-text-2xs font-semibold text-text-tertiary uppercase tracking-wider px-1 mb-1.5">
+              {t.sidebar.theme}
+            </p>
+            <MobileThemeSelector />
           </div>
 
-          {/* Gradient divider */}
-          <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mx-1" />
-
-          {/* Language section */}
+          {/* Language */}
           <div>
-            <div className="flex items-center gap-1.5 mb-2 px-1">
-              <div className="w-1.5 h-1.5 urbancare-rounded-full bg-primary shadow-sm shadow-primary/50" />
-              <p className="urbancare-text-2xs font-bold text-text-secondary uppercase tracking-widest">
-                {t.sidebar.language}
-              </p>
-            </div>
+            <p className="urbancare-text-2xs font-semibold text-text-tertiary uppercase tracking-wider px-1 mb-1.5">
+              {t.sidebar.language}
+            </p>
             <LanguageSelector />
           </div>
+        </div>
 
-          {/* Gradient divider */}
-          <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent mx-1" />
+        <div className="h-px bg-border/60 mx-4" />
+
+        <div className="p-3">
           <LogoutButton />
         </div>
       </PopoverContent>

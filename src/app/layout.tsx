@@ -6,6 +6,7 @@ import MyThemeProvider from '@/components/provider/MyThemeProvider';
 import ResponsiveLayoutServer from '@/components/common/layouts/ResponsiveLayoutServer';
 import AuthProvider from '@/components/provider/AuthProvider';
 import { LanguageProvider } from '@/i18n';
+import { getServerLocale } from '@/i18n/server';
 import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
@@ -25,16 +26,21 @@ export interface Basic {
   children?: React.ReactNode;
 }
 
-export default function RootLayout({ children }: Children) {
+export default async function RootLayout({ children }: Children) {
+  const initialLocale = await getServerLocale();
   return (
-    <html lang="ka" className="h-dvh overflow-hidden" suppressHydrationWarning>
+    <html
+      lang={initialLocale}
+      className="h-dvh overflow-hidden dark"
+      suppressHydrationWarning
+    >
       <body
         className="h-dvh flex flex-col antialiased bg-background text-foreground overflow-hidden"
         suppressHydrationWarning
       >
         <ReactQueryProvider>
           <MyThemeProvider>
-            <LanguageProvider>
+            <LanguageProvider initialLocale={initialLocale}>
               <AuthProvider>
                 <ResponsiveLayoutServer>{children}</ResponsiveLayoutServer>
                 <Toaster position="bottom-right" richColors />

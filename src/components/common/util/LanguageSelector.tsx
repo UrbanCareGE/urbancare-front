@@ -1,5 +1,6 @@
 'use client';
 
+import { Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useLanguage, type Locale } from '@/i18n';
 
@@ -63,7 +64,7 @@ export default function LanguageSelector() {
   const { locale, setLocale } = useLanguage();
 
   return (
-    <div className="urbancare-rounded-2xl bg-surface-container/60 p-1.5 space-y-1">
+    <div className="space-y-0.5">
       {languages.map(({ code, name, native, Flag }) => {
         const isActive = locale === code;
         return (
@@ -72,20 +73,20 @@ export default function LanguageSelector() {
             type="button"
             onClick={() => setLocale(code)}
             className={cn(
-              'flex w-full items-center gap-3 p-2.5 urbancare-rounded-xl text-left',
+              'flex w-full items-center gap-2.5 p-2 urbancare-rounded-xl text-left',
               'transition-colors duration-150',
               isActive
-                ? 'bg-primary-container/40'
+                ? 'bg-primary/15'
                 : 'lg:hover:bg-surface-container'
             )}
           >
-            <div className="w-9 h-9 urbancare-rounded-xl flex items-center justify-center shrink-0 overflow-hidden">
+            <div className="w-7 h-7 urbancare-rounded-lg flex items-center justify-center shrink-0 overflow-hidden">
               <Flag className="w-full h-full object-cover" />
             </div>
             <div className="flex-1 min-w-0">
               <p
                 className={cn(
-                  'urbancare-text-base font-medium leading-tight truncate',
+                  'urbancare-text-sm font-semibold leading-tight truncate',
                   isActive ? 'text-primary' : 'text-text-primary'
                 )}
               >
@@ -93,23 +94,19 @@ export default function LanguageSelector() {
               </p>
               <p
                 className={cn(
-                  'urbancare-text-xs leading-tight mt-0.5 truncate',
+                  'urbancare-text-2xs leading-tight mt-0.5 truncate',
                   isActive ? 'text-primary/70' : 'text-text-tertiary'
                 )}
               >
                 {name}
               </p>
             </div>
-            <span
-              className={cn(
-                'relative w-5 h-5 urbancare-rounded-full border-2 shrink-0 transition-colors duration-150',
-                isActive ? 'border-primary bg-primary' : 'border-border'
-              )}
-            >
-              {isActive && (
-                <span className="absolute inset-0 m-auto w-1.5 h-1.5 urbancare-rounded-full bg-primary-foreground" />
-              )}
-            </span>
+            {isActive && (
+              <Check
+                className="w-4 h-4 text-primary shrink-0"
+                strokeWidth={2.5}
+              />
+            )}
           </button>
         );
       })}

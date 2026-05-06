@@ -295,7 +295,7 @@ export function LandingHero() {
               <Search className="w-5 h-5 ml-2" />
             </Button>
           ) : (
-            <Link href="/auth/register">
+            <Link href="/auth/login">
               <Button
                 size="lg"
                 className="w-full sm:w-auto h-14 px-8 urbancare-rounded-3xl bg-gradient-primary shadow-[0_4px_20px_rgba(var(--color-primary)/0.4)] lg:hover:shadow-[0_6px_28px_rgba(var(--color-primary)/0.5)] lg:hover:-translate-y-1 lg:active:translate-y-0 transition-all duration-300 urbancare-text-2xl font-semibold"
@@ -305,16 +305,20 @@ export function LandingHero() {
               </Button>
             </Link>
           )}
-          <Link href="#features">
-            <Button
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto h-14 px-8 urbancare-rounded-3xl border-2 border-border lg:hover:border-primary lg:hover:text-primary lg:active:scale-[0.98] transition-all duration-300 urbancare-text-2xl"
-            >
-              {t.common.learnMore}
-              <ChevronDown className="w-5 h-5 ml-2" />
-            </Button>
-          </Link>
+          <Button
+            type="button"
+            variant="outline"
+            size="lg"
+            onClick={() => {
+              document
+                .getElementById('features')
+                ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }}
+            className="w-full sm:w-auto h-14 px-8 urbancare-rounded-3xl border-2 border-border lg:hover:border-primary lg:hover:text-primary lg:active:scale-[0.98] transition-all duration-300 urbancare-text-2xl"
+          >
+            {t.common.learnMore}
+            <ChevronDown className="w-5 h-5 ml-2" />
+          </Button>
         </div>
 
         <HeroMockUI />
